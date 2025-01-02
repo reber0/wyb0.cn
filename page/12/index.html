@@ -1,5 +1,5 @@
 <!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -9,12 +9,12 @@
 |
 <a href=/about/><b>About</b></a>
 |
-<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/file-upload-simple-to-bypass/>文件上传漏洞常见绕过手法</a></h1><div class=post-meta><time>2016-07-20</time>
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/file-upload-simple-to-bypass/>文件上传漏洞常见绕过手法</a></h1><div class=post-meta><time>2016-07-20</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0>文件上传</a>,<a href=/tags/bypass>bypass</a>)</div><div class=summary-body><p><h3 id=0x00-一般防止上传漏洞手法>0x00 一般防止上传漏洞手法</h3><pre tabindex=0><code>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证
     //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少
     //服务器开销，而服务端验证才可以真正防御攻击者。  
 2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法
-</code></pre><h3 id=0x01-客户端检测>0x01 客户端检测</h3><p>客户端验证代码形如下：</p><a href=https://wyb0.com/posts/2016/file-upload-simple-to-bypass/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/file-upload-and-file-parse-vuln/>文件上传漏洞与文件解析漏洞</a></h1><div class=post-meta><time>2016-07-20</time>
+</code></pre><h3 id=0x01-客户端检测>0x01 客户端检测</h3><p>客户端验证代码形如下：</p><a href=https://wyb0.cn/posts/2016/file-upload-simple-to-bypass/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/file-upload-and-file-parse-vuln/>文件上传漏洞与文件解析漏洞</a></h1><div class=post-meta><time>2016-07-20</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0>文件上传</a>)</div><div class=summary-body><p><h3 id=0x00-文件上传漏洞>0x00 文件上传漏洞</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>当文件上传时，若服务端脚本语言未对上传的文件进行严格验证和过滤，若恶意用户上传恶意的
 </span></span><span style=display:flex><span>脚本文件时，就有可能控制整个网站甚至是服务器，这就是文件上传漏洞。
 </span></span><span style=display:flex><span>
@@ -46,12 +46,12 @@ asp aspx ascx ashx cer asa
 jsp jspx jspf
 </code></pre><h3 id=0x05-解析漏洞>0x05 解析漏洞</h3><pre tabindex=0><code>文件上传漏洞通常与Web容器的解析漏洞配合利用
 常见Web容器有IIS、Nginx、Apache、Tomcat等
-</code></pre><h3 id=0x06-iis解析漏洞>0x06 IIS解析漏洞</h3><p>IIS6.0在解析文件时存在以下两个解析漏洞</p><a href=https://wyb0.com/posts/2016/file-upload-and-file-parse-vuln/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/vmware-install-vm-tools/>虚拟机下安装 vm-tools</a></h1><div class=post-meta><time>2016-07-20</time>
+</code></pre><h3 id=0x06-iis解析漏洞>0x06 IIS解析漏洞</h3><p>IIS6.0在解析文件时存在以下两个解析漏洞</p><a href=https://wyb0.cn/posts/2016/file-upload-and-file-parse-vuln/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/vmware-install-vm-tools/>虚拟机下安装 vm-tools</a></h1><div class=post-meta><time>2016-07-20</time>
 [<a href=/categories/Other>Other</a>](<a href=/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA>虚拟机</a>)</div><div class=summary-body><p><p>vm-tools安装后可以在客户机和虚拟机间双向复制文件</p><h3 id=0x00-安装>0x00 安装</h3><p><img src=/img/post/vm_tools_mount_cd.png alt=vm-tools挂载光盘></p><p><img src=/img/post/vm_tools_copy_and_unzip.png alt=vm-tools拷贝并解压安装包></p><p><img src=/img/post/vm_tools_install.png alt=vm-tools安装></p><p><img src=/img/post/vm_tools_install_complete.png alt=vm-tools安装完成></p><h3 id=0x01-kali20>0x01 Kali2.0</h3><p>一般安装的话按照上面的步骤即可安装成功，但是Kali2.0不行，可以用如下方法安装：
-<img src=/img/post/vm_tools_kali2.0_install1.png alt=vm-tools在Kali2.0下的安装1></p><a href=https://wyb0.com/posts/2016/vmware-install-vm-tools/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/recording-an-stored-xss/>一次存储型 XSS 利用实例</a></h1><div class=post-meta><time>2016-07-17</time>
+<img src=/img/post/vm_tools_kali2.0_install1.png alt=vm-tools在Kali2.0下的安装1></p><a href=https://wyb0.cn/posts/2016/vmware-install-vm-tools/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/recording-an-stored-xss/>一次存储型 XSS 利用实例</a></h1><div class=post-meta><time>2016-07-17</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xss>xss</a>)</div><div class=summary-body><p><p>首先感谢凯神的指导</p><h3 id=0x00-注册账号>0x00 注册账号</h3><p>先得到一个临时邮箱，然后注册账号
-<img src=/img/post/xss_example_get_temporary_email.png alt=65></p><p><img src=/img/post/xss_example_register.png alt=35></p><h3 id=0x01-找输入输出点>0x01 找输入输出点</h3><p><img src=/img/post/xss_example_add_topic.png alt=40></p><p><img src=/img/post/xss_example_input_output_point.png alt=80></p><h3 id=0x02-尝试构造payload>0x02 尝试构造payload</h3><p>payload用如下的即可：</p><a href=https://wyb0.com/posts/2016/recording-an-stored-xss/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/xss-basis-and-use/>XSS 漏洞及其挖掘方法</a></h1><div class=post-meta><time>2016-07-15</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xss>xss</a>)</div><div class=summary-body><p><h3 id=0x00-简介>0x00 简介</h3><p>XSS(跨站脚本攻击)是指攻击者在网页中嵌入客户端脚本，通常是Javascript编写的恶意代码，当用户使用浏览器浏览被嵌入恶意代码的网页时，恶意代码将在用户的浏览器上被解析执行。重点在"脚本"这两个字上，脚本主要有两个：JavaScript和ActionScript。<br><f>要想深入研究XSS，必须要精通JavaScript，JavaScript能做到什么效果，XSS的威力就有多强大。</f></p><a href=https://wyb0.com/posts/2016/xss-basis-and-use/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-module-paramiko/>Python 的 paramiko 模块</a></h1><div class=post-meta><time>2016-07-14</time>
+<img src=/img/post/xss_example_get_temporary_email.png alt=65></p><p><img src=/img/post/xss_example_register.png alt=35></p><h3 id=0x01-找输入输出点>0x01 找输入输出点</h3><p><img src=/img/post/xss_example_add_topic.png alt=40></p><p><img src=/img/post/xss_example_input_output_point.png alt=80></p><h3 id=0x02-尝试构造payload>0x02 尝试构造payload</h3><p>payload用如下的即可：</p><a href=https://wyb0.cn/posts/2016/recording-an-stored-xss/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/xss-basis-and-use/>XSS 漏洞及其挖掘方法</a></h1><div class=post-meta><time>2016-07-15</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xss>xss</a>)</div><div class=summary-body><p><h3 id=0x00-简介>0x00 简介</h3><p>XSS(跨站脚本攻击)是指攻击者在网页中嵌入客户端脚本，通常是Javascript编写的恶意代码，当用户使用浏览器浏览被嵌入恶意代码的网页时，恶意代码将在用户的浏览器上被解析执行。重点在"脚本"这两个字上，脚本主要有两个：JavaScript和ActionScript。<br><f>要想深入研究XSS，必须要精通JavaScript，JavaScript能做到什么效果，XSS的威力就有多强大。</f></p><a href=https://wyb0.cn/posts/2016/xss-basis-and-use/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-module-paramiko/>Python 的 paramiko 模块</a></h1><div class=post-meta><time>2016-07-14</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-安装>0x00 安装</h3><p>直接pip install paramiko安装<br>或者去http://www.paramiko.org/ 下载</p><h3 id=0x01-执行一条远程命令>0x01 执行一条远程命令</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
 </span></span><span style=display:flex><span><span style=color:#75715e>#-*- coding:utf-8 -*-</span>
 </span></span><span style=display:flex><span>
@@ -69,7 +69,7 @@ jsp jspx jspf
 </span></span><span style=display:flex><span>print stderr<span style=color:#f92672>.</span>readlines()   <span style=color:#75715e>#有错误信息就返回错误信息，没有就返回空</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>ssh<span style=color:#f92672>.</span>close()
-</span></span></code></pre></div><p><img src=/img/post/paramiko_ssh_one_command.png alt=paramiko远程ssh后执行一条命令></p><a href=https://wyb0.com/posts/2016/python-module-paramiko/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-module-cmd/>Python 的 cmd 模块</a></h1><div class=post-meta><time>2016-07-14</time>
+</span></span></code></pre></div><p><img src=/img/post/paramiko_ssh_one_command.png alt=paramiko远程ssh后执行一条命令></p><a href=https://wyb0.cn/posts/2016/python-module-paramiko/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-module-cmd/>Python 的 cmd 模块</a></h1><div class=post-meta><time>2016-07-14</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-关于cmd模块>0x00 关于cmd模块</h3><p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们</p><h3 id=0x01-cmd模块的一些常用方法>0x01 cmd模块的一些常用方法：</h3><ol><li>cmdloop()：类似与Tkinter的mainloop，运行Cmd解析器</li><li>onecmd(str)：读取输入，并进行处理，通常不需要重载该函数，而是使用更加具体的do_command来执行特定的命名</li><li>emptyline()：当输入空行时调用该方法</li><li>default(line)：当无法识别输入的command时调用该方法</li><li>completedefault(text,line,begidx,endidx):如果不存在针对的complete_*()方法，那么会调用该函数</li><li>precmd(line)：命令line解析之前被调用该方法</li><li>postcmd(stop，line)：命令line解析之后被调用该方法</li><li>preloop()：cmdloop()运行之前调用该方法</li><li>postloop()：cmdloop()退出之后调用该方法</li></ol><h3 id=0x02-用cmd模块简单实现shell命令>0x02 用cmd模块简单实现shell命令</h3><pre tabindex=0><code>#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
@@ -186,9 +186,9 @@ class ClassShell(Cmd):
 if __name__ == &#39;__main__&#39;:
     shell = ClassShell()
     shell.cmdloop()
-</code></pre><h3 id=0x03-程序执行结果如下>0x03 程序执行结果如下</h3><p><img src=/img/post/cmd_results_sample.png alt=60></p><a href=https://wyb0.com/posts/2016/python-module-cmd/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/in-the-wireless-use-ettercap-to-do-man-in-the-middle-attack/>无线下 ettercap 做中间人攻击</a></h1><div class=post-meta><time>2016-07-13</time>
+</code></pre><h3 id=0x03-程序执行结果如下>0x03 程序执行结果如下</h3><p><img src=/img/post/cmd_results_sample.png alt=60></p><a href=https://wyb0.cn/posts/2016/python-module-cmd/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/in-the-wireless-use-ettercap-to-do-man-in-the-middle-attack/>无线下 ettercap 做中间人攻击</a></h1><div class=post-meta><time>2016-07-13</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA>中间人</a>)</div><div class=summary-body><p><p>前提：攻击主机和被攻击主机在一个无线下面</p><h3 id=0x00-打开ettercap>0x00 打开ettercap</h3><p><img src=/img/post/wireless_start_ettercap.png alt=无线网络渗透测试打开ettercap></p><h3 id=0x01-查看host列表>0x01 查看host列表</h3><p>在软件的图形化界面点击sniff，选择unified sniffing选择网卡，然后单击hosts选项，选择scan for host，然后选择host list
-<img src=/img/post/wireless_ettercap_see_host_list.png alt=无线网络渗透测试ettercap查看host列表></p><a href=https://wyb0.com/posts/2016/in-the-wireless-use-ettercap-to-do-man-in-the-middle-attack/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/attack-802.11-network-under-wpa-protection/>攻击 WPA 保护下的 802.11 网络</a></h1><div class=post-meta><time>2016-07-13</time>
+<img src=/img/post/wireless_ettercap_see_host_list.png alt=无线网络渗透测试ettercap查看host列表></p><a href=https://wyb0.cn/posts/2016/in-the-wireless-use-ettercap-to-do-man-in-the-middle-attack/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/attack-802.11-network-under-wpa-protection/>攻击 WPA 保护下的 802.11 网络</a></h1><div class=post-meta><time>2016-07-13</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA>中间人</a>)</div><div class=summary-body><p><h3 id=0x00-网络拓扑及信息>0x00 网络拓扑及信息</h3><p><img src=/img/post/wireless_topology.png alt=无线网络渗透测试拓扑图>
 其中 ip 等信息如下：
 <img src=/img/post/wireless_base_msg.png alt=无线网络渗透测试IP等基本信息></p><h3 id=0x01-获取信息>0x01 获取信息</h3><ol><li><p>查看无线网卡并将其设置为监听模式
@@ -199,20 +199,20 @@ if __name__ == &#39;__main__&#39;:
 <img src=/img/post/wireless_kismet.png alt=无线网络渗透测试kismet主界面></p></li><li><p>选择名字为 111111 的 AP 为目标
 <img src=/img/post/wireless_select_target.png alt=无线网络渗透测试kismet选择目标>
 <img src=/img/post/wireless_target_msg.png alt=无线网络渗透测试AP的信息>
-<img src=/img/post/wireless_quit_kismet.png alt=无线网络渗透测试退出kismet></p><a href=https://wyb0.com/posts/2016/attack-802.11-network-under-wpa-protection/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/windows2003-set-up-vpn/>Windows2003 下搭建 VPN</a></h1><div class=post-meta><time>2016-07-07</time>
+<img src=/img/post/wireless_quit_kismet.png alt=无线网络渗透测试退出kismet></p><a href=https://wyb0.cn/posts/2016/attack-802.11-network-under-wpa-protection/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/windows2003-set-up-vpn/>Windows2003 下搭建 VPN</a></h1><div class=post-meta><time>2016-07-07</time>
 [<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div class=summary-body><p><h3 id=0x00-环境及要求>0x00 环境及要求</h3><p>Windows2003下搭建基于PPTP(点对点隧道协议)的VPN服务器</p><h3 id=0x01-安装服务>0x01 安装服务</h3><p><img src=/img/post/build_vpn_install_service1.png alt=70>
 <img src=/img/post/build_vpn_install_service2.png alt=60>
 <img src=/img/post/build_vpn_close_firewall.png alt=80></p><h3 id=0x02-配置并启用路由和远程访问>0x02 配置并启用路由和远程访问</h3><p><img src=/img/post/build_vpn_config_and_start_routing_remote_access1.png alt=35>
 <img src=/img/post/build_vpn_config_and_start_routing_remote_access2.png alt=55>
 <img src=/img/post/build_vpn_config_and_start_routing_remote_access3.png alt=55>
 <img src=/img/post/build_vpn_config_and_start_routing_remote_access4.png alt=65>
-<img src=/img/post/build_vpn_config_and_start_routing_remote_access5.png alt=65></p><a href=https://wyb0.com/posts/2016/windows2003-set-up-vpn/>more...</a></p></div></article><div><a href=/page/11/>Previous Page</a>
+<img src=/img/post/build_vpn_config_and_start_routing_remote_access5.png alt=65></p><a href=https://wyb0.cn/posts/2016/windows2003-set-up-vpn/>more...</a></p></div></article><div><a href=/page/11/>Previous Page</a>
 12 of 18
 <a href=/page/13/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
 <a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
-<a href=https://wyb0.com/><strong>Reber</strong></a>.
+<a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,
 based on the theme

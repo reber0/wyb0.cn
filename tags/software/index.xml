@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software on Reber's Blog</title><link>https://wyb0.com/tags/software/</link><description>Recent content in Software on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 10 Sep 2016 16:24:18 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/software/index.xml" rel="self" type="application/rss+xml"/><item><title>Tmux 的使用</title><link>https://wyb0.com/posts/2016/tmux-usage/</link><pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate><guid>https://wyb0.com/posts/2016/tmux-usage/</guid><description>&lt;h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software on Reber's Blog</title><link>https://wyb0.cn/tags/software/</link><description>Recent content in Software on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 10 Sep 2016 16:24:18 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/software/index.xml" rel="self" type="application/rss+xml"/><item><title>Tmux 的使用</title><link>https://wyb0.cn/posts/2016/tmux-usage/</link><pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate><guid>https://wyb0.cn/posts/2016/tmux-usage/</guid><description>&lt;h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀&lt;/h3>
 &lt;p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。&lt;/p>
-&lt;p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。&lt;/p></description></item><item><title>Sublime Text 3 几个好用的插件</title><link>https://wyb0.com/posts/2016/sublime-text3-plugins/</link><pubDate>Fri, 02 Sep 2016 23:07:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/sublime-text3-plugins/</guid><description>&lt;h3 id="0x00-package-control">0x00 Package Control&lt;/h3>
+&lt;p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。&lt;/p></description></item><item><title>Sublime Text 3 几个好用的插件</title><link>https://wyb0.cn/posts/2016/sublime-text3-plugins/</link><pubDate>Fri, 02 Sep 2016 23:07:44 +0000</pubDate><guid>https://wyb0.cn/posts/2016/sublime-text3-plugins/</guid><description>&lt;h3 id="0x00-package-control">0x00 Package Control&lt;/h3>
 &lt;p>安装完这个插件后可以更容易的管理(安装、删除、查看等)其他插件&lt;/p>
 &lt;ul>
 &lt;li>代码安装&lt;br>
@@ -19,7 +19,7 @@ ctrl+~快捷键调出console，将下面代码粘贴进去，然后Enter执行(�
 &lt;ul>
 &lt;li>
 &lt;p>Ctrl+Shift+P调出菜单然后选择相应操作
-&lt;img src="https://wyb0.com/img/post/sublime_package_control1.png" alt="40">&lt;/p></description></item><item><title>Ubuntu 下使用 ShadowSocks</title><link>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</link><pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</guid><description>&lt;p>环境：Ubuntu14.04&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/sublime_package_control1.png" alt="40">&lt;/p></description></item><item><title>Ubuntu 下使用 ShadowSocks</title><link>https://wyb0.cn/posts/2016/ubuntu-use-shadowsocks/</link><pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-use-shadowsocks/</guid><description>&lt;p>环境：Ubuntu14.04&lt;/p>
 &lt;h3 id="0x00-安装shadowsocks-qt5">0x00 安装shadowsocks-qt5&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>sudo apt-get update
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get python-software-properties software-properties-common
@@ -28,9 +28,9 @@ ctrl+~快捷键调出console，将下面代码粘贴进去，然后Enter执行(�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get update （更新你的软件库）
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install shadowsocks-qt5 &lt;span style="color:#f92672">(&lt;/span>正式安装&lt;span style="color:#f92672">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-配置客户端">0x01 配置客户端&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/ss_open_client.png" alt="打开shadowsocks客户端">&lt;/p></description></item><item><title>conky 配置</title><link>https://wyb0.com/posts/2016/conky-configuration/</link><pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate><guid>https://wyb0.com/posts/2016/conky-configuration/</guid><description>&lt;h3 id="0x00-效果">0x00 效果&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/ss_open_client.png" alt="打开shadowsocks客户端">&lt;/p></description></item><item><title>conky 配置</title><link>https://wyb0.cn/posts/2016/conky-configuration/</link><pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate><guid>https://wyb0.cn/posts/2016/conky-configuration/</guid><description>&lt;h3 id="0x00-效果">0x00 效果&lt;/h3>
 &lt;p>使用软件conky可以在linux上看到系统的运行状态，效果如下：
-&lt;img src="https://wyb0.com/img/post/Conky.png" alt="conky效果图">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/Conky.png" alt="conky效果图">&lt;/p>
 &lt;h3 id="0x01-安装与配置">0x01 安装与配置&lt;/h3>
 &lt;ol>
 &lt;li>
@@ -38,7 +38,7 @@ ctrl+~快捷键调出console，将下面代码粘贴进去，然后Enter执行(�
 sudo apt-get install conky&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>在/home/username/下创建文件.conkyrc&lt;/p></description></item><item><title>Ubuntu 下安装 sublime text 3</title><link>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</link><pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</guid><description>&lt;p>环境：ubuntu14.4&lt;/p>
+&lt;p>在/home/username/下创建文件.conkyrc&lt;/p></description></item><item><title>Ubuntu 下安装 sublime text 3</title><link>https://wyb0.cn/posts/2016/ubuntu-insatll-sublime-text3/</link><pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-insatll-sublime-text3/</guid><description>&lt;p>环境：ubuntu14.4&lt;/p>
 &lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;ol>
 &lt;li>
@@ -83,7 +83,7 @@ gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags g
 &lt;/code>&lt;/pre>&lt;ol start="3">
 &lt;li>
 &lt;p>将libsublime-imfix.so拷贝到sublime_text所在文件夹&lt;br>
-&lt;code>sudo mv libsublime-imfix.so /opt/sublime_text/&lt;/code>&lt;/p></description></item><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
+&lt;code>sudo mv libsublime-imfix.so /opt/sublime_text/&lt;/code>&lt;/p></description></item><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.cn/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
 &lt;h3 id="0x00-awk">0x00 awk&lt;/h3>
 &lt;ul>
 &lt;li>若有一个需要重新格式化的字典test.txt(用户名、密码、地址)：&lt;/li>

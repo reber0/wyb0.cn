@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Server on Reber's Blog</title><link>https://wyb0.com/categories/Server/</link><description>Recent content in Server on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 14 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Server/index.xml" rel="self" type="application/rss+xml"/><item><title>中间件安全配置</title><link>https://wyb0.com/posts/2017/middleware-security-configuration/</link><pubDate>Sat, 28 Oct 2017 13:58:29 +0000</pubDate><guid>https://wyb0.com/posts/2017/middleware-security-configuration/</guid><description>&lt;h3 id="0x00-apache">0x00 Apache&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Server on Reber's Blog</title><link>https://wyb0.cn/categories/Server/</link><description>Recent content in Server on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 14 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.cn/categories/Server/index.xml" rel="self" type="application/rss+xml"/><item><title>中间件安全配置</title><link>https://wyb0.cn/posts/2017/middleware-security-configuration/</link><pubDate>Sat, 28 Oct 2017 13:58:29 +0000</pubDate><guid>https://wyb0.cn/posts/2017/middleware-security-configuration/</guid><description>&lt;h3 id="0x00-apache">0x00 Apache&lt;/h3>
 &lt;ul>
 &lt;li>服务器安全配置&lt;/li>
 &lt;/ul>
@@ -62,7 +62,7 @@ $ vim /etc/apache2/apache2.conf
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>Apache日志格式&lt;/li>
 &lt;/ul>
-&lt;p>vim /etc/apache2/apache2.conf&lt;/p></description></item><item><title>Linux 下虚拟主机搭建多站点</title><link>https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/</link><pubDate>Fri, 12 Aug 2016 08:39:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/</guid><description>&lt;p>环境：CentOS-6.5-x86_64-minimal&lt;/p>
+&lt;p>vim /etc/apache2/apache2.conf&lt;/p></description></item><item><title>Linux 下虚拟主机搭建多站点</title><link>https://wyb0.cn/posts/2016/linux-virtual-host-build-multi-site/</link><pubDate>Fri, 12 Aug 2016 08:39:35 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-virtual-host-build-multi-site/</guid><description>&lt;p>环境：CentOS-6.5-x86_64-minimal&lt;/p>
 &lt;h3 id="0x00-搭建lamp">0x00 搭建LAMP&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -92,7 +92,7 @@ mysql&amp;gt; flush privileges; //刷新
 [reber@localhost conf]$ mysql –ublog –p //此时就需要用666666登陆数据库db_blog
 &lt;/code>&lt;/pre>&lt;/li>
 &lt;li>
-&lt;p>安装PHP&lt;/p></description></item><item><title>一次存储型 XSS 利用实例</title><link>https://wyb0.com/posts/2016/redis-bisis-use/</link><pubDate>Wed, 03 Aug 2016 11:02:20 +0000</pubDate><guid>https://wyb0.com/posts/2016/redis-bisis-use/</guid><description>&lt;h3 id="0x00-关于redis">0x00 关于Redis&lt;/h3>
+&lt;p>安装PHP&lt;/p></description></item><item><title>一次存储型 XSS 利用实例</title><link>https://wyb0.cn/posts/2016/redis-bisis-use/</link><pubDate>Wed, 03 Aug 2016 11:02:20 +0000</pubDate><guid>https://wyb0.cn/posts/2016/redis-bisis-use/</guid><description>&lt;h3 id="0x00-关于redis">0x00 关于Redis&lt;/h3>
 &lt;pre tabindex="0">&lt;code>Redis和MySQL这种关系型数据库不一样，它是非关系型数据库，是日志型、Key-Value数据库，
 实现了master-slave(主从)同步,数据都是缓存在内存中的,所以可高速读写,但存储成本较高,
 不适合做海量数据存储。
@@ -111,33 +111,33 @@ $ make install
 &lt;li>Windows下安装Redis
 下载：&lt;a href="https://github.com/MSOpenTech/redis/releases" target="_blank">点此下载&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;p>安装后添加环境变量&lt;/p></description></item><item><title>Windows2003 下搭建 VPN</title><link>https://wyb0.com/posts/2016/windows2003-set-up-vpn/</link><pubDate>Thu, 07 Jul 2016 10:39:50 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows2003-set-up-vpn/</guid><description>&lt;h3 id="0x00-环境及要求">0x00 环境及要求&lt;/h3>
+&lt;p>安装后添加环境变量&lt;/p></description></item><item><title>Windows2003 下搭建 VPN</title><link>https://wyb0.cn/posts/2016/windows2003-set-up-vpn/</link><pubDate>Thu, 07 Jul 2016 10:39:50 +0000</pubDate><guid>https://wyb0.cn/posts/2016/windows2003-set-up-vpn/</guid><description>&lt;h3 id="0x00-环境及要求">0x00 环境及要求&lt;/h3>
 &lt;p>Windows2003下搭建基于PPTP(点对点隧道协议)的VPN服务器&lt;/p>
 &lt;h3 id="0x01-安装服务">0x01 安装服务&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/build_vpn_install_service1.png" alt="70">
-&lt;img src="https://wyb0.com/img/post/build_vpn_install_service2.png" alt="60">
-&lt;img src="https://wyb0.com/img/post/build_vpn_close_firewall.png" alt="80">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/build_vpn_install_service1.png" alt="70">
+&lt;img src="https://wyb0.cn/img/post/build_vpn_install_service2.png" alt="60">
+&lt;img src="https://wyb0.cn/img/post/build_vpn_close_firewall.png" alt="80">&lt;/p>
 &lt;h3 id="0x02-配置并启用路由和远程访问">0x02 配置并启用路由和远程访问&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/build_vpn_config_and_start_routing_remote_access1.png" alt="35">
-&lt;img src="https://wyb0.com/img/post/build_vpn_config_and_start_routing_remote_access2.png" alt="55">
-&lt;img src="https://wyb0.com/img/post/build_vpn_config_and_start_routing_remote_access3.png" alt="55">
-&lt;img src="https://wyb0.com/img/post/build_vpn_config_and_start_routing_remote_access4.png" alt="65">
-&lt;img src="https://wyb0.com/img/post/build_vpn_config_and_start_routing_remote_access5.png" alt="65">&lt;/p></description></item><item><title>Windows2003 下搭建 IIS+asp</title><link>https://wyb0.com/posts/2016/windows2003-set-up-iis-asp/</link><pubDate>Sat, 18 Jun 2016 20:39:50 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows2003-set-up-iis-asp/</guid><description>&lt;h3 id="0x00-添加组件">0x00 添加组件&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/add_component1.png" alt="40">
-&lt;img src="https://wyb0.com/img/post/add_component2.png" alt="55">
-&lt;img src="https://wyb0.com/img/post/add_component3.png" alt="50">
-&lt;img src="https://wyb0.com/img/post/add_component4.png" alt="55">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/build_vpn_config_and_start_routing_remote_access1.png" alt="35">
+&lt;img src="https://wyb0.cn/img/post/build_vpn_config_and_start_routing_remote_access2.png" alt="55">
+&lt;img src="https://wyb0.cn/img/post/build_vpn_config_and_start_routing_remote_access3.png" alt="55">
+&lt;img src="https://wyb0.cn/img/post/build_vpn_config_and_start_routing_remote_access4.png" alt="65">
+&lt;img src="https://wyb0.cn/img/post/build_vpn_config_and_start_routing_remote_access5.png" alt="65">&lt;/p></description></item><item><title>Windows2003 下搭建 IIS+asp</title><link>https://wyb0.cn/posts/2016/windows2003-set-up-iis-asp/</link><pubDate>Sat, 18 Jun 2016 20:39:50 +0000</pubDate><guid>https://wyb0.cn/posts/2016/windows2003-set-up-iis-asp/</guid><description>&lt;h3 id="0x00-添加组件">0x00 添加组件&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/add_component1.png" alt="40">
+&lt;img src="https://wyb0.cn/img/post/add_component2.png" alt="55">
+&lt;img src="https://wyb0.cn/img/post/add_component3.png" alt="50">
+&lt;img src="https://wyb0.cn/img/post/add_component4.png" alt="55">&lt;/p>
 &lt;h3 id="0x01-开启iis">0x01 开启iis&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/start_iis1.png" alt="70">
-&lt;img src="https://wyb0.com/img/post/start_iis2.png" alt="50">
-&lt;img src="https://wyb0.com/img/post/visit_iis_index.png" alt="45">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/start_iis1.png" alt="70">
+&lt;img src="https://wyb0.cn/img/post/start_iis2.png" alt="50">
+&lt;img src="https://wyb0.cn/img/post/visit_iis_index.png" alt="45">&lt;/p>
 &lt;h3 id="0x02-添加web服务扩展">0x02 添加Web服务扩展&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/add_ext.png" alt="65">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/add_ext.png" alt="65">&lt;/p>
 &lt;h3 id="0x03-运行asp">0x03 运行asp&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/add_iis_asp.png" alt="50">
-&lt;img src="https://wyb0.com/img/post/visit_iis_asp.png" alt="50">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/add_iis_asp.png" alt="50">
+&lt;img src="https://wyb0.cn/img/post/visit_iis_asp.png" alt="50">&lt;/p>
 &lt;h3 id="0x04-权限">0x04 权限&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/iis_perm.png" alt="55">&lt;/p></description></item><item><title>Linux 下搭建 FTP</title><link>https://wyb0.com/posts/2016/linux-set-up-ftp/</link><pubDate>Sat, 18 Jun 2016 09:40:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-set-up-ftp/</guid><description>&lt;p>安装环境为：CentOS-6.5-x86_64-minimal&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/iis_perm.png" alt="55">&lt;/p></description></item><item><title>Linux 下搭建 FTP</title><link>https://wyb0.cn/posts/2016/linux-set-up-ftp/</link><pubDate>Sat, 18 Jun 2016 09:40:06 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-set-up-ftp/</guid><description>&lt;p>安装环境为：CentOS-6.5-x86_64-minimal&lt;/p>
 &lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;p>yum install vsftpd&lt;/p>
 &lt;h3 id="0x01-配置">0x01 配置&lt;/h3>
@@ -166,17 +166,17 @@ cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak&lt;/p>
 &lt;li>
 &lt;p>新增chroot_list并将ftp用户输入进去&lt;br>
 touch /etc/vsftpd/chroot_list&lt;br>
-echo ftp &amp;raquo; /etc/vsftpd/chroot_list&lt;/p></description></item><item><title>Linux 下搭建 Tomcat+MySQL+JSP</title><link>https://wyb0.com/posts/2016/linux-set-up-tomcat-mysql-jsp/</link><pubDate>Fri, 17 Jun 2016 23:08:05 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-set-up-tomcat-mysql-jsp/</guid><description>&lt;p>安装环境为：CentOS-6.5-x86_64-minimal&lt;/p>
+echo ftp &amp;raquo; /etc/vsftpd/chroot_list&lt;/p></description></item><item><title>Linux 下搭建 Tomcat+MySQL+JSP</title><link>https://wyb0.cn/posts/2016/linux-set-up-tomcat-mysql-jsp/</link><pubDate>Fri, 17 Jun 2016 23:08:05 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-set-up-tomcat-mysql-jsp/</guid><description>&lt;p>安装环境为：CentOS-6.5-x86_64-minimal&lt;/p>
 &lt;h3 id="0x00-安装mysql">0x00 安装mysql&lt;/h3>
 &lt;p>$ sudo yum install mysql mysql-server mysql-devel&lt;br>
-&lt;img src="https://wyb0.com/img/post/install_mysql.png" alt="安装mysql.png">
-&lt;img src="https://wyb0.com/img/post/creat_db_tomcat.png" alt="创建数据库tomcat.png">
-&lt;img src="https://wyb0.com/img/post/grant_db_tomcat.png" alt="将数据库tomcat分配给用户tomcat.png">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/install_mysql.png" alt="安装mysql.png">
+&lt;img src="https://wyb0.cn/img/post/creat_db_tomcat.png" alt="创建数据库tomcat.png">
+&lt;img src="https://wyb0.cn/img/post/grant_db_tomcat.png" alt="将数据库tomcat分配给用户tomcat.png">&lt;/p>
 &lt;h3 id="0x01-安装jdk和tomcat">0x01 安装jdk和tomcat&lt;/h3>
 &lt;ol>
 &lt;li>
 &lt;p>创建安装jdk和tomcat的文件夹
-&lt;img src="https://wyb0.com/img/post/mkdir_java_tomcat.png" alt="创建安装jdk和tomcat的文件夹.png">&lt;/p></description></item><item><title>Linux 下搭建 Nginx+MySQL+PHP</title><link>https://wyb0.com/posts/2016/linux-set-up-nginx-mysql-php/</link><pubDate>Fri, 17 Jun 2016 22:41:50 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-set-up-nginx-mysql-php/</guid><description>&lt;p>安装环境为：CentOS-6.5-x86_64-minimal&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/mkdir_java_tomcat.png" alt="创建安装jdk和tomcat的文件夹.png">&lt;/p></description></item><item><title>Linux 下搭建 Nginx+MySQL+PHP</title><link>https://wyb0.cn/posts/2016/linux-set-up-nginx-mysql-php/</link><pubDate>Fri, 17 Jun 2016 22:41:50 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-set-up-nginx-mysql-php/</guid><description>&lt;p>安装环境为：CentOS-6.5-x86_64-minimal&lt;/p>
 &lt;h3 id="0x00-准备工作">0x00 准备工作&lt;/h3>
 &lt;pre tabindex="0">&lt;code>首先执行：
  sudo yum groupinstall &amp;#34;Development tools&amp;#34;
@@ -192,13 +192,13 @@ echo ftp &amp;raquo; /etc/vsftpd/chroot_list&lt;/p></description></item><item><t
 &lt;ol>
 &lt;li>
 &lt;p>安装pcre、pcre-devel&lt;br>
-sudo yum install pcre pcre-devel&lt;/p></description></item><item><title>Ubuntu 搭建 LAMP</title><link>https://wyb0.com/posts/2016/ubuntu-build-lamp/</link><pubDate>Sat, 07 May 2016 21:37:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-build-lamp/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+sudo yum install pcre pcre-devel&lt;/p></description></item><item><title>Ubuntu 搭建 LAMP</title><link>https://wyb0.cn/posts/2016/ubuntu-build-lamp/</link><pubDate>Sat, 07 May 2016 21:37:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-build-lamp/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
 &lt;p>我是在虚拟机中安装14.04.4版的Ubuntu &lt;a href="http://mirrors.163.com/ubuntu-releases/14.04.4/ubuntu-14.04.4-desktop-amd64.iso">下载Ubuntu14.04.4&lt;/a>&lt;/p>
 &lt;h3 id="0x01-配源或选择最快的更新服务器">0x01 配源或选择最快的更新服务器&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>选择最快的更新服务器:&lt;br>
-System Settings &amp;ndash;&amp;gt; Software &amp;amp; Updates &amp;ndash;&amp;gt; Download from:other &amp;ndash;&amp;gt; Select Best Server &amp;ndash;&amp;gt; Choose Serve &amp;ndash;&amp;gt; Close&lt;/p></description></item><item><title>搭建 DNS 服务器</title><link>https://wyb0.com/posts/2015/set-up-dns-server/</link><pubDate>Tue, 14 Jul 2015 14:15:13 +0000</pubDate><guid>https://wyb0.com/posts/2015/set-up-dns-server/</guid><description>&lt;p>环境: ubuntu-16.04.7-server-amd64.iso&lt;/p>
+System Settings &amp;ndash;&amp;gt; Software &amp;amp; Updates &amp;ndash;&amp;gt; Download from:other &amp;ndash;&amp;gt; Select Best Server &amp;ndash;&amp;gt; Choose Serve &amp;ndash;&amp;gt; Close&lt;/p></description></item><item><title>搭建 DNS 服务器</title><link>https://wyb0.cn/posts/2015/set-up-dns-server/</link><pubDate>Tue, 14 Jul 2015 14:15:13 +0000</pubDate><guid>https://wyb0.cn/posts/2015/set-up-dns-server/</guid><description>&lt;p>环境: ubuntu-16.04.7-server-amd64.iso&lt;/p>
 &lt;p>安装系统时选上 dns 服务，或者 apt install bind9 安装&lt;/p>
 &lt;h3 id="0x01-配置前">0x01 配置前&lt;/h3>
 &lt;ul>

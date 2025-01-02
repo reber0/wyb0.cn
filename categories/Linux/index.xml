@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Reber's Blog</title><link>https://wyb0.com/categories/Linux/</link><description>Recent content in Linux on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Linux/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 docker-compose 构造 LAMP 环境</title><link>https://wyb0.com/posts/2018/docker-compose-build-lamp/</link><pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose-build-lamp/</guid><description>&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
-&lt;p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。&lt;/p></description></item><item><title>Docker Compose</title><link>https://wyb0.com/posts/2018/docker-compose/</link><pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose/</guid><description>&lt;h3 id="0x00-关于docker-compose">0x00 关于docker compose&lt;/h3>
-&lt;p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。&lt;/p></description></item><item><title>Docker 之数据卷</title><link>https://wyb0.com/posts/2017/docker-volume/</link><pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-volume/</guid><description>&lt;h3 id="0x00-为什么使用数据卷">0x00 为什么使用数据卷&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Reber's Blog</title><link>https://wyb0.cn/categories/Linux/</link><description>Recent content in Linux on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate><atom:link href="https://wyb0.cn/categories/Linux/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 docker-compose 构造 LAMP 环境</title><link>https://wyb0.cn/posts/2018/docker-compose-build-lamp/</link><pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate><guid>https://wyb0.cn/posts/2018/docker-compose-build-lamp/</guid><description>&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
+&lt;p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。&lt;/p></description></item><item><title>Docker Compose</title><link>https://wyb0.cn/posts/2018/docker-compose/</link><pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate><guid>https://wyb0.cn/posts/2018/docker-compose/</guid><description>&lt;h3 id="0x00-关于docker-compose">0x00 关于docker compose&lt;/h3>
+&lt;p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。&lt;/p></description></item><item><title>Docker 之数据卷</title><link>https://wyb0.cn/posts/2017/docker-volume/</link><pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-volume/</guid><description>&lt;h3 id="0x00-为什么使用数据卷">0x00 为什么使用数据卷&lt;/h3>
 &lt;pre tabindex="0">&lt;code>Docker镜像是由多个文件系统(只读层)叠加而成的。
 当一个容器启动时Docker会加载只读镜像层并在其上添加一个读写层。
 读写层中的修改在镜像重新启动后会全部丢失。
@@ -46,7 +46,7 @@ a.txt
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>FROM debian:jessie VOLUME /data &lt;span style="color:#75715e">#之后的任何命令都不能更改Volume的任何东西&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-数据共享">0x03 数据共享&lt;/h3>
 &lt;p>使用&amp;ndash;volumes-from参数项即可访问另外一个容器的Volume。&lt;br>
-因为数据容器不启动也可以被其它容器访问，所以一般不推荐启动数据容器。&lt;/p></description></item><item><title>Docker 之 Dockerfile</title><link>https://wyb0.com/posts/2017/docker-dockerfile/</link><pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-dockerfile/</guid><description>&lt;p>操作系统：macOS Sierra 10.12.6&lt;br>
+因为数据容器不启动也可以被其它容器访问，所以一般不推荐启动数据容器。&lt;/p></description></item><item><title>Docker 之 Dockerfile</title><link>https://wyb0.cn/posts/2017/docker-dockerfile/</link><pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-dockerfile/</guid><description>&lt;p>操作系统：macOS Sierra 10.12.6&lt;br>
 Docker版本：Docker version 18.09.0, build 4d60db4&lt;/p>
 &lt;h3 id="0x00-dockerfile">0x00 Dockerfile&lt;/h3>
 &lt;pre tabindex="0">&lt;code>Dockerfile里面其实是一条条的指令，Docker会把Dockerfile的指令翻译为linux命令，
@@ -64,7 +64,7 @@ Docker版本：Docker version 18.09.0, build 4d60db4&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ENV &amp;lt;key&amp;gt; &amp;lt;value&amp;gt;：设置环境变量
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>USER &amp;lt;uid&amp;gt;：镜像正在运行时设置一个uid，即设定启动容器的用户，默认为root
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>VOLUME &lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/data&amp;#39;&lt;/span>&lt;span style="color:#f92672">]&lt;/span>：授权访问从容器内到主机的目录
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CMD与ENTRYPOINT的区别：&lt;/p></description></item><item><title>Docker 之镜像与容器</title><link>https://wyb0.com/posts/2017/docker-image-and-container/</link><pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-image-and-container/</guid><description>&lt;p>操作系统：Ubuntu14.04.1&lt;br>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CMD与ENTRYPOINT的区别：&lt;/p></description></item><item><title>Docker 之镜像与容器</title><link>https://wyb0.cn/posts/2017/docker-image-and-container/</link><pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-image-and-container/</guid><description>&lt;p>操作系统：Ubuntu14.04.1&lt;br>
 Docker版本：Docker version 17.06.0-ce, build 02c1d87&lt;/p>
 &lt;h3 id="0x00-镜像操作">0x00 镜像操作&lt;/h3>
 &lt;ul>
@@ -94,14 +94,14 @@ Docker版本：Docker version 17.06.0-ce, build 02c1d87&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-容器操作">0x01 容器操作&lt;/h3>
 &lt;ul>
 &lt;li>
-&lt;p>运行容器(exit后容器就停止了)&lt;/p></description></item><item><title>Docker 初识</title><link>https://wyb0.com/posts/2017/docker-basis/</link><pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-basis/</guid><description>&lt;h3 id="0x00-关于docker">0x00 关于Docker&lt;/h3>
+&lt;p>运行容器(exit后容器就停止了)&lt;/p></description></item><item><title>Docker 初识</title><link>https://wyb0.cn/posts/2017/docker-basis/</link><pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-basis/</guid><description>&lt;h3 id="0x00-关于docker">0x00 关于Docker&lt;/h3>
 &lt;ul>
 &lt;li>Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。&lt;/li>
 &lt;li>Docker中运行应用的是容器，容器的创建和销毁在秒级就能完成。&lt;/li>
 &lt;li>Docker使用了AUFS，可以以递进的方式创建&amp;quot;VM&amp;quot;，一个&amp;quot;VM&amp;quot;叠在另一个&amp;quot;VM&amp;quot;上，就像使用git增量开发一样。&lt;/li>
 &lt;li>软件的运行环境（image）和软件本身（container）分离，和数据也分离。&lt;/li>
 &lt;/ul>
-&lt;p>学习Docker需要了解4个概念：镜像、容器、数据卷、链接&lt;/p></description></item><item><title>在 vps 上搭建 Shadowsocks</title><link>https://wyb0.com/posts/2017/vps-set-up-shadowsocks/</link><pubDate>Fri, 10 Mar 2017 10:34:40 +0000</pubDate><guid>https://wyb0.com/posts/2017/vps-set-up-shadowsocks/</guid><description>&lt;p>&lt;img src="https://wyb0.com/img/anime/anime005.jpg" alt="某科学的超电磁炮">&lt;/p>
+&lt;p>学习Docker需要了解4个概念：镜像、容器、数据卷、链接&lt;/p></description></item><item><title>在 vps 上搭建 Shadowsocks</title><link>https://wyb0.cn/posts/2017/vps-set-up-shadowsocks/</link><pubDate>Fri, 10 Mar 2017 10:34:40 +0000</pubDate><guid>https://wyb0.cn/posts/2017/vps-set-up-shadowsocks/</guid><description>&lt;p>&lt;img src="https://wyb0.cn/img/anime/anime005.jpg" alt="某科学的超电磁炮">&lt;/p>
 &lt;h3 id="0x01-安装与配置">0x01 安装与配置&lt;/h3>
 &lt;p>环境：Ubuntu 14.04.1 LTS&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>reber@localhost:~$ sudo apt-get update
@@ -146,9 +146,9 @@ reber@localhost:~$ sudo killall ssserver
 &lt;/code>&lt;/pre>&lt;h4 id="0x03-本地使用">0x03 本地使用&lt;/h4>
 &lt;blockquote>
 &lt;p>添加如下配置
-&lt;img src="https://wyb0.com/img/post/use_ss.png" alt="使用Shadowsocks">&lt;/p></description></item><item><title>Tmux 的使用</title><link>https://wyb0.com/posts/2016/tmux-usage/</link><pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate><guid>https://wyb0.com/posts/2016/tmux-usage/</guid><description>&lt;h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀&lt;/h3>
+&lt;img src="https://wyb0.cn/img/post/use_ss.png" alt="使用Shadowsocks">&lt;/p></description></item><item><title>Tmux 的使用</title><link>https://wyb0.cn/posts/2016/tmux-usage/</link><pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate><guid>https://wyb0.cn/posts/2016/tmux-usage/</guid><description>&lt;h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀&lt;/h3>
 &lt;p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。&lt;/p>
-&lt;p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。&lt;/p></description></item><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.com/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
+&lt;p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。&lt;/p></description></item><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.cn/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>-V 显示版本&lt;/p>
@@ -160,7 +160,7 @@ reber@localhost:~$ sudo killall ssserver
 &lt;p>-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item><item><title>iptables 简单配置 DMZ</title><link>https://wyb0.com/posts/2016/iptables-configure-dmz/</link><pubDate>Tue, 05 Jul 2016 09:56:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/iptables-configure-dmz/</guid><description>&lt;h3 id="0x00-要求">0x00 要求&lt;/h3>
+&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item><item><title>iptables 简单配置 DMZ</title><link>https://wyb0.cn/posts/2016/iptables-configure-dmz/</link><pubDate>Tue, 05 Jul 2016 09:56:35 +0000</pubDate><guid>https://wyb0.cn/posts/2016/iptables-configure-dmz/</guid><description>&lt;h3 id="0x00-要求">0x00 要求&lt;/h3>
 &lt;ol>
 &lt;li>内网可以访问外网&lt;/li>
 &lt;li>内网可以访问DMZ区&lt;/li>
@@ -170,7 +170,7 @@ reber@localhost:~$ sudo killall ssserver
 &lt;li>DMZ区不能主动访问外网&lt;/li>
 &lt;/ol>
 &lt;h3 id="0x01-拓扑">0x01 拓扑&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/iptables_dmz_topology.png" alt="50">&lt;/p></description></item><item><title>Ubuntu 下使用 ShadowSocks</title><link>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</link><pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</guid><description>&lt;p>环境：Ubuntu14.04&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/iptables_dmz_topology.png" alt="50">&lt;/p></description></item><item><title>Ubuntu 下使用 ShadowSocks</title><link>https://wyb0.cn/posts/2016/ubuntu-use-shadowsocks/</link><pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-use-shadowsocks/</guid><description>&lt;p>环境：Ubuntu14.04&lt;/p>
 &lt;h3 id="0x00-安装shadowsocks-qt5">0x00 安装shadowsocks-qt5&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>sudo apt-get update
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get python-software-properties software-properties-common
@@ -179,9 +179,9 @@ reber@localhost:~$ sudo killall ssserver
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get update （更新你的软件库）
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install shadowsocks-qt5 &lt;span style="color:#f92672">(&lt;/span>正式安装&lt;span style="color:#f92672">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-配置客户端">0x01 配置客户端&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/ss_open_client.png" alt="打开shadowsocks客户端">&lt;/p></description></item><item><title>conky 配置</title><link>https://wyb0.com/posts/2016/conky-configuration/</link><pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate><guid>https://wyb0.com/posts/2016/conky-configuration/</guid><description>&lt;h3 id="0x00-效果">0x00 效果&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/ss_open_client.png" alt="打开shadowsocks客户端">&lt;/p></description></item><item><title>conky 配置</title><link>https://wyb0.cn/posts/2016/conky-configuration/</link><pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate><guid>https://wyb0.cn/posts/2016/conky-configuration/</guid><description>&lt;h3 id="0x00-效果">0x00 效果&lt;/h3>
 &lt;p>使用软件conky可以在linux上看到系统的运行状态，效果如下：
-&lt;img src="https://wyb0.com/img/post/Conky.png" alt="conky效果图">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/Conky.png" alt="conky效果图">&lt;/p>
 &lt;h3 id="0x01-安装与配置">0x01 安装与配置&lt;/h3>
 &lt;ol>
 &lt;li>
@@ -189,7 +189,7 @@ reber@localhost:~$ sudo killall ssserver
 sudo apt-get install conky&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>在/home/username/下创建文件.conkyrc&lt;/p></description></item><item><title>Ubuntu 下安装 sublime text 3</title><link>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</link><pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</guid><description>&lt;p>环境：ubuntu14.4&lt;/p>
+&lt;p>在/home/username/下创建文件.conkyrc&lt;/p></description></item><item><title>Ubuntu 下安装 sublime text 3</title><link>https://wyb0.cn/posts/2016/ubuntu-insatll-sublime-text3/</link><pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-insatll-sublime-text3/</guid><description>&lt;p>环境：ubuntu14.4&lt;/p>
 &lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;ol>
 &lt;li>
@@ -234,13 +234,13 @@ gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags g
 &lt;/code>&lt;/pre>&lt;ol start="3">
 &lt;li>
 &lt;p>将libsublime-imfix.so拷贝到sublime_text所在文件夹&lt;br>
-&lt;code>sudo mv libsublime-imfix.so /opt/sublime_text/&lt;/code>&lt;/p></description></item><item><title>Ubuntu 搭建 LAMP</title><link>https://wyb0.com/posts/2016/ubuntu-build-lamp/</link><pubDate>Sat, 07 May 2016 21:37:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-build-lamp/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;code>sudo mv libsublime-imfix.so /opt/sublime_text/&lt;/code>&lt;/p></description></item><item><title>Ubuntu 搭建 LAMP</title><link>https://wyb0.cn/posts/2016/ubuntu-build-lamp/</link><pubDate>Sat, 07 May 2016 21:37:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-build-lamp/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
 &lt;p>我是在虚拟机中安装14.04.4版的Ubuntu &lt;a href="http://mirrors.163.com/ubuntu-releases/14.04.4/ubuntu-14.04.4-desktop-amd64.iso">下载Ubuntu14.04.4&lt;/a>&lt;/p>
 &lt;h3 id="0x01-配源或选择最快的更新服务器">0x01 配源或选择最快的更新服务器&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>选择最快的更新服务器:&lt;br>
-System Settings &amp;ndash;&amp;gt; Software &amp;amp; Updates &amp;ndash;&amp;gt; Download from:other &amp;ndash;&amp;gt; Select Best Server &amp;ndash;&amp;gt; Choose Serve &amp;ndash;&amp;gt; Close&lt;/p></description></item><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
+System Settings &amp;ndash;&amp;gt; Software &amp;amp; Updates &amp;ndash;&amp;gt; Download from:other &amp;ndash;&amp;gt; Select Best Server &amp;ndash;&amp;gt; Choose Serve &amp;ndash;&amp;gt; Close&lt;/p></description></item><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.cn/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
 &lt;h3 id="0x00-awk">0x00 awk&lt;/h3>
 &lt;ul>
 &lt;li>若有一个需要重新格式化的字典test.txt(用户名、密码、地址)：&lt;/li>
@@ -314,7 +314,7 @@ cat test.txt | awk &amp;#39;{print $2}&amp;#39; | sed &amp;#39;1d&amp;#39; |sort
 &lt;/code>&lt;/pre>&lt;h3 id="0x06-其他">0x06 其他：&lt;/h3>
 &lt;ul>
 &lt;li>
-&lt;p>对!a[$1]++的解释如下：&lt;/p></description></item><item><title>Linux 之文本处理</title><link>https://wyb0.com/posts/2016/linux-text-processing/</link><pubDate>Wed, 20 Apr 2016 07:58:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing/</guid><description>&lt;p>这里介绍3种方式：awk、grep、sed&lt;/p>
+&lt;p>对!a[$1]++的解释如下：&lt;/p></description></item><item><title>Linux 之文本处理</title><link>https://wyb0.cn/posts/2016/linux-text-processing/</link><pubDate>Wed, 20 Apr 2016 07:58:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-text-processing/</guid><description>&lt;p>这里介绍3种方式：awk、grep、sed&lt;/p>
 &lt;h3 id="0x00-awk处理文本最常用">0x00 awk处理文本(最常用)&lt;/h3>
 &lt;pre tabindex="0">&lt;code>作用：awk对数据以行分析并生成报告时显得很强大，它将行进行切片，再处理分开的切片，可对格式化的数据重新进行格式化 
 awk命令格式：awk [F filed-separator] &amp;#39;commands&amp;#39; input-fiel(s) 
@@ -393,7 +393,7 @@ filename:a.txt,linenumber:9,columns:1,linecontent:9 candy kd89943
 ```
 &lt;ul>
 &lt;li>
-&lt;p>awk编程：&lt;/p></description></item><item><title>Linux 之软件的安装</title><link>https://wyb0.com/posts/2016/linux-software-installation/</link><pubDate>Tue, 19 Apr 2016 19:07:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-software-installation/</guid><description>&lt;p>Linux上的软件安装可以分为三种方式：&lt;/p>
+&lt;p>awk编程：&lt;/p></description></item><item><title>Linux 之软件的安装</title><link>https://wyb0.cn/posts/2016/linux-software-installation/</link><pubDate>Tue, 19 Apr 2016 19:07:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-software-installation/</guid><description>&lt;p>Linux上的软件安装可以分为三种方式：&lt;/p>
 &lt;h3 id="0x00-yum安装">0x00 yum安装&lt;/h3>
 &lt;pre tabindex="0">&lt;code>yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除一个、一组
 至全部软件包的命令，配置文件在/etc/yum.repos.d/下
@@ -448,7 +448,7 @@ Resolving Dependencies
 --&amp;gt; Finished Dependency Resolution
 &lt;/code>&lt;/pre>&lt;h3 id="0x01-rpm安装">0x01 rpm安装&lt;/h3>
 &lt;p>分为：二进制包和源代码包&lt;br>
-二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀&lt;/p></description></item><item><title>Linux 之基础命令</title><link>https://wyb0.com/posts/2016/linux-basic-command/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-basic-command/</guid><description>&lt;h3 id="0x00-ls显示文件">0x00 ls：显示文件&lt;/h3>
+二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀&lt;/p></description></item><item><title>Linux 之基础命令</title><link>https://wyb0.cn/posts/2016/linux-basic-command/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-basic-command/</guid><description>&lt;h3 id="0x00-ls显示文件">0x00 ls：显示文件&lt;/h3>
 &lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ls
 a a.txt
 [wyb@localhost tmp]$ ls -l
@@ -761,7 +761,7 @@ Archive: aaa.zip
  extracting: aaa/b.txt 
  extracting: aaa/c.txt 
  extracting: aaa/a.txt
-&lt;/code>&lt;/pre></description></item><item><title>Linux 之服务和计划任务</title><link>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</guid><description>&lt;h3 id="0x00-服务">0x00 服务：&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>Linux 之服务和计划任务</title><link>https://wyb0.cn/posts/2016/linux-service-and-planning-tasks/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-service-and-planning-tasks/</guid><description>&lt;h3 id="0x00-服务">0x00 服务：&lt;/h3>
 &lt;p>在后台运行的软件就叫服务，参数一般为：start/stop/restart&lt;/p>
 &lt;ul>
 &lt;li>apache启动后默认降权&lt;/li>
@@ -773,7 +773,7 @@ lrwxrwxrwx. 1 root root 11 Apr 11 02:54 /etc/init.d -&amp;gt; rc.d/init.d
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
 &lt;p>添加服务&lt;br>
-将脚本放在/etc/init.d/下即可&lt;/p></description></item><item><title>Linux 之用户和用户组</title><link>https://wyb0.com/posts/2016/linux-user/</link><pubDate>Sun, 17 Apr 2016 20:48:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-user/</guid><description>&lt;h3 id="0x01-新建用户">0x01 新建用户&lt;/h3>
+将脚本放在/etc/init.d/下即可&lt;/p></description></item><item><title>Linux 之用户和用户组</title><link>https://wyb0.cn/posts/2016/linux-user/</link><pubDate>Sun, 17 Apr 2016 20:48:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-user/</guid><description>&lt;h3 id="0x01-新建用户">0x01 新建用户&lt;/h3>
 &lt;p>环境：Ubuntu 14.04.4&lt;/p>
 &lt;ul>
 &lt;li>
@@ -788,11 +788,11 @@ passwd 用户名&lt;/p>
 &lt;p>Step3：给新添加的用户增加root权限&lt;br>
 visudo&lt;br>
 然后添加：&lt;br>
-用户名 ALL=(ALL:ALL) ALL&lt;/p></description></item><item><title>Linux 之权限</title><link>https://wyb0.com/posts/2016/linux-permission-settings/</link><pubDate>Sun, 17 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-permission-settings/</guid><description>&lt;p>主要有三种参数：rwx
+用户名 ALL=(ALL:ALL) ALL&lt;/p></description></item><item><title>Linux 之权限</title><link>https://wyb0.cn/posts/2016/linux-permission-settings/</link><pubDate>Sun, 17 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-permission-settings/</guid><description>&lt;p>主要有三种参数：rwx
 对于文件来说：分别是读/写/执行&lt;br>
 对于目录来说：r读目录结构；w操作目录结构；x进入目录&lt;br>
 如：drwxr&amp;ndash;r&amp;ndash; 3 root root 4096 Jun 25 08:35 .ssh&lt;br>
-若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中&lt;/p></description></item><item><title>Linux 之 vim</title><link>https://wyb0.com/posts/2016/linux-vim/</link><pubDate>Fri, 15 Apr 2016 21:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-vim/</guid><description>&lt;h3 id="0x00-vim的安装及配置">0x00 Vim的安装及配置：&lt;/h3>
+若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中&lt;/p></description></item><item><title>Linux 之 vim</title><link>https://wyb0.cn/posts/2016/linux-vim/</link><pubDate>Fri, 15 Apr 2016 21:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-vim/</guid><description>&lt;h3 id="0x00-vim的安装及配置">0x00 Vim的安装及配置：&lt;/h3>
 &lt;ul>
 &lt;li>安装vim&lt;/li>
 &lt;/ul>

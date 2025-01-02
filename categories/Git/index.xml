@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Reber's Blog</title><link>https://wyb0.com/categories/Git/</link><description>Recent content in Git on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 17 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Git/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 下部署 Gitlab</title><link>https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/</link><pubDate>Mon, 16 Jan 2017 20:18:05 +0000</pubDate><guid>https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/</guid><description>&lt;p>&lt;img src="https://wyb0.com/img/anime/anime004.jpg" alt="钢之炼金术师FA">&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Reber's Blog</title><link>https://wyb0.cn/categories/Git/</link><description>Recent content in Git on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 17 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.cn/categories/Git/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 下部署 Gitlab</title><link>https://wyb0.cn/posts/2017/ubuntu-set-up-gitlab/</link><pubDate>Mon, 16 Jan 2017 20:18:05 +0000</pubDate><guid>https://wyb0.cn/posts/2017/ubuntu-set-up-gitlab/</guid><description>&lt;p>&lt;img src="https://wyb0.cn/img/anime/anime004.jpg" alt="钢之炼金术师FA">&lt;/p>
 &lt;h3 id="0x00-前期准备">0x00 前期准备&lt;/h3>
 &lt;pre tabindex="0">&lt;code># 环境 Ubuntu 14.04
 reber@ubuntu:~/Desktop$ sudo apt-get install openssh-server
@@ -47,7 +47,7 @@ tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN
 &lt;/code>&lt;/pre>&lt;h3 id="0x03-访问web页面">0x03 访问web页面&lt;/h3>
 &lt;ul>
 &lt;li>
-&lt;p>有时出现502，可以刷新网页或者再次reconfigure&lt;/p></description></item><item><title>通过 gh-pages 发布博客</title><link>https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/</link><pubDate>Mon, 09 May 2016 23:33:12 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/</guid><description>&lt;p>环境：Ubuntu 14.4&lt;/p>
+&lt;p>有时出现502，可以刷新网页或者再次reconfigure&lt;/p></description></item><item><title>通过 gh-pages 发布博客</title><link>https://wyb0.cn/posts/2016/ubuntu-push-blog-to-github/</link><pubDate>Mon, 09 May 2016 23:33:12 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ubuntu-push-blog-to-github/</guid><description>&lt;p>环境：Ubuntu 14.4&lt;/p>
 &lt;h3 id="0x00-添加密钥">0x00 添加密钥&lt;/h3>
 &lt;pre tabindex="0">&lt;code>➜ ssh-keygen -t rsa -b 2048 -C &amp;#34;123456@qq.com&amp;#34; -f id_rsa_github # 生成密钥
 ➜ cd ~/.ssh/
@@ -58,7 +58,7 @@ tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN
 
 ➜ ssh -T git@github.com # 验证密钥是否添加成功
 &lt;/code>&lt;/pre>&lt;h3 id="0x01-gh-pages">0x01 gh-pages&lt;/h3>
-&lt;p>Github 创建项目仓库后会产生一个 main 分支，只需要再添加 gh-pages 分支就可以创建静态页面了&lt;/p></description></item><item><title>Git 的用法</title><link>https://wyb0.com/posts/2016/git-usage/</link><pubDate>Thu, 05 May 2016 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2016/git-usage/</guid><description>&lt;h3 id="0x00-仓库">0x00 仓库&lt;/h3>
+&lt;p>Github 创建项目仓库后会产生一个 main 分支，只需要再添加 gh-pages 分支就可以创建静态页面了&lt;/p></description></item><item><title>Git 的用法</title><link>https://wyb0.cn/posts/2016/git-usage/</link><pubDate>Thu, 05 May 2016 00:00:00 +0000</pubDate><guid>https://wyb0.cn/posts/2016/git-usage/</guid><description>&lt;h3 id="0x00-仓库">0x00 仓库&lt;/h3>
 &lt;ul>
 &lt;li>创建仓库
 &lt;ul>

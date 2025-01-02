@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Other on Reber's Blog</title><link>https://wyb0.com/categories/Other/</link><description>Recent content in Other on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 01 Aug 2017 18:16:39 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Other/index.xml" rel="self" type="application/rss+xml"/><item><title>[转] HTTPS 加密原理简介</title><link>https://wyb0.com/posts/2017/introduction-to-https-encryption-principles/</link><pubDate>Tue, 01 Aug 2017 18:16:39 +0000</pubDate><guid>https://wyb0.com/posts/2017/introduction-to-https-encryption-principles/</guid><description>&lt;p>原文链接：http://www.cnblogs.com/JeffreySun/archive/2010/06/24/1627247.html&lt;/p></description></item><item><title>Mac 基础设置</title><link>https://wyb0.com/posts/2017/mac-basic-use/</link><pubDate>Fri, 19 May 2017 16:51:11 +0000</pubDate><guid>https://wyb0.com/posts/2017/mac-basic-use/</guid><description>&lt;p>macOS Sierra 10.12.6&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Other on Reber's Blog</title><link>https://wyb0.cn/categories/Other/</link><description>Recent content in Other on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 01 Aug 2017 18:16:39 +0000</lastBuildDate><atom:link href="https://wyb0.cn/categories/Other/index.xml" rel="self" type="application/rss+xml"/><item><title>[转] HTTPS 加密原理简介</title><link>https://wyb0.cn/posts/2017/introduction-to-https-encryption-principles/</link><pubDate>Tue, 01 Aug 2017 18:16:39 +0000</pubDate><guid>https://wyb0.cn/posts/2017/introduction-to-https-encryption-principles/</guid><description>&lt;p>原文链接：http://www.cnblogs.com/JeffreySun/archive/2010/06/24/1627247.html&lt;/p></description></item><item><title>Mac 基础设置</title><link>https://wyb0.cn/posts/2017/mac-basic-use/</link><pubDate>Fri, 19 May 2017 16:51:11 +0000</pubDate><guid>https://wyb0.cn/posts/2017/mac-basic-use/</guid><description>&lt;p>macOS Sierra 10.12.6&lt;/p>
 &lt;h3 id="0x00-安装brew">0x00 安装brew&lt;/h3>
 &lt;pre tabindex="0">&lt;code>$ /usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34;
 &lt;/code>&lt;/pre>&lt;h3 id="0x01-安装wget">0x01 安装wget&lt;/h3>
@@ -16,7 +16,7 @@ $ source ~/.zshrc
 $ brew update
 &lt;/code>&lt;/pre>&lt;h3 id="0x04-安装scroll-reverser">0x04 安装scroll-reverser&lt;/h3>
 &lt;blockquote>
-&lt;p>去&lt;a href="http://pilotmoon.com/scrollreverser?_blank">http://pilotmoon.com/scrollreverser&lt;/a>下载&lt;/p></description></item><item><title>301 重定向</title><link>https://wyb0.com/posts/2017/301-redirect/</link><pubDate>Tue, 07 Feb 2017 10:49:38 +0000</pubDate><guid>https://wyb0.com/posts/2017/301-redirect/</guid><description>&lt;h3 id="0x00-目的">0x00 目的&lt;/h3>
+&lt;p>去&lt;a href="http://pilotmoon.com/scrollreverser?_blank">http://pilotmoon.com/scrollreverser&lt;/a>下载&lt;/p></description></item><item><title>301 重定向</title><link>https://wyb0.cn/posts/2017/301-redirect/</link><pubDate>Tue, 07 Feb 2017 10:49:38 +0000</pubDate><guid>https://wyb0.cn/posts/2017/301-redirect/</guid><description>&lt;h3 id="0x00-目的">0x00 目的&lt;/h3>
 &lt;pre tabindex="0">&lt;code>由于博客更换了域名，原来百度收录的都成了死链，所以做一下301重定向
 我使用的是github搭建的博客，都是html的文件，先把html文件都上传到自己的服务器上，
 修改dns使原域名指向服务器，让百度收录的链接都能够访问，然后设置301
@@ -39,10 +39,10 @@ $ sudo vim /etc/apache2/apache2.conf
 &amp;lt;/Directory&amp;gt;
 &lt;/code>&lt;/pre>&lt;h3 id="0x04-重启apache">0x04 重启Apache&lt;/h3>
 &lt;pre tabindex="0">&lt;code>$ sudo /etc/init.d/apache2 restart
-&lt;/code>&lt;/pre></description></item><item><title>准则</title><link>https://wyb0.com/posts/2016/principles/</link><pubDate>Wed, 21 Sep 2016 23:05:57 +0000</pubDate><guid>https://wyb0.com/posts/2016/principles/</guid><description>&lt;h3 id="0x00-创造价值">0x00 创造价值&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>准则</title><link>https://wyb0.cn/posts/2016/principles/</link><pubDate>Wed, 21 Sep 2016 23:05:57 +0000</pubDate><guid>https://wyb0.cn/posts/2016/principles/</guid><description>&lt;h3 id="0x00-创造价值">0x00 创造价值&lt;/h3>
 &lt;p>小鸡问母鸡：可否不用下蛋，带我出去玩啊？母鸡道：不行，我要工作！&lt;br>
 小鸡说：可你已经下了这么多蛋了！母鸡意味深长地对小鸡说：一天一个蛋，菜刀靠边站，一月不生蛋，高压锅里见。&lt;br>
-存在是因为你创造价值，淘汰是因为你失去价值。过去的价值不代表未来，所以每天都要努力！&lt;/p></description></item><item><title>Sublime Text 3 几个好用的插件</title><link>https://wyb0.com/posts/2016/sublime-text3-plugins/</link><pubDate>Fri, 02 Sep 2016 23:07:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/sublime-text3-plugins/</guid><description>&lt;h3 id="0x00-package-control">0x00 Package Control&lt;/h3>
+存在是因为你创造价值，淘汰是因为你失去价值。过去的价值不代表未来，所以每天都要努力！&lt;/p></description></item><item><title>Sublime Text 3 几个好用的插件</title><link>https://wyb0.cn/posts/2016/sublime-text3-plugins/</link><pubDate>Fri, 02 Sep 2016 23:07:44 +0000</pubDate><guid>https://wyb0.cn/posts/2016/sublime-text3-plugins/</guid><description>&lt;h3 id="0x00-package-control">0x00 Package Control&lt;/h3>
 &lt;p>安装完这个插件后可以更容易的管理(安装、删除、查看等)其他插件&lt;/p>
 &lt;ul>
 &lt;li>代码安装&lt;br>
@@ -61,21 +61,21 @@ ctrl+~快捷键调出console，将下面代码粘贴进去，然后Enter执行(�
 &lt;ul>
 &lt;li>
 &lt;p>Ctrl+Shift+P调出菜单然后选择相应操作
-&lt;img src="https://wyb0.com/img/post/sublime_package_control1.png" alt="40">&lt;/p></description></item><item><title>Windows 下用 Proxifier 实现全局代理</title><link>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</link><pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;img src="https://wyb0.cn/img/post/sublime_package_control1.png" alt="40">&lt;/p></description></item><item><title>Windows 下用 Proxifier 实现全局代理</title><link>https://wyb0.cn/posts/2016/windows-proxifier-implement-global-proxy/</link><pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate><guid>https://wyb0.cn/posts/2016/windows-proxifier-implement-global-proxy/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
 &lt;p>在windows下用Shadowsocks和Proxifier实现全局代理：&lt;/p>
 &lt;pre tabindex="0">&lt;code>System：Windows10 Pro x64
 Shadowsocks：Shadowsocks v2.5.2.0 
 Proxifier：Proxifier Portable Edition v3.29
 &lt;/code>&lt;/pre>&lt;h3 id="0x01-配置shadowsocks">0x01 配置Shadowsocks&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/global_agent_set_shadowsocks.png" alt="Windows下实现全局代理-设置shadowsocks">&lt;/p></description></item><item><title>虚拟机下安装 vm-tools</title><link>https://wyb0.com/posts/2016/vmware-install-vm-tools/</link><pubDate>Wed, 20 Jul 2016 08:30:53 +0000</pubDate><guid>https://wyb0.com/posts/2016/vmware-install-vm-tools/</guid><description>&lt;p>vm-tools安装后可以在客户机和虚拟机间双向复制文件&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/global_agent_set_shadowsocks.png" alt="Windows下实现全局代理-设置shadowsocks">&lt;/p></description></item><item><title>虚拟机下安装 vm-tools</title><link>https://wyb0.cn/posts/2016/vmware-install-vm-tools/</link><pubDate>Wed, 20 Jul 2016 08:30:53 +0000</pubDate><guid>https://wyb0.cn/posts/2016/vmware-install-vm-tools/</guid><description>&lt;p>vm-tools安装后可以在客户机和虚拟机间双向复制文件&lt;/p>
 &lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/vm_tools_mount_cd.png" alt="vm-tools挂载光盘">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/vm_tools_copy_and_unzip.png" alt="vm-tools拷贝并解压安装包">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/vm_tools_install.png" alt="vm-tools安装">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/vm_tools_install_complete.png" alt="vm-tools安装完成">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/vm_tools_mount_cd.png" alt="vm-tools挂载光盘">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/vm_tools_copy_and_unzip.png" alt="vm-tools拷贝并解压安装包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/vm_tools_install.png" alt="vm-tools安装">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/vm_tools_install_complete.png" alt="vm-tools安装完成">&lt;/p>
 &lt;h3 id="0x01-kali20">0x01 Kali2.0&lt;/h3>
 &lt;p>一般安装的话按照上面的步骤即可安装成功，但是Kali2.0不行，可以用如下方法安装：
-&lt;img src="https://wyb0.com/img/post/vm_tools_kali2.0_install1.png" alt="vm-tools在Kali2.0下的安装1">&lt;/p></description></item><item><title>RGB 颜色对照表</title><link>https://wyb0.com/posts/2016/rgb-color-look-up-table/</link><pubDate>Sat, 04 Jun 2016 20:03:10 +0000</pubDate><guid>https://wyb0.com/posts/2016/rgb-color-look-up-table/</guid><description>&lt;html>
+&lt;img src="https://wyb0.cn/img/post/vm_tools_kali2.0_install1.png" alt="vm-tools在Kali2.0下的安装1">&lt;/p></description></item><item><title>RGB 颜色对照表</title><link>https://wyb0.cn/posts/2016/rgb-color-look-up-table/</link><pubDate>Sat, 04 Jun 2016 20:03:10 +0000</pubDate><guid>https://wyb0.cn/posts/2016/rgb-color-look-up-table/</guid><description>&lt;html>
 &lt;head>
  &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  &lt;title>RGB&lt;/title>
@@ -1401,7 +1401,7 @@ Proxifier：Proxifier Portable Edition v3.29
  &lt;/center>
  &lt;/div>
 &lt;/body>
-&lt;/html></description></item><item><title>win/ubuntu 双系统分区设置</title><link>https://wyb0.com/posts/2016/win-and-ubuntu-partition/</link><pubDate>Tue, 31 May 2016 23:35:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/win-and-ubuntu-partition/</guid><description>&lt;h3 id="win10和ubuntu双系统分区设置">win10和ubuntu双系统分区设置&lt;/h3>
+&lt;/html></description></item><item><title>win/ubuntu 双系统分区设置</title><link>https://wyb0.cn/posts/2016/win-and-ubuntu-partition/</link><pubDate>Tue, 31 May 2016 23:35:06 +0000</pubDate><guid>https://wyb0.cn/posts/2016/win-and-ubuntu-partition/</guid><description>&lt;h3 id="win10和ubuntu双系统分区设置">win10和ubuntu双系统分区设置&lt;/h3>
 &lt;ol>
 &lt;li>硬盘采用uefi格式&lt;/li>
 &lt;li>硬盘首部留400M空间，是FAT16的格式，用来存放win的引导信息&lt;/li>
@@ -1412,7 +1412,7 @@ Proxifier：Proxifier Portable Edition v3.29
 &lt;li>ubuntu的/swap分区，格式为swap，空间为200M&lt;/li>
 &lt;li>ubuntu的引导分区为/boot&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://wyb0.com/img/post/hard_disk_partition1.png" alt="双系统磁盘分区">&lt;/p></description></item><item><title>XML 基础</title><link>https://wyb0.com/posts/2016/xml-basis/</link><pubDate>Wed, 25 May 2016 13:59:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/xml-basis/</guid><description>&lt;h3 id="0x00-xml简介">0x00 XML简介&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/hard_disk_partition1.png" alt="双系统磁盘分区">&lt;/p></description></item><item><title>XML 基础</title><link>https://wyb0.cn/posts/2016/xml-basis/</link><pubDate>Wed, 25 May 2016 13:59:59 +0000</pubDate><guid>https://wyb0.cn/posts/2016/xml-basis/</guid><description>&lt;h3 id="0x00-xml简介">0x00 XML简介&lt;/h3>
 &lt;p>1、xml的设计宗旨是传输数据，而并非显示数据&lt;br>
 2、xms是不作为的，它被设计用来结构化、存储以及传输信息&lt;br>
 3、xml只是纯文本，独立于软硬件和应用程序&lt;br>
@@ -1420,7 +1420,7 @@ Proxifier：Proxifier Portable Edition v3.29
 5、xml可以自定义标签&lt;br>
 6、xml具有自我描述性&lt;br>
 7、xml是对html的补充&lt;br>
-8、xml常用于简化数据的存储和共享&lt;/p></description></item><item><title>[转] 短</title><link>https://wyb0.com/posts/2016/short/</link><pubDate>Sun, 17 Apr 2016 15:49:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/short/</guid><description>&lt;center>
+8、xml常用于简化数据的存储和共享&lt;/p></description></item><item><title>[转] 短</title><link>https://wyb0.cn/posts/2016/short/</link><pubDate>Sun, 17 Apr 2016 15:49:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/short/</guid><description>&lt;center>
 &lt;font size="15">短&lt;/font>
 俄罗斯某诗人
 &lt;/center>
@@ -1440,7 +1440,7 @@ Proxifier：Proxifier Portable Edition v3.29
 &lt;h3 id="珍惜人生路上的亲情友情同事情同学情朋友情">珍惜人生路上的亲情、友情、同事情、同学情、朋友情&lt;/h3>
 &lt;h3 id="一旦擦身而过">一旦擦身而过&lt;/h3>
 &lt;h3 id="也许永不邂逅">也许永不邂逅&lt;/h3>
-&lt;/center></description></item><item><title>中小企业网络搭建</title><link>https://wyb0.com/posts/2015/small-and-medium-enterprise-network-structures/</link><pubDate>Mon, 13 Jul 2015 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2015/small-and-medium-enterprise-network-structures/</guid><description>&lt;h3 id="0x00-中小企业需求分析">0x00 中小企业需求分析&lt;/h3>
+&lt;/center></description></item><item><title>中小企业网络搭建</title><link>https://wyb0.cn/posts/2015/small-and-medium-enterprise-network-structures/</link><pubDate>Mon, 13 Jul 2015 00:00:00 +0000</pubDate><guid>https://wyb0.cn/posts/2015/small-and-medium-enterprise-network-structures/</guid><description>&lt;h3 id="0x00-中小企业需求分析">0x00 中小企业需求分析&lt;/h3>
 &lt;ol>
 &lt;li>搭建企业私有局域网络环境，使用交换机、路由器等网络设备完成由局域网到互联网的接入。&lt;/li>
 &lt;li>对网络设备能够方便地进行远程管理。&lt;/li>
@@ -1450,7 +1450,7 @@ Proxifier：Proxifier Portable Edition v3.29
 &lt;li>内网通过配置PAT技术实现与外网之间的通信。&lt;/li>
 &lt;/ol>
 &lt;h3 id="0x01-所需设备">0x01 所需设备&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/enterprise_network_the_required_equipment.png" alt="中小企业所需设备">&lt;/p></description></item><item><title>思科交换机基本配置</title><link>https://wyb0.com/posts/2015/cisco-switch-basic-configuration/</link><pubDate>Wed, 06 May 2015 23:46:26 +0000</pubDate><guid>https://wyb0.com/posts/2015/cisco-switch-basic-configuration/</guid><description>&lt;h3 id="0x00-简单配置命令">0x00 简单配置命令&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/enterprise_network_the_required_equipment.png" alt="中小企业所需设备">&lt;/p></description></item><item><title>思科交换机基本配置</title><link>https://wyb0.cn/posts/2015/cisco-switch-basic-configuration/</link><pubDate>Wed, 06 May 2015 23:46:26 +0000</pubDate><guid>https://wyb0.cn/posts/2015/cisco-switch-basic-configuration/</guid><description>&lt;h3 id="0x00-简单配置命令">0x00 简单配置命令&lt;/h3>
 &lt;pre tabindex="0">&lt;code>Switch&amp;gt;enable(配置交换机名称)
 Switch(config)#hostname S
 

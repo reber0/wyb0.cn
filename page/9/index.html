@@ -1,5 +1,5 @@
 <!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -9,8 +9,8 @@
 |
 <a href=/about/><b>About</b></a>
 |
-<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-password-generator/>Python 实现密码生成器</a></h1><div class=post-meta><time>2016-08-29</time>
-[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-简介>0x00 简介</h3><p>有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则可能会忘记，在这里就用脚本写一个生成密码的工具，只需输入域名和账户名就可以根据key生成不一样的密码，也可以把域名和账户名写入文件，这样你用户名也可以不用记了。。。</p><a href=https://wyb0.com/posts/2016/python-password-generator/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/>Python 实现多线程弱口令爆破</a></h1><div class=post-meta><time>2016-08-26</time>
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-password-generator/>Python 实现密码生成器</a></h1><div class=post-meta><time>2016-08-29</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-简介>0x00 简介</h3><p>有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则可能会忘记，在这里就用脚本写一个生成密码的工具，只需输入域名和账户名就可以根据key生成不一样的密码，也可以把域名和账户名写入文件，这样你用户名也可以不用记了。。。</p><a href=https://wyb0.cn/posts/2016/python-password-generator/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-multi-threaded-weak-password-blasting/>Python 实现多线程弱口令爆破</a></h1><div class=post-meta><time>2016-08-26</time>
 [<a href=/categories/Pentest>Pentest</a>,<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/%E7%88%86%E7%A0%B4>爆破</a>)</div><div class=summary-body><p><h3 id=0x00-脚本>0x00 脚本</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
 </span></span><span style=display:flex><span>
@@ -326,13 +326,13 @@
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
 </span></span><span style=display:flex><span>    main()
-</span></span></code></pre></div><h3 id=0x01-尝试爆破>0x01 尝试爆破</h3><p><img src=/img/post/bruter_help.png alt=帮助信息></p><a href=https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/>Metasploit 利用 workspace 进行批量扫描爆破</a></h1><div class=post-meta><time>2016-08-23</time>
+</span></span></code></pre></div><h3 id=0x01-尝试爆破>0x01 尝试爆破</h3><p><img src=/img/post/bruter_help.png alt=帮助信息></p><a href=https://wyb0.cn/posts/2016/python-multi-threaded-weak-password-blasting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/metasploit-use-workspace-batch-blasting/>Metasploit 利用 workspace 进行批量扫描爆破</a></h1><div class=post-meta><time>2016-08-23</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>,<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-启动>0x00 启动</h3><p><img src=/img/post/msf_start.png alt=启动msf></p><h3 id=0x01-metasploit的工作平台>0x01 Metasploit的工作平台</h3><p>在msf里的工作平台可以保存历史的一些操作信息
 <img src=/img/post/msf_workspace_h.png alt=msf工作平台的帮助信息>
 <img src=/img/post/msf_workspace.png alt=创建新的工作平台></p><h3 id=0x02-使用db_nmap扫描主机>0x02 使用db_nmap扫描主机</h3><p><img src=/img/post/msf_nmap_lanou3g_ip.png alt=扫描lanou3g的ip信息>
 扫描后的结果会保留在工作平台中，可以用hosts和services进行查看：
 <img src=/img/post/msf_hosts.png alt=查看主机列表>
-<img src=/img/post/msf_services.png alt=查看服务></p><a href=https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ubuntu-install-metasploit/>Ubuntu 下安装 Metasploit</a></h1><div class=post-meta><time>2016-08-18</time>
+<img src=/img/post/msf_services.png alt=查看服务></p><a href=https://wyb0.cn/posts/2016/metasploit-use-workspace-batch-blasting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/ubuntu-install-metasploit/>Ubuntu 下安装 Metasploit</a></h1><div class=post-meta><time>2016-08-18</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>,<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><h3 id=0x00-安装metasploit>0x00 安装Metasploit</h3><ul><li>下载msfinstall脚本</li></ul><pre tabindex=0><code>$ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall
 </code></pre><ul><li>修改文件权限</li></ul><pre tabindex=0><code>$ chmod 755 msfinstall
 </code></pre><ul><li>安装(可能时间较久)</li></ul><pre tabindex=0><code>$ ./msfinstall
@@ -345,7 +345,7 @@
 #则重新构建缓存，缓存构建通常需要5-10分钟左右。
 #构建完成后，退出Metasploit控制台，然后重新进入即可使用数据库缓存进行搜索模块
 msf &gt; db_rebuild_cache
-</code></pre><h3 id=0x02-metasploit-cheat-sheet>0x02 Metasploit Cheat Sheet</h3><p>常见命令可以看下 <a href=https://www.comparitech.com/net-admin/metasploit-cheat-sheet/?_blank>https://www.comparitech.com/net-admin/metasploit-cheat-sheet/</a></p><a href=https://wyb0.com/posts/2016/ubuntu-install-metasploit/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-parames-parse/>Python 命令行参数解析</a></h1><div class=post-meta><time>2016-08-16</time>
+</code></pre><h3 id=0x02-metasploit-cheat-sheet>0x02 Metasploit Cheat Sheet</h3><p>常见命令可以看下 <a href=https://www.comparitech.com/net-admin/metasploit-cheat-sheet/?_blank>https://www.comparitech.com/net-admin/metasploit-cheat-sheet/</a></p><a href=https://wyb0.cn/posts/2016/ubuntu-install-metasploit/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-parames-parse/>Python 命令行参数解析</a></h1><div class=post-meta><time>2016-08-16</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-argparse-模块>0x00 argparse 模块</h3><p>参考 <a href=https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank>https://docs.python.org/zh-cn/3.7/library/argparse.html</a></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
 </span></span><span style=display:flex><span>
@@ -445,14 +445,14 @@ optional arguments:
 Example:
   python3 tmp.py -s ssh -i 123.123.123.123
   python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
-</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/>BurpSuite 抓手机包</a></h1><div class=post-meta><time>2016-08-13</time>
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/burpsuite-intercept-packets-of-phone/>BurpSuite 抓手机包</a></h1><div class=post-meta><time>2016-08-13</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-环境设置>0x00 环境设置</h3><p>Windows Phone手机和电脑处于同一无线环境下：
 <img src=/img/post/burpsuite_pc_ip.png alt=PC机的ip>
 <img src=/img/post/burpsuite_ip_set.png alt=IP设置></p><h3 id=0x01-burpsuite设置>0x01 BurpSuite设置</h3><p><img src=/img/post/burpsuite_set_phone_proxy1.png alt=设置burpsuite抓8888端口的包1>
 <img src=/img/post/burpsuite_set_phone_proxy2.png alt=设置burpsuite抓8888端口的包2></p><h3 id=0x02-抓http包>0x02 抓HTTP包</h3><p><img src=/img/post/burpsuite_phone_visit_internet.png alt=手机访问网络>
 <img src=/img/post/burpsuite_get_phone_packet.png alt=burpsuite抓手机包></p><h3 id=0x03-抓https包>0x03 抓HTTPS包</h3><ul><li><p>挂burpsuite的代理下载证书
 <img src=/img/post/burpsuite_down_ca1.png alt=下载证书1>
-<img src=/img/post/burpsuite_down_ca2.png alt=下载证书2></p><a href=https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/>Linux 下虚拟主机搭建多站点</a></h1><div class=post-meta><time>2016-08-12</time>
+<img src=/img/post/burpsuite_down_ca2.png alt=下载证书2></p><a href=https://wyb0.cn/posts/2016/burpsuite-intercept-packets-of-phone/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/linux-virtual-host-build-multi-site/>Linux 下虚拟主机搭建多站点</a></h1><div class=post-meta><time>2016-08-12</time>
 [<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div class=summary-body><p><p>环境：CentOS-6.5-x86_64-minimal</p><h3 id=0x00-搭建lamp>0x00 搭建LAMP</h3><ul><li><p>安装Apache</p><pre tabindex=0><code>yum install httpd
 </code></pre></li><li><p>安装MySQL</p><ul><li>yum install mysql mysql-server</li><li>设置数据库</li></ul><pre tabindex=0><code>[reber@localhost conf]$ sudo mysql_secure_installation
 # 更新root密码：
@@ -469,19 +469,19 @@ Query OK, 1 row affected (0.00 sec)
 mysql&gt; grant all privileges on db_blog.* to blog@localhost identified by &#39;666666&#39;;
 mysql&gt; flush privileges;  //刷新
 [reber@localhost conf]$ mysql –ublog –p  //此时就需要用666666登陆数据库db_blog
-</code></pre></li><li><p>安装PHP</p><a href=https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-module-scapy/>Python 的 scapy 模块简单使用</a></h1><div class=post-meta><time>2016-08-11</time>
+</code></pre></li><li><p>安装PHP</p><a href=https://wyb0.cn/posts/2016/linux-virtual-host-build-multi-site/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-module-scapy/>Python 的 scapy 模块简单使用</a></h1><div class=post-meta><time>2016-08-11</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-简单尝试>0x00 简单尝试</h3><p><img src=/img/post/scapy_establish_the_packet.png alt=尝试构造数据包></p><h3 id=0x01-生成一组数据包>0x01 生成一组数据包</h3><p><img src=/img/post/scapy_create_a_set_of_packet.png alt=生成一组数据包></p><h3 id=0x02-发送数据包>0x02 发送数据包</h3><ul><li><p>send发送数据包
 <img src=/img/post/scapy_send_send_packet.png alt=用send发送数据包></p></li><li><p>sr1发送数据包
 <img src=/img/post/scapy_sr1_send_packet.png alt=用sr1发送数据包></p></li><li><p>sr发送数据包
-<img src=/img/post/scapy_sr_send_packet.png alt=用sr1发送数据包></p></li></ul><h3 id=0x03-发送syn数据包>0x03 发送SYN数据包</h3><p><img src=/img/post/scapy_sr1_send_syn_packet.png alt=用sr1发送syn数据包></p><p><img src=/img/post/scapy_sr_send_syn_packet.png alt=用sr发送syn数据包></p><h3 id=0x04-得到tcp内容>0x04 得到TCP内容</h3><p><img src=/img/post/scapy_get_tcp_content.png alt=得到tcp内容></p><a href=https://wyb0.com/posts/2016/python-module-scapy/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/>Web常见漏洞脑图</a></h1><div class=post-meta><time>2016-08-11</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/mindmap>mindmap</a>)</div><div class=summary-body><p><h2 id=web常见漏洞>Web常见漏洞</h2><p><a href=/img/post/web_common_vulnerability_maps.png?_blank><img src=/img/post/web_common_vulnerability_maps.png alt=Web常见漏洞脑图></a></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-ssh-connect/>SSH 免密登录及 SSH 隧道</a></h1><div class=post-meta><time>2016-08-10</time>
-[<a href=/categories/Linux>Linux</a>](<a href=/tags/%E9%9A%A7%E9%81%93>隧道</a>,<a href=/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91>端口转发</a>)</div><div class=summary-body><p><h3 id=0x00-ssh相关选项>0x00 SSH相关选项</h3><ul><li><p>-V 显示版本</p></li><li><p>-f 输入密码后进入后台模式</p></li><li><p>-N 不执行远程命令，一般与-f连用，用于端口转发</p></li><li><p>-C 压缩传输的数据，网速快时会影响速度</p><a href=https://wyb0.com/posts/2016/linux-ssh-connect/>more...</a></p></div></article><div><a href=/page/8/>Previous Page</a>
+<img src=/img/post/scapy_sr_send_packet.png alt=用sr1发送数据包></p></li></ul><h3 id=0x03-发送syn数据包>0x03 发送SYN数据包</h3><p><img src=/img/post/scapy_sr1_send_syn_packet.png alt=用sr1发送syn数据包></p><p><img src=/img/post/scapy_sr_send_syn_packet.png alt=用sr发送syn数据包></p><h3 id=0x04-得到tcp内容>0x04 得到TCP内容</h3><p><img src=/img/post/scapy_get_tcp_content.png alt=得到tcp内容></p><a href=https://wyb0.cn/posts/2016/python-module-scapy/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/mind-map-of-web-common-vulnerabilities/>Web常见漏洞脑图</a></h1><div class=post-meta><time>2016-08-11</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/mindmap>mindmap</a>)</div><div class=summary-body><p><h2 id=web常见漏洞>Web常见漏洞</h2><p><a href=/img/post/web_common_vulnerability_maps.png?_blank><img src=/img/post/web_common_vulnerability_maps.png alt=Web常见漏洞脑图></a></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/linux-ssh-connect/>SSH 免密登录及 SSH 隧道</a></h1><div class=post-meta><time>2016-08-10</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/%E9%9A%A7%E9%81%93>隧道</a>,<a href=/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91>端口转发</a>)</div><div class=summary-body><p><h3 id=0x00-ssh相关选项>0x00 SSH相关选项</h3><ul><li><p>-V 显示版本</p></li><li><p>-f 输入密码后进入后台模式</p></li><li><p>-N 不执行远程命令，一般与-f连用，用于端口转发</p></li><li><p>-C 压缩传输的数据，网速快时会影响速度</p><a href=https://wyb0.cn/posts/2016/linux-ssh-connect/>more...</a></p></div></article><div><a href=/page/8/>Previous Page</a>
 9 of 18
 <a href=/page/10/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
 <a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
-<a href=https://wyb0.com/><strong>Reber</strong></a>.
+<a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,
 based on the theme

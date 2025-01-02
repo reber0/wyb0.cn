@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Module on Reber's Blog</title><link>https://wyb0.com/tags/module/</link><description>Recent content in Module on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 29 Jan 2018 16:45:34 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/module/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 中执行系统命令</title><link>https://wyb0.com/posts/2018/python-run-cmd/</link><pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate><guid>https://wyb0.com/posts/2018/python-run-cmd/</guid><description>&lt;h3 id="0x00-使用模块">0x00 使用模块&lt;/h3>
-&lt;p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess&lt;/p></description></item><item><title>MRQ 的使用</title><link>https://wyb0.com/posts/2017/python-module-mrq/</link><pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/python-module-mrq/</guid><description>&lt;h3 id="0x00-mrq">0x00 MRQ&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Module on Reber's Blog</title><link>https://wyb0.cn/tags/module/</link><description>Recent content in Module on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 29 Jan 2018 16:45:34 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/module/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 中执行系统命令</title><link>https://wyb0.cn/posts/2018/python-run-cmd/</link><pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate><guid>https://wyb0.cn/posts/2018/python-run-cmd/</guid><description>&lt;h3 id="0x00-使用模块">0x00 使用模块&lt;/h3>
+&lt;p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess&lt;/p></description></item><item><title>MRQ 的使用</title><link>https://wyb0.cn/posts/2017/python-module-mrq/</link><pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate><guid>https://wyb0.cn/posts/2017/python-module-mrq/</guid><description>&lt;h3 id="0x00-mrq">0x00 MRQ&lt;/h3>
 &lt;ul>
 &lt;li>MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。&lt;/li>
 &lt;li>MRQ一方面旨在像RQ一样简单，另一方面有接近Celery的性能。&lt;/li>
 &lt;li>MRQ最初的功能设计是为了满足任务队列的各种任务需求(IO密集&amp;amp;CPU密集，很多小任务&amp;amp;几个大任务)。&lt;/li>
 &lt;/ul>
 &lt;h3 id="0x01-设置mongo和redis">0x01 设置mongo和redis&lt;/h3>
-&lt;p>因为mrq依赖于redis和mongo，所以先安装设置下&lt;/p></description></item><item><title>Python 的模块</title><link>https://wyb0.com/posts/2016/python-module/</link><pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module/</guid><description>&lt;h3 id="0x00-python的模块">0x00 Python的模块&lt;/h3>
+&lt;p>因为mrq依赖于redis和mongo，所以先安装设置下&lt;/p></description></item><item><title>Python 的模块</title><link>https://wyb0.cn/posts/2016/python-module/</link><pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module/</guid><description>&lt;h3 id="0x00-python的模块">0x00 Python的模块&lt;/h3>
 &lt;ul>
 &lt;li>在python中，任何一个python文件都可以看作一个模块&lt;/li>
 &lt;li>不同包下有相同模块名并不会冲突，且包下必须有文件&lt;code>__init__.py&lt;/code>&lt;/li>
@@ -20,7 +20,7 @@
 &lt;ul>
 &lt;li>文件结构如下&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://wyb0.com/img/post/python_module_file_tree.png" alt="模块目录结构">&lt;/p></description></item><item><title>Python 命令行参数解析</title><link>https://wyb0.com/posts/2016/python-parames-parse/</link><pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-parames-parse/</guid><description>&lt;h3 id="0x00-argparse-模块">0x00 argparse 模块&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/python_module_file_tree.png" alt="模块目录结构">&lt;/p></description></item><item><title>Python 命令行参数解析</title><link>https://wyb0.cn/posts/2016/python-parames-parse/</link><pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-parames-parse/</guid><description>&lt;h3 id="0x00-argparse-模块">0x00 argparse 模块&lt;/h3>
 &lt;p>参考 &lt;a href="https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank">https://docs.python.org/zh-cn/3.7/library/argparse.html&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
@@ -122,30 +122,30 @@ optional arguments:
 Example:
  python3 tmp.py -s ssh -i 123.123.123.123
  python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
-&lt;/code>&lt;/pre></description></item><item><title>Python 的 scapy 模块简单使用</title><link>https://wyb0.com/posts/2016/python-module-scapy/</link><pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-scapy/</guid><description>&lt;h3 id="0x00-简单尝试">0x00 简单尝试&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包">&lt;/p>
+&lt;/code>&lt;/pre></description></item><item><title>Python 的 scapy 模块简单使用</title><link>https://wyb0.cn/posts/2016/python-module-scapy/</link><pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module-scapy/</guid><description>&lt;h3 id="0x00-简单尝试">0x00 简单尝试&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包">&lt;/p>
 &lt;h3 id="0x01-生成一组数据包">0x01 生成一组数据包&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包">&lt;/p>
 &lt;h3 id="0x02-发送数据包">0x02 发送数据包&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>send发送数据包
-&lt;img src="https://wyb0.com/img/post/scapy_send_send_packet.png" alt="用send发送数据包">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/scapy_send_send_packet.png" alt="用send发送数据包">&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>sr1发送数据包
-&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包">&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>sr发送数据包
-&lt;img src="https://wyb0.com/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包">&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="0x03-发送syn数据包">0x03 发送SYN数据包&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包">&lt;/p>
 &lt;h3 id="0x04-得到tcp内容">0x04 得到TCP内容&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_get_tcp_content.png" alt="得到tcp内容">&lt;/p></description></item><item><title>Python 的 paramiko 模块</title><link>https://wyb0.com/posts/2016/python-module-paramiko/</link><pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-paramiko/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_get_tcp_content.png" alt="得到tcp内容">&lt;/p></description></item><item><title>Python 的 paramiko 模块</title><link>https://wyb0.cn/posts/2016/python-module-paramiko/</link><pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module-paramiko/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;p>直接pip install paramiko安装&lt;br>
 或者去http://www.paramiko.org/ 下载&lt;/p>
 &lt;h3 id="0x01-执行一条远程命令">0x01 执行一条远程命令&lt;/h3>
@@ -166,7 +166,7 @@ Example:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stderr&lt;span style="color:#f92672">.&lt;/span>readlines() &lt;span style="color:#75715e">#有错误信息就返回错误信息，没有就返回空&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>close()
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.com/img/post/paramiko_ssh_one_command.png" alt="paramiko远程ssh后执行一条命令">&lt;/p></description></item><item><title>Python 的 cmd 模块</title><link>https://wyb0.com/posts/2016/python-module-cmd/</link><pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-cmd/</guid><description>&lt;h3 id="0x00-关于cmd模块">0x00 关于cmd模块&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.cn/img/post/paramiko_ssh_one_command.png" alt="paramiko远程ssh后执行一条命令">&lt;/p></description></item><item><title>Python 的 cmd 模块</title><link>https://wyb0.cn/posts/2016/python-module-cmd/</link><pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module-cmd/</guid><description>&lt;h3 id="0x00-关于cmd模块">0x00 关于cmd模块&lt;/h3>
 &lt;p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们&lt;/p>
 &lt;h3 id="0x01-cmd模块的一些常用方法">0x01 cmd模块的一些常用方法：&lt;/h3>
 &lt;ol>
@@ -298,4 +298,4 @@ if __name__ == &amp;#39;__main__&amp;#39;:
  shell = ClassShell()
  shell.cmdloop()
 &lt;/code>&lt;/pre>&lt;h3 id="0x03-程序执行结果如下">0x03 程序执行结果如下&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/cmd_results_sample.png" alt="60">&lt;/p></description></item></channel></rss>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/cmd_results_sample.png" alt="60">&lt;/p></description></item></channel></rss>

@@ -1,5 +1,5 @@
 <!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -9,7 +9,7 @@
 |
 <a href=/about/><b>About</b></a>
 |
-<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/301-redirect/>301 重定向</a></h1><div class=post-meta><time>2017-02-07</time>
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/301-redirect/>301 重定向</a></h1><div class=post-meta><time>2017-02-07</time>
 [<a href=/categories/Other>Other</a>](<a href=/tags/%E9%87%8D%E5%AE%9A%E5%90%91>重定向</a>)</div><div class=summary-body><p><h3 id=0x00-目的>0x00 目的</h3><pre tabindex=0><code>由于博客更换了域名，原来百度收录的都成了死链，所以做一下301重定向
 我使用的是github搭建的博客，都是html的文件，先把html文件都上传到自己的服务器上，
 修改dns使原域名指向服务器，让百度收录的链接都能够访问，然后设置301
@@ -28,7 +28,7 @@ $ sudo vim /etc/apache2/apache2.conf
     Require all granted
 &lt;/Directory&gt;
 </code></pre><h3 id=0x04-重启apache>0x04 重启Apache</h3><pre tabindex=0><code>$ sudo /etc/init.d/apache2 restart
-</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/>Ubuntu 下部署 Gitlab</a></h1><div class=post-meta><time>2017-01-16</time>
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/ubuntu-set-up-gitlab/>Ubuntu 下部署 Gitlab</a></h1><div class=post-meta><time>2017-01-16</time>
 [<a href=/categories/Git>Git</a>](<a href=/tags/git>git</a>)</div><div class=summary-body><p><p><img src=/img/anime/anime004.jpg alt=钢之炼金术师FA></p><h3 id=0x00-前期准备>0x00 前期准备</h3><pre tabindex=0><code># 环境 Ubuntu 14.04
 reber@ubuntu:~/Desktop$ sudo apt-get install openssh-server
 reber@ubuntu:~/Desktop$ sudo apt-get install openssh-client
@@ -71,7 +71,7 @@ tcp        0      0 0.0.0.0:22          0.0.0.0:*            LISTEN
 
 # 其中8080是unicore的端口
 # 80是nginx的端口，nginx反向代理ruby开的web服务unicore
-</code></pre><h3 id=0x03-访问web页面>0x03 访问web页面</h3><ul><li><p>有时出现502，可以刷新网页或者再次reconfigure</p><a href=https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/js-package-cookie-function/>[转] JS 操作 cookie 方法的封装</a></h1><div class=post-meta><time>2016-12-27</time>
+</code></pre><h3 id=0x03-访问web页面>0x03 访问web页面</h3><ul><li><p>有时出现502，可以刷新网页或者再次reconfigure</p><a href=https://wyb0.cn/posts/2017/ubuntu-set-up-gitlab/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/js-package-cookie-function/>[转] JS 操作 cookie 方法的封装</a></h1><div class=post-meta><time>2016-12-27</time>
 [<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div class=summary-body><p><p>原文链接：http://www.wyzu.cn/2015/0123/107167.html</p><h3 id=0x00-实现功能>0x00 实现功能</h3><ul><li>添加cookie</li><li>获取所有cookie</li><li>根据名字获取单个cookie的值</li><li>移除所有cookie</li><li>根据名字移除单个cookie</li></ul><h3 id=0x01-封装cookiejs源码>0x01 封装cookie.js源码</h3><pre tabindex=0><code>/*
  * 名称和值传送时必须是经过RUL编码的
  * cookie绑定在指定的域名下，非本域无法共享cookie，但是可以是在主站共享cookie给子站
@@ -216,12 +216,12 @@ tcp        0      0 0.0.0.0:22          0.0.0.0:*            LISTEN
         &lt;/script&gt;
     &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><h3 id=0x03-结果>0x03 结果</h3><p><img src=/img/post/js_cookie.png alt=调用封装文件操作cookie></p><a href=https://wyb0.com/posts/2016/js-package-cookie-function/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/cdn-detection/>Python 实现 CDN 的判断</a></h1><div class=post-meta><time>2016-12-23</time>
+</code></pre><h3 id=0x03-结果>0x03 结果</h3><p><img src=/img/post/js_cookie.png alt=调用封装文件操作cookie></p><a href=https://wyb0.cn/posts/2016/js-package-cookie-function/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/cdn-detection/>Python 实现 CDN 的判断</a></h1><div class=post-meta><time>2016-12-23</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86>信息搜集</a>)</div><div class=summary-body><p><p><img src=/img/anime/anime002.jpg alt=银魂></p><h3 id=0x00-什么是cdn>0x00 什么是CDN</h3><pre tabindex=0><code>CDN的全称是Content Delivery Network，即内容分发网络。主要功能是在不同地点缓存内容，
 运营商会在全国各地的节点上缓存你的网站网页，通过负载均衡技术，将用户的请求定向到最合适的
 缓存服务器上去获取内容，比如说你是上海用户，你访问www.aa.com就会被重定向到上海的节点，
 你是北京用户，你也访问www.aa.com，但是你会被重定向到上海的节点。
-</code></pre><h3 id=0x01-判断方法>0x01 判断方法</h3><ul><li>可以查询CNAME记录，每个cdn厂商都有特有的特征串</li><li>查看http返回头的头部信息</li></ul><h3 id=0x02-代码>0x02 代码</h3><p>首先安装dnspython这个第三方模块：pip install dnspython</p><a href=https://wyb0.com/posts/2016/cdn-detection/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ajax-and-php/>AJAX 与 PHP</a></h1><div class=post-meta><time>2016-11-16</time>
+</code></pre><h3 id=0x01-判断方法>0x01 判断方法</h3><ul><li>可以查询CNAME记录，每个cdn厂商都有特有的特征串</li><li>查看http返回头的头部信息</li></ul><h3 id=0x02-代码>0x02 代码</h3><p>首先安装dnspython这个第三方模块：pip install dnspython</p><a href=https://wyb0.cn/posts/2016/cdn-detection/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/ajax-and-php/>AJAX 与 PHP</a></h1><div class=post-meta><time>2016-11-16</time>
 [<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div class=summary-body><p><h3 id=0x00-ajax与php>0x00 AJAX与PHP</h3><p>ajax.html代码如下：</p><pre tabindex=0><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -264,8 +264,8 @@ tcp        0      0 0.0.0.0:22          0.0.0.0:*            LISTEN
 2. showHint()创建对象
 3. 定义onreadystatechange事件
 4. xmlhttp.open()访问当前目录下的ajax.php来请求资源
-</code></pre><p>ajax.php代码如下：</p><a href=https://wyb0.com/posts/2016/ajax-and-php/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/mysql-injection-error-based-theory-count-rand-groupby/>[转] MySQL 报错注入原理分析(count()、rand()、group by)</a></h1><div class=post-meta><time>2016-11-13</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><p>原文链接：<a href=http://drops.wooyun.org/tips/14312?_blank>http://drops.wooyun.org/tips/14312</a></p><h3 id=0x00-疑问>0x00 疑问</h3><p>一直在用mysql数据库报错注入方法，但为何会报错？</p><p><img src=/img/post/wooyun-drops-tips-14312-1.jpg alt></p><p>百度谷歌知乎了一番，发现大家都是把官网的结论发一下截图，然后执行sql语句证明一下结论，但是没有人去深入研究为什么rand不能和order by一起使用，也没彻底说明三者同时使用报错的原理。</p><a href=https://wyb0.com/posts/2016/mysql-injection-error-based-theory-count-rand-groupby/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/nessus-install-and-remove/>Nessus 的安装和卸载</a></h1><div class=post-meta><time>2016-11-13</time>
+</code></pre><p>ajax.php代码如下：</p><a href=https://wyb0.cn/posts/2016/ajax-and-php/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/mysql-injection-error-based-theory-count-rand-groupby/>[转] MySQL 报错注入原理分析(count()、rand()、group by)</a></h1><div class=post-meta><time>2016-11-13</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><p>原文链接：<a href=http://drops.wooyun.org/tips/14312?_blank>http://drops.wooyun.org/tips/14312</a></p><h3 id=0x00-疑问>0x00 疑问</h3><p>一直在用mysql数据库报错注入方法，但为何会报错？</p><p><img src=/img/post/wooyun-drops-tips-14312-1.jpg alt></p><p>百度谷歌知乎了一番，发现大家都是把官网的结论发一下截图，然后执行sql语句证明一下结论，但是没有人去深入研究为什么rand不能和order by一起使用，也没彻底说明三者同时使用报错的原理。</p><a href=https://wyb0.cn/posts/2016/mysql-injection-error-based-theory-count-rand-groupby/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/nessus-install-and-remove/>Nessus 的安装和卸载</a></h1><div class=post-meta><time>2016-11-13</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-下载-nessus-的-deb-安装包>0x00 下载 Nessus 的 deb 安装包</h3><p>去【<a href=http://www.tenable.com/products/nessus/select-your-operating-system?_blank>这里</a>】，选择家庭版，然后下载对应的安装包
 <img src=/img/post/Nessus_Home.png alt=70>
 <img src=/img/post/select_nessus_deb.png alt=40></p><h3 id=0x01-本地安装-nessus>0x01 本地安装 Nessus</h3><p><img src=/img/post/install_nessus.png alt=60></p><h3 id=0x02-执行后续安装步骤>0x02 执行后续安装步骤:</h3><ol><li><p>启动nessus
@@ -273,16 +273,16 @@ tcp        0      0 0.0.0.0:22          0.0.0.0:*            LISTEN
 <img src=/img/post/web_nessus.png alt=80></p></li><li><p>设置账户和密码
 <img src=/img/post/setaccount.png alt=30>
 <img src=/img/post/code.png alt=50></p></li><li><p>申请code，可以在【<a href=http://www.tenable.com/products/nessus-home>这里</a>】申请
-<img src=/img/post/register_code.png alt=30></p><a href=https://wyb0.com/posts/2016/nessus-install-and-remove/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ajax-request-and-response/>AJAX 的 XHR 请求与响应</a></h1><div class=post-meta><time>2016-10-25</time>
-[<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div class=summary-body><p><h3 id=0x00-什么是ajax>0x00 什么是AJAX</h3><p>AJAX全称是Asynchronous JavaScript and XML，即异步的JavaScript和XML<br>AJAX不是新的编程语言，而是一种使用现有标准的新方法。<br>AJAX可在不重新加载整个页面的情况下与服务器交换数据从而更新部分网页</p><a href=https://wyb0.com/posts/2016/ajax-request-and-response/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/dirty-cow-vulnerabilities/>脏牛漏洞</a></h1><div class=post-meta><time>2016-10-22</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><h3 id=0x00-测试环境>0x00 测试环境</h3><p>我是在本地虚拟机测试的，个人理解这个漏洞的话可以起到的作用是：一个普通用户可以覆盖一个root用户的只读文件，若理解有误则希望大家提意见</p><a href=https://wyb0.com/posts/2016/dirty-cow-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/code-execution-vulnerabilities-2/>代码执行漏洞(二)</a></h1><div class=post-meta><time>2016-10-14</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h4 id=接着上一篇代码执行漏洞一posts2016code-execution-vulnerabilities>接着上一篇：<a href=/posts/2016/code-execution-vulnerabilities/>代码执行漏洞(一)</a></h4><h3 id=0x00-函数create_function>0x00 函数create_function()</h3><p>php中的函数create_function()可以创建一个匿名函数，其函数原型如下：</p><a href=https://wyb0.com/posts/2016/code-execution-vulnerabilities-2/>more...</a></p></div></article><div><a href=/page/6/>Previous Page</a>
+<img src=/img/post/register_code.png alt=30></p><a href=https://wyb0.cn/posts/2016/nessus-install-and-remove/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/ajax-request-and-response/>AJAX 的 XHR 请求与响应</a></h1><div class=post-meta><time>2016-10-25</time>
+[<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div class=summary-body><p><h3 id=0x00-什么是ajax>0x00 什么是AJAX</h3><p>AJAX全称是Asynchronous JavaScript and XML，即异步的JavaScript和XML<br>AJAX不是新的编程语言，而是一种使用现有标准的新方法。<br>AJAX可在不重新加载整个页面的情况下与服务器交换数据从而更新部分网页</p><a href=https://wyb0.cn/posts/2016/ajax-request-and-response/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/dirty-cow-vulnerabilities/>脏牛漏洞</a></h1><div class=post-meta><time>2016-10-22</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><h3 id=0x00-测试环境>0x00 测试环境</h3><p>我是在本地虚拟机测试的，个人理解这个漏洞的话可以起到的作用是：一个普通用户可以覆盖一个root用户的只读文件，若理解有误则希望大家提意见</p><a href=https://wyb0.cn/posts/2016/dirty-cow-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/code-execution-vulnerabilities-2/>代码执行漏洞(二)</a></h1><div class=post-meta><time>2016-10-14</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h4 id=接着上一篇代码执行漏洞一posts2016code-execution-vulnerabilities>接着上一篇：<a href=/posts/2016/code-execution-vulnerabilities/>代码执行漏洞(一)</a></h4><h3 id=0x00-函数create_function>0x00 函数create_function()</h3><p>php中的函数create_function()可以创建一个匿名函数，其函数原型如下：</p><a href=https://wyb0.cn/posts/2016/code-execution-vulnerabilities-2/>more...</a></p></div></article><div><a href=/page/6/>Previous Page</a>
 7 of 18
 <a href=/page/8/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
 <a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
-<a href=https://wyb0.com/><strong>Reber</strong></a>.
+<a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,
 based on the theme

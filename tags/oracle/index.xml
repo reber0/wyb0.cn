@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Oracle on Reber's Blog</title><link>https://wyb0.com/tags/oracle/</link><description>Recent content in Oracle on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 04 Jan 2019 20:23:35 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/oracle/index.xml" rel="self" type="application/rss+xml"/><item><title>SQL注入 tips(Oracle)</title><link>https://wyb0.com/posts/2019/injection-tips-of-oracle/</link><pubDate>Fri, 04 Jan 2019 20:23:35 +0000</pubDate><guid>https://wyb0.com/posts/2019/injection-tips-of-oracle/</guid><description>&lt;h3 id="0x00-判断数据库类型">0x00 判断数据库类型&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Oracle on Reber's Blog</title><link>https://wyb0.cn/tags/oracle/</link><description>Recent content in Oracle on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 04 Jan 2019 20:23:35 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/oracle/index.xml" rel="self" type="application/rss+xml"/><item><title>SQL注入 tips(Oracle)</title><link>https://wyb0.cn/posts/2019/injection-tips-of-oracle/</link><pubDate>Fri, 04 Jan 2019 20:23:35 +0000</pubDate><guid>https://wyb0.cn/posts/2019/injection-tips-of-oracle/</guid><description>&lt;h3 id="0x00-判断数据库类型">0x00 判断数据库类型&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>Oracle有一些自带的表：dual、user_tables&lt;/p>
@@ -8,7 +8,7 @@
 &lt;/ul>
 &lt;/li>
 &lt;li>
-&lt;p>利用自带的一些函数：譬如utl_http.request 这些&lt;/p></description></item><item><title>Oracle 数据库简单使用</title><link>https://wyb0.com/posts/2018/oracle-database/</link><pubDate>Tue, 25 Dec 2018 23:34:56 +0000</pubDate><guid>https://wyb0.com/posts/2018/oracle-database/</guid><description>&lt;h3 id="0x00-关于oracle">0x00 关于Oracle&lt;/h3>
+&lt;p>利用自带的一些函数：譬如utl_http.request 这些&lt;/p></description></item><item><title>Oracle 数据库简单使用</title><link>https://wyb0.cn/posts/2018/oracle-database/</link><pubDate>Tue, 25 Dec 2018 23:34:56 +0000</pubDate><guid>https://wyb0.cn/posts/2018/oracle-database/</guid><description>&lt;h3 id="0x00-关于oracle">0x00 关于Oracle&lt;/h3>
 &lt;ul>
 &lt;li>完整的Oracle数据库通常由两部分组成：Oracle数据库和数据库实例。&lt;/li>
 &lt;li>数据库是一系列物理文件的集合（数据文件，控制文件，联机日志，参数文件等）&lt;/li>

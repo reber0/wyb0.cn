@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Reber's Blog</title><link>https://wyb0.com/tags/linux/</link><description>Recent content in Linux on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 20 Apr 2016 15:54:07 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Reber's Blog</title><link>https://wyb0.cn/tags/linux/</link><description>Recent content in Linux on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 20 Apr 2016 15:54:07 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.cn/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
 &lt;h3 id="0x00-awk">0x00 awk&lt;/h3>
 &lt;ul>
 &lt;li>若有一个需要重新格式化的字典test.txt(用户名、密码、地址)：&lt;/li>
@@ -72,7 +72,7 @@ cat test.txt | awk &amp;#39;{print $2}&amp;#39; | sed &amp;#39;1d&amp;#39; |sort
 &lt;/code>&lt;/pre>&lt;h3 id="0x06-其他">0x06 其他：&lt;/h3>
 &lt;ul>
 &lt;li>
-&lt;p>对!a[$1]++的解释如下：&lt;/p></description></item><item><title>Linux 之文本处理</title><link>https://wyb0.com/posts/2016/linux-text-processing/</link><pubDate>Wed, 20 Apr 2016 07:58:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing/</guid><description>&lt;p>这里介绍3种方式：awk、grep、sed&lt;/p>
+&lt;p>对!a[$1]++的解释如下：&lt;/p></description></item><item><title>Linux 之文本处理</title><link>https://wyb0.cn/posts/2016/linux-text-processing/</link><pubDate>Wed, 20 Apr 2016 07:58:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-text-processing/</guid><description>&lt;p>这里介绍3种方式：awk、grep、sed&lt;/p>
 &lt;h3 id="0x00-awk处理文本最常用">0x00 awk处理文本(最常用)&lt;/h3>
 &lt;pre tabindex="0">&lt;code>作用：awk对数据以行分析并生成报告时显得很强大，它将行进行切片，再处理分开的切片，可对格式化的数据重新进行格式化 
 awk命令格式：awk [F filed-separator] &amp;#39;commands&amp;#39; input-fiel(s) 
@@ -151,7 +151,7 @@ filename:a.txt,linenumber:9,columns:1,linecontent:9 candy kd89943
 ```
 &lt;ul>
 &lt;li>
-&lt;p>awk编程：&lt;/p></description></item><item><title>Linux 之软件的安装</title><link>https://wyb0.com/posts/2016/linux-software-installation/</link><pubDate>Tue, 19 Apr 2016 19:07:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-software-installation/</guid><description>&lt;p>Linux上的软件安装可以分为三种方式：&lt;/p>
+&lt;p>awk编程：&lt;/p></description></item><item><title>Linux 之软件的安装</title><link>https://wyb0.cn/posts/2016/linux-software-installation/</link><pubDate>Tue, 19 Apr 2016 19:07:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-software-installation/</guid><description>&lt;p>Linux上的软件安装可以分为三种方式：&lt;/p>
 &lt;h3 id="0x00-yum安装">0x00 yum安装&lt;/h3>
 &lt;pre tabindex="0">&lt;code>yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除一个、一组
 至全部软件包的命令，配置文件在/etc/yum.repos.d/下
@@ -206,7 +206,7 @@ Resolving Dependencies
 --&amp;gt; Finished Dependency Resolution
 &lt;/code>&lt;/pre>&lt;h3 id="0x01-rpm安装">0x01 rpm安装&lt;/h3>
 &lt;p>分为：二进制包和源代码包&lt;br>
-二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀&lt;/p></description></item><item><title>Linux 之基础命令</title><link>https://wyb0.com/posts/2016/linux-basic-command/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-basic-command/</guid><description>&lt;h3 id="0x00-ls显示文件">0x00 ls：显示文件&lt;/h3>
+二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀&lt;/p></description></item><item><title>Linux 之基础命令</title><link>https://wyb0.cn/posts/2016/linux-basic-command/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-basic-command/</guid><description>&lt;h3 id="0x00-ls显示文件">0x00 ls：显示文件&lt;/h3>
 &lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ls
 a a.txt
 [wyb@localhost tmp]$ ls -l
@@ -519,7 +519,7 @@ Archive: aaa.zip
  extracting: aaa/b.txt 
  extracting: aaa/c.txt 
  extracting: aaa/a.txt
-&lt;/code>&lt;/pre></description></item><item><title>Linux 之服务和计划任务</title><link>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</guid><description>&lt;h3 id="0x00-服务">0x00 服务：&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>Linux 之服务和计划任务</title><link>https://wyb0.cn/posts/2016/linux-service-and-planning-tasks/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-service-and-planning-tasks/</guid><description>&lt;h3 id="0x00-服务">0x00 服务：&lt;/h3>
 &lt;p>在后台运行的软件就叫服务，参数一般为：start/stop/restart&lt;/p>
 &lt;ul>
 &lt;li>apache启动后默认降权&lt;/li>
@@ -531,7 +531,7 @@ lrwxrwxrwx. 1 root root 11 Apr 11 02:54 /etc/init.d -&amp;gt; rc.d/init.d
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
 &lt;p>添加服务&lt;br>
-将脚本放在/etc/init.d/下即可&lt;/p></description></item><item><title>Linux 之用户和用户组</title><link>https://wyb0.com/posts/2016/linux-user/</link><pubDate>Sun, 17 Apr 2016 20:48:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-user/</guid><description>&lt;h3 id="0x01-新建用户">0x01 新建用户&lt;/h3>
+将脚本放在/etc/init.d/下即可&lt;/p></description></item><item><title>Linux 之用户和用户组</title><link>https://wyb0.cn/posts/2016/linux-user/</link><pubDate>Sun, 17 Apr 2016 20:48:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-user/</guid><description>&lt;h3 id="0x01-新建用户">0x01 新建用户&lt;/h3>
 &lt;p>环境：Ubuntu 14.04.4&lt;/p>
 &lt;ul>
 &lt;li>
@@ -546,11 +546,11 @@ passwd 用户名&lt;/p>
 &lt;p>Step3：给新添加的用户增加root权限&lt;br>
 visudo&lt;br>
 然后添加：&lt;br>
-用户名 ALL=(ALL:ALL) ALL&lt;/p></description></item><item><title>Linux 之权限</title><link>https://wyb0.com/posts/2016/linux-permission-settings/</link><pubDate>Sun, 17 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-permission-settings/</guid><description>&lt;p>主要有三种参数：rwx
+用户名 ALL=(ALL:ALL) ALL&lt;/p></description></item><item><title>Linux 之权限</title><link>https://wyb0.cn/posts/2016/linux-permission-settings/</link><pubDate>Sun, 17 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-permission-settings/</guid><description>&lt;p>主要有三种参数：rwx
 对于文件来说：分别是读/写/执行&lt;br>
 对于目录来说：r读目录结构；w操作目录结构；x进入目录&lt;br>
 如：drwxr&amp;ndash;r&amp;ndash; 3 root root 4096 Jun 25 08:35 .ssh&lt;br>
-若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中&lt;/p></description></item><item><title>Linux 之 vim</title><link>https://wyb0.com/posts/2016/linux-vim/</link><pubDate>Fri, 15 Apr 2016 21:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-vim/</guid><description>&lt;h3 id="0x00-vim的安装及配置">0x00 Vim的安装及配置：&lt;/h3>
+若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中&lt;/p></description></item><item><title>Linux 之 vim</title><link>https://wyb0.cn/posts/2016/linux-vim/</link><pubDate>Fri, 15 Apr 2016 21:03:07 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-vim/</guid><description>&lt;h3 id="0x00-vim的安装及配置">0x00 Vim的安装及配置：&lt;/h3>
 &lt;ul>
 &lt;li>安装vim&lt;/li>
 &lt;/ul>

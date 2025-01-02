@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dmz on Reber's Blog</title><link>https://wyb0.com/tags/dmz/</link><description>Recent content in Dmz on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 05 Jul 2016 09:56:35 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/dmz/index.xml" rel="self" type="application/rss+xml"/><item><title>iptables 简单配置 DMZ</title><link>https://wyb0.com/posts/2016/iptables-configure-dmz/</link><pubDate>Tue, 05 Jul 2016 09:56:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/iptables-configure-dmz/</guid><description>&lt;h3 id="0x00-要求">0x00 要求&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dmz on Reber's Blog</title><link>https://wyb0.cn/tags/dmz/</link><description>Recent content in Dmz on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 05 Jul 2016 09:56:35 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/dmz/index.xml" rel="self" type="application/rss+xml"/><item><title>iptables 简单配置 DMZ</title><link>https://wyb0.cn/posts/2016/iptables-configure-dmz/</link><pubDate>Tue, 05 Jul 2016 09:56:35 +0000</pubDate><guid>https://wyb0.cn/posts/2016/iptables-configure-dmz/</guid><description>&lt;h3 id="0x00-要求">0x00 要求&lt;/h3>
 &lt;ol>
 &lt;li>内网可以访问外网&lt;/li>
 &lt;li>内网可以访问DMZ区&lt;/li>
@@ -8,4 +8,4 @@
 &lt;li>DMZ区不能主动访问外网&lt;/li>
 &lt;/ol>
 &lt;h3 id="0x01-拓扑">0x01 拓扑&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/iptables_dmz_topology.png" alt="50">&lt;/p></description></item></channel></rss>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/iptables_dmz_topology.png" alt="50">&lt;/p></description></item></channel></rss>

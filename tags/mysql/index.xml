@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mysql on Reber's Blog</title><link>https://wyb0.com/tags/mysql/</link><description>Recent content in Mysql on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 12 Sep 2016 22:54:28 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 封装 MySQL 类</title><link>https://wyb0.com/posts/2016/python-package-mysql-function/</link><pubDate>Mon, 12 Sep 2016 22:54:28 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-package-mysql-function/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mysql on Reber's Blog</title><link>https://wyb0.cn/tags/mysql/</link><description>Recent content in Mysql on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 12 Sep 2016 22:54:28 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 封装 MySQL 类</title><link>https://wyb0.cn/posts/2016/python-package-mysql-function/</link><pubDate>Mon, 12 Sep 2016 22:54:28 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-package-mysql-function/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;p>有两种，一个是MySQLdb，一个是pymysql&lt;/p>
 &lt;ul>
 &lt;li>下载&lt;a href="https://pypi.python.org/pypi/MySQL-python/1.2.5">MySQL-python&lt;/a>然后安装&lt;/li>
@@ -229,7 +229,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
  sql = &amp;#34;select * from `msg` where id=%s&amp;#34;
  result = sqlconn.query(sql,&amp;#34;2&amp;#34;)
  print result
-&lt;/code>&lt;/pre></description></item><item><title>MySQL的information_schema库</title><link>https://wyb0.com/posts/2016/mysql-database-table-information_schema/</link><pubDate>Sun, 19 Jun 2016 19:40:25 +0000</pubDate><guid>https://wyb0.com/posts/2016/mysql-database-table-information_schema/</guid><description>&lt;h3 id="0x00-information_schema">0x00 information_schema&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>MySQL的information_schema库</title><link>https://wyb0.cn/posts/2016/mysql-database-table-information_schema/</link><pubDate>Sun, 19 Jun 2016 19:40:25 +0000</pubDate><guid>https://wyb0.cn/posts/2016/mysql-database-table-information_schema/</guid><description>&lt;h3 id="0x00-information_schema">0x00 information_schema&lt;/h3>
 &lt;pre tabindex="0">&lt;code>information_schema这个数据库中保存了MySQL服务器所有数据库的信息。
 如数据库名，数据库的表，表栏的数据类型与访问权限等。
 再简单点，这台MySQL服务器上，到底有哪些数据库、各个数据库有哪些表，
@@ -241,7 +241,7 @@ information_schema的表tables中的列table_name记录了所有数据库的表�
 information_schema的表columns中的列table_schema记录了所有数据库的名字
 information_schema的表columns中的列table_name记录了所有数据库的表的名字
 information_schema的表columns中的列column_name记录了所有数据库的表的列的名字
-&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://wyb0.com/img/post/information_schema_alltables.png" alt="50">&lt;/p></description></item><item><title>PHP 之封装 MySQL 类</title><link>https://wyb0.com/posts/2016/php-package-mysql-function/</link><pubDate>Fri, 03 Jun 2016 11:19:05 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-package-mysql-function/</guid><description>&lt;h3 id="0x00-configincphp内容如下">0x00 config.inc.php内容如下&lt;/h3>
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://wyb0.cn/img/post/information_schema_alltables.png" alt="50">&lt;/p></description></item><item><title>PHP 之封装 MySQL 类</title><link>https://wyb0.cn/posts/2016/php-package-mysql-function/</link><pubDate>Fri, 03 Jun 2016 11:19:05 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-package-mysql-function/</guid><description>&lt;h3 id="0x00-configincphp内容如下">0x00 config.inc.php内容如下&lt;/h3>
 &lt;pre tabindex="0">&lt;code>&amp;lt;?php
 return array(
  &amp;#39;DB_HOST&amp;#39; =&amp;gt; &amp;#39;192.168.188.134&amp;#39;,
@@ -517,7 +517,7 @@ class mysql {
 
  //$db-&amp;gt;close();
 ?&amp;gt;
-&lt;/code>&lt;/pre></description></item><item><title>PHP 之 MySQL 常用函数</title><link>https://wyb0.com/posts/2016/php-mysql-common-function/</link><pubDate>Thu, 02 Jun 2016 13:21:49 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-mysql-common-function/</guid><description>&lt;h3 id="0x00-处理函数">0x00 处理函数&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>PHP 之 MySQL 常用函数</title><link>https://wyb0.cn/posts/2016/php-mysql-common-function/</link><pubDate>Thu, 02 Jun 2016 13:21:49 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-mysql-common-function/</guid><description>&lt;h3 id="0x00-处理函数">0x00 处理函数&lt;/h3>
 &lt;ol>
 &lt;li>
 &lt;p>mysql_connect(server,user,pwd,newlink,clientflag)&lt;br>

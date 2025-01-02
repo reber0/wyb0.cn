@@ -1,5 +1,5 @@
 <!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -9,8 +9,8 @@
 |
 <a href=/about/><b>About</b></a>
 |
-<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/ssi-injection/>SSI 注入</a></h1><div class=post-meta><time>2017-06-08</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SSI%E6%B3%A8%E5%85%A5>SSI注入</a>)</div><div class=summary-body><p><h3 id=0x00-ssi>0x00 SSI</h3><p>SSI (Server Side Includes)是HTML页面中的指令，在页面被提供时由服务器进行运算，以对现有HTML页面增加动态生成的内容，而无须通过CGI程序提供其整个页面，或者使用其他动态技术。</p><a href=https://wyb0.com/posts/2017/ssi-injection/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/sqlserver-stored-procedure/>SQLServer 存储过程</a></h1><div class=post-meta><time>2017-05-30</time>
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/ssi-injection/>SSI 注入</a></h1><div class=post-meta><time>2017-06-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SSI%E6%B3%A8%E5%85%A5>SSI注入</a>)</div><div class=summary-body><p><h3 id=0x00-ssi>0x00 SSI</h3><p>SSI (Server Side Includes)是HTML页面中的指令，在页面被提供时由服务器进行运算，以对现有HTML页面增加动态生成的内容，而无须通过CGI程序提供其整个页面，或者使用其他动态技术。</p><a href=https://wyb0.cn/posts/2017/ssi-injection/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/sqlserver-stored-procedure/>SQLServer 存储过程</a></h1><div class=post-meta><time>2017-05-30</time>
 [<a href=/categories/Database>Database</a>](<a href=/tags/sqlserver>sqlserver</a>)</div><div class=summary-body><p><h3 id=0x00-数据表结构>0x00 数据表结构</h3><pre tabindex=0><code>CREATE DATABASE student;
 
 CREATE TABLE info
@@ -78,7 +78,7 @@ WHILE (@@FETCH_STATUS = 0) --判断是否成功获取数据
 
 CLOSE stu_cursor --关闭游标
 DEALLOCATE stu_cursor --删除游标
-</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/sqlserver-basis-use/>SQLServer 的基本使用</a></h1><div class=post-meta><time>2017-05-30</time>
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/sqlserver-basis-use/>SQLServer 的基本使用</a></h1><div class=post-meta><time>2017-05-30</time>
 [<a href=/categories/Database>Database</a>](<a href=/tags/sqlserver>sqlserver</a>)</div><div class=summary-body><p><h3 id=0x00-数据库>0x00 数据库</h3><pre tabindex=0><code>-- 创建数据库
 CREATE DATABASE student;
 
@@ -126,7 +126,7 @@ WHERE id=1;
 
 -- 删除表
 DROP TABLE info;
-</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/mongodb-basis-use/>MongoDB 的基本使用</a></h1><div class=post-meta><time>2017-05-25</time>
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/mongodb-basis-use/>MongoDB 的基本使用</a></h1><div class=post-meta><time>2017-05-25</time>
 [<a href=/categories/Database>Database</a>](<a href=/tags/mongodb>mongodb</a>)</div><div class=summary-body><p><h3 id=0x00-角色和权限>0x00 角色和权限</h3><p>Mongo的授权采用了角色授权的方法，每个用户都有一组权限，Monog内建角色权限如下：</p><ul><li>数据库用户角色<ul><li>read：允许用户读取指定数据库</li><li>readWrite：允许用户读写指定数据库</li></ul></li><li>数据库管理角色<ul><li>dbOwner：包含readWrite、dbAdmin、userAdmin</li><li>dbAdmin：允许用户在指定数据库中对集合、文档等操作</li><li>userAdmin：允许用户向system.users集合写入，可以在指定数据库里创建、删除和管理用户</li></ul></li><li>集群管理角色<ul><li>clusterAdmin：只在admin数据库中可用，包含clusterManager、clusterMonitor、hostManager</li><li>clusterManager：</li><li>clusterMonitor：</li><li>hostManager</li></ul></li><li>备份和恢复角色<ul><li>backup</li><li>restore</li></ul></li><li>所有数据库角色<ul><li>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限</li><li>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限</li><li>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限</li><li>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限</li></ul></li><li>超级用户角色<ul><li>root：只在admin数据库中可用。超级账号，超级权限</li></ul></li><li>内部角色<ul><li>__system</li></ul></li></ul><h3 id=0x01-创建用户>0x01 创建用户</h3><pre tabindex=0><code>#创建管理员用户
 &gt; use admin
 switched to db admin
@@ -177,7 +177,7 @@ Successfully added user: {
 1
 &gt; exit
 bye
-</code></pre><h3 id=0x02-配置>0x02 配置</h3><p>MongoDb版本：version v3.4.4</p><a href=https://wyb0.com/posts/2017/mongodb-basis-use/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/mac-basic-use/>Mac 基础设置</a></h1><div class=post-meta><time>2017-05-19</time>
+</code></pre><h3 id=0x02-配置>0x02 配置</h3><p>MongoDb版本：version v3.4.4</p><a href=https://wyb0.cn/posts/2017/mongodb-basis-use/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/mac-basic-use/>Mac 基础设置</a></h1><div class=post-meta><time>2017-05-19</time>
 [<a href=/categories/Other>Other</a>](<a href=/tags/other>other</a>)</div><div class=summary-body><p><p>macOS Sierra 10.12.6</p><h3 id=0x00-安装brew>0x00 安装brew</h3><pre tabindex=0><code>$ /usr/bin/ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;
 </code></pre><h3 id=0x01-安装wget>0x01 安装wget</h3><pre tabindex=0><code>$ brew install wget
 </code></pre><h3 id=0x02-安装oh-my-zsh>0x02 安装oh-my-zsh</h3><pre tabindex=0><code>$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -189,7 +189,7 @@ $ vim ~/.zshrc添加alias c=&#39;clear&#39;
 $ echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
 $ source ~/.zshrc
 $ brew update
-</code></pre><h3 id=0x04-安装scroll-reverser>0x04 安装scroll-reverser</h3><blockquote><p>去<a href=http://pilotmoon.com/scrollreverser?_blank>http://pilotmoon.com/scrollreverser</a>下载</p><a href=https://wyb0.com/posts/2017/mac-basic-use/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/struts2-046/>Struts2-046 EXP</a></h1><div class=post-meta><time>2017-04-16</time>
+</code></pre><h3 id=0x04-安装scroll-reverser>0x04 安装scroll-reverser</h3><blockquote><p>去<a href=http://pilotmoon.com/scrollreverser?_blank>http://pilotmoon.com/scrollreverser</a>下载</p><a href=https://wyb0.cn/posts/2017/mac-basic-use/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/struts2-046/>Struts2-046 EXP</a></h1><div class=post-meta><time>2017-04-16</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h3 id=struts2-046>Struts2 046</h3><p>前段时间写的struts2 046检测脚本，代码如下：</p><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # code by reber
@@ -241,16 +241,16 @@ if __name__ == &#39;__main__&#39;:
     else:
         print (&#34;usage: %s http://www.baidu.com/vuln.action whoami&#34; % sys.argv[0])
         sys.exit(-1)
-</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/weblogic-ssrf-check/>检测 WebLogic 是否存在 SSRF</a></h1><div class=post-meta><time>2017-04-14</time>
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/weblogic-ssrf-check/>检测 WebLogic 是否存在 SSRF</a></h1><div class=post-meta><time>2017-04-14</time>
 [<a href=/categories/Pentest>Pentest</a>,<a href=/categories/Python>Python</a>](<a href=/tags/ssrf>ssrf</a>)</div><div class=summary-body><p><h3 id=0x00-weblogic返回状态>0x00 weblogic返回状态</h3><p>weblogic的ssrf漏洞测试3种状态，返回如下：</p><ul><li><p>同网段不存在的主机
 <img src=/img/post/weblogic-check-host-down.png alt></p></li><li><p>同网段主机存活但端口不开放
-<img src=/img/post/weblogic-check-host-up-port-down.png alt></p><a href=https://wyb0.com/posts/2017/weblogic-ssrf-check/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/xss-encode/>XSS 中的编码</a></h1><div class=post-meta><time>2017-03-30</time>
+<img src=/img/post/weblogic-check-host-up-port-down.png alt></p><a href=https://wyb0.cn/posts/2017/weblogic-ssrf-check/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/xss-encode/>XSS 中的编码</a></h1><div class=post-meta><time>2017-03-30</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xss>xss</a>)</div><div class=summary-body><p><p><img src=/img/anime/anime006.jpg alt=攻壳机动队></p><h3 id=0x00-浏览器解析>0x00 浏览器解析</h3><pre tabindex=0><code>浏览器收到服务器发来的HTML内容，会从头解析，遇到&lt;script&gt;&lt;/script&gt;时，
 会调用js脚本解析器来解析并执行脚本，然后继续解析其他的HTML内容，
 对于需要触发才能执行的事件，当事件触发时脚本解析器才会解析其中的脚本，
 在这之前它是HTML的一部分
 </code></pre><h3 id=0x01-一些编码>0x01 一些编码</h3><ul><li>URL编码</li></ul><pre tabindex=0><code>%+字符的ASCII编码对应的两位十六进制，如&#34;/&#34;的url编码为&#34;%2F&#34;
-</code></pre><ul><li><p>HTML编码</p><a href=https://wyb0.com/posts/2017/xss-encode/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/vps-set-up-shadowsocks/>在 vps 上搭建 Shadowsocks</a></h1><div class=post-meta><time>2017-03-10</time>
+</code></pre><ul><li><p>HTML编码</p><a href=https://wyb0.cn/posts/2017/xss-encode/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/vps-set-up-shadowsocks/>在 vps 上搭建 Shadowsocks</a></h1><div class=post-meta><time>2017-03-10</time>
 [<a href=/categories/Linux>Linux</a>](<a href=/tags/server>server</a>)</div><div class=summary-body><p><p><img src=/img/anime/anime005.jpg alt=某科学的超电磁炮></p><h3 id=0x01-安装与配置>0x01 安装与配置</h3><p>环境：Ubuntu 14.04.1 LTS</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>reber@localhost:~$ sudo apt-get update
 </span></span><span style=display:flex><span>reber@localhost:~$ python --version
 </span></span><span style=display:flex><span>Python 2.7.6
@@ -290,14 +290,14 @@ reber@localhost:~$ sudo nohup ssserver -c /home/reber/shadowsocks.json &gt; /dev
 # 关闭服务
 reber@localhost:~$ sudo killall ssserver 
 </code></pre><h4 id=0x03-本地使用>0x03 本地使用</h4><blockquote><p>添加如下配置
-<img src=/img/post/use_ss.png alt=使用Shadowsocks></p><a href=https://wyb0.com/posts/2017/vps-set-up-shadowsocks/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/multi-parameter-blasting-webshell/>利用多参数提高 webshell 爆破速度</a></h1><div class=post-meta><time>2017-02-17</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E7%88%86%E7%A0%B4>爆破</a>)</div><div class=summary-body><p><h3 id=0x00-原理>0x00 原理</h3><p>之前在<a href="https://www.t00ls.net/viewthread.php?tid=36985">https://www.t00ls.net/viewthread.php?tid=36985</a>看到这个思路的。</p><p>Apache下默认同时允许接收1000个参数；IIS下默认同时允许接收5883个参数，可以一次提交多个密码，从而快速爆破。</p><a href=https://wyb0.com/posts/2017/multi-parameter-blasting-webshell/>more...</a></p></div></article><div><a href=/page/5/>Previous Page</a>
+<img src=/img/post/use_ss.png alt=使用Shadowsocks></p><a href=https://wyb0.cn/posts/2017/vps-set-up-shadowsocks/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2017/multi-parameter-blasting-webshell/>利用多参数提高 webshell 爆破速度</a></h1><div class=post-meta><time>2017-02-17</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E7%88%86%E7%A0%B4>爆破</a>)</div><div class=summary-body><p><h3 id=0x00-原理>0x00 原理</h3><p>之前在<a href="https://www.t00ls.net/viewthread.php?tid=36985">https://www.t00ls.net/viewthread.php?tid=36985</a>看到这个思路的。</p><p>Apache下默认同时允许接收1000个参数；IIS下默认同时允许接收5883个参数，可以一次提交多个密码，从而快速爆破。</p><a href=https://wyb0.cn/posts/2017/multi-parameter-blasting-webshell/>more...</a></p></div></article><div><a href=/page/5/>Previous Page</a>
 6 of 18
 <a href=/page/7/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
 <a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
-<a href=https://wyb0.com/><strong>Reber</strong></a>.
+<a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,
 based on the theme

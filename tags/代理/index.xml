@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>代理 on Reber's Blog</title><link>https://wyb0.com/tags/%E4%BB%A3%E7%90%86/</link><description>Recent content in 代理 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 13 Sep 2016 11:36:39 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E4%BB%A3%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 实现代理</title><link>https://wyb0.com/posts/2016/python-implement-agent/</link><pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-implement-agent/</guid><description>&lt;h3 id="0x00-帮助信息">0x00 帮助信息&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_help.png" alt="帮助信息">&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>代理 on Reber's Blog</title><link>https://wyb0.cn/tags/%E4%BB%A3%E7%90%86/</link><description>Recent content in 代理 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 13 Sep 2016 11:36:39 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/%E4%BB%A3%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 实现代理</title><link>https://wyb0.cn/posts/2016/python-implement-agent/</link><pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-implement-agent/</guid><description>&lt;h3 id="0x00-帮助信息">0x00 帮助信息&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/python_proxy_help.png" alt="帮助信息">&lt;/p>
 &lt;h3 id="0x01-代码如下">0x01 代码如下&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
@@ -169,10 +169,10 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-效果图">0x02 效果图&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_result.png" alt="效果图">&lt;/p></description></item><item><title>Windows 下用 Proxifier 实现全局代理</title><link>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</link><pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/python_proxy_result.png" alt="效果图">&lt;/p></description></item><item><title>Windows 下用 Proxifier 实现全局代理</title><link>https://wyb0.cn/posts/2016/windows-proxifier-implement-global-proxy/</link><pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate><guid>https://wyb0.cn/posts/2016/windows-proxifier-implement-global-proxy/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
 &lt;p>在windows下用Shadowsocks和Proxifier实现全局代理：&lt;/p>
 &lt;pre tabindex="0">&lt;code>System：Windows10 Pro x64
 Shadowsocks：Shadowsocks v2.5.2.0 
 Proxifier：Proxifier Portable Edition v3.29
 &lt;/code>&lt;/pre>&lt;h3 id="0x01-配置shadowsocks">0x01 配置Shadowsocks&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/global_agent_set_shadowsocks.png" alt="Windows下实现全局代理-设置shadowsocks">&lt;/p></description></item></channel></rss>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/global_agent_set_shadowsocks.png" alt="Windows下实现全局代理-设置shadowsocks">&lt;/p></description></item></channel></rss>

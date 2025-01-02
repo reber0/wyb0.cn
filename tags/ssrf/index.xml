@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ssrf on Reber's Blog</title><link>https://wyb0.com/tags/ssrf/</link><description>Recent content in Ssrf on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Apr 2017 14:43:52 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/ssrf/index.xml" rel="self" type="application/rss+xml"/><item><title>检测 WebLogic 是否存在 SSRF</title><link>https://wyb0.com/posts/2017/weblogic-ssrf-check/</link><pubDate>Fri, 14 Apr 2017 14:43:52 +0000</pubDate><guid>https://wyb0.com/posts/2017/weblogic-ssrf-check/</guid><description>&lt;h3 id="0x00-weblogic返回状态">0x00 weblogic返回状态&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ssrf on Reber's Blog</title><link>https://wyb0.cn/tags/ssrf/</link><description>Recent content in Ssrf on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 14 Apr 2017 14:43:52 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/ssrf/index.xml" rel="self" type="application/rss+xml"/><item><title>检测 WebLogic 是否存在 SSRF</title><link>https://wyb0.cn/posts/2017/weblogic-ssrf-check/</link><pubDate>Fri, 14 Apr 2017 14:43:52 +0000</pubDate><guid>https://wyb0.cn/posts/2017/weblogic-ssrf-check/</guid><description>&lt;h3 id="0x00-weblogic返回状态">0x00 weblogic返回状态&lt;/h3>
 &lt;p>weblogic的ssrf漏洞测试3种状态，返回如下：&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>同网段不存在的主机
-&lt;img src="https://wyb0.com/img/post/weblogic-check-host-down.png" alt="">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/weblogic-check-host-down.png" alt="">&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>同网段主机存活但端口不开放
-&lt;img src="https://wyb0.com/img/post/weblogic-check-host-up-port-down.png" alt="">&lt;/p></description></item><item><title>SSRF</title><link>https://wyb0.com/posts/2016/ssrf/</link><pubDate>Thu, 30 Jun 2016 15:30:54 +0000</pubDate><guid>https://wyb0.com/posts/2016/ssrf/</guid><description>&lt;h3 id="0x00-什么是ssrf">0x00 什么是SSRF&lt;/h3>
+&lt;img src="https://wyb0.cn/img/post/weblogic-check-host-up-port-down.png" alt="">&lt;/p></description></item><item><title>SSRF</title><link>https://wyb0.cn/posts/2016/ssrf/</link><pubDate>Thu, 30 Jun 2016 15:30:54 +0000</pubDate><guid>https://wyb0.cn/posts/2016/ssrf/</guid><description>&lt;h3 id="0x00-什么是ssrf">0x00 什么是SSRF&lt;/h3>
 &lt;p>SSRF(Server-Side Request Forgery:服务请求伪造)是一种由攻击者构造，从而让服务端发起请求的一种安全漏洞，&lt;font color="FF0000">它将一个可以发起网络请求的服务当作跳板来攻击其他服务&lt;/font>，SSRF的攻击目标一般是&lt;font color="FF0000">内网&lt;/font>。&lt;br>
 当服务端提供了从其他服务器获取数据的功能(如:从指定URL地址获取网页文本内容、加载指定地址的图片、下载等)，但是没有对目标地址做过滤与限制时就会出现SSRF。&lt;/p></description></item></channel></rss>

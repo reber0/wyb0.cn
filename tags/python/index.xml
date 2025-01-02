@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Reber's Blog</title><link>https://wyb0.com/tags/python/</link><description>Recent content in Python on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 23 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Flask 模版注入（SSTI）</title><link>https://wyb0.com/posts/2021/flask-ssti/</link><pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2021/flask-ssti/</guid><description>&lt;h3 id="0x00-ssti-模版注入">0x00 SSTI 模版注入&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Reber's Blog</title><link>https://wyb0.cn/tags/python/</link><description>Recent content in Python on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 23 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Flask 模版注入（SSTI）</title><link>https://wyb0.cn/posts/2021/flask-ssti/</link><pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate><guid>https://wyb0.cn/posts/2021/flask-ssti/</guid><description>&lt;h3 id="0x00-ssti-模版注入">0x00 SSTI 模版注入&lt;/h3>
 &lt;p>SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap）&lt;/p>
 &lt;p>一般步骤：&lt;br>
 1、某种类型 (字符串:&amp;quot;&amp;quot;，list:[]，int：1) 开始引出&lt;br>
 2、&lt;code>__class__&lt;/code> 找到当前类&lt;br>
 3、&lt;code>__mro__&lt;/code> 或者 &lt;code>__base__&lt;/code> 或者 &lt;code>__bases__&lt;/code> 找到根类 &lt;code>__object__&lt;/code>&lt;br>
 4、然后利用 &lt;code>__subclasses__&lt;/code> 拿到子类列表&lt;br>
-5、然后在子类列表 &lt;code>__init__.__globals__.keys()&lt;/code> 找到类似 popen 能执行命令的函数&lt;/p></description></item><item><title>利用 Python 的协程进行快速端口扫描</title><link>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</link><pubDate>Thu, 04 Jul 2019 18:09:49 +0000</pubDate><guid>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</guid><description>&lt;h3 id="0x00-协程的优势">0x00 协程的优势&lt;/h3>
-&lt;p>协程拥有极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制，因此没有线程切换的开销。和多线程比，线程数量越多，协程的性能优势就越明显。&lt;/p></description></item><item><title>Python 中执行系统命令</title><link>https://wyb0.com/posts/2018/python-run-cmd/</link><pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate><guid>https://wyb0.com/posts/2018/python-run-cmd/</guid><description>&lt;h3 id="0x00-使用模块">0x00 使用模块&lt;/h3>
-&lt;p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess&lt;/p></description></item><item><title>使用 Python 读写 xml 文件</title><link>https://wyb0.com/posts/2017/python-read-and-write-xml/</link><pubDate>Thu, 20 Jul 2017 14:20:26 +0000</pubDate><guid>https://wyb0.com/posts/2017/python-read-and-write-xml/</guid><description>&lt;h3 id="0x00-解析xml的方法">0x00 解析XML的方法&lt;/h3>
+5、然后在子类列表 &lt;code>__init__.__globals__.keys()&lt;/code> 找到类似 popen 能执行命令的函数&lt;/p></description></item><item><title>利用 Python 的协程进行快速端口扫描</title><link>https://wyb0.cn/posts/2019/python-coroutine-fast-port-scan/</link><pubDate>Thu, 04 Jul 2019 18:09:49 +0000</pubDate><guid>https://wyb0.cn/posts/2019/python-coroutine-fast-port-scan/</guid><description>&lt;h3 id="0x00-协程的优势">0x00 协程的优势&lt;/h3>
+&lt;p>协程拥有极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制，因此没有线程切换的开销。和多线程比，线程数量越多，协程的性能优势就越明显。&lt;/p></description></item><item><title>Python 中执行系统命令</title><link>https://wyb0.cn/posts/2018/python-run-cmd/</link><pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate><guid>https://wyb0.cn/posts/2018/python-run-cmd/</guid><description>&lt;h3 id="0x00-使用模块">0x00 使用模块&lt;/h3>
+&lt;p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess&lt;/p></description></item><item><title>使用 Python 读写 xml 文件</title><link>https://wyb0.cn/posts/2017/python-read-and-write-xml/</link><pubDate>Thu, 20 Jul 2017 14:20:26 +0000</pubDate><guid>https://wyb0.cn/posts/2017/python-read-and-write-xml/</guid><description>&lt;h3 id="0x00-解析xml的方法">0x00 解析XML的方法&lt;/h3>
 &lt;ol>
 &lt;li>
 &lt;p>SAX (simple API for XML)&lt;br>
-python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调用用户定义的回调函数来处理XML文件。&lt;/p></description></item><item><title>MRQ 的使用</title><link>https://wyb0.com/posts/2017/python-module-mrq/</link><pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/python-module-mrq/</guid><description>&lt;h3 id="0x00-mrq">0x00 MRQ&lt;/h3>
+python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调用用户定义的回调函数来处理XML文件。&lt;/p></description></item><item><title>MRQ 的使用</title><link>https://wyb0.cn/posts/2017/python-module-mrq/</link><pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate><guid>https://wyb0.cn/posts/2017/python-module-mrq/</guid><description>&lt;h3 id="0x00-mrq">0x00 MRQ&lt;/h3>
 &lt;ul>
 &lt;li>MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。&lt;/li>
 &lt;li>MRQ一方面旨在像RQ一样简单，另一方面有接近Celery的性能。&lt;/li>
 &lt;li>MRQ最初的功能设计是为了满足任务队列的各种任务需求(IO密集&amp;amp;CPU密集，很多小任务&amp;amp;几个大任务)。&lt;/li>
 &lt;/ul>
 &lt;h3 id="0x01-设置mongo和redis">0x01 设置mongo和redis&lt;/h3>
-&lt;p>因为mrq依赖于redis和mongo，所以先安装设置下&lt;/p></description></item><item><title>Python 爆破 zip 压缩包</title><link>https://wyb0.com/posts/2016/python-blasting-zip-archive/</link><pubDate>Tue, 20 Sep 2016 14:50:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-blasting-zip-archive/</guid><description>&lt;h3 id="0x00-代码">0x00 代码&lt;/h3>
+&lt;p>因为mrq依赖于redis和mongo，所以先安装设置下&lt;/p></description></item><item><title>Python 爆破 zip 压缩包</title><link>https://wyb0.cn/posts/2016/python-blasting-zip-archive/</link><pubDate>Tue, 20 Sep 2016 14:50:59 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-blasting-zip-archive/</guid><description>&lt;h3 id="0x00-代码">0x00 代码&lt;/h3>
 &lt;p>多线程爆破加密的zip压缩包&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
@@ -82,8 +82,8 @@ python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析X
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main()
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Python 实现代理</title><link>https://wyb0.com/posts/2016/python-implement-agent/</link><pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-implement-agent/</guid><description>&lt;h3 id="0x00-帮助信息">0x00 帮助信息&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_help.png" alt="帮助信息">&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Python 实现代理</title><link>https://wyb0.cn/posts/2016/python-implement-agent/</link><pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-implement-agent/</guid><description>&lt;h3 id="0x00-帮助信息">0x00 帮助信息&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/python_proxy_help.png" alt="帮助信息">&lt;/p>
 &lt;h3 id="0x01-代码如下">0x01 代码如下&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
@@ -253,7 +253,7 @@ python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析X
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-效果图">0x02 效果图&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_result.png" alt="效果图">&lt;/p></description></item><item><title>Python 封装 MySQL 类</title><link>https://wyb0.com/posts/2016/python-package-mysql-function/</link><pubDate>Mon, 12 Sep 2016 22:54:28 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-package-mysql-function/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/python_proxy_result.png" alt="效果图">&lt;/p></description></item><item><title>Python 封装 MySQL 类</title><link>https://wyb0.cn/posts/2016/python-package-mysql-function/</link><pubDate>Mon, 12 Sep 2016 22:54:28 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-package-mysql-function/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;p>有两种，一个是MySQLdb，一个是pymysql&lt;/p>
 &lt;ul>
 &lt;li>下载&lt;a href="https://pypi.python.org/pypi/MySQL-python/1.2.5">MySQL-python&lt;/a>然后安装&lt;/li>
@@ -484,7 +484,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
  sql = &amp;#34;select * from `msg` where id=%s&amp;#34;
  result = sqlconn.query(sql,&amp;#34;2&amp;#34;)
  print result
-&lt;/code>&lt;/pre></description></item><item><title>Python 的模块</title><link>https://wyb0.com/posts/2016/python-module/</link><pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module/</guid><description>&lt;h3 id="0x00-python的模块">0x00 Python的模块&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>Python 的模块</title><link>https://wyb0.cn/posts/2016/python-module/</link><pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module/</guid><description>&lt;h3 id="0x00-python的模块">0x00 Python的模块&lt;/h3>
 &lt;ul>
 &lt;li>在python中，任何一个python文件都可以看作一个模块&lt;/li>
 &lt;li>不同包下有相同模块名并不会冲突，且包下必须有文件&lt;code>__init__.py&lt;/code>&lt;/li>
@@ -498,8 +498,8 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;ul>
 &lt;li>文件结构如下&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://wyb0.com/img/post/python_module_file_tree.png" alt="模块目录结构">&lt;/p></description></item><item><title>Python 实现密码生成器</title><link>https://wyb0.com/posts/2016/python-password-generator/</link><pubDate>Mon, 29 Aug 2016 15:14:57 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-password-generator/</guid><description>&lt;h3 id="0x00-简介">0x00 简介&lt;/h3>
-&lt;p>有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则可能会忘记，在这里就用脚本写一个生成密码的工具，只需输入域名和账户名就可以根据key生成不一样的密码，也可以把域名和账户名写入文件，这样你用户名也可以不用记了。。。&lt;/p></description></item><item><title>Python 实现多线程弱口令爆破</title><link>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</link><pubDate>Fri, 26 Aug 2016 17:53:51 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</guid><description>&lt;h3 id="0x00-脚本">0x00 脚本&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/python_module_file_tree.png" alt="模块目录结构">&lt;/p></description></item><item><title>Python 实现密码生成器</title><link>https://wyb0.cn/posts/2016/python-password-generator/</link><pubDate>Mon, 29 Aug 2016 15:14:57 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-password-generator/</guid><description>&lt;h3 id="0x00-简介">0x00 简介&lt;/h3>
+&lt;p>有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则可能会忘记，在这里就用脚本写一个生成密码的工具，只需输入域名和账户名就可以根据key生成不一样的密码，也可以把域名和账户名写入文件，这样你用户名也可以不用记了。。。&lt;/p></description></item><item><title>Python 实现多线程弱口令爆破</title><link>https://wyb0.cn/posts/2016/python-multi-threaded-weak-password-blasting/</link><pubDate>Fri, 26 Aug 2016 17:53:51 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-multi-threaded-weak-password-blasting/</guid><description>&lt;h3 id="0x00-脚本">0x00 脚本&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -816,7 +816,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main()
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-尝试爆破">0x01 尝试爆破&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/bruter_help.png" alt="帮助信息">&lt;/p></description></item><item><title>Python 命令行参数解析</title><link>https://wyb0.com/posts/2016/python-parames-parse/</link><pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-parames-parse/</guid><description>&lt;h3 id="0x00-argparse-模块">0x00 argparse 模块&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/bruter_help.png" alt="帮助信息">&lt;/p></description></item><item><title>Python 命令行参数解析</title><link>https://wyb0.cn/posts/2016/python-parames-parse/</link><pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-parames-parse/</guid><description>&lt;h3 id="0x00-argparse-模块">0x00 argparse 模块&lt;/h3>
 &lt;p>参考 &lt;a href="https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank">https://docs.python.org/zh-cn/3.7/library/argparse.html&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
@@ -918,30 +918,30 @@ optional arguments:
 Example:
  python3 tmp.py -s ssh -i 123.123.123.123
  python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
-&lt;/code>&lt;/pre></description></item><item><title>Python 的 scapy 模块简单使用</title><link>https://wyb0.com/posts/2016/python-module-scapy/</link><pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-scapy/</guid><description>&lt;h3 id="0x00-简单尝试">0x00 简单尝试&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包">&lt;/p>
+&lt;/code>&lt;/pre></description></item><item><title>Python 的 scapy 模块简单使用</title><link>https://wyb0.cn/posts/2016/python-module-scapy/</link><pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module-scapy/</guid><description>&lt;h3 id="0x00-简单尝试">0x00 简单尝试&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包">&lt;/p>
 &lt;h3 id="0x01-生成一组数据包">0x01 生成一组数据包&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包">&lt;/p>
 &lt;h3 id="0x02-发送数据包">0x02 发送数据包&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>send发送数据包
-&lt;img src="https://wyb0.com/img/post/scapy_send_send_packet.png" alt="用send发送数据包">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/scapy_send_send_packet.png" alt="用send发送数据包">&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>sr1发送数据包
-&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包">&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>sr发送数据包
-&lt;img src="https://wyb0.com/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包">&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="0x03-发送syn数据包">0x03 发送SYN数据包&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包">&lt;/p>
 &lt;h3 id="0x04-得到tcp内容">0x04 得到TCP内容&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_get_tcp_content.png" alt="得到tcp内容">&lt;/p></description></item><item><title>Python 的 paramiko 模块</title><link>https://wyb0.com/posts/2016/python-module-paramiko/</link><pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-paramiko/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/scapy_get_tcp_content.png" alt="得到tcp内容">&lt;/p></description></item><item><title>Python 的 paramiko 模块</title><link>https://wyb0.cn/posts/2016/python-module-paramiko/</link><pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module-paramiko/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
 &lt;p>直接pip install paramiko安装&lt;br>
 或者去http://www.paramiko.org/ 下载&lt;/p>
 &lt;h3 id="0x01-执行一条远程命令">0x01 执行一条远程命令&lt;/h3>
@@ -962,7 +962,7 @@ Example:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stderr&lt;span style="color:#f92672">.&lt;/span>readlines() &lt;span style="color:#75715e">#有错误信息就返回错误信息，没有就返回空&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>close()
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.com/img/post/paramiko_ssh_one_command.png" alt="paramiko远程ssh后执行一条命令">&lt;/p></description></item><item><title>Python 的 cmd 模块</title><link>https://wyb0.com/posts/2016/python-module-cmd/</link><pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-cmd/</guid><description>&lt;h3 id="0x00-关于cmd模块">0x00 关于cmd模块&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.cn/img/post/paramiko_ssh_one_command.png" alt="paramiko远程ssh后执行一条命令">&lt;/p></description></item><item><title>Python 的 cmd 模块</title><link>https://wyb0.cn/posts/2016/python-module-cmd/</link><pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-module-cmd/</guid><description>&lt;h3 id="0x00-关于cmd模块">0x00 关于cmd模块&lt;/h3>
 &lt;p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们&lt;/p>
 &lt;h3 id="0x01-cmd模块的一些常用方法">0x01 cmd模块的一些常用方法：&lt;/h3>
 &lt;ol>
@@ -1094,7 +1094,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
  shell = ClassShell()
  shell.cmdloop()
 &lt;/code>&lt;/pre>&lt;h3 id="0x03-程序执行结果如下">0x03 程序执行结果如下&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/cmd_results_sample.png" alt="60">&lt;/p></description></item><item><title>Python 简单解码 IP 头</title><link>https://wyb0.com/posts/2016/python-simple-decode-ip-head/</link><pubDate>Sun, 03 Jul 2016 20:06:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-simple-decode-ip-head/</guid><description>&lt;h3 id="0x00-解码ip头">0x00 解码IP头&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/cmd_results_sample.png" alt="60">&lt;/p></description></item><item><title>Python 简单解码 IP 头</title><link>https://wyb0.cn/posts/2016/python-simple-decode-ip-head/</link><pubDate>Sun, 03 Jul 2016 20:06:39 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-simple-decode-ip-head/</guid><description>&lt;h3 id="0x00-解码ip头">0x00 解码IP头&lt;/h3>
 &lt;p>Windows上运行时要以管理员身份运行&lt;br>
 代码可以解码IP头统计通信信息并保存到文本，同时统计数量&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
@@ -1179,7 +1179,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>name &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;nt&amp;#34;&lt;/span>:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sniffer&lt;span style="color:#f92672">.&lt;/span>ioctl(socket&lt;span style="color:#f92672">.&lt;/span>SIO_RCVALL,socket&lt;span style="color:#f92672">.&lt;/span>RCVALL_OFF)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-结果">0x01 结果&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/ip_decoding_run_msg.png" alt="程序运行信息">&lt;/p></description></item><item><title>Python 的编码问题</title><link>https://wyb0.com/posts/2016/python-encode-setting/</link><pubDate>Wed, 29 Jun 2016 15:14:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-encode-setting/</guid><description>&lt;h3 id="0x00-几个编码函数">0x00 几个编码函数&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/ip_decoding_run_msg.png" alt="程序运行信息">&lt;/p></description></item><item><title>Python 的编码问题</title><link>https://wyb0.cn/posts/2016/python-encode-setting/</link><pubDate>Wed, 29 Jun 2016 15:14:11 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-encode-setting/</guid><description>&lt;h3 id="0x00-几个编码函数">0x00 几个编码函数&lt;/h3>
 &lt;pre tabindex="0">&lt;code>* ord(x) 
  将字符转换为10进制整数(0~255之间) #ord(&amp;#39;a&amp;#39;)==&amp;gt;97
 * chr(x) 
@@ -1204,7 +1204,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#coding=utf8&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>永久编码(推荐)
-&lt;img src="https://wyb0.com/img/post/unicode_encode_error.png" alt="python编码出错.png">
+&lt;img src="https://wyb0.cn/img/post/unicode_encode_error.png" alt="python编码出错.png">
 可以在python安装路径下的Lib\site-packages下新建文件sitecustomize.py文件，内容如下：&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#coding=utf8&lt;/span>
@@ -1213,7 +1213,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sys&lt;span style="color:#f92672">.&lt;/span>setdefaultencoding(&lt;span style="color:#e6db74">&amp;#39;utf8&amp;#39;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 此方法修改了python环境，设置系统默认编码，永久有效&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-编码转换">0x03 编码转换&lt;/h3>
-&lt;p>python默认unicode为中间编码，所以无论是何种编码，解码时默认都解码为unicode&lt;/p></description></item><item><title>Python 编写规范</title><link>https://wyb0.com/posts/2016/python-coding-style/</link><pubDate>Sun, 12 Jun 2016 22:17:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-coding-style/</guid><description>&lt;h3 id="0x00-代码编排">0x00 代码编排&lt;/h3>
+&lt;p>python默认unicode为中间编码，所以无论是何种编码，解码时默认都解码为unicode&lt;/p></description></item><item><title>Python 编写规范</title><link>https://wyb0.cn/posts/2016/python-coding-style/</link><pubDate>Sun, 12 Jun 2016 22:17:35 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-coding-style/</guid><description>&lt;h3 id="0x00-代码编排">0x00 代码编排&lt;/h3>
 &lt;pre tabindex="0">&lt;code>1.缩进：使用4个空格缩进
 2.行长度：每行不要超过80个字符
 3.空行：顶级定义之间空两行，如函数或类的定义，方法定义、类定义与第一个方法之间都应该空一行。
@@ -1293,14 +1293,14 @@ class SampleClass(object):
 类：若一个类不继承自其它类，就显式的从object继承,即使是嵌套类
 语句：通常每个语句独占一行，try/except一定不放在一行
 文件和sockets：在文件和sockets结束时，显式的关闭它，推荐with语句管理文件
-&lt;/code>&lt;/pre></description></item><item><title>Python 的正则</title><link>https://wyb0.com/posts/2016/python-regular/</link><pubDate>Fri, 05 Feb 2016 11:38:23 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-regular/</guid><description>&lt;h3 id="0x00-正则表达式">0x00 正则表达式&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>Python 的正则</title><link>https://wyb0.cn/posts/2016/python-regular/</link><pubDate>Fri, 05 Feb 2016 11:38:23 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-regular/</guid><description>&lt;h3 id="0x00-正则表达式">0x00 正则表达式&lt;/h3>
 &lt;p>正则表达式是用来匹配字符串的异常强大的东西，可以用来匹配邮箱、域名等字符串&lt;/p>
 &lt;h3 id="0x01-符号">0x01 符号&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/regular_atomic_character.png" alt="75">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/regular_atomic_character.png" alt="75">&lt;/p>
 &lt;h3 id="0x02-特殊字符">0x02 特殊字符&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/regular_metacharacters.png" alt="75">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/regular_metacharacters.png" alt="75">&lt;/p>
 &lt;h3 id="0x03-常用的模块属性">0x03 常用的模块属性&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/regular_modifier.png" alt="75">&lt;/p></description></item><item><title>Python 的线程</title><link>https://wyb0.com/posts/2016/python-thread/</link><pubDate>Wed, 03 Feb 2016 12:44:38 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-thread/</guid><description>&lt;p>Python的参数传递其实传递的是对象，当传递可变对象(列表、队列)时相当于引用传递，可以修改对象的原始值，当传递不可变对象(字符串、整型)时就相当于传值，不能直接修改原始对象。&lt;/p></description></item><item><title>Python 的面向对象</title><link>https://wyb0.com/posts/2016/python-object-oriented/</link><pubDate>Mon, 25 Jan 2016 11:17:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/regular_modifier.png" alt="75">&lt;/p></description></item><item><title>Python 的线程</title><link>https://wyb0.cn/posts/2016/python-thread/</link><pubDate>Wed, 03 Feb 2016 12:44:38 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-thread/</guid><description>&lt;p>Python的参数传递其实传递的是对象，当传递可变对象(列表、队列)时相当于引用传递，可以修改对象的原始值，当传递不可变对象(字符串、整型)时就相当于传值，不能直接修改原始对象。&lt;/p></description></item><item><title>Python 的面向对象</title><link>https://wyb0.cn/posts/2016/python-object-oriented/</link><pubDate>Mon, 25 Jan 2016 11:17:59 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>面向对象是为了解决系统的可维护性，可扩展性，可重用性&lt;/p>
@@ -1310,7 +1310,7 @@ class SampleClass(object):
 &lt;ul>
 &lt;li>
 &lt;p>封装：对一类事物，将其相同特点和功能提取出来，所共有的特点叫做属性，共有的功能就叫做方法，将属性和方法组合在一起就叫做封装。&lt;br>
-如：人具有姓名、年龄、性别，这些就是属性，人可以说话、可以走、可以跑，这些就是方法，封装起来就是一个类，而类的实例化就是对象&lt;/p></description></item><item><title>Python 的函数式编程</title><link>https://wyb0.com/posts/2016/python-functional-programming/</link><pubDate>Thu, 21 Jan 2016 21:13:17 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-functional-programming/</guid><description>&lt;h3 id="0x00-函数式编程">0x00 函数式编程&lt;/h3>
+如：人具有姓名、年龄、性别，这些就是属性，人可以说话、可以走、可以跑，这些就是方法，封装起来就是一个类，而类的实例化就是对象&lt;/p></description></item><item><title>Python 的函数式编程</title><link>https://wyb0.cn/posts/2016/python-functional-programming/</link><pubDate>Thu, 21 Jan 2016 21:13:17 +0000</pubDate><guid>https://wyb0.cn/posts/2016/python-functional-programming/</guid><description>&lt;h3 id="0x00-函数式编程">0x00 函数式编程&lt;/h3>
 &lt;p>首先说一下高阶函数，能将函数作为参数来接收的函数就可以称为高阶函数，如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">add&lt;/span>(x,y,f):
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> f(x) &lt;span style="color:#f92672">+&lt;/span> f(y)

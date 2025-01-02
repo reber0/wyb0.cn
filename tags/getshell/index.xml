@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Getshell on Reber's Blog</title><link>https://wyb0.com/tags/getshell/</link><description>Recent content in Getshell on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 29 Jun 2019 17:57:32 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/getshell/index.xml" rel="self" type="application/rss+xml"/><item><title>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP)</title><link>https://wyb0.com/posts/2019/seeyon-htmlofficeservlet-getshell/</link><pubDate>Sat, 29 Jun 2019 17:57:32 +0000</pubDate><guid>https://wyb0.com/posts/2019/seeyon-htmlofficeservlet-getshell/</guid><description>&lt;h3 id="0x00-影响版本">0x00 影响版本&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Getshell on Reber's Blog</title><link>https://wyb0.cn/tags/getshell/</link><description>Recent content in Getshell on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 29 Jun 2019 17:57:32 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/getshell/index.xml" rel="self" type="application/rss+xml"/><item><title>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP)</title><link>https://wyb0.cn/posts/2019/seeyon-htmlofficeservlet-getshell/</link><pubDate>Sat, 29 Jun 2019 17:57:32 +0000</pubDate><guid>https://wyb0.cn/posts/2019/seeyon-htmlofficeservlet-getshell/</guid><description>&lt;h3 id="0x00-影响版本">0x00 影响版本&lt;/h3>
 &lt;ul>
 &lt;li>致远A8-V5协同管理软件 V6.1sp1&lt;/li>
 &lt;li>致远A8+协同管理软件 V7.0、V7.0sp1、V7.0sp2、V7.0sp3&lt;/li>
@@ -6,13 +6,13 @@
 &lt;/ul>
 &lt;h3 id="0x01-查看接口看是否存在漏洞">0x01 查看接口看是否存在漏洞&lt;/h3>
 &lt;p>如果查看 &lt;code>&amp;quot;seeyon/htmlofficeservlet&amp;quot;&lt;/code> 接口，出现如下内容则表示存在漏洞
-&lt;img src="https://wyb0.com/img/post/Xnip2019-06-29_09-43-32.png" alt="70">&lt;/p></description></item><item><title>从 SQL Server 注入到 getshell</title><link>https://wyb0.com/posts/2019/sql-server-from-injection-to-getshell/</link><pubDate>Sat, 02 Mar 2019 20:23:35 +0000</pubDate><guid>https://wyb0.com/posts/2019/sql-server-from-injection-to-getshell/</guid><description>&lt;h3 id="0x00-目标情况">0x00 目标情况&lt;/h3>
+&lt;img src="https://wyb0.cn/img/post/Xnip2019-06-29_09-43-32.png" alt="70">&lt;/p></description></item><item><title>从 SQL Server 注入到 getshell</title><link>https://wyb0.cn/posts/2019/sql-server-from-injection-to-getshell/</link><pubDate>Sat, 02 Mar 2019 20:23:35 +0000</pubDate><guid>https://wyb0.cn/posts/2019/sql-server-from-injection-to-getshell/</guid><description>&lt;h3 id="0x00-目标情况">0x00 目标情况&lt;/h3>
 &lt;ul>
 &lt;li>一个web站点111.*.*.63，只有一个登陆框，测试了没有注入，没有弱口令&lt;/li>
 &lt;li>扫描了全端口，没有发现什么有用的信息&lt;/li>
 &lt;/ul>
 &lt;h3 id="0x01-发现注入">0x01 发现注入&lt;/h3>
-&lt;p>当时是查看网页源代码，有两个可疑接口，一个是初始化密码借口，访问返回空白页面，没有什么用&lt;/p></description></item><item><title>Tomcat 部署 War 包 getshell</title><link>https://wyb0.com/posts/2016/tomcat-deploy-war-package-to-getshell/</link><pubDate>Tue, 02 Aug 2016 22:30:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/tomcat-deploy-war-package-to-getshell/</guid><description>&lt;h3 id="0x00-关于-war-包">0x00 关于 War 包&lt;/h3>
+&lt;p>当时是查看网页源代码，有两个可疑接口，一个是初始化密码借口，访问返回空白页面，没有什么用&lt;/p></description></item><item><title>Tomcat 部署 War 包 getshell</title><link>https://wyb0.cn/posts/2016/tomcat-deploy-war-package-to-getshell/</link><pubDate>Tue, 02 Aug 2016 22:30:13 +0000</pubDate><guid>https://wyb0.cn/posts/2016/tomcat-deploy-war-package-to-getshell/</guid><description>&lt;h3 id="0x00-关于-war-包">0x00 关于 War 包&lt;/h3>
 &lt;pre tabindex="0">&lt;code>War包一般是进行Web开发时一个网站Project下的所有代码,包括前台HTML/CSS/JS代码,
 以及Java的代码。当开发人员开发完毕时,就会将源码打包给测试人员测试,测试完后若要发布
 则也会打包成War包进行发布。War包可以放在Tomcat下的webapps或word目录,当Tomcat
@@ -21,9 +21,9 @@
 &lt;ul>
 &lt;li>
 &lt;p>找到后台猜密码然后登录
-&lt;img src="https://wyb0.com/img/post/tomcat_vul_background.png" alt="70">
-&lt;img src="https://wyb0.com/img/post/tomcat_vul_login.png" alt="40">
-&lt;img src="https://wyb0.com/img/post/tomcat_vul_war_login_success.png" alt="30">&lt;/p></description></item><item><title>SQL 注入之 load_file 和 into outfile(MySQL)</title><link>https://wyb0.com/posts/2016/injection-of-mysql-function/</link><pubDate>Mon, 20 Jun 2016 08:10:27 +0000</pubDate><guid>https://wyb0.com/posts/2016/injection-of-mysql-function/</guid><description>&lt;h3 id="0x00-load_file-读文件">0x00 load_file() 读文件&lt;/h3>
+&lt;img src="https://wyb0.cn/img/post/tomcat_vul_background.png" alt="70">
+&lt;img src="https://wyb0.cn/img/post/tomcat_vul_login.png" alt="40">
+&lt;img src="https://wyb0.cn/img/post/tomcat_vul_war_login_success.png" alt="30">&lt;/p></description></item><item><title>SQL 注入之 load_file 和 into outfile(MySQL)</title><link>https://wyb0.cn/posts/2016/injection-of-mysql-function/</link><pubDate>Mon, 20 Jun 2016 08:10:27 +0000</pubDate><guid>https://wyb0.cn/posts/2016/injection-of-mysql-function/</guid><description>&lt;h3 id="0x00-load_file-读文件">0x00 load_file() 读文件&lt;/h3>
 &lt;ul>
 &lt;li>条件:&lt;/li>
 &lt;/ul>

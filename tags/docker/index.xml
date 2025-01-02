@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Reber's Blog</title><link>https://wyb0.com/tags/docker/</link><description>Recent content in Docker on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 docker-compose 构造 LAMP 环境</title><link>https://wyb0.com/posts/2018/docker-compose-build-lamp/</link><pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose-build-lamp/</guid><description>&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
-&lt;p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。&lt;/p></description></item><item><title>Docker Compose</title><link>https://wyb0.com/posts/2018/docker-compose/</link><pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose/</guid><description>&lt;h3 id="0x00-关于docker-compose">0x00 关于docker compose&lt;/h3>
-&lt;p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。&lt;/p></description></item><item><title>Docker 之数据卷</title><link>https://wyb0.com/posts/2017/docker-volume/</link><pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-volume/</guid><description>&lt;h3 id="0x00-为什么使用数据卷">0x00 为什么使用数据卷&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Reber's Blog</title><link>https://wyb0.cn/tags/docker/</link><description>Recent content in Docker on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 docker-compose 构造 LAMP 环境</title><link>https://wyb0.cn/posts/2018/docker-compose-build-lamp/</link><pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate><guid>https://wyb0.cn/posts/2018/docker-compose-build-lamp/</guid><description>&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
+&lt;p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。&lt;/p></description></item><item><title>Docker Compose</title><link>https://wyb0.cn/posts/2018/docker-compose/</link><pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate><guid>https://wyb0.cn/posts/2018/docker-compose/</guid><description>&lt;h3 id="0x00-关于docker-compose">0x00 关于docker compose&lt;/h3>
+&lt;p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。&lt;/p></description></item><item><title>Docker 之数据卷</title><link>https://wyb0.cn/posts/2017/docker-volume/</link><pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-volume/</guid><description>&lt;h3 id="0x00-为什么使用数据卷">0x00 为什么使用数据卷&lt;/h3>
 &lt;pre tabindex="0">&lt;code>Docker镜像是由多个文件系统(只读层)叠加而成的。
 当一个容器启动时Docker会加载只读镜像层并在其上添加一个读写层。
 读写层中的修改在镜像重新启动后会全部丢失。
@@ -46,7 +46,7 @@ a.txt
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>FROM debian:jessie VOLUME /data &lt;span style="color:#75715e">#之后的任何命令都不能更改Volume的任何东西&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-数据共享">0x03 数据共享&lt;/h3>
 &lt;p>使用&amp;ndash;volumes-from参数项即可访问另外一个容器的Volume。&lt;br>
-因为数据容器不启动也可以被其它容器访问，所以一般不推荐启动数据容器。&lt;/p></description></item><item><title>Docker 之 Dockerfile</title><link>https://wyb0.com/posts/2017/docker-dockerfile/</link><pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-dockerfile/</guid><description>&lt;p>操作系统：macOS Sierra 10.12.6&lt;br>
+因为数据容器不启动也可以被其它容器访问，所以一般不推荐启动数据容器。&lt;/p></description></item><item><title>Docker 之 Dockerfile</title><link>https://wyb0.cn/posts/2017/docker-dockerfile/</link><pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-dockerfile/</guid><description>&lt;p>操作系统：macOS Sierra 10.12.6&lt;br>
 Docker版本：Docker version 18.09.0, build 4d60db4&lt;/p>
 &lt;h3 id="0x00-dockerfile">0x00 Dockerfile&lt;/h3>
 &lt;pre tabindex="0">&lt;code>Dockerfile里面其实是一条条的指令，Docker会把Dockerfile的指令翻译为linux命令，
@@ -64,7 +64,7 @@ Docker版本：Docker version 18.09.0, build 4d60db4&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ENV &amp;lt;key&amp;gt; &amp;lt;value&amp;gt;：设置环境变量
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>USER &amp;lt;uid&amp;gt;：镜像正在运行时设置一个uid，即设定启动容器的用户，默认为root
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>VOLUME &lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/data&amp;#39;&lt;/span>&lt;span style="color:#f92672">]&lt;/span>：授权访问从容器内到主机的目录
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CMD与ENTRYPOINT的区别：&lt;/p></description></item><item><title>Docker 之镜像与容器</title><link>https://wyb0.com/posts/2017/docker-image-and-container/</link><pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-image-and-container/</guid><description>&lt;p>操作系统：Ubuntu14.04.1&lt;br>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CMD与ENTRYPOINT的区别：&lt;/p></description></item><item><title>Docker 之镜像与容器</title><link>https://wyb0.cn/posts/2017/docker-image-and-container/</link><pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-image-and-container/</guid><description>&lt;p>操作系统：Ubuntu14.04.1&lt;br>
 Docker版本：Docker version 17.06.0-ce, build 02c1d87&lt;/p>
 &lt;h3 id="0x00-镜像操作">0x00 镜像操作&lt;/h3>
 &lt;ul>
@@ -94,7 +94,7 @@ Docker版本：Docker version 17.06.0-ce, build 02c1d87&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-容器操作">0x01 容器操作&lt;/h3>
 &lt;ul>
 &lt;li>
-&lt;p>运行容器(exit后容器就停止了)&lt;/p></description></item><item><title>Docker 初识</title><link>https://wyb0.com/posts/2017/docker-basis/</link><pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-basis/</guid><description>&lt;h3 id="0x00-关于docker">0x00 关于Docker&lt;/h3>
+&lt;p>运行容器(exit后容器就停止了)&lt;/p></description></item><item><title>Docker 初识</title><link>https://wyb0.cn/posts/2017/docker-basis/</link><pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate><guid>https://wyb0.cn/posts/2017/docker-basis/</guid><description>&lt;h3 id="0x00-关于docker">0x00 关于Docker&lt;/h3>
 &lt;ul>
 &lt;li>Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。&lt;/li>
 &lt;li>Docker中运行应用的是容器，容器的创建和销毁在秒级就能完成。&lt;/li>

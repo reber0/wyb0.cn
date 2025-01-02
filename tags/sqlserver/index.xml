@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sqlserver on Reber's Blog</title><link>https://wyb0.com/tags/sqlserver/</link><description>Recent content in Sqlserver on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 30 May 2017 13:16:18 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/sqlserver/index.xml" rel="self" type="application/rss+xml"/><item><title>SQLServer 存储过程</title><link>https://wyb0.com/posts/2017/sqlserver-stored-procedure/</link><pubDate>Tue, 30 May 2017 13:16:18 +0000</pubDate><guid>https://wyb0.com/posts/2017/sqlserver-stored-procedure/</guid><description>&lt;h3 id="0x00-数据表结构">0x00 数据表结构&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sqlserver on Reber's Blog</title><link>https://wyb0.cn/tags/sqlserver/</link><description>Recent content in Sqlserver on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 30 May 2017 13:16:18 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/sqlserver/index.xml" rel="self" type="application/rss+xml"/><item><title>SQLServer 存储过程</title><link>https://wyb0.cn/posts/2017/sqlserver-stored-procedure/</link><pubDate>Tue, 30 May 2017 13:16:18 +0000</pubDate><guid>https://wyb0.cn/posts/2017/sqlserver-stored-procedure/</guid><description>&lt;h3 id="0x00-数据表结构">0x00 数据表结构&lt;/h3>
 &lt;pre tabindex="0">&lt;code>CREATE DATABASE student;
 
 CREATE TABLE info
@@ -68,7 +68,7 @@ WHILE (@@FETCH_STATUS = 0) --判断是否成功获取数据
 
 CLOSE stu_cursor --关闭游标
 DEALLOCATE stu_cursor --删除游标
-&lt;/code>&lt;/pre></description></item><item><title>SQLServer 的基本使用</title><link>https://wyb0.com/posts/2017/sqlserver-basis-use/</link><pubDate>Tue, 30 May 2017 12:53:41 +0000</pubDate><guid>https://wyb0.com/posts/2017/sqlserver-basis-use/</guid><description>&lt;h3 id="0x00-数据库">0x00 数据库&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>SQLServer 的基本使用</title><link>https://wyb0.cn/posts/2017/sqlserver-basis-use/</link><pubDate>Tue, 30 May 2017 12:53:41 +0000</pubDate><guid>https://wyb0.cn/posts/2017/sqlserver-basis-use/</guid><description>&lt;h3 id="0x00-数据库">0x00 数据库&lt;/h3>
 &lt;pre tabindex="0">&lt;code>-- 创建数据库
 CREATE DATABASE student;
 

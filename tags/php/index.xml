@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Php on Reber's Blog</title><link>https://wyb0.com/tags/php/</link><description>Recent content in Php on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 23 Jul 2018 00:09:17 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/php/index.xml" rel="self" type="application/rss+xml"/><item><title>关于 PHP SESSION 反序列化</title><link>https://wyb0.com/posts/2018/php-session-deserialize/</link><pubDate>Mon, 23 Jul 2018 00:09:17 +0000</pubDate><guid>https://wyb0.com/posts/2018/php-session-deserialize/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Php on Reber's Blog</title><link>https://wyb0.cn/tags/php/</link><description>Recent content in Php on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 23 Jul 2018 00:09:17 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/php/index.xml" rel="self" type="application/rss+xml"/><item><title>关于 PHP SESSION 反序列化</title><link>https://wyb0.cn/posts/2018/php-session-deserialize/</link><pubDate>Mon, 23 Jul 2018 00:09:17 +0000</pubDate><guid>https://wyb0.cn/posts/2018/php-session-deserialize/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
 &lt;p>公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。&lt;/p>
-&lt;p>其中有一道是php反序列化，直接用的就是 第三届4.29“安恒杯”网络安全技术大赛初赛第三个web题&lt;/p></description></item><item><title>打包下载 php 文件</title><link>https://wyb0.com/posts/2018/package-and-download-the-php-file/</link><pubDate>Mon, 08 Jan 2018 22:02:07 +0000</pubDate><guid>https://wyb0.com/posts/2018/package-and-download-the-php-file/</guid><description>&lt;h3 id="0x00-代码如下">0x00 代码如下&lt;/h3>
+&lt;p>其中有一道是php反序列化，直接用的就是 第三届4.29“安恒杯”网络安全技术大赛初赛第三个web题&lt;/p></description></item><item><title>打包下载 php 文件</title><link>https://wyb0.cn/posts/2018/package-and-download-the-php-file/</link><pubDate>Mon, 08 Jan 2018 22:02:07 +0000</pubDate><guid>https://wyb0.cn/posts/2018/package-and-download-the-php-file/</guid><description>&lt;h3 id="0x00-代码如下">0x00 代码如下&lt;/h3>
 &lt;pre tabindex="0">&lt;code>&amp;lt;?php
 
 function addFileToZip($zip,$zipname,$path){
@@ -51,7 +51,7 @@ download($zipname);
 &lt;/code>&lt;/pre>&lt;h4 id="reference侵删">Reference(侵删)：&lt;/h4>
 &lt;ul>
 &lt;li>&lt;a href="http://blog.csdn.net/libinemail/article/details/52190235">http://blog.csdn.net/libinemail/article/details/52190235&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>PHP 安全配置</title><link>https://wyb0.com/posts/2016/php-safe-configuration/</link><pubDate>Thu, 01 Sep 2016 08:46:03 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-safe-configuration/</guid><description>&lt;h3 id="0x00-php的配置">0x00 PHP的配置&lt;/h3>
+&lt;/ul></description></item><item><title>PHP 安全配置</title><link>https://wyb0.cn/posts/2016/php-safe-configuration/</link><pubDate>Thu, 01 Sep 2016 08:46:03 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-safe-configuration/</guid><description>&lt;h3 id="0x00-php的配置">0x00 PHP的配置&lt;/h3>
 &lt;p>PHP的配置文件为php.ini,其中有些项配置不当的话就会造成一些安全问题&lt;/p>
 &lt;h3 id="0x01-远程文件包含">0x01 远程文件包含&lt;/h3>
 &lt;ul>
@@ -202,7 +202,7 @@ proc_open,chdir,chroot,getcwd,readdir,mkdir,copy,file_get_contents,&lt;/li>
 &lt;li>register_globals = Off&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></description></item><item><title>PHP 之封装 MySQL 类</title><link>https://wyb0.com/posts/2016/php-package-mysql-function/</link><pubDate>Fri, 03 Jun 2016 11:19:05 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-package-mysql-function/</guid><description>&lt;h3 id="0x00-configincphp内容如下">0x00 config.inc.php内容如下&lt;/h3>
+&lt;/ul></description></item><item><title>PHP 之封装 MySQL 类</title><link>https://wyb0.cn/posts/2016/php-package-mysql-function/</link><pubDate>Fri, 03 Jun 2016 11:19:05 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-package-mysql-function/</guid><description>&lt;h3 id="0x00-configincphp内容如下">0x00 config.inc.php内容如下&lt;/h3>
 &lt;pre tabindex="0">&lt;code>&amp;lt;?php
 return array(
  &amp;#39;DB_HOST&amp;#39; =&amp;gt; &amp;#39;192.168.188.134&amp;#39;,
@@ -478,7 +478,7 @@ class mysql {
 
  //$db-&amp;gt;close();
 ?&amp;gt;
-&lt;/code>&lt;/pre></description></item><item><title>PHP 之 MySQL 常用函数</title><link>https://wyb0.com/posts/2016/php-mysql-common-function/</link><pubDate>Thu, 02 Jun 2016 13:21:49 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-mysql-common-function/</guid><description>&lt;h3 id="0x00-处理函数">0x00 处理函数&lt;/h3>
+&lt;/code>&lt;/pre></description></item><item><title>PHP 之 MySQL 常用函数</title><link>https://wyb0.cn/posts/2016/php-mysql-common-function/</link><pubDate>Thu, 02 Jun 2016 13:21:49 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-mysql-common-function/</guid><description>&lt;h3 id="0x00-处理函数">0x00 处理函数&lt;/h3>
 &lt;ol>
 &lt;li>
 &lt;p>mysql_connect(server,user,pwd,newlink,clientflag)&lt;br>
@@ -486,7 +486,7 @@ class mysql {
 &lt;/li>
 &lt;li>
 &lt;p>mysql_select_db(database,connection)&lt;br>
-选择数据库的函数，成功则返回true，失败则返回false&lt;/p></description></item><item><title>PHP 之上传与下载</title><link>https://wyb0.com/posts/2016/php-upload-and-download/</link><pubDate>Tue, 24 May 2016 08:31:09 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-upload-and-download/</guid><description>&lt;h3 id="0x00-上传">0x00 上传&lt;/h3>
+选择数据库的函数，成功则返回true，失败则返回false&lt;/p></description></item><item><title>PHP 之上传与下载</title><link>https://wyb0.cn/posts/2016/php-upload-and-download/</link><pubDate>Tue, 24 May 2016 08:31:09 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-upload-and-download/</guid><description>&lt;h3 id="0x00-上传">0x00 上传&lt;/h3>
 &lt;ul>
 &lt;li>客户端设置&lt;br>
 客户端使用form表单上传文件，在form表单中必须指明enctype和method属性的值&lt;/li>
@@ -504,7 +504,7 @@ class mysql {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#f92672">html&lt;/span>&amp;gt;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>
-&lt;p>服务端设置&lt;/p></description></item><item><title>PHP 之目录与文件</title><link>https://wyb0.com/posts/2016/php-directory-and-file/</link><pubDate>Sun, 22 May 2016 16:29:47 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-directory-and-file/</guid><description>&lt;h3 id="0x00-目录的操作">0x00 目录的操作&lt;/h3>
+&lt;p>服务端设置&lt;/p></description></item><item><title>PHP 之目录与文件</title><link>https://wyb0.cn/posts/2016/php-directory-and-file/</link><pubDate>Sun, 22 May 2016 16:29:47 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-directory-and-file/</guid><description>&lt;h3 id="0x00-目录的操作">0x00 目录的操作&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/var/www/html/php/dir.php&amp;#34;&lt;/span>;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#a6e22e">dirname&lt;/span>($path)&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;br /&amp;gt;&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//返回上级路径
@@ -536,7 +536,7 @@ class mysql {
 &lt;h3 id="0x01-文件的读写">0x01 文件的读写&lt;/h3>
 &lt;ol>
 &lt;li>fopen(filename,mode)和fclose(filename,mode)
-&lt;img src="https://wyb0.com/img/post/file_open_mode.png" alt="fopen()打开文件的模式">&lt;/li>
+&lt;img src="https://wyb0.cn/img/post/file_open_mode.png" alt="fopen()打开文件的模式">&lt;/li>
 &lt;/ol>
 &lt;h4 id="例子">例子：&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
@@ -606,7 +606,7 @@ class mysql {
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;center>
 ![箭头](/img/post/arrow.png)&lt;br />
 ![查看文件夹下的文件信息](/img/post/file_info.png)
-&lt;/center></description></item><item><title>PHP 之字符串</title><link>https://wyb0.com/posts/2016/php-string/</link><pubDate>Sat, 21 May 2016 23:16:28 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-string/</guid><description>&lt;h3 id="0x00-特点">0x00 特点&lt;/h3>
+&lt;/center></description></item><item><title>PHP 之字符串</title><link>https://wyb0.cn/posts/2016/php-string/</link><pubDate>Sat, 21 May 2016 23:16:28 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-string/</guid><description>&lt;h3 id="0x00-特点">0x00 特点&lt;/h3>
 &lt;ol>
 &lt;li>字符串可以使用数组的处理函数操作，但并不是真正的数组&lt;/li>
 &lt;li>双引号中的变量用{}括起来，因为字符串中若遇到$符号，解析器会尽可能多的获取后面的字符以组成一个合法的变量名&lt;/li>
@@ -658,7 +658,7 @@ class mysql {
 &lt;/blockquote>
 &lt;h3 id="0x02-函数echo">0x02 函数echo()&lt;/h3>
 &lt;p>输出一个或多个字符串&lt;br>
-void echo(string arg1 [,string &amp;hellip;])&lt;/p></description></item><item><title>PHP 之面向对象</title><link>https://wyb0.com/posts/2016/php-object-oriented/</link><pubDate>Fri, 20 May 2016 16:07:55 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
+void echo(string arg1 [,string &amp;hellip;])&lt;/p></description></item><item><title>PHP 之面向对象</title><link>https://wyb0.cn/posts/2016/php-object-oriented/</link><pubDate>Fri, 20 May 2016 16:07:55 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
 &lt;ol>
 &lt;li>面向对象概念
 &lt;ul>
@@ -783,7 +783,7 @@ void echo(string arg1 [,string &amp;hellip;])&lt;/p></description></item><item><
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span> &lt;span style="color:#a6e22e">_destruct&lt;/span>([&lt;span style="color:#a6e22e">参数列表&lt;/span>]) {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#75715e">//方法体，通常用来完成一些在对象销毁前的清理工作
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>PHP 之数组</title><link>https://wyb0.com/posts/2016/php-array/</link><pubDate>Wed, 18 May 2016 11:09:46 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-array/</guid><description>&lt;h3 id="0x00-分类">0x00 分类&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>PHP 之数组</title><link>https://wyb0.cn/posts/2016/php-array/</link><pubDate>Wed, 18 May 2016 11:09:46 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-array/</guid><description>&lt;h3 id="0x00-分类">0x00 分类&lt;/h3>
 &lt;ol>
 &lt;li>索引数组
 索引值从0开始，依次递增&lt;/li>
@@ -897,7 +897,7 @@ void echo(string arg1 [,string &amp;hellip;])&lt;/p></description></item><item><
 &lt;h3 id="0x04-合并数组">0x04 合并数组&lt;/h3>
 &lt;ul>
 &lt;li>
-&lt;p>array_merge()函数将数组合并到一起，返回一个联合的数组。&lt;/p></description></item><item><title>PHP 之基础</title><link>https://wyb0.com/posts/2016/php-basis/</link><pubDate>Sun, 15 May 2016 09:10:23 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-basis/</guid><description>&lt;h3 id="0x00-php的作用">0x00 PHP的作用&lt;/h3>
+&lt;p>array_merge()函数将数组合并到一起，返回一个联合的数组。&lt;/p></description></item><item><title>PHP 之基础</title><link>https://wyb0.cn/posts/2016/php-basis/</link><pubDate>Sun, 15 May 2016 09:10:23 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-basis/</guid><description>&lt;h3 id="0x00-php的作用">0x00 PHP的作用&lt;/h3>
 &lt;pre tabindex="0">&lt;code>1. 收集表单数据
 2. 生成动态网页
 3. 字符串处理

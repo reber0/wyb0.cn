@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xss on Reber's Blog</title><link>https://wyb0.com/tags/xss/</link><description>Recent content in Xss on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 30 Mar 2017 15:25:37 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/xss/index.xml" rel="self" type="application/rss+xml"/><item><title>XSS 中的编码</title><link>https://wyb0.com/posts/2017/xss-encode/</link><pubDate>Thu, 30 Mar 2017 15:25:37 +0000</pubDate><guid>https://wyb0.com/posts/2017/xss-encode/</guid><description>&lt;p>&lt;img src="https://wyb0.com/img/anime/anime006.jpg" alt="攻壳机动队">&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xss on Reber's Blog</title><link>https://wyb0.cn/tags/xss/</link><description>Recent content in Xss on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 30 Mar 2017 15:25:37 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/xss/index.xml" rel="self" type="application/rss+xml"/><item><title>XSS 中的编码</title><link>https://wyb0.cn/posts/2017/xss-encode/</link><pubDate>Thu, 30 Mar 2017 15:25:37 +0000</pubDate><guid>https://wyb0.cn/posts/2017/xss-encode/</guid><description>&lt;p>&lt;img src="https://wyb0.cn/img/anime/anime006.jpg" alt="攻壳机动队">&lt;/p>
 &lt;h3 id="0x00-浏览器解析">0x00 浏览器解析&lt;/h3>
 &lt;pre tabindex="0">&lt;code>浏览器收到服务器发来的HTML内容，会从头解析，遇到&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;时，
 会调用js脚本解析器来解析并执行脚本，然后继续解析其他的HTML内容，
@@ -11,15 +11,15 @@
 &lt;pre tabindex="0">&lt;code>%+字符的ASCII编码对应的两位十六进制，如&amp;#34;/&amp;#34;的url编码为&amp;#34;%2F&amp;#34;
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
-&lt;p>HTML编码&lt;/p></description></item><item><title>一次存储型 XSS 利用实例</title><link>https://wyb0.com/posts/2016/recording-an-stored-xss/</link><pubDate>Sun, 17 Jul 2016 23:30:54 +0000</pubDate><guid>https://wyb0.com/posts/2016/recording-an-stored-xss/</guid><description>&lt;p>首先感谢凯神的指导&lt;/p>
+&lt;p>HTML编码&lt;/p></description></item><item><title>一次存储型 XSS 利用实例</title><link>https://wyb0.cn/posts/2016/recording-an-stored-xss/</link><pubDate>Sun, 17 Jul 2016 23:30:54 +0000</pubDate><guid>https://wyb0.cn/posts/2016/recording-an-stored-xss/</guid><description>&lt;p>首先感谢凯神的指导&lt;/p>
 &lt;h3 id="0x00-注册账号">0x00 注册账号&lt;/h3>
 &lt;p>先得到一个临时邮箱，然后注册账号
-&lt;img src="https://wyb0.com/img/post/xss_example_get_temporary_email.png" alt="65">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/xss_example_register.png" alt="35">&lt;/p>
+&lt;img src="https://wyb0.cn/img/post/xss_example_get_temporary_email.png" alt="65">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/xss_example_register.png" alt="35">&lt;/p>
 &lt;h3 id="0x01-找输入输出点">0x01 找输入输出点&lt;/h3>
-&lt;p>&lt;img src="https://wyb0.com/img/post/xss_example_add_topic.png" alt="40">&lt;/p>
-&lt;p>&lt;img src="https://wyb0.com/img/post/xss_example_input_output_point.png" alt="80">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/xss_example_add_topic.png" alt="40">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.cn/img/post/xss_example_input_output_point.png" alt="80">&lt;/p>
 &lt;h3 id="0x02-尝试构造payload">0x02 尝试构造payload&lt;/h3>
-&lt;p>payload用如下的即可：&lt;/p></description></item><item><title>XSS 漏洞及其挖掘方法</title><link>https://wyb0.com/posts/2016/xss-basis-and-use/</link><pubDate>Fri, 15 Jul 2016 10:30:54 +0000</pubDate><guid>https://wyb0.com/posts/2016/xss-basis-and-use/</guid><description>&lt;h3 id="0x00-简介">0x00 简介&lt;/h3>
+&lt;p>payload用如下的即可：&lt;/p></description></item><item><title>XSS 漏洞及其挖掘方法</title><link>https://wyb0.cn/posts/2016/xss-basis-and-use/</link><pubDate>Fri, 15 Jul 2016 10:30:54 +0000</pubDate><guid>https://wyb0.cn/posts/2016/xss-basis-and-use/</guid><description>&lt;h3 id="0x00-简介">0x00 简介&lt;/h3>
 &lt;p>XSS(跨站脚本攻击)是指攻击者在网页中嵌入客户端脚本，通常是Javascript编写的恶意代码，当用户使用浏览器浏览被嵌入恶意代码的网页时，恶意代码将在用户的浏览器上被解析执行。重点在&amp;quot;脚本&amp;quot;这两个字上，脚本主要有两个：JavaScript和ActionScript。&lt;br>
 &lt;f>要想深入研究XSS，必须要精通JavaScript，JavaScript能做到什么效果，XSS的威力就有多强大。&lt;/f>&lt;/p></description></item></channel></rss>
