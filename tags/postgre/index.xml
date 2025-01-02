@@ -1,19 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>postgre on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/postgre/</link>
-    <description>Recent content in postgre on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 23 Aug 2019 16:27:12 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/postgre/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>PostgreSQL 简单使用</title>
-      <link>https://wyb0.com/posts/2019/postgresql-basis-use/</link>
-      <pubDate>Fri, 23 Aug 2019 16:27:12 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/postgresql-basis-use/</guid>
-      <description>0x00 安装 ➜ brew install postgresql ➜ echo &amp;#39;export PATH=&amp;#34;/usr/local/Cellar/postgresql/11.4/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc ➜ source ~/.zshrc -- 初始化数据库 ➜ initdb /usr/local/var/postgres ➜ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/log/postgres.log start 0x01 简单操作 常用操作命令 reber=# \password #设置当前登录用户的密码 reber=# \password</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Postgre on Reber's Blog</title><link>https://wyb0.com/tags/postgre/</link><description>Recent content in Postgre on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 23 Aug 2019 16:27:12 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/postgre/index.xml" rel="self" type="application/rss+xml"/><item><title>PostgreSQL 简单使用</title><link>https://wyb0.com/posts/2019/postgresql-basis-use/</link><pubDate>Fri, 23 Aug 2019 16:27:12 +0000</pubDate><guid>https://wyb0.com/posts/2019/postgresql-basis-use/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;pre tabindex="0">&lt;code>➜ brew install postgresql
+➜ echo &amp;#39;export PATH=&amp;#34;/usr/local/Cellar/postgresql/11.4/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
+➜ source ~/.zshrc
+-- 初始化数据库
+➜ initdb /usr/local/var/postgres
+➜ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/log/postgres.log start
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-简单操作">0x01 简单操作&lt;/h3>
+&lt;ul>
+&lt;li>常用操作命令&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>reber=# \password #设置当前登录用户的密码
+reber=# \password [user_name] #设置其他用户的密码
+reber=# \l #列出所有数据库
+reber=# \du #列出所有用户
+reber=# \c [database_name] #连接数据库
+reber=# \d #列出当前数据库的所有表
+reber=# \d [table_name] #列出表结构
+reber=# \conninfo #列出当前数据库和连接的信息
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>连接数据库&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>➜ psql postgres &lt;span style="color:#75715e">#初始化数据库后会生成默认的数据库 postgres&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>psql &lt;span style="color:#f92672">(&lt;/span>11.4&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Type &lt;span style="color:#e6db74">&amp;#34;help&amp;#34;&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> help.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>postgres&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#75715e"># \l #查看当前数据库情况&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> List of databases
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Name | Owner | Encoding | Collate | Ctype | Access privileges
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-----------+-------+----------+-------------+-------------+-------------------
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> postgres | reber | UTF8 | zh_CN.UTF-8 | zh_CN.UTF-8 |
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> template0 | reber | UTF8 | zh_CN.UTF-8 | zh_CN.UTF-8 | &lt;span style="color:#f92672">=&lt;/span>c/reber +
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> | | | | | reber&lt;span style="color:#f92672">=&lt;/span>CTc/reber
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> template1 | reber | UTF8 | zh_CN.UTF-8 | zh_CN.UTF-8 | &lt;span style="color:#f92672">=&lt;/span>c/reber +
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> | | | | | reber&lt;span style="color:#f92672">=&lt;/span>CTc/reber
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span> rows&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>postgres&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#75715e"># \du #查看当前用户&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> List of roles
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Role name | Attributes | Member of
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-----------+------------------------------------------------------------+-----------
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> reber | Superuser, Create role, Create DB, Replication, Bypass RLS | &lt;span style="color:#f92672">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>postgres&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#75715e"># \c&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>You are now connected to database &lt;span style="color:#e6db74">&amp;#34;postgres&amp;#34;&lt;/span> as user &lt;span style="color:#e6db74">&amp;#34;reber&amp;#34;&lt;/span>.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>postgres&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#75715e"># \password&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Enter new password:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Enter it again:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>postgres-# &lt;span style="color:#ae81ff">\q&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>修改配置文件改端口&lt;/li>
+&lt;/ul>
+&lt;p>vim /usr/local/var/postgres/postgresql.conf&lt;/p></description></item></channel></rss>

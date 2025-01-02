@@ -1,19 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Code on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/categories/Code/</link>
-    <description>Recent content in Code on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 17 May 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/categories/Code/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>安卓调用 so 文件</title>
-      <link>https://wyb0.com/posts/2024/android-calls-so-file/</link>
-      <pubDate>Fri, 17 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2024/android-calls-so-file/</guid>
-      <description>0x00 安卓的 JNI 安卓开发中，JNI 就是 Java Native Interface 的缩写，它允许 Java 代码调用原生的 C/C++ 代码，或者允许 C/C++ 代码调用 Java 代码。 在 Android Stdio 中，有以下 3</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Code on Reber's Blog</title><link>https://wyb0.com/categories/Code/</link><description>Recent content in Code on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 17 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Code/index.xml" rel="self" type="application/rss+xml"/><item><title>安卓调用 so 文件</title><link>https://wyb0.com/posts/2024/android-calls-so-file/</link><pubDate>Fri, 17 May 2024 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2024/android-calls-so-file/</guid><description>&lt;h3 id="0x00-安卓的-jni">0x00 安卓的 JNI&lt;/h3>
+&lt;p>安卓开发中，JNI 就是 Java Native Interface 的缩写，它允许 Java 代码调用原生的 C/C++ 代码，或者允许 C/C++ 代码调用 Java 代码。&lt;/p>
+&lt;p>在 Android Stdio 中，有以下 3 种方法使用 so 文件：&lt;/p></description></item></channel></rss>

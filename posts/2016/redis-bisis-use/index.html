@@ -1,108 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>一次存储型 XSS 利用实例 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>一次存储型 XSS 利用实例</h1>
-      
-<div class="post-meta">
-    <time>2016-08-03</time>
-    
-    [<a href="/categories/Server">Server</a>,<a href="/categories/Database">Database</a>](<a href="/tags/server">server</a>,<a href="/tags/redis">redis</a>)
-</div>
-
-      <div><h3 id="0x00-关于redis">0x00 关于Redis</h3>
-<pre tabindex="0"><code>Redis和MySQL这种关系型数据库不一样，它是非关系型数据库，是日志型、Key-Value数据库，
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>一次存储型 XSS 利用实例 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>一次存储型 XSS 利用实例</h1><div class=post-meta><time>2016-08-03</time>
+[<a href=/categories/Server>Server</a>,<a href=/categories/Database>Database</a>](<a href=/tags/server>server</a>,<a href=/tags/redis>redis</a>)</div><div><h3 id=0x00-关于redis>0x00 关于Redis</h3><pre tabindex=0><code>Redis和MySQL这种关系型数据库不一样，它是非关系型数据库，是日志型、Key-Value数据库，
 实现了master-slave(主从)同步,数据都是缓存在内存中的,所以可高速读写,但存储成本较高,
 不适合做海量数据存储。
-</code></pre><h3 id="0x01-安装">0x01 安装</h3>
-<ul>
-<li>Linux下安装Redis
-可在http://download.redis.io/releases/ 下载</li>
-</ul>
-<pre tabindex="0"><code>$ cd /opt
+</code></pre><h3 id=0x01-安装>0x01 安装</h3><ul><li>Linux下安装Redis
+可在http://download.redis.io/releases/ 下载</li></ul><pre tabindex=0><code>$ cd /opt
 $ wget http://download.redis.io/releases/redis-3.2.3.tar.gz
 $ tar -zxvf redis-3.2.3.tar.gz
 $ cd redis-3.2.3
 $ make
 $ make install
-</code></pre><ul>
-<li>Windows下安装Redis
-下载：<a href="https://github.com/MSOpenTech/redis/releases" target="_blank">点此下载</a></li>
-</ul>
-<p>安装后添加环境变量</p>
-<pre tabindex="0"><code>添加为系统服务：
+</code></pre><ul><li>Windows下安装Redis
+下载：<a href=https://github.com/MSOpenTech/redis/releases target=_blank>点此下载</a></li></ul><p>安装后添加环境变量</p><pre tabindex=0><code>添加为系统服务：
 redis-server.exe --service-install redis.windows.conf --loglevel verbose
 
 启动服务：
@@ -118,13 +37,11 @@ redis-server.exe --service-stop
 
 带密码连接Redis：
 redis-cli.exe -h 127.0.0.1 -p 6379 -a mypassword
-</code></pre><h3 id="0x02-产生的可执行文件">0x02 产生的可执行文件</h3>
-<pre tabindex="0"><code>redis-server：redis服务器启动程序
+</code></pre><h3 id=0x02-产生的可执行文件>0x02 产生的可执行文件</h3><pre tabindex=0><code>redis-server：redis服务器启动程序
 redis-cli：redis命令行工具，也可为客户端
 redis-stat：redis状态检测工具
 redis-benchmark：redis性能检测工具(读写)
-</code></pre><h3 id="0x03-配置文件">0x03 配置文件</h3>
-<pre tabindex="0"><code>$ vim /opt/redis-3.2.3/redis.conf
+</code></pre><h3 id=0x03-配置文件>0x03 配置文件</h3><pre tabindex=0><code>$ vim /opt/redis-3.2.3/redis.conf
   daemonize yes  # 当值为yes时可以后台运行
   bind 127.0.0.1  # 绑定ip，配置后只接受来自该ip的请求
   port 6379  # 监听端口
@@ -141,207 +58,142 @@ redis-benchmark：redis性能检测工具(读写)
   maxclients 10000  # 最大连接的客户数量
   # mexmemory &lt;bytes&gt;  # redis能够使用的最大内存
   appendonly no  # 可以设置是否只能追加
-</code></pre><h3 id="0x04-启动测试">0x04 启动测试</h3>
-<pre tabindex="0"><code>本地启动：
+</code></pre><h3 id=0x04-启动测试>0x04 启动测试</h3><pre tabindex=0><code>本地启动：
 $ redis-server /opt/redis-3.2.3/redis.conf  # 启动服务
 $ ps -aux | grep redis
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">客户端连接</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> redis-cli
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">连接远程</span>redis
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span> redis-cli -h host -p port -a password
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">$ redis-cli -h host -p port
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">127.0.0.1:6379&gt; keys *
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(error) NOAUTH Authentication required.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">127.0.0.1:6379&gt; auth password
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">OK
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">查看所有键值</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; keys *
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">选择数据库</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; <span style="color:#66d9ef">select</span> <span style="color:#ae81ff">0</span> <span style="color:#960050;background-color:#1e0010">#可以选择</span><span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">～</span><span style="color:#ae81ff">15</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">获取</span>redis安装目录
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; config <span style="color:#66d9ef">get</span> dir
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;dir&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;/var/lib/redis&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">备份</span>(<span style="color:#960050;background-color:#1e0010">恢复数据时只需要将备份文件放在</span>redis安装目录即可)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; save
-</span></span><span style="display:flex;"><span>OK
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; exit
-</span></span></code></pre></div><h3 id="0x06-数据类型">0x06 数据类型</h3>
-<ul>
-<li>
-<p>String(字符串)</p>
-<ul>
-<li>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。</li>
-<li>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象。</li>
-<li>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">添加键值对</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; <span style="color:#66d9ef">set</span> name <span style="color:#e6db74">&#34;xiaoming&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">获取键值</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; <span style="color:#66d9ef">get</span> name
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">删除键值对</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; del name
-</span></span></code></pre></div></li>
-<li>
-<p>Hash(哈希)</p>
-<ul>
-<li>Redis hash 是一个键名对集合。</li>
-<li>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> Hash中一个key对应多个值
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; hmset student1 name <span style="color:#e6db74">&#34;xiaohong&#34;</span> age <span style="color:#e6db74">&#34;18&#34;</span>
-</span></span><span style="display:flex;"><span>OK
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; hmset student2 name <span style="color:#e6db74">&#34;xiaoliu&#34;</span> age <span style="color:#e6db74">&#34;23&#34;</span>
-</span></span><span style="display:flex;"><span>OK
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; hgetall student1
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;name&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;xiaohong&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;age&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;18&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; hgetall student2
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;name&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;xiaoliu&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;age&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;23&#34;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>List(列表)</p>
-<ul>
-<li>Redis 列表是简单的字符串列表，按照插入顺序排序。</li>
-<li>可以添加一个元素到列表的头部（左边）或者尾部（右边）。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">字符串列表</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lpush list1 <span style="color:#e6db74">&#34;python&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lpush list1 <span style="color:#e6db74">&#34;php&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lpush list1 <span style="color:#e6db74">&#34;asp&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lpush list1 <span style="color:#e6db74">&#34;jsp&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; rpush list2 <span style="color:#e6db74">&#34;aaaa&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; rpush list1 <span style="color:#e6db74">&#34;aaaa&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lrange list1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;jsp&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;asp&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;php&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;python&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>) <span style="color:#e6db74">&#34;aaaa&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lindex list1 <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;python&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; llen list1
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; lpop list1
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;jsp&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; rpop list1
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;aaaa&#34;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>Set(集合)</p>
-<ul>
-<li>Redis的Set是string类型的无序集合。</li>
-<li>集合内元素是唯一的，后者会覆盖前者。</li>
-<li>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> String类型的无序集合
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; sadd set1 <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; sadd set1 <span style="color:#e6db74">&#34;222&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; sadd set1 <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; sadd set1 <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; sadd set1 <span style="color:#e6db74">&#34;000&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; smembers set1
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;000&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;222&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span></code></pre></div></li>
-<li>
-<p>zset(有序集合)</p>
-<ul>
-<li>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。</li>
-<li>zset每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。</li>
-<li>zset的成员是唯一的,但分数(score)却可以重复。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> String类型的有序集合
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zadd zset1 <span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#34;222&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zadd zset1 <span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zadd zset1 <span style="color:#ae81ff">3</span> <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zadd zset1 <span style="color:#ae81ff">3</span> <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zadd zset1 <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#34;000&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zrange zset1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;000&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;222&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zadd zset1 <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#34;555&#34;</span>
-</span></span><span style="display:flex;"><span>(integer) <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zrange zset1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;000&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;555&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;222&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>) <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>:<span style="color:#ae81ff">6379</span>&gt; zrange zset1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">10</span> withscores
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#34;000&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">3</span>) <span style="color:#e6db74">&#34;555&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#34;0&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">5</span>) <span style="color:#e6db74">&#34;111&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">6</span>) <span style="color:#e6db74">&#34;1&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">7</span>) <span style="color:#e6db74">&#34;222&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">8</span>) <span style="color:#e6db74">&#34;2&#34;</span>
-</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">9</span>) <span style="color:#e6db74">&#34;333&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>) <span style="color:#e6db74">&#34;3&#34;</span>
-</span></span></code></pre></div></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>客户端连接</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>$</span> redis-cli
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>连接远程</span>redis
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>$</span> redis-cli -h host -p port -a password
+</span></span><span style=display:flex><span><span style=color:#75715e>/*
+</span></span></span><span style=display:flex><span><span style=color:#75715e>$ redis-cli -h host -p port
+</span></span></span><span style=display:flex><span><span style=color:#75715e>127.0.0.1:6379&gt; keys *
+</span></span></span><span style=display:flex><span><span style=color:#75715e>(error) NOAUTH Authentication required.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>127.0.0.1:6379&gt; auth password
+</span></span></span><span style=display:flex><span><span style=color:#75715e>OK
+</span></span></span><span style=display:flex><span><span style=color:#75715e>*/</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>查看所有键值</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; keys *
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>选择数据库</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; <span style=color:#66d9ef>select</span> <span style=color:#ae81ff>0</span> <span style=color:#960050;background-color:#1e0010>#可以选择</span><span style=color:#ae81ff>0</span><span style=color:#960050;background-color:#1e0010>～</span><span style=color:#ae81ff>15</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>获取</span>redis安装目录
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; config <span style=color:#66d9ef>get</span> dir
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;dir&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;/var/lib/redis&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>备份</span>(<span style=color:#960050;background-color:#1e0010>恢复数据时只需要将备份文件放在</span>redis安装目录即可)
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; save
+</span></span><span style=display:flex><span>OK
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; exit
+</span></span></code></pre></div><h3 id=0x06-数据类型>0x06 数据类型</h3><ul><li><p>String(字符串)</p><ul><li>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。</li><li>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象。</li><li>string类型是Redis最基本的数据类型，一个键最大能存储512MB。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>添加键值对</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; <span style=color:#66d9ef>set</span> name <span style=color:#e6db74>&#34;xiaoming&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>获取键值</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; <span style=color:#66d9ef>get</span> name
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>删除键值对</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; del name
+</span></span></code></pre></div></li><li><p>Hash(哈希)</p><ul><li>Redis hash 是一个键名对集合。</li><li>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> Hash中一个key对应多个值
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; hmset student1 name <span style=color:#e6db74>&#34;xiaohong&#34;</span> age <span style=color:#e6db74>&#34;18&#34;</span>
+</span></span><span style=display:flex><span>OK
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; hmset student2 name <span style=color:#e6db74>&#34;xiaoliu&#34;</span> age <span style=color:#e6db74>&#34;23&#34;</span>
+</span></span><span style=display:flex><span>OK
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; hgetall student1
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;name&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;xiaohong&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;age&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;18&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; hgetall student2
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;name&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;xiaoliu&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;age&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;23&#34;</span>
+</span></span></code></pre></div></li><li><p>List(列表)</p><ul><li>Redis 列表是简单的字符串列表，按照插入顺序排序。</li><li>可以添加一个元素到列表的头部（左边）或者尾部（右边）。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#960050;background-color:#1e0010>字符串列表</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lpush list1 <span style=color:#e6db74>&#34;python&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lpush list1 <span style=color:#e6db74>&#34;php&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lpush list1 <span style=color:#e6db74>&#34;asp&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lpush list1 <span style=color:#e6db74>&#34;jsp&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>4</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; rpush list2 <span style=color:#e6db74>&#34;aaaa&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; rpush list1 <span style=color:#e6db74>&#34;aaaa&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lrange list1 <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;jsp&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;asp&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;php&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;python&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>) <span style=color:#e6db74>&#34;aaaa&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lindex list1 <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;python&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; llen list1
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; lpop list1
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;jsp&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; rpop list1
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;aaaa&#34;</span>
+</span></span></code></pre></div></li><li><p>Set(集合)</p><ul><li>Redis的Set是string类型的无序集合。</li><li>集合内元素是唯一的，后者会覆盖前者。</li><li>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> String类型的无序集合
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; sadd set1 <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; sadd set1 <span style=color:#e6db74>&#34;222&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; sadd set1 <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; sadd set1 <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; sadd set1 <span style=color:#e6db74>&#34;000&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; smembers set1
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;000&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;222&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span></code></pre></div></li><li><p>zset(有序集合)</p><ul><li>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。</li><li>zset每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。</li><li>zset的成员是唯一的,但分数(score)却可以重复。</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>#</span> String类型的有序集合
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zadd zset1 <span style=color:#ae81ff>2</span> <span style=color:#e6db74>&#34;222&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zadd zset1 <span style=color:#ae81ff>1</span> <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zadd zset1 <span style=color:#ae81ff>3</span> <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zadd zset1 <span style=color:#ae81ff>3</span> <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zadd zset1 <span style=color:#ae81ff>0</span> <span style=color:#e6db74>&#34;000&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zrange zset1 <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;000&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;222&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zadd zset1 <span style=color:#ae81ff>0</span> <span style=color:#e6db74>&#34;555&#34;</span>
+</span></span><span style=display:flex><span>(integer) <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zrange zset1 <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;000&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;555&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;222&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>) <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>127.0</span>.<span style=color:#ae81ff>0.1</span>:<span style=color:#ae81ff>6379</span>&gt; zrange zset1 <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span> withscores
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>1</span>) <span style=color:#e6db74>&#34;000&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>2</span>) <span style=color:#e6db74>&#34;0&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>3</span>) <span style=color:#e6db74>&#34;555&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>4</span>) <span style=color:#e6db74>&#34;0&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>5</span>) <span style=color:#e6db74>&#34;111&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>6</span>) <span style=color:#e6db74>&#34;1&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>7</span>) <span style=color:#e6db74>&#34;222&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>8</span>) <span style=color:#e6db74>&#34;2&#34;</span>
+</span></span><span style=display:flex><span> <span style=color:#ae81ff>9</span>) <span style=color:#e6db74>&#34;333&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>10</span>) <span style=color:#e6db74>&#34;3&#34;</span>
+</span></span></code></pre></div></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

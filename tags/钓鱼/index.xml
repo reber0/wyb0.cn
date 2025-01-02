@@ -1,19 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>钓鱼 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E9%92%93%E9%B1%BC/</link>
-    <description>Recent content in 钓鱼 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 26 Sep 2021 11:45:33 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E9%92%93%E9%B1%BC/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Gophish 钓鱼测试</title>
-      <link>https://wyb0.com/posts/2021/gophish/</link>
-      <pubDate>Sun, 26 Sep 2021 11:45:33 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2021/gophish/</guid>
-      <description>0x00 Gophish 使用 配置 Gophish 服务 配置发送邮箱 编写钓鱼邮件内容 编写钓鱼页面 添加目标邮箱 开始攻击 0x01 配置 Gophish 服务 在 https://github.com/gophish/gophish/releases 下载 然后编辑 config.</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>钓鱼 on Reber's Blog</title><link>https://wyb0.com/tags/%E9%92%93%E9%B1%BC/</link><description>Recent content in 钓鱼 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 26 Sep 2021 11:45:33 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E9%92%93%E9%B1%BC/index.xml" rel="self" type="application/rss+xml"/><item><title>Gophish 钓鱼测试</title><link>https://wyb0.com/posts/2021/gophish/</link><pubDate>Sun, 26 Sep 2021 11:45:33 +0000</pubDate><guid>https://wyb0.com/posts/2021/gophish/</guid><description>&lt;h3 id="0x00-gophish-使用">0x00 Gophish 使用&lt;/h3>
+&lt;ul>
+&lt;li>配置 Gophish 服务&lt;/li>
+&lt;li>配置发送邮箱&lt;/li>
+&lt;li>编写钓鱼邮件内容&lt;/li>
+&lt;li>编写钓鱼页面&lt;/li>
+&lt;li>添加目标邮箱&lt;/li>
+&lt;li>开始攻击&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-配置-gophish-服务">0x01 配置 Gophish 服务&lt;/h3>
+&lt;p>在 &lt;a href="https://github.com/gophish/gophish/releases?_blank">https://github.com/gophish/gophish/releases&lt;/a> 下载&lt;/p>
+&lt;p>然后编辑 config.json，之后直接 ./gophish 运行即可&lt;/p></description></item></channel></rss>

@@ -1,147 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 下搭建 FTP | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 下搭建 FTP</h1>
-      
-<div class="post-meta">
-    <time>2016-06-18</time>
-    
-    [<a href="/categories/Server">Server</a>](<a href="/tags/server">server</a>)
-</div>
-
-      <div><p>安装环境为：CentOS-6.5-x86_64-minimal</p>
-<h3 id="0x00-安装">0x00 安装</h3>
-<p>yum install vsftpd</p>
-<h3 id="0x01-配置">0x01 配置</h3>
-<ol>
-<li>
-<p>备份<br>
-cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak</p>
-</li>
-<li>
-<p>编辑配置文件</p>
-</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vim /etc/vsftpd/vsftpd.conf
-</span></span><span style="display:flex;"><span>anonymous_enable<span style="color:#f92672">=</span>NO	<span style="color:#75715e">#设定不允许匿名访问</span>
-</span></span><span style="display:flex;"><span>local_enable<span style="color:#f92672">=</span>YES	<span style="color:#75715e">#设定本地用户可以访问</span>
-</span></span><span style="display:flex;"><span>chroot_list_enable<span style="color:#f92672">=</span>YES	<span style="color:#75715e">#使用户不能离开主目录</span>
-</span></span><span style="display:flex;"><span>xferlog_file<span style="color:#f92672">=</span>/var/log/vsftpd.log	<span style="color:#75715e">#设定vsftpd的服务日志</span>
-</span></span><span style="display:flex;"><span>ascii_upload_enable<span style="color:#f92672">=</span>YES
-</span></span><span style="display:flex;"><span>ascii_download_enable<span style="color:#f92672">=</span>YES	<span style="color:#75715e">#设定支持ASCII</span>
-</span></span><span style="display:flex;"><span>pam_service_name<span style="color:#f92672">=</span>vsftpd	<span style="color:#75715e">#PAM认证文件名,PAM将根据/etc/pam.d/vsftpd进行认证</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 并在尾部追加：</span>
-</span></span><span style="display:flex;"><span>guest_enable<span style="color:#f92672">=</span>YES	<span style="color:#75715e">#设定启用虚拟用户功能。</span>
-</span></span><span style="display:flex;"><span>guest_username<span style="color:#f92672">=</span>ftp	<span style="color:#75715e">#指定虚拟用户的宿主用户。-CentOS中已经有内置的ftp用户了</span>
-</span></span><span style="display:flex;"><span>guest_config_dir<span style="color:#f92672">=</span>/etc/vsftpd/vuser_conf	<span style="color:#75715e">#设定虚拟用户个人vsftp的配置文件存放路径。存放虚拟用户个性化的配置文件名，和虚拟用户名相同</span>
-</span></span></code></pre></div><ol start="3">
-<li>
-<p>新增chroot_list并将ftp用户输入进去<br>
-touch /etc/vsftpd/chroot_list<br>
-echo ftp &raquo; /etc/vsftpd/chroot_list</p>
-</li>
-<li>
-<p>安装Berkeley DB工具用来对虚拟用户认证配置管理：<br>
-yum install db4 db4-utils</p>
-</li>
-<li>
-<p>创建用户账户文件</p>
-</li>
-</ol>
-<pre tabindex="0"><code>vim /etc/vsftpd/vuser_passwd.txt
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 下搭建 FTP | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 下搭建 FTP</h1><div class=post-meta><time>2016-06-18</time>
+[<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div><p>安装环境为：CentOS-6.5-x86_64-minimal</p><h3 id=0x00-安装>0x00 安装</h3><p>yum install vsftpd</p><h3 id=0x01-配置>0x01 配置</h3><ol><li><p>备份<br>cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak</p></li><li><p>编辑配置文件</p></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>vim /etc/vsftpd/vsftpd.conf
+</span></span><span style=display:flex><span>anonymous_enable<span style=color:#f92672>=</span>NO	<span style=color:#75715e>#设定不允许匿名访问</span>
+</span></span><span style=display:flex><span>local_enable<span style=color:#f92672>=</span>YES	<span style=color:#75715e>#设定本地用户可以访问</span>
+</span></span><span style=display:flex><span>chroot_list_enable<span style=color:#f92672>=</span>YES	<span style=color:#75715e>#使用户不能离开主目录</span>
+</span></span><span style=display:flex><span>xferlog_file<span style=color:#f92672>=</span>/var/log/vsftpd.log	<span style=color:#75715e>#设定vsftpd的服务日志</span>
+</span></span><span style=display:flex><span>ascii_upload_enable<span style=color:#f92672>=</span>YES
+</span></span><span style=display:flex><span>ascii_download_enable<span style=color:#f92672>=</span>YES	<span style=color:#75715e>#设定支持ASCII</span>
+</span></span><span style=display:flex><span>pam_service_name<span style=color:#f92672>=</span>vsftpd	<span style=color:#75715e>#PAM认证文件名,PAM将根据/etc/pam.d/vsftpd进行认证</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 并在尾部追加：</span>
+</span></span><span style=display:flex><span>guest_enable<span style=color:#f92672>=</span>YES	<span style=color:#75715e>#设定启用虚拟用户功能。</span>
+</span></span><span style=display:flex><span>guest_username<span style=color:#f92672>=</span>ftp	<span style=color:#75715e>#指定虚拟用户的宿主用户。-CentOS中已经有内置的ftp用户了</span>
+</span></span><span style=display:flex><span>guest_config_dir<span style=color:#f92672>=</span>/etc/vsftpd/vuser_conf	<span style=color:#75715e>#设定虚拟用户个人vsftp的配置文件存放路径。存放虚拟用户个性化的配置文件名，和虚拟用户名相同</span>
+</span></span></code></pre></div><ol start=3><li><p>新增chroot_list并将ftp用户输入进去<br>touch /etc/vsftpd/chroot_list<br>echo ftp &#187; /etc/vsftpd/chroot_list</p></li><li><p>安装Berkeley DB工具用来对虚拟用户认证配置管理：<br>yum install db4 db4-utils</p></li><li><p>创建用户账户文件</p></li></ol><pre tabindex=0><code>vim /etc/vsftpd/vuser_passwd.txt
 user1	#奇数行是用户名
 123456	#偶数行是密码
 user2	#奇数行是用户名
 666666	#偶数行是密码
 user3	#奇数行是用户名
 user3	#偶数行是密码
-</code></pre><ol start="6">
-<li>
-<p>用Berkeley DB工具生成认证文件<br>
-db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt   /etc/vsftpd/vuser_passwd.db</p>
-</li>
-<li>
-<p>编辑/etc/pam.d/vsftpd，注释掉所有原来内容，添加如下内容：</p>
-</li>
-</ol>
-<pre tabindex="0"><code>auth required pam_userdb.so db=/etc/vsftpd/vuser_passwd
+</code></pre><ol start=6><li><p>用Berkeley DB工具生成认证文件<br>db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db</p></li><li><p>编辑/etc/pam.d/vsftpd，注释掉所有原来内容，添加如下内容：</p></li></ol><pre tabindex=0><code>auth required pam_userdb.so db=/etc/vsftpd/vuser_passwd
 account required pam_userdb.so db=/etc/vsftpd/vuser_passwd
-</code></pre><h3 id="0x02-针对每个用户增加个性化配置文件">0x02 针对每个用户增加个性化配置文件</h3>
-<p>配置后user1登陆后所在目录就是/var/ftphome了，而user2、user3登陆后还是在默认的/var/ftp/</p>
-<pre tabindex="0"><code>mkdir /etc/vsftpd/vuser_conf/
+</code></pre><h3 id=0x02-针对每个用户增加个性化配置文件>0x02 针对每个用户增加个性化配置文件</h3><p>配置后user1登陆后所在目录就是/var/ftphome了，而user2、user3登陆后还是在默认的/var/ftp/</p><pre tabindex=0><code>mkdir /etc/vsftpd/vuser_conf/
 vim /etc/vsftpd/vuser_conf/user1
 local_root=/var/ftphome/   #此目录位置可以修改
 write_enable=YES #可写
@@ -153,38 +43,12 @@ anon_other_write_enable=YES
 创建目录并修改权限：
 mkdir /var/ftphome
 chmod 777 /var/ftphome
-</code></pre><h3 id="0x03-启动服务">0x03 启动服务</h3>
-<p>service vsftpd start<br>
-此时就可以用用户名登陆ftp了(只能终端登录)</p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-启动服务>0x03 启动服务</h3><p>service vsftpd start<br>此时就可以用用户名登陆ftp了(只能终端登录)</p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

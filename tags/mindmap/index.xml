@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>mindmap on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/mindmap/</link>
-    <description>Recent content in mindmap on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Aug 2016 21:17:21 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/mindmap/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Web常见漏洞脑图</title>
-      <link>https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/</link>
-      <pubDate>Thu, 11 Aug 2016 21:17:21 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/</guid>
-      <description>Web常见漏洞</description>
-    </item>
-    <item>
-      <title>Nmap思维导图</title>
-      <link>https://wyb0.com/posts/2016/nmap-mind-mapping/</link>
-      <pubDate>Tue, 10 May 2016 20:24:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/nmap-mind-mapping/</guid>
-      <description>nmap思维导图如下：</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mindmap on Reber's Blog</title><link>https://wyb0.com/tags/mindmap/</link><description>Recent content in Mindmap on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 11 Aug 2016 21:17:21 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/mindmap/index.xml" rel="self" type="application/rss+xml"/><item><title>Web常见漏洞脑图</title><link>https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/</link><pubDate>Thu, 11 Aug 2016 21:17:21 +0000</pubDate><guid>https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/</guid><description>&lt;h2 id="web常见漏洞">Web常见漏洞&lt;/h2>
+&lt;p>&lt;a href="https://wyb0.com/img/post/web_common_vulnerability_maps.png?_blank">&lt;img src="https://wyb0.com/img/post/web_common_vulnerability_maps.png" alt="Web常见漏洞脑图">&lt;/a>&lt;/p></description></item><item><title>Nmap思维导图</title><link>https://wyb0.com/posts/2016/nmap-mind-mapping/</link><pubDate>Tue, 10 May 2016 20:24:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/nmap-mind-mapping/</guid><description>&lt;h3 id="nmap思维导图如下">nmap思维导图如下：&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/nmap.png" alt="nmap思维导图">&lt;/p></description></item></channel></rss>

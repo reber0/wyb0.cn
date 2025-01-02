@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>bypass on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/bypass/</link>
-    <description>Recent content in bypass on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 22 Jun 2020 17:35:07 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/bypass/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>记一次 SQLServer 注入</title>
-      <link>https://wyb0.com/posts/2020/recording-sqlserver-injection/</link>
-      <pubDate>Mon, 22 Jun 2020 17:35:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2020/recording-sqlserver-injection/</guid>
-      <description>0x00 存在 SQL 注入 总之是遇到一个站，登录的页面，数据包大致如下： POST /jsweb/userlogin/UserLoginAction.aspx HTTP/1.1 Host: 115.xxx.xxx.xxx:8042 Content-Length: 47 Accept: */* X-Requested-With: XMLHttpRequest User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36 Content-Type: application/x-www-form-urlencoded; charset=UTF-8 Origin: http://115.xxx.xxx.xxx:8042 Referer:</description>
-    </item>
-    <item>
-      <title>文件上传漏洞常见绕过手法</title>
-      <link>https://wyb0.com/posts/2016/file-upload-simple-to-bypass/</link>
-      <pubDate>Wed, 20 Jul 2016 17:04:44 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/file-upload-simple-to-bypass/</guid>
-      <description>0x00 一般防止上传漏洞手法 1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证 //任何客户端</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bypass on Reber's Blog</title><link>https://wyb0.com/tags/bypass/</link><description>Recent content in Bypass on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 22 Jun 2020 17:35:07 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/bypass/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次 SQLServer 注入</title><link>https://wyb0.com/posts/2020/recording-sqlserver-injection/</link><pubDate>Mon, 22 Jun 2020 17:35:07 +0000</pubDate><guid>https://wyb0.com/posts/2020/recording-sqlserver-injection/</guid><description>&lt;h3 id="0x00-存在-sql-注入">0x00 存在 SQL 注入&lt;/h3>
+&lt;p>总之是遇到一个站，登录的页面，数据包大致如下：&lt;/p>
+&lt;pre tabindex="0">&lt;code>POST /jsweb/userlogin/UserLoginAction.aspx HTTP/1.1
+Host: 115.xxx.xxx.xxx:8042
+Content-Length: 47
+Accept: */*
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Origin: http://115.xxx.xxx.xxx:8042
+Referer: http://115.xxx.xxx.xxx:8042/
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: ASP.NET_SessionId=bxdzehxa5mvoco1fkrjlbqbt
+Connection: close
+
+uname=admin*&amp;amp;pwd=dskfsdkf&amp;amp;valCode=1197&amp;amp;telphone=
+&lt;/code>&lt;/pre>&lt;p>其中验证码可以绕过，而登录名那里存在注入
+&lt;img src="https://wyb0.com/img/post/Xnip2020-09-13_22-20-51.jpg" alt="">
+&lt;img src="https://wyb0.com/img/post/Xnip2020-09-13_22-21-32.jpg" alt="">&lt;/p></description></item><item><title>文件上传漏洞常见绕过手法</title><link>https://wyb0.com/posts/2016/file-upload-simple-to-bypass/</link><pubDate>Wed, 20 Jul 2016 17:04:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/file-upload-simple-to-bypass/</guid><description>&lt;h3 id="0x00-一般防止上传漏洞手法">0x00 一般防止上传漏洞手法&lt;/h3>
+&lt;pre tabindex="0">&lt;code>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证
+ //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少
+ //服务器开销，而服务端验证才可以真正防御攻击者。 
+2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-客户端检测">0x01 客户端检测&lt;/h3>
+&lt;p>客户端验证代码形如下：&lt;/p></description></item></channel></rss>

@@ -1,95 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>AJAX 之跨域 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>AJAX 之跨域</h1>
-      
-<div class="post-meta">
-    <time>2017-06-22</time>
-    
-    [<a href="/categories/JS">JS</a>](<a href="/tags/js">js</a>)
-</div>
-
-      <div><h3 id="0x00-简介">0x00 简介</h3>
-<p>当使用AJAX请求其他域名下的数据时会出现拒绝访问的情况，这是出于安全考虑，AJAX只能访问本地的资源，而不能跨域访问。</p>
-<p>当使用<a href="http://wyb0.com/posts/ajax-and-php/">AJAX与PHP</a>中的代码请求其他域的数据时会出现下面的情况</p>
-<p><img src="/img/post/ajax_cross_domain.png" alt="ajax跨域请求"></p>
-<p>至于解决方案的话这里说三种：JSONP、jQuery、CORS。</p>
-<h3 id="0x01-jsonp">0x01 JSONP</h3>
-<p>这里的场景是本地127站点跨域请求远程114.115.214.111站点的数据</p>
-<pre tabindex="0"><code>&lt;html lang=&#34;en&#34;&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>AJAX 之跨域 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>AJAX 之跨域</h1><div class=post-meta><time>2017-06-22</time>
+[<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div><h3 id=0x00-简介>0x00 简介</h3><p>当使用AJAX请求其他域名下的数据时会出现拒绝访问的情况，这是出于安全考虑，AJAX只能访问本地的资源，而不能跨域访问。</p><p>当使用<a href=http://wyb0.com/posts/ajax-and-php/>AJAX与PHP</a>中的代码请求其他域的数据时会出现下面的情况</p><p><img src=/img/post/ajax_cross_domain.png alt=ajax跨域请求></p><p>至于解决方案的话这里说三种：JSONP、jQuery、CORS。</p><h3 id=0x01-jsonp>0x01 JSONP</h3><p>这里的场景是本地127站点跨域请求远程114.115.214.111站点的数据</p><pre tabindex=0><code>&lt;html lang=&#34;en&#34;&gt;
 &lt;head&gt;
     &lt;meta charset=&#34;UTF-8&#34;&gt;
     &lt;title&gt;jsonptest&lt;/title&gt;
@@ -120,7 +41,7 @@
 
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><pre tabindex="0"><code>&lt;?php
+</code></pre><pre tabindex=0><code>&lt;?php
     $conn = @mysql_connect(&#39;localhost&#39;,&#39;admin&#39;,&#39;123456&#39;);
     mysql_select_db(&#39;test&#39;,$conn);
 
@@ -137,11 +58,7 @@
 
     echo $callback.&#39;({&#39;.&#39;&#34;name&#34;:&#34;&#39;.$name.&#39;&#34;,&#34;sex&#34;:&#39;.$sex.&#39;,&#34;age&#34;:&#39;.$age.&#39;})&#39;;
 ?&gt;
-</code></pre><p><img src="/img/post/ajax_cross_domain_jsonp.png" alt="ajax跨域请求"></p>
-<p>我们看到调用的url中传递了一个name参数，告诉远端服务器获取name为xiaoliu的信息，而callback参数则告诉服务器，我的本地回调函数叫做callback_func，所以请把查询结果传入这个函数中。</p>
-<h3 id="0x02-jquery中的ajax">0x02 jQuery中的ajax</h3>
-<p>其实就是对上面JSONP例子中函数的封装扩展</p>
-<pre tabindex="0"><code>&lt;html lang=&#34;en&#34;&gt;
+</code></pre><p><img src=/img/post/ajax_cross_domain_jsonp.png alt=ajax跨域请求></p><p>我们看到调用的url中传递了一个name参数，告诉远端服务器获取name为xiaoliu的信息，而callback参数则告诉服务器，我的本地回调函数叫做callback_func，所以请把查询结果传入这个函数中。</p><h3 id=0x02-jquery中的ajax>0x02 jQuery中的ajax</h3><p>其实就是对上面JSONP例子中函数的封装扩展</p><pre tabindex=0><code>&lt;html lang=&#34;en&#34;&gt;
 &lt;head&gt;
     &lt;meta charset=&#34;UTF-8&#34;&gt;
     &lt;title&gt;xsstest&lt;/title&gt;
@@ -178,40 +95,12 @@
 
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p><img src="/img/post/ajax_cross_domain_jquery.png" alt="ajax跨域请求"></p>
-<h3 id="0x03-cors">0x03 CORS</h3>
-<p>简单来说就是在请求的文件中加入header，指定可以访问资源的域名<br>
-在php中就是<code>header(&quot;Access-Control-Allow-Origin:*&quot;);</code> 这里的*代表允许所有<br>
-加入后使用<a href="http://wyb0.com/posts/ajax-and-php/">AJAX与PHP</a>中的代码就能跨域访问</p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/ajax_cross_domain_jquery.png alt=ajax跨域请求></p><h3 id=0x03-cors>0x03 CORS</h3><p>简单来说就是在请求的文件中加入header，指定可以访问资源的域名<br>在php中就是<code>header("Access-Control-Allow-Origin:*");</code> 这里的*代表允许所有<br>加入后使用<a href=http://wyb0.com/posts/ajax-and-php/>AJAX与PHP</a>中的代码就能跨域访问</p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

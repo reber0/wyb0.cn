@@ -1,114 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>攻击 WPA 保护下的 802.11 网络 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>攻击 WPA 保护下的 802.11 网络</h1>
-      
-<div class="post-meta">
-    <time>2016-07-13</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA">中间人</a>)
-</div>
-
-      <div><h3 id="0x00-网络拓扑及信息">0x00 网络拓扑及信息</h3>
-<p><img src="/img/post/wireless_topology.png" alt="无线网络渗透测试拓扑图">
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>攻击 WPA 保护下的 802.11 网络 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>攻击 WPA 保护下的 802.11 网络</h1><div class=post-meta><time>2016-07-13</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA>中间人</a>)</div><div><h3 id=0x00-网络拓扑及信息>0x00 网络拓扑及信息</h3><p><img src=/img/post/wireless_topology.png alt=无线网络渗透测试拓扑图>
 其中 ip 等信息如下：
-<img src="/img/post/wireless_base_msg.png" alt="无线网络渗透测试IP等基本信息"></p>
-<h3 id="0x01-获取信息">0x01 获取信息</h3>
-<ol>
-<li>
-<p>查看无线网卡并将其设置为监听模式
-<img src="/img/post/wireless_ifconfig.png" alt="无线网络渗透测试查看网卡信息">
-<img src="/img/post/wireless_mode_to_monitor.png" alt="无线网络渗透测试设置网卡为监听模式"></p>
-</li>
-<li>
-<p>打开 kismet，进行基本设置
-<img src="/img/post/wireless_start_kismet.png" alt="无线网络渗透测试开启kismet">
-<img src="/img/post/wireless_kismet_add_source.png" alt="无线网络渗透测试add source">
-<img src="/img/post/wireless_kismet.png" alt="无线网络渗透测试kismet主界面"></p>
-</li>
-<li>
-<p>选择名字为 111111 的 AP 为目标
-<img src="/img/post/wireless_select_target.png" alt="无线网络渗透测试kismet选择目标">
-<img src="/img/post/wireless_target_msg.png" alt="无线网络渗透测试AP的信息">
-<img src="/img/post/wireless_quit_kismet.png" alt="无线网络渗透测试退出kismet"></p>
-</li>
-<li>
-<p>查看 kismet 抓包信息</p>
-<p>kismet 生成的 nettxt 文件的部分信息如下：</p>
-<pre tabindex="0"><code>Network 104: BSSID D8:42:AC:C9:5C:1D
+<img src=/img/post/wireless_base_msg.png alt=无线网络渗透测试IP等基本信息></p><h3 id=0x01-获取信息>0x01 获取信息</h3><ol><li><p>查看无线网卡并将其设置为监听模式
+<img src=/img/post/wireless_ifconfig.png alt=无线网络渗透测试查看网卡信息>
+<img src=/img/post/wireless_mode_to_monitor.png alt=无线网络渗透测试设置网卡为监听模式></p></li><li><p>打开 kismet，进行基本设置
+<img src=/img/post/wireless_start_kismet.png alt=无线网络渗透测试开启kismet>
+<img src=/img/post/wireless_kismet_add_source.png alt="无线网络渗透测试add source">
+<img src=/img/post/wireless_kismet.png alt=无线网络渗透测试kismet主界面></p></li><li><p>选择名字为 111111 的 AP 为目标
+<img src=/img/post/wireless_select_target.png alt=无线网络渗透测试kismet选择目标>
+<img src=/img/post/wireless_target_msg.png alt=无线网络渗透测试AP的信息>
+<img src=/img/post/wireless_quit_kismet.png alt=无线网络渗透测试退出kismet></p></li><li><p>查看 kismet 抓包信息</p><p>kismet 生成的 nettxt 文件的部分信息如下：</p><pre tabindex=0><code>Network 104: BSSID D8:42:AC:C9:5C:1D
 Manuf      : Shanghai
 First      : Mon Nov 16 12:46:21 2015
 Last       : Mon Nov 16 13:10:23 2015
@@ -160,60 +72,22 @@ Total      : 150
 Datasize   : 10740
     Seen By : aaa (wlan0) fae5a030-8c1c-11e5-a78b-0403b30d2c03 150 packets
             Mon Nov 16 13:09:55 2015
-</code></pre><p>筛选出的有用信息如下：</p>
-<pre tabindex="0"><code>BSSID      : D8:42:AC:C9:5C:1D
+</code></pre><p>筛选出的有用信息如下：</p><pre tabindex=0><code>BSSID      : D8:42:AC:C9:5C:1D
 SSID       : &#34;111111&#34; 
 Encryption : WPA+PSK
 Encryption : WPA+AES-CCM
 Channel    : 5
 Client 3: MAC DC:C7:93:C5:05:58
-</code></pre></li>
-</ol>
-<h3 id="0x02-开始攻击">0x02 开始攻击</h3>
-<ol>
-<li>
-<p>通过 airodump-ng -c 5 -w 20151117 wlan0 开始抓包保存
-<img src="/img/post/wireless_get_package.png" alt="无线网络渗透测试抓包"></p>
-</li>
-<li>
-<p>得到 handshake 包，用另一个终端进行 deauth 攻击
-<img src="/img/post/wireless_start_deauth_attack.png" alt="无线网络渗透测试开始deauth攻击">
-<img src="/img/post/wireless_get_handshake_package.png" alt="无线网络渗透测试得到handshake包"></p>
-</li>
-<li>
-<p>得到 AP 密码
-<img src="/img/post/wireless_get_ap_password.png" alt="无线网络渗透测试得到无线的密码"></p>
-</li>
-</ol>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></li></ol><h3 id=0x02-开始攻击>0x02 开始攻击</h3><ol><li><p>通过 airodump-ng -c 5 -w 20151117 wlan0 开始抓包保存
+<img src=/img/post/wireless_get_package.png alt=无线网络渗透测试抓包></p></li><li><p>得到 handshake 包，用另一个终端进行 deauth 攻击
+<img src=/img/post/wireless_start_deauth_attack.png alt=无线网络渗透测试开始deauth攻击>
+<img src=/img/post/wireless_get_handshake_package.png alt=无线网络渗透测试得到handshake包></p></li><li><p>得到 AP 密码
+<img src=/img/post/wireless_get_ap_password.png alt=无线网络渗透测试得到无线的密码></p></li></ol></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

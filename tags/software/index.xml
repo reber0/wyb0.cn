@@ -1,54 +1,160 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>software on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/software/</link>
-    <description>Recent content in software on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 10 Sep 2016 16:24:18 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/software/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Tmux 的使用</title>
-      <link>https://wyb0.com/posts/2016/tmux-usage/</link>
-      <pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/tmux-usage/</guid>
-      <description>0x00 Tmux 的快捷键前缀 在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。 默认情况下，Tmux 的快捷键前缀是 Ctr</description>
-    </item>
-    <item>
-      <title>Sublime Text 3 几个好用的插件</title>
-      <link>https://wyb0.com/posts/2016/sublime-text3-plugins/</link>
-      <pubDate>Fri, 02 Sep 2016 23:07:44 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/sublime-text3-plugins/</guid>
-      <description>0x00 Package Control 安装完这个插件后可以更容易的管理(安装、删除、查看等)其他插件 代码安装 ctrl+~快捷键调出console，将下面</description>
-    </item>
-    <item>
-      <title>Ubuntu 下使用 ShadowSocks</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</link>
-      <pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</guid>
-      <description>环境：Ubuntu14.04 0x00 安装shadowsocks-qt5 sudo apt-get update sudo apt-get python-software-properties software-properties-common sudo add-apt-repository ppa:hzwhuang/ss-qt5</description>
-    </item>
-    <item>
-      <title>conky 配置</title>
-      <link>https://wyb0.com/posts/2016/conky-configuration/</link>
-      <pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/conky-configuration/</guid>
-      <description>0x00 效果 使用软件conky可以在linux上看到系统的运行状态，效果如下： 0x01 安装与配置 先安装conky： sudo apt-get install conky 在/hom</description>
-    </item>
-    <item>
-      <title>Ubuntu 下安装 sublime text 3</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</link>
-      <pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</guid>
-      <description>环境：ubuntu14.4 0x00 安装 添加Sublime Text 3的仓库 sudo add-apt-repository ppa:webupd8team/sublime-text-3 更新软件库 sudo apt-get update 安装Sublime Text 3 sudo apt-get install sublime-text-installer 0x01 解决不</description>
-    </item>
-    <item>
-      <title>Linux 之文本处理软件 awk</title>
-      <link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link>
-      <pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid>
-      <description>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。 0x00 awk 若有一个需要重新格式化的字典test.tx</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software on Reber's Blog</title><link>https://wyb0.com/tags/software/</link><description>Recent content in Software on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 10 Sep 2016 16:24:18 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/software/index.xml" rel="self" type="application/rss+xml"/><item><title>Tmux 的使用</title><link>https://wyb0.com/posts/2016/tmux-usage/</link><pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate><guid>https://wyb0.com/posts/2016/tmux-usage/</guid><description>&lt;h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀&lt;/h3>
+&lt;p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。&lt;/p>
+&lt;p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。&lt;/p></description></item><item><title>Sublime Text 3 几个好用的插件</title><link>https://wyb0.com/posts/2016/sublime-text3-plugins/</link><pubDate>Fri, 02 Sep 2016 23:07:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/sublime-text3-plugins/</guid><description>&lt;h3 id="0x00-package-control">0x00 Package Control&lt;/h3>
+&lt;p>安装完这个插件后可以更容易的管理(安装、删除、查看等)其他插件&lt;/p>
+&lt;ul>
+&lt;li>代码安装&lt;br>
+ctrl+~快捷键调出console，将下面代码粘贴进去，然后Enter执行(注意单引号)&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>import urllib.request,os; pf = &amp;#39;Package Control.sublime-package&amp;#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &amp;#39;wb&amp;#39;).write(urllib.request.urlopen( &amp;#39;http://sublime.wbond.net/&amp;#39; + pf.replace(&amp;#39; &amp;#39;,&amp;#39;%20&amp;#39;)).read())
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>手动安装
+&lt;ul>
+&lt;li>点击https://sublime.wbond.net/Package%20Control.sublime-package 下载文件&lt;/li>
+&lt;li>将下载的文件放在root path/Data/Installed Packages下&lt;/li>
+&lt;li>重启Sublime Text&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>使用方法
+&lt;ul>
+&lt;li>
+&lt;p>Ctrl+Shift+P调出菜单然后选择相应操作
+&lt;img src="https://wyb0.com/img/post/sublime_package_control1.png" alt="40">&lt;/p></description></item><item><title>Ubuntu 下使用 ShadowSocks</title><link>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</link><pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</guid><description>&lt;p>环境：Ubuntu14.04&lt;/p>
+&lt;h3 id="0x00-安装shadowsocks-qt5">0x00 安装shadowsocks-qt5&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>sudo apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get python-software-properties software-properties-common
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo add-apt-repository ppa:hzwhuang/ss-qt5（添加源）
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get update （更新你的软件库）
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install shadowsocks-qt5 &lt;span style="color:#f92672">(&lt;/span>正式安装&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-配置客户端">0x01 配置客户端&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/ss_open_client.png" alt="打开shadowsocks客户端">&lt;/p></description></item><item><title>conky 配置</title><link>https://wyb0.com/posts/2016/conky-configuration/</link><pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate><guid>https://wyb0.com/posts/2016/conky-configuration/</guid><description>&lt;h3 id="0x00-效果">0x00 效果&lt;/h3>
+&lt;p>使用软件conky可以在linux上看到系统的运行状态，效果如下：
+&lt;img src="https://wyb0.com/img/post/Conky.png" alt="conky效果图">&lt;/p>
+&lt;h3 id="0x01-安装与配置">0x01 安装与配置&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>先安装conky：&lt;br>
+sudo apt-get install conky&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在/home/username/下创建文件.conkyrc&lt;/p></description></item><item><title>Ubuntu 下安装 sublime text 3</title><link>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</link><pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</guid><description>&lt;p>环境：ubuntu14.4&lt;/p>
+&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>添加Sublime Text 3的仓库&lt;br>
+sudo add-apt-repository ppa:webupd8team/sublime-text-3&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更新软件库&lt;br>
+sudo apt-get update&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>安装Sublime Text 3&lt;br>
+sudo apt-get install sublime-text-installer&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x01-解决不能输入中文的问题">0x01 解决不能输入中文的问题&lt;/h3>
+&lt;ol>
+&lt;li>新建sublime_imfix.c(位于～目录)，写入如下内容&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#include&lt;/span> &lt;span style="color:#75715e">&amp;lt;gtk/gtkimcontext.h&amp;gt;&lt;/span>&lt;span style="color:#75715e">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">gtk_im_context_set_client_window&lt;/span> (GtkIMContext &lt;span style="color:#f92672">*&lt;/span>context,GdkWindow &lt;span style="color:#f92672">*&lt;/span>window)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GtkIMContextClass &lt;span style="color:#f92672">*&lt;/span>klass;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">g_return_if_fail&lt;/span> (&lt;span style="color:#a6e22e">GTK_IS_IM_CONTEXT&lt;/span> (context));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>klass &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GTK_IM_CONTEXT_GET_CLASS&lt;/span> (context);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> (klass&lt;span style="color:#f92672">-&amp;gt;&lt;/span>set_client_window)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> klass&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">set_client_window&lt;/span> (context, window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">g_object_set_data&lt;/span>(&lt;span style="color:#a6e22e">G_OBJECT&lt;/span>(context),&lt;span style="color:#e6db74">&amp;#34;window&amp;#34;&lt;/span>,window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span>(&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">GDK_IS_WINDOW&lt;/span> (window))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> width &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">gdk_window_get_width&lt;/span>(window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> height &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">gdk_window_get_height&lt;/span>(window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span>(width &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> height &lt;span style="color:#f92672">!=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">gtk_im_context_focus_in&lt;/span>(context);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>将上一步的代码编译成共享库libsublime-imfix.so&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>cd ~ 
+sudo apt-get install gtk+-2.0 
+gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>
+&lt;p>将libsublime-imfix.so拷贝到sublime_text所在文件夹&lt;br>
+&lt;code>sudo mv libsublime-imfix.so /opt/sublime_text/&lt;/code>&lt;/p></description></item><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
+&lt;h3 id="0x00-awk">0x00 awk&lt;/h3>
+&lt;ul>
+&lt;li>若有一个需要重新格式化的字典test.txt(用户名、密码、地址)：&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>xiaosan sadasdw jiaozuo
+234wer asdfasd asdas
+1111 aaaa cccc
+2222 aaaa degd
+1111 aaaa cccc
+3333 aaaa dfger
+21asd sdfsd sadasd
+dwqx asds sasdfcv
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>要求：&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1.里面有重复数据，使用命令去重
+2.提取出用户名和密码 每一行前面加上id数字，递增。
+3.只提取出密码作为爆破字典
+4.某些公司都是一个公司前缀+姓名简写，所以为用户名一栏全部改为uv_用户名
+5.提取出密码一列，有些密码爆破成功率高，所以增加一列，标出密码出现次数
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-去重">0x01 去重&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39;
+$ cat test.txt | uniq #作用和上面命令相同
+xiaosan sadasdw jiaozuo
+234wer asdfasd asdas
+1111 aaaa cccc
+2222 aaaa degd
+3333 aaaa dfger
+21asd sdfsd sadasd
+dwqx asds sasdfcv
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-去重添加id">0x02 去重、添加id&lt;/h3>
+&lt;pre tabindex="0">&lt;code>一般字典不需要id、user、pass等标示符，这里只是为了便于观看
+
+$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print &amp;#34;id:&amp;#34;NR&amp;#34;\tuser:&amp;#34;$1&amp;#34;\tpass:&amp;#34;$2&amp;#34;\taddress:&amp;#34;$3}&amp;#39; | column -t #最后一个命令可以将列对齐
+id:1 user:aosan pass:sadasdw address:jiaozuo
+id:2 user:234wer pass:asdfasd address:asdas
+id:3 user:1111 pass:aaaa address:cccc
+id:4 user:2222 pass:aaaa address:degd
+id:5 user:3333 pass:aaaa address:dfger
+id:6 user:21asd pass:sdfsd address:sadasd
+id:7 user:dwqx pass:asds address:sasdfcv
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-去重添加id添加公司前缀">0x03 去重、添加id、添加公司前缀&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print &amp;#34;id:&amp;#34;NR&amp;#34;\tuser:uv_&amp;#34;$1&amp;#34;\tpass:&amp;#34;$2&amp;#34;\taddress:&amp;#34;$3}&amp;#39;
+id:1 user:uv_aosan pass:sadasdw address:jiaozuo
+id:2 user:uv_234wer pass:asdfasd address:asdas
+id:3 user:uv_1111 pass:aaaa address:cccc
+id:4 user:uv_2222 pass:aaaa address:degd
+id:5 user:uv_3333 pass:aaaa address:dfger
+id:6 user:uv_21asd pass:sdfsd address:sadasd
+id:7 user:uv_dwqx pass:asds address:sasdfcv
+&lt;/code>&lt;/pre>&lt;h3 id="0x04-去重然后输出密码">0x04 去重然后输出密码&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print &amp;#34;pass:&amp;#34;$2}&amp;#39;
+pass:sadasdw
+pass:asdfasd
+pass:aaaa
+pass:aaaa
+pass:aaaa
+pass:sdfsd
+pass:asds
+&lt;/code>&lt;/pre>&lt;h3 id="0x05-输出密码得到密码出现次数">0x05 输出密码、得到密码出现次数&lt;/h3>
+&lt;pre tabindex="0">&lt;code>下面的&amp;#39;a[$1]++&amp;#39;是按第一列来去重的,若有两条数据只有第一列重复则成功，可以用$0按行来去重
+$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print $2}&amp;#39; | awk &amp;#39;{a[$1]++} END {for (j in a) print a[j],j}&amp;#39;
+1 sadasdw
+1 sdfsd
+1 asdfasd
+1 asds
+3 aaaa
+
+uniq 只能去除挨着的重复数据，所以先sort升序排序，然后uniq -c统计重复，再sort -r降序排序
+cat test.txt | awk &amp;#39;{print $2}&amp;#39; | sed &amp;#39;1d&amp;#39; |sort | uniq -c |sort -r
+&lt;/code>&lt;/pre>&lt;h3 id="0x06-其他">0x06 其他：&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>对!a[$1]++的解释如下：&lt;/p></description></item></channel></rss>

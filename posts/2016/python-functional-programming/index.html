@@ -1,240 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Python 的函数式编程 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Python 的函数式编程</h1>
-      
-<div class="post-meta">
-    <time>2016-01-21</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>)
-</div>
-
-      <div><h3 id="0x00-函数式编程">0x00 函数式编程</h3>
-<p>首先说一下高阶函数，能将函数作为参数来接收的函数就可以称为高阶函数，如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add</span>(x,y,f):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> f(x) <span style="color:#f92672">+</span> f(y)
-</span></span><span style="display:flex;"><span>print add(<span style="color:#ae81ff">7</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>,abs) <span style="color:#75715e">#abs是求绝对值的函数，这里返回的值为10</span>
-</span></span></code></pre></div><p>将函数作为参数传入，这样的函数就是高阶函数，而函数式编程就是指这种抽象程度很高的编程范式。<br>
-函数式编程的一个特点就是可以将函数作为参数，还允许返回一个函数。<br>
-纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。<br>
-允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出，因此，这种函数是有副作用的。</p>
-<h3 id="0x01-高阶函数">0x01 高阶函数</h3>
-<ul>
-<li>map()函数<br>
-map接收两个参数，一个是函数，一个是列表(list)，map将函数依次作用到list的每个元素，然后返回新的list</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">*</span>x
-</span></span><span style="display:flex;"><span>print map(f,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]) <span style="color:#75715e">#返回[1,4,9,16]</span>
-</span></span><span style="display:flex;"><span>print map(str,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]) <span style="color:#75715e"># 返回[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;]</span>
-</span></span></code></pre></div><ul>
-<li>reduce()函数<br>
-reduce接收参数和map一样(但传入的函数必须接收两个参数)，reduce会对list的每个元素反复调用函数，然后返回最终值</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x,y):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x<span style="color:#f92672">*</span>y
-</span></span><span style="display:flex;"><span>print reduce(f,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]) <span style="color:#75715e">#1*2*3*4，返回24</span>
-</span></span></code></pre></div><ul>
-<li>filter()函数<br>
-filter也接收函数和list，函数会对list的每个元素进行判断然后返回True或False，为True的组成新list返回</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>print filter(f,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>]) <span style="color:#75715e">#返回[4,5]</span>
-</span></span></code></pre></div><ul>
-<li>sorted()函数<br>
-Python内置的函数sorted()可以对list进行排序</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sorted([<span style="color:#ae81ff">34</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">345</span>,<span style="color:#ae81ff">3</span>]) <span style="color:#75715e">#返回[2,3,34,345]</span>
-</span></span></code></pre></div><p>sorted也是一个高阶函数，当然也可以接收函数和参数。通常规定，对于两个元素x和y，若认为x &lt; y则返回-1，若认为x == y则返回0，若认为x &gt; y则返回1，从而进行正向排序</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">s</span>(s1,s2):
-</span></span><span style="display:flex;"><span>    u1 <span style="color:#f92672">=</span> s1<span style="color:#f92672">.</span>lower()
-</span></span><span style="display:flex;"><span>    u2 <span style="color:#f92672">=</span> s2<span style="color:#f92672">.</span>lower()
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> u1 <span style="color:#f92672">&lt;</span> u2:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> u1 <span style="color:#f92672">&gt;</span> u2:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>print sorted([<span style="color:#e6db74">&#39;tom,Bob,Jerry,Alim&#39;</span>],s) <span style="color:#75715e">#返回[&#39;Alim&#39;,&#39;Bob&#39;,&#39;Jerry&#39;,&#39;tom&#39;]</span>
-</span></span></code></pre></div><h3 id="0x02-匿名函数">0x02 匿名函数</h3>
-<p>匿名函数有时可以节省代码量，它没有函数名，也不存在return，它会用到关键字lambda，后面跟参数，然后是冒号，冒号后面写表达式(也是返回值)，形如：lambda x,y:x<em>y代表的就是参数为x,y，返回x</em>y。Python的匿名函数都可以用def代替</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print map(<span style="color:#66d9ef">lambda</span> x:x<span style="color:#f92672">*</span>x,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]) <span style="color:#75715e">#返回[1,4,9,16]</span>
-</span></span><span style="display:flex;"><span>print reduce(<span style="color:#66d9ef">lambda</span> x,y:x<span style="color:#f92672">*</span>y,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]) <span style="color:#75715e">#返回1*2*3*4，即24</span>
-</span></span><span style="display:flex;"><span>print filter(<span style="color:#66d9ef">lambda</span> x:x<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">3</span>,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>]) <span style="color:#75715e">#返回[4,5]</span>
-</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x,y:x<span style="color:#f92672">+</span>y
-</span></span><span style="display:flex;"><span>print f(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>) <span style="color:#75715e">#返回5</span>
-</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x,y<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>:x<span style="color:#f92672">+</span>y
-</span></span><span style="display:flex;"><span>print g(<span style="color:#ae81ff">5</span>) <span style="color:#75715e">#不输入y值则默认为3，这里返回8</span>
-</span></span><span style="display:flex;"><span>print (<span style="color:#66d9ef">lambda</span> s:<span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(s<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;*&#39;</span>)))(<span style="color:#e6db74">&#34;I*am*tom&#34;</span>) <span style="color:#75715e">#返回I am tom</span>
-</span></span><span style="display:flex;"><span>print (<span style="color:#66d9ef">lambda</span> x,y:x <span style="color:#66d9ef">if</span> x<span style="color:#f92672">&gt;</span>y <span style="color:#66d9ef">else</span> y)(<span style="color:#ae81ff">53</span>,<span style="color:#ae81ff">34</span>) <span style="color:#75715e">#返回53</span>
-</span></span><span style="display:flex;"><span>L <span style="color:#f92672">=</span> [<span style="color:#66d9ef">lambda</span> x:x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>,<span style="color:#66d9ef">lambda</span> x:x<span style="color:#f92672">**</span><span style="color:#ae81ff">3</span>,<span style="color:#66d9ef">lambda</span> x:x<span style="color:#f92672">**</span><span style="color:#ae81ff">4</span>]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> L:
-</span></span><span style="display:flex;"><span>    print f(<span style="color:#ae81ff">2</span>), <span style="color:#75715e">#输出4 8 16</span>
-</span></span></code></pre></div><h3 id="0x03-装饰器">0x03 装饰器</h3>
-<p>装饰器可以提高程序的课重复利用性，并增加程序的可读性</p>
-<ul>
-<li>不带参数</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deco</span>(func):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_deco</span>():
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;before func()&#34;</span>
-</span></span><span style="display:flex;"><span>        func()
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;after func()&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> _deco <span style="color:#75715e">#返回一个修饰过的函数(即修改过的func())</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@deco</span> <span style="color:#75715e">#等价于foo = deco(foo)，即修饰过的函数赋给foo</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;this is foo()&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>foo() <span style="color:#75715e"># 此时的foo()就是deco(foo)的返回值，即函数_deco()</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#结果如下：
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># before func()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># this is foo()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># after func()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-</span></span></code></pre></div><ul>
-<li>带参数</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deco</span>(func):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_deco</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;before func()&#34;</span>
-</span></span><span style="display:flex;"><span>        ret <span style="color:#f92672">=</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;after func()&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ret
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> _deco
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@deco</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">myfunc1</span>(a, b):
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;myfunc1&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@deco</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">myfunc2</span>(a, b, c):
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;myfunc2&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b<span style="color:#f92672">+</span>c
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print myfunc1(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span>print myfunc2(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>)
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#结果如下：
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># before func()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># myfunc1
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># after func()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># 5
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># before func()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># myfunc2
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># after func()
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># 9
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Python 的函数式编程 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Python 的函数式编程</h1><div class=post-meta><time>2016-01-21</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div><h3 id=0x00-函数式编程>0x00 函数式编程</h3><p>首先说一下高阶函数，能将函数作为参数来接收的函数就可以称为高阶函数，如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>add</span>(x,y,f):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> f(x) <span style=color:#f92672>+</span> f(y)
+</span></span><span style=display:flex><span>print add(<span style=color:#ae81ff>7</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>,abs) <span style=color:#75715e>#abs是求绝对值的函数，这里返回的值为10</span>
+</span></span></code></pre></div><p>将函数作为参数传入，这样的函数就是高阶函数，而函数式编程就是指这种抽象程度很高的编程范式。<br>函数式编程的一个特点就是可以将函数作为参数，还允许返回一个函数。<br>纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。<br>允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出，因此，这种函数是有副作用的。</p><h3 id=0x01-高阶函数>0x01 高阶函数</h3><ul><li>map()函数<br>map接收两个参数，一个是函数，一个是列表(list)，map将函数依次作用到list的每个元素，然后返回新的list</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>f</span>(x):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> x<span style=color:#f92672>*</span>x
+</span></span><span style=display:flex><span>print map(f,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>]) <span style=color:#75715e>#返回[1,4,9,16]</span>
+</span></span><span style=display:flex><span>print map(str,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>]) <span style=color:#75715e># 返回[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;]</span>
+</span></span></code></pre></div><ul><li>reduce()函数<br>reduce接收参数和map一样(但传入的函数必须接收两个参数)，reduce会对list的每个元素反复调用函数，然后返回最终值</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>f</span>(x,y):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> x<span style=color:#f92672>*</span>y
+</span></span><span style=display:flex><span>print reduce(f,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>]) <span style=color:#75715e>#1*2*3*4，返回24</span>
+</span></span></code></pre></div><ul><li>filter()函数<br>filter也接收函数和list，函数会对list的每个元素进行判断然后返回True或False，为True的组成新list返回</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>f</span>(x):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> x <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>print filter(f,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>5</span>]) <span style=color:#75715e>#返回[4,5]</span>
+</span></span></code></pre></div><ul><li>sorted()函数<br>Python内置的函数sorted()可以对list进行排序</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>sorted([<span style=color:#ae81ff>34</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>345</span>,<span style=color:#ae81ff>3</span>]) <span style=color:#75715e>#返回[2,3,34,345]</span>
+</span></span></code></pre></div><p>sorted也是一个高阶函数，当然也可以接收函数和参数。通常规定，对于两个元素x和y，若认为x &lt; y则返回-1，若认为x == y则返回0，若认为x > y则返回1，从而进行正向排序</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>s</span>(s1,s2):
+</span></span><span style=display:flex><span>    u1 <span style=color:#f92672>=</span> s1<span style=color:#f92672>.</span>lower()
+</span></span><span style=display:flex><span>    u2 <span style=color:#f92672>=</span> s2<span style=color:#f92672>.</span>lower()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> u1 <span style=color:#f92672>&lt;</span> u2:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> u1 <span style=color:#f92672>&gt;</span> u2:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>print sorted([<span style=color:#e6db74>&#39;tom,Bob,Jerry,Alim&#39;</span>],s) <span style=color:#75715e>#返回[&#39;Alim&#39;,&#39;Bob&#39;,&#39;Jerry&#39;,&#39;tom&#39;]</span>
+</span></span></code></pre></div><h3 id=0x02-匿名函数>0x02 匿名函数</h3><p>匿名函数有时可以节省代码量，它没有函数名，也不存在return，它会用到关键字lambda，后面跟参数，然后是冒号，冒号后面写表达式(也是返回值)，形如：lambda x,y:x<em>y代表的就是参数为x,y，返回x</em>y。Python的匿名函数都可以用def代替</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>print map(<span style=color:#66d9ef>lambda</span> x:x<span style=color:#f92672>*</span>x,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>]) <span style=color:#75715e>#返回[1,4,9,16]</span>
+</span></span><span style=display:flex><span>print reduce(<span style=color:#66d9ef>lambda</span> x,y:x<span style=color:#f92672>*</span>y,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>]) <span style=color:#75715e>#返回1*2*3*4，即24</span>
+</span></span><span style=display:flex><span>print filter(<span style=color:#66d9ef>lambda</span> x:x<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>3</span>,[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>5</span>]) <span style=color:#75715e>#返回[4,5]</span>
+</span></span><span style=display:flex><span>f <span style=color:#f92672>=</span> <span style=color:#66d9ef>lambda</span> x,y:x<span style=color:#f92672>+</span>y
+</span></span><span style=display:flex><span>print f(<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>2</span>) <span style=color:#75715e>#返回5</span>
+</span></span><span style=display:flex><span>g <span style=color:#f92672>=</span> <span style=color:#66d9ef>lambda</span> x,y<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>:x<span style=color:#f92672>+</span>y
+</span></span><span style=display:flex><span>print g(<span style=color:#ae81ff>5</span>) <span style=color:#75715e>#不输入y值则默认为3，这里返回8</span>
+</span></span><span style=display:flex><span>print (<span style=color:#66d9ef>lambda</span> s:<span style=color:#e6db74>&#39; &#39;</span><span style=color:#f92672>.</span>join(s<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;*&#39;</span>)))(<span style=color:#e6db74>&#34;I*am*tom&#34;</span>) <span style=color:#75715e>#返回I am tom</span>
+</span></span><span style=display:flex><span>print (<span style=color:#66d9ef>lambda</span> x,y:x <span style=color:#66d9ef>if</span> x<span style=color:#f92672>&gt;</span>y <span style=color:#66d9ef>else</span> y)(<span style=color:#ae81ff>53</span>,<span style=color:#ae81ff>34</span>) <span style=color:#75715e>#返回53</span>
+</span></span><span style=display:flex><span>L <span style=color:#f92672>=</span> [<span style=color:#66d9ef>lambda</span> x:x<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span>,<span style=color:#66d9ef>lambda</span> x:x<span style=color:#f92672>**</span><span style=color:#ae81ff>3</span>,<span style=color:#66d9ef>lambda</span> x:x<span style=color:#f92672>**</span><span style=color:#ae81ff>4</span>]
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> f <span style=color:#f92672>in</span> L:
+</span></span><span style=display:flex><span>    print f(<span style=color:#ae81ff>2</span>), <span style=color:#75715e>#输出4 8 16</span>
+</span></span></code></pre></div><h3 id=0x03-装饰器>0x03 装饰器</h3><p>装饰器可以提高程序的课重复利用性，并增加程序的可读性</p><ul><li>不带参数</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>deco</span>(func):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_deco</span>():
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;before func()&#34;</span>
+</span></span><span style=display:flex><span>        func()
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;after func()&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> _deco <span style=color:#75715e>#返回一个修饰过的函数(即修改过的func())</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@deco</span> <span style=color:#75715e>#等价于foo = deco(foo)，即修饰过的函数赋给foo</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>foo</span>():
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;this is foo()&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>foo() <span style=color:#75715e># 此时的foo()就是deco(foo)的返回值，即函数_deco()</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>#结果如下：
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># before func()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># this is foo()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># after func()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+</span></span></code></pre></div><ul><li>带参数</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>deco</span>(func):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_deco</span>(<span style=color:#f92672>*</span>args, <span style=color:#f92672>**</span>kwargs):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;before func()&#34;</span>
+</span></span><span style=display:flex><span>        ret <span style=color:#f92672>=</span> func(<span style=color:#f92672>*</span>args, <span style=color:#f92672>**</span>kwargs)
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;after func()&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> ret
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> _deco
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@deco</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>myfunc1</span>(a, b):
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;myfunc1&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> a<span style=color:#f92672>+</span>b
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@deco</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>myfunc2</span>(a, b, c):
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;myfunc2&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> a<span style=color:#f92672>+</span>b<span style=color:#f92672>+</span>c
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print myfunc1(<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>)
+</span></span><span style=display:flex><span>print myfunc2(<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>4</span>)
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>#结果如下：
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># before func()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># myfunc1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># after func()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># 5
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># before func()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># myfunc2
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># after func()
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># 9
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

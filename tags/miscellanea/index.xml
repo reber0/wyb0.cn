@@ -1,33 +1,1350 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>miscellanea on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/miscellanea/</link>
-    <description>Recent content in miscellanea on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 21 Sep 2016 23:05:57 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/miscellanea/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>准则</title>
-      <link>https://wyb0.com/posts/2016/principles/</link>
-      <pubDate>Wed, 21 Sep 2016 23:05:57 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/principles/</guid>
-      <description>0x00 创造价值 小鸡问母鸡：可否不用下蛋，带我出去玩啊？母鸡道：不行，我要工作！ 小鸡说：可你已经下了这么多蛋了！母鸡意味深长地</description>
-    </item>
-    <item>
-      <title>RGB 颜色对照表</title>
-      <link>https://wyb0.com/posts/2016/rgb-color-look-up-table/</link>
-      <pubDate>Sat, 04 Jun 2016 20:03:10 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/rgb-color-look-up-table/</guid>
-      <description>RGB RGB颜色对照表 #FFFFFF #FFFFF0 #FFFFE0 #FFFF00 #FFFAFA #FFFAF0 #FFFACD #FFF8DC #FFF68F #FFF5EE #FFF0F5 #FFEFDB #FFEFD5 #FFEC8B #FFEBCD #FFE7BA #FFE4E1 #FFE4C4 #FFE4B5 #FFE1FF #FFDEAD #FFDAB9 #FFD700 #FFD39B #FFC1C1 #FFC125 #FFC0CB #FFBBFF #FFB90F #FFB6C1 #FFB5C5 #FFAEB9 #FFA54F #FFA500 #FFA07A #FF8C69 #FF8C00 #FF83FA #FF82AB #FF8247 #FF7F50 #FF7F24 #FF7F00 #FF7256 #FF6EB4 #FF6A6A #FF69B4 #FF6347 #FF4500 #FF4040 #FF3E96</description>
-    </item>
-    <item>
-      <title>[转] 短</title>
-      <link>https://wyb0.com/posts/2016/short/</link>
-      <pubDate>Sun, 17 Apr 2016 15:49:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/short/</guid>
-      <description>短 俄罗斯某诗人 ### 一天很短 ### 短得来不及拥抱清晨 ### 就已经手握黄昏 一年很短 短得来不及细品初春殷红窦绿 就要打点素裹秋霜 一生很短 短</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Miscellanea on Reber's Blog</title><link>https://wyb0.com/tags/miscellanea/</link><description>Recent content in Miscellanea on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 21 Sep 2016 23:05:57 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/miscellanea/index.xml" rel="self" type="application/rss+xml"/><item><title>准则</title><link>https://wyb0.com/posts/2016/principles/</link><pubDate>Wed, 21 Sep 2016 23:05:57 +0000</pubDate><guid>https://wyb0.com/posts/2016/principles/</guid><description>&lt;h3 id="0x00-创造价值">0x00 创造价值&lt;/h3>
+&lt;p>小鸡问母鸡：可否不用下蛋，带我出去玩啊？母鸡道：不行，我要工作！&lt;br>
+小鸡说：可你已经下了这么多蛋了！母鸡意味深长地对小鸡说：一天一个蛋，菜刀靠边站，一月不生蛋，高压锅里见。&lt;br>
+存在是因为你创造价值，淘汰是因为你失去价值。过去的价值不代表未来，所以每天都要努力！&lt;/p></description></item><item><title>RGB 颜色对照表</title><link>https://wyb0.com/posts/2016/rgb-color-look-up-table/</link><pubDate>Sat, 04 Jun 2016 20:03:10 +0000</pubDate><guid>https://wyb0.com/posts/2016/rgb-color-look-up-table/</guid><description>&lt;html>
+&lt;head>
+ &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ &lt;title>RGB&lt;/title>
+&lt;/head>
+&lt;body>
+ &lt;p align="center">&lt;b> RGB&lt;/b>颜色对照表&lt;/p>
+ &lt;div align="center">
+ &lt;center>
+ &lt;table width="550" cellspacing="3" border="1">
+ &lt;tbody>
+ &lt;tr>
+ &lt;td bgcolor="#ffffff" height="30" width="30">&lt;/td>
+ &lt;td>#FFFFFF&lt;/td>
+ &lt;td bgcolor="#fffff0" height="30" width="30">&lt;/td>
+ &lt;td>#FFFFF0&lt;/td>
+ &lt;td bgcolor="#ffffe0" height="30" width="30">&lt;/td>
+ &lt;td>#FFFFE0&lt;/td>
+ &lt;td bgcolor="#ffff00" height="30" width="30">&lt;/td>
+ &lt;td>#FFFF00&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#fffafa" height="30" width="30">&lt;/td>
+ &lt;td>#FFFAFA&lt;/td>
+ &lt;td bgcolor="#fffaf0" height="30" width="30">&lt;/td>
+ &lt;td>#FFFAF0&lt;/td>
+ &lt;td bgcolor="#fffacd" height="30" width="30">&lt;/td>
+ &lt;td>#FFFACD&lt;/td>
+ &lt;td bgcolor="#fff8dc" height="30" width="30">&lt;/td>
+ &lt;td>#FFF8DC&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#fff68f" height="30" width="30">&lt;/td>
+ &lt;td>#FFF68F&lt;/td>
+ &lt;td bgcolor="#fff5ee" height="30" width="30">&lt;/td>
+ &lt;td>#FFF5EE&lt;/td>
+ &lt;td bgcolor="#fff0f5" height="30" width="30">&lt;/td>
+ &lt;td>#FFF0F5&lt;/td>
+ &lt;td bgcolor="#ffefdb" height="30" width="30">&lt;/td>
+ &lt;td>#FFEFDB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ffefd5" height="30" width="30">&lt;/td>
+ &lt;td>#FFEFD5&lt;/td>
+ &lt;td bgcolor="#ffec8b" height="30" width="30">&lt;/td>
+ &lt;td>#FFEC8B&lt;/td>
+ &lt;td bgcolor="#ffebcd" height="30" width="30">&lt;/td>
+ &lt;td>#FFEBCD&lt;/td>
+ &lt;td bgcolor="#ffe7ba" height="30" width="30">&lt;/td>
+ &lt;td>#FFE7BA&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ffe4e1" height="30" width="30">&lt;/td>
+ &lt;td>#FFE4E1&lt;/td>
+ &lt;td bgcolor="#ffe4c4" height="30" width="30">&lt;/td>
+ &lt;td>#FFE4C4&lt;/td>
+ &lt;td bgcolor="#ffe4b5" height="30" width="30">&lt;/td>
+ &lt;td>#FFE4B5&lt;/td>
+ &lt;td bgcolor="#ffe1ff" height="30" width="30">&lt;/td>
+ &lt;td>#FFE1FF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ffdead" height="30" width="30">&lt;/td>
+ &lt;td>#FFDEAD&lt;/td>
+ &lt;td bgcolor="#ffdab9" height="30" width="30">&lt;/td>
+ &lt;td>#FFDAB9&lt;/td>
+ &lt;td bgcolor="#ffd700" height="30" width="30">&lt;/td>
+ &lt;td>#FFD700&lt;/td>
+ &lt;td bgcolor="#ffd39b" height="30" width="30">&lt;/td>
+ &lt;td>#FFD39B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ffc1c1" height="30" width="30">&lt;/td>
+ &lt;td>#FFC1C1&lt;/td>
+ &lt;td bgcolor="#ffc125" height="30" width="30">&lt;/td>
+ &lt;td>#FFC125&lt;/td>
+ &lt;td bgcolor="#ffc0cb" height="30" width="30">&lt;/td>
+ &lt;td>#FFC0CB&lt;/td>
+ &lt;td bgcolor="#ffbbff" height="30" width="30">&lt;/td>
+ &lt;td>#FFBBFF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ffb90f" height="30" width="30">&lt;/td>
+ &lt;td>#FFB90F&lt;/td>
+ &lt;td bgcolor="#ffb6c1" height="30" width="30">&lt;/td>
+ &lt;td>#FFB6C1&lt;/td>
+ &lt;td bgcolor="#ffb5c5" height="30" width="30">&lt;/td>
+ &lt;td>#FFB5C5&lt;/td>
+ &lt;td bgcolor="#ffaeb9" height="30" width="30">&lt;/td>
+ &lt;td>#FFAEB9&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ffa54f" height="30" width="30">&lt;/td>
+ &lt;td>#FFA54F&lt;/td>
+ &lt;td bgcolor="#ffa500" height="30" width="30">&lt;/td>
+ &lt;td>#FFA500&lt;/td>
+ &lt;td bgcolor="#ffa07a" height="30" width="30">&lt;/td>
+ &lt;td>#FFA07A&lt;/td>
+ &lt;td bgcolor="#ff8c69" height="30" width="30">&lt;/td>
+ &lt;td>#FF8C69&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ff8c00" height="30" width="30">&lt;/td>
+ &lt;td>#FF8C00&lt;/td>
+ &lt;td bgcolor="#ff83fa" height="30" width="30">&lt;/td>
+ &lt;td>#FF83FA&lt;/td>
+ &lt;td bgcolor="#ff82ab" height="30" width="30">&lt;/td>
+ &lt;td>#FF82AB&lt;/td>
+ &lt;td bgcolor="#ff8247" height="30" width="30">&lt;/td>
+ &lt;td>#FF8247&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ff7f50" height="30" width="30">&lt;/td>
+ &lt;td>#FF7F50&lt;/td>
+ &lt;td bgcolor="#ff7f24" height="30" width="30">&lt;/td>
+ &lt;td>#FF7F24&lt;/td>
+ &lt;td bgcolor="#ff7f00" height="30" width="30">&lt;/td>
+ &lt;td>#FF7F00&lt;/td>
+ &lt;td bgcolor="#ff7256" height="30" width="30">&lt;/td>
+ &lt;td>#FF7256&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ff6eb4" height="30" width="30">&lt;/td>
+ &lt;td>#FF6EB4&lt;/td>
+ &lt;td bgcolor="#ff6a6a" height="30" width="30">&lt;/td>
+ &lt;td>#FF6A6A&lt;/td>
+ &lt;td bgcolor="#ff69b4" height="30" width="30">&lt;/td>
+ &lt;td>#FF69B4&lt;/td>
+ &lt;td bgcolor="#ff6347" height="30" width="30">&lt;/td>
+ &lt;td>#FF6347&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ff4500" height="30" width="30">&lt;/td>
+ &lt;td>#FF4500&lt;/td>
+ &lt;td bgcolor="#ff4040" height="30" width="30">&lt;/td>
+ &lt;td>#FF4040&lt;/td>
+ &lt;td bgcolor="#ff3e96" height="30" width="30">&lt;/td>
+ &lt;td>#FF3E96&lt;/td>
+ &lt;td bgcolor="#ff34b3" height="30" width="30">&lt;/td>
+ &lt;td>#FF34B3&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ff3030" height="30" width="30">&lt;/td>
+ &lt;td>#FF3030&lt;/td>
+ &lt;td bgcolor="#ff1493" height="30" width="30">&lt;/td>
+ &lt;td>#FF1493&lt;/td>
+ &lt;td bgcolor="#ff00ff" height="30" width="30">&lt;/td>
+ &lt;td>#FF00FF&lt;/td>
+ &lt;td bgcolor="#ff0000" height="30" width="30">&lt;/td>
+ &lt;td>#FF0000&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#fdf5e6" height="30" width="30">&lt;/td>
+ &lt;td>#FDF5E6&lt;/td>
+ &lt;td bgcolor="#fcfcfc" height="30" width="30">&lt;/td>
+ &lt;td>#FCFCFC&lt;/td>
+ &lt;td bgcolor="#fafafa" height="30" width="30">&lt;/td>
+ &lt;td>#FAFAFA&lt;/td>
+ &lt;td bgcolor="#fafad2" height="30" width="30">&lt;/td>
+ &lt;td>#FAFAD2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#faf0e6" height="30" width="30">&lt;/td>
+ &lt;td>#FAF0E6&lt;/td>
+ &lt;td bgcolor="#faebd7" height="30" width="30">&lt;/td>
+ &lt;td>#FAEBD7&lt;/td>
+ &lt;td bgcolor="#fa8072" height="30" width="30">&lt;/td>
+ &lt;td>#FA8072&lt;/td>
+ &lt;td bgcolor="#f8f8ff" height="30" width="30">&lt;/td>
+ &lt;td>#F8F8FF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#f7f7f7" height="30" width="30">&lt;/td>
+ &lt;td>#F7F7F7&lt;/td>
+ &lt;td bgcolor="#f5fffa" height="30" width="30">&lt;/td>
+ &lt;td>#F5FFFA&lt;/td>
+ &lt;td bgcolor="#f5f5f5" height="30" width="30">&lt;/td>
+ &lt;td>#F5F5F5&lt;/td>
+ &lt;td bgcolor="#f5f5dc" height="30" width="30">&lt;/td>
+ &lt;td>#F5F5DC&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#f5deb3" height="30" width="30">&lt;/td>
+ &lt;td>#F5DEB3&lt;/td>
+ &lt;td bgcolor="#f4f4f4" height="30" width="30">&lt;/td>
+ &lt;td>#F4F4F4&lt;/td>
+ &lt;td bgcolor="#f4a460" height="30" width="30">&lt;/td>
+ &lt;td>#F4A460&lt;/td>
+ &lt;td bgcolor="#f2f2f2" height="30" width="30">&lt;/td>
+ &lt;td>#F2F2F2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#f0ffff" height="30" width="30">&lt;/td>
+ &lt;td>#F0FFFF&lt;/td>
+ &lt;td bgcolor="#f0fff0" height="30" width="30">&lt;/td>
+ &lt;td>#F0FFF0&lt;/td>
+ &lt;td bgcolor="#f0f8ff" height="30" width="30">&lt;/td>
+ &lt;td>#F0F8FF&lt;/td>
+ &lt;td bgcolor="#f0f0f0" height="30" width="30">&lt;/td>
+ &lt;td>#F0F0F0&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#f0e68c" height="30" width="30">&lt;/td>
+ &lt;td>#F0E68C&lt;/td>
+ &lt;td bgcolor="#f08080" height="30" width="30">&lt;/td>
+ &lt;td>#F08080&lt;/td>
+ &lt;td bgcolor="#eeeee0" height="30" width="30">&lt;/td>
+ &lt;td>#EEEEE0&lt;/td>
+ &lt;td bgcolor="#eeeed1" height="30" width="30">&lt;/td>
+ &lt;td>#EEEED1&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eeee00" height="30" width="30">&lt;/td>
+ &lt;td>#EEEE00&lt;/td>
+ &lt;td bgcolor="#eee9e9" height="30" width="30">&lt;/td>
+ &lt;td>#EEE9E9&lt;/td>
+ &lt;td bgcolor="#eee9bf" height="30" width="30">&lt;/td>
+ &lt;td>#EEE9BF&lt;/td>
+ &lt;td bgcolor="#eee8cd" height="30" width="30">&lt;/td>
+ &lt;td>#EEE8CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eee8aa" height="30" width="30">&lt;/td>
+ &lt;td>#EEE8AA&lt;/td>
+ &lt;td bgcolor="#eee685" height="30" width="30">&lt;/td>
+ &lt;td>#EEE685&lt;/td>
+ &lt;td bgcolor="#eee5de" height="30" width="30">&lt;/td>
+ &lt;td>#EEE5DE&lt;/td>
+ &lt;td bgcolor="#eee0e5" height="30" width="30">&lt;/td>
+ &lt;td>#EEE0E5&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eedfcc" height="30" width="30">&lt;/td>
+ &lt;td>#EEDFCC&lt;/td>
+ &lt;td bgcolor="#eedc82" height="30" width="30">&lt;/td>
+ &lt;td>#EEDC82&lt;/td>
+ &lt;td bgcolor="#eed8ae" height="30" width="30">&lt;/td>
+ &lt;td>#EED8AE&lt;/td>
+ &lt;td bgcolor="#eed5d2" height="30" width="30">&lt;/td>
+ &lt;td>#EED5D2&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eed5b7" height="30" width="30">&lt;/td>
+ &lt;td>#EED5B7&lt;/td>
+ &lt;td bgcolor="#eed2ee" height="30" width="30">&lt;/td>
+ &lt;td>#EED2EE&lt;/td>
+ &lt;td bgcolor="#eecfa1" height="30" width="30">&lt;/td>
+ &lt;td>#EECFA1&lt;/td>
+ &lt;td bgcolor="#eecbad" height="30" width="30">&lt;/td>
+ &lt;td>#EECBAD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eec900" height="30" width="30">&lt;/td>
+ &lt;td>#EEC900&lt;/td>
+ &lt;td bgcolor="#eec591" height="30" width="30">&lt;/td>
+ &lt;td>#EEC591&lt;/td>
+ &lt;td bgcolor="#eeb4b4" height="30" width="30">&lt;/td>
+ &lt;td>#EEB4B4&lt;/td>
+ &lt;td bgcolor="#eeb422" height="30" width="30">&lt;/td>
+ &lt;td>#EEB422&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eeaeee" height="30" width="30">&lt;/td>
+ &lt;td>#EEAEEE&lt;/td>
+ &lt;td bgcolor="#eead0e" height="30" width="30">&lt;/td>
+ &lt;td>#EEAD0E&lt;/td>
+ &lt;td bgcolor="#eea9b8" height="30" width="30">&lt;/td>
+ &lt;td>#EEA9B8&lt;/td>
+ &lt;td bgcolor="#eea2ad" height="30" width="30">&lt;/td>
+ &lt;td>#EEA2AD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ee9a49" height="30" width="30">&lt;/td>
+ &lt;td>#EE9A49&lt;/td>
+ &lt;td bgcolor="#ee9a00" height="30" width="30">&lt;/td>
+ &lt;td>#EE9A00&lt;/td>
+ &lt;td bgcolor="#ee9572" height="30" width="30">&lt;/td>
+ &lt;td>#EE9572&lt;/td>
+ &lt;td bgcolor="#ee82ee" height="30" width="30">&lt;/td>
+ &lt;td>#EE82EE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ee8262" height="30" width="30">&lt;/td>
+ &lt;td>#EE8262&lt;/td>
+ &lt;td bgcolor="#ee7ae9" height="30" width="30">&lt;/td>
+ &lt;td>#EE7AE9&lt;/td>
+ &lt;td bgcolor="#ee799f" height="30" width="30">&lt;/td>
+ &lt;td>#EE799F&lt;/td>
+ &lt;td bgcolor="#ee7942" height="30" width="30">&lt;/td>
+ &lt;td>#EE7942&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ee7621" height="30" width="30">&lt;/td>
+ &lt;td>#EE7621&lt;/td>
+ &lt;td bgcolor="#ee7600" height="30" width="30">&lt;/td>
+ &lt;td>#EE7600&lt;/td>
+ &lt;td bgcolor="#ee6aa7" height="30" width="30">&lt;/td>
+ &lt;td>#EE6AA7&lt;/td>
+ &lt;td bgcolor="#ee6a50" height="30" width="30">&lt;/td>
+ &lt;td>#EE6A50&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ee6363" height="30" width="30">&lt;/td>
+ &lt;td>#EE6363&lt;/td>
+ &lt;td bgcolor="#ee5c42" height="30" width="30">&lt;/td>
+ &lt;td>#EE5C42&lt;/td>
+ &lt;td bgcolor="#ee4000" height="30" width="30">&lt;/td>
+ &lt;td>#EE4000&lt;/td>
+ &lt;td bgcolor="#ee3b3b" height="30" width="30">&lt;/td>
+ &lt;td>#EE3B3B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ee3a8c" height="30" width="30">&lt;/td>
+ &lt;td>#EE3A8C&lt;/td>
+ &lt;td bgcolor="#ee30a7" height="30" width="30">&lt;/td>
+ &lt;td>#EE30A7&lt;/td>
+ &lt;td bgcolor="#ee2c2c" height="30" width="30">&lt;/td>
+ &lt;td>#EE2C2C&lt;/td>
+ &lt;td bgcolor="#ee1289" height="30" width="30">&lt;/td>
+ &lt;td>#EE1289&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#ee00ee" height="30" width="30">&lt;/td>
+ &lt;td>#EE00EE&lt;/td>
+ &lt;td bgcolor="#ee0000" height="30" width="30">&lt;/td>
+ &lt;td>#EE0000&lt;/td>
+ &lt;td bgcolor="#ededed" height="30" width="30">&lt;/td>
+ &lt;td>#EDEDED&lt;/td>
+ &lt;td bgcolor="#ebebeb" height="30" width="30">&lt;/td>
+ &lt;td>#EBEBEB&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#eaeaea" height="30" width="30">&lt;/td>
+ &lt;td>#EAEAEA&lt;/td>
+ &lt;td bgcolor="#e9967a" height="30" width="30">&lt;/td>
+ &lt;td>#E9967A&lt;/td>
+ &lt;td bgcolor="#e8e8e8" height="30" width="30">&lt;/td>
+ &lt;td>#E8E8E8&lt;/td>
+ &lt;td bgcolor="#e6e6fa" height="30" width="30">&lt;/td>
+ &lt;td>#E6E6FA&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#e5e5e5" height="30" width="30">&lt;/td>
+ &lt;td>#E5E5E5&lt;/td>
+ &lt;td bgcolor="#e3e3e3" height="30" width="30">&lt;/td>
+ &lt;td>#E3E3E3&lt;/td>
+ &lt;td bgcolor="#e0ffff" height="30" width="30">&lt;/td>
+ &lt;td>#E0FFFF&lt;/td>
+ &lt;td bgcolor="#e0eeee" height="30" width="30">&lt;/td>
+ &lt;td>#E0EEEE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#e0eee0" height="30" width="30">&lt;/td>
+ &lt;td>#E0EEE0&lt;/td>
+ &lt;td bgcolor="#e0e0e0" height="30" width="30">&lt;/td>
+ &lt;td>#E0E0E0&lt;/td>
+ &lt;td bgcolor="#e066ff" height="30" width="30">&lt;/td>
+ &lt;td>#E066FF&lt;/td>
+ &lt;td bgcolor="#dedede" height="30" width="30">&lt;/td>
+ &lt;td>#DEDEDE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#deb887" height="30" width="30">&lt;/td>
+ &lt;td>#DEB887&lt;/td>
+ &lt;td bgcolor="#dda0dd" height="30" width="30">&lt;/td>
+ &lt;td>#DDA0DD&lt;/td>
+ &lt;td bgcolor="#dcdcdc" height="30" width="30">&lt;/td>
+ &lt;td>#DCDCDC&lt;/td>
+ &lt;td bgcolor="#dc143c" height="30" width="30">&lt;/td>
+ &lt;td>#DC143C&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#dbdbdb" height="30" width="30">&lt;/td>
+ &lt;td>#DBDBDB&lt;/td>
+ &lt;td bgcolor="#db7093" height="30" width="30">&lt;/td>
+ &lt;td>#DB7093&lt;/td>
+ &lt;td bgcolor="#daa520" height="30" width="30">&lt;/td>
+ &lt;td>#DAA520&lt;/td>
+ &lt;td bgcolor="#da70d6" height="30" width="30">&lt;/td>
+ &lt;td>#DA70D6&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#d9d9d9" height="30" width="30">&lt;/td>
+ &lt;td>#D9D9D9&lt;/td>
+ &lt;td bgcolor="#d8bfd8" height="30" width="30">&lt;/td>
+ &lt;td>#D8BFD8&lt;/td>
+ &lt;td bgcolor="#d6d6d6" height="30" width="30">&lt;/td>
+ &lt;td>#D6D6D6&lt;/td>
+ &lt;td bgcolor="#d4d4d4" height="30" width="30">&lt;/td>
+ &lt;td>#D4D4D4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#d3d3d3" height="30" width="30">&lt;/td>
+ &lt;td>#D3D3D3&lt;/td>
+ &lt;td bgcolor="#d2b48c" height="30" width="30">&lt;/td>
+ &lt;td>#D2B48C&lt;/td>
+ &lt;td bgcolor="#d2691e" height="30" width="30">&lt;/td>
+ &lt;td>#D2691E&lt;/td>
+ &lt;td bgcolor="#d1eeee" height="30" width="30">&lt;/td>
+ &lt;td>#D1EEEE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#d1d1d1" height="30" width="30">&lt;/td>
+ &lt;td>#D1D1D1&lt;/td>
+ &lt;td bgcolor="#d15fee" height="30" width="30">&lt;/td>
+ &lt;td>#D15FEE&lt;/td>
+ &lt;td bgcolor="#d02090" height="30" width="30">&lt;/td>
+ &lt;td>#D02090&lt;/td>
+ &lt;td bgcolor="#cfcfcf" height="30" width="30">&lt;/td>
+ &lt;td>#CFCFCF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cdcdc1" height="30" width="30">&lt;/td>
+ &lt;td>#CDCDC1&lt;/td>
+ &lt;td bgcolor="#cdcdb4" height="30" width="30">&lt;/td>
+ &lt;td>#CDCDB4&lt;/td>
+ &lt;td bgcolor="#cdcd00" height="30" width="30">&lt;/td>
+ &lt;td>#CDCD00&lt;/td>
+ &lt;td bgcolor="#cdc9c9" height="30" width="30">&lt;/td>
+ &lt;td>#CDC9C9&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cdc9a5" height="30" width="30">&lt;/td>
+ &lt;td>#CDC9A5&lt;/td>
+ &lt;td bgcolor="#cdc8b1" height="30" width="30">&lt;/td>
+ &lt;td>#CDC8B1&lt;/td>
+ &lt;td bgcolor="#cdc673" height="30" width="30">&lt;/td>
+ &lt;td>#CDC673&lt;/td>
+ &lt;td bgcolor="#cdc5bf" height="30" width="30">&lt;/td>
+ &lt;td>#CDC5BF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cdc1c5" height="30" width="30">&lt;/td>
+ &lt;td>#CDC1C5&lt;/td>
+ &lt;td bgcolor="#cdc0b0" height="30" width="30">&lt;/td>
+ &lt;td>#CDC0B0&lt;/td>
+ &lt;td bgcolor="#cdbe70" height="30" width="30">&lt;/td>
+ &lt;td>#CDBE70&lt;/td>
+ &lt;td bgcolor="#cdba96" height="30" width="30">&lt;/td>
+ &lt;td>#CDBA96&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cdb7b5" height="30" width="30">&lt;/td>
+ &lt;td>#CDB7B5&lt;/td>
+ &lt;td bgcolor="#cdb79e" height="30" width="30">&lt;/td>
+ &lt;td>#CDB79E&lt;/td>
+ &lt;td bgcolor="#cdb5cd" height="30" width="30">&lt;/td>
+ &lt;td>#CDB5CD&lt;/td>
+ &lt;td bgcolor="#cdb38b" height="30" width="30">&lt;/td>
+ &lt;td>#CDB38B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cdaf95" height="30" width="30">&lt;/td>
+ &lt;td>#CDAF95&lt;/td>
+ &lt;td bgcolor="#cdad00" height="30" width="30">&lt;/td>
+ &lt;td>#CDAD00&lt;/td>
+ &lt;td bgcolor="#cdaa7d" height="30" width="30">&lt;/td>
+ &lt;td>#CDAA7D&lt;/td>
+ &lt;td bgcolor="#cd9b9b" height="30" width="30">&lt;/td>
+ &lt;td>#CD9B9B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd9b1d" height="30" width="30">&lt;/td>
+ &lt;td>#CD9B1D&lt;/td>
+ &lt;td bgcolor="#cd96cd" height="30" width="30">&lt;/td>
+ &lt;td>#CD96CD&lt;/td>
+ &lt;td bgcolor="#cd950c" height="30" width="30">&lt;/td>
+ &lt;td>#CD950C&lt;/td>
+ &lt;td bgcolor="#cd919e" height="30" width="30">&lt;/td>
+ &lt;td>#CD919E&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd8c95" height="30" width="30">&lt;/td>
+ &lt;td>#CD8C95&lt;/td>
+ &lt;td bgcolor="#cd853f" height="30" width="30">&lt;/td>
+ &lt;td>#CD853F&lt;/td>
+ &lt;td bgcolor="#cd8500" height="30" width="30">&lt;/td>
+ &lt;td>#CD8500&lt;/td>
+ &lt;td bgcolor="#cd8162" height="30" width="30">&lt;/td>
+ &lt;td>#CD8162&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd7054" height="30" width="30">&lt;/td>
+ &lt;td>#CD7054&lt;/td>
+ &lt;td bgcolor="#cd69c9" height="30" width="30">&lt;/td>
+ &lt;td>#CD69C9&lt;/td>
+ &lt;td bgcolor="#cd6889" height="30" width="30">&lt;/td>
+ &lt;td>#CD6889&lt;/td>
+ &lt;td bgcolor="#cd6839" height="30" width="30">&lt;/td>
+ &lt;td>#CD6839&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd661d" height="30" width="30">&lt;/td>
+ &lt;td>#CD661D&lt;/td>
+ &lt;td bgcolor="#cd6600" height="30" width="30">&lt;/td>
+ &lt;td>#CD6600&lt;/td>
+ &lt;td bgcolor="#cd6090" height="30" width="30">&lt;/td>
+ &lt;td>#CD6090&lt;/td>
+ &lt;td bgcolor="#cd5c5c" height="30" width="30">&lt;/td>
+ &lt;td>#CD5C5C&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd5b45" height="30" width="30">&lt;/td>
+ &lt;td>#CD5B45&lt;/td>
+ &lt;td bgcolor="#cd5555" height="30" width="30">&lt;/td>
+ &lt;td>#CD5555&lt;/td>
+ &lt;td bgcolor="#cd4f39" height="30" width="30">&lt;/td>
+ &lt;td>#CD4F39&lt;/td>
+ &lt;td bgcolor="#cd3700" height="30" width="30">&lt;/td>
+ &lt;td>#CD3700&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd3333" height="30" width="30">&lt;/td>
+ &lt;td>#CD3333&lt;/td>
+ &lt;td bgcolor="#cd3278" height="30" width="30">&lt;/td>
+ &lt;td>#CD3278&lt;/td>
+ &lt;td bgcolor="#cd2990" height="30" width="30">&lt;/td>
+ &lt;td>#CD2990&lt;/td>
+ &lt;td bgcolor="#cd2626" height="30" width="30">&lt;/td>
+ &lt;td>#CD2626&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#cd1076" height="30" width="30">&lt;/td>
+ &lt;td>#CD1076&lt;/td>
+ &lt;td bgcolor="#cd00cd" height="30" width="30">&lt;/td>
+ &lt;td>#CD00CD&lt;/td>
+ &lt;td bgcolor="#cd0000" height="30" width="30">&lt;/td>
+ &lt;td>#CD0000&lt;/td>
+ &lt;td bgcolor="#cccccc" height="30" width="30">&lt;/td>
+ &lt;td>#CCCCCC&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#caff70" height="30" width="30">&lt;/td>
+ &lt;td>#CAFF70&lt;/td>
+ &lt;td bgcolor="#cae1ff" height="30" width="30">&lt;/td>
+ &lt;td>#CAE1FF&lt;/td>
+ &lt;td bgcolor="#c9c9c9" height="30" width="30">&lt;/td>
+ &lt;td>#C9C9C9&lt;/td>
+ &lt;td bgcolor="#c7c7c7" height="30" width="30">&lt;/td>
+ &lt;td>#C7C7C7&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#c71585" height="30" width="30">&lt;/td>
+ &lt;td>#C71585&lt;/td>
+ &lt;td bgcolor="#c6e2ff" height="30" width="30">&lt;/td>
+ &lt;td>#C6E2FF&lt;/td>
+ &lt;td bgcolor="#c67171" height="30" width="30">&lt;/td>
+ &lt;td>#C67171&lt;/td>
+ &lt;td bgcolor="#c5c1aa" height="30" width="30">&lt;/td>
+ &lt;td>#C5C1AA&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#c4c4c4" height="30" width="30">&lt;/td>
+ &lt;td>#C4C4C4&lt;/td>
+ &lt;td bgcolor="#c2c2c2" height="30" width="30">&lt;/td>
+ &lt;td>#C2C2C2&lt;/td>
+ &lt;td bgcolor="#c1ffc1" height="30" width="30">&lt;/td>
+ &lt;td>#C1FFC1&lt;/td>
+ &lt;td bgcolor="#c1cdcd" height="30" width="30">&lt;/td>
+ &lt;td>#C1CDCD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#c1cdc1" height="30" width="30">&lt;/td>
+ &lt;td>#C1CDC1&lt;/td>
+ &lt;td bgcolor="#c1c1c1" height="30" width="30">&lt;/td>
+ &lt;td>#C1C1C1&lt;/td>
+ &lt;td bgcolor="#c0ff3e" height="30" width="30">&lt;/td>
+ &lt;td>#C0FF3E&lt;/td>
+ &lt;td bgcolor="#bfefff" height="30" width="30">&lt;/td>
+ &lt;td>#BFEFFF&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#bfbfbf" height="30" width="30">&lt;/td>
+ &lt;td>#BFBFBF&lt;/td>
+ &lt;td bgcolor="#bf3eff" height="30" width="30">&lt;/td>
+ &lt;td>#BF3EFF&lt;/td>
+ &lt;td bgcolor="#bebebe" height="30" width="30">&lt;/td>
+ &lt;td>#BEBEBE&lt;/td>
+ &lt;td bgcolor="#bdbdbd" height="30" width="30">&lt;/td>
+ &lt;td>#BDBDBD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#bdb76b" height="30" width="30">&lt;/td>
+ &lt;td>#BDB76B&lt;/td>
+ &lt;td bgcolor="#bcee68" height="30" width="30">&lt;/td>
+ &lt;td>#BCEE68&lt;/td>
+ &lt;td bgcolor="#bcd2ee" height="30" width="30">&lt;/td>
+ &lt;td>#BCD2EE&lt;/td>
+ &lt;td bgcolor="#bc8f8f" height="30" width="30">&lt;/td>
+ &lt;td>#BC8F8F&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#bbffff" height="30" width="30">&lt;/td>
+ &lt;td>#BBFFFF&lt;/td>
+ &lt;td bgcolor="#bababa" height="30" width="30">&lt;/td>
+ &lt;td>#BABABA&lt;/td>
+ &lt;td bgcolor="#ba55d3" height="30" width="30">&lt;/td>
+ &lt;td>#BA55D3&lt;/td>
+ &lt;td bgcolor="#b9d3ee" height="30" width="30">&lt;/td>
+ &lt;td>#B9D3EE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#b8b8b8" height="30" width="30">&lt;/td>
+ &lt;td>#B8B8B8&lt;/td>
+ &lt;td bgcolor="#b8860b" height="30" width="30">&lt;/td>
+ &lt;td>#B8860B&lt;/td>
+ &lt;td bgcolor="#b7b7b7" height="30" width="30">&lt;/td>
+ &lt;td>#B7B7B7&lt;/td>
+ &lt;td bgcolor="#b5b5b5" height="30" width="30">&lt;/td>
+ &lt;td>#B5B5B5&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#b4eeb4" height="30" width="30">&lt;/td>
+ &lt;td>#B4EEB4&lt;/td>
+ &lt;td bgcolor="#b4cdcd" height="30" width="30">&lt;/td>
+ &lt;td>#B4CDCD&lt;/td>
+ &lt;td bgcolor="#b452cd" height="30" width="30">&lt;/td>
+ &lt;td>#B452CD&lt;/td>
+ &lt;td bgcolor="#b3ee3a" height="30" width="30">&lt;/td>
+ &lt;td>#B3EE3A&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#b3b3b3" height="30" width="30">&lt;/td>
+ &lt;td>#B3B3B3&lt;/td>
+ &lt;td bgcolor="#b2dfee" height="30" width="30">&lt;/td>
+ &lt;td>#B2DFEE&lt;/td>
+ &lt;td bgcolor="#b23aee" height="30" width="30">&lt;/td>
+ &lt;td>#B23AEE&lt;/td>
+ &lt;td bgcolor="#b22222" height="30" width="30">&lt;/td>
+ &lt;td>#B22222&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#b0e2ff" height="30" width="30">&lt;/td>
+ &lt;td>#B0E2FF&lt;/td>
+ &lt;td bgcolor="#b0e0e6" height="30" width="30">&lt;/td>
+ &lt;td>#B0E0E6&lt;/td>
+ &lt;td bgcolor="#b0c4de" height="30" width="30">&lt;/td>
+ &lt;td>#B0C4DE&lt;/td>
+ &lt;td bgcolor="#b0b0b0" height="30" width="30">&lt;/td>
+ &lt;td>#B0B0B0&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#b03060" height="30" width="30">&lt;/td>
+ &lt;td>#B03060&lt;/td>
+ &lt;td bgcolor="#aeeeee" height="30" width="30">&lt;/td>
+ &lt;td>#AEEEEE&lt;/td>
+ &lt;td bgcolor="#adff2f" height="30" width="30">&lt;/td>
+ &lt;td>#ADFF2F&lt;/td>
+ &lt;td bgcolor="#add8e6" height="30" width="30">&lt;/td>
+ &lt;td>#ADD8E6&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#adadad" height="30" width="30">&lt;/td>
+ &lt;td>#ADADAD&lt;/td>
+ &lt;td bgcolor="#ababab" height="30" width="30">&lt;/td>
+ &lt;td>#ABABAB&lt;/td>
+ &lt;td bgcolor="#ab82ff" height="30" width="30">&lt;/td>
+ &lt;td>#AB82FF&lt;/td>
+ &lt;td bgcolor="#aaaaaa" height="30" width="30">&lt;/td>
+ &lt;td>#AAAAAA&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#a9a9a9" height="30" width="30">&lt;/td>
+ &lt;td>#A9A9A9&lt;/td>
+ &lt;td bgcolor="#a8a8a8" height="30" width="30">&lt;/td>
+ &lt;td>#A8A8A8&lt;/td>
+ &lt;td bgcolor="#a6a6a6" height="30" width="30">&lt;/td>
+ &lt;td>#A6A6A6&lt;/td>
+ &lt;td bgcolor="#a52a2a" height="30" width="30">&lt;/td>
+ &lt;td>#A52A2A&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#a4d3ee" height="30" width="30">&lt;/td>
+ &lt;td>#A4D3EE&lt;/td>
+ &lt;td bgcolor="#a3a3a3" height="30" width="30">&lt;/td>
+ &lt;td>#A3A3A3&lt;/td>
+ &lt;td bgcolor="#a2cd5a" height="30" width="30">&lt;/td>
+ &lt;td>#A2CD5A&lt;/td>
+ &lt;td bgcolor="#a2b5cd" height="30" width="30">&lt;/td>
+ &lt;td>#A2B5CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#a1a1a1" height="30" width="30">&lt;/td>
+ &lt;td>#A1A1A1&lt;/td>
+ &lt;td bgcolor="#a0522d" height="30" width="30">&lt;/td>
+ &lt;td>#A0522D&lt;/td>
+ &lt;td bgcolor="#a020f0" height="30" width="30">&lt;/td>
+ &lt;td>#A020F0&lt;/td>
+ &lt;td bgcolor="#9fb6cd" height="30" width="30">&lt;/td>
+ &lt;td>#9FB6CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#9f79ee" height="30" width="30">&lt;/td>
+ &lt;td>#9F79EE&lt;/td>
+ &lt;td bgcolor="#9e9e9e" height="30" width="30">&lt;/td>
+ &lt;td>#9E9E9E&lt;/td>
+ &lt;td bgcolor="#9c9c9c" height="30" width="30">&lt;/td>
+ &lt;td>#9C9C9C&lt;/td>
+ &lt;td bgcolor="#9bcd9b" height="30" width="30">&lt;/td>
+ &lt;td>#9BCD9B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#9b30ff" height="30" width="30">&lt;/td>
+ &lt;td>#9B30FF&lt;/td>
+ &lt;td bgcolor="#9aff9a" height="30" width="30">&lt;/td>
+ &lt;td>#9AFF9A&lt;/td>
+ &lt;td bgcolor="#9acd32" height="30" width="30">&lt;/td>
+ &lt;td>#9ACD32&lt;/td>
+ &lt;td bgcolor="#9ac0cd" height="30" width="30">&lt;/td>
+ &lt;td>#9AC0CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#9a32cd" height="30" width="30">&lt;/td>
+ &lt;td>#9A32CD&lt;/td>
+ &lt;td bgcolor="#999999" height="30" width="30">&lt;/td>
+ &lt;td>#999999&lt;/td>
+ &lt;td bgcolor="#9932cc" height="30" width="30">&lt;/td>
+ &lt;td>#9932CC&lt;/td>
+ &lt;td bgcolor="#98fb98" height="30" width="30">&lt;/td>
+ &lt;td>#98FB98&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#98f5ff" height="30" width="30">&lt;/td>
+ &lt;td>#98F5FF&lt;/td>
+ &lt;td bgcolor="#97ffff" height="30" width="30">&lt;/td>
+ &lt;td>#97FFFF&lt;/td>
+ &lt;td bgcolor="#96cdcd" height="30" width="30">&lt;/td>
+ &lt;td>#96CDCD&lt;/td>
+ &lt;td bgcolor="#969696" height="30" width="30">&lt;/td>
+ &lt;td>#969696&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#949494" height="30" width="30">&lt;/td>
+ &lt;td>#949494&lt;/td>
+ &lt;td bgcolor="#9400d3" height="30" width="30">&lt;/td>
+ &lt;td>#9400D3&lt;/td>
+ &lt;td bgcolor="#9370db" height="30" width="30">&lt;/td>
+ &lt;td>#9370DB&lt;/td>
+ &lt;td bgcolor="#919191" height="30" width="30">&lt;/td>
+ &lt;td>#919191&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#912cee" height="30" width="30">&lt;/td>
+ &lt;td>#912CEE&lt;/td>
+ &lt;td bgcolor="#90ee90" height="30" width="30">&lt;/td>
+ &lt;td>#90EE90&lt;/td>
+ &lt;td bgcolor="#8fbc8f" height="30" width="30">&lt;/td>
+ &lt;td>#8FBC8F&lt;/td>
+ &lt;td bgcolor="#8f8f8f" height="30" width="30">&lt;/td>
+ &lt;td>#8F8F8F&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8ee5ee" height="30" width="30">&lt;/td>
+ &lt;td>#8EE5EE&lt;/td>
+ &lt;td bgcolor="#8e8e8e" height="30" width="30">&lt;/td>
+ &lt;td>#8E8E8E&lt;/td>
+ &lt;td bgcolor="#8e8e38" height="30" width="30">&lt;/td>
+ &lt;td>#8E8E38&lt;/td>
+ &lt;td bgcolor="#8e388e" height="30" width="30">&lt;/td>
+ &lt;td>#8E388E&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8deeee" height="30" width="30">&lt;/td>
+ &lt;td>#8DEEEE&lt;/td>
+ &lt;td bgcolor="#8db6cd" height="30" width="30">&lt;/td>
+ &lt;td>#8DB6CD&lt;/td>
+ &lt;td bgcolor="#8c8c8c" height="30" width="30">&lt;/td>
+ &lt;td>#8C8C8C&lt;/td>
+ &lt;td bgcolor="#8b8b83" height="30" width="30">&lt;/td>
+ &lt;td>#8B8B83&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b8b7a" height="30" width="30">&lt;/td>
+ &lt;td>#8B8B7A&lt;/td>
+ &lt;td bgcolor="#8b8b00" height="30" width="30">&lt;/td>
+ &lt;td>#8B8B00&lt;/td>
+ &lt;td bgcolor="#8b8989" height="30" width="30">&lt;/td>
+ &lt;td>#8B8989&lt;/td>
+ &lt;td bgcolor="#8b8970" height="30" width="30">&lt;/td>
+ &lt;td>#8B8970&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b8878" height="30" width="30">&lt;/td>
+ &lt;td>#8B8878&lt;/td>
+ &lt;td bgcolor="#8b8682" height="30" width="30">&lt;/td>
+ &lt;td>#8B8682&lt;/td>
+ &lt;td bgcolor="#8b864e" height="30" width="30">&lt;/td>
+ &lt;td>#8B864E&lt;/td>
+ &lt;td bgcolor="#8b8386" height="30" width="30">&lt;/td>
+ &lt;td>#8B8386&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b8378" height="30" width="30">&lt;/td>
+ &lt;td>#8B8378&lt;/td>
+ &lt;td bgcolor="#8b814c" height="30" width="30">&lt;/td>
+ &lt;td>#8B814C&lt;/td>
+ &lt;td bgcolor="#8b7e66" height="30" width="30">&lt;/td>
+ &lt;td>#8B7E66&lt;/td>
+ &lt;td bgcolor="#8b7d7b" height="30" width="30">&lt;/td>
+ &lt;td>#8B7D7B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b7d6b" height="30" width="30">&lt;/td>
+ &lt;td>#8B7D6B&lt;/td>
+ &lt;td bgcolor="#8b7b8b" height="30" width="30">&lt;/td>
+ &lt;td>#8B7B8B&lt;/td>
+ &lt;td bgcolor="#8b795e" height="30" width="30">&lt;/td>
+ &lt;td>#8B795E&lt;/td>
+ &lt;td bgcolor="#8b7765" height="30" width="30">&lt;/td>
+ &lt;td>#8B7765&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b7500" height="30" width="30">&lt;/td>
+ &lt;td>#8B7500&lt;/td>
+ &lt;td bgcolor="#8b7355" height="30" width="30">&lt;/td>
+ &lt;td>#8B7355&lt;/td>
+ &lt;td bgcolor="#8b6969" height="30" width="30">&lt;/td>
+ &lt;td>#8B6969&lt;/td>
+ &lt;td bgcolor="#8b6914" height="30" width="30">&lt;/td>
+ &lt;td>#8B6914&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b668b" height="30" width="30">&lt;/td>
+ &lt;td>#8B668B&lt;/td>
+ &lt;td bgcolor="#8b6508" height="30" width="30">&lt;/td>
+ &lt;td>#8B6508&lt;/td>
+ &lt;td bgcolor="#8b636c" height="30" width="30">&lt;/td>
+ &lt;td>#8B636C&lt;/td>
+ &lt;td bgcolor="#8b5f65" height="30" width="30">&lt;/td>
+ &lt;td>#8B5F65&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b5a2b" height="30" width="30">&lt;/td>
+ &lt;td>#8B5A2B&lt;/td>
+ &lt;td bgcolor="#8b5a00" height="30" width="30">&lt;/td>
+ &lt;td>#8B5A00&lt;/td>
+ &lt;td bgcolor="#8b5742" height="30" width="30">&lt;/td>
+ &lt;td>#8B5742&lt;/td>
+ &lt;td bgcolor="#8b4c39" height="30" width="30">&lt;/td>
+ &lt;td>#8B4C39&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b4789" height="30" width="30">&lt;/td>
+ &lt;td>#8B4789&lt;/td>
+ &lt;td bgcolor="#8b475d" height="30" width="30">&lt;/td>
+ &lt;td>#8B475D&lt;/td>
+ &lt;td bgcolor="#8b4726" height="30" width="30">&lt;/td>
+ &lt;td>#8B4726&lt;/td>
+ &lt;td bgcolor="#8b4513" height="30" width="30">&lt;/td>
+ &lt;td>#8B4513&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b4500" height="30" width="30">&lt;/td>
+ &lt;td>#8B4500&lt;/td>
+ &lt;td bgcolor="#8b3e2f" height="30" width="30">&lt;/td>
+ &lt;td>#8B3E2F&lt;/td>
+ &lt;td bgcolor="#8b3a62" height="30" width="30">&lt;/td>
+ &lt;td>#8B3A62&lt;/td>
+ &lt;td bgcolor="#8b3a3a" height="30" width="30">&lt;/td>
+ &lt;td>#8B3A3A&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b3626" height="30" width="30">&lt;/td>
+ &lt;td>#8B3626&lt;/td>
+ &lt;td bgcolor="#8b2500" height="30" width="30">&lt;/td>
+ &lt;td>#8B2500&lt;/td>
+ &lt;td bgcolor="#8b2323" height="30" width="30">&lt;/td>
+ &lt;td>#8B2323&lt;/td>
+ &lt;td bgcolor="#8b2252" height="30" width="30">&lt;/td>
+ &lt;td>#8B2252&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b1c62" height="30" width="30">&lt;/td>
+ &lt;td>#8B1C62&lt;/td>
+ &lt;td bgcolor="#8b1a1a" height="30" width="30">&lt;/td>
+ &lt;td>#8B1A1A&lt;/td>
+ &lt;td bgcolor="#8b0a50" height="30" width="30">&lt;/td>
+ &lt;td>#8B0A50&lt;/td>
+ &lt;td bgcolor="#8b008b" height="30" width="30">&lt;/td>
+ &lt;td>#8B008B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#8b0000" height="30" width="30">&lt;/td>
+ &lt;td>#8B0000&lt;/td>
+ &lt;td bgcolor="#8a8a8a" height="30" width="30">&lt;/td>
+ &lt;td>#8A8A8A&lt;/td>
+ &lt;td bgcolor="#8a2be2" height="30" width="30">&lt;/td>
+ &lt;td>#8A2BE2&lt;/td>
+ &lt;td bgcolor="#8968cd" height="30" width="30">&lt;/td>
+ &lt;td>#8968CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#87ceff" height="30" width="30">&lt;/td>
+ &lt;td>#87CEFF&lt;/td>
+ &lt;td bgcolor="#87cefa" height="30" width="30">&lt;/td>
+ &lt;td>#87CEFA&lt;/td>
+ &lt;td bgcolor="#87ceeb" height="30" width="30">&lt;/td>
+ &lt;td>#87CEEB&lt;/td>
+ &lt;td bgcolor="#878787" height="30" width="30">&lt;/td>
+ &lt;td>#878787&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#858585" height="30" width="30">&lt;/td>
+ &lt;td>#858585&lt;/td>
+ &lt;td bgcolor="#848484" height="30" width="30">&lt;/td>
+ &lt;td>#848484&lt;/td>
+ &lt;td bgcolor="#8470ff" height="30" width="30">&lt;/td>
+ &lt;td>#8470FF&lt;/td>
+ &lt;td bgcolor="#838b8b" height="30" width="30">&lt;/td>
+ &lt;td>#838B8B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#838b83" height="30" width="30">&lt;/td>
+ &lt;td>#838B83&lt;/td>
+ &lt;td bgcolor="#836fff" height="30" width="30">&lt;/td>
+ &lt;td>#836FFF&lt;/td>
+ &lt;td bgcolor="#828282" height="30" width="30">&lt;/td>
+ &lt;td>#828282&lt;/td>
+ &lt;td bgcolor="#7fffd4" height="30" width="30">&lt;/td>
+ &lt;td>#7FFFD4&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#7fff00" height="30" width="30">&lt;/td>
+ &lt;td>#7FFF00&lt;/td>
+ &lt;td bgcolor="#7f7f7f" height="30" width="30">&lt;/td>
+ &lt;td>#7F7F7F&lt;/td>
+ &lt;td bgcolor="#7ec0ee" height="30" width="30">&lt;/td>
+ &lt;td>#7EC0EE&lt;/td>
+ &lt;td bgcolor="#7d9ec0" height="30" width="30">&lt;/td>
+ &lt;td>#7D9EC0&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#7d7d7d" height="30" width="30">&lt;/td>
+ &lt;td>#7D7D7D&lt;/td>
+ &lt;td bgcolor="#7d26cd" height="30" width="30">&lt;/td>
+ &lt;td>#7D26CD&lt;/td>
+ &lt;td bgcolor="#7cfc00" height="30" width="30">&lt;/td>
+ &lt;td>#7CFC00&lt;/td>
+ &lt;td bgcolor="#7ccd7c" height="30" width="30">&lt;/td>
+ &lt;td>#7CCD7C&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#7b68ee" height="30" width="30">&lt;/td>
+ &lt;td>#7B68EE&lt;/td>
+ &lt;td bgcolor="#7ac5cd" height="30" width="30">&lt;/td>
+ &lt;td>#7AC5CD&lt;/td>
+ &lt;td bgcolor="#7a8b8b" height="30" width="30">&lt;/td>
+ &lt;td>#7A8B8B&lt;/td>
+ &lt;td bgcolor="#7a7a7a" height="30" width="30">&lt;/td>
+ &lt;td>#7A7A7A&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#7a67ee" height="30" width="30">&lt;/td>
+ &lt;td>#7A67EE&lt;/td>
+ &lt;td bgcolor="#7a378b" height="30" width="30">&lt;/td>
+ &lt;td>#7A378B&lt;/td>
+ &lt;td bgcolor="#79cdcd" height="30" width="30">&lt;/td>
+ &lt;td>#79CDCD&lt;/td>
+ &lt;td bgcolor="#787878" height="30" width="30">&lt;/td>
+ &lt;td>#787878&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#778899" height="30" width="30">&lt;/td>
+ &lt;td>#778899&lt;/td>
+ &lt;td bgcolor="#76eec6" height="30" width="30">&lt;/td>
+ &lt;td>#76EEC6&lt;/td>
+ &lt;td bgcolor="#76ee00" height="30" width="30">&lt;/td>
+ &lt;td>#76EE00&lt;/td>
+ &lt;td bgcolor="#757575" height="30" width="30">&lt;/td>
+ &lt;td>#757575&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#737373" height="30" width="30">&lt;/td>
+ &lt;td>#737373&lt;/td>
+ &lt;td bgcolor="#71c671" height="30" width="30">&lt;/td>
+ &lt;td>#71C671&lt;/td>
+ &lt;td bgcolor="#7171c6" height="30" width="30">&lt;/td>
+ &lt;td>#7171C6&lt;/td>
+ &lt;td bgcolor="#708090" height="30" width="30">&lt;/td>
+ &lt;td>#708090&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#707070" height="30" width="30">&lt;/td>
+ &lt;td>#707070&lt;/td>
+ &lt;td bgcolor="#6e8b3d" height="30" width="30">&lt;/td>
+ &lt;td>#6E8B3D&lt;/td>
+ &lt;td bgcolor="#6e7b8b" height="30" width="30">&lt;/td>
+ &lt;td>#6E7B8B&lt;/td>
+ &lt;td bgcolor="#6e6e6e" height="30" width="30">&lt;/td>
+ &lt;td>#6E6E6E&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#6ca6cd" height="30" width="30">&lt;/td>
+ &lt;td>#6CA6CD&lt;/td>
+ &lt;td bgcolor="#6c7b8b" height="30" width="30">&lt;/td>
+ &lt;td>#6C7B8B&lt;/td>
+ &lt;td bgcolor="#6b8e23" height="30" width="30">&lt;/td>
+ &lt;td>#6B8E23&lt;/td>
+ &lt;td bgcolor="#6b6b6b" height="30" width="30">&lt;/td>
+ &lt;td>#6B6B6B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#6a5acd" height="30" width="30">&lt;/td>
+ &lt;td>#6A5ACD&lt;/td>
+ &lt;td bgcolor="#698b69" height="30" width="30">&lt;/td>
+ &lt;td>#698B69&lt;/td>
+ &lt;td bgcolor="#698b22" height="30" width="30">&lt;/td>
+ &lt;td>#698B22&lt;/td>
+ &lt;td bgcolor="#696969" height="30" width="30">&lt;/td>
+ &lt;td>#696969&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#6959cd" height="30" width="30">&lt;/td>
+ &lt;td>#6959CD&lt;/td>
+ &lt;td bgcolor="#68838b" height="30" width="30">&lt;/td>
+ &lt;td>#68838B&lt;/td>
+ &lt;td bgcolor="#68228b" height="30" width="30">&lt;/td>
+ &lt;td>#68228B&lt;/td>
+ &lt;td bgcolor="#66cdaa" height="30" width="30">&lt;/td>
+ &lt;td>#66CDAA&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#66cd00" height="30" width="30">&lt;/td>
+ &lt;td>#66CD00&lt;/td>
+ &lt;td bgcolor="#668b8b" height="30" width="30">&lt;/td>
+ &lt;td>#668B8B&lt;/td>
+ &lt;td bgcolor="#666666" height="30" width="30">&lt;/td>
+ &lt;td>#666666&lt;/td>
+ &lt;td bgcolor="#6495ed" height="30" width="30">&lt;/td>
+ &lt;td>#6495ED&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#63b8ff" height="30" width="30">&lt;/td>
+ &lt;td>#63B8FF&lt;/td>
+ &lt;td bgcolor="#636363" height="30" width="30">&lt;/td>
+ &lt;td>#636363&lt;/td>
+ &lt;td bgcolor="#616161" height="30" width="30">&lt;/td>
+ &lt;td>#616161&lt;/td>
+ &lt;td bgcolor="#607b8b" height="30" width="30">&lt;/td>
+ &lt;td>#607B8B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#5f9ea0" height="30" width="30">&lt;/td>
+ &lt;td>#5F9EA0&lt;/td>
+ &lt;td bgcolor="#5e5e5e" height="30" width="30">&lt;/td>
+ &lt;td>#5E5E5E&lt;/td>
+ &lt;td bgcolor="#5d478b" height="30" width="30">&lt;/td>
+ &lt;td>#5D478B&lt;/td>
+ &lt;td bgcolor="#5cacee" height="30" width="30">&lt;/td>
+ &lt;td>#5CACEE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#5c5c5c" height="30" width="30">&lt;/td>
+ &lt;td>#5C5C5C&lt;/td>
+ &lt;td bgcolor="#5b5b5b" height="30" width="30">&lt;/td>
+ &lt;td>#5B5B5B&lt;/td>
+ &lt;td bgcolor="#595959" height="30" width="30">&lt;/td>
+ &lt;td>#595959&lt;/td>
+ &lt;td bgcolor="#575757" height="30" width="30">&lt;/td>
+ &lt;td>#575757&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#556b2f" height="30" width="30">&lt;/td>
+ &lt;td>#556B2F&lt;/td>
+ &lt;td bgcolor="#555555" height="30" width="30">&lt;/td>
+ &lt;td>#555555&lt;/td>
+ &lt;td bgcolor="#551a8b" height="30" width="30">&lt;/td>
+ &lt;td>#551A8B&lt;/td>
+ &lt;td bgcolor="#54ff9f" height="30" width="30">&lt;/td>
+ &lt;td>#54FF9F&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#548b54" height="30" width="30">&lt;/td>
+ &lt;td>#548B54&lt;/td>
+ &lt;td bgcolor="#545454" height="30" width="30">&lt;/td>
+ &lt;td>#545454&lt;/td>
+ &lt;td bgcolor="#53868b" height="30" width="30">&lt;/td>
+ &lt;td>#53868B&lt;/td>
+ &lt;td bgcolor="#528b8b" height="30" width="30">&lt;/td>
+ &lt;td>#528B8B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#525252" height="30" width="30">&lt;/td>
+ &lt;td>#525252&lt;/td>
+ &lt;td bgcolor="#515151" height="30" width="30">&lt;/td>
+ &lt;td>#515151&lt;/td>
+ &lt;td bgcolor="#4f94cd" height="30" width="30">&lt;/td>
+ &lt;td>#4F94CD&lt;/td>
+ &lt;td bgcolor="#4f4f4f" height="30" width="30">&lt;/td>
+ &lt;td>#4F4F4F&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#4eee94" height="30" width="30">&lt;/td>
+ &lt;td>#4EEE94&lt;/td>
+ &lt;td bgcolor="#4d4d4d" height="30" width="30">&lt;/td>
+ &lt;td>#4D4D4D&lt;/td>
+ &lt;td bgcolor="#4b0082" height="30" width="30">&lt;/td>
+ &lt;td>#4B0082&lt;/td>
+ &lt;td bgcolor="#4a708b" height="30" width="30">&lt;/td>
+ &lt;td>#4A708B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#4a4a4a" height="30" width="30">&lt;/td>
+ &lt;td>#4A4A4A&lt;/td>
+ &lt;td bgcolor="#48d1cc" height="30" width="30">&lt;/td>
+ &lt;td>#48D1CC&lt;/td>
+ &lt;td bgcolor="#4876ff" height="30" width="30">&lt;/td>
+ &lt;td>#4876FF&lt;/td>
+ &lt;td bgcolor="#483d8b" height="30" width="30">&lt;/td>
+ &lt;td>#483D8B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#474747" height="30" width="30">&lt;/td>
+ &lt;td>#474747&lt;/td>
+ &lt;td bgcolor="#473c8b" height="30" width="30">&lt;/td>
+ &lt;td>#473C8B&lt;/td>
+ &lt;td bgcolor="#4682b4" height="30" width="30">&lt;/td>
+ &lt;td>#4682B4&lt;/td>
+ &lt;td bgcolor="#458b74" height="30" width="30">&lt;/td>
+ &lt;td>#458B74&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#458b00" height="30" width="30">&lt;/td>
+ &lt;td>#458B00&lt;/td>
+ &lt;td bgcolor="#454545" height="30" width="30">&lt;/td>
+ &lt;td>#454545&lt;/td>
+ &lt;td bgcolor="#43cd80" height="30" width="30">&lt;/td>
+ &lt;td>#43CD80&lt;/td>
+ &lt;td bgcolor="#436eee" height="30" width="30">&lt;/td>
+ &lt;td>#436EEE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#424242" height="30" width="30">&lt;/td>
+ &lt;td>#424242&lt;/td>
+ &lt;td bgcolor="#4169e1" height="30" width="30">&lt;/td>
+ &lt;td>#4169E1&lt;/td>
+ &lt;td bgcolor="#40e0d0" height="30" width="30">&lt;/td>
+ &lt;td>#40E0D0&lt;/td>
+ &lt;td bgcolor="#404040" height="30" width="30">&lt;/td>
+ &lt;td>#404040&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#3d3d3d" height="30" width="30">&lt;/td>
+ &lt;td>#3D3D3D&lt;/td>
+ &lt;td bgcolor="#3cb371" height="30" width="30">&lt;/td>
+ &lt;td>#3CB371&lt;/td>
+ &lt;td bgcolor="#3b3b3b" height="30" width="30">&lt;/td>
+ &lt;td>#3B3B3B&lt;/td>
+ &lt;td bgcolor="#3a5fcd" height="30" width="30">&lt;/td>
+ &lt;td>#3A5FCD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#388e8e" height="30" width="30">&lt;/td>
+ &lt;td>#388E8E&lt;/td>
+ &lt;td bgcolor="#383838" height="30" width="30">&lt;/td>
+ &lt;td>#383838&lt;/td>
+ &lt;td bgcolor="#36648b" height="30" width="30">&lt;/td>
+ &lt;td>#36648B&lt;/td>
+ &lt;td bgcolor="#363636" height="30" width="30">&lt;/td>
+ &lt;td>#363636&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#333333" height="30" width="30">&lt;/td>
+ &lt;td>#333333&lt;/td>
+ &lt;td bgcolor="#32cd32" height="30" width="30">&lt;/td>
+ &lt;td>#32CD32&lt;/td>
+ &lt;td bgcolor="#303030" height="30" width="30">&lt;/td>
+ &lt;td>#303030&lt;/td>
+ &lt;td bgcolor="#2f4f4f" height="30" width="30">&lt;/td>
+ &lt;td>#2F4F4F&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#2e8b57" height="30" width="30">&lt;/td>
+ &lt;td>#2E8B57&lt;/td>
+ &lt;td bgcolor="#2e2e2e" height="30" width="30">&lt;/td>
+ &lt;td>#2E2E2E&lt;/td>
+ &lt;td bgcolor="#2b2b2b" height="30" width="30">&lt;/td>
+ &lt;td>#2B2B2B&lt;/td>
+ &lt;td bgcolor="#292929" height="30" width="30">&lt;/td>
+ &lt;td>#292929&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#282828" height="30" width="30">&lt;/td>
+ &lt;td>#282828&lt;/td>
+ &lt;td bgcolor="#27408b" height="30" width="30">&lt;/td>
+ &lt;td>#27408B&lt;/td>
+ &lt;td bgcolor="#262626" height="30" width="30">&lt;/td>
+ &lt;td>#262626&lt;/td>
+ &lt;td bgcolor="#242424" height="30" width="30">&lt;/td>
+ &lt;td>#242424&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#228b22" height="30" width="30">&lt;/td>
+ &lt;td>#228B22&lt;/td>
+ &lt;td bgcolor="#218868" height="30" width="30">&lt;/td>
+ &lt;td>#218868&lt;/td>
+ &lt;td bgcolor="#212121" height="30" width="30">&lt;/td>
+ &lt;td>#212121&lt;/td>
+ &lt;td bgcolor="#20b2aa" height="30" width="30">&lt;/td>
+ &lt;td>#20B2AA&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#1f1f1f" height="30" width="30">&lt;/td>
+ &lt;td>#1F1F1F&lt;/td>
+ &lt;td bgcolor="#1e90ff" height="30" width="30">&lt;/td>
+ &lt;td>#1E90FF&lt;/td>
+ &lt;td bgcolor="#1e1e1e" height="30" width="30">&lt;/td>
+ &lt;td>#1E1E1E&lt;/td>
+ &lt;td bgcolor="#1c86ee" height="30" width="30">&lt;/td>
+ &lt;td>#1C86EE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#1c1c1c" height="30" width="30">&lt;/td>
+ &lt;td>#1C1C1C&lt;/td>
+ &lt;td bgcolor="#1a1a1a" height="30" width="30">&lt;/td>
+ &lt;td>#1A1A1A&lt;/td>
+ &lt;td bgcolor="#191970" height="30" width="30">&lt;/td>
+ &lt;td>#191970&lt;/td>
+ &lt;td bgcolor="#1874cd" height="30" width="30">&lt;/td>
+ &lt;td>#1874CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#171717" height="30" width="30">&lt;/td>
+ &lt;td>#171717&lt;/td>
+ &lt;td bgcolor="#141414" height="30" width="30">&lt;/td>
+ &lt;td>#141414&lt;/td>
+ &lt;td bgcolor="#121212" height="30" width="30">&lt;/td>
+ &lt;td>#121212&lt;/td>
+ &lt;td bgcolor="#104e8b" height="30" width="30">&lt;/td>
+ &lt;td>#104E8B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#0f0f0f" height="30" width="30">&lt;/td>
+ &lt;td>#0F0F0F&lt;/td>
+ &lt;td bgcolor="#0d0d0d" height="30" width="30">&lt;/td>
+ &lt;td>#0D0D0D&lt;/td>
+ &lt;td bgcolor="#0a0a0a" height="30" width="30">&lt;/td>
+ &lt;td>#0A0A0A&lt;/td>
+ &lt;td bgcolor="#080808" height="30" width="30">&lt;/td>
+ &lt;td>#080808&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#050505" height="30" width="30">&lt;/td>
+ &lt;td>#050505&lt;/td>
+ &lt;td bgcolor="#030303" height="30" width="30">&lt;/td>
+ &lt;td>#030303&lt;/td>
+ &lt;td bgcolor="#00ffff" height="30" width="30">&lt;/td>
+ &lt;td>#00FFFF&lt;/td>
+ &lt;td bgcolor="#00ff7f" height="30" width="30">&lt;/td>
+ &lt;td>#00FF7F&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#00ff00" height="30" width="30">&lt;/td>
+ &lt;td>#00FF00&lt;/td>
+ &lt;td bgcolor="#00fa9a" height="30" width="30">&lt;/td>
+ &lt;td>#00FA9A&lt;/td>
+ &lt;td bgcolor="#00f5ff" height="30" width="30">&lt;/td>
+ &lt;td>#00F5FF&lt;/td>
+ &lt;td bgcolor="#00eeee" height="30" width="30">&lt;/td>
+ &lt;td>#00EEEE&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#00ee76" height="30" width="30">&lt;/td>
+ &lt;td>#00EE76&lt;/td>
+ &lt;td bgcolor="#00ee00" height="30" width="30">&lt;/td>
+ &lt;td>#00EE00&lt;/td>
+ &lt;td bgcolor="#00e5ee" height="30" width="30">&lt;/td>
+ &lt;td>#00E5EE&lt;/td>
+ &lt;td bgcolor="#00ced1" height="30" width="30">&lt;/td>
+ &lt;td>#00CED1&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#00cdcd" height="30" width="30">&lt;/td>
+ &lt;td>#00CDCD&lt;/td>
+ &lt;td bgcolor="#00cd66" height="30" width="30">&lt;/td>
+ &lt;td>#00CD66&lt;/td>
+ &lt;td bgcolor="#00cd00" height="30" width="30">&lt;/td>
+ &lt;td>#00CD00&lt;/td>
+ &lt;td bgcolor="#00c5cd" height="30" width="30">&lt;/td>
+ &lt;td>#00C5CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#00bfff" height="30" width="30">&lt;/td>
+ &lt;td>#00BFFF&lt;/td>
+ &lt;td bgcolor="#00b2ee" height="30" width="30">&lt;/td>
+ &lt;td>#00B2EE&lt;/td>
+ &lt;td bgcolor="#009acd" height="30" width="30">&lt;/td>
+ &lt;td>#009ACD&lt;/td>
+ &lt;td bgcolor="#008b8b" height="30" width="30">&lt;/td>
+ &lt;td>#008B8B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#008b45" height="30" width="30">&lt;/td>
+ &lt;td>#008B45&lt;/td>
+ &lt;td bgcolor="#008b00" height="30" width="30">&lt;/td>
+ &lt;td>#008B00&lt;/td>
+ &lt;td bgcolor="#00868b" height="30" width="30">&lt;/td>
+ &lt;td>#00868B&lt;/td>
+ &lt;td bgcolor="#00688b" height="30" width="30">&lt;/td>
+ &lt;td>#00688B&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#006400" height="30" width="30">&lt;/td>
+ &lt;td>#006400&lt;/td>
+ &lt;td bgcolor="#0000ff" height="30" width="30">&lt;/td>
+ &lt;td>#0000FF&lt;/td>
+ &lt;td bgcolor="#0000ee" height="30" width="30">&lt;/td>
+ &lt;td>#0000EE&lt;/td>
+ &lt;td bgcolor="#0000cd" height="30" width="30">&lt;/td>
+ &lt;td>#0000CD&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td bgcolor="#0000aa" height="30" width="30">&lt;/td>
+ &lt;td>#0000AA&lt;/td>
+ &lt;td bgcolor="#00008b" height="30" width="30">&lt;/td>
+ &lt;td>#00008B&lt;/td>
+ &lt;td bgcolor="#000080" height="30" width="30">&lt;/td>
+ &lt;td>#000080&lt;/td>
+ &lt;td bgcolor="#000000" height="30" width="30">&lt;/td>
+ &lt;td>#000000&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+ &lt;/table>
+ &lt;/center>
+ &lt;/div>
+&lt;/body>
+&lt;/html></description></item><item><title>[转] 短</title><link>https://wyb0.com/posts/2016/short/</link><pubDate>Sun, 17 Apr 2016 15:49:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/short/</guid><description>&lt;center>
+&lt;font size="15">短&lt;/font>
+俄罗斯某诗人
+&lt;/center>
+&lt;center>
+### 一天很短 
+### 短得来不及拥抱清晨 
+### 就已经手握黄昏
+&lt;h3 id="一年很短">一年很短&lt;/h3>
+&lt;h3 id="短得来不及细品初春殷红窦绿">短得来不及细品初春殷红窦绿&lt;/h3>
+&lt;h3 id="就要打点素裹秋霜">就要打点素裹秋霜&lt;/h3>
+&lt;h3 id="一生很短">一生很短&lt;/h3>
+&lt;h3 id="短的来不及享用美好年华">短的来不及享用美好年华&lt;/h3>
+&lt;h3 id="就已经身处迟暮">就已经身处迟暮&lt;/h3>
+&lt;h3 id="总是经过的太快">总是经过的太快&lt;/h3>
+&lt;h3 id="领悟的太晚">领悟的太晚&lt;/h3>
+&lt;h3 id="我们要学会珍惜">我们要学会珍惜&lt;/h3>
+&lt;h3 id="珍惜人生路上的亲情友情同事情同学情朋友情">珍惜人生路上的亲情、友情、同事情、同学情、朋友情&lt;/h3>
+&lt;h3 id="一旦擦身而过">一旦擦身而过&lt;/h3>
+&lt;h3 id="也许永不邂逅">也许永不邂逅&lt;/h3>
+&lt;/center></description></item></channel></rss>

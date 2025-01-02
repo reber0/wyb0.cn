@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>dedecms on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/dedecms/</link>
-    <description>Recent content in dedecms on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 05 Aug 2016 23:29:20 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/dedecms/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Dedecms 远程写文件漏洞</title>
-      <link>https://wyb0.com/posts/2016/dedecms-remote-write-file-vulnerability/</link>
-      <pubDate>Fri, 05 Aug 2016 23:29:20 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/dedecms-remote-write-file-vulnerability/</guid>
-      <description>0x00 关于漏洞 Dedecms在20150618之前的版本都存在远程写文件漏洞，主要起因是Apache的解析漏洞 0x01 利用条件 de</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dedecms on Reber's Blog</title><link>https://wyb0.com/tags/dedecms/</link><description>Recent content in Dedecms on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 05 Aug 2016 23:29:20 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/dedecms/index.xml" rel="self" type="application/rss+xml"/><item><title>Dedecms 远程写文件漏洞</title><link>https://wyb0.com/posts/2016/dedecms-remote-write-file-vulnerability/</link><pubDate>Fri, 05 Aug 2016 23:29:20 +0000</pubDate><guid>https://wyb0.com/posts/2016/dedecms-remote-write-file-vulnerability/</guid><description>&lt;h3 id="0x00-关于漏洞">0x00 关于漏洞&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Dedecms在20150618之前的版本都存在远程写文件漏洞，主要起因是Apache的解析漏洞
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-利用条件">0x01 利用条件&lt;/h3>
+&lt;pre tabindex="0">&lt;code>dedecms版本为20150618之前的 
+安装目录install下的index.php.bak文件未被删除
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-实例">0x02 实例&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>查看cms版本
+&lt;img src="https://wyb0.com/img/post/dedecms_before_20150617_check_version.png" alt="查看织梦cms版本">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>清空文件&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">http&lt;/span>&lt;span style="color:#f92672">://&lt;/span>&lt;span style="color:#a6e22e">www&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">xxxx&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">com&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#a6e22e">install&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#a6e22e">index&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">bak&lt;/span>&lt;span style="color:#f92672">?&lt;/span>&lt;span style="color:#a6e22e">step&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">11&lt;/span>&lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">insLockfile&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">s_lang&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">a&lt;/span>&lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">install_demo_name&lt;/span>&lt;span style="color:#f92672">=../&lt;/span>&lt;span style="color:#a6e22e">data&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#a6e22e">admin&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#a6e22e">config_update&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">访问上面的链接会使服务器到http&lt;/span>&lt;span style="color:#f92672">://&lt;/span>&lt;span style="color:#a6e22e">updatenew&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">dedecms&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">com&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#a6e22e">base&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">v57&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#a6e22e">dedecms&lt;/span>&lt;span style="color:#f92672">/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">demodata&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">a&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">txt中读取内容写入到config_update&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">php，但demodata&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">a&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">txt为空，&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">所以就清空了config_update&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.com/img/post/dedecms_before_20150617_clear_config_update.png" alt="清空文件config_update">&lt;/p></description></item></channel></rss>

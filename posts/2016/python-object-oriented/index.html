@@ -1,299 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Python 的面向对象 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Python 的面向对象</h1>
-      
-<div class="post-meta">
-    <time>2016-01-25</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>)
-</div>
-
-      <div><h3 id="0x00-面向对象">0x00 面向对象</h3>
-<ul>
-<li>
-<p>面向对象是为了解决系统的可维护性，可扩展性，可重用性</p>
-</li>
-<li>
-<p>三个基本特征：封装、继承、多态</p>
-<ul>
-<li>
-<p>封装：对一类事物，将其相同特点和功能提取出来，所共有的特点叫做属性，共有的功能就叫做方法，将属性和方法组合在一起就叫做封装。<br>
-如：人具有姓名、年龄、性别，这些就是属性，人可以说话、可以走、可以跑，这些就是方法，封装起来就是一个类，而类的实例化就是对象</p>
-</li>
-<li>
-<p>继承：继承可以使得子类具有父类的属性和方法，不需要再次编写相同的代码，子类可以对继承的代码进行重写，也可以追加新的属性和方法。<br>
-如：有一个类People，教师就可以继承自People，可以添加自己的属性，如：工资、职工号，也可以添加自己的方法，如：备课、写教案</p>
-</li>
-<li>
-<p>多态：首先，多态必有继承，没有继承就没有多态，继承后一个父类的引用变量可以指向其任意一个子类对象。<br>
-如：有一个People类，它的子类可以有学生、老师、工人，有多种形态，这就是多态</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x01-类的实例">0x01 类的实例</h3>
-<p>注意：类中每个方法后面都要写self，self就是当前对象指针</p>
-<ul>
-<li>示例一</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding:utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 声明一个People类</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">People</span>(object):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for People&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, name, age):
-</span></span><span style="display:flex;"><span>        super(People, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span> age
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">running</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> is running&#34;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>name
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_base_msg</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;Name:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> Age:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>name,self<span style="color:#f92672">.</span>age)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 继承自People类</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Teacher</span>(People):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for Teacher&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, name, age, salary):
-</span></span><span style="display:flex;"><span>        super(Teacher, self)<span style="color:#f92672">.</span>__init__(name, age)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span> age
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>salary <span style="color:#f92672">=</span> salary
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_base_msg</span>(self): <span style="color:#75715e">#对父类方法进行重写，会覆盖原方法</span>
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;Name:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> Age:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> Salary:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>name,self<span style="color:#f92672">.</span>age,self<span style="color:#f92672">.</span>salary)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 继承自People类</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>(People):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for Student&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, name, age, score):
-</span></span><span style="display:flex;"><span>        super(Student, self)<span style="color:#f92672">.</span>__init__(name, age)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span> age
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>score <span style="color:#f92672">=</span> score
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_base_msg</span>(self): <span style="color:#75715e">#对父类方法进行重写，会覆盖原方法</span>
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;Name:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> Age:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> Score:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>name,self<span style="color:#f92672">.</span>age,self<span style="color:#f92672">.</span>score)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> Teacher(<span style="color:#e6db74">&#39;tom&#39;</span>,<span style="color:#ae81ff">40</span>,<span style="color:#ae81ff">13000</span>)
-</span></span><span style="display:flex;"><span>t<span style="color:#f92672">.</span>running() <span style="color:#75715e">#tom is running 调用时会先查找当前类中有无此方法，没有的话再从父类查找</span>
-</span></span><span style="display:flex;"><span>t<span style="color:#f92672">.</span>print_base_msg() <span style="color:#75715e">#Name:tom Age:40 Salary:13000</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> Student(<span style="color:#e6db74">&#39;xiaoming&#39;</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">97</span>)
-</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>running() <span style="color:#75715e">#xiaoming is running</span>
-</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>print_base_msg() <span style="color:#75715e">#Name:xiaoming Age:16 Score:97</span>
-</span></span></code></pre></div><ul>
-<li>示例二</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding:utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>(object):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for A&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, arg):
-</span></span><span style="display:flex;"><span>        super(A, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>arg <span style="color:#f92672">=</span> arg
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_a</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;A class&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_arg</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;A output arg: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>arg<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-a&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 以__开头的是私有成员</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__print_pravite</span>(self): <span style="color:#75715e">#子类不能直接用A.__print_pravite()调用它</span>
-</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A pravite&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_pravite</span>(self): <span style="color:#75715e">#可以使用自己的私有方法</span>
-</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>__print_pravite()
-</span></span><span style="display:flex;"><span>        print t
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>(A):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for B&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, arg):
-</span></span><span style="display:flex;"><span>        super(B, self)<span style="color:#f92672">.</span>__init__(arg)
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>arg <span style="color:#f92672">=</span> arg
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_b</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;B class&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_arg</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;B output arg: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>arg<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-b&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">call_a_fun</span>(self):
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>print_b()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>print_arg()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">call_b_fun</span>(self):
-</span></span><span style="display:flex;"><span>        A<span style="color:#f92672">.</span>print_a(self) <span style="color:#75715e">#调用父类方法。当父类名称改变时子类所有父类名都要变</span>
-</span></span><span style="display:flex;"><span>        super(B, self)<span style="color:#f92672">.</span>print_arg() <span style="color:#75715e">#调用父类方法，父类名称改变时子类不用调整</span>
-</span></span><span style="display:flex;"><span>        super(B, self)<span style="color:#f92672">.</span>get_pravite() <span style="color:#75715e">#子类可以使用父类的公有方法</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># super(B, self).__print_pravite() #出错，子类不能使用父类的私有方法</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> B(<span style="color:#e6db74">&#39;test&#39;</span>)
-</span></span><span style="display:flex;"><span>b<span style="color:#f92672">.</span>call_b_fun()
-</span></span><span style="display:flex;"><span>b<span style="color:#f92672">.</span>call_a_fun()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 输出如下：</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># A class</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># A output arg: test-a</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># A pravite</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># B class</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># B output arg: test-b</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># [Finished in 0.1s]</span>
-</span></span></code></pre></div><ul>
-<li>示例三</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -- coding: utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">People</span>(object):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;docstring for People&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    peoplecount <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e">#类属性</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, name, age, salary):
-</span></span><span style="display:flex;"><span>        super(People, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name <span style="color:#75715e">#对象属性</span>
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span> age
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__salary <span style="color:#f92672">=</span> salary <span style="color:#75715e">#私有属性，外部不能访问</span>
-</span></span><span style="display:flex;"><span>        People<span style="color:#f92672">.</span>peoplecount <span style="color:#f92672">+=</span> People<span style="color:#f92672">.</span>peoplecount <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">display_count</span>(self):
-</span></span><span style="display:flex;"><span>        print People<span style="color:#f92672">.</span>peoplecount <span style="color:#75715e">#访问类属性</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">display_msg</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;name:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> age:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>name,self<span style="color:#f92672">.</span>age)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_salary</span>(self, v):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__salary <span style="color:#f92672">=</span> v
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>            print <span style="color:#e6db74">&#34;value is error&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">display_salary</span>(self):
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;salary:</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>__salary
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print People<span style="color:#f92672">.</span>peoplecount
-</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> People(<span style="color:#e6db74">&#39;tom&#39;</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">20000</span>)
-</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> People(<span style="color:#e6db74">&#39;jack&#39;</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">14900</span>)
-</span></span><span style="display:flex;"><span>p1<span style="color:#f92672">.</span>display_msg()
-</span></span><span style="display:flex;"><span>p2<span style="color:#f92672">.</span>display_msg()
-</span></span><span style="display:flex;"><span>p2<span style="color:#f92672">.</span>display_count()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 结果如下：</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># name:tom age:21</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># name:jack age:25</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># [Finished in 0.1s]</span>
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Python 的面向对象 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Python 的面向对象</h1><div class=post-meta><time>2016-01-25</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div><h3 id=0x00-面向对象>0x00 面向对象</h3><ul><li><p>面向对象是为了解决系统的可维护性，可扩展性，可重用性</p></li><li><p>三个基本特征：封装、继承、多态</p><ul><li><p>封装：对一类事物，将其相同特点和功能提取出来，所共有的特点叫做属性，共有的功能就叫做方法，将属性和方法组合在一起就叫做封装。<br>如：人具有姓名、年龄、性别，这些就是属性，人可以说话、可以走、可以跑，这些就是方法，封装起来就是一个类，而类的实例化就是对象</p></li><li><p>继承：继承可以使得子类具有父类的属性和方法，不需要再次编写相同的代码，子类可以对继承的代码进行重写，也可以追加新的属性和方法。<br>如：有一个类People，教师就可以继承自People，可以添加自己的属性，如：工资、职工号，也可以添加自己的方法，如：备课、写教案</p></li><li><p>多态：首先，多态必有继承，没有继承就没有多态，继承后一个父类的引用变量可以指向其任意一个子类对象。<br>如：有一个People类，它的子类可以有学生、老师、工人，有多种形态，这就是多态</p></li></ul></li></ul><h3 id=0x01-类的实例>0x01 类的实例</h3><p>注意：类中每个方法后面都要写self，self就是当前对象指针</p><ul><li>示例一</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding:utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 声明一个People类</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>People</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for People&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, name, age):
+</span></span><span style=display:flex><span>        super(People, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>name <span style=color:#f92672>=</span> name
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>age <span style=color:#f92672>=</span> age
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>running</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> is running&#34;</span> <span style=color:#f92672>%</span> self<span style=color:#f92672>.</span>name
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_base_msg</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Name:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> Age:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (self<span style=color:#f92672>.</span>name,self<span style=color:#f92672>.</span>age)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 继承自People类</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Teacher</span>(People):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for Teacher&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, name, age, salary):
+</span></span><span style=display:flex><span>        super(Teacher, self)<span style=color:#f92672>.</span>__init__(name, age)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>name <span style=color:#f92672>=</span> name
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>age <span style=color:#f92672>=</span> age
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>salary <span style=color:#f92672>=</span> salary
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_base_msg</span>(self): <span style=color:#75715e>#对父类方法进行重写，会覆盖原方法</span>
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Name:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> Age:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> Salary:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (self<span style=color:#f92672>.</span>name,self<span style=color:#f92672>.</span>age,self<span style=color:#f92672>.</span>salary)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 继承自People类</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Student</span>(People):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for Student&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, name, age, score):
+</span></span><span style=display:flex><span>        super(Student, self)<span style=color:#f92672>.</span>__init__(name, age)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>name <span style=color:#f92672>=</span> name
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>age <span style=color:#f92672>=</span> age
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>score <span style=color:#f92672>=</span> score
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_base_msg</span>(self): <span style=color:#75715e>#对父类方法进行重写，会覆盖原方法</span>
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;Name:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> Age:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74> Score:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (self<span style=color:#f92672>.</span>name,self<span style=color:#f92672>.</span>age,self<span style=color:#f92672>.</span>score)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>t <span style=color:#f92672>=</span> Teacher(<span style=color:#e6db74>&#39;tom&#39;</span>,<span style=color:#ae81ff>40</span>,<span style=color:#ae81ff>13000</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>running() <span style=color:#75715e>#tom is running 调用时会先查找当前类中有无此方法，没有的话再从父类查找</span>
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>print_base_msg() <span style=color:#75715e>#Name:tom Age:40 Salary:13000</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>s <span style=color:#f92672>=</span> Student(<span style=color:#e6db74>&#39;xiaoming&#39;</span>,<span style=color:#ae81ff>16</span>,<span style=color:#ae81ff>97</span>)
+</span></span><span style=display:flex><span>s<span style=color:#f92672>.</span>running() <span style=color:#75715e>#xiaoming is running</span>
+</span></span><span style=display:flex><span>s<span style=color:#f92672>.</span>print_base_msg() <span style=color:#75715e>#Name:xiaoming Age:16 Score:97</span>
+</span></span></code></pre></div><ul><li>示例二</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding:utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>A</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for A&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, arg):
+</span></span><span style=display:flex><span>        super(A, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>arg <span style=color:#f92672>=</span> arg
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_a</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;A class&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_arg</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;A output arg: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (self<span style=color:#f92672>.</span>arg<span style=color:#f92672>+</span><span style=color:#e6db74>&#39;-a&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 以__开头的是私有成员</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__print_pravite</span>(self): <span style=color:#75715e>#子类不能直接用A.__print_pravite()调用它</span>
+</span></span><span style=display:flex><span>        a <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;A pravite&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_pravite</span>(self): <span style=color:#75715e>#可以使用自己的私有方法</span>
+</span></span><span style=display:flex><span>        t <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>__print_pravite()
+</span></span><span style=display:flex><span>        print t
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>B</span>(A):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for B&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, arg):
+</span></span><span style=display:flex><span>        super(B, self)<span style=color:#f92672>.</span>__init__(arg)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>arg <span style=color:#f92672>=</span> arg
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_b</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;B class&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_arg</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;B output arg: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (self<span style=color:#f92672>.</span>arg<span style=color:#f92672>+</span><span style=color:#e6db74>&#39;-b&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>call_a_fun</span>(self):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>print_b()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>print_arg()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>call_b_fun</span>(self):
+</span></span><span style=display:flex><span>        A<span style=color:#f92672>.</span>print_a(self) <span style=color:#75715e>#调用父类方法。当父类名称改变时子类所有父类名都要变</span>
+</span></span><span style=display:flex><span>        super(B, self)<span style=color:#f92672>.</span>print_arg() <span style=color:#75715e>#调用父类方法，父类名称改变时子类不用调整</span>
+</span></span><span style=display:flex><span>        super(B, self)<span style=color:#f92672>.</span>get_pravite() <span style=color:#75715e>#子类可以使用父类的公有方法</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># super(B, self).__print_pravite() #出错，子类不能使用父类的私有方法</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>b <span style=color:#f92672>=</span> B(<span style=color:#e6db74>&#39;test&#39;</span>)
+</span></span><span style=display:flex><span>b<span style=color:#f92672>.</span>call_b_fun()
+</span></span><span style=display:flex><span>b<span style=color:#f92672>.</span>call_a_fun()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 输出如下：</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># A class</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># A output arg: test-a</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># A pravite</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># B class</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># B output arg: test-b</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># [Finished in 0.1s]</span>
+</span></span></code></pre></div><ul><li>示例三</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>People</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for People&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    peoplecount <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> <span style=color:#75715e>#类属性</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, name, age, salary):
+</span></span><span style=display:flex><span>        super(People, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>name <span style=color:#f92672>=</span> name <span style=color:#75715e>#对象属性</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>age <span style=color:#f92672>=</span> age
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>__salary <span style=color:#f92672>=</span> salary <span style=color:#75715e>#私有属性，外部不能访问</span>
+</span></span><span style=display:flex><span>        People<span style=color:#f92672>.</span>peoplecount <span style=color:#f92672>+=</span> People<span style=color:#f92672>.</span>peoplecount <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>display_count</span>(self):
+</span></span><span style=display:flex><span>        print People<span style=color:#f92672>.</span>peoplecount <span style=color:#75715e>#访问类属性</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>display_msg</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;name:</span><span style=color:#e6db74>%s</span><span style=color:#e6db74> age:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (self<span style=color:#f92672>.</span>name,self<span style=color:#f92672>.</span>age)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>set_salary</span>(self, v):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> v <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>__salary <span style=color:#f92672>=</span> v
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;value is error&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>display_salary</span>(self):
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;salary:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> self<span style=color:#f92672>.</span>__salary
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print People<span style=color:#f92672>.</span>peoplecount
+</span></span><span style=display:flex><span>p1 <span style=color:#f92672>=</span> People(<span style=color:#e6db74>&#39;tom&#39;</span>, <span style=color:#ae81ff>21</span>, <span style=color:#ae81ff>20000</span>)
+</span></span><span style=display:flex><span>p2 <span style=color:#f92672>=</span> People(<span style=color:#e6db74>&#39;jack&#39;</span>, <span style=color:#ae81ff>25</span>, <span style=color:#ae81ff>14900</span>)
+</span></span><span style=display:flex><span>p1<span style=color:#f92672>.</span>display_msg()
+</span></span><span style=display:flex><span>p2<span style=color:#f92672>.</span>display_msg()
+</span></span><span style=display:flex><span>p2<span style=color:#f92672>.</span>display_count()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 结果如下：</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 0</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># name:tom age:21</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># name:jack age:25</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># [Finished in 0.1s]</span>
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

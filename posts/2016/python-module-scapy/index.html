@@ -1,142 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Python 的 scapy 模块简单使用 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Python 的 scapy 模块简单使用</h1>
-      
-<div class="post-meta">
-    <time>2016-08-11</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-      <div><h3 id="0x00-简单尝试">0x00 简单尝试</h3>
-<p><img src="/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包"></p>
-<h3 id="0x01-生成一组数据包">0x01 生成一组数据包</h3>
-<p><img src="/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包"></p>
-<h3 id="0x02-发送数据包">0x02 发送数据包</h3>
-<ul>
-<li>
-<p>send发送数据包
-<img src="/img/post/scapy_send_send_packet.png" alt="用send发送数据包"></p>
-</li>
-<li>
-<p>sr1发送数据包
-<img src="/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包"></p>
-</li>
-<li>
-<p>sr发送数据包
-<img src="/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包"></p>
-</li>
-</ul>
-<h3 id="0x03-发送syn数据包">0x03 发送SYN数据包</h3>
-<p><img src="/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包"></p>
-<p><img src="/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包"></p>
-<h3 id="0x04-得到tcp内容">0x04 得到TCP内容</h3>
-<p><img src="/img/post/scapy_get_tcp_content.png" alt="得到tcp内容"></p>
-<h3 id="0x05-syn-scans">0x05 SYN Scans</h3>
-<p><img src="/img/post/scapy_syn_scan.png" alt="syn扫描"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Python 的 scapy 模块简单使用 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Python 的 scapy 模块简单使用</h1><div class=post-meta><time>2016-08-11</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div><h3 id=0x00-简单尝试>0x00 简单尝试</h3><p><img src=/img/post/scapy_establish_the_packet.png alt=尝试构造数据包></p><h3 id=0x01-生成一组数据包>0x01 生成一组数据包</h3><p><img src=/img/post/scapy_create_a_set_of_packet.png alt=生成一组数据包></p><h3 id=0x02-发送数据包>0x02 发送数据包</h3><ul><li><p>send发送数据包
+<img src=/img/post/scapy_send_send_packet.png alt=用send发送数据包></p></li><li><p>sr1发送数据包
+<img src=/img/post/scapy_sr1_send_packet.png alt=用sr1发送数据包></p></li><li><p>sr发送数据包
+<img src=/img/post/scapy_sr_send_packet.png alt=用sr1发送数据包></p></li></ul><h3 id=0x03-发送syn数据包>0x03 发送SYN数据包</h3><p><img src=/img/post/scapy_sr1_send_syn_packet.png alt=用sr1发送syn数据包></p><p><img src=/img/post/scapy_sr_send_syn_packet.png alt=用sr发送syn数据包></p><h3 id=0x04-得到tcp内容>0x04 得到TCP内容</h3><p><img src=/img/post/scapy_get_tcp_content.png alt=得到tcp内容></p><h3 id=0x05-syn-scans>0x05 SYN Scans</h3><p><img src=/img/post/scapy_syn_scan.png alt=syn扫描></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

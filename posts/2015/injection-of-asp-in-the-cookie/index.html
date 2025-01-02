@@ -1,183 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>ASP Cookie 处联合注入 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>ASP Cookie 处联合注入</h1>
-      
-<div class="post-meta">
-    <time>2015-12-04</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-cookie注入的使用">0x00 Cookie注入的使用</h3>
-<ul>
-<li>
-<p>三大Web提交方式</p>
-<ul>
-<li>GET：直接在浏览器上面访问地址</li>
-<li>POST：提交表单(会员注册、文件上传等)</li>
-<li>COOKIE：访问网站下面自带的身份验证的值</li>
-</ul>
-</li>
-<li>
-<p>Cookie注入利用时机<br>
-当用普通注入时，采用and 1=1时出现错误提示(如下图)，普通的注入就没办法了，可以尝试大小写，编码等绕过，若过滤严谨，无法绕过，这时就可以采用cookie注入。
-<img src="/img/post/cookie_injection_conditions.png" alt="Cookie注入条件"></p>
-</li>
-<li>
-<p>利用方法</p>
-<ul>
-<li>可以利用注入中转</li>
-<li>可以利用sqlmap</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x01-用注入中转进行cookie注入">0x01 用注入中转进行Cookie注入</h3>
-<ul>
-<li>
-<p>目标：http://localhost:81/2/shownews.asp?id=183</p>
-</li>
-<li>
-<p>打开注入中转这个工具，填入相应参数，然后点击生成ASP，将生成的asp文件(jmCook.asp)放入你自己搭建的网站内后即可进行注入
-<img src="/img/post/cookie_injection_create_asp.png" alt="注入中转生成asp文件"></p>
-</li>
-<li>
-<p>提交localhost:81/jmCook.asp?jmdcw=183 order by猜测字段数</p>
-</li>
-<li>
-<p>提交localhost:81/jmCook.asp?jmdcw=183 UNION SELECT 1,2,3,4 from XXX猜测表名
-<img src="/img/post/cookie_injection_get_display_point.png" alt="得到显示位"></p>
-</li>
-<li>
-<p>猜测内容
-<img src="/img/post/cookie_injection_get_content.png" alt="得到数据"></p>
-</li>
-</ul>
-<h3 id="0x02-用sqlmap进行cookie注入">0x02 用sqlmap进行Cookie注入</h3>
-<ul>
-<li>
-<p>sqlmap验证存在Cookie注入
-<img src="/img/post/cookie_injection_sqlmap_test1.png" alt="sqlmap验证存在漏洞1">
-<img src="/img/post/cookie_injection_sqlmap_test2.png" alt="sqlmap验证存在漏洞2"></p>
-</li>
-<li>
-<p>猜表名
-<img src="/img/post/cookie_injection_sqlmap_get_table_name1.png" alt="sqlmap猜表名1">
-<img src="/img/post/cookie_injection_sqlmap_get_table_name2.png" alt="sqlmap猜表名2"></p>
-</li>
-<li>
-<p>猜列名
-<img src="/img/post/cookie_injection_sqlmap_get_column_name1.png" alt="sqlmap猜列名1">
-<img src="/img/post/cookie_injection_sqlmap_get_column_name2.png" alt="sqlmap猜列名2"></p>
-</li>
-<li>
-<p>猜字段内容
-<img src="/img/post/cookie_injection_sqlmap_get_column_value1.png" alt="sqlmap猜字段内容1">
-<img src="/img/post/cookie_injection_sqlmap_get_column_value2.png" alt="sqlmap猜字段内容2"></p>
-</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>ASP Cookie 处联合注入 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>ASP Cookie 处联合注入</h1><div class=post-meta><time>2015-12-04</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-cookie注入的使用>0x00 Cookie注入的使用</h3><ul><li><p>三大Web提交方式</p><ul><li>GET：直接在浏览器上面访问地址</li><li>POST：提交表单(会员注册、文件上传等)</li><li>COOKIE：访问网站下面自带的身份验证的值</li></ul></li><li><p>Cookie注入利用时机<br>当用普通注入时，采用and 1=1时出现错误提示(如下图)，普通的注入就没办法了，可以尝试大小写，编码等绕过，若过滤严谨，无法绕过，这时就可以采用cookie注入。
+<img src=/img/post/cookie_injection_conditions.png alt=Cookie注入条件></p></li><li><p>利用方法</p><ul><li>可以利用注入中转</li><li>可以利用sqlmap</li></ul></li></ul><h3 id=0x01-用注入中转进行cookie注入>0x01 用注入中转进行Cookie注入</h3><ul><li><p>目标：http://localhost:81/2/shownews.asp?id=183</p></li><li><p>打开注入中转这个工具，填入相应参数，然后点击生成ASP，将生成的asp文件(jmCook.asp)放入你自己搭建的网站内后即可进行注入
+<img src=/img/post/cookie_injection_create_asp.png alt=注入中转生成asp文件></p></li><li><p>提交localhost:81/jmCook.asp?jmdcw=183 order by猜测字段数</p></li><li><p>提交localhost:81/jmCook.asp?jmdcw=183 UNION SELECT 1,2,3,4 from XXX猜测表名
+<img src=/img/post/cookie_injection_get_display_point.png alt=得到显示位></p></li><li><p>猜测内容
+<img src=/img/post/cookie_injection_get_content.png alt=得到数据></p></li></ul><h3 id=0x02-用sqlmap进行cookie注入>0x02 用sqlmap进行Cookie注入</h3><ul><li><p>sqlmap验证存在Cookie注入
+<img src=/img/post/cookie_injection_sqlmap_test1.png alt=sqlmap验证存在漏洞1>
+<img src=/img/post/cookie_injection_sqlmap_test2.png alt=sqlmap验证存在漏洞2></p></li><li><p>猜表名
+<img src=/img/post/cookie_injection_sqlmap_get_table_name1.png alt=sqlmap猜表名1>
+<img src=/img/post/cookie_injection_sqlmap_get_table_name2.png alt=sqlmap猜表名2></p></li><li><p>猜列名
+<img src=/img/post/cookie_injection_sqlmap_get_column_name1.png alt=sqlmap猜列名1>
+<img src=/img/post/cookie_injection_sqlmap_get_column_name2.png alt=sqlmap猜列名2></p></li><li><p>猜字段内容
+<img src=/img/post/cookie_injection_sqlmap_get_column_value1.png alt=sqlmap猜字段内容1>
+<img src=/img/post/cookie_injection_sqlmap_get_column_value2.png alt=sqlmap猜字段内容2></p></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

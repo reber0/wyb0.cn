@@ -1,135 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>CGI 与 FastCGI 与 PHP-FPM | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>CGI 与 FastCGI 与 PHP-FPM</h1>
-      
-<div class="post-meta">
-    <time>2016-08-02</time>
-    
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/cgi">cgi</a>)
-</div>
-
-      <div><h3 id="0x01-cgi协议">0x01 CGI协议</h3>
-<p>中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数据等)的协议</p>
-<h3 id="0x02-fastcgi">0x02 FastCGI</h3>
-<p>服务端收到请求时会启动对应的cgi程序(如php-cgi)，即php的解析器，php解析器会解析php.ini文件、初始化执行环境，然后执行请求，每次都是这样，性能比较低</p>
-<p>fastcgi是cgi的升级版，它会启动一个master解析php.ini、初始化执行环节，然后启动多个worker直接依次处理多个web server的连接，不用每次都解析php.ini等</p>
-<h3 id="0x03-fastcgi工作流程">0x03 FastCGI工作流程</h3>
-<p>一般情况下，FastCGI的整个工作流程是这样的：</p>
-<ol>
-<li>Web Server启动时载入FastCGI进程管理器（IIS ISAPI或Apache Module)</li>
-<li>FastCGI进程管理器自身初始化，启动多个CGI解释器进程(可见多个php-cgi)并等待WebServer的连接。</li>
-<li>当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。 Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi。</li>
-<li>FastCGI子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时，请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器(运行在Web Server中)的下一个连接。在CGI模式中，php-cgi在此便退出了。</li>
-</ol>
-<h3 id="0x04-php-fpm">0x04 PHP-FPM</h3>
-<ul>
-<li>php-fpm就是fastcgi的实现，是一个php fastcgi进程管理器</li>
-<li>php-fpm在php5.2之后默认添加</li>
-<li>千万不要把fastcgi端口对公网暴露</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>CGI 与 FastCGI 与 PHP-FPM | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>CGI 与 FastCGI 与 PHP-FPM</h1><div class=post-meta><time>2016-08-02</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/cgi>cgi</a>)</div><div><h3 id=0x01-cgi协议>0x01 CGI协议</h3><p>中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数据等)的协议</p><h3 id=0x02-fastcgi>0x02 FastCGI</h3><p>服务端收到请求时会启动对应的cgi程序(如php-cgi)，即php的解析器，php解析器会解析php.ini文件、初始化执行环境，然后执行请求，每次都是这样，性能比较低</p><p>fastcgi是cgi的升级版，它会启动一个master解析php.ini、初始化执行环节，然后启动多个worker直接依次处理多个web server的连接，不用每次都解析php.ini等</p><h3 id=0x03-fastcgi工作流程>0x03 FastCGI工作流程</h3><p>一般情况下，FastCGI的整个工作流程是这样的：</p><ol><li>Web Server启动时载入FastCGI进程管理器（IIS ISAPI或Apache Module)</li><li>FastCGI进程管理器自身初始化，启动多个CGI解释器进程(可见多个php-cgi)并等待WebServer的连接。</li><li>当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。 Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi。</li><li>FastCGI子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时，请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器(运行在Web Server中)的下一个连接。在CGI模式中，php-cgi在此便退出了。</li></ol><h3 id=0x04-php-fpm>0x04 PHP-FPM</h3><ul><li>php-fpm就是fastcgi的实现，是一个php fastcgi进程管理器</li><li>php-fpm在php5.2之后默认添加</li><li>千万不要把fastcgi端口对公网暴露</li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

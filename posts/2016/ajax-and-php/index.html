@@ -1,90 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>AJAX 与 PHP | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>AJAX 与 PHP</h1>
-      
-<div class="post-meta">
-    <time>2016-11-16</time>
-    
-    [<a href="/categories/JS">JS</a>](<a href="/tags/js">js</a>)
-</div>
-
-      <div><h3 id="0x00-ajax与php">0x00 AJAX与PHP</h3>
-<p>ajax.html代码如下：</p>
-<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>AJAX 与 PHP | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>AJAX 与 PHP</h1><div class=post-meta><time>2016-11-16</time>
+[<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div><h3 id=0x00-ajax与php>0x00 AJAX与PHP</h3><p>ajax.html代码如下：</p><pre tabindex=0><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&#34;utf-8&#34;&gt;
@@ -120,14 +46,13 @@
     &lt;p&gt;提示信息: &lt;span id=&#34;txtHint&#34;&gt;&lt;/span&gt;&lt;/p&gt; 
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><pre tabindex="0"><code>上面的代码会完成以下的东西：
+</code></pre><pre tabindex=0><code>上面的代码会完成以下的东西：
 
 1. 在输入字母时会调用showHint()
 2. showHint()创建对象
 3. 定义onreadystatechange事件
 4. xmlhttp.open()访问当前目录下的ajax.php来请求资源
-</code></pre><p>ajax.php代码如下：</p>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><p>ajax.php代码如下：</p><pre tabindex=0><code>&lt;?php
 // Fill up array with names
 $a[]=&#34;Anna&#34;;
 $a[]=&#34;Brittany&#34;;
@@ -189,12 +114,9 @@ if ($hint == &#34;&#34;) {
 echo $response;
 ?&gt;
 </code></pre><p>结果如下：
-<img src="/img/post/ajax_and_php.gif" alt="ajax与php"></p>
-<h3 id="0x01-ajax与数据库">0x01 AJAX与数据库</h3>
-<pre tabindex="0"><code>可以通过xmlhttp.open(&#34;GET&#34;,&#34;./ajax.php?q=&#34;+str,true);的形式获取服务器数据，
+<img src=/img/post/ajax_and_php.gif alt=ajax与php></p><h3 id=0x01-ajax与数据库>0x01 AJAX与数据库</h3><pre tabindex=0><code>可以通过xmlhttp.open(&#34;GET&#34;,&#34;./ajax.php?q=&#34;+str,true);的形式获取服务器数据，
 那么也就可以通过这种方式获取服务端数据库中的内容
-</code></pre><p>ajax.html代码如下：</p>
-<pre tabindex="0"><code>&lt;html&gt;
+</code></pre><p>ajax.html代码如下：</p><pre tabindex=0><code>&lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&#34;utf-8&#34;&gt;
     &lt;script&gt;
@@ -233,8 +155,7 @@ echo $response;
     &lt;div id=&#34;txtHint&#34;&gt;&lt;b&gt;Person info will be listed here.&lt;/b&gt;&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>getuser.php代码如下：</p>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><p>getuser.php代码如下：</p><pre tabindex=0><code>&lt;?php
     header(&#34;Content-Type:text/html; charset=gbk&#34;);
 
     $id=$_GET[&#34;id&#34;];
@@ -263,11 +184,9 @@ echo $response;
     mysql_close($con);
 ?&gt;
 </code></pre><p>结果如下：
-<img src="/img/post/ajax_and_mysql1.png" alt="ajax与mysql1">
-<img src="/img/post/ajax_and_mysql2.png" alt="ajax与mysql2">
-<img src="/img/post/ajax_and_mysql3.png" alt="ajax与mysql3"></p>
-<h3 id="0x02-ajax使用实例">0x02 AJAX使用实例</h3>
-<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+<img src=/img/post/ajax_and_mysql1.png alt=ajax与mysql1>
+<img src=/img/post/ajax_and_mysql2.png alt=ajax与mysql2>
+<img src=/img/post/ajax_and_mysql3.png alt=ajax与mysql3></p><h3 id=0x02-ajax使用实例>0x02 AJAX使用实例</h3><pre tabindex=0><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;script&gt;
@@ -301,35 +220,12 @@ echo $response;
     &lt;button type=&#34;button&#34; onclick=&#34;myFunction()&#34;&gt;修改内容&lt;/button&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

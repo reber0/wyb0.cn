@@ -1,26 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>oracle on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/oracle/</link>
-    <description>Recent content in oracle on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 04 Jan 2019 20:23:35 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SQL注入 tips(Oracle)</title>
-      <link>https://wyb0.com/posts/2019/injection-tips-of-oracle/</link>
-      <pubDate>Fri, 04 Jan 2019 20:23:35 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/injection-tips-of-oracle/</guid>
-      <description>0x00 判断数据库类型 Oracle有一些自带的表：dual、user_tables id=45 and (select count(*) from user_tables)&amp;gt;0-- id=45 and (select count(*) from dual)&amp;gt;0-- 利用自带的一些函数：</description>
-    </item>
-    <item>
-      <title>Oracle 数据库简单使用</title>
-      <link>https://wyb0.com/posts/2018/oracle-database/</link>
-      <pubDate>Tue, 25 Dec 2018 23:34:56 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/oracle-database/</guid>
-      <description>0x00 关于Oracle 完整的Oracle数据库通常由两部分组成：Oracle数据库和数据库实例。 数据库是一系列物理文件的集合</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Oracle on Reber's Blog</title><link>https://wyb0.com/tags/oracle/</link><description>Recent content in Oracle on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 04 Jan 2019 20:23:35 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/oracle/index.xml" rel="self" type="application/rss+xml"/><item><title>SQL注入 tips(Oracle)</title><link>https://wyb0.com/posts/2019/injection-tips-of-oracle/</link><pubDate>Fri, 04 Jan 2019 20:23:35 +0000</pubDate><guid>https://wyb0.com/posts/2019/injection-tips-of-oracle/</guid><description>&lt;h3 id="0x00-判断数据库类型">0x00 判断数据库类型&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Oracle有一些自带的表：dual、user_tables&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>id=45 and (select count(*) from user_tables)&amp;gt;0--&lt;/code>&lt;/li>
+&lt;li>&lt;code>id=45 and (select count(*) from dual)&amp;gt;0--&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>利用自带的一些函数：譬如utl_http.request 这些&lt;/p></description></item><item><title>Oracle 数据库简单使用</title><link>https://wyb0.com/posts/2018/oracle-database/</link><pubDate>Tue, 25 Dec 2018 23:34:56 +0000</pubDate><guid>https://wyb0.com/posts/2018/oracle-database/</guid><description>&lt;h3 id="0x00-关于oracle">0x00 关于Oracle&lt;/h3>
+&lt;ul>
+&lt;li>完整的Oracle数据库通常由两部分组成：Oracle数据库和数据库实例。&lt;/li>
+&lt;li>数据库是一系列物理文件的集合（数据文件，控制文件，联机日志，参数文件等）&lt;/li>
+&lt;li>Oracle数据库实例则是一组Oracle后台进程/线程以及在服务器分配的共享内存区&lt;/li>
+&lt;li>关于部分视图
+&lt;ul>
+&lt;li>&lt;code>DBA/ALL/USER/V_$/GV_$/SESSION/INDEX&lt;/code>开头的绝大部分都是视图&lt;/li>
+&lt;li>DBA_TABLES意为DBA拥有的或可以访问的所有的关系表。&lt;/li>
+&lt;li>ALL_TABLES意为某一用户拥有的或有权限访问的所有的关系表。&lt;/li>
+&lt;li>USER_TABLES意为某一用户所拥有的所有的关系表。&lt;/li>
+&lt;li>当某一用户本身就为数据库DBA时，DBA_TABLES与ALL_TABLES等价。&lt;/li>
+&lt;li>&lt;code>DBA_TABLES &amp;gt;= ALL_TABLES &amp;gt;= USER_TABLES&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-关于实例">0x01 关于实例&lt;/h3>
+&lt;ul>
+&lt;li>在启动Oracle数据库服务器时，实际上是在服务器的内存中创建一个Oracle实例（即在服务器内存中分配共享内存并创建相关的后台内存）&lt;/li>
+&lt;li>我们访问Oracle都是访问一个实例，通过Oracle数据库实例来访问和控制磁盘中的数据文件&lt;/li>
+&lt;li>Oracle实例如果关联了数据库文件，就是可以访问的，如果没有，就会得到实例不可用的错误&lt;/li>
+&lt;li>实例名指的是用于响应某个数据库操作的数据库管理系统的名称，它同时也叫SID，连接数据库时就会用到这个SID，如：jdbc:oracle:thin:@localhost:1521:orcl（orcl就为数据库实例名）&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x02-关于表空间可以理解为mysql中的数据库">0x02 关于表空间(可以理解为mysql中的数据库)&lt;/h3>
+&lt;ul>
+&lt;li>Oracle数据库是通过表空间来存储物理表的，一个数据库实例可以有N个表空间，一个表空间下可以有N张表。&lt;/li>
+&lt;li>用户和表空间是多对多的关系，但是一般创建用户时会指定一个默认表空间。&lt;/li>
+&lt;li>表空间是数据库中最大的逻辑单位，一个表空间可以包含多个数据文件，而一个数据文件只能隶属一个表空间。&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x03-搭建oracle环境">0x03 搭建Oracle环境&lt;/h3>
+&lt;p>使用docker拉取Oracle数据库并且运行&lt;/p></description></item></channel></rss>

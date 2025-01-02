@@ -1,195 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Tmux 的使用 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Tmux 的使用</h1>
-      
-<div class="post-meta">
-    <time>2016-09-10</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/software">software</a>)
-</div>
-
-      <div><h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀</h3>
-<p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。</p>
-<p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。</p>
-<p>比如想按快捷键 d 时，你需要：先按 Ctrl+b，松开后再按d。</p>
-<h3 id="0x01-会话">0x01 会话</h3>
-<ul>
-<li>
-<p>新建一个名为 tmux_test 的 session</p>
-<ul>
-<li>tmux new -s tmux_test
-<img src="/img/post/tmux_new_session1.png" alt="60"></li>
-</ul>
-</li>
-<li>
-<p>将 session 放到后台运行</p>
-<ul>
-<li>先按 Ctrl+b，然后按 d</li>
-<li>tmux ls 可查看会话，这里有两个会话，一个 frpc、一个 tmux_tests
-<img src="/img/post/tmux_new_session2.png" alt="60"></li>
-</ul>
-</li>
-<li>
-<p>进入某个 session</p>
-<ul>
-<li>tmux a -t frps
-<img src="/img/post/tmux_in_session.png" alt="70"></li>
-</ul>
-</li>
-<li>
-<p>切换 session</p>
-<ul>
-<li>
-<p>在一个 session 中，按 Ctrl+b，再按 s 可列出所有 session
-<img src="/img/post/tmux_show_all_session.png" alt="70"></p>
-</li>
-<li>
-<p>按上下方向键即可切换进入相应 session
-<img src="/img/post/tmux_select_session.png" alt="70"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x02-窗口和窗格">0x02 窗口和窗格</h3>
-<ul>
-<li>
-<p>切割窗口为窗格</p>
-<ul>
-<li>
-<p>横向切割，Ctrl+b，再按 <code>&quot;</code>
-<img src="/img/post/tmux_split_windows1.png" alt="70"></p>
-</li>
-<li>
-<p>纵向切割，Ctrl+b，再按 <code>%</code>
-<img src="/img/post/tmux_split_windows2.png" alt="70"></p>
-</li>
-<li>
-<p>先按 Ctrl+b，再按 q 会出现相应数字，然后按数字即可到相应窗格
-<img src="/img/post/tmux_select_pane.png" alt="70"></p>
-</li>
-</ul>
-</li>
-<li>
-<p>多个窗口</p>
-<ul>
-<li>
-<p>在第一个窗口的第一个窗格运行 top 命令
-<img src="/img/post/tmux_0_windows_run_top.png" alt="70"></p>
-</li>
-<li>
-<p>先按 Ctrl+b，然后按 c 可新建一个窗口
-<img src="/img/post/tmux_new_windows.png" alt="70"></p>
-</li>
-<li>
-<p>按 Ctrl+b，然后再按对应窗口的数字可进入相应窗口
-<img src="/img/post/tmux_select_windows.png" alt="70"></p>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Tmux 的使用 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Tmux 的使用</h1><div class=post-meta><time>2016-09-10</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/software>software</a>)</div><div><h3 id=0x00-tmux-的快捷键前缀>0x00 Tmux 的快捷键前缀</h3><p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。</p><p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。</p><p>比如想按快捷键 d 时，你需要：先按 Ctrl+b，松开后再按d。</p><h3 id=0x01-会话>0x01 会话</h3><ul><li><p>新建一个名为 tmux_test 的 session</p><ul><li>tmux new -s tmux_test
+<img src=/img/post/tmux_new_session1.png alt=60></li></ul></li><li><p>将 session 放到后台运行</p><ul><li>先按 Ctrl+b，然后按 d</li><li>tmux ls 可查看会话，这里有两个会话，一个 frpc、一个 tmux_tests
+<img src=/img/post/tmux_new_session2.png alt=60></li></ul></li><li><p>进入某个 session</p><ul><li>tmux a -t frps
+<img src=/img/post/tmux_in_session.png alt=70></li></ul></li><li><p>切换 session</p><ul><li><p>在一个 session 中，按 Ctrl+b，再按 s 可列出所有 session
+<img src=/img/post/tmux_show_all_session.png alt=70></p></li><li><p>按上下方向键即可切换进入相应 session
+<img src=/img/post/tmux_select_session.png alt=70></p></li></ul></li></ul><h3 id=0x02-窗口和窗格>0x02 窗口和窗格</h3><ul><li><p>切割窗口为窗格</p><ul><li><p>横向切割，Ctrl+b，再按 <code>"</code>
+<img src=/img/post/tmux_split_windows1.png alt=70></p></li><li><p>纵向切割，Ctrl+b，再按 <code>%</code>
+<img src=/img/post/tmux_split_windows2.png alt=70></p></li><li><p>先按 Ctrl+b，再按 q 会出现相应数字，然后按数字即可到相应窗格
+<img src=/img/post/tmux_select_pane.png alt=70></p></li></ul></li><li><p>多个窗口</p><ul><li><p>在第一个窗口的第一个窗格运行 top 命令
+<img src=/img/post/tmux_0_windows_run_top.png alt=70></p></li><li><p>先按 Ctrl+b，然后按 c 可新建一个窗口
+<img src=/img/post/tmux_new_windows.png alt=70></p></li><li><p>按 Ctrl+b，然后再按对应窗口的数字可进入相应窗口
+<img src=/img/post/tmux_select_windows.png alt=70></p></li></ul></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

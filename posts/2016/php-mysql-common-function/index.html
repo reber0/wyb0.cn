@@ -1,187 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 之 MySQL 常用函数 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 之 MySQL 常用函数</h1>
-      
-<div class="post-meta">
-    <time>2016-06-02</time>
-    
-    [<a href="/categories/PHP">PHP</a>,<a href="/categories/Database">Database</a>](<a href="/tags/php">php</a>,<a href="/tags/mysql">mysql</a>)
-</div>
-
-      <div><h3 id="0x00-处理函数">0x00 处理函数</h3>
-<ol>
-<li>
-<p>mysql_connect(server,user,pwd,newlink,clientflag)<br>
-连接服务器的函数,成功则返回MySQL标识，失败则返回FALSE</p>
-</li>
-<li>
-<p>mysql_select_db(database,connection)<br>
-选择数据库的函数，成功则返回true，失败则返回false</p>
-</li>
-<li>
-<p>mysql_query(query,connection)<br>
-执行一条查询，返回一个资源标识符(结果集)，如果查询执行不正确则返回FALSE</p>
-</li>
-<li>
-<p>mysql_num_rows(data)和mysql_num_fields(data)<br>
-函数分别返回结果集中行和列的数目(禁对SELECT语句有效),结果集从 mysql_query()的调用中得到</p>
-</li>
-<li>
-<p>mysql_fetch_assoc(data)<br>
-从结果集中取得一行作为关联数组，若没有更多行则返回false</p>
-</li>
-<li>
-<p>mysql_fetch_row(data)<br>
-从结果集中取得一行作为索引数组，若没有更多行则返回false</p>
-</li>
-<li>
-<p>mysql_error(connection)<br>
-返回上一个MySQL函数的错误文本，如果没有出错则返回&rsquo;&rsquo;(空字符串)</p>
-</li>
-<li>
-<p>mysql_affected_rows(link_identifier)<br>
-返回前一次MySQL操作(增删改)所影响的记录行数,失败则返回-1</p>
-</li>
-<li>
-<p>mysql_insert_id(connection)<br>
-返回上一步INSERT操作产生的 ID。如果上一查询没有产生AUTO_INCREMENT的ID，则mysql_insert_id()返回 0。</p>
-</li>
-<li>
-<p>mysql_data_seek(data,row)<br>
-结果集data从mysql_query()的调用中得到,行指针移动到指定的行号，接着调用 mysql_fetch_row() 将返回那一行。如果成功则返回 true，失败则返回 false</p>
-</li>
-</ol>
-<h3 id="0x01-例子">0x01 例子</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>	$server <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>;
-</span></span><span style="display:flex;"><span>    $dbname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;massage&#34;</span>;
-</span></span><span style="display:flex;"><span>    $user <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;msg&#34;</span>;
-</span></span><span style="display:flex;"><span>    $pass <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123456&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	$conn <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysql_connect</span>($server,$user,$pass) <span style="color:#66d9ef">or</span> <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#39;连接服务器失败:&#39;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">mysql_error</span>());
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mysql_query</span>(<span style="color:#e6db74">&#34;set names &#39;utf8&#39;&#34;</span>);<span style="color:#75715e">//设置数据库输出编码
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">mysql_select_db</span>($dbname,$conn) <span style="color:#66d9ef">or</span> <span style="color:#66d9ef">die</span>(<span style="color:#a6e22e">mysql_error</span>($conn)); <span style="color:#75715e">//选择数据库
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>	$sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select username,password from user&#34;</span>;   <span style="color:#75715e">//构造sql语句
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	$result <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysql_query</span>($sql);  <span style="color:#75715e">//执行sql语句，返回结果集
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>	$num <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysql_num_rows</span>($result);<span style="color:#75715e">//返回执行结果的行数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br /&gt;结果的行数:</span><span style="color:#e6db74">{</span>$num<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;br /&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> ($row <span style="color:#f92672">=</span> <span style="color:#a6e22e">mysql_fetch_assoc</span>($result)) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">echo</span> $row[<span style="color:#a6e22e">id</span>]<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">.</span>$row[<span style="color:#a6e22e">username</span>]<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;&lt;br /&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	$sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;insert into user(username,password) values(&#39;3333&#39;,&#39;mm3333&#39;)&#34;</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mysql_query</span>($sql);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;受影响行数：&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">mysql_affected_rows</span>()<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;最后一次插入的id为：&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">mysql_insert_id</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mysql_free_result</span>($result);  <span style="color:#75715e">//释放结果内存
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">mysql_close</span>($conn);  <span style="color:#75715e">//关闭非持久的MySQL连接
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 之 MySQL 常用函数 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 之 MySQL 常用函数</h1><div class=post-meta><time>2016-06-02</time>
+[<a href=/categories/PHP>PHP</a>,<a href=/categories/Database>Database</a>](<a href=/tags/php>php</a>,<a href=/tags/mysql>mysql</a>)</div><div><h3 id=0x00-处理函数>0x00 处理函数</h3><ol><li><p>mysql_connect(server,user,pwd,newlink,clientflag)<br>连接服务器的函数,成功则返回MySQL标识，失败则返回FALSE</p></li><li><p>mysql_select_db(database,connection)<br>选择数据库的函数，成功则返回true，失败则返回false</p></li><li><p>mysql_query(query,connection)<br>执行一条查询，返回一个资源标识符(结果集)，如果查询执行不正确则返回FALSE</p></li><li><p>mysql_num_rows(data)和mysql_num_fields(data)<br>函数分别返回结果集中行和列的数目(禁对SELECT语句有效),结果集从 mysql_query()的调用中得到</p></li><li><p>mysql_fetch_assoc(data)<br>从结果集中取得一行作为关联数组，若没有更多行则返回false</p></li><li><p>mysql_fetch_row(data)<br>从结果集中取得一行作为索引数组，若没有更多行则返回false</p></li><li><p>mysql_error(connection)<br>返回上一个MySQL函数的错误文本，如果没有出错则返回&rsquo;&rsquo;(空字符串)</p></li><li><p>mysql_affected_rows(link_identifier)<br>返回前一次MySQL操作(增删改)所影响的记录行数,失败则返回-1</p></li><li><p>mysql_insert_id(connection)<br>返回上一步INSERT操作产生的 ID。如果上一查询没有产生AUTO_INCREMENT的ID，则mysql_insert_id()返回 0。</p></li><li><p>mysql_data_seek(data,row)<br>结果集data从mysql_query()的调用中得到,行指针移动到指定的行号，接着调用 mysql_fetch_row() 将返回那一行。如果成功则返回 true，失败则返回 false</p></li></ol><h3 id=0x01-例子>0x01 例子</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>	$server <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;127.0.0.1&#34;</span>;
+</span></span><span style=display:flex><span>    $dbname <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;massage&#34;</span>;
+</span></span><span style=display:flex><span>    $user <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;msg&#34;</span>;
+</span></span><span style=display:flex><span>    $pass <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;123456&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	$conn <span style=color:#f92672>=</span> <span style=color:#a6e22e>mysql_connect</span>($server,$user,$pass) <span style=color:#66d9ef>or</span> <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#39;连接服务器失败:&#39;</span><span style=color:#f92672>.</span><span style=color:#a6e22e>mysql_error</span>());
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>mysql_query</span>(<span style=color:#e6db74>&#34;set names &#39;utf8&#39;&#34;</span>);<span style=color:#75715e>//设置数据库输出编码
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#a6e22e>mysql_select_db</span>($dbname,$conn) <span style=color:#66d9ef>or</span> <span style=color:#66d9ef>die</span>(<span style=color:#a6e22e>mysql_error</span>($conn)); <span style=color:#75715e>//选择数据库
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>	$sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select username,password from user&#34;</span>;   <span style=color:#75715e>//构造sql语句
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	$result <span style=color:#f92672>=</span> <span style=color:#a6e22e>mysql_query</span>($sql);  <span style=color:#75715e>//执行sql语句，返回结果集
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>	$num <span style=color:#f92672>=</span> <span style=color:#a6e22e>mysql_num_rows</span>($result);<span style=color:#75715e>//返回执行结果的行数
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br /&gt;结果的行数:</span><span style=color:#e6db74>{</span>$num<span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;br /&gt;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>while</span> ($row <span style=color:#f92672>=</span> <span style=color:#a6e22e>mysql_fetch_assoc</span>($result)) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>echo</span> $row[<span style=color:#a6e22e>id</span>]<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;:&#34;</span><span style=color:#f92672>.</span>$row[<span style=color:#a6e22e>username</span>]<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;&lt;br /&gt;&#34;</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	$sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;insert into user(username,password) values(&#39;3333&#39;,&#39;mm3333&#39;)&#34;</span>;
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>mysql_query</span>($sql);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;受影响行数：&#34;</span><span style=color:#f92672>.</span><span style=color:#a6e22e>mysql_affected_rows</span>()<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;最后一次插入的id为：&#34;</span><span style=color:#f92672>.</span><span style=color:#a6e22e>mysql_insert_id</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>mysql_free_result</span>($result);  <span style=color:#75715e>//释放结果内存
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#a6e22e>mysql_close</span>($conn);  <span style=color:#75715e>//关闭非持久的MySQL连接
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

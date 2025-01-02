@@ -1,19 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>SSI注入 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/SSI%E6%B3%A8%E5%85%A5/</link>
-    <description>Recent content in SSI注入 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jun 2017 11:20:15 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/SSI%E6%B3%A8%E5%85%A5/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SSI 注入</title>
-      <link>https://wyb0.com/posts/2017/ssi-injection/</link>
-      <pubDate>Thu, 08 Jun 2017 11:20:15 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/ssi-injection/</guid>
-      <description>0x00 SSI SSI (Server Side Includes)是HTML页面中的指令，在页面被提供时由服务器进行运算，以对现有HTML页面增加动态生成的内</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSI注入 on Reber's Blog</title><link>https://wyb0.com/tags/SSI%E6%B3%A8%E5%85%A5/</link><description>Recent content in SSI注入 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 08 Jun 2017 11:20:15 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/SSI%E6%B3%A8%E5%85%A5/index.xml" rel="self" type="application/rss+xml"/><item><title>SSI 注入</title><link>https://wyb0.com/posts/2017/ssi-injection/</link><pubDate>Thu, 08 Jun 2017 11:20:15 +0000</pubDate><guid>https://wyb0.com/posts/2017/ssi-injection/</guid><description>&lt;h3 id="0x00-ssi">0x00 SSI&lt;/h3>
+&lt;p>SSI (Server Side Includes)是HTML页面中的指令，在页面被提供时由服务器进行运算，以对现有HTML页面增加动态生成的内容，而无须通过CGI程序提供其整个页面，或者使用其他动态技术。&lt;/p></description></item></channel></rss>

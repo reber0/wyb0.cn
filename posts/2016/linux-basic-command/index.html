@@ -1,89 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 之基础命令 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 之基础命令</h1>
-      
-<div class="post-meta">
-    <time>2016-04-19</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-      <div><h3 id="0x00-ls显示文件">0x00 ls：显示文件</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ ls
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 之基础命令 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 之基础命令</h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div><h3 id=0x00-ls显示文件>0x00 ls：显示文件</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
 a  a.txt
 [wyb@localhost tmp]$ ls -l
 total 4
@@ -99,11 +26,9 @@ drwxr-xr-x.  2 wyb  root 4096 Apr 17 18:23 a
 -rw-r--r--.  1 wyb  root    0 Apr 17 18:23 a.txt
 drwx------.  2 wyb  wyb  4096 Apr 10 19:15 .esd-500
 drwxrwxrwt.  2 root root 4096 Apr 17 16:31 .ICE-unix
-</code></pre><h3 id="0x02-pwd查看当前工作路径">0x02 pwd：查看当前工作路径</h3>
-<pre tabindex="0"><code>[wyb@localhost ~]$ pwd  
+</code></pre><h3 id=0x02-pwd查看当前工作路径>0x02 pwd：查看当前工作路径</h3><pre tabindex=0><code>[wyb@localhost ~]$ pwd  
 /home/wyb
-</code></pre><h3 id="0x03-cd切换目录">0x03 cd：切换目录</h3>
-<pre tabindex="0"><code>[wyb@localhost ~]$ ls
+</code></pre><h3 id=0x03-cd切换目录>0x03 cd：切换目录</h3><pre tabindex=0><code>[wyb@localhost ~]$ ls
 Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
 [wyb@localhost ~]$ cd Desktop/     //相对路径
 [wyb@localhost Desktop]$ cd /tmp/a    //绝对路径
@@ -112,20 +37,17 @@ Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
 [wyb@localhost a]$ cd -  //返回原来的目录
 [wyb@localhost Desktop]$ pwd
 /home/user/reber/Desktop
-</code></pre><h3 id="0x04-mkdir新建文件夹">0x04 mkdir：新建文件夹</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ ls
+</code></pre><h3 id=0x04-mkdir新建文件夹>0x04 mkdir：新建文件夹</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
 a  a.txt
 [wyb@localhost tmp]$ mkdir bbb
 [wyb@localhost tmp]$ ls
 a  a.txt  bbb
-</code></pre><h3 id="0x05-touchvim新建文件">0x05 touch/vim：新建文件</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ ls
+</code></pre><h3 id=0x05-touchvim新建文件>0x05 touch/vim：新建文件</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
 a  a.txt  bbb
 [wyb@localhost tmp]$ touch bbb.txt
 [wyb@localhost tmp]$ ls
 a  a.txt  bbb  bbb.txt
-</code></pre><h3 id="0x06-rm删除文件">0x06 rm：删除文件</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ ls
+</code></pre><h3 id=0x06-rm删除文件>0x06 rm：删除文件</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
 a  a.txt  bbb  bbb.txt  c.txt
 [wyb@localhost tmp]$ rm c.txt   //删除文件c.txt
 [wyb@localhost tmp]$ ls
@@ -135,8 +57,7 @@ rm: cannot remove `a&#39;: Is a directory
 [wyb@localhost tmp]$ rm -r a   //加上-r才能删除文件夹
 [wyb@localhost tmp]$ ls
 a.txt  bbb  bbb.txt
-</code></pre><h3 id="0x07-ifconfig查看网卡的信息">0x07 ifconfig：查看网卡的信息</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ ifconfig
+</code></pre><h3 id=0x07-ifconfig查看网卡的信息>0x07 ifconfig：查看网卡的信息</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ifconfig
 eth0    Link encap:Ethernet  HWaddr 00:0C:29:56:B4:10  
         inet addr:192.168.63.131  Bcast:192.168.63.255  Mask:255.255.255.0
         inet6 addr: fe80::20c:29ff:fe56:b410/64 Scope:Link
@@ -154,8 +75,7 @@ lo      Link encap:Local Loopback
         TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
         collisions:0 txqueuelen:0 
         RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
-</code></pre><h3 id="0x08-netstat查找网络连接信息">0x08 netstat：查找网络连接信息</h3>
-<pre tabindex="0"><code>netstat -l   //listen状态的
+</code></pre><h3 id=0x08-netstat查找网络连接信息>0x08 netstat：查找网络连接信息</h3><pre tabindex=0><code>netstat -l   //listen状态的
 netstat -an  //显示所有的连接信息，且以ip地址代替名称
 netstat -t   //显示tcp连接信息
 netstat -u   //显示udp连接信息
@@ -178,16 +98,12 @@ unix  2      [ ACC ]     STREAM     LISTENING     14236  private/tlsmgr
 unix  2      [ ACC ]     STREAM     LISTENING     14240  private/rewrite
 unix  2      [ ACC ]     STREAM     LISTENING     14244  private/bounce
 unix  2      [ ACC ]     STREAM     LISTENING     14248  private/defer
-</code></pre><h3 id="0x09-nslookup查看dns信息">0x09 nslookup：查看DNS信息</h3>
-<pre tabindex="0"><code>nslookup 查看ip和域名的相互映射
+</code></pre><h3 id=0x09-nslookup查看dns信息>0x09 nslookup：查看DNS信息</h3><pre tabindex=0><code>nslookup 查看ip和域名的相互映射
 nslookup www.baidu.com   //返回一些信息
-</code></pre><h3 id="0x0a-ping">0x0A ping</h3>
-<pre tabindex="0"><code>ping -c 3 www.baidu.com   //指定ping百度3次
-</code></pre><h3 id="0x0b-lastfinger查看近期的登陆信息">0x0B last/finger：查看近期的登陆信息</h3>
-<pre tabindex="0"><code>[root@localhost ~]# last
-</code></pre><pre tabindex="0"><code>[root@localhost ~]# finger
-</code></pre><h3 id="0x0c-find查找文件">0x0C find：查找文件</h3>
-<pre tabindex="0"><code>which vim   //查看可执行文件的位置
+</code></pre><h3 id=0x0a-ping>0x0A ping</h3><pre tabindex=0><code>ping -c 3 www.baidu.com   //指定ping百度3次
+</code></pre><h3 id=0x0b-lastfinger查看近期的登陆信息>0x0B last/finger：查看近期的登陆信息</h3><pre tabindex=0><code>[root@localhost ~]# last
+</code></pre><pre tabindex=0><code>[root@localhost ~]# finger
+</code></pre><h3 id=0x0c-find查找文件>0x0C find：查找文件</h3><pre tabindex=0><code>which vim   //查看可执行文件的位置
 *which是通过 PATH环境变量到该路径内查找可执行文件，所以基本的功能是寻找可执行文件* 
 
 whereis、locate也可查找文件,它们是使用数据库来搜索数据
@@ -209,15 +125,13 @@ find /bin -perm 4755  //返回有gid(即s权限)的文件    2是gid
 -rwxr-xr-x. 1 root root  48568 Jun 22  2012 /bin/cat
 -rwxr-xr-x. 1 root root  55472 Jun 22  2012 /bin/chgrp
 -rwxr-xr-x. 1 root root  52472 Jun 22  2012 /bin/chmod
-</code></pre><h3 id="0x0d-grep">0x0D grep</h3>
-<pre tabindex="0"><code>//可以遍历查询mkr文件夹下含有字符串&#34;reber&#34;的文件及字符串所在行
+</code></pre><h3 id=0x0d-grep>0x0D grep</h3><pre tabindex=0><code>//可以遍历查询mkr文件夹下含有字符串&#34;reber&#34;的文件及字符串所在行
 reber@WYB:~$ grep -Rn &#34;reber&#34; mkdir   
 mkr/cc:3:reber
 mkr/a/a.txt:3:reber
 mkr/a/b.txt:16:reber
 mkr/b/xx:8:reber
-</code></pre><h3 id="0x0e-catnl">0x0E cat/nl</h3>
-<pre tabindex="0"><code>前者显示
+</code></pre><h3 id=0x0e-catnl>0x0E cat/nl</h3><pre tabindex=0><code>前者显示
 后者显示的同时有行号
 [wyb@localhost tmp]$ cat &gt; a.txt  //创建文件同时写入数据
 this is a.txt
@@ -232,8 +146,7 @@ this is b.txt
 [wyb@localhost tmp]$ cat -n c.txt   //获取文件内容切添加行号
  1  this is a.txt
  2  this is b.txt
-</code></pre><h3 id="0x0f-head">0x0F head</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ head /etc/passwd   //默认显示前10行
+</code></pre><h3 id=0x0f-head>0x0F head</h3><pre tabindex=0><code>[wyb@localhost tmp]$ head /etc/passwd   //默认显示前10行
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/bin:/sbin/nologin
 daemon:x:2:2:daemon:/sbin:/sbin/nologin
@@ -257,8 +170,7 @@ adm:x:3:4:adm:/var/adm:/sbin/nologin
 this is add content
      1  this is a.txt
      2  this is b.[wyb@localhost tmp]$ 
-</code></pre><h3 id="0x10-tail">0x10 tail</h3>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ tail -f a.txt  //实时显示文件后10行
+</code></pre><h3 id=0x10-tail>0x10 tail</h3><pre tabindex=0><code>[wyb@localhost tmp]$ tail -f a.txt  //实时显示文件后10行
 this is a.txt
 111111
 aaaaaa
@@ -276,108 +188,91 @@ this is add content
      2  this is b.txt
 this is add content
 [wyb@localhost tmp]$ 
-</code></pre><h3 id="0x11-scp">0x11 scp</h3>
-<pre tabindex="0"><code>向远程服务器put文件和文件夹，默认就是22端口
+</code></pre><h3 id=0x11-scp>0x11 scp</h3><pre tabindex=0><code>向远程服务器put文件和文件夹，默认就是22端口
 scp -P 22 ./aa.txt reber@123.206.78.220:/home/reber
 scp -r ./bb reber@123.206.78.220:/home/reber
 
 从服务器下载文件和文件夹
 scp -P 2222 ubuntu@123.22.38.215:/home/reber/a.txt D:/a.txt
 scp -r -P 2222 ubuntu@123.22.38.215:/home/reber/test D:/test/
-</code></pre><h3 id="0x12-磁盘">0x12 磁盘</h3>
-<pre tabindex="0"><code>fdisk /dev/sdb
+</code></pre><h3 id=0x12-磁盘>0x12 磁盘</h3><pre tabindex=0><code>fdisk /dev/sdb
 sudo mkfs.ext3 /dev/sdb1
 mount -t ext3 -o rw /dev/sdb1 /home/aaa  //-o指定权限
-</code></pre><h3 id="0x13-时间同步">0x13 时间同步</h3>
-<pre tabindex="0"><code>ntpdate time.nist.gov //需要root权限
-</code></pre><h3 id="0x14-下载">0x14 下载</h3>
-<pre tabindex="0"><code>$ curl -o aa.xml http://wyb0.com/index.xml #可以访问网页，它同时还保存了文件，文件名为aa.xml
+</code></pre><h3 id=0x13-时间同步>0x13 时间同步</h3><pre tabindex=0><code>ntpdate time.nist.gov //需要root权限
+</code></pre><h3 id=0x14-下载>0x14 下载</h3><pre tabindex=0><code>$ curl -o aa.xml http://wyb0.com/index.xml #可以访问网页，它同时还保存了文件，文件名为aa.xml
 $ wget http://wyb0.com/index.xml #下载的文件名为index.xml
-</code></pre><h3 id="0x15-环境变量">0x15 环境变量</h3>
-<pre tabindex="0"><code>$ env
-</code></pre><h3 id="0x16-压缩与解压缩">0x16 压缩与解压缩</h3>
-<ul>
-<li>tar
-<ul>
-<li>tar主要参数</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 主要参数</span>
-</span></span><span style="display:flex;"><span>-c  创建一个新的压缩文件
-</span></span><span style="display:flex;"><span>-x  解压
-</span></span><span style="display:flex;"><span>-t  查看压缩文件的内容
-</span></span><span style="display:flex;"><span>-f  指定档案文件的名字
-</span></span><span style="display:flex;"><span>-v  显示过程信息
-</span></span><span style="display:flex;"><span>-r  增加文件到指定的包
-</span></span><span style="display:flex;"><span>-C  指定解压后的路径
-</span></span><span style="display:flex;"><span>-z  使用gzip
-</span></span><span style="display:flex;"><span>-j  使用bzip2
-</span></span><span style="display:flex;"><span>-Z  使用compress
-</span></span></code></pre></div><ul>
-<li>tar示例</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># tar用法示例</span>
-</span></span><span style="display:flex;"><span>$ ls
-</span></span><span style="display:flex;"><span>aaa
-</span></span><span style="display:flex;"><span>$ tar -cvf 1.tar aaa/   <span style="color:#75715e">#打包不压缩</span>
-</span></span><span style="display:flex;"><span>aaa/
-</span></span><span style="display:flex;"><span>aaa/b.txt
-</span></span><span style="display:flex;"><span>aaa/c.txt
-</span></span><span style="display:flex;"><span>aaa/test.txt
-</span></span><span style="display:flex;"><span>aaa/a.txt
-</span></span><span style="display:flex;"><span>$ tar -zcvf 1.tar.gz aaa/   <span style="color:#75715e">#打包且以gzip压缩</span>
-</span></span><span style="display:flex;"><span>aaa/
-</span></span><span style="display:flex;"><span>aaa/b.txt
-</span></span><span style="display:flex;"><span>aaa/c.txt
-</span></span><span style="display:flex;"><span>aaa/test.txt
-</span></span><span style="display:flex;"><span>aaa/a.txt
-</span></span><span style="display:flex;"><span>$ tar -jcvf 1.tar.bz2 aaa/  <span style="color:#75715e">#打包且以bzip2压缩</span>
-</span></span><span style="display:flex;"><span>aaa/
-</span></span><span style="display:flex;"><span>aaa/b.txt
-</span></span><span style="display:flex;"><span>aaa/c.txt
-</span></span><span style="display:flex;"><span>aaa/test.txt
-</span></span><span style="display:flex;"><span>aaa/a.txt
-</span></span><span style="display:flex;"><span>tar -zxvf aa.tar.gz /home/aaa --exclude<span style="color:#f92672">=</span>dir  <span style="color:#75715e">#排除目录</span>
-</span></span><span style="display:flex;"><span>$ ls -l
-</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">24</span>
-</span></span><span style="display:flex;"><span>-rw-r--r--. <span style="color:#ae81ff">1</span> wyb root <span style="color:#ae81ff">10240</span> Apr <span style="color:#ae81ff">19</span> 07:47 1.tar
-</span></span><span style="display:flex;"><span>-rw-r--r--. <span style="color:#ae81ff">1</span> wyb root   <span style="color:#ae81ff">265</span> Apr <span style="color:#ae81ff">19</span> 07:48 1.tar.bz2
-</span></span><span style="display:flex;"><span>-rw-r--r--. <span style="color:#ae81ff">1</span> wyb root   <span style="color:#ae81ff">253</span> Apr <span style="color:#ae81ff">19</span> 07:48 1.tar.gz
-</span></span><span style="display:flex;"><span>drwxr-xr-x. <span style="color:#ae81ff">2</span> wyb root  <span style="color:#ae81ff">4096</span> Apr <span style="color:#ae81ff">19</span> 07:22 aaa
-</span></span><span style="display:flex;"><span>$ file 1.tar.gz     <span style="color:#75715e">#查看文件类型</span>
-</span></span><span style="display:flex;"><span>1.tar.gz: gzip compressed data, from Unix, last modified: Tue Apr <span style="color:#ae81ff">19</span> 07:48:01 <span style="color:#ae81ff">2016</span>
-</span></span><span style="display:flex;"><span>$ tar -ztvf 1.tar.gz    <span style="color:#75715e">#查看压缩包内容</span>
-</span></span><span style="display:flex;"><span>drwxr-xr-x wyb/root          <span style="color:#ae81ff">0</span> 2016-04-19 07:22 aaa/
-</span></span><span style="display:flex;"><span>-rw-r--r-- wyb/root          <span style="color:#ae81ff">0</span> 2016-04-19 05:05 aaa/b.txt
-</span></span><span style="display:flex;"><span>-rw-r--r-- wyb/root          <span style="color:#ae81ff">0</span> 2016-04-19 05:05 aaa/c.txt
-</span></span><span style="display:flex;"><span>-rw-r--r-- wyb/root         <span style="color:#ae81ff">84</span> 2016-04-19 05:50 aaa/test.txt
-</span></span><span style="display:flex;"><span>-rw-r--r-- wyb/root          <span style="color:#ae81ff">0</span> 2016-04-19 05:05 aaa/a.txt
-</span></span><span style="display:flex;"><span>$ ls
-</span></span><span style="display:flex;"><span>1.tar  1.tar.bz2  1.tar.gz  aaa
-</span></span><span style="display:flex;"><span>$ rm -rf aaa/
-</span></span><span style="display:flex;"><span>$ ls
-</span></span><span style="display:flex;"><span>1.tar  1.tar.bz2  1.tar.gz
-</span></span><span style="display:flex;"><span>$ tar -zxvf 1.tar.gz    <span style="color:#75715e">#解压到当前目录</span>
-</span></span><span style="display:flex;"><span>aaa/
-</span></span><span style="display:flex;"><span>aaa/b.txt
-</span></span><span style="display:flex;"><span>aaa/c.txt
-</span></span><span style="display:flex;"><span>aaa/test.txt
-</span></span><span style="display:flex;"><span>aaa/a.txt
-</span></span><span style="display:flex;"><span>$ ls
-</span></span><span style="display:flex;"><span>1.tar  1.tar.bz2  1.tar.gz  aaa
-</span></span><span style="display:flex;"><span>$ ls aaa/
-</span></span><span style="display:flex;"><span>a.txt  b.txt  c.txt  test.txt
-</span></span><span style="display:flex;"><span>$ ls /tmp/
-</span></span><span style="display:flex;"><span>111.txt  aa
-</span></span><span style="display:flex;"><span>$ tar -zxvf 1.tar.gz -C /tmp/aa <span style="color:#75715e">#解压到指定路径</span>
-</span></span><span style="display:flex;"><span>aaa/
-</span></span><span style="display:flex;"><span>aaa/b.txt
-</span></span><span style="display:flex;"><span>aaa/c.txt
-</span></span><span style="display:flex;"><span>aaa/test.txt
-</span></span><span style="display:flex;"><span>aaa/a.txt
-</span></span></code></pre></div></li>
-<li>zip</li>
-</ul>
-<pre tabindex="0"><code># zip用法示例
+</code></pre><h3 id=0x15-环境变量>0x15 环境变量</h3><pre tabindex=0><code>$ env
+</code></pre><h3 id=0x16-压缩与解压缩>0x16 压缩与解压缩</h3><ul><li>tar<ul><li>tar主要参数</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 主要参数</span>
+</span></span><span style=display:flex><span>-c  创建一个新的压缩文件
+</span></span><span style=display:flex><span>-x  解压
+</span></span><span style=display:flex><span>-t  查看压缩文件的内容
+</span></span><span style=display:flex><span>-f  指定档案文件的名字
+</span></span><span style=display:flex><span>-v  显示过程信息
+</span></span><span style=display:flex><span>-r  增加文件到指定的包
+</span></span><span style=display:flex><span>-C  指定解压后的路径
+</span></span><span style=display:flex><span>-z  使用gzip
+</span></span><span style=display:flex><span>-j  使用bzip2
+</span></span><span style=display:flex><span>-Z  使用compress
+</span></span></code></pre></div><ul><li>tar示例</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># tar用法示例</span>
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>aaa
+</span></span><span style=display:flex><span>$ tar -cvf 1.tar aaa/   <span style=color:#75715e>#打包不压缩</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>$ tar -zcvf 1.tar.gz aaa/   <span style=color:#75715e>#打包且以gzip压缩</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>$ tar -jcvf 1.tar.bz2 aaa/  <span style=color:#75715e>#打包且以bzip2压缩</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>tar -zxvf aa.tar.gz /home/aaa --exclude<span style=color:#f92672>=</span>dir  <span style=color:#75715e>#排除目录</span>
+</span></span><span style=display:flex><span>$ ls -l
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>24</span>
+</span></span><span style=display:flex><span>-rw-r--r--. <span style=color:#ae81ff>1</span> wyb root <span style=color:#ae81ff>10240</span> Apr <span style=color:#ae81ff>19</span> 07:47 1.tar
+</span></span><span style=display:flex><span>-rw-r--r--. <span style=color:#ae81ff>1</span> wyb root   <span style=color:#ae81ff>265</span> Apr <span style=color:#ae81ff>19</span> 07:48 1.tar.bz2
+</span></span><span style=display:flex><span>-rw-r--r--. <span style=color:#ae81ff>1</span> wyb root   <span style=color:#ae81ff>253</span> Apr <span style=color:#ae81ff>19</span> 07:48 1.tar.gz
+</span></span><span style=display:flex><span>drwxr-xr-x. <span style=color:#ae81ff>2</span> wyb root  <span style=color:#ae81ff>4096</span> Apr <span style=color:#ae81ff>19</span> 07:22 aaa
+</span></span><span style=display:flex><span>$ file 1.tar.gz     <span style=color:#75715e>#查看文件类型</span>
+</span></span><span style=display:flex><span>1.tar.gz: gzip compressed data, from Unix, last modified: Tue Apr <span style=color:#ae81ff>19</span> 07:48:01 <span style=color:#ae81ff>2016</span>
+</span></span><span style=display:flex><span>$ tar -ztvf 1.tar.gz    <span style=color:#75715e>#查看压缩包内容</span>
+</span></span><span style=display:flex><span>drwxr-xr-x wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 07:22 aaa/
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 05:05 aaa/b.txt
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 05:05 aaa/c.txt
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root         <span style=color:#ae81ff>84</span> 2016-04-19 05:50 aaa/test.txt
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 05:05 aaa/a.txt
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>1.tar  1.tar.bz2  1.tar.gz  aaa
+</span></span><span style=display:flex><span>$ rm -rf aaa/
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>1.tar  1.tar.bz2  1.tar.gz
+</span></span><span style=display:flex><span>$ tar -zxvf 1.tar.gz    <span style=color:#75715e>#解压到当前目录</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>1.tar  1.tar.bz2  1.tar.gz  aaa
+</span></span><span style=display:flex><span>$ ls aaa/
+</span></span><span style=display:flex><span>a.txt  b.txt  c.txt  test.txt
+</span></span><span style=display:flex><span>$ ls /tmp/
+</span></span><span style=display:flex><span>111.txt  aa
+</span></span><span style=display:flex><span>$ tar -zxvf 1.tar.gz -C /tmp/aa <span style=color:#75715e>#解压到指定路径</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span></code></pre></div></li><li>zip</li></ul><pre tabindex=0><code># zip用法示例
 [reber@localhost ~]$ ls aaa/
 a.txt  b.txt  c.txt
 [reber@localhost ~]$ zip -re aaa.zip aaa/   #加密压缩
@@ -395,35 +290,12 @@ Archive:  aaa.zip
  extracting: aaa/b.txt         
  extracting: aaa/c.txt               
  extracting: aaa/a.txt
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

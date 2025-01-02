@@ -1,166 +1,1323 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Python on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/categories/Python/</link>
-    <description>Recent content in Python on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jul 2019 18:09:49 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/categories/Python/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>利用 Python 的协程进行快速端口扫描</title>
-      <link>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</link>
-      <pubDate>Thu, 04 Jul 2019 18:09:49 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</guid>
-      <description>0x00 协程的优势 协程拥有极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制，因此没有线程切换的开销。和多线程比，</description>
-    </item>
-    <item>
-      <title>Python 中执行系统命令</title>
-      <link>https://wyb0.com/posts/2018/python-run-cmd/</link>
-      <pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/python-run-cmd/</guid>
-      <description>0x00 使用模块 在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subproces</description>
-    </item>
-    <item>
-      <title>使用 Python 读写 xml 文件</title>
-      <link>https://wyb0.com/posts/2017/python-read-and-write-xml/</link>
-      <pubDate>Thu, 20 Jul 2017 14:20:26 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/python-read-and-write-xml/</guid>
-      <description>0x00 解析XML的方法 SAX (simple API for XML) python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调</description>
-    </item>
-    <item>
-      <title>MRQ 的使用</title>
-      <link>https://wyb0.com/posts/2017/python-module-mrq/</link>
-      <pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/python-module-mrq/</guid>
-      <description>0x00 MRQ MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。 MRQ一方面旨在像RQ一样简单，另一方</description>
-    </item>
-    <item>
-      <title>检测 WebLogic 是否存在 SSRF</title>
-      <link>https://wyb0.com/posts/2017/weblogic-ssrf-check/</link>
-      <pubDate>Fri, 14 Apr 2017 14:43:52 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/weblogic-ssrf-check/</guid>
-      <description>0x00 weblogic返回状态 weblogic的ssrf漏洞测试3种状态，返回如下： 同网段不存在的主机 同网段主机存活但端口不</description>
-    </item>
-    <item>
-      <title>Python 爆破 zip 压缩包</title>
-      <link>https://wyb0.com/posts/2016/python-blasting-zip-archive/</link>
-      <pubDate>Tue, 20 Sep 2016 14:50:59 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-blasting-zip-archive/</guid>
-      <description>0x00 代码 多线程爆破加密的zip压缩包 #!/usr/bin/env python # -*- coding: utf-8 -*- import sys import optparse import zipfile import threading import Queue queue = Queue.Queue() lock = threading.Lock() result = &amp;#39;&amp;#39; def load_pwd(filename): for line in open(filename,&amp;#39;r&amp;#39;): if line: queue.put(line.strip()) def bruter(zipname,queue): global result zFile = zipfile.ZipFile(zipname) while</description>
-    </item>
-    <item>
-      <title>Python 实现代理</title>
-      <link>https://wyb0.com/posts/2016/python-implement-agent/</link>
-      <pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-implement-agent/</guid>
-      <description>0x00 帮助信息 0x01 代码如下 #!/usr/bin/env python # -*- coding: utf-8 -*- &amp;#39;This is a proxy&amp;#39; __author__ = &amp;#39;xxx&amp;#39; import sys import socket import threading import optparse lock = threading.Lock() def locker(msg): lock.acquire() print msg lock.release() def hexdump (src,length=16):#</description>
-    </item>
-    <item>
-      <title>Python 封装 MySQL 类</title>
-      <link>https://wyb0.com/posts/2016/python-package-mysql-function/</link>
-      <pubDate>Mon, 12 Sep 2016 22:54:28 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-package-mysql-function/</guid>
-      <description>0x00 安装 有两种，一个是MySQLdb，一个是pymysql 下载MySQL-python然后安装 sudo pip install pymysql(推荐，</description>
-    </item>
-    <item>
-      <title>Python 的模块</title>
-      <link>https://wyb0.com/posts/2016/python-module/</link>
-      <pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module/</guid>
-      <description>0x00 Python的模块 在python中，任何一个python文件都可以看作一个模块 不同包下有相同模块名并不会冲突，且包下必</description>
-    </item>
-    <item>
-      <title>Python 实现密码生成器</title>
-      <link>https://wyb0.com/posts/2016/python-password-generator/</link>
-      <pubDate>Mon, 29 Aug 2016 15:14:57 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-password-generator/</guid>
-      <description>0x00 简介 有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则</description>
-    </item>
-    <item>
-      <title>Python 实现多线程弱口令爆破</title>
-      <link>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</link>
-      <pubDate>Fri, 26 Aug 2016 17:53:51 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</guid>
-      <description>0x00 脚本 #!/usr/bin/env python # -*- coding: utf-8 -*- &amp;#39;this script can bruter ftp/ssh/mysql&amp;#39; __author__ = &amp;#39;reber&amp;#39; import Queue import threading import time import logging import socket from optparse import OptionParser import paramiko from ftplib import FTP import MySQLdb #################公有类</description>
-    </item>
-    <item>
-      <title>Python 命令行参数解析</title>
-      <link>https://wyb0.com/posts/2016/python-parames-parse/</link>
-      <pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-parames-parse/</guid>
-      <description>0x00 argparse 模块 参考 https://docs.python.org/zh-cn/3.7/library/argparse.html #!/usr/bin/env python # -*- coding: utf-8 -*- import argparse class Parser(object): &amp;#34;&amp;#34;&amp;#34;Parser&amp;#34;&amp;#34;&amp;#34; def __init__(self): super(Parser, self).__init__() self.service_type_list = [ &amp;#34;ssh&amp;#34;,&amp;#34;telnet&amp;#34;,&amp;#34;ftp&amp;#34;, &amp;#34;mysql&amp;#34;,&amp;#34;mssql&amp;#34;,&amp;#34;oracle&amp;#34;,&amp;#34;pgsql&amp;#34;,&amp;#34;redis&amp;#34; ] self.log_level = [&amp;#34;debug&amp;#34;, &amp;#34;info&amp;#34;, &amp;#34;warning&amp;#34;, &amp;#34;error&amp;#34;, &amp;#34;critical&amp;#34;] self.example = &amp;#34;&amp;#34;&amp;#34;Example: \r python3 {} -s ssh -i 123.123.123.123 \r python3 {} -s ssh -i 123.123.123.123/24 -l root -p 123456&amp;#34;&amp;#34;&amp;#34; def parser(self): parser</description>
-    </item>
-    <item>
-      <title>Python 的 scapy 模块简单使用</title>
-      <link>https://wyb0.com/posts/2016/python-module-scapy/</link>
-      <pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module-scapy/</guid>
-      <description>0x00 简单尝试 0x01 生成一组数据包 0x02 发送数据包 send发送数据包 sr1发送数据包 sr发送数据包 0x03 发送SYN数据包 0x04 得到TCP内容</description>
-    </item>
-    <item>
-      <title>Python 的 paramiko 模块</title>
-      <link>https://wyb0.com/posts/2016/python-module-paramiko/</link>
-      <pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module-paramiko/</guid>
-      <description>0x00 安装 直接pip install paramiko安装 或者去http://www.paramiko.org/ 下载 0x01 执行一条远程命令 #!/usr/bin/env python #-*-</description>
-    </item>
-    <item>
-      <title>Python 的 cmd 模块</title>
-      <link>https://wyb0.com/posts/2016/python-module-cmd/</link>
-      <pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module-cmd/</guid>
-      <description>0x00 关于cmd模块 使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们 0x01 cmd模块的一些常用方法： cmdl</description>
-    </item>
-    <item>
-      <title>Python 简单解码 IP 头</title>
-      <link>https://wyb0.com/posts/2016/python-simple-decode-ip-head/</link>
-      <pubDate>Sun, 03 Jul 2016 20:06:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-simple-decode-ip-head/</guid>
-      <description>0x00 解码IP头 Windows上运行时要以管理员身份运行 代码可以解码IP头统计通信信息并保存到文本，同时统计数量 #!/usr/bin/env python #-*- coding:utf-8 -*- import</description>
-    </item>
-    <item>
-      <title>Python 的编码问题</title>
-      <link>https://wyb0.com/posts/2016/python-encode-setting/</link>
-      <pubDate>Wed, 29 Jun 2016 15:14:11 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-encode-setting/</guid>
-      <description>0x00 几个编码函数 * ord(x) 将字符转换为10进制整数(0~255之间) #ord(&amp;#39;a&amp;#39;)==&amp;gt;97 * chr(x) 将10进制整数(0~255之间)转换为字符 #chr(9</description>
-    </item>
-    <item>
-      <title>Python 编写规范</title>
-      <link>https://wyb0.com/posts/2016/python-coding-style/</link>
-      <pubDate>Sun, 12 Jun 2016 22:17:35 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-coding-style/</guid>
-      <description>0x00 代码编排 1.缩进：使用4个空格缩进 2.行长度：每行不要超过80个字符 3.空行：顶级定义之间空两行，如函数或类的定义，方</description>
-    </item>
-    <item>
-      <title>Python 的正则</title>
-      <link>https://wyb0.com/posts/2016/python-regular/</link>
-      <pubDate>Fri, 05 Feb 2016 11:38:23 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-regular/</guid>
-      <description>0x00 正则表达式 正则表达式是用来匹配字符串的异常强大的东西，可以用来匹配邮箱、域名等字符串 0x01 符号 0x02 特殊字符 0x03 常用的模块属性 0x04</description>
-    </item>
-    <item>
-      <title>Python 的线程</title>
-      <link>https://wyb0.com/posts/2016/python-thread/</link>
-      <pubDate>Wed, 03 Feb 2016 12:44:38 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-thread/</guid>
-      <description>Python的参数传递其实传递的是对象，当传递可变对象(列表、队列)时相当于引用传递，可以修改对象的原始值，当传递不可变</description>
-    </item>
-    <item>
-      <title>Python 的面向对象</title>
-      <link>https://wyb0.com/posts/2016/python-object-oriented/</link>
-      <pubDate>Mon, 25 Jan 2016 11:17:59 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-object-oriented/</guid>
-      <description>0x00 面向对象 面向对象是为了解决系统的可维护性，可扩展性，可重用性 三个基本特征：封装、继承、多态 封装：对一类事物，将其相同特</description>
-    </item>
-    <item>
-      <title>Python 的函数式编程</title>
-      <link>https://wyb0.com/posts/2016/python-functional-programming/</link>
-      <pubDate>Thu, 21 Jan 2016 21:13:17 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-functional-programming/</guid>
-      <description>0x00 函数式编程 首先说一下高阶函数，能将函数作为参数来接收的函数就可以称为高阶函数，如下： def add(x,y,f): return f(x) + f(y) print add(7,-3,abs) #abs是求绝对值</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Reber's Blog</title><link>https://wyb0.com/categories/Python/</link><description>Recent content in Python on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jul 2019 18:09:49 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Python/index.xml" rel="self" type="application/rss+xml"/><item><title>利用 Python 的协程进行快速端口扫描</title><link>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</link><pubDate>Thu, 04 Jul 2019 18:09:49 +0000</pubDate><guid>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</guid><description>&lt;h3 id="0x00-协程的优势">0x00 协程的优势&lt;/h3>
+&lt;p>协程拥有极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制，因此没有线程切换的开销。和多线程比，线程数量越多，协程的性能优势就越明显。&lt;/p></description></item><item><title>Python 中执行系统命令</title><link>https://wyb0.com/posts/2018/python-run-cmd/</link><pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate><guid>https://wyb0.com/posts/2018/python-run-cmd/</guid><description>&lt;h3 id="0x00-使用模块">0x00 使用模块&lt;/h3>
+&lt;p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess&lt;/p></description></item><item><title>使用 Python 读写 xml 文件</title><link>https://wyb0.com/posts/2017/python-read-and-write-xml/</link><pubDate>Thu, 20 Jul 2017 14:20:26 +0000</pubDate><guid>https://wyb0.com/posts/2017/python-read-and-write-xml/</guid><description>&lt;h3 id="0x00-解析xml的方法">0x00 解析XML的方法&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>SAX (simple API for XML)&lt;br>
+python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调用用户定义的回调函数来处理XML文件。&lt;/p></description></item><item><title>MRQ 的使用</title><link>https://wyb0.com/posts/2017/python-module-mrq/</link><pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/python-module-mrq/</guid><description>&lt;h3 id="0x00-mrq">0x00 MRQ&lt;/h3>
+&lt;ul>
+&lt;li>MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。&lt;/li>
+&lt;li>MRQ一方面旨在像RQ一样简单，另一方面有接近Celery的性能。&lt;/li>
+&lt;li>MRQ最初的功能设计是为了满足任务队列的各种任务需求(IO密集&amp;amp;CPU密集，很多小任务&amp;amp;几个大任务)。&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-设置mongo和redis">0x01 设置mongo和redis&lt;/h3>
+&lt;p>因为mrq依赖于redis和mongo，所以先安装设置下&lt;/p></description></item><item><title>检测 WebLogic 是否存在 SSRF</title><link>https://wyb0.com/posts/2017/weblogic-ssrf-check/</link><pubDate>Fri, 14 Apr 2017 14:43:52 +0000</pubDate><guid>https://wyb0.com/posts/2017/weblogic-ssrf-check/</guid><description>&lt;h3 id="0x00-weblogic返回状态">0x00 weblogic返回状态&lt;/h3>
+&lt;p>weblogic的ssrf漏洞测试3种状态，返回如下：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>同网段不存在的主机
+&lt;img src="https://wyb0.com/img/post/weblogic-check-host-down.png" alt="">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>同网段主机存活但端口不开放
+&lt;img src="https://wyb0.com/img/post/weblogic-check-host-up-port-down.png" alt="">&lt;/p></description></item><item><title>Python 爆破 zip 压缩包</title><link>https://wyb0.com/posts/2016/python-blasting-zip-archive/</link><pubDate>Tue, 20 Sep 2016 14:50:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-blasting-zip-archive/</guid><description>&lt;h3 id="0x00-代码">0x00 代码&lt;/h3>
+&lt;p>多线程爆破加密的zip压缩包&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> sys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> optparse
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> zipfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> Queue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>queue &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lock &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Lock()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>result &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">load_pwd&lt;/span>(filename):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> line &lt;span style="color:#f92672">in&lt;/span> open(filename,&lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> line:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> queue&lt;span style="color:#f92672">.&lt;/span>put(line&lt;span style="color:#f92672">.&lt;/span>strip())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">bruter&lt;/span>(zipname,queue):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">global&lt;/span> result
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> zFile &lt;span style="color:#f92672">=&lt;/span> zipfile&lt;span style="color:#f92672">.&lt;/span>ZipFile(zipname)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> queue&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> password &lt;span style="color:#f92672">=&lt;/span> queue&lt;span style="color:#f92672">.&lt;/span>get()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> zFile&lt;span style="color:#f92672">.&lt;/span>extractall(pwd&lt;span style="color:#f92672">=&lt;/span>password) &lt;span style="color:#75715e"># 解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>acquire()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[Ok] password is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> password
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>release()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result &lt;span style="color:#f92672">=&lt;/span> password
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>acquire()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[Error] password not is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> password
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>release()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> queue&lt;span style="color:#f92672">.&lt;/span>task_done()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> optparse&lt;span style="color:#f92672">.&lt;/span>OptionParser()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-f&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--file&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;zipfile&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Target zip file.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-p&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--pfile&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pwdfile&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pass.txt&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Password file.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-t&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--thread_num&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;thread_num&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">60&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;int&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Thread number.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options, args) &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>zipfile &lt;span style="color:#f92672">and&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>pwdfile:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> load_pwd(options&lt;span style="color:#f92672">.&lt;/span>pwdfile)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sys&lt;span style="color:#f92672">.&lt;/span>exit(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> range(options&lt;span style="color:#f92672">.&lt;/span>thread_num):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>bruter,args&lt;span style="color:#f92672">=&lt;/span>(options&lt;span style="color:#f92672">.&lt;/span>zipfile,queue,))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> queue&lt;span style="color:#f92672">.&lt;/span>join()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;result is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> result
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Python 实现代理</title><link>https://wyb0.com/posts/2016/python-implement-agent/</link><pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-implement-agent/</guid><description>&lt;h3 id="0x00-帮助信息">0x00 帮助信息&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_help.png" alt="帮助信息">&lt;/p>
+&lt;h3 id="0x01-代码如下">0x01 代码如下&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">&amp;#39;This is a proxy&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>__author__ &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;xxx&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> sys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> socket
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> optparse
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lock &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Lock()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">locker&lt;/span>(msg):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>acquire()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print msg
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>release()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">hexdump&lt;/span> (src,length&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">16&lt;/span>):&lt;span style="color:#75715e">#十六进制导出函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> digits &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> isinstance(src,unicode) &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">0&lt;/span>,len(src),length):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> src[i:i&lt;span style="color:#f92672">+&lt;/span>length]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hexa &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39; &amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join(&lt;span style="color:#e6db74">&amp;#34;[&lt;/span>&lt;span style="color:#e6db74">%0*X&lt;/span>&lt;span style="color:#e6db74">]&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (digits,ord(x)) &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> text &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join([x &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#ae81ff">0x20&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> ord(x) &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">0x7F&lt;/span> &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;.&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> s])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result&lt;span style="color:#f92672">.&lt;/span>append(&lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">%04X&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%-*s&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (i,length&lt;span style="color:#f92672">*&lt;/span>(digits&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>),hexa,text))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join(result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">receive_from&lt;/span> (connection):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#我们设置了1秒的超时，这取决于目标的情况，可能需要调整&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> connection&lt;span style="color:#f92672">.&lt;/span>settimeout(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#持续从缓存中读取数据直到没有数据或者超时&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> connection&lt;span style="color:#f92672">.&lt;/span>recv(&lt;span style="color:#ae81ff">4096&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> data:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer &lt;span style="color:#f92672">+=&lt;/span> data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> buffer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#对目标是远程主机的请求进行修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">request_handler&lt;/span> (buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#执行包修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> buffer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#对目标是本地主机的响应进行修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">response_handler&lt;/span> (buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#执行包修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> buffer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">proxy_handler&lt;/span> (client_socket,remote_host,remote_port,receive_first):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#连接远程主机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>socket(socket&lt;span style="color:#f92672">.&lt;/span>AF_INET,socket&lt;span style="color:#f92672">.&lt;/span>SOCK_STREAM)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket&lt;span style="color:#f92672">.&lt;/span>connect((remote_host,remote_port))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#如果必要从远程主机接收数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> receive_first:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> receive_from(remote_socket)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[==&amp;gt;] Received &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes from remote.&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># hexdump(remote_buffer)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送给我们的相应处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> response_handler(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#若我们有数据传递给本地客户端，发送它&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[&amp;lt;==] Sending &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes to localhost.&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket&lt;span style="color:#f92672">.&lt;/span>send(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#现在我们从本地循环读取数据，发送给远程主机和本地主机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#从本地读取数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_buffer &lt;span style="color:#f92672">=&lt;/span> receive_from(client_socket)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(local_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[==&amp;gt;] Received &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes from localhost.&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(local_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># hexdump(local_buffer)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送给我们的本地请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_buffer &lt;span style="color:#f92672">=&lt;/span> request_handler(local_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送给远程主机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket&lt;span style="color:#f92672">.&lt;/span>send(local_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[==&amp;gt;] Sent to remote.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#接收响应的数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> receive_from(remote_socket)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[&amp;lt;==] Received &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes from remote.&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># hexdump(remote_buffer)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送数据到响应处理函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> response_handler(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#将响应发送给本地socket&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket&lt;span style="color:#f92672">.&lt;/span>send(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[==&amp;gt;] Sent to localhost.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#若两边都没有数据，关闭连接&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> len(local_buffer) &lt;span style="color:#f92672">or&lt;/span> &lt;span style="color:#f92672">not&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[*] No more data. Closing connections.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">server_loop&lt;/span>(local_host,local_port,remote_host,remote_port,receive_first):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>socket(socket&lt;span style="color:#f92672">.&lt;/span>AF_INET,socket&lt;span style="color:#f92672">.&lt;/span>SOCK_STREAM)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server&lt;span style="color:#f92672">.&lt;/span>bind((local_host,local_port))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[!!] Failed to listen on &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (local_host,local_port)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[!!] Check for other listening sockets or correct permisssions.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sys&lt;span style="color:#f92672">.&lt;/span>exit(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[*] Listening on &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">......&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (local_host,local_port)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server&lt;span style="color:#f92672">.&lt;/span>listen(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket,addr &lt;span style="color:#f92672">=&lt;/span> server&lt;span style="color:#f92672">.&lt;/span>accept()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#打印本地连接信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[==&amp;gt;] Received incoming connection from &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (addr[&lt;span style="color:#ae81ff">0&lt;/span>],addr[&lt;span style="color:#ae81ff">1&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#开启一个线程与远程主机通信&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> proxy_thread &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>proxy_handler,args&lt;span style="color:#f92672">=&lt;/span>(client_socket,remote_host,remote_port,receive_first))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> proxy_thread&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span> ():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> optparse&lt;span style="color:#f92672">.&lt;/span>OptionParser()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--lh&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--localhost&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;localhost&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;127.0.0.1&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Localhost.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--lp&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--localport&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;localport&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">8888&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;int&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Localport.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--rh&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--remotehost&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;remotehost&amp;#39;&lt;/span>, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;127.0.0.1&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Remotehost.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--rp&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--remoteport&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;remoteport&amp;#39;&lt;/span>, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">8080&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;int&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Remoteport.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--rf&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--receivefirst&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;receive_first&amp;#39;&lt;/span>, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">False&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> action&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;store_true&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Connection before send and receive data.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options, args) &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#设置本地监听参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localhost:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localhost
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localport:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_port &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localport
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#设置远程目标&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remotehost:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remotehost
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remoteport:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_port &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remoteport
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> receive_first &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>receive_first
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print local_host,local_port,remote_host,remote_port,receive_first&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#现在设置好我们的监听socket&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server_loop(local_host,local_port,remote_host,remote_port,receive_first)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-效果图">0x02 效果图&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_result.png" alt="效果图">&lt;/p></description></item><item><title>Python 封装 MySQL 类</title><link>https://wyb0.com/posts/2016/python-package-mysql-function/</link><pubDate>Mon, 12 Sep 2016 22:54:28 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-package-mysql-function/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;p>有两种，一个是MySQLdb，一个是pymysql&lt;/p>
+&lt;ul>
+&lt;li>下载&lt;a href="https://pypi.python.org/pypi/MySQL-python/1.2.5">MySQL-python&lt;/a>然后安装&lt;/li>
+&lt;li>sudo pip install pymysql(推荐，因为py3已经不支持MySQLdb了)&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-简单表设计如下">0x01 简单表设计如下&lt;/h3>
+&lt;pre tabindex="0">&lt;code>insert into mysql.user(Host,User,Password) values(&amp;#39;%&amp;#39;,&amp;#39;python&amp;#39;,&amp;#39;123456&amp;#39;);
+
+drop database if exists python;
+create database python;
+use python;
+
+drop table if exists msg;
+create table msg(
+ id int not null auto_increment primary key,
+ ip varchar(40) not null default &amp;#39;127.0.0.1&amp;#39; comment &amp;#39;ip地址&amp;#39;,
+ domain varchar(100) not null default &amp;#39;www.xx.com&amp;#39; comment &amp;#39;域名&amp;#39;
+);
+
+grant all privileges on python.* to &amp;#39;python&amp;#39;@&amp;#39;%&amp;#39; identified by &amp;#39;123456&amp;#39;;
+flush privileges;
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-mysqldb封装代码">0x02 MySQLdb封装代码&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> MySQLdb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">mysql&lt;/span>(object):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for mysql&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, dbconfig):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> dbconfig[&lt;span style="color:#e6db74">&amp;#39;host&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>port &lt;span style="color:#f92672">=&lt;/span> dbconfig[&lt;span style="color:#e6db74">&amp;#39;port&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>user &lt;span style="color:#f92672">=&lt;/span> dbconfig[&lt;span style="color:#e6db74">&amp;#39;user&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passwd &lt;span style="color:#f92672">=&lt;/span> dbconfig[&lt;span style="color:#e6db74">&amp;#39;passwd&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>dbname &lt;span style="color:#f92672">=&lt;/span> dbconfig[&lt;span style="color:#e6db74">&amp;#39;dbname&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>charset &lt;span style="color:#f92672">=&lt;/span> dbconfig[&lt;span style="color:#e6db74">&amp;#39;charset&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_conn &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_connect()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_cursor &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>_conn&lt;span style="color:#f92672">.&lt;/span>cursor()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">_connect&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_conn &lt;span style="color:#f92672">=&lt;/span> MySQLdb&lt;span style="color:#f92672">.&lt;/span>connect(host&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>host,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> port &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>port,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> user&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>user,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> passwd&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>passwd,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> db&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>dbname,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charset&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>charset)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> MySQLdb&lt;span style="color:#f92672">.&lt;/span>Error,e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print e
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">query&lt;/span>(self, sql):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>execute(sql)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> MySQLdb&lt;span style="color:#f92672">.&lt;/span>Error, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print e
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> result
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">select&lt;/span>(self, table, column&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;*&amp;#39;&lt;/span>, condition&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> condition &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39; where &amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> condition &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> condition:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sql &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;select &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74"> from &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (column,table,condition)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sql &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;select &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74"> from &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (column,table)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>query(sql)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>fetchall()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">insert&lt;/span>(self, table, tdict):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> column &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> key &lt;span style="color:#f92672">in&lt;/span> tdict:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> column &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;,&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> key
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#39;,&amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> tdict[key]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> column &lt;span style="color:#f92672">=&lt;/span> column[&lt;span style="color:#ae81ff">1&lt;/span>:]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value &lt;span style="color:#f92672">=&lt;/span> value[&lt;span style="color:#ae81ff">2&lt;/span>:] &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sql &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;insert into &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">(&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">) values(&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">)&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (table,column,value)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>execute(sql)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_conn&lt;span style="color:#f92672">.&lt;/span>commit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>rollback()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>lastrowid &lt;span style="color:#75715e">#返回最后的id&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">update&lt;/span>(self, table, tdict, condition&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> condition:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;must have id&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> exit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> condition &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;where &amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> condition
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> key &lt;span style="color:#f92672">in&lt;/span> tdict:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;,&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">=&amp;#39;&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (key,tdict[key])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> value &lt;span style="color:#f92672">=&lt;/span> value[&lt;span style="color:#ae81ff">1&lt;/span>:]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sql &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;update &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74"> set &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (table,value,condition)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>execute(sql)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>rollback()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>affected_num() &lt;span style="color:#75715e">#返回受影响行数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">delete&lt;/span>(self, table, condition&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> condition &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;where &amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> condition &lt;span style="color:#66d9ef">if&lt;/span> condition &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sql &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;delete from &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (table,condition)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>execute(sql)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_conn&lt;span style="color:#f92672">.&lt;/span>commit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>rollback()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>affected_num() &lt;span style="color:#75715e">#返回受影响行数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">rollback&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_conn&lt;span style="color:#f92672">.&lt;/span>rollback()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">affected_num&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>rowcount
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __del__(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_cursor&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>_conn&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">close&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>__del__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> dbconfig &lt;span style="color:#f92672">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;host&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;192.168.188.134&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;port&amp;#39;&lt;/span>:&lt;span style="color:#ae81ff">3306&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;user&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;python&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;passwd&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;123456&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;dbname&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;python&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;charset&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;utf8&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> db &lt;span style="color:#f92672">=&lt;/span> mysql(dbconfig)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print db.select(&amp;#39;msg&amp;#39;,&amp;#39;id,ip,domain&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print db.select(&amp;#39;msg&amp;#39;,&amp;#39;id,ip,domain&amp;#39;,&amp;#39;id&amp;gt;2&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print db.affected_num()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># tdict = {&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#39;ip&amp;#39;:&amp;#39;111.13.100.91&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#39;domain&amp;#39;:&amp;#39;baidu.com&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># }&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print db.insert(&amp;#39;msg&amp;#39;, tdict)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># tdict = {&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#39;ip&amp;#39;:&amp;#39;111.13.100.91&amp;#39;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#39;domain&amp;#39;:&amp;#39;aaaaa.com&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># }&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print db.update(&amp;#39;msg&amp;#39;, tdict, &amp;#39;id=5&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print db.delete(&amp;#39;msg&amp;#39;, &amp;#39;id&amp;gt;3&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> db&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-pymysql封装代码">0x03 pymysql封装代码&lt;/h3>
+&lt;pre tabindex="0">&lt;code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import urlparse
+import pymysql
+import contextlib
+
+class MySQLX(object):
+ def __init__(self, mysql_uri):
+ super(MySQLX, self).__init__()
+ self.mysql_uri = mysql_uri
+ self.mysql_info = self.mysql_parse_uri()
+
+ def mysql_parse_uri(self):
+ p = urlparse.urlparse(self.mysql_uri)
+ host = p.hostname
+ port = p.port
+ user = p.username
+ password = p.password
+ dbname = p.path.strip(&amp;#39;/&amp;#39;)
+ charset = urlparse.parse_qs(p.query)[&amp;#39;charset&amp;#39;][0]
+
+ return {
+ &amp;#39;host&amp;#39;: host,
+ &amp;#39;port&amp;#39;: port,
+ &amp;#39;user&amp;#39;: user,
+ &amp;#39;password&amp;#39;: password,
+ &amp;#39;db&amp;#39;: dbname,
+ &amp;#39;charset&amp;#39;: charset,
+ &amp;#39;cursorclass&amp;#39;: pymysql.cursors.DictCursor,
+ }
+
+ @contextlib.contextmanager
+ def init(self):
+ dbconn = pymysql.connect(**self.mysql_info)
+ cursor = dbconn.cursor()
+ # dbconn = pymysql.connect(
+ # host=mysql_info.get(&amp;#39;host&amp;#39;),
+ # user=mysql_info.get(&amp;#39;user&amp;#39;),
+ # password=mysql_info.get(&amp;#39;password&amp;#39;),
+ # db=mysql_info.get(&amp;#39;db&amp;#39;),
+ # charset=mysql_info.get(&amp;#39;charset&amp;#39;)
+ # )
+ # cursor = dbconn.cursor(cursor=pymysql.cursors.DictCursor)
+
+ try:
+ yield cursor #这里就是with返回的
+ finally:
+ dbconn.commit()
+ cursor.close()
+ dbconn.close()
+
+ def query(self, sql, arg=&amp;#39;&amp;#39;):
+ try:
+ with self.init() as cursor:
+ if arg:
+
+ cursor.execute(sql,arg) #返回受影响行数
+ else:
+ cursor.execute(sql)
+ result = cursor.fetchall() #返回数据格式是[{},{}]
+ # result = cursor.fetchone() #返回数据格式是{}
+ return result
+ except Exception as e:
+ print sql,str(e)
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+ mysql_uri = &amp;#34;mysql+pymysql://root:root@localhost:3306/rtest?charset=utf8mb4&amp;#34;
+ sqlconn = MySQLX(mysql_uri)
+ sql = &amp;#34;select * from `msg` where id=%s&amp;#34;
+ result = sqlconn.query(sql,&amp;#34;2&amp;#34;)
+ print result
+&lt;/code>&lt;/pre></description></item><item><title>Python 的模块</title><link>https://wyb0.com/posts/2016/python-module/</link><pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module/</guid><description>&lt;h3 id="0x00-python的模块">0x00 Python的模块&lt;/h3>
+&lt;ul>
+&lt;li>在python中，任何一个python文件都可以看作一个模块&lt;/li>
+&lt;li>不同包下有相同模块名并不会冲突，且包下必须有文件&lt;code>__init__.py&lt;/code>&lt;/li>
+&lt;li>from lib import * 意思是从包lib中导入所有模块(若lib为模块名则为导入模块的所有函数)&lt;/li>
+&lt;li>from lib.module1 import test 意思是从lib这个包下的module1模块中导入函数test&lt;/li>
+&lt;li>import导入模块时会从sys.path输出的结果路径中查找模块然后导入&lt;/li>
+&lt;li>&lt;code>sys.path.append('D:/xx/xx/xx/code')&lt;/code>可以添加搜索路径&lt;/li>
+&lt;li>使用&lt;code>if __name__ == '__main__':&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-实例">0x01 实例&lt;/h3>
+&lt;ul>
+&lt;li>文件结构如下&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://wyb0.com/img/post/python_module_file_tree.png" alt="模块目录结构">&lt;/p></description></item><item><title>Python 实现密码生成器</title><link>https://wyb0.com/posts/2016/python-password-generator/</link><pubDate>Mon, 29 Aug 2016 15:14:57 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-password-generator/</guid><description>&lt;h3 id="0x00-简介">0x00 简介&lt;/h3>
+&lt;p>有时候需要在网上注册许多账号，如果每个账户密码都一样的话，若被别人得知一个密码则所有账户就都沦陷了，若密码不一样则可能会忘记，在这里就用脚本写一个生成密码的工具，只需输入域名和账户名就可以根据key生成不一样的密码，也可以把域名和账户名写入文件，这样你用户名也可以不用记了。。。&lt;/p></description></item><item><title>Python 实现多线程弱口令爆破</title><link>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</link><pubDate>Fri, 26 Aug 2016 17:53:51 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</guid><description>&lt;h3 id="0x00-脚本">0x00 脚本&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">&amp;#39;this script can bruter ftp/ssh/mysql&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>__author__ &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;reber&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> Queue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> logging
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> socket
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> optparse &lt;span style="color:#f92672">import&lt;/span> OptionParser
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> paramiko
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> ftplib &lt;span style="color:#f92672">import&lt;/span> FTP
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> MySQLdb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################公有类#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">CommonFun&lt;/span>(object):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for CommonFun&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(CommonFun, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">set_log&lt;/span>(self,lname):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>getLogger(lname)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger&lt;span style="color:#f92672">.&lt;/span>setLevel(logging&lt;span style="color:#f92672">.&lt;/span>DEBUG)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ch &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>StreamHandler()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ch&lt;span style="color:#f92672">.&lt;/span>setLevel(logging&lt;span style="color:#f92672">.&lt;/span>DEBUG)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> formatter &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>Formatter(&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#e6db74">%(asctime)s&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">%(name)s&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">%(levelname)s&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">%(message)s&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ch&lt;span style="color:#f92672">.&lt;/span>setFormatter(formatter)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger&lt;span style="color:#f92672">.&lt;/span>addHandler(ch)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">show_log&lt;/span>(self, lname, msg):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> a &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>getLogger(lname)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> a&lt;span style="color:#f92672">.&lt;/span>debug(msg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">show_result&lt;/span>(self, lname, rlist):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> rlist:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;###################################################################&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> rlist:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(lname,x)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;not found...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################SSH爆破模块#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SshBruter&lt;/span>(CommonFun):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for SshBruter&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, &lt;span style="color:#f92672">*&lt;/span>args):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(SshBruter, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options,arg) &lt;span style="color:#f92672">=&lt;/span> args
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>userfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>userfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>passfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>threadnum &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>timeout &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>timeout
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_log(self&lt;span style="color:#f92672">.&lt;/span>host)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>userfile,self&lt;span style="color:#f92672">.&lt;/span>passfile,self&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_queue&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>userfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ulines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>passfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> ulines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> pwd &lt;span style="color:#f92672">in&lt;/span> plines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pwd &lt;span style="color:#f92672">=&lt;/span> pwd&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">thread&lt;/span>(self): 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>is_exit:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name,pwd &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>get()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh &lt;span style="color:#f92672">=&lt;/span> paramiko&lt;span style="color:#f92672">.&lt;/span>SSHClient()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>set_missing_host_key_policy(paramiko&lt;span style="color:#f92672">.&lt;/span>AutoAddPolicy())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>connect(hostname&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>host,port&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">22&lt;/span>,username&lt;span style="color:#f92672">=&lt;/span>name,password&lt;span style="color:#f92672">=&lt;/span>pwd,timeout&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>timeout)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">0.05&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[OK] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result&lt;span style="color:#f92672">.&lt;/span>append(s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>timeout:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,&lt;span style="color:#e6db74">&amp;#34;Timeout...&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> error &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[Error] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,error)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> starttime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">1&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>threadnum&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>thread)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads&lt;span style="color:#f92672">.&lt;/span>append(t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>) &lt;span style="color:#75715e">#主线程完成后不管子线程有没有结束，直接退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Exit the program...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Waiting...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_result(self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishetime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Used time: &lt;/span>&lt;span style="color:#e6db74">%f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (finishetime&lt;span style="color:#f92672">-&lt;/span>starttime)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################FTP爆破模块#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">FtpBruter&lt;/span>(CommonFun):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for FtpBruter&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, &lt;span style="color:#f92672">*&lt;/span>args):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(FtpBruter, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options,arg) &lt;span style="color:#f92672">=&lt;/span> args
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>userfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>userfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>passfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>threadnum &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>timeout &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>timeout
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_log(self&lt;span style="color:#f92672">.&lt;/span>host)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>userfile,self&lt;span style="color:#f92672">.&lt;/span>passfile,self&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_queue&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>userfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ulines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>passfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> ulines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> pwd &lt;span style="color:#f92672">in&lt;/span> plines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pwd &lt;span style="color:#f92672">=&lt;/span> pwd&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">thread&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name,pwd &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>get()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp &lt;span style="color:#f92672">=&lt;/span> FTP()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>connect(self&lt;span style="color:#f92672">.&lt;/span>host, &lt;span style="color:#ae81ff">21&lt;/span>, self&lt;span style="color:#f92672">.&lt;/span>timeout)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>login(name, pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">0.05&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>quit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[OK] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result&lt;span style="color:#f92672">.&lt;/span>append(s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>timeout:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,&lt;span style="color:#e6db74">&amp;#34;Timeout...&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> error &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[Error] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,error)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> starttime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">1&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>threadnum&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>thread)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads&lt;span style="color:#f92672">.&lt;/span>append(t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>) &lt;span style="color:#75715e">#主线程完成后不管子线程有没有结束，直接退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Exit the program...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Waiting...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_result(self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishetime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Used time: &lt;/span>&lt;span style="color:#e6db74">%f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (finishetime&lt;span style="color:#f92672">-&lt;/span>starttime)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################MySQL爆破模块#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MysqlBruter&lt;/span>(CommonFun):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for MysqlBruter&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, &lt;span style="color:#f92672">*&lt;/span>args):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(MysqlBruter, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options,arg) &lt;span style="color:#f92672">=&lt;/span> args
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>userfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>userfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>passfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>threadnum &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>timeout &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>timeout
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_log(self&lt;span style="color:#f92672">.&lt;/span>host)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>userfile,self&lt;span style="color:#f92672">.&lt;/span>passfile,self&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_queue&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>userfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ulines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>passfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> ulines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> pwd &lt;span style="color:#f92672">in&lt;/span> plines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pwd &lt;span style="color:#f92672">=&lt;/span> pwd&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">thread&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name,pwd &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>get()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> conn &lt;span style="color:#f92672">=&lt;/span> MySQLdb&lt;span style="color:#f92672">.&lt;/span>connect(host&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>host, user&lt;span style="color:#f92672">=&lt;/span>name, passwd&lt;span style="color:#f92672">=&lt;/span>pwd, db&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;mysql&amp;#39;&lt;/span>, port&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">3306&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> conn:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># time.sleep(0.05)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> conn&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[OK] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result&lt;span style="color:#f92672">.&lt;/span>append(s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>timeout:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,&lt;span style="color:#e6db74">&amp;#34;Timeout&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> error &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[Error] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,error)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> starttime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">1&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>threadnum&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>thread)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads&lt;span style="color:#f92672">.&lt;/span>append(t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>) &lt;span style="color:#75715e">#主线程完成后不管子线程有没有结束，直接退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Exit the program...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Waiting...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_result(self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishetime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Used time: &lt;/span>&lt;span style="color:#e6db74">%f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (finishetime&lt;span style="color:#f92672">-&lt;/span>starttime)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> OptionParser(usage&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Usage: python %prog [options] type&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-i&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--host&amp;#39;&lt;/span>,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;host&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;target ip&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-o&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--timeout&amp;#39;&lt;/span>,type&lt;span style="color:#f92672">=&lt;/span>int,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;timeout&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">5&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;timeout&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-t&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--thread&amp;#39;&lt;/span>,type&lt;span style="color:#f92672">=&lt;/span>int,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;threadnum&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">10&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;threadnum&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-L&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--userfile&amp;#39;&lt;/span>,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;userfile&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;username.txt&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;userfile&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-P&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--passfile&amp;#39;&lt;/span>,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;passfile&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;password.txt&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;passfile&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options, args) &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> args:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> exit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> args[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;ssh&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh &lt;span style="color:#f92672">=&lt;/span> SshBruter(options, args)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> args[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;ftp&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp &lt;span style="color:#f92672">=&lt;/span> FtpBruter(options, args)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> args[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;mysql&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mysql &lt;span style="color:#f92672">=&lt;/span> MysqlBruter(options, args)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mysql&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;type must be ssh or ftp or mysql&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-尝试爆破">0x01 尝试爆破&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/bruter_help.png" alt="帮助信息">&lt;/p></description></item><item><title>Python 命令行参数解析</title><link>https://wyb0.com/posts/2016/python-parames-parse/</link><pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-parames-parse/</guid><description>&lt;h3 id="0x00-argparse-模块">0x00 argparse 模块&lt;/h3>
+&lt;p>参考 &lt;a href="https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank">https://docs.python.org/zh-cn/3.7/library/argparse.html&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> argparse
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Parser&lt;/span>(object):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;Parser&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(Parser, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>service_type_list &lt;span style="color:#f92672">=&lt;/span> [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;ssh&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;telnet&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;ftp&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;mysql&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;mssql&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;oracle&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;pgsql&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;redis&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>log_level &lt;span style="color:#f92672">=&lt;/span> [&lt;span style="color:#e6db74">&amp;#34;debug&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;warning&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;error&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;critical&amp;#34;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>example &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;Example:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#ae81ff">\r&lt;/span>&lt;span style="color:#e6db74"> python3 &lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74"> -s ssh -i 123.123.123.123
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#ae81ff">\r&lt;/span>&lt;span style="color:#e6db74"> python3 &lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74"> -s ssh -i 123.123.123.123/24 -l root -p 123456&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">parser&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> argparse&lt;span style="color:#f92672">.&lt;/span>ArgumentParser(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> formatter_class&lt;span style="color:#f92672">=&lt;/span>argparse&lt;span style="color:#f92672">.&lt;/span>RawDescriptionHelpFormatter,&lt;span style="color:#75715e">#使 example 可以换行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> add_help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># description = &amp;#34;常见服务口令爆破&amp;#34;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>epilog &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>example&lt;span style="color:#f92672">.&lt;/span>format(parser&lt;span style="color:#f92672">.&lt;/span>prog,parser&lt;span style="color:#f92672">.&lt;/span>prog)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-i&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Target ip&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-iL&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Target file name, one ip per line&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-l&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;username&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-p&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;pwd&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-lp&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_pwd_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_pwd file, example: username:password&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-L&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;username file&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-P&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;pwd_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;password file&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;--port&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;port&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>int, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Target port&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-s&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;service_type&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, required&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> choices&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>service_type_list, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Service type&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-t&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;thread_num&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>int, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">10&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;The number of threads, default is 10 threads&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-T&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;timeout&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>int, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">10&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Timeout, default is 10s&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-v&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log_level&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> choices&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>log_level, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Log Level, default is &amp;#39;info&amp;#39;&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># args = parser.parse_args()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># parser.print_help()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> parser
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@staticmethod&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">init&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> Parser()&lt;span style="color:#f92672">.&lt;/span>parser()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> parser
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;__main__&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> Parser()&lt;span style="color:#f92672">.&lt;/span>init()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> args &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-运行">0x02 运行&lt;/h3>
+&lt;pre tabindex="0">&lt;code>➜ python3 tmp.py
+usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
+ [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
+ -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+ [-t THREAD_NUM] [-T TIMEOUT]
+ [-v {debug,info,warning,error,critical}]
+tmp.py: error: the following arguments are required: -s
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>➜ python3 tmp.py -s ssh
+usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
+ [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
+ -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+ [-t THREAD_NUM] [-T TIMEOUT]
+ [-v {debug,info,warning,error,critical}]
+
+optional arguments:
+ -h, --help show this help message and exit
+ -i HOST Target ip
+ -iL HOST_FILE Target file name, one ip per line
+ -l USER username
+ -p PWD password
+ -lp USER_PWD_FILE user_pwd file, example: username:password
+ -L USER_FILE username file
+ -P PWD_FILE password file
+ --port PORT Target port
+ -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+ Service type
+ -t THREAD_NUM The number of threads, default is 10 threads
+ -T TIMEOUT Timeout, default is 10s
+ -v {debug,info,warning,error,critical}
+ Log Level, default is &amp;#39;info&amp;#39;
+
+Example:
+ python3 tmp.py -s ssh -i 123.123.123.123
+ python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
+&lt;/code>&lt;/pre></description></item><item><title>Python 的 scapy 模块简单使用</title><link>https://wyb0.com/posts/2016/python-module-scapy/</link><pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-scapy/</guid><description>&lt;h3 id="0x00-简单尝试">0x00 简单尝试&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包">&lt;/p>
+&lt;h3 id="0x01-生成一组数据包">0x01 生成一组数据包&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包">&lt;/p>
+&lt;h3 id="0x02-发送数据包">0x02 发送数据包&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>send发送数据包
+&lt;img src="https://wyb0.com/img/post/scapy_send_send_packet.png" alt="用send发送数据包">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sr1发送数据包
+&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sr发送数据包
+&lt;img src="https://wyb0.com/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x03-发送syn数据包">0x03 发送SYN数据包&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包">&lt;/p>
+&lt;h3 id="0x04-得到tcp内容">0x04 得到TCP内容&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_get_tcp_content.png" alt="得到tcp内容">&lt;/p></description></item><item><title>Python 的 paramiko 模块</title><link>https://wyb0.com/posts/2016/python-module-paramiko/</link><pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-paramiko/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;p>直接pip install paramiko安装&lt;br>
+或者去http://www.paramiko.org/ 下载&lt;/p>
+&lt;h3 id="0x01-执行一条远程命令">0x01 执行一条远程命令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#-*- coding:utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> paramiko
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#远程执行命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh &lt;span style="color:#f92672">=&lt;/span> paramiko&lt;span style="color:#f92672">.&lt;/span>SSHClient()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>set_missing_host_key_policy(paramiko&lt;span style="color:#f92672">.&lt;/span>AutoAddPolicy())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>connect(&lt;span style="color:#e6db74">&amp;#34;192.168.188.134&amp;#34;&lt;/span>,&lt;span style="color:#ae81ff">22&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;reber&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;123456&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh_session &lt;span style="color:#f92672">=&lt;/span> ssh&lt;span style="color:#f92672">.&lt;/span>get_transport()&lt;span style="color:#f92672">.&lt;/span>open_session()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>stdin,stdout,stderr &lt;span style="color:#f92672">=&lt;/span> ssh&lt;span style="color:#f92672">.&lt;/span>exec_command(&lt;span style="color:#e6db74">&amp;#34;ls -l&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stdin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stdout&lt;span style="color:#f92672">.&lt;/span>readlines() &lt;span style="color:#75715e">#返回执行结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stderr&lt;span style="color:#f92672">.&lt;/span>readlines() &lt;span style="color:#75715e">#有错误信息就返回错误信息，没有就返回空&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.com/img/post/paramiko_ssh_one_command.png" alt="paramiko远程ssh后执行一条命令">&lt;/p></description></item><item><title>Python 的 cmd 模块</title><link>https://wyb0.com/posts/2016/python-module-cmd/</link><pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-cmd/</guid><description>&lt;h3 id="0x00-关于cmd模块">0x00 关于cmd模块&lt;/h3>
+&lt;p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们&lt;/p>
+&lt;h3 id="0x01-cmd模块的一些常用方法">0x01 cmd模块的一些常用方法：&lt;/h3>
+&lt;ol>
+&lt;li>cmdloop()：类似与Tkinter的mainloop，运行Cmd解析器&lt;/li>
+&lt;li>onecmd(str)：读取输入，并进行处理，通常不需要重载该函数，而是使用更加具体的do_command来执行特定的命名&lt;/li>
+&lt;li>emptyline()：当输入空行时调用该方法&lt;/li>
+&lt;li>default(line)：当无法识别输入的command时调用该方法&lt;/li>
+&lt;li>completedefault(text,line,begidx,endidx):如果不存在针对的complete_*()方法，那么会调用该函数&lt;/li>
+&lt;li>precmd(line)：命令line解析之前被调用该方法&lt;/li>
+&lt;li>postcmd(stop，line)：命令line解析之后被调用该方法&lt;/li>
+&lt;li>preloop()：cmdloop()运行之前调用该方法&lt;/li>
+&lt;li>postloop()：cmdloop()退出之后调用该方法&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x02-用cmd模块简单实现shell命令">0x02 用cmd模块简单实现shell命令&lt;/h3>
+&lt;pre tabindex="0">&lt;code>#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
+import sys
+import os
+import socket
+from cmd import Cmd
+
+class ClassShell(Cmd):
+ &amp;#34;&amp;#34;&amp;#34;docstring for ClassShell&amp;#34;&amp;#34;&amp;#34;
+ def __init__(self):
+ Cmd.__init__(self)
+ os.chdir(&amp;#34;C:/Users/reber/Desktop&amp;#34;)
+ hostName = socket.gethostname()
+ self.prompt = &amp;#34;reber@&amp;#34; + hostName + &amp;#34; &amp;#34; + os.path.abspath(&amp;#39;.&amp;#39;) + &amp;#34;\n$ &amp;#34;
+ 
+
+ def help_dir(self):
+ print &amp;#34;dir [path]&amp;#34;
+ def do_dir(self, arg):
+ if not arg:
+ print &amp;#34;\n&amp;#34;.join(os.listdir(&amp;#39;.&amp;#39;))
+ elif os.path.exists(arg):
+ print &amp;#34;\n&amp;#34;.join(os.listdir(arg))
+ else:
+ print &amp;#34;no such path exists&amp;#34;
+
+ def help_ls(self):
+ print &amp;#34;ls [path]&amp;#34;
+ def do_ls(self, arg):
+ if not arg:
+ print &amp;#34;\n&amp;#34;.join(os.listdir(&amp;#39;.&amp;#39;))
+ elif os.path.exists(arg):
+ print &amp;#34;\n&amp;#34;.join(os.listdir(arg))
+ else:
+ print &amp;#34;no such path exists&amp;#34;
+
+ def help_pwd(self):
+ print &amp;#34;pwd&amp;#34;
+ def do_pwd(self, arg):
+ print os.path.abspath(&amp;#39;.&amp;#39;)
+
+ def help_cd(self):
+ print &amp;#34;cd [path]&amp;#34;
+ def do_cd(self, arg):
+ hostName = socket.gethostname()
+ if not arg:
+ os.chdir(&amp;#34;C:/Users/reber/Desktop&amp;#34;)
+ self.prompt = &amp;#34;reber@&amp;#34; + hostName + &amp;#34; &amp;#34; + os.path.abspath(&amp;#39;.&amp;#39;) + &amp;#34;\n$ &amp;#34;
+ elif os.path.exists(arg):
+ os.chdir(arg)
+ self.prompt = &amp;#34;reber@&amp;#34; + hostName + &amp;#34; &amp;#34; + os.path.abspath(&amp;#39;.&amp;#39;) + &amp;#34;\n$ &amp;#34;
+ else:
+ print &amp;#34;no such path&amp;#34;
+
+ def help_clear(self):
+ print &amp;#34;clear&amp;#34;
+ def do_clear(self, arg):
+ i = os.system(&amp;#39;cls&amp;#39;)
+
+ def help_cat(self):
+ print &amp;#34;cat filename&amp;#34;
+ def do_cat(self, arg):
+ if os.path.exists(arg):
+ with open(arg,&amp;#34;r&amp;#34;) as f:
+ data = f.read()
+ print data
+ else:
+ print &amp;#34;no such file exists&amp;#34;
+
+ def help_mv(self):
+ print &amp;#34;mv oldfilename newfilename&amp;#34;
+ def do_mv(self, arg):
+ oldfilename,newfilename = arg.split()
+ if os.path.exists(oldfilename):
+ os.rename(oldfilename,newfilename)
+ else:
+ print &amp;#34;no such file:&amp;#34; + oldfilename
+
+ def help_touch(self):
+ print &amp;#34;touch filename&amp;#34;
+ def do_touch(self, arg):
+ with open(arg, &amp;#34;w&amp;#34;) as f:
+ pass
+
+ def help_rm(self):
+ print &amp;#34;rm filepath&amp;#34;
+ def do_rm(self, arg):
+ if os.path.exists(arg):
+ os.remove(arg)
+ else:
+ print &amp;#34;no such file:&amp;#34; + arg
+ 
+ def help_cp(self):
+ print &amp;#34;cp oldfilepath newfilepath&amp;#34;
+ def do_cp(self, arg):
+ oldfilepath,newfilepath = arg.split()
+ if os.path.exists(oldfilepath):
+ with open(oldfilepath, &amp;#34;r&amp;#34;) as f:
+ data = f.read()
+ with open(newfilepath, &amp;#34;w&amp;#34;) as f:
+ f.write(data)
+ else:
+ print &amp;#34;no such path:&amp;#34; + oldfilepath
+
+ def help_exit(self):
+ print &amp;#34;input exit will exit the program&amp;#34;
+
+ def do_exit(self, arg):
+ print &amp;#34;Exit:&amp;#34;,arg
+ sys.exit()
+
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+ shell = ClassShell()
+ shell.cmdloop()
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-程序执行结果如下">0x03 程序执行结果如下&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/cmd_results_sample.png" alt="60">&lt;/p></description></item><item><title>Python 简单解码 IP 头</title><link>https://wyb0.com/posts/2016/python-simple-decode-ip-head/</link><pubDate>Sun, 03 Jul 2016 20:06:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-simple-decode-ip-head/</guid><description>&lt;h3 id="0x00-解码ip头">0x00 解码IP头&lt;/h3>
+&lt;p>Windows上运行时要以管理员身份运行&lt;br>
+代码可以解码IP头统计通信信息并保存到文本，同时统计数量&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#-*- coding:utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> socket
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> os
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> sys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> struct 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> ctypes &lt;span style="color:#f92672">import&lt;/span> &lt;span style="color:#f92672">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>host &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;10.22.114.114&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tcp_num &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>udp_num &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>icmp_num &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">IP&lt;/span>(Structure):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> _fields_ &lt;span style="color:#f92672">=&lt;/span> [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;ihl&amp;#34;&lt;/span>, c_ubyte,&lt;span style="color:#ae81ff">4&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;version&amp;#34;&lt;/span>, c_ubyte,&lt;span style="color:#ae81ff">4&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;tos&amp;#34;&lt;/span>, c_ubyte),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;len&amp;#34;&lt;/span>, c_ushort),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;id&amp;#34;&lt;/span>, c_ushort),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;offset&amp;#34;&lt;/span>, c_ushort),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;ttl&amp;#34;&lt;/span>, c_ubyte),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;protocol_num&amp;#34;&lt;/span>,c_ubyte),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;sum&amp;#34;&lt;/span>, c_ushort),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;src&amp;#34;&lt;/span>, c_ulong),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (&lt;span style="color:#e6db74">&amp;#34;dst&amp;#34;&lt;/span>, c_ulong)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __new__ (self,socket_buffer&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">None&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>from_buffer_copy(socket_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__ (self,socket_buffer&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">None&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>protocol_map &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#ae81ff">1&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;ICMP&amp;#34;&lt;/span>,&lt;span style="color:#ae81ff">6&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;TCP&amp;#34;&lt;/span>,&lt;span style="color:#ae81ff">17&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;UDP&amp;#34;&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>src_address &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>inet_ntoa(struct&lt;span style="color:#f92672">.&lt;/span>pack(&lt;span style="color:#e6db74">&amp;#34;&amp;lt;L&amp;#34;&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>src))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>dst_address &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>inet_ntoa(struct&lt;span style="color:#f92672">.&lt;/span>pack(&lt;span style="color:#e6db74">&amp;#34;&amp;lt;L&amp;#34;&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>dst))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>protocol &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>protocol_map[self&lt;span style="color:#f92672">.&lt;/span>protocol_num]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>protocol &lt;span style="color:#f92672">=&lt;/span> str(self&lt;span style="color:#f92672">.&lt;/span>protocol_num)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>name &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;nt&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> socket_protocol &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>IPPROTO_IP
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> socket_protocol &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>IPPROTO_ICMP
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sniffer &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>socket(socket&lt;span style="color:#f92672">.&lt;/span>AF_INET,socket&lt;span style="color:#f92672">.&lt;/span>SOCK_RAW,socket_protocol)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sniffer&lt;span style="color:#f92672">.&lt;/span>bind((host,&lt;span style="color:#ae81ff">0&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sniffer&lt;span style="color:#f92672">.&lt;/span>setsockopt(socket&lt;span style="color:#f92672">.&lt;/span>IPPROTO_IP,socket&lt;span style="color:#f92672">.&lt;/span>IP_HDRINCL,&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>name &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;nt&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sniffer&lt;span style="color:#f92672">.&lt;/span>ioctl(socket&lt;span style="color:#f92672">.&lt;/span>SIO_RCVALL,socket&lt;span style="color:#f92672">.&lt;/span>RCVALL_ON)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> raw_buffer &lt;span style="color:#f92672">=&lt;/span> sniffer&lt;span style="color:#f92672">.&lt;/span>recvfrom(&lt;span style="color:#ae81ff">65565&lt;/span>)[&lt;span style="color:#ae81ff">0&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ip_header &lt;span style="color:#f92672">=&lt;/span> IP(raw_buffer[&lt;span style="color:#ae81ff">0&lt;/span>:&lt;span style="color:#ae81ff">32&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> msg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Protocol: &lt;/span>&lt;span style="color:#e6db74">%-5s&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%-15s&lt;/span>&lt;span style="color:#e6db74"> -&amp;gt; &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (ip_header&lt;span style="color:#f92672">.&lt;/span>protocol,ip_header&lt;span style="color:#f92672">.&lt;/span>src_address,ip_header&lt;span style="color:#f92672">.&lt;/span>dst_address)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> ip_header&lt;span style="color:#f92672">.&lt;/span>protocol &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;TCP&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> tcp_num &lt;span style="color:#f92672">=&lt;/span> tcp_num &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> ip_header&lt;span style="color:#f92672">.&lt;/span>protocol &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;UDP&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> udp_num &lt;span style="color:#f92672">=&lt;/span> udp_num &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> ip_header&lt;span style="color:#f92672">.&lt;/span>protocol &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;ICMP&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> icmp_num &lt;span style="color:#f92672">=&lt;/span> icmp_num &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> num &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;TCP:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#ae81ff">\t&lt;/span>&lt;span style="color:#e6db74">UDP:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#ae81ff">\t&lt;/span>&lt;span style="color:#e6db74">ICMP:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (tcp_num,udp_num,icmp_num)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print num&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(&lt;span style="color:#e6db74">&amp;#34;data.txt&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;a+&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> f&lt;span style="color:#f92672">.&lt;/span>write(msg&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sys&lt;span style="color:#f92672">.&lt;/span>stdout&lt;span style="color:#f92672">.&lt;/span>write(num&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sys&lt;span style="color:#f92672">.&lt;/span>stdout&lt;span style="color:#f92672">.&lt;/span>flush()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">0.5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#CTRL-C&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>name &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;nt&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sniffer&lt;span style="color:#f92672">.&lt;/span>ioctl(socket&lt;span style="color:#f92672">.&lt;/span>SIO_RCVALL,socket&lt;span style="color:#f92672">.&lt;/span>RCVALL_OFF)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-结果">0x01 结果&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/ip_decoding_run_msg.png" alt="程序运行信息">&lt;/p></description></item><item><title>Python 的编码问题</title><link>https://wyb0.com/posts/2016/python-encode-setting/</link><pubDate>Wed, 29 Jun 2016 15:14:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-encode-setting/</guid><description>&lt;h3 id="0x00-几个编码函数">0x00 几个编码函数&lt;/h3>
+&lt;pre tabindex="0">&lt;code>* ord(x) 
+ 将字符转换为10进制整数(0~255之间) #ord(&amp;#39;a&amp;#39;)==&amp;gt;97
+* chr(x) 
+ 将10进制整数(0~255之间)转换为字符 #chr(97)==&amp;gt;&amp;#39;a&amp;#39;，chr(0x61)==&amp;gt;&amp;#39;a&amp;#39;
+
+* b2a_hex(x) 
+ 将字符转换为对应的16进制 #import binascii;binascii.b2a_hex(&amp;#39;a&amp;#39;)==&amp;gt;&amp;#39;61&amp;#39;
+* a2b_hex(x) 
+ 将16进制转换为对应的字符 #import binascii;binascii.a2b_hex(&amp;#39;61&amp;#39;)==&amp;gt;&amp;#39;a&amp;#39;
+
+* hex(x) 
+ 将10进制整数转换为对应的16进制 #hex(16)==&amp;gt;&amp;#39;0x10&amp;#39;
+* oct(x) 
+ 将10进制整数转换为对应的8进制 #oct(9)==&amp;gt;&amp;#39;011&amp;#39;
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-设置为utf-8">0x01 设置为utf-8&lt;/h3>
+&lt;ul>
+&lt;li>在py文件开头设置&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#-*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>或&lt;span style="color:#960050;background-color:#1e0010">：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#coding=utf8&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>永久编码(推荐)
+&lt;img src="https://wyb0.com/img/post/unicode_encode_error.png" alt="python编码出错.png">
+可以在python安装路径下的Lib\site-packages下新建文件sitecustomize.py文件，内容如下：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#coding=utf8&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> sys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>reload(sys)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sys&lt;span style="color:#f92672">.&lt;/span>setdefaultencoding(&lt;span style="color:#e6db74">&amp;#39;utf8&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 此方法修改了python环境，设置系统默认编码，永久有效&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-编码转换">0x03 编码转换&lt;/h3>
+&lt;p>python默认unicode为中间编码，所以无论是何种编码，解码时默认都解码为unicode&lt;/p></description></item><item><title>Python 编写规范</title><link>https://wyb0.com/posts/2016/python-coding-style/</link><pubDate>Sun, 12 Jun 2016 22:17:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-coding-style/</guid><description>&lt;h3 id="0x00-代码编排">0x00 代码编排&lt;/h3>
+&lt;pre tabindex="0">&lt;code>1.缩进：使用4个空格缩进
+2.行长度：每行不要超过80个字符
+3.空行：顶级定义之间空两行，如函数或类的定义，方法定义、类定义与第一个方法之间都应该空一行。
+4.分号：行尾不要有分号，也不要用分号将两条命令放在一行,除非是：
+ 1.长的导入模块语句。
+ 2.注释里的URL.
+ 3.可以使用圆括号实现隐式行连接
+&lt;/code>&lt;/pre>&lt;h3 id="0x01文档编排">0x01文档编排&lt;/h3>
+&lt;pre tabindex="0">&lt;code>1.导入：模块注释-&amp;gt;文档字符串-&amp;gt;导入-&amp;gt;模块全局变量-&amp;gt;常量
+ 导入顺序：标准库导入-&amp;gt;第三方库导入-&amp;gt;应用程序指定库导入
+2.import:不要在一行中import多个库，一行中只导入一个
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-空格">0x02 空格&lt;/h3>
+&lt;pre tabindex="0">&lt;code>1.不要在逗号、分号、冒号前加空格，但应在他们后面加(除了在行尾)
+2.二元操作符(赋值、比较、布尔)两边都加空格
+3.当&amp;#34;=&amp;#34;用于指示关键字参数或默认参数值是，不要再其两侧使用空格
+4.&amp;#34;,&amp;#34;和&amp;#34;#&amp;#34;和&amp;#34;=&amp;#34;不需要对齐，因为空格会成为维护的负担
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-注释">0x03 注释&lt;/h3>
+&lt;pre tabindex="0">&lt;code>总体原则，错误的注释不如没有注释。
+注释必须使用英文，最好是完整的句子，首字母大写，句后要有结束符，结束符后跟两个空格，开始下一句。如果是短语，可以省略结束符。
+1.块注释：在一段代码前增加的注释。在&amp;#34;#&amp;#34;后加一空格。段落之间以只有&amp;#34;#&amp;#34;的行间隔。
+2.行注释，在一句代码后加注释。进来少使用.
+3.绝不要描述代码. 假设阅读代码的人比你更懂Python, 他只是不知道你的代码要做什么.
+&lt;/code>&lt;/pre>&lt;h3 id="0x04-文档描述">0x04 文档描述&lt;/h3>
+&lt;pre tabindex="0">&lt;code>1.为所有的共有模块、函数、类、方法写docstrings；非共有的没有必要，但是可以写注释（在def的下一行）。
+2.如果docstring要换行，参考如下例子
+class SampleClass(object):
+ &amp;#34;&amp;#34;&amp;#34;Summary of class here.
+
+ Longer class information....
+ Longer class information....
+
+ Attributes:
+ likes_spam: A boolean indicating if we like SPAM or not.
+ eggs: An integer count of the eggs we have laid.
+ &amp;#34;&amp;#34;&amp;#34;
+
+ def __init__(self):
+ &amp;#34;&amp;#34;&amp;#34;Inits SampleClass with blah.&amp;#34;&amp;#34;&amp;#34;
+&lt;/code>&lt;/pre>&lt;h3 id="0x05-命名规范">0x05 命名规范&lt;/h3>
+&lt;pre tabindex="0">&lt;code>#类
+1.类名使用大写字母开头的单词(如CapWords, 即Pascal风格)
+2.类的属性（方法和变量）命名使用全部小写的方式，可以使用下划线。
+3.类的方法第一个参数必须是self，而静态方法第一个参数必须是cls。
+4.用双下划线(__)开头的实例变量或方法表示类内私有.
+
+#函数
+1.函数命名使用全部小写的方式，可以使用下划线。
+2.变量也用小写加下划线的方式，即this_is_a_variable=1
+3.常量命名使用全部大写的方式，可以使用下划线。
+
+#包和模块
+1.包命名尽量短小，使用全部小写的方式，不可以使用下划线。
+2.模块名尽量短小，应该用小写加下划线的方式(如lower_with_under.py).
+3.用单下划线(_)开头表示模块变量或函数是protected的(使用import * from时不会包含).
+
+1.尽量单独使用小写字母&amp;#39;l&amp;#39;，大写字母&amp;#39;O&amp;#39;等容易混淆的字母。
+&lt;/code>&lt;/pre>&lt;h3 id="0x06-main">0x06 Main&lt;/h3>
+&lt;pre tabindex="0">&lt;code>即使是一个打算被用作脚本的文件, 也应该是可导入的. 
+并且简单的导入不应该导致这个脚本的主功能(main functionality)被执行
+代码应该在执行主程序前总是检查 if __name__ == &amp;#39;__main__&amp;#39;
+ def main():
+ ...
+
+ if __name__ == &amp;#39;__main__&amp;#39;:
+ main()
+&lt;/code>&lt;/pre>&lt;h3 id="0x07-字符串">0x07 字符串&lt;/h3>
+&lt;pre tabindex="0">&lt;code>避免在循环中用+和+=来累加字符串，可以将每个子串加入列表，然后再循环结束后使用.join连接列表
+ items = [&amp;#39;&amp;lt;table&amp;gt;&amp;#39;]
+ for last_name, first_name in employee_list:
+ items.append(&amp;#39;&amp;lt;tr&amp;gt;&amp;lt;td&amp;gt;%s, %s&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;&amp;#39; % (last_name, first_name))
+ items.append(&amp;#39;&amp;lt;/table&amp;gt;&amp;#39;)
+ employee_table = &amp;#39;&amp;#39;.join(items)
+同一文件中保持使用字符串引号的一致性
+多行字符串使用三重&amp;#34;双&amp;#34;引号，不过通常使用括号隐式连接
+&lt;/code>&lt;/pre>&lt;h3 id="0x08-其他">0x08 其他&lt;/h3>
+&lt;pre tabindex="0">&lt;code>括号：宁缺毋滥的使用括号
+类：若一个类不继承自其它类，就显式的从object继承,即使是嵌套类
+语句：通常每个语句独占一行，try/except一定不放在一行
+文件和sockets：在文件和sockets结束时，显式的关闭它，推荐with语句管理文件
+&lt;/code>&lt;/pre></description></item><item><title>Python 的正则</title><link>https://wyb0.com/posts/2016/python-regular/</link><pubDate>Fri, 05 Feb 2016 11:38:23 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-regular/</guid><description>&lt;h3 id="0x00-正则表达式">0x00 正则表达式&lt;/h3>
+&lt;p>正则表达式是用来匹配字符串的异常强大的东西，可以用来匹配邮箱、域名等字符串&lt;/p>
+&lt;h3 id="0x01-符号">0x01 符号&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/regular_atomic_character.png" alt="75">&lt;/p>
+&lt;h3 id="0x02-特殊字符">0x02 特殊字符&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/regular_metacharacters.png" alt="75">&lt;/p>
+&lt;h3 id="0x03-常用的模块属性">0x03 常用的模块属性&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/regular_modifier.png" alt="75">&lt;/p></description></item><item><title>Python 的线程</title><link>https://wyb0.com/posts/2016/python-thread/</link><pubDate>Wed, 03 Feb 2016 12:44:38 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-thread/</guid><description>&lt;p>Python的参数传递其实传递的是对象，当传递可变对象(列表、队列)时相当于引用传递，可以修改对象的原始值，当传递不可变对象(字符串、整型)时就相当于传值，不能直接修改原始对象。&lt;/p></description></item><item><title>Python 的面向对象</title><link>https://wyb0.com/posts/2016/python-object-oriented/</link><pubDate>Mon, 25 Jan 2016 11:17:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>面向对象是为了解决系统的可维护性，可扩展性，可重用性&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>三个基本特征：封装、继承、多态&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>封装：对一类事物，将其相同特点和功能提取出来，所共有的特点叫做属性，共有的功能就叫做方法，将属性和方法组合在一起就叫做封装。&lt;br>
+如：人具有姓名、年龄、性别，这些就是属性，人可以说话、可以走、可以跑，这些就是方法，封装起来就是一个类，而类的实例化就是对象&lt;/p></description></item><item><title>Python 的函数式编程</title><link>https://wyb0.com/posts/2016/python-functional-programming/</link><pubDate>Thu, 21 Jan 2016 21:13:17 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-functional-programming/</guid><description>&lt;h3 id="0x00-函数式编程">0x00 函数式编程&lt;/h3>
+&lt;p>首先说一下高阶函数，能将函数作为参数来接收的函数就可以称为高阶函数，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">add&lt;/span>(x,y,f):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> f(x) &lt;span style="color:#f92672">+&lt;/span> f(y)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print add(&lt;span style="color:#ae81ff">7&lt;/span>,&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">3&lt;/span>,abs) &lt;span style="color:#75715e">#abs是求绝对值的函数，这里返回的值为10&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将函数作为参数传入，这样的函数就是高阶函数，而函数式编程就是指这种抽象程度很高的编程范式。&lt;br>
+函数式编程的一个特点就是可以将函数作为参数，还允许返回一个函数。&lt;br>
+纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。&lt;br>
+允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出，因此，这种函数是有副作用的。&lt;/p></description></item></channel></rss>

@@ -1,19 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>hardware on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/hardware/</link>
-    <description>Recent content in hardware on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 31 Jan 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/hardware/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>硬件接口测试</title>
-      <link>https://wyb0.com/posts/2024/hardware-interface-test/</link>
-      <pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2024/hardware-interface-test/</guid>
-      <description>0x01 JTAG 接口 主要用来读写固件，常见 JTAG 接口引脚有 10PIN、14PIN、20PIN 一般需要接的引脚： GND：接地引脚 TDI：测</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hardware on Reber's Blog</title><link>https://wyb0.com/tags/hardware/</link><description>Recent content in Hardware on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 31 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/hardware/index.xml" rel="self" type="application/rss+xml"/><item><title>硬件接口测试</title><link>https://wyb0.com/posts/2024/hardware-interface-test/</link><pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2024/hardware-interface-test/</guid><description>&lt;h3 id="0x01-jtag-接口">0x01 JTAG 接口&lt;/h3>
+&lt;p>主要用来读写固件，常见 JTAG 接口引脚有 10PIN、14PIN、20PIN&lt;/p>
+&lt;p>一般需要接的引脚：&lt;br>
+GND：接地引脚&lt;br>
+TDI：测试数据输入，用于向被测设备传输测试数据&lt;br>
+TDO：测试数据输出，用于从被测设备读取测试数据&lt;br>
+TCK：测试时钟，用于同步测试数据的传输&lt;br>
+TMS：测试模式选择，用于控制 JTAG 状态机的状态转移&lt;br>
+TRST：可选，TRST 可以用来对 TAPController 进行复位（初始化）&lt;/p></description></item></channel></rss>

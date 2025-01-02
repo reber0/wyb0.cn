@@ -1,97 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 之软件的安装 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 之软件的安装</h1>
-      
-<div class="post-meta">
-    <time>2016-04-19</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-      <div><p>Linux上的软件安装可以分为三种方式：</p>
-<h3 id="0x00-yum安装">0x00 yum安装</h3>
-<pre tabindex="0"><code>yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除一个、一组
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 之软件的安装 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 之软件的安装</h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div><p>Linux上的软件安装可以分为三种方式：</p><h3 id=0x00-yum安装>0x00 yum安装</h3><pre tabindex=0><code>yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除一个、一组
 至全部软件包的命令，配置文件在/etc/yum.repos.d/下
 主要命令：
 yum install gcc g++
 yum remove wget
 yum list installed //显示已经安装过的软件
 yum list   //显示所有可以安装的包
-</code></pre><pre tabindex="0"><code>[wyb@localhost ~]$ wget -h  //验证有没有安装wget
+</code></pre><pre tabindex=0><code>[wyb@localhost ~]$ wget -h  //验证有没有安装wget
 -bash: /usr/bin/wget: No such file or directory
 [wyb@localhost ~]$ sudo yum search wget  //通过yum查找wget，看有没有这个软件包
 Loaded plugins: fastestmirror, refresh-packagekit, security
@@ -135,13 +61,7 @@ Resolving Dependencies
 --&gt; Running transaction check
 ---&gt; Package wget.x86_64 0:1.12-5.el6_6.1 will be erased
 --&gt; Finished Dependency Resolution
-</code></pre><h3 id="0x01-rpm安装">0x01 rpm安装</h3>
-<p>分为：二进制包和源代码包<br>
-二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀</p>
-<ul>
-<li>主要参数</li>
-</ul>
-<pre tabindex="0"><code>-ivh *.rpm  安装并显示安装进度
+</code></pre><h3 id=0x01-rpm安装>0x01 rpm安装</h3><p>分为：二进制包和源代码包<br>二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀</p><ul><li>主要参数</li></ul><pre tabindex=0><code>-ivh *.rpm  安装并显示安装进度
 -Uvh *.rpm	升级软件包
 -qpl *.rpm	查看rpm软件包内的包含的文件，显示安装后文件释放的绝对路径
 -qpi *.rpm	列出rpm软件包的描述信息
@@ -150,23 +70,17 @@ Resolving Dependencies
 -qf /etc/httpd/conf/httpd.conf  查找文件属于那个安装包
 -va 检验软件包有没有丢失信息
 -e 软件名    移除软件包
-</code></pre><ul>
-<li>用rpm安装软件</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost ~<span style="color:#f92672">]</span>$ wget http://192.168.1.7/wget-1.12-5.el6_6.1.x86_64.rpm   //使用wget下载软件
-</span></span><span style="display:flex;"><span>--2016-04-18 04:31:27--  http://192.168.1.7/wget-1.12-5.el6_6.1.x86_64.rpm
-</span></span><span style="display:flex;"><span>Connecting to 192.168.1.7:80... connected.
-</span></span><span style="display:flex;"><span>HTTP request sent, awaiting response... <span style="color:#ae81ff">200</span> OK
-</span></span><span style="display:flex;"><span>Length: <span style="color:#ae81ff">494884</span> <span style="color:#f92672">(</span>483K<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>application/x-rpm<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>Saving to: 鈝get-1.12-5.el6_6.1.x86_64.rpm?
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>100%<span style="color:#f92672">[======================================</span>&gt;<span style="color:#f92672">]</span> 494,884     1006K/s   in 0.5s    
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>2016-04-18 04:31:27 <span style="color:#f92672">(</span><span style="color:#ae81ff">1006</span> KB/s<span style="color:#f92672">)</span> - 鈝get-1.12-5.el6_6.1.x86_64.rpm鈙aved <span style="color:#f92672">[</span>494884/494884<span style="color:#f92672">]</span>
-</span></span></code></pre></div><ul>
-<li>案例</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost ~]$ ls
+</code></pre><ul><li>用rpm安装软件</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ wget http://192.168.1.7/wget-1.12-5.el6_6.1.x86_64.rpm   //使用wget下载软件
+</span></span><span style=display:flex><span>--2016-04-18 04:31:27--  http://192.168.1.7/wget-1.12-5.el6_6.1.x86_64.rpm
+</span></span><span style=display:flex><span>Connecting to 192.168.1.7:80... connected.
+</span></span><span style=display:flex><span>HTTP request sent, awaiting response... <span style=color:#ae81ff>200</span> OK
+</span></span><span style=display:flex><span>Length: <span style=color:#ae81ff>494884</span> <span style=color:#f92672>(</span>483K<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>application/x-rpm<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>Saving to: 鈝get-1.12-5.el6_6.1.x86_64.rpm?
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>100%<span style=color:#f92672>[======================================</span>&gt;<span style=color:#f92672>]</span> 494,884     1006K/s   in 0.5s    
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>2016-04-18 04:31:27 <span style=color:#f92672>(</span><span style=color:#ae81ff>1006</span> KB/s<span style=color:#f92672>)</span> - 鈝get-1.12-5.el6_6.1.x86_64.rpm鈙aved <span style=color:#f92672>[</span>494884/494884<span style=color:#f92672>]</span>
+</span></span></code></pre></div><ul><li>案例</li></ul><pre tabindex=0><code>[wyb@localhost ~]$ ls
 wget-1.12-5.el6_6.1.x86_64.rpm
 [wyb@localhost ~]$ sudo rpm -ivh wget-1.12-5.el6_6.1.x86_64.rpm     //安装wget
 Preparing...                ########################################### [100%]
@@ -199,44 +113,19 @@ wget-1.12-5.el6_6.1.x86_64
 [wyb@localhost ~]$ sudo rpm -e wget     //写在软件wget
 [wyb@localhost ~]$ wget -h
 -bash: /usr/bin/wget: No such file or directory
-</code></pre><h3 id="0x02-源码安装">0x02 源码安装</h3>
-<p>$ sudo yum groupinstall &ldquo;Development tools&rdquo;  //如果你源码安装软件就需要安装这个</p>
-<pre tabindex="0"><code>源代码安装软件：
+</code></pre><h3 id=0x02-源码安装>0x02 源码安装</h3><p>$ sudo yum groupinstall &ldquo;Development tools&rdquo; //如果你源码安装软件就需要安装这个</p><pre tabindex=0><code>源代码安装软件：
 1、./configure，对系统进行检测然后生成makefile，为下一步的编译做准备
 ./configure -prefix=/usr软件将安装在/usr下面，可执行文件则会安装在/usr/bin,默认安装在/usr/local/bin
 2、make，这一步就是编译，大多数的源码包都经过这一步进行编译，这时软件已经可以用了，不过要通过全路径来执行
 实际上它不是编译工具，其实是一个构建工具
 3、make install 进行安装，一般你要拥有root权限，因为要向系统写入东西，相当与配环境变量、将二进制文件拷贝到/usr/local/bin下面
 4、make clean将由make产生的过程文件清除
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

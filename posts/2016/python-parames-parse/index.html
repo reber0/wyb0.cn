@@ -1,163 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Python 命令行参数解析 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Python 命令行参数解析</h1>
-      
-<div class="post-meta">
-    <time>2016-08-16</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-      <div><h3 id="0x00-argparse-模块">0x00 argparse 模块</h3>
-<p>参考 <a href="https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank">https://docs.python.org/zh-cn/3.7/library/argparse.html</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Parser</span>(object):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Parser&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        super(Parser, self)<span style="color:#f92672">.</span>__init__()
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>service_type_list <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;ssh&#34;</span>,<span style="color:#e6db74">&#34;telnet&#34;</span>,<span style="color:#e6db74">&#34;ftp&#34;</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;mysql&#34;</span>,<span style="color:#e6db74">&#34;mssql&#34;</span>,<span style="color:#e6db74">&#34;oracle&#34;</span>,<span style="color:#e6db74">&#34;pgsql&#34;</span>,<span style="color:#e6db74">&#34;redis&#34;</span>
-</span></span><span style="display:flex;"><span>        ]
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;debug&#34;</span>, <span style="color:#e6db74">&#34;info&#34;</span>, <span style="color:#e6db74">&#34;warning&#34;</span>, <span style="color:#e6db74">&#34;error&#34;</span>, <span style="color:#e6db74">&#34;critical&#34;</span>]
-</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>example <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;Example:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                          </span><span style="color:#ae81ff">\r</span><span style="color:#e6db74">  python3 </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> -s ssh -i 123.123.123.123
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                          </span><span style="color:#ae81ff">\r</span><span style="color:#e6db74">  python3 </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> -s ssh -i 123.123.123.123/24 -l root -p 123456&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parser</span>(self):
-</span></span><span style="display:flex;"><span>        parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(
-</span></span><span style="display:flex;"><span>            formatter_class<span style="color:#f92672">=</span>argparse<span style="color:#f92672">.</span>RawDescriptionHelpFormatter,<span style="color:#75715e">#使 example 可以换行</span>
-</span></span><span style="display:flex;"><span>            add_help<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># description = &#34;常见服务口令爆破&#34;,</span>
-</span></span><span style="display:flex;"><span>            )
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>epilog <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>example<span style="color:#f92672">.</span>format(parser<span style="color:#f92672">.</span>prog,parser<span style="color:#f92672">.</span>prog)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-i&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;host&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Target ip&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-iL&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;host_file&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Target file name, one ip per line&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-l&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;user&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-p&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pwd&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-lp&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;user_pwd_file&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;user_pwd file, example: username:password&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-L&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;user_file&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username file&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-P&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pwd_file&#34;</span>, type<span style="color:#f92672">=</span>str, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password file&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--port&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;port&#34;</span>, type<span style="color:#f92672">=</span>int, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Target port&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-s&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;service_type&#34;</span>, type<span style="color:#f92672">=</span>str, required<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, 
-</span></span><span style="display:flex;"><span>                            choices<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>service_type_list, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Service type&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-t&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;thread_num&#34;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;The number of threads, default is 10 threads&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-T&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;timeout&#34;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, 
-</span></span><span style="display:flex;"><span>                            help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Timeout, default is 10s&#34;</span>)
-</span></span><span style="display:flex;"><span>        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;-v&#34;</span>, dest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;log_level&#34;</span>, type<span style="color:#f92672">=</span>str, default<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;info&#34;</span>, 
-</span></span><span style="display:flex;"><span>                            choices<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>log_level, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Log Level, default is &#39;info&#39;&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># args = parser.parse_args()</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># parser.print_help()</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> parser
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@staticmethod</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>():
-</span></span><span style="display:flex;"><span>        parser <span style="color:#f92672">=</span> Parser()<span style="color:#f92672">.</span>parser()
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> parser
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
-</span></span><span style="display:flex;"><span>    parser <span style="color:#f92672">=</span> Parser()<span style="color:#f92672">.</span>init()
-</span></span><span style="display:flex;"><span>    args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
-</span></span><span style="display:flex;"><span>    parser<span style="color:#f92672">.</span>print_help()
-</span></span></code></pre></div><h3 id="0x02-运行">0x02 运行</h3>
-<pre tabindex="0"><code>➜  python3 tmp.py
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Python 命令行参数解析 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Python 命令行参数解析</h1><div class=post-meta><time>2016-08-16</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div><h3 id=0x00-argparse-模块>0x00 argparse 模块</h3><p>参考 <a href=https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank>https://docs.python.org/zh-cn/3.7/library/argparse.html</a></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> argparse
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Parser</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Parser&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self):
+</span></span><span style=display:flex><span>        super(Parser, self)<span style=color:#f92672>.</span>__init__()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>service_type_list <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;ssh&#34;</span>,<span style=color:#e6db74>&#34;telnet&#34;</span>,<span style=color:#e6db74>&#34;ftp&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;mysql&#34;</span>,<span style=color:#e6db74>&#34;mssql&#34;</span>,<span style=color:#e6db74>&#34;oracle&#34;</span>,<span style=color:#e6db74>&#34;pgsql&#34;</span>,<span style=color:#e6db74>&#34;redis&#34;</span>
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>log_level <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;debug&#34;</span>, <span style=color:#e6db74>&#34;info&#34;</span>, <span style=color:#e6db74>&#34;warning&#34;</span>, <span style=color:#e6db74>&#34;error&#34;</span>, <span style=color:#e6db74>&#34;critical&#34;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>example <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;&#34;Example:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          </span><span style=color:#ae81ff>\r</span><span style=color:#e6db74>  python3 </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> -s ssh -i 123.123.123.123
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          </span><span style=color:#ae81ff>\r</span><span style=color:#e6db74>  python3 </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> -s ssh -i 123.123.123.123/24 -l root -p 123456&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>parser</span>(self):
+</span></span><span style=display:flex><span>        parser <span style=color:#f92672>=</span> argparse<span style=color:#f92672>.</span>ArgumentParser(
+</span></span><span style=display:flex><span>            formatter_class<span style=color:#f92672>=</span>argparse<span style=color:#f92672>.</span>RawDescriptionHelpFormatter,<span style=color:#75715e>#使 example 可以换行</span>
+</span></span><span style=display:flex><span>            add_help<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>,
+</span></span><span style=display:flex><span>            <span style=color:#75715e># description = &#34;常见服务口令爆破&#34;,</span>
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>epilog <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>example<span style=color:#f92672>.</span>format(parser<span style=color:#f92672>.</span>prog,parser<span style=color:#f92672>.</span>prog)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-i&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;host&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Target ip&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-iL&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;host_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Target file name, one ip per line&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-l&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;username&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-p&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pwd&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;password&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-lp&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user_pwd_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user_pwd file, example: username:password&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-L&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;user_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;username file&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-P&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pwd_file&#34;</span>, type<span style=color:#f92672>=</span>str, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;password file&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;--port&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;port&#34;</span>, type<span style=color:#f92672>=</span>int, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Target port&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-s&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;service_type&#34;</span>, type<span style=color:#f92672>=</span>str, required<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>, 
+</span></span><span style=display:flex><span>                            choices<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>service_type_list, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Service type&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-t&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;thread_num&#34;</span>, type<span style=color:#f92672>=</span>int, default<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;The number of threads, default is 10 threads&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-T&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;timeout&#34;</span>, type<span style=color:#f92672>=</span>int, default<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>, 
+</span></span><span style=display:flex><span>                            help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Timeout, default is 10s&#34;</span>)
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>add_argument(<span style=color:#e6db74>&#34;-v&#34;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;log_level&#34;</span>, type<span style=color:#f92672>=</span>str, default<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;info&#34;</span>, 
+</span></span><span style=display:flex><span>                            choices<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>log_level, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Log Level, default is &#39;info&#39;&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># args = parser.parse_args()</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># parser.print_help()</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> parser
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@staticmethod</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>init</span>():
+</span></span><span style=display:flex><span>        parser <span style=color:#f92672>=</span> Parser()<span style=color:#f92672>.</span>parser()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> parser
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>    parser <span style=color:#f92672>=</span> Parser()<span style=color:#f92672>.</span>init()
+</span></span><span style=display:flex><span>    args <span style=color:#f92672>=</span> parser<span style=color:#f92672>.</span>parse_args()
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>print_help()
+</span></span></code></pre></div><h3 id=0x02-运行>0x02 运行</h3><pre tabindex=0><code>➜  python3 tmp.py
 usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
               [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
               -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
               [-t THREAD_NUM] [-T TIMEOUT]
               [-v {debug,info,warning,error,critical}]
 tmp.py: error: the following arguments are required: -s
-</code></pre><pre tabindex="0"><code>➜  python3 tmp.py -s ssh
+</code></pre><pre tabindex=0><code>➜  python3 tmp.py -s ssh
 usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
               [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
               -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
@@ -184,35 +109,12 @@ optional arguments:
 Example:
   python3 tmp.py -s ssh -i 123.123.123.123
   python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

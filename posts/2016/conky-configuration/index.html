@@ -1,106 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>conky 配置 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>conky 配置</h1>
-      
-<div class="post-meta">
-    <time>2016-06-04</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/software">software</a>)
-</div>
-
-      <div><h3 id="0x00-效果">0x00 效果</h3>
-<p>使用软件conky可以在linux上看到系统的运行状态，效果如下：
-<img src="/img/post/Conky.png" alt="conky效果图"></p>
-<h3 id="0x01-安装与配置">0x01 安装与配置</h3>
-<ol>
-<li>
-<p>先安装conky：<br>
-sudo apt-get install conky</p>
-</li>
-<li>
-<p>在/home/username/下创建文件.conkyrc</p>
-</li>
-<li>
-<p>使conky开机自启<br>
-在/etc/profile最下面添加：/usr/bin/conky &amp;</p>
-</li>
-</ol>
-<h3 id="0x03-配置文件conkyrc内容如下">0x03 配置文件.conkyrc内容如下</h3>
-<pre tabindex="0"><code># set to yes if you want Conky to be forked in the background
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>conky 配置 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>conky 配置</h1><div class=post-meta><time>2016-06-04</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/software>software</a>)</div><div><h3 id=0x00-效果>0x00 效果</h3><p>使用软件conky可以在linux上看到系统的运行状态，效果如下：
+<img src=/img/post/Conky.png alt=conky效果图></p><h3 id=0x01-安装与配置>0x01 安装与配置</h3><ol><li><p>先安装conky：<br>sudo apt-get install conky</p></li><li><p>在/home/username/下创建文件.conkyrc</p></li><li><p>使conky开机自启<br>在/etc/profile最下面添加：/usr/bin/conky &</p></li></ol><h3 id=0x03-配置文件conkyrc内容如下>0x03 配置文件.conkyrc内容如下</h3><pre tabindex=0><code># set to yes if you want Conky to be forked in the background
 background no
 cpu_avg_samples 2
 net_avg_samples 2
@@ -224,35 +135,12 @@ ${fs_bar 4 /}
 /home: ${alignr}${fs_free /home} / ${fs_size /home}
 ${fs_bar 4 /home}
 #############
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

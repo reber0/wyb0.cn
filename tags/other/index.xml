@@ -1,26 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>other on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/other/</link>
-    <description>Recent content in other on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 19 May 2017 16:51:11 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/other/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mac 基础设置</title>
-      <link>https://wyb0.com/posts/2017/mac-basic-use/</link>
-      <pubDate>Fri, 19 May 2017 16:51:11 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/mac-basic-use/</guid>
-      <description>macOS Sierra 10.12.6 0x00 安装brew $ /usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34; 0x01 安装wget $ brew install wget 0x02 安装oh-my-zsh $ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh $ cat /etc/shells #查看当前有什么she</description>
-    </item>
-    <item>
-      <title>win/ubuntu 双系统分区设置</title>
-      <link>https://wyb0.com/posts/2016/win-and-ubuntu-partition/</link>
-      <pubDate>Tue, 31 May 2016 23:35:06 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/win-and-ubuntu-partition/</guid>
-      <description>win10和ubuntu双系统分区设置 硬盘采用uefi格式 硬盘首部留400M空间，是FAT16的格式，用来存放win的引</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Other on Reber's Blog</title><link>https://wyb0.com/tags/other/</link><description>Recent content in Other on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 19 May 2017 16:51:11 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/other/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac 基础设置</title><link>https://wyb0.com/posts/2017/mac-basic-use/</link><pubDate>Fri, 19 May 2017 16:51:11 +0000</pubDate><guid>https://wyb0.com/posts/2017/mac-basic-use/</guid><description>&lt;p>macOS Sierra 10.12.6&lt;/p>
+&lt;h3 id="0x00-安装brew">0x00 安装brew&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ /usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34;
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-安装wget">0x01 安装wget&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ brew install wget
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-安装oh-my-zsh">0x02 安装oh-my-zsh&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+$ cat /etc/shells #查看当前有什么shell
+$ which zsh #查看zsh路径
+$ chsh -s /bin/zsh #切换shell为zsh
+$ vim ~/.zshrc添加alias c=&amp;#39;clear&amp;#39;
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-换源">0x03 换源&lt;/h3>
+&lt;pre tabindex="0">&lt;code># 对于zsh用户换源
+$ echo &amp;#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
+$ source ~/.zshrc
+$ brew update
+&lt;/code>&lt;/pre>&lt;h3 id="0x04-安装scroll-reverser">0x04 安装scroll-reverser&lt;/h3>
+&lt;blockquote>
+&lt;p>去&lt;a href="http://pilotmoon.com/scrollreverser?_blank">http://pilotmoon.com/scrollreverser&lt;/a>下载&lt;/p></description></item><item><title>win/ubuntu 双系统分区设置</title><link>https://wyb0.com/posts/2016/win-and-ubuntu-partition/</link><pubDate>Tue, 31 May 2016 23:35:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/win-and-ubuntu-partition/</guid><description>&lt;h3 id="win10和ubuntu双系统分区设置">win10和ubuntu双系统分区设置&lt;/h3>
+&lt;ol>
+&lt;li>硬盘采用uefi格式&lt;/li>
+&lt;li>硬盘首部留400M空间，是FAT16的格式，用来存放win的引导信息&lt;/li>
+&lt;li>在硬盘末尾给ubuntu划分50G左右空间&lt;/li>
+&lt;li>ubuntu的/分区，格式为ext4，空间为40G&lt;/li>
+&lt;li>ubuntu的/home分区，格式为ext4，空间为10G&lt;/li>
+&lt;li>ubuntu的/boot分区，格式为ext4,空间为200M&lt;/li>
+&lt;li>ubuntu的/swap分区，格式为swap，空间为200M&lt;/li>
+&lt;li>ubuntu的引导分区为/boot&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://wyb0.com/img/post/hard_disk_partition1.png" alt="双系统磁盘分区">&lt;/p></description></item></channel></rss>

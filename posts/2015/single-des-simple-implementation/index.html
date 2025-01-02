@@ -1,97 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>利用 C 语言简单实现单重 DES | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>利用 C 语言简单实现单重 DES</h1>
-      
-<div class="post-meta">
-    <time>2015-05-22</time>
-    
-    [<a href="/categories/C">C</a>](<a href="/tags/des">des</a>,<a href="/tags/C-%E8%AF%AD%E8%A8%80">C 语言</a>)
-</div>
-
-      <div><h3 id="0x00-简介">0x00 简介</h3>
-<pre tabindex="0"><code>此程序通过单重des实现8个字节的加密和解密。
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>利用 C 语言简单实现单重 DES | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>利用 C 语言简单实现单重 DES</h1><div class=post-meta><time>2015-05-22</time>
+[<a href=/categories/C>C</a>](<a href=/tags/des>des</a>,<a href=/tags/C-%E8%AF%AD%E8%A8%80>C 语言</a>)</div><div><h3 id=0x00-简介>0x00 简介</h3><pre tabindex=0><code>此程序通过单重des实现8个字节的加密和解密。
 新建一个工程，这个工程需要3个cpp文件(c文件也可以)和2个头文件。
 cpp文件：main.cpp、des.cpp、status.cpp
 头文件：des.h、status.h
-</code></pre><h3 id="0x01-代码">0x01 代码</h3>
-<ul>
-<li>以下为主函数main.cpp的内容：</li>
-</ul>
-<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+</code></pre><h3 id=0x01-代码>0x01 代码</h3><ul><li>以下为主函数main.cpp的内容：</li></ul><pre tabindex=0><code>#include &lt;stdio.h&gt;
 #include &#34;status.h&#34;
 #include &#34;des.h&#34;
 
@@ -115,10 +38,7 @@ int main()
     
     return 0;
 }
-</code></pre><ul>
-<li>以下为des.cpp的内容：</li>
-</ul>
-<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+</code></pre><ul><li>以下为des.cpp的内容：</li></ul><pre tabindex=0><code>#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 #include &#34;status.h&#34;
 #include &#34;des.h&#34;
@@ -226,10 +146,7 @@ void MovKey(bool *LR,int len,int loop)
     memcpy(LR,LR+loop,len-loop);
     memcpy(LR+len-loop,Temp,loop);
 }
-</code></pre><ul>
-<li>以下为status.cpp中的内容：</li>
-</ul>
-<pre tabindex="0"><code>#include &#34;status.h&#34;
+</code></pre><ul><li>以下为status.cpp中的内容：</li></ul><pre tabindex=0><code>#include &#34;status.h&#34;
 
 int i;
 bool P[64],K[64];
@@ -362,10 +279,7 @@ const char S_Box[8][4][16]={
 		{2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11}
 	}
 };
-</code></pre><ul>
-<li>以下为des.h的内容：</li>
-</ul>
-<pre tabindex="0"><code>//函数的声明
+</code></pre><ul><li>以下为des.h的内容：</li></ul><pre tabindex=0><code>//函数的声明
 
 void ByteToBit(const char *In,bool *Out,int bits);//将字节转换为位
 void BitToByte(bool *In,char *Out,int bits);//将位转换为字节
@@ -376,10 +290,7 @@ void Des(char *m,char ch);//DES
 void XOR(bool *R,bool *k,int len);//异或
 void S_Box_f(bool *B,bool *C);//在S盒置换
 void f(bool *Ri,bool *k);//f函数
-</code></pre><ul>
-<li>以下为status.h的内容：</li>
-</ul>
-<pre tabindex="0"><code>//变量的声明
+</code></pre><ul><li>以下为status.h的内容：</li></ul><pre tabindex=0><code>//变量的声明
 
 extern int i;
 extern bool P[64],K[64];//存放明文和秘钥
@@ -396,37 +307,12 @@ extern const char PC1_Table[56];
 extern const char PC2_Table[48];
 extern const char LOOP_Table[16];
 extern const char S_Box[8][4][16];
-</code></pre><h3 id="0x02-执行结果">0x02 执行结果</h3>
-<p><img src="/img/post/des.png" alt="单重DES运行结果"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x02-执行结果>0x02 执行结果</h3><p><img src=/img/post/des.png alt=单重DES运行结果></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

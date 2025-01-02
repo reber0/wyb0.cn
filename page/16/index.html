@@ -1,258 +1,258 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/php-object-oriented/>PHP 之面向对象</a></h1><div class=post-meta><time>2016-05-20</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div class=summary-body><p><h3 id=0x00-面向对象>0x00 面向对象</h3><ol><li>面向对象概念<ul><li>面向对象是达到了软件工程的三个目标：重用性、灵活性和扩展性，使其编程的代码更加简洁、更易于维护、并且具有更强的可重用性。</li></ul></li><li>类和对象的关系<ul><li>在面向对象的编程语言中，类是一个对立的程序单位，而对象的抽象就是类。类描述了一组有相同特性(属性)和相同行为(方法)的对象。开发时要先抽象类再用该类去创建对象。而我们的程序中直接使用的是对象而不是类。</li></ul></li><li>什么是类<ul><li>在面向对象的编程语言中，类是一个对立的程序单位，是具有相同属性和服务的一组对象的集合。它为属于该类的所有对象提供了同意的抽象描述，其内部包括成员属性和服务的方法两个部分。</li></ul></li><li>什么是对象<ul><li>在客观世界里，所有的事物都是由对象和对象之间的联系组成的。对象是系统中用来描述客观事物的一个实体，它是构成系统的一个基本单位，一个对象由一组属性和有权对这些属性进行操作的一组服务的封装体。</li></ul></li></ol><h3 id=0x01-类的声明>0x01 类的声明</h3><ol><li>类名和变量名还有函数名的命名规则类似，都遵循PHP中定义名称的命名规则。</li><li>若类名由多个单词组成，习惯上每个单词的首字母要大写</li><li>类中成员可分为属性和方法</li><li>属性为静态描述，方法为动态描述</li><li>在类中声明成员属性时，变量前面一定要有关键字，如：public、private、static等</li><li>若不需要有特定意义的修饰，则使用var关键字</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>格式：</span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>一些修饰类的关键字</span>] <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>类名</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>类中成员</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>Class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span><span style=color:#a6e22e>成员属性：</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>姓名、性别、年龄、身高、体重、电话、住址等</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>成员方法：</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>说话、学习、走路、吃饭、开车、使用手机等</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>例子：</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $age;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $sex;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>say</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;人在说话&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;人在走路&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x02-实例化对象>0x02 实例化对象</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>格式：</span>
+</span></span><span style=display:flex><span>$变量名 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>类名称</span>([<span style=color:#a6e22e>参数列表</span>]);
+</span></span><span style=display:flex><span>$变量名 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>类名称</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>例子：</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Phone</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// ...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// ...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>    $person1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    $person2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    $person3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>;
+</span></span><span style=display:flex><span>    $phone1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Phone</span>();
+</span></span><span style=display:flex><span>    $phton2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Phone</span>();
+</span></span><span style=display:flex><span>    $phton3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Phone</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x03-对象中成员的访问>0x03 对象中成员的访问</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    *声明一个人类Person，其中包含三个成员属性和两个成员方法
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span>
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>    	<span style=color:#66d9ef>var</span> $name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $age;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $sex;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>say</span>() {
+</span></span><span style=display:flex><span>        	<span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;我的名字：&#34;</span><span style=color:#f92672>.</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;,性别：&#34;</span><span style=color:#f92672>.</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sex</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;，年龄：&#34;</span><span style=color:#f92672>.</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>age</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;。&lt;br /&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        	<span style=color:#66d9ef>echo</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;在走路&lt;br /&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $xiaoming <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    $wyb <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;小明&#34;</span>;
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sex</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;男&#34;</span>;
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>16</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;wyb&#34;</span>;
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sex</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;男&#34;</span>;
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>18</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>say</span>();
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>run</span>();
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x04-构造方法和析构方法>0x04 构造方法和析构方法</h3><ul><li>构造方法和析构方法是对象中两个特殊的方法</li><li>构造方法是对象创建完成后第一个被对象自动调用的方法</li><li>析构方法是对象在销毁之前最后一个被对象自动调用的方法</li><li>通常用构造方法完成一些对象的初始化工作，用析构方法完成一些对象在销毁前的清理工作</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>_</span> <span style=color:#a6e22e>_construct</span>([<span style=color:#a6e22e>参数列表</span>]) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//方法体，通常用来对成员属性进行初始化赋值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>_</span> <span style=color:#a6e22e>_destruct</span>([<span style=color:#a6e22e>参数列表</span>]) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//方法体，通常用来完成一些在对象销毁前的清理工作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/php-array/>PHP 之数组</a></h1><div class=post-meta><time>2016-05-18</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div class=summary-body><p><h3 id=0x00-分类>0x00 分类</h3><ol><li>索引数组
+索引值从0开始，依次递增</li><li>关联数组
+以字符串为索引，键和值对是无序组合，每个键都是唯一的</li></ol><h3 id=0x01-数组的定义>0x01 数组的定义</h3><p>两种方法：</p><ol><li>直接为数组元素赋值即可声明数组</li><li>使用array()函数声明数组</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 1.直接为数组元素赋值即可声明数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $contact_index[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>        $contact_index[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;高某&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_index[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;A公司&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_index[<span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;北京市&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_index[] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;gao@a.com&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($contact_index);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;ID&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;2&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;姓名&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;峰某&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;公司&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;B公司&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;邮箱&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;feng@b.com&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($contact_key);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 2.使用array()函数声明数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $contact_key_array <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;ID&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;姓名&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#34;峰某&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;公司&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#34;B公司&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;邮箱&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#34;feng@b.com&#34;</span>;
+</span></span><span style=display:flex><span>        );
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($contact_key_array);
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x02-数组的遍历>0x02 数组的遍历</h3><ol><li>for语句遍历数组</li><li>foreach语句遍历数组</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// for语句遍历索引数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $cars<span style=color:#f92672>=</span><span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Volvo&#34;</span>,<span style=color:#e6db74>&#34;BMW&#34;</span>,<span style=color:#e6db74>&#34;SAAB&#34;</span>);
+</span></span><span style=display:flex><span>        $arrlength<span style=color:#f92672>=</span><span style=color:#a6e22e>count</span>($cars);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span>($x<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; $x <span style=color:#f92672>&lt;</span> $arrlength; $x<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> $cars[$x];
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// foreach语句遍历关联数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $age<span style=color:#f92672>=</span><span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Bill&#34;</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#34;35&#34;</span>, <span style=color:#e6db74>&#34;Steve&#34;</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#34;37&#34;</span>, <span style=color:#e6db74>&#34;Peter&#34;</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#34;43&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>foreach</span>($age <span style=color:#66d9ef>as</span> $x <span style=color:#f92672>=&gt;</span> $x_value) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;Key=&#34;</span> <span style=color:#f92672>.</span> $x <span style=color:#f92672>.</span> <span style=color:#e6db74>&#34;, Value=&#34;</span> <span style=color:#f92672>.</span> $x_value;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x03-预定义数组>0x03 预定义数组</h3><ol><li>它就是一个特殊数组，操作方式没有区别</li><li>不用声明它们，每个PHP脚本中默认存在</li><li>它们在全局范围内自动生效<table><thead><tr><th>预定义数组</th><th style=text-align:left>说明</th></tr></thead><tbody><tr><td>$_SERVER</td><td style=text-align:left>变量由Web服务器设定或者直接与当前脚本的执行环境相关联</td></tr><tr><td>$_ENV</td><td style=text-align:left>执行环境提交至脚本的变量</td></tr><tr><td>$_GET</td><td style=text-align:left>经由URL请求提交至脚本的变量</td></tr><tr><td>$_POST</td><td style=text-align:left>经由HTTP POST方法提交至脚本的变量</td></tr><tr><td>$_REQUEST</td><td style=text-align:left>经由GET，POST，COOKIE机制提交至脚本的变量，该数组不值得信任</td></tr><tr><td>$_FILES</td><td style=text-align:left>经由HTTP POST文件上传而提交至脚本的变量</td></tr><tr><td>$_COOKIE</td><td style=text-align:left>经由HTTP Cookies方法提交至脚本的变量</td></tr><tr><td>$_SESSION</td><td style=text-align:left>当前注册给脚本会话的变量</td></tr><tr><td>$GLOBALS</td><td style=text-align:left>包含一个引用指向每个当前脚本的全局范围内的有效的变量。该数组的键名为全局变量的名称</td></tr></tbody></table></li></ol><h3 id=0x04-合并数组>0x04 合并数组</h3><ul><li><p>array_merge()函数将数组合并到一起，返回一个联合的数组。</p><a href=https://wyb0.com/posts/2016/php-array/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/php-basis/>PHP 之基础</a></h1><div class=post-meta><time>2016-05-15</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div class=summary-body><p><h3 id=0x00-php的作用>0x00 PHP的作用</h3><pre tabindex=0><code>1. 收集表单数据
+2. 生成动态网页
+3. 字符串处理
+4. 动态输出图片
+5. 处理服务器端文件系统
+6. 编写数据库支持的网页
+7. 会话跟踪控制
+8. 处理XML文件
+9. 支持大量的网络协议
+10. 服务器端的其他相关操作
+</code></pre><h3 id=0x01-php代码嵌入位置>0x01 PHP代码嵌入位置</h3><p>可以将PHP语言嵌入到扩展名为.php的HTML文件中的任何位置，只要在文件中使用<code>"&lt;?php"</code>起始符和终止符<code>"?>"</code>就会开启PHP模式，在PHP模式中写入PHP语句即可将PHP语言嵌入到HTML文件中。</p><a href=https://wyb0.com/posts/2016/php-basis/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/theharvester-blasting-email/>使用 theHarvester 得到邮箱</a></h1><div class=post-meta><time>2016-05-12</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-软件>0x00 软件</h3><pre tabindex=0><code>使用theHarvester搜集邮箱
+使用dnsenum得到邮箱服务器域名
+使用nmap查看端口开启情况
+使用Hydra进行弱口令猜解
+</code></pre><h3 id=0x01-设置shadowsocks为全局模式>0x01 设置Shadowsocks为全局模式:</h3><p><img src=/img/post/SS.png alt=设置SS为全局代理></p><a href=https://wyb0.com/posts/2016/theharvester-blasting-email/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/nmap-mind-mapping/>Nmap思维导图</a></h1><div class=post-meta><time>2016-05-10</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/mindmap>mindmap</a>,<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=nmap思维导图如下>nmap思维导图如下：</h3><p><img src=/img/post/nmap.png alt=nmap思维导图></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/>通过 gh-pages 发布博客</a></h1><div class=post-meta><time>2016-05-09</time>
+[<a href=/categories/Git>Git</a>](<a href=/tags/git>git</a>)</div><div class=summary-body><p><p>环境：Ubuntu 14.4</p><h3 id=0x00-添加密钥>0x00 添加密钥</h3><pre tabindex=0><code>➜ ssh-keygen -t rsa -b 2048 -C &#34;123456@qq.com&#34; -f id_rsa_github # 生成密钥
+➜ cd ~/.ssh/
+➜ cat id_rsa_github.pub # 将公钥添加到 github
 
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
+➜ git config --global user.name &#34;reber&#34; # 配置本地用户
+➜ git config --global user.email &#34;123456@qq.com&#34; # 配置本地邮箱
 
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/php-object-oriented/">PHP 之面向对象</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-20</time>
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
+➜ ssh -T git@github.com # 验证密钥是否添加成功
+</code></pre><h3 id=0x01-gh-pages>0x01 gh-pages</h3><p>Github 创建项目仓库后会产生一个 main 分支，只需要再添加 gh-pages 分支就可以创建静态页面了</p><a href=https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/>Ubuntu 下安装 sublime text 3</a></h1><div class=post-meta><time>2016-05-08</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/software>software</a>)</div><div class=summary-body><p><p>环境：ubuntu14.4</p><h3 id=0x00-安装>0x00 安装</h3><ol><li><p>添加Sublime Text 3的仓库<br>sudo add-apt-repository ppa:webupd8team/sublime-text-3</p></li><li><p>更新软件库<br>sudo apt-get update</p></li><li><p>安装Sublime Text 3<br>sudo apt-get install sublime-text-installer</p></li></ol><h3 id=0x01-解决不能输入中文的问题>0x01 解决不能输入中文的问题</h3><ol><li>新建sublime_imfix.c(位于～目录)，写入如下内容</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;gtk/gtkimcontext.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>gtk_im_context_set_client_window</span> (GtkIMContext <span style=color:#f92672>*</span>context,GdkWindow  <span style=color:#f92672>*</span>window)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>GtkIMContextClass <span style=color:#f92672>*</span>klass;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>g_return_if_fail</span> (<span style=color:#a6e22e>GTK_IS_IM_CONTEXT</span> (context));
+</span></span><span style=display:flex><span>klass <span style=color:#f92672>=</span> <span style=color:#a6e22e>GTK_IM_CONTEXT_GET_CLASS</span> (context);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (klass<span style=color:#f92672>-&gt;</span>set_client_window)
+</span></span><span style=display:flex><span>    klass<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>set_client_window</span> (context, window);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>g_object_set_data</span>(<span style=color:#a6e22e>G_OBJECT</span>(context),<span style=color:#e6db74>&#34;window&#34;</span>,window);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>GDK_IS_WINDOW</span> (window))
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> width <span style=color:#f92672>=</span> <span style=color:#a6e22e>gdk_window_get_width</span>(window);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> height <span style=color:#f92672>=</span> <span style=color:#a6e22e>gdk_window_get_height</span>(window);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>(width <span style=color:#f92672>!=</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>&amp;&amp;</span> height <span style=color:#f92672>!=</span><span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>gtk_im_context_focus_in</span>(context);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><ol start=2><li>将上一步的代码编译成共享库libsublime-imfix.so</li></ol><pre tabindex=0><code>cd ~  
+sudo apt-get install gtk+-2.0  
+gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
+</code></pre><ol start=3><li><p>将libsublime-imfix.so拷贝到sublime_text所在文件夹<br><code>sudo mv libsublime-imfix.so /opt/sublime_text/</code></p><a href=https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ubuntu-build-lamp/>Ubuntu 搭建 LAMP</a></h1><div class=post-meta><time>2016-05-07</time>
+[<a href=/categories/Linux>Linux</a>,<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div class=summary-body><p><h3 id=0x00-环境>0x00 环境</h3><p>我是在虚拟机中安装14.04.4版的Ubuntu <a href=http://mirrors.163.com/ubuntu-releases/14.04.4/ubuntu-14.04.4-desktop-amd64.iso>下载Ubuntu14.04.4</a></p><h3 id=0x01-配源或选择最快的更新服务器>0x01 配源或选择最快的更新服务器</h3><ul><li><p>选择最快的更新服务器:<br>System Settings &ndash;> Software & Updates &ndash;> Download from:other &ndash;> Select Best Server &ndash;> Choose Serve &ndash;> Close</p><a href=https://wyb0.com/posts/2016/ubuntu-build-lamp/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/git-usage/>Git 的用法</a></h1><div class=post-meta><time>2016-05-05</time>
+[<a href=/categories/Git>Git</a>](<a href=/tags/git>git</a>)</div><div class=summary-body><p><h3 id=0x00-仓库>0x00 仓库</h3><ul><li>创建仓库<ul><li>git init</li></ul></li><li>克隆<ul><li>git clone <a href=mailto:git@github.com>git@github.com</a>:reber0/wyb0.com.git</li></ul></li><li>添加远程仓库连接<ul><li>git remote add origin <a href=mailto:git@github.com>git@github.com</a>:reber/reber.com.git</li></ul></li><li>删除远程仓库信息<ul><li>git remote rm origin</li></ul></li></ul><h3 id=0x01-添加-ssh-key>0x01 添加 SSH key</h3><p>生成 key</p><pre tabindex=0><code>➜ ssh-keygen -t rsa -b 2048 -f id_rsa_github -C &#34;123456@qq.com&#34;
+</code></pre><p>将 ~/.ssh/ 下生成的 id_rsa_github.pub 的内容添加到 github</p><a href=https://wyb0.com/posts/2016/git-usage/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-text-processing-software-awk/>Linux 之文本处理软件 awk</a></h1><div class=post-meta><time>2016-04-20</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>,<a href=/tags/software>software</a>)</div><div class=summary-body><p><p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &ldquo;{ }&rdquo; 中的语句。</p><h3 id=0x00-awk>0x00 awk</h3><ul><li>若有一个需要重新格式化的字典test.txt(用户名、密码、地址)：</li></ul><pre tabindex=0><code>xiaosan sadasdw jiaozuo
+234wer  asdfasd asdas
+1111    aaaa    cccc
+2222    aaaa    degd
+1111    aaaa    cccc
+3333    aaaa    dfger
+21asd   sdfsd   sadasd
+dwqx    asds    sasdfcv
+</code></pre><ul><li>要求：</li></ul><pre tabindex=0><code>1.里面有重复数据，使用命令去重
+2.提取出用户名和密码 每一行前面加上id数字，递增。
+3.只提取出密码作为爆破字典
+4.某些公司都是一个公司前缀+姓名简写，所以为用户名一栏全部改为uv_用户名
+5.提取出密码一列，有些密码爆破成功率高，所以增加一列，标出密码出现次数
+</code></pre><h3 id=0x01-去重>0x01 去重</h3><pre tabindex=0><code>$ cat test.txt | awk &#39;!a[$1]++&#39;
+$ cat test.txt | uniq #作用和上面命令相同
+xiaosan sadasdw jiaozuo
+234wer  asdfasd asdas
+1111    aaaa    cccc
+2222    aaaa    degd
+3333    aaaa    dfger
+21asd   sdfsd   sadasd
+dwqx    asds    sasdfcv
+</code></pre><h3 id=0x02-去重添加id>0x02 去重、添加id</h3><pre tabindex=0><code>一般字典不需要id、user、pass等标示符，这里只是为了便于观看
 
-  <div class="summary-body">
-    <p>0x00 面向对象 面向对象概念 面向对象是达到了软件工程的三个目标：重用性、灵活性和扩展性，使其编程的代码更加简洁、更易于维护、并<a href="https://wyb0.com/posts/2016/php-object-oriented/"> more...</a></p>
-  </div>
-</article>
+$ cat test.txt | awk &#39;!a[$1]++&#39; | awk -F &#39;\t&#39; &#39;{print &#34;id:&#34;NR&#34;\tuser:&#34;$1&#34;\tpass:&#34;$2&#34;\taddress:&#34;$3}&#39; | column -t  #最后一个命令可以将列对齐
+id:1    user:aosan      pass:sadasdw    address:jiaozuo
+id:2    user:234wer     pass:asdfasd    address:asdas
+id:3    user:1111       pass:aaaa       address:cccc
+id:4    user:2222       pass:aaaa       address:degd
+id:5    user:3333       pass:aaaa       address:dfger
+id:6    user:21asd      pass:sdfsd      address:sadasd
+id:7    user:dwqx       pass:asds       address:sasdfcv
+</code></pre><h3 id=0x03-去重添加id添加公司前缀>0x03 去重、添加id、添加公司前缀</h3><pre tabindex=0><code>$ cat test.txt | awk &#39;!a[$1]++&#39; | awk -F &#39;\t&#39; &#39;{print &#34;id:&#34;NR&#34;\tuser:uv_&#34;$1&#34;\tpass:&#34;$2&#34;\taddress:&#34;$3}&#39;
+id:1    user:uv_aosan   pass:sadasdw    address:jiaozuo
+id:2    user:uv_234wer  pass:asdfasd    address:asdas
+id:3    user:uv_1111    pass:aaaa       address:cccc
+id:4    user:uv_2222    pass:aaaa       address:degd
+id:5    user:uv_3333    pass:aaaa       address:dfger
+id:6    user:uv_21asd   pass:sdfsd      address:sadasd
+id:7    user:uv_dwqx    pass:asds       address:sasdfcv
+</code></pre><h3 id=0x04-去重然后输出密码>0x04 去重然后输出密码</h3><pre tabindex=0><code>$ cat test.txt | awk &#39;!a[$1]++&#39; | awk -F &#39;\t&#39; &#39;{print &#34;pass:&#34;$2}&#39;
+pass:sadasdw
+pass:asdfasd
+pass:aaaa
+pass:aaaa
+pass:aaaa
+pass:sdfsd
+pass:asds
+</code></pre><h3 id=0x05-输出密码得到密码出现次数>0x05 输出密码、得到密码出现次数</h3><pre tabindex=0><code>下面的&#39;a[$1]++&#39;是按第一列来去重的,若有两条数据只有第一列重复则成功，可以用$0按行来去重
+$ cat test.txt | awk &#39;!a[$1]++&#39; | awk -F &#39;\t&#39; &#39;{print $2}&#39; | awk &#39;{a[$1]++} END {for (j in a) print a[j],j}&#39;
+1 sadasdw
+1 sdfsd
+1 asdfasd
+1 asds
+3 aaaa
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/php-array/">PHP 之数组</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-18</time>
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 分类 索引数组 索引值从0开始，依次递增 关联数组 以字符串为索引，键和值对是无序组合，每个键都是唯一的 0x01 数组的定义 两种方法：<a href="https://wyb0.com/posts/2016/php-array/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/php-basis/">PHP 之基础</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-15</time>
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 PHP的作用 1. 收集表单数据 2. 生成动态网页 3. 字符串处理 4. 动态输出图片 5. 处理服务器端文件系统 6. 编写数据库支持的网页 7. 会话跟<a href="https://wyb0.com/posts/2016/php-basis/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/theharvester-blasting-email/">使用 theHarvester 得到邮箱</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-12</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 软件 使用theHarvester搜集邮箱 使用dnsenum得到邮箱服务器域名 使用nmap查看端口开启情况 使用Hydra<a href="https://wyb0.com/posts/2016/theharvester-blasting-email/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/nmap-mind-mapping/">Nmap思维导图</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-10</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/mindmap">mindmap</a>,<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>nmap思维导图如下：</p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/">通过 gh-pages 发布博客</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-09</time>
-    [<a href="/categories/Git">Git</a>](<a href="/tags/git">git</a>)
-</div>
-
-  <div class="summary-body">
-    <p>环境：Ubuntu 14.4 0x00 添加密钥 ➜ ssh-keygen -t rsa -b 2048 -C &#34;123456@qq.com&#34; -f id_rsa_github # 生成密钥 ➜ cd ~/.ssh/ ➜ cat id_rsa_github.pub # 将公钥添加到 github ➜ git config --global user.name &#34;reber&#34; # 配置本地用户 ➜ git config<a href="https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/">Ubuntu 下安装 sublime text 3</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-08</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/software">software</a>)
-</div>
-
-  <div class="summary-body">
-    <p>环境：ubuntu14.4 0x00 安装 添加Sublime Text 3的仓库 sudo add-apt-repository ppa:webupd8team/sublime-text-3 更新软件库 sudo apt-get update 安装Sublime Text 3 sudo apt-get install sublime-text-installer 0x01 解决不<a href="https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/ubuntu-build-lamp/">Ubuntu 搭建 LAMP</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-07</time>
-    [<a href="/categories/Linux">Linux</a>,<a href="/categories/Server">Server</a>](<a href="/tags/server">server</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 环境 我是在虚拟机中安装14.04.4版的Ubuntu 下载Ubuntu14.04.4 0x01 配源或选择最快的更新服务器 选择最快<a href="https://wyb0.com/posts/2016/ubuntu-build-lamp/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/git-usage/">Git 的用法</a></h1>
-  
-<div class="post-meta">
-    <time>2016-05-05</time>
-    [<a href="/categories/Git">Git</a>](<a href="/tags/git">git</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 仓库 创建仓库 git init 克隆 git clone git@github.com:reber0/wyb0.com.git 添加远程仓库连接 git remote add origin git@github.com:reber/reber.com.git 删除远程仓库信息 git remote rm origin 0x01 添加 SSH key 生成 key ➜ ssh-keygen -t rsa -b 2048 -f id_rsa_github -C &#34;123456@qq.com&#34; 将 ~/.ssh/ 下<a href="https://wyb0.com/posts/2016/git-usage/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-text-processing-software-awk/">Linux 之文本处理软件 awk</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-20</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>,<a href="/tags/software">software</a>)
-</div>
-
-  <div class="summary-body">
-    <p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &ldquo;{ }&rdquo; 中的语句。 0x00 awk 若有一个需要重新格式化的字典test.tx<a href="https://wyb0.com/posts/2016/linux-text-processing-software-awk/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/15/">Previous Page</a>
-  
-  16 of 18
-  
-    <a href="/page/17/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+uniq 只能去除挨着的重复数据，所以先sort升序排序，然后uniq -c统计重复，再sort -r降序排序
+cat test.txt | awk &#39;{print $2}&#39; | sed &#39;1d&#39; |sort | uniq -c |sort -r
+</code></pre><h3 id=0x06-其他>0x06 其他：</h3><ul><li><p>对!a[$1]++的解释如下：</p><a href=https://wyb0.com/posts/2016/linux-text-processing-software-awk/>more...</a></p></div></article><div><a href=/page/15/>Previous Page</a>
+16 of 18
+<a href=/page/17/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,258 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2019/seeyon-htmlofficeservlet-getshell/">致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP)</a></h1>
-  
-<div class="post-meta">
-    <time>2019-06-29</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/getshell">getshell</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 影响版本 致远A8-V5协同管理软件 V6.1sp1 致远A8+协同管理软件 V7.0、V7.0sp1、V7.0sp2、V7.0sp3 致远<a href="https://wyb0.com/posts/2019/seeyon-htmlofficeservlet-getshell/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2019/sql-server-from-sql-injection-to-remote-conn-desktop/">从 SQL Server 注入到 远程连接桌面</a></h1>
-  
-<div class="post-meta">
-    <time>2019-06-25</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 目标情况 只有一个登录框 0x01 发现注入 简单看了下登陆框，可以爆破用户名 加单引号后报错，试了试 and 1=1 确实存在注入 0x01 进一步测试 尝试<a href="https://wyb0.com/posts/2019/sql-server-from-sql-injection-to-remote-conn-desktop/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2019/sql-server-from-injection-to-getshell/">从 SQL Server 注入到 getshell</a></h1>
-  
-<div class="post-meta">
-    <time>2019-03-02</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/getshell">getshell</a>,<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 目标情况 一个web站点111.*.*.63，只有一个登陆框，测试了没有注入，没有弱口令 扫描了全端口，没有发现什么有用的<a href="https://wyb0.com/posts/2019/sql-server-from-injection-to-getshell/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2019/injection-tips-of-oracle/">SQL注入 tips(Oracle)</a></h1>
-  
-<div class="post-meta">
-    <time>2019-01-04</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>,<a href="/tags/oracle">oracle</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 判断数据库类型 Oracle有一些自带的表：dual、user_tables id=45 and (select count(*) from user_tables)&gt;0-- id=45 and (select count(*) from dual)&gt;0-- 利用自带的一些函数：<a href="https://wyb0.com/posts/2019/injection-tips-of-oracle/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/oracle-database/">Oracle 数据库简单使用</a></h1>
-  
-<div class="post-meta">
-    <time>2018-12-25</time>
-    [<a href="/categories/Database">Database</a>](<a href="/tags/oracle">oracle</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 关于Oracle 完整的Oracle数据库通常由两部分组成：Oracle数据库和数据库实例。 数据库是一系列物理文件的集合<a href="https://wyb0.com/posts/2018/oracle-database/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/recording-an-sqlserver-sql-injection-of-error-based/">记一次 SQL Server 报错注入</a></h1>
-  
-<div class="post-meta">
-    <time>2018-12-24</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 验证码前端验证 需要测试一个网站，刚开始看到网站时感觉希望不大，因为验证码是需要拖动的，这也就意味着很大可能没办法爆破，<a href="https://wyb0.com/posts/2018/recording-an-sqlserver-sql-injection-of-error-based/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/docker-compose-build-lamp/">使用 docker-compose 构造 LAMP 环境</a></h1>
-  
-<div class="post-meta">
-    <time>2018-12-15</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/docker">docker</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 实现功能 使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存<a href="https://wyb0.com/posts/2018/docker-compose-build-lamp/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/docker-compose/">Docker Compose</a></h1>
-  
-<div class="post-meta">
-    <time>2018-11-19</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/docker">docker</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 关于docker compose 可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，dock<a href="https://wyb0.com/posts/2018/docker-compose/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/responder-and-ntlm-hash/">内网渗透之 Responder 与 Net-NTLM hash</a></h1>
-  
-<div class="post-meta">
-    <time>2018-09-10</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 一些概念 Windows 认证协议 分为：基于 NTLM 的认证和基于 kerberos 的认证 什么是 NTLM Hash？ 早期 IBM 设计的 LM Hash 算法存在弱点，微软在保持向后兼容性<a href="https://wyb0.com/posts/2018/responder-and-ntlm-hash/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/injection-tips-of-sqlserver/">SQL注入 tips(SQL Server)</a></h1>
-  
-<div class="post-meta">
-    <time>2018-09-04</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 基础信息探测 @@VERSION,@@SERVERNAME,@@SERVICENAME; --Microsoft SQL Server 2008 (RTM) - 10.0.1600.22 (X64) --WIN-2008 --MSSQLSERVER USER,CURRENT_USER,SESSION_USER,SYSTEM_USER; --dbo --dbo --dbo --sa USER_NAME(),HOST_NAME(),HOST_ID(),SUSER_NAME(); --dbo --wyb --46530 --sa USER_ID(),USER_SID(); --1 --&lt;01&gt; ORIGINAL_LOGIN(); --sa 0x01 UNION query &amp; error-based 注入 判断存在注入 and 1=1/and 1=2 select * from msg where id=1 and 11=(select case when(1=1) then<a href="https://wyb0.com/posts/2018/injection-tips-of-sqlserver/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/2/">Previous Page</a>
-  
-  3 of 18
-  
-    <a href="/page/4/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2019/seeyon-htmlofficeservlet-getshell/>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP)</a></h1><div class=post-meta><time>2019-06-29</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/getshell>getshell</a>)</div><div class=summary-body><p><h3 id=0x00-影响版本>0x00 影响版本</h3><ul><li>致远A8-V5协同管理软件 V6.1sp1</li><li>致远A8+协同管理软件 V7.0、V7.0sp1、V7.0sp2、V7.0sp3</li><li>致远A8+协同管理软件 V7.1</li></ul><h3 id=0x01-查看接口看是否存在漏洞>0x01 查看接口看是否存在漏洞</h3><p>如果查看 <code>"seeyon/htmlofficeservlet"</code> 接口，出现如下内容则表示存在漏洞
+<img src=/img/post/Xnip2019-06-29_09-43-32.png alt=70></p><a href=https://wyb0.com/posts/2019/seeyon-htmlofficeservlet-getshell/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2019/sql-server-from-sql-injection-to-remote-conn-desktop/>从 SQL Server 注入到 远程连接桌面</a></h1><div class=post-meta><time>2019-06-25</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-目标情况>0x00 目标情况</h3><ul><li>只有一个登录框</li></ul><h3 id=0x01-发现注入>0x01 发现注入</h3><p>简单看了下登陆框，可以爆破用户名</p><p><img src=/img/post/Xnip2019-06-25_09-42-33.png alt=50>
+<img src=/img/post/Xnip2019-06-25_09-43-33.png alt=50></p><p>加单引号后报错，试了试 and 1=1 确实存在注入</p><p><img src=/img/post/Xnip2019-06-25_09-45-03.png alt=60>
+<img src=/img/post/Xnip2019-06-25_09-46-06.png alt=50></p><h3 id=0x01-进一步测试>0x01 进一步测试</h3><p>尝试得到数据版本: <code>admin' and @@version=1--</code>
+<img src=/img/post/Xnip2019-06-25_09-49-45.png alt=60></p><a href=https://wyb0.com/posts/2019/sql-server-from-sql-injection-to-remote-conn-desktop/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2019/sql-server-from-injection-to-getshell/>从 SQL Server 注入到 getshell</a></h1><div class=post-meta><time>2019-03-02</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/getshell>getshell</a>,<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-目标情况>0x00 目标情况</h3><ul><li>一个web站点111.*.*.63，只有一个登陆框，测试了没有注入，没有弱口令</li><li>扫描了全端口，没有发现什么有用的信息</li></ul><h3 id=0x01-发现注入>0x01 发现注入</h3><p>当时是查看网页源代码，有两个可疑接口，一个是初始化密码借口，访问返回空白页面，没有什么用</p><a href=https://wyb0.com/posts/2019/sql-server-from-injection-to-getshell/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2019/injection-tips-of-oracle/>SQL注入 tips(Oracle)</a></h1><div class=post-meta><time>2019-01-04</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>,<a href=/tags/oracle>oracle</a>)</div><div class=summary-body><p><h3 id=0x00-判断数据库类型>0x00 判断数据库类型</h3><ul><li><p>Oracle有一些自带的表：dual、user_tables</p><ul><li><code>id=45 and (select count(*) from user_tables)>0--</code></li><li><code>id=45 and (select count(*) from dual)>0--</code></li></ul></li><li><p>利用自带的一些函数：譬如utl_http.request 这些</p><a href=https://wyb0.com/posts/2019/injection-tips-of-oracle/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/oracle-database/>Oracle 数据库简单使用</a></h1><div class=post-meta><time>2018-12-25</time>
+[<a href=/categories/Database>Database</a>](<a href=/tags/oracle>oracle</a>)</div><div class=summary-body><p><h3 id=0x00-关于oracle>0x00 关于Oracle</h3><ul><li>完整的Oracle数据库通常由两部分组成：Oracle数据库和数据库实例。</li><li>数据库是一系列物理文件的集合（数据文件，控制文件，联机日志，参数文件等）</li><li>Oracle数据库实例则是一组Oracle后台进程/线程以及在服务器分配的共享内存区</li><li>关于部分视图<ul><li><code>DBA/ALL/USER/V_$/GV_$/SESSION/INDEX</code>开头的绝大部分都是视图</li><li>DBA_TABLES意为DBA拥有的或可以访问的所有的关系表。</li><li>ALL_TABLES意为某一用户拥有的或有权限访问的所有的关系表。</li><li>USER_TABLES意为某一用户所拥有的所有的关系表。</li><li>当某一用户本身就为数据库DBA时，DBA_TABLES与ALL_TABLES等价。</li><li><code>DBA_TABLES >= ALL_TABLES >= USER_TABLES</code></li></ul></li></ul><h3 id=0x01-关于实例>0x01 关于实例</h3><ul><li>在启动Oracle数据库服务器时，实际上是在服务器的内存中创建一个Oracle实例（即在服务器内存中分配共享内存并创建相关的后台内存）</li><li>我们访问Oracle都是访问一个实例，通过Oracle数据库实例来访问和控制磁盘中的数据文件</li><li>Oracle实例如果关联了数据库文件，就是可以访问的，如果没有，就会得到实例不可用的错误</li><li>实例名指的是用于响应某个数据库操作的数据库管理系统的名称，它同时也叫SID，连接数据库时就会用到这个SID，如：jdbc:oracle:thin:@localhost:1521:orcl（orcl就为数据库实例名）</li></ul><h3 id=0x02-关于表空间可以理解为mysql中的数据库>0x02 关于表空间(可以理解为mysql中的数据库)</h3><ul><li>Oracle数据库是通过表空间来存储物理表的，一个数据库实例可以有N个表空间，一个表空间下可以有N张表。</li><li>用户和表空间是多对多的关系，但是一般创建用户时会指定一个默认表空间。</li><li>表空间是数据库中最大的逻辑单位，一个表空间可以包含多个数据文件，而一个数据文件只能隶属一个表空间。</li></ul><h3 id=0x03-搭建oracle环境>0x03 搭建Oracle环境</h3><p>使用docker拉取Oracle数据库并且运行</p><a href=https://wyb0.com/posts/2018/oracle-database/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/recording-an-sqlserver-sql-injection-of-error-based/>记一次 SQL Server 报错注入</a></h1><div class=post-meta><time>2018-12-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-验证码前端验证>0x00 验证码前端验证</h3><p>需要测试一个网站，刚开始看到网站时感觉希望不大，因为验证码是需要拖动的，这也就意味着很大可能没办法爆破，另一方面是都用这种验证码了，安全做的能很差劲吗？果然，试了admin、123456之类的都不行
+<img src=/img/post/20181224-200518.png alt=40></p><a href=https://wyb0.com/posts/2018/recording-an-sqlserver-sql-injection-of-error-based/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/docker-compose-build-lamp/>使用 docker-compose 构造 LAMP 环境</a></h1><div class=post-meta><time>2018-12-15</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/docker>docker</a>)</div><div class=summary-body><p><h3 id=0x00-实现功能>0x00 实现功能</h3><p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。</p><a href=https://wyb0.com/posts/2018/docker-compose-build-lamp/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/docker-compose/>Docker Compose</a></h1><div class=post-meta><time>2018-11-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/docker>docker</a>)</div><div class=summary-body><p><h3 id=0x00-关于docker-compose>0x00 关于docker compose</h3><p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。</p><a href=https://wyb0.com/posts/2018/docker-compose/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/responder-and-ntlm-hash/>内网渗透之 Responder 与 Net-NTLM hash</a></h1><div class=post-meta><time>2018-09-10</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><h3 id=0x00-一些概念>0x00 一些概念</h3><ul><li><p>Windows 认证协议</p><p>分为：基于 NTLM 的认证和基于 kerberos 的认证</p></li><li><p>什么是 NTLM Hash？</p><p>早期 IBM 设计的 LM Hash 算法存在弱点，微软在保持向后兼容性的同时提出了自己的挑战响应机制，即 NTLM Hash</p><a href=https://wyb0.com/posts/2018/responder-and-ntlm-hash/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/injection-tips-of-sqlserver/>SQL注入 tips(SQL Server)</a></h1><div class=post-meta><time>2018-09-04</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-基础信息探测>0x00 基础信息探测</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#f92672>@@</span><span style=color:#66d9ef>VERSION</span>,<span style=color:#f92672>@@</span>SERVERNAME,<span style=color:#f92672>@@</span>SERVICENAME;
+</span></span><span style=display:flex><span><span style=color:#75715e>--Microsoft SQL Server 2008 (RTM) - 10.0.1600.22 (X64) 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--WIN-2008
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--MSSQLSERVER
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>USER</span>,<span style=color:#66d9ef>CURRENT_USER</span>,<span style=color:#66d9ef>SESSION_USER</span>,<span style=color:#66d9ef>SYSTEM_USER</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--sa
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>USER_NAME(),HOST_NAME(),HOST_ID(),SUSER_NAME();
+</span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--wyb
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--46530
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--sa
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>USER_ID(),USER_SID();
+</span></span><span style=display:flex><span><span style=color:#75715e>--1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--&lt;01&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>ORIGINAL_LOGIN();
+</span></span><span style=display:flex><span><span style=color:#75715e>--sa
+</span></span></span></code></pre></div><h3 id=0x01-union-query--error-based-注入>0x01 UNION query & error-based 注入</h3><ul><li>判断存在注入</li></ul><pre tabindex=0><code>and 1=1/and 1=2
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> msg <span style=color:#66d9ef>where</span> id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>11</span><span style=color:#f92672>=</span>(<span style=color:#66d9ef>select</span> <span style=color:#66d9ef>case</span> <span style=color:#66d9ef>when</span>(<span style=color:#ae81ff>1</span><span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>) <span style=color:#66d9ef>then</span> <span style=color:#ae81ff>11</span> <span style=color:#66d9ef>else</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>end</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> msg <span style=color:#66d9ef>where</span> id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>11</span><span style=color:#f92672>=</span>(<span style=color:#66d9ef>select</span> <span style=color:#66d9ef>case</span> <span style=color:#66d9ef>when</span>(<span style=color:#ae81ff>1</span><span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>) <span style=color:#66d9ef>then</span> <span style=color:#ae81ff>11</span> <span style=color:#66d9ef>else</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>end</span>);
+</span></span></code></pre></div><ul><li>判断是否为sa权限</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>select</span> name <span style=color:#66d9ef>from</span> msg <span style=color:#66d9ef>where</span> id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>1</span><span style=color:#f92672>=</span><span style=color:#66d9ef>convert</span>(int,(<span style=color:#66d9ef>select</span> is_srvrolemember(<span style=color:#e6db74>&#39;sysadmin&#39;</span>)));
+</span></span></code></pre></div><p><img src=/img/post/20180904-105516.png alt=55></p><a href=https://wyb0.com/posts/2018/injection-tips-of-sqlserver/>more...</a></p></div></article><div><a href=/page/2/>Previous Page</a>
+3 of 18
+<a href=/page/4/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

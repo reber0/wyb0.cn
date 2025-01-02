@@ -1,127 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="使用交换机、路由器等设备,在局域网搭建中小企业网络"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>中小企业网络搭建 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>中小企业网络搭建</h1>
-      
-<div class="post-meta">
-    <time>2015-07-13</time>
-    
-    [<a href="/categories/Other">Other</a>](<a href="/tags/%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87">网络设备</a>)
-</div>
-
-      <div><h3 id="0x00-中小企业需求分析">0x00 中小企业需求分析</h3>
-<ol>
-<li>搭建企业私有局域网络环境，使用交换机、路由器等网络设备完成由局域网到互联网的接入。</li>
-<li>对网络设备能够方便地进行远程管理。</li>
-<li>在局域网中公司部门间进行vlan划分，实现安全管理。</li>
-<li>对三层设备路由技术这方面采取RIPV2协议或OSPF协议。</li>
-<li>配置访问控制列表（ACL）以对网络数据进行有效的分类和控制，限制终端之间的相互访问。</li>
-<li>内网通过配置PAT技术实现与外网之间的通信。</li>
-</ol>
-<h3 id="0x01-所需设备">0x01 所需设备</h3>
-<p><img src="/img/post/enterprise_network_the_required_equipment.png" alt="中小企业所需设备"></p>
-<h3 id="0x02-网络规划">0x02 网络规划</h3>
-<ol>
-<li>在三层交换机设置ACL，控制个vlan间的通信</li>
-<li>在防火墙(路由器)上设置NAT转换</li>
-<li>路由协议采用OSPF</li>
-<li>内网访问控制
-<ul>
-<li>内网中只有市场部可以访问外网</li>
-<li>市场部可以访问市场部、打印机</li>
-<li>设计部可以访问设计部、财务部、打印机</li>
-<li>外网只有202.202.2.0/24能访问内网</li>
-</ul>
-</li>
-<li>IP规划如下：
-<ul>
-<li>打印机：192.168.1.0/24</li>
-<li>市场部：192.168.2.0/24</li>
-<li>设计部：192.168.3.0/24</li>
-<li>财务部：192.168.4.0/24</li>
-<li>防火墙和三层交换机所在网段：192.168.5.0/24</li>
-<li>管理ip所在网段：192.168.100.0/24</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x03-网络设备配置命令代码">0x03 网络设备配置命令代码</h3>
-<ul>
-<li>Firewall配置</li>
-</ul>
-<pre tabindex="0"><code>Router&gt;enable 
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="使用交换机、路由器等设备,在局域网搭建中小企业网络"><meta name=author content="Reber"><title>中小企业网络搭建 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>中小企业网络搭建</h1><div class=post-meta><time>2015-07-13</time>
+[<a href=/categories/Other>Other</a>](<a href=/tags/%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87>网络设备</a>)</div><div><h3 id=0x00-中小企业需求分析>0x00 中小企业需求分析</h3><ol><li>搭建企业私有局域网络环境，使用交换机、路由器等网络设备完成由局域网到互联网的接入。</li><li>对网络设备能够方便地进行远程管理。</li><li>在局域网中公司部门间进行vlan划分，实现安全管理。</li><li>对三层设备路由技术这方面采取RIPV2协议或OSPF协议。</li><li>配置访问控制列表（ACL）以对网络数据进行有效的分类和控制，限制终端之间的相互访问。</li><li>内网通过配置PAT技术实现与外网之间的通信。</li></ol><h3 id=0x01-所需设备>0x01 所需设备</h3><p><img src=/img/post/enterprise_network_the_required_equipment.png alt=中小企业所需设备></p><h3 id=0x02-网络规划>0x02 网络规划</h3><ol><li>在三层交换机设置ACL，控制个vlan间的通信</li><li>在防火墙(路由器)上设置NAT转换</li><li>路由协议采用OSPF</li><li>内网访问控制<ul><li>内网中只有市场部可以访问外网</li><li>市场部可以访问市场部、打印机</li><li>设计部可以访问设计部、财务部、打印机</li><li>外网只有202.202.2.0/24能访问内网</li></ul></li><li>IP规划如下：<ul><li>打印机：192.168.1.0/24</li><li>市场部：192.168.2.0/24</li><li>设计部：192.168.3.0/24</li><li>财务部：192.168.4.0/24</li><li>防火墙和三层交换机所在网段：192.168.5.0/24</li><li>管理ip所在网段：192.168.100.0/24</li></ul></li></ol><h3 id=0x03-网络设备配置命令代码>0x03 网络设备配置命令代码</h3><ul><li>Firewall配置</li></ul><pre tabindex=0><code>Router&gt;enable 
 Router#conf t
 Router(config)#no ip domain-lookup  //禁止域名解析
 Router(config)#hostname Firewall  //更改设备名
@@ -159,10 +48,7 @@ Firewall#write
 Building configuration...
 [OK]
 Firewall#
-</code></pre><ul>
-<li>R1的配置</li>
-</ul>
-<pre tabindex="0"><code>Router&gt;enable 
+</code></pre><ul><li>R1的配置</li></ul><pre tabindex=0><code>Router&gt;enable 
 Router#conf t
 Router(config)#no ip domain-lookup 
 Router(config)#hostname R1
@@ -192,10 +78,7 @@ R1#write
 Building configuration...
 [OK]
 R1#
-</code></pre><ul>
-<li>三层交换机配置</li>
-</ul>
-<pre tabindex="0"><code>Switch&gt;enable 
+</code></pre><ul><li>三层交换机配置</li></ul><pre tabindex=0><code>Switch&gt;enable 
 Switch#conf t
 Switch(config)#no ip domain-lookup
 Switch(config)#hostname MS1
@@ -283,10 +166,7 @@ MS1#write
 Building configuration...
 [OK]
 MS1#
-</code></pre><ul>
-<li>S1的配置(S2、S3和S1一样)</li>
-</ul>
-<pre tabindex="0"><code>Switch&gt;enable 
+</code></pre><ul><li>S1的配置(S2、S3和S1一样)</li></ul><pre tabindex=0><code>Switch&gt;enable 
 Switch#conf t
 Switch(config)#no ip domain-lookup 
 Switch(config)#hostname S1
@@ -311,10 +191,7 @@ S1#write
 Building configuration...
 [OK]
 S1#
-</code></pre><ul>
-<li>S4的配置(S5、S6、S7和S4一样)</li>
-</ul>
-<pre tabindex="0"><code>Switch&gt;enable 
+</code></pre><ul><li>S4的配置(S5、S6、S7和S4一样)</li></ul><pre tabindex=0><code>Switch&gt;enable 
 Switch#conf t
 Switch(config)#no ip domain-lookup 
 Switch(config)#hostname S4
@@ -360,72 +237,21 @@ S4#write
 Building configuration...
 [OK]
 S4#
-</code></pre><h3 id="0x04-测试及结果截图">0x04 测试及结果截图</h3>
-<ul>
-<li>
-<p>开始时外网和内网均能相互通信
-<img src="/img/post/enterprise_network_init1.png" alt="开始时内外网能相互ping通1">
-<img src="/img/post/enterprise_network_init2.png" alt="开始时内外网能相互ping通2"></p>
-</li>
-<li>
-<p>外网的2.0网段和3.0网段ping内网网段，只有2.0只能ping通内网的网段，且只能ping通192.168.2.0
-<img src="/img/post/enterprise_network_test1.png" alt="测试1"></p>
-</li>
-<li>
-<p>内网网段ping外网的202.202.2.1，只有2.0能ping通外网
-<img src="/img/post/enterprise_network_test2.png" alt="测试2"></p>
-</li>
-<li>
-<p>内网2.0网段ping内网网段，只能访问1.0
-<img src="/img/post/enterprise_network_test3.png" alt="测试3"></p>
-</li>
-<li>
-<p>内网3.0网段ping内网网段，能ping通1.0和4.0
-<img src="/img/post/enterprise_network_test4.png" alt="测试4"></p>
-</li>
-<li>
-<p>内网4.0网段ping内网网段，能ping通1.0和3.0
-<img src="/img/post/enterprise_network_test5.png" alt="测试5"></p>
-</li>
-<li>
-<p>远程配置设备
-<img src="/img/post/enterprise_network_test6.png" alt="测试6"></p>
-</li>
-<li>
-<p>查看NAT转换
-<img src="/img/post/enterprise_network_test7.png" alt="测试7"></p>
-</li>
-</ul>
-<p>以上</p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x04-测试及结果截图>0x04 测试及结果截图</h3><ul><li><p>开始时外网和内网均能相互通信
+<img src=/img/post/enterprise_network_init1.png alt=开始时内外网能相互ping通1>
+<img src=/img/post/enterprise_network_init2.png alt=开始时内外网能相互ping通2></p></li><li><p>外网的2.0网段和3.0网段ping内网网段，只有2.0只能ping通内网的网段，且只能ping通192.168.2.0
+<img src=/img/post/enterprise_network_test1.png alt=测试1></p></li><li><p>内网网段ping外网的202.202.2.1，只有2.0能ping通外网
+<img src=/img/post/enterprise_network_test2.png alt=测试2></p></li><li><p>内网2.0网段ping内网网段，只能访问1.0
+<img src=/img/post/enterprise_network_test3.png alt=测试3></p></li><li><p>内网3.0网段ping内网网段，能ping通1.0和4.0
+<img src=/img/post/enterprise_network_test4.png alt=测试4></p></li><li><p>内网4.0网段ping内网网段，能ping通1.0和3.0
+<img src=/img/post/enterprise_network_test5.png alt=测试5></p></li><li><p>远程配置设备
+<img src=/img/post/enterprise_network_test6.png alt=测试6></p></li><li><p>查看NAT转换
+<img src=/img/post/enterprise_network_test7.png alt=测试7></p></li></ul><p>以上</p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

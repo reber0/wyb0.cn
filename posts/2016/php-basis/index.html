@@ -1,89 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 之基础 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 之基础</h1>
-      
-<div class="post-meta">
-    <time>2016-05-15</time>
-    
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-      <div><h3 id="0x00-php的作用">0x00 PHP的作用</h3>
-<pre tabindex="0"><code>1. 收集表单数据
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 之基础 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 之基础</h1><div class=post-meta><time>2016-05-15</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div><h3 id=0x00-php的作用>0x00 PHP的作用</h3><pre tabindex=0><code>1. 收集表单数据
 2. 生成动态网页
 3. 字符串处理
 4. 动态输出图片
@@ -93,28 +20,18 @@
 8. 处理XML文件
 9. 支持大量的网络协议
 10. 服务器端的其他相关操作
-</code></pre><h3 id="0x01-php代码嵌入位置">0x01 PHP代码嵌入位置</h3>
-<p>可以将PHP语言嵌入到扩展名为.php的HTML文件中的任何位置，只要在文件中使用<code>&quot;&lt;?php&quot;</code>起始符和终止符<code>&quot;?&gt;&quot;</code>就会开启PHP模式，在PHP模式中写入PHP语句即可将PHP语言嵌入到HTML文件中。</p>
-<h3 id="0x02-解读开始和结束标记">0x02 解读开始和结束标记</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ae81ff">1.</span> <span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">2. &lt;script language=&#34;php&#34;&gt;&lt;/script&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">3. &lt;? ?&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">4. &lt;% %&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">//前两种总是可用，第3、4种要在php.ini中开启short_open_tag和asp_tags
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">//双引号中的变量可以被解析，单引号中的变量不能被解析
-</span></span></span></code></pre></div><h3 id="0x03-指令分割符及空白符及注释符">0x03 指令分割符及空白符及注释符</h3>
-<ul>
-<li>一段代码中除了最后一行其他每句都要用分号结束（推荐每句都用分号结束）</li>
-<li>空白符(空格、tab制表符、换行)会被php引擎忽略</li>
-<li>注释符</li>
-</ul>
-<pre tabindex="0"><code>1. 若觉得代码不合适则可以注释，但不要急于删除
+</code></pre><h3 id=0x01-php代码嵌入位置>0x01 PHP代码嵌入位置</h3><p>可以将PHP语言嵌入到扩展名为.php的HTML文件中的任何位置，只要在文件中使用<code>"&lt;?php"</code>起始符和终止符<code>"?>"</code>就会开启PHP模式，在PHP模式中写入PHP语句即可将PHP语言嵌入到HTML文件中。</p><h3 id=0x02-解读开始和结束标记>0x02 解读开始和结束标记</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#ae81ff>1.</span> <span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span> <span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>2. &lt;script language=&#34;php&#34;&gt;&lt;/script&gt;
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>3. &lt;? ?&gt;
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>4. &lt;% %&gt;
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>//前两种总是可用，第3、4种要在php.ini中开启short_open_tag和asp_tags
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>//双引号中的变量可以被解析，单引号中的变量不能被解析
+</span></span></span></code></pre></div><h3 id=0x03-指令分割符及空白符及注释符>0x03 指令分割符及空白符及注释符</h3><ul><li>一段代码中除了最后一行其他每句都要用分号结束（推荐每句都用分号结束）</li><li>空白符(空格、tab制表符、换行)会被php引擎忽略</li><li>注释符</li></ul><pre tabindex=0><code>1. 若觉得代码不合适则可以注释，但不要急于删除
 2. 注释的目的在于说明程序
 3. 注释对调试和编写程序可以起到很好的帮助作用
 4. PHP注释符有：&#34;/**/&#34;、&#34;//&#34;、&#34;#&#34;
-</code></pre><h3 id="0x04-运算符">0x04 运算符</h3>
-<pre tabindex="0"><code>* 算数运算符：&#34;+&#34;、&#34;-&#34;、&#34;*&#34;、&#34;/&#34;、&#34;%&#34;
+</code></pre><h3 id=0x04-运算符>0x04 运算符</h3><pre tabindex=0><code>* 算数运算符：&#34;+&#34;、&#34;-&#34;、&#34;*&#34;、&#34;/&#34;、&#34;%&#34;
 * 赋值运算符：&#34;=&#34;、&#34;+=&#34;、&#34;-=&#34;、&#34;*=&#34;、&#34;/=&#34;、&#34;%=&#34;
 * 字符串运算符：&#34;.&#34;、&#34;.=&#34;
 * 递增/递减运算符：&#34;++$a&#34;、&#34;$a++(先赋值再++)&#34;、&#34;--$a&#34;、&#34;$a--&#34;
@@ -142,80 +59,19 @@
     * !=   不等于则返回true
     * &lt;&gt;   不等于则返回true
     * !==  完全不同则返回true
-</code></pre><h3 id="0x05-数据类型">0x05 数据类型</h3>
-<ul>
-<li>
-<p>变量类型</p>
-<ol>
-<li>布尔型(boolean,true,false)</li>
-<li>整型(integer)</li>
-<li>浮点型(float和double)</li>
-<li>字符串(string)</li>
-<li>数组(array)</li>
-<li>对象(object)</li>
-<li>资源类型(resource)</li>
-<li>NULL类型</li>
-<li>伪类型(mixed,number,callback)</li>
-</ol>
-</li>
-<li>
-<p>布尔类型<br>
-以下会被认为是FALSE，其他所有值都被认为是TRUE(包括任何资源)</p>
-<ol>
-<li>布尔值FALSE</li>
-<li>整型值0(零)为假，-1和其他非零值都是TRUE</li>
-<li>浮点型0.0</li>
-<li>空白字符串和字符串“0”</li>
-<li>没有成员变量的数组</li>
-<li>没有单元的对象(仅适用于PHP4)</li>
-</ol>
-</li>
-<li>
-<p>NULL类型</p>
-<ol>
-<li>NULL不区分大小写</li>
-<li>NULL类型唯一可能的值就是NULL</li>
-<li>NULL不代表空格、不代表零、不代表空字符串，而是表示一个变量的值为空</li>
-<li>将变量直接赋值为NULL则为NULL</li>
-<li>声明的变量尚未被赋值则为NULL</li>
-<li>被unset()函数销毁的变量为NULL</li>
-</ol>
-</li>
-</ul>
-<h3 id="0x06-类型转换">0x06 类型转换</h3>
-<ol>
-<li>自动类型转换
-<ol>
-<li>有布尔值参与运算，则TRUE转换为整型1,FALSE为0,然后再运算</li>
-<li>有NULL值参与的运算，NULL值转换为整型0,再参与运算</li>
-<li>整型和float型参与运算则先把interger型转换为float型再运算</li>
-<li>字符串和数字型数据参与运算时，字符串先转换为数字再参与运算</li>
-</ol>
-</li>
-<li>强制类型转换
-<ol>
-<li>变量前添加(int)、(float)、(string)、(bool)等</li>
-<li>用函数intval()、floatval()、strval()</li>
-<li>用函数settype()</li>
-</ol>
-</li>
-</ol>
-<h3 id="0x07-变量引用">0x07 变量引用</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $a <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>;
-</span></span><span style="display:flex;"><span>    $b <span style="color:#f92672">=</span> $a;
-</span></span><span style="display:flex;"><span>    $a <span style="color:#f92672">=</span> <span style="color:#ae81ff">456</span>;   <span style="color:#75715e">//此时$a为456,$b为123
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $c <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>$b;
-</span></span><span style="display:flex;"><span>    $b <span style="color:#f92672">=</span> <span style="color:#ae81ff">111</span>;  <span style="color:#75715e">//此时$b和$c都是111
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x08-可变变量">0x08 可变变量</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello&#39;</span>;
-</span></span><span style="display:flex;"><span>    $$a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;world&#39;</span>;  <span style="color:#75715e">//此时$a的值hello就相当于$$a的键
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$a</span><span style="color:#e6db74"> </span><span style="color:#e6db74">$hello</span><span style="color:#e6db74">&#34;</span>; <span style="color:#75715e">//输出hello world
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x09-命名规则">0x09 命名规则</h3>
-<pre tabindex="0"><code>//类中的命名规则
+</code></pre><h3 id=0x05-数据类型>0x05 数据类型</h3><ul><li><p>变量类型</p><ol><li>布尔型(boolean,true,false)</li><li>整型(integer)</li><li>浮点型(float和double)</li><li>字符串(string)</li><li>数组(array)</li><li>对象(object)</li><li>资源类型(resource)</li><li>NULL类型</li><li>伪类型(mixed,number,callback)</li></ol></li><li><p>布尔类型<br>以下会被认为是FALSE，其他所有值都被认为是TRUE(包括任何资源)</p><ol><li>布尔值FALSE</li><li>整型值0(零)为假，-1和其他非零值都是TRUE</li><li>浮点型0.0</li><li>空白字符串和字符串“0”</li><li>没有成员变量的数组</li><li>没有单元的对象(仅适用于PHP4)</li></ol></li><li><p>NULL类型</p><ol><li>NULL不区分大小写</li><li>NULL类型唯一可能的值就是NULL</li><li>NULL不代表空格、不代表零、不代表空字符串，而是表示一个变量的值为空</li><li>将变量直接赋值为NULL则为NULL</li><li>声明的变量尚未被赋值则为NULL</li><li>被unset()函数销毁的变量为NULL</li></ol></li></ul><h3 id=0x06-类型转换>0x06 类型转换</h3><ol><li>自动类型转换<ol><li>有布尔值参与运算，则TRUE转换为整型1,FALSE为0,然后再运算</li><li>有NULL值参与的运算，NULL值转换为整型0,再参与运算</li><li>整型和float型参与运算则先把interger型转换为float型再运算</li><li>字符串和数字型数据参与运算时，字符串先转换为数字再参与运算</li></ol></li><li>强制类型转换<ol><li>变量前添加(int)、(float)、(string)、(bool)等</li><li>用函数intval()、floatval()、strval()</li><li>用函数settype()</li></ol></li></ol><h3 id=0x07-变量引用>0x07 变量引用</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $a <span style=color:#f92672>=</span> <span style=color:#ae81ff>123</span>;
+</span></span><span style=display:flex><span>    $b <span style=color:#f92672>=</span> $a;
+</span></span><span style=display:flex><span>    $a <span style=color:#f92672>=</span> <span style=color:#ae81ff>456</span>;   <span style=color:#75715e>//此时$a为456,$b为123
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $c <span style=color:#f92672>=</span> <span style=color:#f92672>&amp;</span>$b;
+</span></span><span style=display:flex><span>    $b <span style=color:#f92672>=</span> <span style=color:#ae81ff>111</span>;  <span style=color:#75715e>//此时$b和$c都是111
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x08-可变变量>0x08 可变变量</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $a <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;hello&#39;</span>;
+</span></span><span style=display:flex><span>    $$a <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;world&#39;</span>;  <span style=color:#75715e>//此时$a的值hello就相当于$$a的键
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$a</span><span style=color:#e6db74> </span><span style=color:#e6db74>$hello</span><span style=color:#e6db74>&#34;</span>; <span style=color:#75715e>//输出hello world
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x09-命名规则>0x09 命名规则</h3><pre tabindex=0><code>//类中的命名规则
 1.类名使用大写字母开头的单词(如CapWords, 即Pascal风格)
 2.类的属性命名以字符&#39;m&#39;为前缀，其他用Pascal风格，如 $mStudentName
 3.类的方法名除了第一个字母小写外其他采用Pascal风格且命名有意义，如function getTeacherName(){}
@@ -232,35 +88,12 @@
 2.全局变量应该带有前缀&#39;g&#39;，如: global $gTest
 3.静态变量应该带有前缀&#39;s&#39;，如: $sStatus
 4.函数名称都使用小写字母，多个单词使用&#39;_&#39;来分割，如: function this_good_idear(){}
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

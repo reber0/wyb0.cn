@@ -1,163 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>在 vps 上搭建 Shadowsocks | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>在 vps 上搭建 Shadowsocks</h1>
-      
-<div class="post-meta">
-    <time>2017-03-10</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/server">server</a>)
-</div>
-
-      <div><p><img src="/img/anime/anime005.jpg" alt="某科学的超电磁炮"></p>
-<h3 id="0x01-安装与配置">0x01 安装与配置</h3>
-<p>环境：Ubuntu 14.04.1 LTS</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>reber@localhost:~$ sudo apt-get update
-</span></span><span style="display:flex;"><span>reber@localhost:~$ python --version
-</span></span><span style="display:flex;"><span>Python 2.7.6
-</span></span><span style="display:flex;"><span>reber@localhost:~$ sudo apt-get install python-gevent python-pip
-</span></span><span style="display:flex;"><span>reber@localhost:~$ sudo pip install shadowsocks
-</span></span><span style="display:flex;"><span>reber@localhost:~$ vim /home/reber/shadowsocks.json
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;server&#34;</span>:<span style="color:#e6db74">&#34;服务器 IP 地址&#34;</span>, <span style="color:#75715e"># 服务器 IP (IPv4/IPv6)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;server_port&#34;</span>:8388, <span style="color:#75715e"># 监听的服务器端口</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;local_address&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>, <span style="color:#75715e"># 本地监听的 IP 地址</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;local_port&#34;</span>:1080, <span style="color:#75715e"># 本地端端口</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;password&#34;</span>:<span style="color:#e6db74">&#34;mypassword&#34;</span>, <span style="color:#75715e"># 密码</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#&#34;port_password&#34;:</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#    &#34;40001&#34;: &#34;password1&#34;,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#    &#34;40002&#34;: &#34;password2&#34;,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#    &#34;40003&#34;: &#34;password3&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#},</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#&#34;_comment&#34;:</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#    &#34;40001&#34;: &#34;xiaoming&#34;,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#    &#34;40002&#34;: &#34;lilei&#34;,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#    &#34;40003&#34;: &#34;mike&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;timeout&#34;</span>:300, <span style="color:#75715e"># 超时时间（秒）</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;method&#34;</span>:<span style="color:#e6db74">&#34;aes-256-cfb&#34;</span>, <span style="color:#75715e"># 加密方式</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 若Linux内核在3.7+，可开启fast_open降低延迟</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 开启方法：echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;fast_open&#34;</span>: false, 
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;workers&#34;</span>: <span style="color:#ae81ff">1</span> <span style="color:#75715e"># works数量，默认为 1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>reber@localhost:~$ sudo apt-get install python-m2crypto
-</span></span></code></pre></div><h3 id="0x02-服务端启动">0x02 服务端启动</h3>
-<pre tabindex="0"><code># 前台运行
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>在 vps 上搭建 Shadowsocks | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>在 vps 上搭建 Shadowsocks</h1><div class=post-meta><time>2017-03-10</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/server>server</a>)</div><div><p><img src=/img/anime/anime005.jpg alt=某科学的超电磁炮></p><h3 id=0x01-安装与配置>0x01 安装与配置</h3><p>环境：Ubuntu 14.04.1 LTS</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>reber@localhost:~$ sudo apt-get update
+</span></span><span style=display:flex><span>reber@localhost:~$ python --version
+</span></span><span style=display:flex><span>Python 2.7.6
+</span></span><span style=display:flex><span>reber@localhost:~$ sudo apt-get install python-gevent python-pip
+</span></span><span style=display:flex><span>reber@localhost:~$ sudo pip install shadowsocks
+</span></span><span style=display:flex><span>reber@localhost:~$ vim /home/reber/shadowsocks.json
+</span></span><span style=display:flex><span>    <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;server&#34;</span>:<span style=color:#e6db74>&#34;服务器 IP 地址&#34;</span>, <span style=color:#75715e># 服务器 IP (IPv4/IPv6)</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;server_port&#34;</span>:8388, <span style=color:#75715e># 监听的服务器端口</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;local_address&#34;</span>: <span style=color:#e6db74>&#34;127.0.0.1&#34;</span>, <span style=color:#75715e># 本地监听的 IP 地址</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;local_port&#34;</span>:1080, <span style=color:#75715e># 本地端端口</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;password&#34;</span>:<span style=color:#e6db74>&#34;mypassword&#34;</span>, <span style=color:#75715e># 密码</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#&#34;port_password&#34;:</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#{</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#    &#34;40001&#34;: &#34;password1&#34;,</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#    &#34;40002&#34;: &#34;password2&#34;,</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#    &#34;40003&#34;: &#34;password3&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#},</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#&#34;_comment&#34;:</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#{</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#    &#34;40001&#34;: &#34;xiaoming&#34;,</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#    &#34;40002&#34;: &#34;lilei&#34;,</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#    &#34;40003&#34;: &#34;mike&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#}</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;timeout&#34;</span>:300, <span style=color:#75715e># 超时时间（秒）</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;method&#34;</span>:<span style=color:#e6db74>&#34;aes-256-cfb&#34;</span>, <span style=color:#75715e># 加密方式</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 若Linux内核在3.7+，可开启fast_open降低延迟</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 开启方法：echo 3 &gt; /proc/sys/net/ipv4/tcp_fastopen</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;fast_open&#34;</span>: false, 
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;workers&#34;</span>: <span style=color:#ae81ff>1</span> <span style=color:#75715e># works数量，默认为 1</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>reber@localhost:~$ sudo apt-get install python-m2crypto
+</span></span></code></pre></div><h3 id=0x02-服务端启动>0x02 服务端启动</h3><pre tabindex=0><code># 前台运行
 reber@localhost:~$ sudo ssserver -c /home/reber/shadowsocks.json
 # 后台运行
 reber@localhost:~$ sudo nohup ssserver -c /home/reber/shadowsocks.json &gt; /dev/null 2&gt;&amp;1 &amp;
 # 关闭服务
 reber@localhost:~$ sudo killall ssserver 
-</code></pre><h4 id="0x03-本地使用">0x03 本地使用</h4>
-<blockquote>
-<p>添加如下配置
-<img src="/img/post/use_ss.png" alt="使用Shadowsocks"></p>
-</blockquote>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h4 id=0x03-本地使用>0x03 本地使用</h4><blockquote><p>添加如下配置
+<img src=/img/post/use_ss.png alt=使用Shadowsocks></p></blockquote></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

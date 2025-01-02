@@ -1,54 +1,104 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>docker on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/docker/</link>
-    <description>Recent content in docker on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>使用 docker-compose 构造 LAMP 环境</title>
-      <link>https://wyb0.com/posts/2018/docker-compose-build-lamp/</link>
-      <pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/docker-compose-build-lamp/</guid>
-      <description>0x00 实现功能 使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存</description>
-    </item>
-    <item>
-      <title>Docker Compose</title>
-      <link>https://wyb0.com/posts/2018/docker-compose/</link>
-      <pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/docker-compose/</guid>
-      <description>0x00 关于docker compose 可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，dock</description>
-    </item>
-    <item>
-      <title>Docker 之数据卷</title>
-      <link>https://wyb0.com/posts/2017/docker-volume/</link>
-      <pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-volume/</guid>
-      <description>0x00 为什么使用数据卷 Docker镜像是由多个文件系统(只读层)叠加而成的。 当一个容器启动时Docker会加载只读镜像层并在</description>
-    </item>
-    <item>
-      <title>Docker 之 Dockerfile</title>
-      <link>https://wyb0.com/posts/2017/docker-dockerfile/</link>
-      <pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-dockerfile/</guid>
-      <description>操作系统：macOS Sierra 10.12.6 Docker版本：Docker version 18.09.0, build 4d60db4 0x00 Dockerfile Dockerfile里面其实是一条条的指令，Docke</description>
-    </item>
-    <item>
-      <title>Docker 之镜像与容器</title>
-      <link>https://wyb0.com/posts/2017/docker-image-and-container/</link>
-      <pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-image-and-container/</guid>
-      <description>操作系统：Ubuntu14.04.1 Docker版本：Docker version 17.06.0-ce, build 02c1d87 0x00 镜像操作 下载镜像 #一般镜像、容器的id和na</description>
-    </item>
-    <item>
-      <title>Docker 初识</title>
-      <link>https://wyb0.com/posts/2017/docker-basis/</link>
-      <pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-basis/</guid>
-      <description>0x00 关于Docker Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。 Dock</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Reber's Blog</title><link>https://wyb0.com/tags/docker/</link><description>Recent content in Docker on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 docker-compose 构造 LAMP 环境</title><link>https://wyb0.com/posts/2018/docker-compose-build-lamp/</link><pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose-build-lamp/</guid><description>&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
+&lt;p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。&lt;/p></description></item><item><title>Docker Compose</title><link>https://wyb0.com/posts/2018/docker-compose/</link><pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose/</guid><description>&lt;h3 id="0x00-关于docker-compose">0x00 关于docker compose&lt;/h3>
+&lt;p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。&lt;/p></description></item><item><title>Docker 之数据卷</title><link>https://wyb0.com/posts/2017/docker-volume/</link><pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-volume/</guid><description>&lt;h3 id="0x00-为什么使用数据卷">0x00 为什么使用数据卷&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Docker镜像是由多个文件系统(只读层)叠加而成的。
+当一个容器启动时Docker会加载只读镜像层并在其上添加一个读写层。
+读写层中的修改在镜像重新启动后会全部丢失。
+在Docker中，只读层及在顶部的读写层的组合被称为Union File System(联合文件系统)。
+
+如果想要保存数据，则可以使用数据卷来在容器外面保存数据，主要为如下两种方式：
+* 使用docker run运行容器时指定数据卷
+* 在Dockerfile中直接指定数据卷
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-通过docker-run挂载volume使用-v参数">0x01 通过docker run挂载Volume(使用-v参数)&lt;/h3>
+&lt;ul>
+&lt;li>不指定主机目录&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#运行完后容器中的根目录下就会多个data文件夹，这个就是数据卷&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker run -itd --name v_test -v /data debian:jessie /bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root@d145e8c6f874:/# ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bin data etc lib media opt root sbin sys usr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>boot dev home lib64 mnt proc run srv tmp var
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root@d145e8c6f874:/# exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#查看数据卷的对应位置，前者是宿主机的位置，后者是容器中的位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker inspect -f &lt;span style="color:#f92672">{{&lt;/span>.Mounts&lt;span style="color:#f92672">}}&lt;/span> v_test
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[{&lt;/span>volume 8f39f7de0f851e0bfbcfdd4561fbb20484f01f864ce00a159b09bdcdf743e068 /var/lib/docker/volumes/8f39f7de0f851e0bfbcfdd4561fbb20484f01f864ce00a159b09bdcdf743e068/_data /data local true &lt;span style="color:#f92672">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>指定主机目录(只能通过-v参数实现，Dockerfile不行)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 本机的/home/var/docker_data和容器的/data对应&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker run -itd -v /home/var/docker_data:/data debian:jessie /bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root@d853c4ca7632:/# exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker inspect -f &lt;span style="color:#f92672">{{&lt;/span>.Mounts&lt;span style="color:#f92672">}}&lt;/span> d853c4ca7632
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[{&lt;/span>bind /home/var/docker_data /data true rprivate&lt;span style="color:#f92672">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker inspect -f &lt;span style="color:#f92672">{{&lt;/span>.Mounts&lt;span style="color:#f92672">}}&lt;/span> d853c4ca7632
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[{&lt;/span>bind /home/var/docker_data /data true rprivate&lt;span style="color:#f92672">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code># 本机创建文件，容器中就会同时出现
+#宿主机创建文件
+$ sudo touch /home/var/docker_data/a.txt
+
+#容器可以查看到文件同样被创建
+root@8e1ccd30fe33:/# ls data/
+a.txt
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-通过dockerfile声明volume">0x02 通过Dockerfile声明Volume&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>FROM debian:jessie VOLUME /data &lt;span style="color:#75715e">#之后的任何命令都不能更改Volume的任何东西&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-数据共享">0x03 数据共享&lt;/h3>
+&lt;p>使用&amp;ndash;volumes-from参数项即可访问另外一个容器的Volume。&lt;br>
+因为数据容器不启动也可以被其它容器访问，所以一般不推荐启动数据容器。&lt;/p></description></item><item><title>Docker 之 Dockerfile</title><link>https://wyb0.com/posts/2017/docker-dockerfile/</link><pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-dockerfile/</guid><description>&lt;p>操作系统：macOS Sierra 10.12.6&lt;br>
+Docker版本：Docker version 18.09.0, build 4d60db4&lt;/p>
+&lt;h3 id="0x00-dockerfile">0x00 Dockerfile&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Dockerfile里面其实是一条条的指令，Docker会把Dockerfile的指令翻译为linux命令，
+每一条指令都会创建一个镜像，下一条指令将在这个镜像的基础上进行修改操作后再生成一个镜像。
+让你可以对下载好的镜像进行一些操作(比如安装软件、向镜像复制文件等)，从而构造定制化的镜像。
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-dockerfile基本指令">0x01 Dockerfile基本指令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>FROM &amp;lt;image name&amp;gt;：指定新的镜像基于什么创建&lt;span style="color:#f92672">(&lt;/span>可以尝试使用alpine:latest和debian:jessie&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MAINTAINER &amp;lt;author name&amp;gt;：设置该镜像的作者
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>COPY &amp;lt;source&amp;gt; &amp;lt;dest&amp;gt;：复制文件，dest要以 / 结尾
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>WORKDIR /path/to/workdir：相当于切换目录，对RUN、CMD、和ENTRYPOINT生效
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RUN &amp;lt;command&amp;gt;：在shell执行命令
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>EXPOSE port1 port2：容器运行时监听的端口
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>CMD：容器默认的执行命令，Dockerfile只允许使用一次CMD命令&lt;span style="color:#f92672">(&lt;/span>使用数组&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ENTRYPOINT：类似于CMD，Dockerfile只允许使用一次&lt;span style="color:#f92672">(&lt;/span>使用数组&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ENV &amp;lt;key&amp;gt; &amp;lt;value&amp;gt;：设置环境变量
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>USER &amp;lt;uid&amp;gt;：镜像正在运行时设置一个uid，即设定启动容器的用户，默认为root
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>VOLUME &lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/data&amp;#39;&lt;/span>&lt;span style="color:#f92672">]&lt;/span>：授权访问从容器内到主机的目录
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CMD与ENTRYPOINT的区别：&lt;/p></description></item><item><title>Docker 之镜像与容器</title><link>https://wyb0.com/posts/2017/docker-image-and-container/</link><pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-image-and-container/</guid><description>&lt;p>操作系统：Ubuntu14.04.1&lt;br>
+Docker版本：Docker version 17.06.0-ce, build 02c1d87&lt;/p>
+&lt;h3 id="0x00-镜像操作">0x00 镜像操作&lt;/h3>
+&lt;ul>
+&lt;li>下载镜像&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#一般镜像、容器的id和name可以互换&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker search ubuntu &lt;span style="color:#75715e">#从公共registry搜索镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker pull ubuntu &lt;span style="color:#75715e">#从公共registry下载镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker pull ubuntu:14.04
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>查看当前系统镜像&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker images
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>REPOSITORY TAG IMAGE ID CREATED SIZE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ubuntu 14.04 7e4b16ae8b23 &lt;span style="color:#ae81ff">11&lt;/span> days ago 188MB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ubuntu latest 1d9c17228a9e &lt;span style="color:#ae81ff">11&lt;/span> days ago 86.7MB
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>查看镜像层组成&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker history ubuntu:14.04 &lt;span style="color:#75715e"># ubuntu:14.04可以用7e4b16ae8b23替代，用id和images_name:tag效果一样&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>删除镜像(删除镜像前要先删除上面的容器)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker rmi ubuntu:latest &lt;span style="color:#75715e"># 也可docker rmi 1d9c17228a9e&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-容器操作">0x01 容器操作&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>运行容器(exit后容器就停止了)&lt;/p></description></item><item><title>Docker 初识</title><link>https://wyb0.com/posts/2017/docker-basis/</link><pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-basis/</guid><description>&lt;h3 id="0x00-关于docker">0x00 关于Docker&lt;/h3>
+&lt;ul>
+&lt;li>Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。&lt;/li>
+&lt;li>Docker中运行应用的是容器，容器的创建和销毁在秒级就能完成。&lt;/li>
+&lt;li>Docker使用了AUFS，可以以递进的方式创建&amp;quot;VM&amp;quot;，一个&amp;quot;VM&amp;quot;叠在另一个&amp;quot;VM&amp;quot;上，就像使用git增量开发一样。&lt;/li>
+&lt;li>软件的运行环境（image）和软件本身（container）分离，和数据也分离。&lt;/li>
+&lt;/ul>
+&lt;p>学习Docker需要了解4个概念：镜像、容器、数据卷、链接&lt;/p></description></item></channel></rss>

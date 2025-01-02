@@ -1,26 +1,120 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>sqlserver on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/sqlserver/</link>
-    <description>Recent content in sqlserver on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 30 May 2017 13:16:18 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/sqlserver/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SQLServer 存储过程</title>
-      <link>https://wyb0.com/posts/2017/sqlserver-stored-procedure/</link>
-      <pubDate>Tue, 30 May 2017 13:16:18 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/sqlserver-stored-procedure/</guid>
-      <description>0x00 数据表结构 CREATE DATABASE student; CREATE TABLE info ( id INT IDENTITY(1,1) PRIMARY KEY NOT NULL, name VARCHAR(20) NOT NULL DEFAULT &amp;#39;xiaoming&amp;#39;, sex INT NOT NULL DEFAULT 1, age INT NOT NULL DEFAULT 0, hight INT NOT NULL DEFAULT 0 ) INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaohong&amp;#39;,0,23,165); INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaogang&amp;#39;,1,24,175); INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaoliu&amp;#39;,1,21,160); INSERT INTO info(name,sex,age,hight)</description>
-    </item>
-    <item>
-      <title>SQLServer 的基本使用</title>
-      <link>https://wyb0.com/posts/2017/sqlserver-basis-use/</link>
-      <pubDate>Tue, 30 May 2017 12:53:41 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/sqlserver-basis-use/</guid>
-      <description>0x00 数据库 -- 创建数据库 CREATE DATABASE student; -- 选择数据库 USE student; -- 查看当前数据库 SELECT DB_NAME(); -- 查看当前数据库 SELECT DB_NAME(); -- 查看数据库版本 SELECT @@version; 0x01 数据表 -- 创建数据</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sqlserver on Reber's Blog</title><link>https://wyb0.com/tags/sqlserver/</link><description>Recent content in Sqlserver on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 30 May 2017 13:16:18 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/sqlserver/index.xml" rel="self" type="application/rss+xml"/><item><title>SQLServer 存储过程</title><link>https://wyb0.com/posts/2017/sqlserver-stored-procedure/</link><pubDate>Tue, 30 May 2017 13:16:18 +0000</pubDate><guid>https://wyb0.com/posts/2017/sqlserver-stored-procedure/</guid><description>&lt;h3 id="0x00-数据表结构">0x00 数据表结构&lt;/h3>
+&lt;pre tabindex="0">&lt;code>CREATE DATABASE student;
+
+CREATE TABLE info
+(
+ id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+ name VARCHAR(20) NOT NULL DEFAULT &amp;#39;xiaoming&amp;#39;,
+ sex INT NOT NULL DEFAULT 1,
+ age INT NOT NULL DEFAULT 0,
+ hight INT NOT NULL DEFAULT 0
+)
+
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaohong&amp;#39;,0,23,165);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaogang&amp;#39;,1,24,175);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaoliu&amp;#39;,1,21,160);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaozhang&amp;#39;,1,19,165);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaoli&amp;#39;,1,23,170);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaohua&amp;#39;,0,23,160);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaoming&amp;#39;,1,21,165);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaowang&amp;#39;,1,23,166);
+INSERT INTO info(name,sex,age,hight) VALUES(&amp;#39;xiaojuan&amp;#39;,0,21,159);
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-存储过程">0x01 存储过程&lt;/h3>
+&lt;pre tabindex="0">&lt;code>--如果存在名为get_student_msg(相当于函数)的存储过程则删除
+IF EXISTS (SELECT name FROM sysobjects WHERE name=&amp;#39;get_student_msg&amp;#39; AND type=&amp;#39;p&amp;#39;)
+ DROP PROCEDURE get_student_msg
+
+CREATE PROCEDURE get_student_msg --创建存储过程
+ @name VARCHAR(20) --声明全局变量
+AS
+ BEGIN
+ SELECT * from info
+ WHERE name=@name
+ END
+GO
+
+--创建好存储过程后在其他地方直接使用函数并传参就行了
+EXEC get_student_msg &amp;#39;xiaoli&amp;#39;
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-使用游标的存储过程">0x02 使用游标的存储过程&lt;/h3>
+&lt;pre tabindex="0">&lt;code>-- 使用DECLARE声明局部变量，一般在函数和存储过程中使用
+DECLARE @name VARCHAR(20)
+DECLARE @sex INT
+DECLARE @age INT
+DECLARE @hight INT
+
+DECLARE stu_cursor CURSOR FOR --定义游标，后面跟sql语句
+SELECT name,sex,age,hight --使用游标的对象(根据需要写select语句)
+FROM dbo.info
+WHERE age IN (23,24)
+
+OPEN stu_cursor --打开游标
+
+--将游标向下移1行，并把下一行作为当前行(递归)
+--游标刚打开时可以理解为指向第一行之前，所以这里就是把游标指向第一行
+--然后获取游标指向行的数据
+FETCH NEXT FROM stu_cursor INTO @name,@sex,@age,@hight
+
+WHILE (@@FETCH_STATUS = 0) --判断是否成功获取数据
+ BEGIN
+ PRINT &amp;#39;名字: &amp;#39;+@name
+ PRINT &amp;#39;性别: &amp;#39;+STR(@sex)
+ PRINT &amp;#39;年龄: &amp;#39;+STR(@age)
+ PRINT &amp;#39;身高: &amp;#39;+STR(@hight)
+ PRINT &amp;#39;&amp;#39;
+
+ --游标指向下一行(第二行)，然后取出这一行的数据
+ FETCH NEXT FROM stu_cursor INTO @name,@sex,@age,@hight
+ END
+
+CLOSE stu_cursor --关闭游标
+DEALLOCATE stu_cursor --删除游标
+&lt;/code>&lt;/pre></description></item><item><title>SQLServer 的基本使用</title><link>https://wyb0.com/posts/2017/sqlserver-basis-use/</link><pubDate>Tue, 30 May 2017 12:53:41 +0000</pubDate><guid>https://wyb0.com/posts/2017/sqlserver-basis-use/</guid><description>&lt;h3 id="0x00-数据库">0x00 数据库&lt;/h3>
+&lt;pre tabindex="0">&lt;code>-- 创建数据库
+CREATE DATABASE student;
+
+-- 选择数据库
+USE student;
+
+-- 查看当前数据库
+SELECT DB_NAME();
+
+-- 查看当前数据库
+SELECT DB_NAME();
+
+-- 查看数据库版本
+SELECT @@version;
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-数据表">0x01 数据表&lt;/h3>
+&lt;pre tabindex="0">&lt;code>-- 创建数据库表
+CREATE TABLE info
+(
+ id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+ name VARCHAR(20) NOT NULL DEFAULT &amp;#39;xiaoming&amp;#39;,
+ sex INT NOT NULL DEFAULT 1
+)
+
+-- 查看表结构
+EXEC sp_help &amp;#39;info&amp;#39;;
+
+-- 更新表结构
+ALTER TABLE info add age int; -- 添加一列
+ALTER TABLE info DROP COLUMN age; -- 删除一列
+
+-- 插入数据
+INSERT INTO info(name,sex)
+VALUES(&amp;#39;xiaohong&amp;#39;,0);
+
+-- 查看数据
+SELECT * FROM dbo.info;
+
+-- 更新数据
+UPDATE info
+SET name=&amp;#39;aaa&amp;#39;,sex=1
+WHERE id=1;
+
+-- 删除数据
+DELETE info
+WHERE id=1;
+
+-- 删除表
+DROP TABLE info;
+&lt;/code>&lt;/pre></description></item></channel></rss>

@@ -1,105 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>iptables 简单配置 DMZ | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>iptables 简单配置 DMZ</h1>
-      
-<div class="post-meta">
-    <time>2016-07-05</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/dmz">dmz</a>)
-</div>
-
-      <div><h3 id="0x00-要求">0x00 要求</h3>
-<ol>
-<li>内网可以访问外网</li>
-<li>内网可以访问DMZ区</li>
-<li>外网不能访问内网</li>
-<li>外网能访问DMZ区的服务</li>
-<li>DMZ区不能访问内网</li>
-<li>DMZ区不能主动访问外网</li>
-</ol>
-<h3 id="0x01-拓扑">0x01 拓扑</h3>
-<p><img src="/img/post/iptables_dmz_topology.png" alt="50"></p>
-<h3 id="0x02-个主机ip信息">0x02 个主机IP信息</h3>
-<p>内网网段为：192.168.1.0/24<br>
-DMZ区网段为：172.16.1.0/24
-<img src="/img/post/iptables_dmz_ip_info.png" alt="50"></p>
-<h3 id="0x03-iptables的策略">0x03 iptables的策略</h3>
-<p>新建iptables.sh,内容如下：</p>
-<pre tabindex="0"><code>#!/bin/bash
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>iptables 简单配置 DMZ | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>iptables 简单配置 DMZ</h1><div class=post-meta><time>2016-07-05</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/dmz>dmz</a>)</div><div><h3 id=0x00-要求>0x00 要求</h3><ol><li>内网可以访问外网</li><li>内网可以访问DMZ区</li><li>外网不能访问内网</li><li>外网能访问DMZ区的服务</li><li>DMZ区不能访问内网</li><li>DMZ区不能主动访问外网</li></ol><h3 id=0x01-拓扑>0x01 拓扑</h3><p><img src=/img/post/iptables_dmz_topology.png alt=50></p><h3 id=0x02-个主机ip信息>0x02 个主机IP信息</h3><p>内网网段为：192.168.1.0/24<br>DMZ区网段为：172.16.1.0/24
+<img src=/img/post/iptables_dmz_ip_info.png alt=50></p><h3 id=0x03-iptables的策略>0x03 iptables的策略</h3><p>新建iptables.sh,内容如下：</p><pre tabindex=0><code>#!/bin/bash
 
 iptables –F #清空此表中的规则
 iptables –X #清空此表中的自定义规则
@@ -159,64 +71,20 @@ iptables -t nat -A POSTROUTING -o eth0 -s 172.16.1.0/24 -j SNAT --to-source 192.
 #********************************************************************
 service iptables save
 service iptables restart
-</code></pre><h3 id="0x04-测试">0x04 测试</h3>
-<ol>
-<li>
-<p>内网可以访问外网
-<img src="/img/post/iptables_dmz_lan_to_internet.png" alt="50"></p>
-</li>
-<li>
-<p>内网可以访问DMZ
-<img src="/img/post/iptables_dmz_lan_to_dmz_www.png" alt="45">
-<img src="/img/post/iptables_dmz_lan_to_dmz_ftp.png" alt="50"></p>
-</li>
-<li>
-<p>外网不能访问内网
-<img src="/img/post/iptables_dmz_internet_not_to_lan.png" alt="50"></p>
-</li>
-<li>
-<p>外网可以访问DMZ
-<img src="/img/post/iptables_dmz_internet_to_dmz_www.png" alt="45">
-<img src="/img/post/iptables_dmz_internet_to_dmz_ftp.png" alt="40"></p>
-</li>
-<li>
-<p>DMZ不能访问内网
-<img src="/img/post/iptables_dmz_dmz_not_to_lan.png" alt="40"></p>
-</li>
-<li>
-<p>DMZ不能访问外网
-<img src="/img/post/iptables_dmz_dmz_not_to_internet.png" alt="50"></p>
-</li>
-</ol>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x04-测试>0x04 测试</h3><ol><li><p>内网可以访问外网
+<img src=/img/post/iptables_dmz_lan_to_internet.png alt=50></p></li><li><p>内网可以访问DMZ
+<img src=/img/post/iptables_dmz_lan_to_dmz_www.png alt=45>
+<img src=/img/post/iptables_dmz_lan_to_dmz_ftp.png alt=50></p></li><li><p>外网不能访问内网
+<img src=/img/post/iptables_dmz_internet_not_to_lan.png alt=50></p></li><li><p>外网可以访问DMZ
+<img src=/img/post/iptables_dmz_internet_to_dmz_www.png alt=45>
+<img src=/img/post/iptables_dmz_internet_to_dmz_ftp.png alt=40></p></li><li><p>DMZ不能访问内网
+<img src=/img/post/iptables_dmz_dmz_not_to_lan.png alt=40></p></li><li><p>DMZ不能访问外网
+<img src=/img/post/iptables_dmz_dmz_not_to_internet.png alt=50></p></li></ol></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

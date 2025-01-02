@@ -1,168 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>硬件接口测试 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>硬件接口测试</h1>
-      
-<div class="post-meta">
-    <time>2024-01-31</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/hardware">hardware</a>)
-</div>
-
-      <div><h3 id="0x01-jtag-接口">0x01 JTAG 接口</h3>
-<p>主要用来读写固件，常见 JTAG 接口引脚有 10PIN、14PIN、20PIN</p>
-<p>一般需要接的引脚：<br>
-GND：接地引脚<br>
-TDI：测试数据输入，用于向被测设备传输测试数据<br>
-TDO：测试数据输出，用于从被测设备读取测试数据<br>
-TCK：测试时钟，用于同步测试数据的传输<br>
-TMS：测试模式选择，用于控制 JTAG 状态机的状态转移<br>
-TRST：可选，TRST 可以用来对 TAPController 进行复位（初始化）</p>
-<h3 id="0x02-swd-接口">0x02 SWD 接口</h3>
-<p>留了 JTAG 接口，就是留了 SWD 接口<br>
-JTAG 接口 TCK 和 TMS 引脚，就是 SWD 的 SWCLK 和 SWDIO引脚</p>
-<p>常用的 SWD 接口有五线制和四线制两种，他们分别是：<br>
-五线制：VCC GND SWDIO SWCLK RESET<br>
-四线制：VCC GND SWDIO SWCKL<br>
-区别是，四线制没有留出 RESET 引脚</p>
-<p>一般需要接的引脚：<br>
-VCC：电源线引脚<br>
-GND：接地引脚，用于提供电路的共地引用。<br>
-SWDIO：用于传输调试和编程数据的双向数据线。<br>
-SWCLK：用于提供时钟信号，同步数据传输的时钟线。<br>
-RESET：可选，仿真器输出至目标 CPU 的系统复位信号，一般建议接上</p>
-<h3 id="0x03-uart-接口">0x03 UART 接口</h3>
-<p>主要用来拿 shell，常见 JTAG 接口引脚有 4PIN</p>
-<p>一般需要接的引脚：<br>
-VCC：电源线引脚，一般为 3.3v 或 5v<br>
-GND：接地引脚<br>
-TXD：发送数据<br>
-RXD：接收数据</p>
-<h3 id="0x04-连接设备找引脚">0x04 连接设备找引脚</h3>
-<p>常见的 JTAG 波特率包括 100kHz、1MHz、10MHz 等<br>
-常见的 UART 波特率包括 9600、115200、57600、38400 等</p>
-<pre tabindex="0"><code>screen -ls 查看当前已有的 screen 会话
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"><meta name=author content="Reber"><title>硬件接口测试 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>硬件接口测试</h1><div class=post-meta><time>2024-01-31</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/hardware>hardware</a>)</div><div><h3 id=0x01-jtag-接口>0x01 JTAG 接口</h3><p>主要用来读写固件，常见 JTAG 接口引脚有 10PIN、14PIN、20PIN</p><p>一般需要接的引脚：<br>GND：接地引脚<br>TDI：测试数据输入，用于向被测设备传输测试数据<br>TDO：测试数据输出，用于从被测设备读取测试数据<br>TCK：测试时钟，用于同步测试数据的传输<br>TMS：测试模式选择，用于控制 JTAG 状态机的状态转移<br>TRST：可选，TRST 可以用来对 TAPController 进行复位（初始化）</p><h3 id=0x02-swd-接口>0x02 SWD 接口</h3><p>留了 JTAG 接口，就是留了 SWD 接口<br>JTAG 接口 TCK 和 TMS 引脚，就是 SWD 的 SWCLK 和 SWDIO引脚</p><p>常用的 SWD 接口有五线制和四线制两种，他们分别是：<br>五线制：VCC GND SWDIO SWCLK RESET<br>四线制：VCC GND SWDIO SWCKL<br>区别是，四线制没有留出 RESET 引脚</p><p>一般需要接的引脚：<br>VCC：电源线引脚<br>GND：接地引脚，用于提供电路的共地引用。<br>SWDIO：用于传输调试和编程数据的双向数据线。<br>SWCLK：用于提供时钟信号，同步数据传输的时钟线。<br>RESET：可选，仿真器输出至目标 CPU 的系统复位信号，一般建议接上</p><h3 id=0x03-uart-接口>0x03 UART 接口</h3><p>主要用来拿 shell，常见 JTAG 接口引脚有 4PIN</p><p>一般需要接的引脚：<br>VCC：电源线引脚，一般为 3.3v 或 5v<br>GND：接地引脚<br>TXD：发送数据<br>RXD：接收数据</p><h3 id=0x04-连接设备找引脚>0x04 连接设备找引脚</h3><p>常见的 JTAG 波特率包括 100kHz、1MHz、10MHz 等<br>常见的 UART 波特率包括 9600、115200、57600、38400 等</p><pre tabindex=0><code>screen -ls 查看当前已有的 screen 会话
 screen -x name 进入某个会话
 Ctrl+a, 再按 d 挂起回话
 Ctrl+a+k 杀死当前窗口
-</code></pre><p>被测设备接通电源，然后使用万用表找到 GND<br>
-将被测设备 GND 和 JTAGulator 的 GND 连接，其他被测设备其他引脚和 JTAGulator 的 CH 连接</p>
-<pre tabindex="0"><code>➜ ls /dev/ | grep usb
+</code></pre><p>被测设备接通电源，然后使用万用表找到 GND<br>将被测设备 GND 和 JTAGulator 的 GND 连接，其他被测设备其他引脚和 JTAGulator 的 CH 连接</p><pre tabindex=0><code>➜ ls /dev/ | grep usb
 cu.usbserial-AQ00DRLX
 tty.usbserial-AQ00DRLX
 
 ➜ screen -L /dev/cu.usbserial-AQ00DRLX 115200 –L 进入 JTAGulator
 
 输入 j 进入 jtag，输入 v 设置为 3.3v，输入 i，设置使用了的 ch，然后空格进行测试
-</code></pre><p><strong>参考资料</strong></p>
-<ul>
-<li><a href="https://www.iotsec-zone.com/article/358?_blank">物联网安全从零开始-路由器硬件安全初探</a></li>
-<li><a href="https://www.iotsec-zone.com/article/375?_blank">物联网安全从零开始-路由器jtag调试分析</a></li>
-<li><a href="https://yaseng.org/diy-JTAGulator-and-debugging.html?_blank">嵌入式安全利器 JTAGulator 的制作与调试实战</a></li>
-<li><a href="https://www.secpulse.com/archives/157847.html?_blank">UART串口调试</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><strong>参考资料</strong></p><ul><li><a href=https://www.iotsec-zone.com/article/358?_blank>物联网安全从零开始-路由器硬件安全初探</a></li><li><a href=https://www.iotsec-zone.com/article/375?_blank>物联网安全从零开始-路由器jtag调试分析</a></li><li><a href=https://yaseng.org/diy-JTAGulator-and-debugging.html?_blank>嵌入式安全利器 JTAGulator 的制作与调试实战</a></li><li><a href=https://www.secpulse.com/archives/157847.html?_blank>UART串口调试</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

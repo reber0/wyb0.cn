@@ -1,258 +1,595 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/principles/>准则</a></h1><div class=post-meta><time>2016-09-21</time>
+[<a href=/categories/Other>Other</a>](<a href=/tags/miscellanea>miscellanea</a>)</div><div class=summary-body><p><h3 id=0x00-创造价值>0x00 创造价值</h3><p>小鸡问母鸡：可否不用下蛋，带我出去玩啊？母鸡道：不行，我要工作！<br>小鸡说：可你已经下了这么多蛋了！母鸡意味深长地对小鸡说：一天一个蛋，菜刀靠边站，一月不生蛋，高压锅里见。<br>存在是因为你创造价值，淘汰是因为你失去价值。过去的价值不代表未来，所以每天都要努力！</p><a href=https://wyb0.com/posts/2016/principles/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/package-sqlmapapi-common-function/>SqlmapApi 常用方法封装</a></h1><div class=post-meta><time>2016-09-21</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-代码如下>0x00 代码如下</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> json
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> time <span style=color:#f92672>import</span> sleep
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Sqli</span>(threading<span style=color:#f92672>.</span>Thread):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for AutoSqli&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, server, target, data<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>, referer<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>, cookie<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>):
+</span></span><span style=display:flex><span>        threading<span style=color:#f92672>.</span>Thread<span style=color:#f92672>.</span>__init__(self)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>server <span style=color:#f92672>=</span> server[<span style=color:#ae81ff>0</span>:<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#66d9ef>if</span> server[<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]<span style=color:#f92672>==</span><span style=color:#e6db74>&#39;/&#39;</span> <span style=color:#66d9ef>else</span> server
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>target <span style=color:#f92672>=</span> target
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>data <span style=color:#f92672>=</span> data
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>referer <span style=color:#f92672>=</span> referer
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>cookie <span style=color:#f92672>=</span> cookie
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>taskid <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>new_task</span>(self):
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/task/new&#34;</span><span style=color:#f92672>.</span>format(self<span style=color:#f92672>.</span>server)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>taskid <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(requests<span style=color:#f92672>.</span>get(url)<span style=color:#f92672>.</span>text)[<span style=color:#e6db74>&#39;taskid&#39;</span>]
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(self<span style=color:#f92672>.</span>taskid)<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>0</span>:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;Create new task,taskid is: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> self<span style=color:#f92672>.</span>taskid
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>set_option</span>(self):
+</span></span><span style=display:flex><span>        headers <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#39;Content-Type&#39;</span>: <span style=color:#e6db74>&#39;application/json&#39;</span>}
+</span></span><span style=display:flex><span>        option <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;options&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#e6db74>&#34;smart&#34;</span>: <span style=color:#66d9ef>True</span>,
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                 }
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/option/</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/set&#34;</span><span style=color:#f92672>.</span>format(self<span style=color:#f92672>.</span>server,self<span style=color:#f92672>.</span>taskid)
+</span></span><span style=display:flex><span>        resp <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>post(url, data<span style=color:#f92672>=</span>json<span style=color:#f92672>.</span>dumps(option), headers<span style=color:#f92672>=</span>headers)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> json<span style=color:#f92672>.</span>loads(resp<span style=color:#f92672>.</span>text)[<span style=color:#e6db74>&#39;success&#39;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>start_scan</span>(self):
+</span></span><span style=display:flex><span>        headers <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#39;Content-Type&#39;</span>: <span style=color:#e6db74>&#39;application/json&#39;</span>}
+</span></span><span style=display:flex><span>        payload <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;url&#39;</span>: self<span style=color:#f92672>.</span>target,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;data&#39;</span>: self<span style=color:#f92672>.</span>data,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;cookie&#39;</span>: self<span style=color:#f92672>.</span>cookie,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#39;referer&#39;</span>: self<span style=color:#f92672>.</span>referer
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/scan/</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/start&#34;</span><span style=color:#f92672>.</span>format(self<span style=color:#f92672>.</span>server,self<span style=color:#f92672>.</span>taskid)
+</span></span><span style=display:flex><span>        t <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(requests<span style=color:#f92672>.</span>post(url,data<span style=color:#f92672>=</span>json<span style=color:#f92672>.</span>dumps(payload),headers<span style=color:#f92672>=</span>headers)<span style=color:#f92672>.</span>text)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(str(t[<span style=color:#e6db74>&#39;engineid&#39;</span>])) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>and</span> t[<span style=color:#e6db74>&#39;success&#39;</span>]:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>] Start scan&#34;</span> <span style=color:#f92672>%</span> self<span style=color:#f92672>.</span>taskid
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_status</span>(self):
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/scan/</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/status&#34;</span><span style=color:#f92672>.</span>format(self<span style=color:#f92672>.</span>server,self<span style=color:#f92672>.</span>taskid)
+</span></span><span style=display:flex><span>        status <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(requests<span style=color:#f92672>.</span>get(url)<span style=color:#f92672>.</span>text)[<span style=color:#e6db74>&#39;status&#39;</span>]
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> status <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;running&#39;</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;running&#39;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>elif</span> status <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;terminated&#39;</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;terminated&#39;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;error&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_data</span>(self):
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/scan/</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/data&#34;</span><span style=color:#f92672>.</span>format(self<span style=color:#f92672>.</span>server,self<span style=color:#f92672>.</span>taskid)
+</span></span><span style=display:flex><span>        data <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>loads(requests<span style=color:#f92672>.</span>get(url)<span style=color:#f92672>.</span>text)[<span style=color:#e6db74>&#39;data&#39;</span>]
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(data) <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#39;[] not injection:</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>&#39;</span> <span style=color:#f92672>+</span> self<span style=color:#f92672>.</span>target
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#39;=======&gt; injection:</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>&#39;</span> <span style=color:#f92672>+</span> self<span style=color:#f92672>.</span>target
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>data <span style=color:#f92672>=</span> data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>delete_task</span>(self):
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/task/</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>/delete&#34;</span><span style=color:#f92672>.</span>format(self<span style=color:#f92672>.</span>server,self<span style=color:#f92672>.</span>taskid)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> json<span style=color:#f92672>.</span>loads(requests<span style=color:#f92672>.</span>get(url)<span style=color:#f92672>.</span>text)[<span style=color:#e6db74>&#39;success&#39;</span>]:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>] Delete task&#34;</span> <span style=color:#f92672>%</span> self<span style=color:#f92672>.</span>taskid
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>write_to_file</span>(self,msg):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#39;result.txt&#39;</span>,<span style=color:#e6db74>&#39;a+&#39;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            f<span style=color:#f92672>.</span>write(json<span style=color:#f92672>.</span>dumps(msg)<span style=color:#f92672>+</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>run</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>new_task():
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>set_option()
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> self<span style=color:#f92672>.</span>start_scan():
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>get_status() <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;running&#39;</span>:
+</span></span><span style=display:flex><span>                    sleep(<span style=color:#ae81ff>10</span>)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>elif</span> self<span style=color:#f92672>.</span>get_status() <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;terminated&#39;</span>:
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>get_data()
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>write_to_file(self<span style=color:#f92672>.</span>data)
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>delete_task()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span>, e:
+</span></span><span style=display:flex><span>            print e
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    server <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;http://127.0.0.1:8775&#39;</span>
+</span></span><span style=display:flex><span>    target <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;http://192.168.188.134/sqli/Less-1/?id=1&#39;</span>
+</span></span><span style=display:flex><span>    sqli <span style=color:#f92672>=</span> Sqli(server, target)
+</span></span><span style=display:flex><span>    sqli<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>    sqli<span style=color:#f92672>.</span>join()
+</span></span></code></pre></div></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-blasting-zip-archive/>Python 爆破 zip 压缩包</a></h1><div class=post-meta><time>2016-09-20</time>
+[<a href=/categories/Pentest>Pentest</a>,<a href=/categories/Python>Python</a>](<a href=/tags/%E7%88%86%E7%A0%B4>爆破</a>,<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-代码>0x00 代码</h3><p>多线程爆破加密的zip压缩包</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> optparse
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> zipfile
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> Queue
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>queue <span style=color:#f92672>=</span> Queue<span style=color:#f92672>.</span>Queue()
+</span></span><span style=display:flex><span>lock <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Lock()
+</span></span><span style=display:flex><span>result <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>load_pwd</span>(filename):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> line <span style=color:#f92672>in</span> open(filename,<span style=color:#e6db74>&#39;r&#39;</span>):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> line:
+</span></span><span style=display:flex><span>            queue<span style=color:#f92672>.</span>put(line<span style=color:#f92672>.</span>strip())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>bruter</span>(zipname,queue):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>global</span> result
+</span></span><span style=display:flex><span>    zFile <span style=color:#f92672>=</span> zipfile<span style=color:#f92672>.</span>ZipFile(zipname)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#f92672>not</span> queue<span style=color:#f92672>.</span>empty():
+</span></span><span style=display:flex><span>        password <span style=color:#f92672>=</span> queue<span style=color:#f92672>.</span>get()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            zFile<span style=color:#f92672>.</span>extractall(pwd<span style=color:#f92672>=</span>password) <span style=color:#75715e># 解压</span>
+</span></span><span style=display:flex><span>            lock<span style=color:#f92672>.</span>acquire()
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[Ok] password is: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> password
+</span></span><span style=display:flex><span>            lock<span style=color:#f92672>.</span>release()
+</span></span><span style=display:flex><span>            result <span style=color:#f92672>=</span> password
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>            lock<span style=color:#f92672>.</span>acquire()
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[Error] password not is: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> password
+</span></span><span style=display:flex><span>            lock<span style=color:#f92672>.</span>release()
+</span></span><span style=display:flex><span>        queue<span style=color:#f92672>.</span>task_done()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span>():
+</span></span><span style=display:flex><span>    parser <span style=color:#f92672>=</span> optparse<span style=color:#f92672>.</span>OptionParser()
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-f&#39;</span>, <span style=color:#e6db74>&#39;--file&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;zipfile&#39;</span>,
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;string&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Target zip file.&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-p&#39;</span>, <span style=color:#e6db74>&#39;--pfile&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;pwdfile&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;pass.txt&#39;</span>,
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;string&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Password file.&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;-t&#39;</span>, <span style=color:#e6db74>&#39;--thread_num&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;thread_num&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#ae81ff>60</span>,
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;int&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Thread number.&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    (options, args) <span style=color:#f92672>=</span> parser<span style=color:#f92672>.</span>parse_args()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>zipfile <span style=color:#f92672>and</span> options<span style=color:#f92672>.</span>pwdfile:
+</span></span><span style=display:flex><span>        load_pwd(options<span style=color:#f92672>.</span>pwdfile)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        parser<span style=color:#f92672>.</span>print_help()
+</span></span><span style=display:flex><span>        sys<span style=color:#f92672>.</span>exit(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    threads <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> range(options<span style=color:#f92672>.</span>thread_num):
+</span></span><span style=display:flex><span>        t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>bruter,args<span style=color:#f92672>=</span>(options<span style=color:#f92672>.</span>zipfile,queue,))
+</span></span><span style=display:flex><span>        t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>        t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>    queue<span style=color:#f92672>.</span>join()
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;result is: </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> result
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    main()
+</span></span></code></pre></div></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-implement-agent/>Python 实现代理</a></h1><div class=post-meta><time>2016-09-13</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/%E4%BB%A3%E7%90%86>代理</a>)</div><div class=summary-body><p><h3 id=0x00-帮助信息>0x00 帮助信息</h3><p><img src=/img/post/python_proxy_help.png alt=帮助信息></p><h3 id=0x01-代码如下>0x01 代码如下</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;This is a proxy&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>__author__ <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;xxx&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> socket
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> optparse
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>lock <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Lock()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>locker</span>(msg):
+</span></span><span style=display:flex><span>    lock<span style=color:#f92672>.</span>acquire()
+</span></span><span style=display:flex><span>    print msg
+</span></span><span style=display:flex><span>    lock<span style=color:#f92672>.</span>release()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>hexdump</span> (src,length<span style=color:#f92672>=</span><span style=color:#ae81ff>16</span>):<span style=color:#75715e>#十六进制导出函数</span>
+</span></span><span style=display:flex><span>    result <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>    digits <span style=color:#f92672>=</span> <span style=color:#ae81ff>4</span> <span style=color:#66d9ef>if</span> isinstance(src,unicode) <span style=color:#66d9ef>else</span> <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>0</span>,len(src),length):
+</span></span><span style=display:flex><span>        s <span style=color:#f92672>=</span> src[i:i<span style=color:#f92672>+</span>length]
+</span></span><span style=display:flex><span>        hexa <span style=color:#f92672>=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39; &#39;</span><span style=color:#f92672>.</span>join(<span style=color:#e6db74>&#34;[</span><span style=color:#e6db74>%0*X</span><span style=color:#e6db74>]&#34;</span> <span style=color:#f92672>%</span> (digits,ord(x)) <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> s)
+</span></span><span style=display:flex><span>        text <span style=color:#f92672>=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>join([x <span style=color:#66d9ef>if</span> <span style=color:#ae81ff>0x20</span> <span style=color:#f92672>&lt;=</span> ord(x) <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0x7F</span> <span style=color:#66d9ef>else</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;.&#39;</span> <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> s])
+</span></span><span style=display:flex><span>        result<span style=color:#f92672>.</span>append(<span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%04X</span><span style=color:#e6db74>  </span><span style=color:#e6db74>%-*s</span><span style=color:#e6db74>  </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (i,length<span style=color:#f92672>*</span>(digits<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>),hexa,text))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span><span style=color:#f92672>.</span>join(result)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>receive_from</span> (connection):
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    buffer <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#我们设置了1秒的超时，这取决于目标的情况，可能需要调整</span>
+</span></span><span style=display:flex><span>    connection<span style=color:#f92672>.</span>settimeout(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#持续从缓存中读取数据直到没有数据或者超时</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>            data <span style=color:#f92672>=</span> connection<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>4096</span>)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> data:
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            buffer <span style=color:#f92672>+=</span> data
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> buffer
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:#75715e>#对目标是远程主机的请求进行修改</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>request_handler</span> (buffer):
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#执行包修改</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> buffer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#对目标是本地主机的响应进行修改</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>response_handler</span> (buffer):
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#执行包修改</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> buffer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>proxy_handler</span> (client_socket,remote_host,remote_port,receive_first):
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#连接远程主机</span>
+</span></span><span style=display:flex><span>    remote_socket <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET,socket<span style=color:#f92672>.</span>SOCK_STREAM)
+</span></span><span style=display:flex><span>    remote_socket<span style=color:#f92672>.</span>connect((remote_host,remote_port))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#如果必要从远程主机接收数据</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> receive_first:
+</span></span><span style=display:flex><span>        remote_buffer <span style=color:#f92672>=</span> receive_from(remote_socket)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(remote_buffer):
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>[==&gt;] Received </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> bytes from remote.&#34;</span> <span style=color:#f92672>%</span> len(remote_buffer)
+</span></span><span style=display:flex><span>            <span style=color:#75715e># hexdump(remote_buffer)</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#发送给我们的相应处理</span>
+</span></span><span style=display:flex><span>        remote_buffer <span style=color:#f92672>=</span> response_handler(remote_buffer)
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#若我们有数据传递给本地客户端，发送它</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(remote_buffer):
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[&lt;==] Sending </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> bytes to localhost.</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> len(remote_buffer)
+</span></span><span style=display:flex><span>            client_socket<span style=color:#f92672>.</span>send(remote_buffer)
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#现在我们从本地循环读取数据，发送给远程主机和本地主机</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#从本地读取数据</span>
+</span></span><span style=display:flex><span>        local_buffer <span style=color:#f92672>=</span> receive_from(client_socket)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(local_buffer):
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>[==&gt;] Received </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> bytes from localhost.&#34;</span> <span style=color:#f92672>%</span> len(local_buffer)
+</span></span><span style=display:flex><span>            <span style=color:#75715e># hexdump(local_buffer)</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>#发送给我们的本地请求</span>
+</span></span><span style=display:flex><span>            local_buffer <span style=color:#f92672>=</span> request_handler(local_buffer)
+</span></span><span style=display:flex><span>            <span style=color:#75715e>#发送给远程主机</span>
+</span></span><span style=display:flex><span>            remote_socket<span style=color:#f92672>.</span>send(local_buffer)
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[==&gt;] Sent to remote.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#接收响应的数据</span>
+</span></span><span style=display:flex><span>        remote_buffer <span style=color:#f92672>=</span> receive_from(remote_socket)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> len(remote_buffer):
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>[&lt;==] Received </span><span style=color:#e6db74>%d</span><span style=color:#e6db74> bytes from remote.&#34;</span> <span style=color:#f92672>%</span> len(remote_buffer)
+</span></span><span style=display:flex><span>            <span style=color:#75715e># hexdump(remote_buffer)</span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e>#发送数据到响应处理函数</span>
+</span></span><span style=display:flex><span>            remote_buffer <span style=color:#f92672>=</span> response_handler(remote_buffer)
+</span></span><span style=display:flex><span>            <span style=color:#75715e>#将响应发送给本地socket</span>
+</span></span><span style=display:flex><span>            client_socket<span style=color:#f92672>.</span>send(remote_buffer)
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[==&gt;] Sent to localhost.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#若两边都没有数据，关闭连接</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> len(local_buffer) <span style=color:#f92672>or</span> <span style=color:#f92672>not</span> len(remote_buffer):
+</span></span><span style=display:flex><span>            client_socket<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>            remote_socket<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;[*] No more data. Closing connections.&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>server_loop</span>(local_host,local_port,remote_host,remote_port,receive_first):
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    server <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET,socket<span style=color:#f92672>.</span>SOCK_STREAM)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>        server<span style=color:#f92672>.</span>bind((local_host,local_port))
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;[!!] Failed to listen on </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (local_host,local_port)
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;[!!] Check for other listening sockets or correct permisssions.&#34;</span>
+</span></span><span style=display:flex><span>        sys<span style=color:#f92672>.</span>exit(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;[*] Listening on </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>......&#34;</span> <span style=color:#f92672>%</span> (local_host,local_port)
+</span></span><span style=display:flex><span>    server<span style=color:#f92672>.</span>listen(<span style=color:#ae81ff>5</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>        client_socket,addr <span style=color:#f92672>=</span> server<span style=color:#f92672>.</span>accept()
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#打印本地连接信息</span>
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>[==&gt;] Received incoming connection from </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (addr[<span style=color:#ae81ff>0</span>],addr[<span style=color:#ae81ff>1</span>])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>#开启一个线程与远程主机通信</span>
+</span></span><span style=display:flex><span>        proxy_thread <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>proxy_handler,args<span style=color:#f92672>=</span>(client_socket,remote_host,remote_port,receive_first))
+</span></span><span style=display:flex><span>        proxy_thread<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span> ():
+</span></span><span style=display:flex><span>    parser <span style=color:#f92672>=</span> optparse<span style=color:#f92672>.</span>OptionParser()
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;--lh&#39;</span>, <span style=color:#e6db74>&#39;--localhost&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;localhost&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;127.0.0.1&#39;</span>,
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;string&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Localhost.&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;--lp&#39;</span>, <span style=color:#e6db74>&#39;--localport&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;localport&#39;</span>,default<span style=color:#f92672>=</span><span style=color:#ae81ff>8888</span>,
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;int&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Localport.&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;--rh&#39;</span>, <span style=color:#e6db74>&#39;--remotehost&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;remotehost&#39;</span>, default<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;127.0.0.1&#39;</span>,
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;string&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Remotehost.&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;--rp&#39;</span>, <span style=color:#e6db74>&#39;--remoteport&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;remoteport&#39;</span>, default<span style=color:#f92672>=</span><span style=color:#ae81ff>8080</span>, 
+</span></span><span style=display:flex><span>        type<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;int&#39;</span>, help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Remoteport.&#39;</span>)
+</span></span><span style=display:flex><span>    parser<span style=color:#f92672>.</span>add_option(<span style=color:#e6db74>&#39;--rf&#39;</span>, <span style=color:#e6db74>&#39;--receivefirst&#39;</span>, dest<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;receive_first&#39;</span>, default<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>,
+</span></span><span style=display:flex><span>        action<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;store_true&#39;</span>,help<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;Connection before send and receive data.&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    (options, args) <span style=color:#f92672>=</span> parser<span style=color:#f92672>.</span>parse_args()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#设置本地监听参数</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>localhost:
+</span></span><span style=display:flex><span>        local_host <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>localhost
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>localport:
+</span></span><span style=display:flex><span>        local_port <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>localport
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#设置远程目标</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>remotehost:
+</span></span><span style=display:flex><span>        remote_host <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>remotehost
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> options<span style=color:#f92672>.</span>remoteport:
+</span></span><span style=display:flex><span>        remote_port <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>remoteport
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    receive_first <span style=color:#f92672>=</span> options<span style=color:#f92672>.</span>receive_first
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print local_host,local_port,remote_host,remote_port,receive_first</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#现在设置好我们的监听socket</span>
+</span></span><span style=display:flex><span>    server_loop(local_host,local_port,remote_host,remote_port,receive_first)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>main()
+</span></span></code></pre></div><h3 id=0x02-效果图>0x02 效果图</h3><p><img src=/img/post/python_proxy_result.png alt=效果图></p><a href=https://wyb0.com/posts/2016/python-implement-agent/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-package-mysql-function/>Python 封装 MySQL 类</a></h1><div class=post-meta><time>2016-09-12</time>
+[<a href=/categories/Python>Python</a>,<a href=/categories/Database>Database</a>](<a href=/tags/python>python</a>,<a href=/tags/mysql>mysql</a>)</div><div class=summary-body><p><h3 id=0x00-安装>0x00 安装</h3><p>有两种，一个是MySQLdb，一个是pymysql</p><ul><li>下载<a href=https://pypi.python.org/pypi/MySQL-python/1.2.5>MySQL-python</a>然后安装</li><li>sudo pip install pymysql(推荐，因为py3已经不支持MySQLdb了)</li></ul><h3 id=0x01-简单表设计如下>0x01 简单表设计如下</h3><pre tabindex=0><code>insert into mysql.user(Host,User,Password) values(&#39;%&#39;,&#39;python&#39;,&#39;123456&#39;);
 
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
+drop database if exists python;
+create database python;
+use python;
 
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/principles/">准则</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-21</time>
-    [<a href="/categories/Other">Other</a>](<a href="/tags/miscellanea">miscellanea</a>)
-</div>
+drop table if exists msg;
+create table msg(
+    id int not null auto_increment primary key,
+    ip varchar(40) not null default &#39;127.0.0.1&#39; comment &#39;ip地址&#39;,
+    domain varchar(100) not null default &#39;www.xx.com&#39; comment &#39;域名&#39;
+);
 
-  <div class="summary-body">
-    <p>0x00 创造价值 小鸡问母鸡：可否不用下蛋，带我出去玩啊？母鸡道：不行，我要工作！ 小鸡说：可你已经下了这么多蛋了！母鸡意味深长地<a href="https://wyb0.com/posts/2016/principles/"> more...</a></p>
-  </div>
-</article>
+grant all privileges on python.* to &#39;python&#39;@&#39;%&#39; identified by &#39;123456&#39;;
+flush privileges;
+</code></pre><h3 id=0x02-mysqldb封装代码>0x02 MySQLdb封装代码</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> MySQLdb
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>mysql</span>(object):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;docstring for mysql&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__(self, dbconfig):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>host <span style=color:#f92672>=</span> dbconfig[<span style=color:#e6db74>&#39;host&#39;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>port <span style=color:#f92672>=</span> dbconfig[<span style=color:#e6db74>&#39;port&#39;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>user <span style=color:#f92672>=</span> dbconfig[<span style=color:#e6db74>&#39;user&#39;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>passwd <span style=color:#f92672>=</span> dbconfig[<span style=color:#e6db74>&#39;passwd&#39;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>dbname <span style=color:#f92672>=</span> dbconfig[<span style=color:#e6db74>&#39;dbname&#39;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>charset <span style=color:#f92672>=</span> dbconfig[<span style=color:#e6db74>&#39;charset&#39;</span>]
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_conn <span style=color:#f92672>=</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_connect()
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_cursor <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_conn<span style=color:#f92672>.</span>cursor()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_connect</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_conn <span style=color:#f92672>=</span> MySQLdb<span style=color:#f92672>.</span>connect(host<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>host,
+</span></span><span style=display:flex><span>                port <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>port,
+</span></span><span style=display:flex><span>                user<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>user,
+</span></span><span style=display:flex><span>                passwd<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>passwd,
+</span></span><span style=display:flex><span>                db<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>dbname,
+</span></span><span style=display:flex><span>                charset<span style=color:#f92672>=</span>self<span style=color:#f92672>.</span>charset)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> MySQLdb<span style=color:#f92672>.</span>Error,e:
+</span></span><span style=display:flex><span>            print e
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>query</span>(self, sql):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            result <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> MySQLdb<span style=color:#f92672>.</span>Error, e:
+</span></span><span style=display:flex><span>            print e
+</span></span><span style=display:flex><span>            result <span style=color:#f92672>=</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> result
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>select</span>(self, table, column<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*&#39;</span>, condition<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>):
+</span></span><span style=display:flex><span>        condition <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39; where &#39;</span> <span style=color:#f92672>+</span> condition <span style=color:#66d9ef>if</span> condition <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> condition:
+</span></span><span style=display:flex><span>            sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> from </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (column,table,condition)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> from </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (column,table)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>query(sql)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>fetchall()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>insert</span>(self, table, tdict):
+</span></span><span style=display:flex><span>        column <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>        value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> key <span style=color:#f92672>in</span> tdict:
+</span></span><span style=display:flex><span>            column <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#39;,&#39;</span> <span style=color:#f92672>+</span> key
+</span></span><span style=display:flex><span>            value <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#34;&#39;,&#39;&#34;</span> <span style=color:#f92672>+</span> tdict[key]
+</span></span><span style=display:flex><span>        column <span style=color:#f92672>=</span> column[<span style=color:#ae81ff>1</span>:]
+</span></span><span style=display:flex><span>        value <span style=color:#f92672>=</span> value[<span style=color:#ae81ff>2</span>:] <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;&#39;&#34;</span>
+</span></span><span style=display:flex><span>        sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;insert into </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>(</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>) values(</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>)&#34;</span> <span style=color:#f92672>%</span> (table,column,value)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_conn<span style=color:#f92672>.</span>commit()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>rollback()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>lastrowid <span style=color:#75715e>#返回最后的id</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>update</span>(self, table, tdict, condition<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> condition:
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;must have id&#34;</span>
+</span></span><span style=display:flex><span>            exit()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>            condition <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;where &#39;</span> <span style=color:#f92672>+</span> condition
+</span></span><span style=display:flex><span>        value <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> key <span style=color:#f92672>in</span> tdict:
+</span></span><span style=display:flex><span>            value <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#34;,</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>=&#39;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#39;&#34;</span> <span style=color:#f92672>%</span> (key,tdict[key])
+</span></span><span style=display:flex><span>        value <span style=color:#f92672>=</span> value[<span style=color:#ae81ff>1</span>:]
+</span></span><span style=display:flex><span>        sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;update </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> set </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (table,value,condition)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>rollback()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>affected_num() <span style=color:#75715e>#返回受影响行数</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>delete</span>(self, table, condition<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;</span>):
+</span></span><span style=display:flex><span>        condition <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;where &#39;</span> <span style=color:#f92672>+</span> condition <span style=color:#66d9ef>if</span> condition <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>        sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;delete from </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (table,condition)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>execute(sql)
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_conn<span style=color:#f92672>.</span>commit()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>rollback()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>affected_num() <span style=color:#75715e>#返回受影响行数</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>rollback</span>(self):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>_conn<span style=color:#f92672>.</span>rollback()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>affected_num</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>rowcount
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __del__(self):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_cursor<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>_conn<span style=color:#f92672>.</span>close()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>close</span>(self):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>__del__()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    dbconfig <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;host&#39;</span>:<span style=color:#e6db74>&#39;192.168.188.134&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;port&#39;</span>:<span style=color:#ae81ff>3306</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;user&#39;</span>:<span style=color:#e6db74>&#39;python&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;passwd&#39;</span>:<span style=color:#e6db74>&#39;123456&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;dbname&#39;</span>:<span style=color:#e6db74>&#39;python&#39;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;charset&#39;</span>:<span style=color:#e6db74>&#39;utf8&#39;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    db <span style=color:#f92672>=</span> mysql(dbconfig)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db.select(&#39;msg&#39;,&#39;id,ip,domain&#39;)</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db.select(&#39;msg&#39;,&#39;id,ip,domain&#39;,&#39;id&gt;2&#39;)</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db.affected_num()</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># tdict = {</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#     &#39;ip&#39;:&#39;111.13.100.91&#39;,</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#     &#39;domain&#39;:&#39;baidu.com&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># }</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db.insert(&#39;msg&#39;, tdict)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># tdict = {</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#     &#39;ip&#39;:&#39;111.13.100.91&#39;,</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#     &#39;domain&#39;:&#39;aaaaa.com&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># }</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db.update(&#39;msg&#39;, tdict, &#39;id=5&#39;)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># print db.delete(&#39;msg&#39;, &#39;id&gt;3&#39;)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    db<span style=color:#f92672>.</span>close()
+</span></span></code></pre></div><h3 id=0x03-pymysql封装代码>0x03 pymysql封装代码</h3><pre tabindex=0><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/package-sqlmapapi-common-function/">SqlmapApi 常用方法封装</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-21</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
+import urlparse
+import pymysql
+import contextlib
 
-  <div class="summary-body">
-    <p>0x00 代码如下 #!/usr/bin/env python # -*- coding: utf-8 -*- import threading import requests import json from time import sleep class Sqli(threading.Thread): &#34;&#34;&#34;docstring for AutoSqli&#34;&#34;&#34; def __init__(self, server, target, data=&#39;&#39;, referer=&#39;&#39;, cookie=&#39;&#39;): threading.Thread.__init__(self) self.server = server[0:-1] if server[-1]==&#39;/&#39; else server self.target = target self.data = data self.referer = referer self.cookie = cookie self.taskid = &#39;&#39; self.data def new_task(self):<a href="https://wyb0.com/posts/2016/package-sqlmapapi-common-function/"> more...</a></p>
-  </div>
-</article>
+class MySQLX(object):
+    def __init__(self, mysql_uri):
+        super(MySQLX, self).__init__()
+        self.mysql_uri = mysql_uri
+        self.mysql_info = self.mysql_parse_uri()
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-blasting-zip-archive/">Python 爆破 zip 压缩包</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-20</time>
-    [<a href="/categories/Pentest">Pentest</a>,<a href="/categories/Python">Python</a>](<a href="/tags/%E7%88%86%E7%A0%B4">爆破</a>,<a href="/tags/python">python</a>)
-</div>
+    def mysql_parse_uri(self):
+        p = urlparse.urlparse(self.mysql_uri)
+        host = p.hostname
+        port = p.port
+        user = p.username
+        password = p.password
+        dbname = p.path.strip(&#39;/&#39;)
+        charset = urlparse.parse_qs(p.query)[&#39;charset&#39;][0]
 
-  <div class="summary-body">
-    <p>0x00 代码 多线程爆破加密的zip压缩包 #!/usr/bin/env python # -*- coding: utf-8 -*- import sys import optparse import zipfile import threading import Queue queue = Queue.Queue() lock = threading.Lock() result = &#39;&#39; def load_pwd(filename): for line in open(filename,&#39;r&#39;): if line: queue.put(line.strip()) def bruter(zipname,queue): global result zFile = zipfile.ZipFile(zipname) while<a href="https://wyb0.com/posts/2016/python-blasting-zip-archive/"> more...</a></p>
-  </div>
-</article>
+        return {
+            &#39;host&#39;: host,
+            &#39;port&#39;: port,
+            &#39;user&#39;: user,
+            &#39;password&#39;: password,
+            &#39;db&#39;: dbname,
+            &#39;charset&#39;: charset,
+            &#39;cursorclass&#39;: pymysql.cursors.DictCursor,
+        }
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-implement-agent/">Python 实现代理</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-13</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/%E4%BB%A3%E7%90%86">代理</a>)
-</div>
+    @contextlib.contextmanager
+    def init(self):
+        dbconn = pymysql.connect(**self.mysql_info)
+        cursor = dbconn.cursor()
+        # dbconn = pymysql.connect(
+        #     host=mysql_info.get(&#39;host&#39;),
+        #     user=mysql_info.get(&#39;user&#39;),
+        #     password=mysql_info.get(&#39;password&#39;),
+        #     db=mysql_info.get(&#39;db&#39;),
+        #     charset=mysql_info.get(&#39;charset&#39;)
+        #     )
+        # cursor = dbconn.cursor(cursor=pymysql.cursors.DictCursor)
 
-  <div class="summary-body">
-    <p>0x00 帮助信息 0x01 代码如下 #!/usr/bin/env python # -*- coding: utf-8 -*- &#39;This is a proxy&#39; __author__ = &#39;xxx&#39; import sys import socket import threading import optparse lock = threading.Lock() def locker(msg): lock.acquire() print msg lock.release() def hexdump (src,length=16):#<a href="https://wyb0.com/posts/2016/python-implement-agent/"> more...</a></p>
-  </div>
-</article>
+        try:
+            yield cursor #这里就是with返回的
+        finally:
+            dbconn.commit()
+            cursor.close()
+            dbconn.close()
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-package-mysql-function/">Python 封装 MySQL 类</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-12</time>
-    [<a href="/categories/Python">Python</a>,<a href="/categories/Database">Database</a>](<a href="/tags/python">python</a>,<a href="/tags/mysql">mysql</a>)
-</div>
+    def query(self, sql, arg=&#39;&#39;):
+        try:
+            with self.init() as cursor:
+                if arg:
 
-  <div class="summary-body">
-    <p>0x00 安装 有两种，一个是MySQLdb，一个是pymysql 下载MySQL-python然后安装 sudo pip install pymysql(推荐，<a href="https://wyb0.com/posts/2016/python-package-mysql-function/"> more...</a></p>
-  </div>
-</article>
+                    cursor.execute(sql,arg) #返回受影响行数
+                else:
+                    cursor.execute(sql)
+                result = cursor.fetchall() #返回数据格式是[{},{}]
+                # result = cursor.fetchone() #返回数据格式是{}
+                return result
+        except Exception as e:
+            print sql,str(e)
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/tmux-usage/">Tmux 的使用</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-10</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/software">software</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 Tmux 的快捷键前缀 在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。 默认情况下，Tmux 的快捷键前缀是 Ctr<a href="https://wyb0.com/posts/2016/tmux-usage/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/poc-framework-pocsuite/">POC 框架 Pocsuite</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-08</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 关于Pocsuite Pocsuite 是知道创宇安全研究团队打造的一款基于漏洞与 POC 的远程漏洞验证框架。可以让我们不用考虑过多的细节，只<a href="https://wyb0.com/posts/2016/poc-framework-pocsuite/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/sublime-text3-plugins/">Sublime Text 3 几个好用的插件</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-02</time>
-    [<a href="/categories/Other">Other</a>](<a href="/tags/software">software</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 Package Control 安装完这个插件后可以更容易的管理(安装、删除、查看等)其他插件 代码安装 ctrl+~快捷键调出console，将下面<a href="https://wyb0.com/posts/2016/sublime-text3-plugins/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/php-safe-configuration/">PHP 安全配置</a></h1>
-  
-<div class="post-meta">
-    <time>2016-09-01</time>
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 PHP的配置 PHP的配置文件为php.ini,其中有些项配置不当的话就会造成一些安全问题 0x01 远程文件包含 涉及配置项 allow_url_include 配置<a href="https://wyb0.com/posts/2016/php-safe-configuration/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-module/">Python 的模块</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-31</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 Python的模块 在python中，任何一个python文件都可以看作一个模块 不同包下有相同模块名并不会冲突，且包下必<a href="https://wyb0.com/posts/2016/python-module/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/7/">Previous Page</a>
-  
-  8 of 18
-  
-    <a href="/page/9/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+if __name__ == &#39;__main__&#39;:
+    mysql_uri = &#34;mysql+pymysql://root:root@localhost:3306/rtest?charset=utf8mb4&#34;
+    sqlconn = MySQLX(mysql_uri)
+    sql = &#34;select * from `msg` where id=%s&#34;
+    result = sqlconn.query(sql,&#34;2&#34;)
+    print result
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/tmux-usage/>Tmux 的使用</a></h1><div class=post-meta><time>2016-09-10</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/software>software</a>)</div><div class=summary-body><p><h3 id=0x00-tmux-的快捷键前缀>0x00 Tmux 的快捷键前缀</h3><p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。</p><p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。</p><a href=https://wyb0.com/posts/2016/tmux-usage/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/poc-framework-pocsuite/>POC 框架 Pocsuite</a></h1><div class=post-meta><time>2016-09-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-关于pocsuite>0x00 关于Pocsuite</h3><p>Pocsuite 是知道创宇安全研究团队打造的一款基于漏洞与 POC 的远程漏洞验证框架。可以让我们不用考虑过多的细节，只要考虑验证代码就可以，它封装了一些我们常用的东西，比如requests，在我们平常使用requests是要考虑cookie、要考虑header，但是在框架下则不需要有这些考虑，因为这些东西框架都帮你解决了。</p><a href=https://wyb0.com/posts/2016/poc-framework-pocsuite/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/sublime-text3-plugins/>Sublime Text 3 几个好用的插件</a></h1><div class=post-meta><time>2016-09-02</time>
+[<a href=/categories/Other>Other</a>](<a href=/tags/software>software</a>)</div><div class=summary-body><p><h3 id=0x00-package-control>0x00 Package Control</h3><p>安装完这个插件后可以更容易的管理(安装、删除、查看等)其他插件</p><ul><li>代码安装<br>ctrl+~快捷键调出console，将下面代码粘贴进去，然后Enter执行(注意单引号)</li></ul><pre tabindex=0><code>import urllib.request,os; pf = &#39;Package Control.sublime-package&#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#39;wb&#39;).write(urllib.request.urlopen( &#39;http://sublime.wbond.net/&#39; + pf.replace(&#39; &#39;,&#39;%20&#39;)).read())
+</code></pre><ul><li>手动安装<ul><li>点击https://sublime.wbond.net/Package%20Control.sublime-package 下载文件</li><li>将下载的文件放在root path/Data/Installed Packages下</li><li>重启Sublime Text</li></ul></li><li>使用方法<ul><li><p>Ctrl+Shift+P调出菜单然后选择相应操作
+<img src=/img/post/sublime_package_control1.png alt=40></p><a href=https://wyb0.com/posts/2016/sublime-text3-plugins/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/php-safe-configuration/>PHP 安全配置</a></h1><div class=post-meta><time>2016-09-01</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div class=summary-body><p><h3 id=0x00-php的配置>0x00 PHP的配置</h3><p>PHP的配置文件为php.ini,其中有些项配置不当的话就会造成一些安全问题</p><h3 id=0x01-远程文件包含>0x01 远程文件包含</h3><ul><li>涉及配置项<ul><li>allow_url_include<ul><li>配置为On时允许进行远程文件包含</li></ul></li><li>allow_url_fopen<ul><li>配置为On时允许使用函数fopen、file_put_contents</li></ul></li></ul></li><li>配置方案<ul><li>alllow_url_include = Off</li><li>allow_url_fopen = Off</li></ul></li></ul><h3 id=0x02-关闭错误回显>0x02 关闭错误回显</h3><ul><li>涉及配置项<ul><li>display_errors<ul><li>配置为On时会显示错误信息</li></ul></li></ul></li><li>配置方案<ul><li>display_errors = Off</li><li>log_errors = On</li><li>error_log = /var/log/php_error.log</li></ul></li></ul><h3 id=0x03-隐藏php版本>0x03 隐藏php版本</h3><ul><li>涉及配置项<ul><li>expose_php<ul><li>为Off时会隐藏php版本</li></ul></li></ul></li><li>配置方案<ul><li>expose_php = Off</li></ul></li></ul><h3 id=0x04-魔术引号>0x04 魔术引号</h3><ul><li>涉及配置项<ul><li>magic_quotes_gpc<ul><li>过滤get、post、cookie的单引号、双引号、反斜杠、空字符，但不过滤$_SERVER</li></ul></li><li>magic_quotes_runtime<ul><li>对文件或数据库中取出的数据进行过滤，可防止二次注入</li></ul></li></ul></li><li>配置方案<ul><li>做逻辑判断时需要去掉反斜杠，所以用全局过滤框架做过滤吧</li></ul></li></ul><h3 id=0x05-安全模式>0x05 安全模式</h3><ul><li>涉及配置项<ul><li>safe_mode<ul><li>开启后安全系数提升，但会限制函数使用权限和操作目录文件权限等</li></ul></li></ul></li><li>配置方案<ul><li>在安全模式下可以使用safe_mode_include_dir = /var/www/common来排除某些文件</li></ul></li></ul><h3 id=0x06-目录权限控制>0x06 目录权限控制</h3><ul><li>涉及配置项<ul><li>open_basedir<ul><li>开启后可将用户访问范围限定，可防止跨站，但会影响性能</li></ul></li></ul></li><li>配置方案<ul><li>open_basedir = /var/www/web1/:/var/www/web2/ (后面的斜杠不能少)</li></ul></li></ul><h3 id=0x07-禁止函数>0x07 禁止函数</h3><ul><li>涉及配置项<ul><li>disable_functions<ul><li>禁止某些命令执行函数和文件操作函数的使用</li></ul></li></ul></li><li>配置方案<ul><li>disable_functions = system,passthru,exec,shell_exec,popen,pcntl_exec,
+proc_open,chdir,chroot,getcwd,readdir,mkdir,copy,file_get_contents,</li></ul></li></ul><h3 id=0x08-注册全局变量>0x08 注册全局变量</h3><ul><li>涉及配置项<ul><li>register_globals<ul><li>值为On是会开启全局注册变量功能</li></ul></li></ul></li><li>配置方案<ul><li>register_globals = Off</li></ul></li></ul></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-module/>Python 的模块</a></h1><div class=post-meta><time>2016-08-31</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-python的模块>0x00 Python的模块</h3><ul><li>在python中，任何一个python文件都可以看作一个模块</li><li>不同包下有相同模块名并不会冲突，且包下必须有文件<code>__init__.py</code></li><li>from lib import * 意思是从包lib中导入所有模块(若lib为模块名则为导入模块的所有函数)</li><li>from lib.module1 import test 意思是从lib这个包下的module1模块中导入函数test</li><li>import导入模块时会从sys.path输出的结果路径中查找模块然后导入</li><li><code>sys.path.append('D:/xx/xx/xx/code')</code>可以添加搜索路径</li><li>使用<code>if __name__ == '__main__':</code></li></ul><h3 id=0x01-实例>0x01 实例</h3><ul><li>文件结构如下</li></ul><p><img src=/img/post/python_module_file_tree.png alt=模块目录结构></p><a href=https://wyb0.com/posts/2016/python-module/>more...</a></p></div></article><div><a href=/page/7/>Previous Page</a>
+8 of 18
+<a href=/page/9/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

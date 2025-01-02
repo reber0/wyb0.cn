@@ -1,91 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SQL 注入之宽字节注入(MySQL) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SQL 注入之宽字节注入(MySQL)</h1>
-      
-<div class="post-meta">
-    <time>2016-06-24</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-应用场景">0x00 应用场景</h3>
-<p>在注入时通常会使用单引号、双引号等特殊字符。在应用中，通常为了安全，开发者会开启php的magic_quotes_gpc，或者使用addslashes、mysql_real_escape_string等函数对客户端传入的参数进行过滤，则注入的单引号或双引号就会被<code>&quot;\&quot;</code>转义，但是，如果服务端的数据库使用的是GB2312、GBK、GB18030等宽字节的编码时，则依然会造成注入。</p>
-<h3 id="0x01-测试代码">0x01 测试代码</h3>
-<pre tabindex="0"><code>&lt;?php
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SQL 注入之宽字节注入(MySQL) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SQL 注入之宽字节注入(MySQL)</h1><div class=post-meta><time>2016-06-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-应用场景>0x00 应用场景</h3><p>在注入时通常会使用单引号、双引号等特殊字符。在应用中，通常为了安全，开发者会开启php的magic_quotes_gpc，或者使用addslashes、mysql_real_escape_string等函数对客户端传入的参数进行过滤，则注入的单引号或双引号就会被<code>"\"</code>转义，但是，如果服务端的数据库使用的是GB2312、GBK、GB18030等宽字节的编码时，则依然会造成注入。</p><h3 id=0x01-测试代码>0x01 测试代码</h3><pre tabindex=0><code>&lt;?php
     $conn = mysql_connect(&#39;localhost&#39;,&#39;root&#39;,&#39;root&#39;);
     mysql_select_db(&#39;messages&#39;,$conn);
 
@@ -111,43 +36,17 @@
         echo &#34;please input id.&#34;;
     }
 ?&gt;
-</code></pre><p><img src="/img/post/injection_of_wide_byte_addslashes.png" alt="单引号被转义"></p>
-<h3 id="0x02-宽字节注入原理">0x02 宽字节注入原理</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">当MySQL使用的是GBK编码时，0xbf5c会被当做一个字符(双字节字符)，其中5c是&#34;\&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">当注入语句为http://127.0.0.1/test.php?id</span><span style="color:#f92672">=</span><span style="color:#e6db74">2%bf&#39;时</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">在数据库中bf会和转义符&#34;\&#34;形成一个双字节字符&#34;縗&#34;，从而单引号逃逸</span>
-</span></span></code></pre></div><p><img src="/img/post/injection_of_wide_byte_bf.png" alt="转义符被bf吃掉">
-<img src="/img/post/injection_of_wide_byte_user.png" alt="单引号逃逸后查询user"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/injection_of_wide_byte_addslashes.png alt=单引号被转义></p><h3 id=0x02-宽字节注入原理>0x02 宽字节注入原理</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>当MySQL使用的是GBK编码时，0xbf5c会被当做一个字符(双字节字符)，其中5c是&#34;\&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>当注入语句为http://127.0.0.1/test.php?id</span><span style=color:#f92672>=</span><span style=color:#e6db74>2%bf&#39;时</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>在数据库中bf会和转义符&#34;\&#34;形成一个双字节字符&#34;縗&#34;，从而单引号逃逸</span>
+</span></span></code></pre></div><p><img src=/img/post/injection_of_wide_byte_bf.png alt=转义符被bf吃掉>
+<img src=/img/post/injection_of_wide_byte_user.png alt=单引号逃逸后查询user></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

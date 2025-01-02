@@ -1,258 +1,532 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-text-processing/>Linux 之文本处理</a></h1><div class=post-meta><time>2016-04-20</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><p>这里介绍3种方式：awk、grep、sed</p><h3 id=0x00-awk处理文本最常用>0x00 awk处理文本(最常用)</h3><pre tabindex=0><code>作用：awk对数据以行分析并生成报告时显得很强大，它将行进行切片，再处理分开的切片，可对格式化的数据重新进行格式化  
+awk命令格式：awk [F filed-separator] &#39;commands&#39; input-fiel(s)  
+参数-F：可以添加任意的分割符，比较重要  
+awk工作流程是这样的：  
+读入有&#39;\n&#39;换行符分割的一条记录，然后将记录按-F指定的域分隔符划分域，$0则表示所有域,$1表示第一个域,$n表示第n个域。默认域分隔符是&#34;空白键&#34; 或 &#34;[tab]键&#34;。
+</code></pre><ul><li>入门示例：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style=display:flex><span>bin:x:1:1:bin:/bin:/sbin/nologin
+</span></span><span style=display:flex><span>daemon:x:2:2:daemon:/sbin:/sbin/nologin
+</span></span><span style=display:flex><span>adm:x:3:4:adm:/var/adm:/sbin/nologin
+</span></span><span style=display:flex><span>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd | awk -F <span style=color:#e6db74>&#39;:&#39;</span> <span style=color:#e6db74>&#39;{print $1}&#39;</span> <span style=color:#75715e>#输出第1列，域分隔符为：</span>
+</span></span><span style=display:flex><span>root
+</span></span><span style=display:flex><span>bin
+</span></span><span style=display:flex><span>daemon
+</span></span><span style=display:flex><span>adm
+</span></span><span style=display:flex><span>lp
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd | awk -F <span style=color:#e6db74>&#39;:&#39;</span>  <span style=color:#e6db74>&#39;{pri
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>nt &#34;id:&#34;$1&#34;\tshell:&#34;$7}&#39;</span> <span style=color:#75715e>#输出第1、7列且给予列名</span>
+</span></span><span style=display:flex><span>id:root shell:/bin/bash
+</span></span><span style=display:flex><span>id:bin  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:daemon       shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:adm  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:lp   shell:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ head -n <span style=color:#ae81ff>5</span> /etc/passwd | awk -F <span style=color:#e6db74>&#39;:&#39;</span>  <span style=color:#e6db74>&#39;BEGIN {print &#34;====begin=====&#34;} {print &#34;id:&#34;$1&#34;\tshell:&#34;$7} END {print &#34;====end====&#34;}&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>====</span>begin<span style=color:#f92672>=====</span>
+</span></span><span style=display:flex><span>id:root shell:/bin/bash
+</span></span><span style=display:flex><span>id:bin  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:daemon       shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:adm  shell:/sbin/nologin
+</span></span><span style=display:flex><span>id:lp   shell:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>====</span>end<span style=color:#f92672>====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ awk -F: <span style=color:#e6db74>&#39;/root/&#39;</span> /etc/passwd <span style=color:#75715e>#搜索含有root关键字的所有行</span>
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span><span style=display:flex><span>operator:x:11:0:operator:/root:/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ awk -F: <span style=color:#e6db74>&#39;/root/{print $7}&#39;</span> /etc/passwd <span style=color:#75715e>#匹配root并输出对应shell</span>
+</span></span><span style=display:flex><span>/bin/bash
+</span></span><span style=display:flex><span>/sbin/nologin
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost temp<span style=color:#f92672>]</span>$ awk -F: <span style=color:#e6db74>&#39;/^root/&#39;</span> /etc/passwd <span style=color:#75715e>#匹配以root开头的行</span>
+</span></span><span style=display:flex><span>root:x:0:0:root:/root:/bin/bash
+</span></span></code></pre></div><ul><li>内置变量：</li></ul><table><tr><td bgcolor=black>ARGC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令行参数个数<br>ARGV&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令行参数排列<br>ENVIRON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持队列中系统环境变量的使用<br>FILENAME&nbsp;&nbsp;&nbsp;awk浏览的文件名<br>FNR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览文件的记录数<br>FS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置输入域分隔符，等价于命令行 -F选项<br>NF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览记录的域的个数<br>NR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已读的记录数<br>OFS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出域分隔符<br>ORS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出记录分隔符<br>RS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;控制记录分隔符</td></tr></table>```
+[wyb@localhost temp]$ awk -F: '{print "filename:" FILENAME ",linenumber:" NR ",columns:" NF ",linecontent:"$0}' a.txt
+filename:a.txt,linenumber:1,columns:1,linecontent:1 root 12sf34s56
+filename:a.txt,linenumber:2,columns:1,linecontent:2 admin ksdjfiweurf
+filename:a.txt,linenumber:3,columns:1,linecontent:3 dome skd89453
+filename:a.txt,linenumber:4,columns:1,linecontent:4 tomkd 3jkke34
+filename:a.txt,linenumber:5,columns:1,linecontent:5 jarry sdkj89ry4
+filename:a.txt,linenumber:6,columns:1,linecontent:6 canki sdkj834
+filename:a.txt,linenumber:7,columns:1,linecontent:7 lola er8f7734
+filename:a.txt,linenumber:8,columns:1,linecontent:8 marry j8jkf78
+filename:a.txt,linenumber:9,columns:1,linecontent:9 candy kd89943
+```<ul><li><p>awk编程：</p><a href=https://wyb0.com/posts/2016/linux-text-processing/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-software-installation/>Linux 之软件的安装</a></h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><p>Linux上的软件安装可以分为三种方式：</p><h3 id=0x00-yum安装>0x00 yum安装</h3><pre tabindex=0><code>yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除一个、一组
+至全部软件包的命令，配置文件在/etc/yum.repos.d/下
+主要命令：
+yum install gcc g++
+yum remove wget
+yum list installed //显示已经安装过的软件
+yum list   //显示所有可以安装的包
+</code></pre><pre tabindex=0><code>[wyb@localhost ~]$ wget -h  //验证有没有安装wget
+-bash: /usr/bin/wget: No such file or directory
+[wyb@localhost ~]$ sudo yum search wget  //通过yum查找wget，看有没有这个软件包
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.yun-idc.com
+ * extras: mirrors.pubyun.com
+ * updates: mirrors.yun-idc.com
+============================== N/S Matched: wget ===============================
+wget.x86_64 : A utility for retrieving files using the HTTP or FTP protocols
 
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
+  Name and summary matches only, use &#34;search all&#34; for everything.
+[wyb@localhost ~]$ sudo yum deplist wget  //列出安装包的依赖项
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.yun-idc.com
+ * extras: mirrors.pubyun.com
+ * updates: mirrors.yun-idc.com
+Finding dependencies: 
+package: wget.x86_64 1.12-5.el6_6.1
+  dependency: libssl.so.10()(64bit)
+   provider: openssl.x86_64 1.0.1e-42.el6
+   provider: openssl.x86_64 1.0.1e-42.el6_7.1
+   provider: openssl.x86_64 1.0.1e-42.el6_7.2
+   provider: openssl.x86_64 1.0.1e-42.el6_7.4
+[wyb@localhost ~]$ sudo yum install wget  //安装一个或两个软件包
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.yun-idc.com
+ * extras: mirrors.pubyun.com
+ * updates: mirrors.yun-idc.com
+Setting up Install Process
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package wget.x86_64 0:1.12-5.el6_6.1 will be installed
+--&gt; Finished Dependency Resolution
+[wyb@localhost ~]$ sudo yum remove wget   //移除wget
+[sudo] password for wyb: 
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Setting up Remove Process
+Resolving Dependencies
+--&gt; Running transaction check
+---&gt; Package wget.x86_64 0:1.12-5.el6_6.1 will be erased
+--&gt; Finished Dependency Resolution
+</code></pre><h3 id=0x01-rpm安装>0x01 rpm安装</h3><p>分为：二进制包和源代码包<br>二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀</p><a href=https://wyb0.com/posts/2016/linux-software-installation/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-basic-command/>Linux 之基础命令</a></h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><h3 id=0x00-ls显示文件>0x00 ls：显示文件</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
+a  a.txt
+[wyb@localhost tmp]$ ls -l
+total 4
+drwxr-xr-x. 2 wyb root 4096 Apr 17 18:23 a
+-rw-r--r--. 1 wyb root    0 Apr 17 18:23 a.txt
+[wyb@localhost tmp]$ ls -a
+.  ..  a  a.txt  .esd-500  .ICE-unix
+[wyb@localhost tmp]$ ls -al
+total 20
+drwxrwxrwt.  5 root root 4096 Apr 17 18:23 .
+dr-xr-xr-x. 22 root root 4096 Apr 17 16:31 ..
+drwxr-xr-x.  2 wyb  root 4096 Apr 17 18:23 a
+-rw-r--r--.  1 wyb  root    0 Apr 17 18:23 a.txt
+drwx------.  2 wyb  wyb  4096 Apr 10 19:15 .esd-500
+drwxrwxrwt.  2 root root 4096 Apr 17 16:31 .ICE-unix
+</code></pre><h3 id=0x02-pwd查看当前工作路径>0x02 pwd：查看当前工作路径</h3><pre tabindex=0><code>[wyb@localhost ~]$ pwd  
+/home/wyb
+</code></pre><h3 id=0x03-cd切换目录>0x03 cd：切换目录</h3><pre tabindex=0><code>[wyb@localhost ~]$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+[wyb@localhost ~]$ cd Desktop/     //相对路径
+[wyb@localhost Desktop]$ cd /tmp/a    //绝对路径
+[wyb@localhost a]$ pwd
+/tmp/a
+[wyb@localhost a]$ cd -  //返回原来的目录
+[wyb@localhost Desktop]$ pwd
+/home/user/reber/Desktop
+</code></pre><h3 id=0x04-mkdir新建文件夹>0x04 mkdir：新建文件夹</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
+a  a.txt
+[wyb@localhost tmp]$ mkdir bbb
+[wyb@localhost tmp]$ ls
+a  a.txt  bbb
+</code></pre><h3 id=0x05-touchvim新建文件>0x05 touch/vim：新建文件</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
+a  a.txt  bbb
+[wyb@localhost tmp]$ touch bbb.txt
+[wyb@localhost tmp]$ ls
+a  a.txt  bbb  bbb.txt
+</code></pre><h3 id=0x06-rm删除文件>0x06 rm：删除文件</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ls
+a  a.txt  bbb  bbb.txt  c.txt
+[wyb@localhost tmp]$ rm c.txt   //删除文件c.txt
+[wyb@localhost tmp]$ ls
+a  a.txt  bbb  bbb.txt
+[wyb@localhost tmp]$ rm a   //删除文件夹a，结果不能删除
+rm: cannot remove `a&#39;: Is a directory
+[wyb@localhost tmp]$ rm -r a   //加上-r才能删除文件夹
+[wyb@localhost tmp]$ ls
+a.txt  bbb  bbb.txt
+</code></pre><h3 id=0x07-ifconfig查看网卡的信息>0x07 ifconfig：查看网卡的信息</h3><pre tabindex=0><code>[wyb@localhost tmp]$ ifconfig
+eth0    Link encap:Ethernet  HWaddr 00:0C:29:56:B4:10  
+        inet addr:192.168.63.131  Bcast:192.168.63.255  Mask:255.255.255.0
+        inet6 addr: fe80::20c:29ff:fe56:b410/64 Scope:Link
+        UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+        RX packets:67099 errors:0 dropped:0 overruns:0 frame:0
+        TX packets:34939 errors:0 dropped:0 overruns:0 carrier:0
+        collisions:0 txqueuelen:1000 
+        RX bytes:94042525 (89.6 MiB)  TX bytes:1995748 (1.9 MiB)
 
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-text-processing/">Linux 之文本处理</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-20</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
+lo      Link encap:Local Loopback  
+        inet addr:127.0.0.1  Mask:255.0.0.0
+        inet6 addr: ::1/128 Scope:Host
+        UP LOOPBACK RUNNING  MTU:16436  Metric:1
+        RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+        TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+        collisions:0 txqueuelen:0 
+        RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+</code></pre><h3 id=0x08-netstat查找网络连接信息>0x08 netstat：查找网络连接信息</h3><pre tabindex=0><code>netstat -l   //listen状态的
+netstat -an  //显示所有的连接信息，且以ip地址代替名称
+netstat -t   //显示tcp连接信息
+netstat -u   //显示udp连接信息
+LISTENING	//监听端口状态
+ESTABLSHED	//建立连接
+CLOSE_WAIT	//对方主动断开连接，此时我方就会变为这个状态，我方要调用close()
+TIME_WAIT	//我方主动调用close(),对方收到后变为CLOSE_WAIT
+[root@localhost ~]# netstat -l -n
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address               Foreign Address远程         State      
+tcp        0      0 0.0.0.0:22                  0.0.0.0:*                   LISTEN  所有ip均可连接22
+tcp        0      0 127.0.0.1:631               0.0.0.0:*                   LISTEN
+tcp        0      0 127.0.0.1:25                0.0.0.0:*                   LISTEN  只有127.0.0.1连接25端口
+tcp        0      0 :::22                       :::*                        LISTEN      
+tcp        0      0 ::1:631                     :::*                        LISTEN  
+Active UNIX domain sockets (only servers)
+Proto RefCnt Flags       Type       State         I-Node Path
+unix  2      [ ACC ]     STREAM     LISTENING     14229  public/cleanup
+unix  2      [ ACC ]     STREAM     LISTENING     14236  private/tlsmgr
+unix  2      [ ACC ]     STREAM     LISTENING     14240  private/rewrite
+unix  2      [ ACC ]     STREAM     LISTENING     14244  private/bounce
+unix  2      [ ACC ]     STREAM     LISTENING     14248  private/defer
+</code></pre><h3 id=0x09-nslookup查看dns信息>0x09 nslookup：查看DNS信息</h3><pre tabindex=0><code>nslookup 查看ip和域名的相互映射
+nslookup www.baidu.com   //返回一些信息
+</code></pre><h3 id=0x0a-ping>0x0A ping</h3><pre tabindex=0><code>ping -c 3 www.baidu.com   //指定ping百度3次
+</code></pre><h3 id=0x0b-lastfinger查看近期的登陆信息>0x0B last/finger：查看近期的登陆信息</h3><pre tabindex=0><code>[root@localhost ~]# last
+</code></pre><pre tabindex=0><code>[root@localhost ~]# finger
+</code></pre><h3 id=0x0c-find查找文件>0x0C find：查找文件</h3><pre tabindex=0><code>which vim   //查看可执行文件的位置
+*which是通过 PATH环境变量到该路径内查找可执行文件，所以基本的功能是寻找可执行文件* 
 
-  <div class="summary-body">
-    <p>这里介绍3种方式：awk、grep、sed 0x00 awk处理文本(最常用) 作用：awk对数据以行分析并生成报告时显得很强大，它<a href="https://wyb0.com/posts/2016/linux-text-processing/"> more...</a></p>
-  </div>
-</article>
+whereis、locate也可查找文件,它们是使用数据库来搜索数据
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-software-installation/">Linux 之软件的安装</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-19</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
+find . -name 1.txt  //查找当前文件夹及子目录下的1.txt、
+find . -name *.txt  //使用通配符
+find /bin -perm 755 //返回的都是755权限的文件  
+find /bin -perm 4755  //返回有gid(即s权限)的文件    2是gid
+[wyb@localhost tmp]$ sudo find / -name *.log    //根目录下查找名字以log结尾的文件
+/var/spool/plymouth/boot.log
+/var/log/wpa_supplicant.log
+/var/log/dracut.log
+/var/log/vmware-tools-upgrader.log
+[wyb@localhost ~]$ find /bin -perm 755 | xargs ls -al   //前一个命令的输出作为后一个命令的输入
+-rwxr-xr-x. 1 root root    123 Feb 21  2013 /bin/alsaunmute
+-rwxr-xr-x. 1 root root  27776 Jun 22  2012 /bin/arch
+-rwxr-xr-x. 1 root root  26264 Jun 22  2012 /bin/basename
+-rwxr-xr-x. 1 root root 938768 Feb 21  2013 /bin/bash
+-rwxr-xr-x. 1 root root  48568 Jun 22  2012 /bin/cat
+-rwxr-xr-x. 1 root root  55472 Jun 22  2012 /bin/chgrp
+-rwxr-xr-x. 1 root root  52472 Jun 22  2012 /bin/chmod
+</code></pre><h3 id=0x0d-grep>0x0D grep</h3><pre tabindex=0><code>//可以遍历查询mkr文件夹下含有字符串&#34;reber&#34;的文件及字符串所在行
+reber@WYB:~$ grep -Rn &#34;reber&#34; mkdir   
+mkr/cc:3:reber
+mkr/a/a.txt:3:reber
+mkr/a/b.txt:16:reber
+mkr/b/xx:8:reber
+</code></pre><h3 id=0x0e-catnl>0x0E cat/nl</h3><pre tabindex=0><code>前者显示
+后者显示的同时有行号
+[wyb@localhost tmp]$ cat &gt; a.txt  //创建文件同时写入数据
+this is a.txt
+^C
+[wyb@localhost tmp]$ cat &gt; b.txt
+this is b.txt
+^C
+[wyb@localhost tmp]$ cat a.txt b.txt &gt; c.txt   //合并文件
+[wyb@localhost tmp]$ cat c.txt 
+this is a.txt
+this is b.txt
+[wyb@localhost tmp]$ cat -n c.txt   //获取文件内容切添加行号
+ 1  this is a.txt
+ 2  this is b.txt
+</code></pre><h3 id=0x0f-head>0x0F head</h3><pre tabindex=0><code>[wyb@localhost tmp]$ head /etc/passwd   //默认显示前10行
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
 
-  <div class="summary-body">
-    <p>Linux上的软件安装可以分为三种方式： 0x00 yum安装 yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除<a href="https://wyb0.com/posts/2016/linux-software-installation/"> more...</a></p>
-  </div>
-</article>
+[wyb@localhost tmp]$ head -n 4 /etc/passwd  //设置显示前4行
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-basic-command/">Linux 之基础命令</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-19</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
+[wyb@localhost tmp]$ head -c 100 d.txt //显示前100个字节
+     1  this is a.txt
+     2  this is b.txt
+this is add content
+     1  this is a.txt
+     2  this is b.[wyb@localhost tmp]$ 
+</code></pre><h3 id=0x10-tail>0x10 tail</h3><pre tabindex=0><code>[wyb@localhost tmp]$ tail -f a.txt  //实时显示文件后10行
+this is a.txt
+111111
+aaaaaa
+^C
 
-  <div class="summary-body">
-    <p>0x00 ls：显示文件 [wyb@localhost tmp]$ ls a a.txt [wyb@localhost tmp]$ ls -l total 4 drwxr-xr-x. 2 wyb root 4096 Apr 17 18:23 a -rw-r--r--. 1 wyb root 0 Apr 17 18:23 a.txt [wyb@localhost tmp]$ ls -a . .. a a.txt .esd-500 .ICE-unix [wyb@localhost tmp]$ ls -al total 20 drwxrwxrwt. 5 root root 4096 Apr 17<a href="https://wyb0.com/posts/2016/linux-basic-command/"> more...</a></p>
-  </div>
-</article>
+[wyb@localhost tmp]$ tail -n 3 d.txt //显示文件后3行
+     1  this is a.txt
+     2  this is b.txt
+this is add content
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-service-and-planning-tasks/">Linux 之服务和计划任务</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-19</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
+[wyb@localhost tmp]$ tail -c 100 d.txt //显示后100个字节
+  2     this is b.txt
+this is add content
+     1  this is a.txt
+     2  this is b.txt
+this is add content
+[wyb@localhost tmp]$ 
+</code></pre><h3 id=0x11-scp>0x11 scp</h3><pre tabindex=0><code>向远程服务器put文件和文件夹，默认就是22端口
+scp -P 22 ./aa.txt reber@123.206.78.220:/home/reber
+scp -r ./bb reber@123.206.78.220:/home/reber
 
-  <div class="summary-body">
-    <p>0x00 服务： 在后台运行的软件就叫服务，参数一般为：start/stop/restart apache启动后默认降权 service httpd star<a href="https://wyb0.com/posts/2016/linux-service-and-planning-tasks/"> more...</a></p>
-  </div>
-</article>
+从服务器下载文件和文件夹
+scp -P 2222 ubuntu@123.22.38.215:/home/reber/a.txt D:/a.txt
+scp -r -P 2222 ubuntu@123.22.38.215:/home/reber/test D:/test/
+</code></pre><h3 id=0x12-磁盘>0x12 磁盘</h3><pre tabindex=0><code>fdisk /dev/sdb
+sudo mkfs.ext3 /dev/sdb1
+mount -t ext3 -o rw /dev/sdb1 /home/aaa  //-o指定权限
+</code></pre><h3 id=0x13-时间同步>0x13 时间同步</h3><pre tabindex=0><code>ntpdate time.nist.gov //需要root权限
+</code></pre><h3 id=0x14-下载>0x14 下载</h3><pre tabindex=0><code>$ curl -o aa.xml http://wyb0.com/index.xml #可以访问网页，它同时还保存了文件，文件名为aa.xml
+$ wget http://wyb0.com/index.xml #下载的文件名为index.xml
+</code></pre><h3 id=0x15-环境变量>0x15 环境变量</h3><pre tabindex=0><code>$ env
+</code></pre><h3 id=0x16-压缩与解压缩>0x16 压缩与解压缩</h3><ul><li>tar<ul><li>tar主要参数</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 主要参数</span>
+</span></span><span style=display:flex><span>-c  创建一个新的压缩文件
+</span></span><span style=display:flex><span>-x  解压
+</span></span><span style=display:flex><span>-t  查看压缩文件的内容
+</span></span><span style=display:flex><span>-f  指定档案文件的名字
+</span></span><span style=display:flex><span>-v  显示过程信息
+</span></span><span style=display:flex><span>-r  增加文件到指定的包
+</span></span><span style=display:flex><span>-C  指定解压后的路径
+</span></span><span style=display:flex><span>-z  使用gzip
+</span></span><span style=display:flex><span>-j  使用bzip2
+</span></span><span style=display:flex><span>-Z  使用compress
+</span></span></code></pre></div><ul><li>tar示例</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># tar用法示例</span>
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>aaa
+</span></span><span style=display:flex><span>$ tar -cvf 1.tar aaa/   <span style=color:#75715e>#打包不压缩</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>$ tar -zcvf 1.tar.gz aaa/   <span style=color:#75715e>#打包且以gzip压缩</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>$ tar -jcvf 1.tar.bz2 aaa/  <span style=color:#75715e>#打包且以bzip2压缩</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>tar -zxvf aa.tar.gz /home/aaa --exclude<span style=color:#f92672>=</span>dir  <span style=color:#75715e>#排除目录</span>
+</span></span><span style=display:flex><span>$ ls -l
+</span></span><span style=display:flex><span>total <span style=color:#ae81ff>24</span>
+</span></span><span style=display:flex><span>-rw-r--r--. <span style=color:#ae81ff>1</span> wyb root <span style=color:#ae81ff>10240</span> Apr <span style=color:#ae81ff>19</span> 07:47 1.tar
+</span></span><span style=display:flex><span>-rw-r--r--. <span style=color:#ae81ff>1</span> wyb root   <span style=color:#ae81ff>265</span> Apr <span style=color:#ae81ff>19</span> 07:48 1.tar.bz2
+</span></span><span style=display:flex><span>-rw-r--r--. <span style=color:#ae81ff>1</span> wyb root   <span style=color:#ae81ff>253</span> Apr <span style=color:#ae81ff>19</span> 07:48 1.tar.gz
+</span></span><span style=display:flex><span>drwxr-xr-x. <span style=color:#ae81ff>2</span> wyb root  <span style=color:#ae81ff>4096</span> Apr <span style=color:#ae81ff>19</span> 07:22 aaa
+</span></span><span style=display:flex><span>$ file 1.tar.gz     <span style=color:#75715e>#查看文件类型</span>
+</span></span><span style=display:flex><span>1.tar.gz: gzip compressed data, from Unix, last modified: Tue Apr <span style=color:#ae81ff>19</span> 07:48:01 <span style=color:#ae81ff>2016</span>
+</span></span><span style=display:flex><span>$ tar -ztvf 1.tar.gz    <span style=color:#75715e>#查看压缩包内容</span>
+</span></span><span style=display:flex><span>drwxr-xr-x wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 07:22 aaa/
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 05:05 aaa/b.txt
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 05:05 aaa/c.txt
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root         <span style=color:#ae81ff>84</span> 2016-04-19 05:50 aaa/test.txt
+</span></span><span style=display:flex><span>-rw-r--r-- wyb/root          <span style=color:#ae81ff>0</span> 2016-04-19 05:05 aaa/a.txt
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>1.tar  1.tar.bz2  1.tar.gz  aaa
+</span></span><span style=display:flex><span>$ rm -rf aaa/
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>1.tar  1.tar.bz2  1.tar.gz
+</span></span><span style=display:flex><span>$ tar -zxvf 1.tar.gz    <span style=color:#75715e>#解压到当前目录</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>1.tar  1.tar.bz2  1.tar.gz  aaa
+</span></span><span style=display:flex><span>$ ls aaa/
+</span></span><span style=display:flex><span>a.txt  b.txt  c.txt  test.txt
+</span></span><span style=display:flex><span>$ ls /tmp/
+</span></span><span style=display:flex><span>111.txt  aa
+</span></span><span style=display:flex><span>$ tar -zxvf 1.tar.gz -C /tmp/aa <span style=color:#75715e>#解压到指定路径</span>
+</span></span><span style=display:flex><span>aaa/
+</span></span><span style=display:flex><span>aaa/b.txt
+</span></span><span style=display:flex><span>aaa/c.txt
+</span></span><span style=display:flex><span>aaa/test.txt
+</span></span><span style=display:flex><span>aaa/a.txt
+</span></span></code></pre></div></li><li>zip</li></ul><pre tabindex=0><code># zip用法示例
+[reber@localhost ~]$ ls aaa/
+a.txt  b.txt  c.txt
+[reber@localhost ~]$ zip -re aaa.zip aaa/   #加密压缩
+Enter password: 
+Verify password: 
+  adding: aaa/ (stored 0%)
+  adding: aaa/b.txt (stored 0%)
+  adding: aaa/c.txt (stored 0%)
+  adding: aaa/a.txt (stored 0%)
+[reber@localhost ~]$ rm aaa/*
+[reber@localhost ~]$ ls aaa/
+[reber@localhost ~]$ unzip aaa.zip   #解压缩
+Archive:  aaa.zip
+[aaa.zip] aaa/b.txt password: 
+ extracting: aaa/b.txt         
+ extracting: aaa/c.txt               
+ extracting: aaa/a.txt
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-service-and-planning-tasks/>Linux 之服务和计划任务</a></h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><h3 id=0x00-服务>0x00 服务：</h3><p>在后台运行的软件就叫服务，参数一般为：start/stop/restart</p><ul><li>apache启动后默认降权</li></ul><pre tabindex=0><code>service httpd start实际调用的是/etc/init.d/httpd这个shell脚本
+而/etc/init.d是软连接文件夹，实际在/etc/rc.d/init.d
+[wyb@localhost ~]$ ls -al /etc/init.d
+lrwxrwxrwx. 1 root root 11 Apr 11 02:54 /etc/init.d -&gt; rc.d/init.d
+</code></pre><ul><li><p>添加服务<br>将脚本放在/etc/init.d/下即可</p><a href=https://wyb0.com/posts/2016/linux-service-and-planning-tasks/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-install-ettercap/>利用 EtterCap 进行中间人攻击</a></h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA>中间人</a>,<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-准备>0x00 准备</h3><pre tabindex=0><code>操作系统：CentOS  
+首先，ettercap 安装时需要 4 个依赖包，而且安装包里面也已经提供了  
+执行：sudo yum groupinstall &#34;Development tools&#34;    #源码安装软件就需要安装这个
+使用 wget 下载 ettercap 源码
+</code></pre><h3 id=0x01-查看需要的依赖项>0x01 查看需要的依赖项</h3><pre tabindex=0><code>[wyb@localhost ettercap-0.8.2]$ vim INSTALL
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-install-ettercap/">利用 EtterCap 进行中间人攻击</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-19</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA">中间人</a>,<a href="/tags/tools">tools</a>)
-</div>
+ #### Bundled libraries  
+ Ettercap now bundles the following libraries with the source distribution:  
+   libnet 1.1.6  
+   curl 7.41.0  
+   luajit 2.0.3  
+   check 0.9.14  
+[wyb@localhost ettercap-0.8.2]$ cd bundled_deps/  
+[wyb@localhost bundled_deps]$ ls  
+check  curl  libnet  luajit
+</code></pre><h3 id=0x02-安装依赖包>0x02 安装依赖包</h3><ol><li>安装check</li></ol><pre tabindex=0><code>[wyb@localhost check]$ cd check-0.9.14
+[wyb@localhost check-0.9.14]$ ls
+[wyb@localhost check-0.9.14]$ ./configure 
+[wyb@localhost check-0.9.14]$ make
+[wyb@localhost check-0.9.14]$ sudo make install
+</code></pre><ol start=2><li>安装curl</li></ol><pre tabindex=0><code>[wyb@localhost check-0.9.14]$ cd ..
+[wyb@localhost curl-7.41.0]$ cd curl/
+[wyb@localhost curl-7.41.0]$ cd curl-7.41.0
+[wyb@localhost curl-7.41.0]$ make
+[wyb@localhost curl-7.41.0]$ sudo make install
+</code></pre><ol start=3><li>安装libnet</li></ol><pre tabindex=0><code>[wyb@localhost curl-7.41.0]$ cd ../../libnet/
+[wyb@localhost libnet]$ tar -zxvf libnet-1.1.6.tar.gz
+[wyb@localhost libnet]$ cd libnet-1.1.6
+[wyb@localhost libnet-1.1.6]$ ./configure 
+[wyb@localhost libnet-1.1.6]$ make
+[wyb@localhost libnet-1.1.6]$ sudo make install
+</code></pre><ol start=4><li>安装luajit</li></ol><pre tabindex=0><code>[wyb@localhost luajit]$ tar -zxvf LuaJIT-2.0.3.tar.gz 
+[wyb@localhost luajit]$ make
+[wyb@localhost luajit]$ sudo make install
+</code></pre><ol start=5><li><p>安装ettercap</p><a href=https://wyb0.com/posts/2016/linux-install-ettercap/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-suid-back-door/>Linux 之 SUID 后门</a></h1><div class=post-meta><time>2016-04-18</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/backdoor>backdoor</a>)</div><div class=summary-body><p><p>SUID可以用来做后门，前提是你已经获取了root权限，且给予s权限的文件必须为二进制</p><h3 id=0x00-为二进制文件添加s权限从而提升为root权限>0x00 为二进制文件添加s权限从而提升为root权限</h3><ul><li>写sudoers添加用户 <code>//最佳方案</code></li><li>vim /etc/passwd <code>//将uid和gid改为0</code></li><li>vim /etc/shadow <code>//密文覆盖</code></li><li>vim root .ssh/证书文件 <code>.ssh这个文件夹和证书的权限要正确，要和原来一致</code></li></ul><h3 id=0x01-suid主要作用可以是留后门>0x01 SUID主要作用可以是留后门</h3><ul><li>在root权限下给usermod一个s权限</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># which usermod   #得到usermod的路径                             </span>
+</span></span><span style=display:flex><span>/usr/sbin/usermod
+</span></span><span style=display:flex><span><span style=color:#75715e># chmod u+s /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ls -l /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span>-rwsr-x---. <span style=color:#ae81ff>1</span> root root <span style=color:#ae81ff>98680</span> Dec  <span style=color:#ae81ff>7</span>  <span style=color:#ae81ff>2011</span> /usr/sbin/usermod
+</span></span></code></pre></div><ul><li>usermod给其他人一个x权限</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>root@localhost ~<span style=color:#f92672>]</span><span style=color:#75715e># chmod o+x /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>root@localhost ~<span style=color:#f92672>]</span><span style=color:#75715e># ls -l /usr/sbin/usermod</span>
+</span></span><span style=display:flex><span>-rwsr-x--x. <span style=color:#ae81ff>1</span> root root <span style=color:#ae81ff>98680</span> Dec  <span style=color:#ae81ff>7</span>  <span style=color:#ae81ff>2011</span> /usr/sbin/usermod
+</span></span></code></pre></div><ul><li>切换到普通用户wyb</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ id wyb
+</span></span><span style=display:flex><span>uid<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span> gid<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span> groups<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ usermod -g root wyb
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ id wyb
+</span></span><span style=display:flex><span>uid<span style=color:#f92672>=</span>500<span style=color:#f92672>(</span>wyb<span style=color:#f92672>)</span> gid<span style=color:#f92672>=</span>0<span style=color:#f92672>(</span>root<span style=color:#f92672>)</span> groups<span style=color:#f92672>=</span>0<span style=color:#f92672>(</span>root<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ exit
+</span></span></code></pre></div><ul><li>验证</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>重新用wyb连接，此时即为root权限
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost ~<span style=color:#f92672>]</span>$ cd /root  <span style=color:#75715e>#若能切换到此目录即证明确实获得了root权限</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>wyb@localhost root<span style=color:#f92672>]</span>$ ls
+</span></span><span style=display:flex><span>anaconda-ks.cfg  install.log  install.log.syslog
+</span></span></code></pre></div><h3 id=0x02-查找拥有s权限的文件>0x02 查找拥有s权限的文件</h3><ul><li>find / -perm -u=s -type f 2>/dev/null</li></ul></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-user/>Linux 之用户和用户组</a></h1><div class=post-meta><time>2016-04-17</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><h3 id=0x01-新建用户>0x01 新建用户</h3><p>环境：Ubuntu 14.04.4</p><ul><li><p>Step1：添加新用户<br>useradd -r -m -s /bin/bash 用户名</p></li><li><p>Step2:配置新用户密码<br>passwd 用户名</p></li><li><p>Step3：给新添加的用户增加root权限<br>visudo<br>然后添加：<br>用户名 ALL=(ALL:ALL) ALL</p><a href=https://wyb0.com/posts/2016/linux-user/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/short/>[转] 短</a></h1><div class=post-meta><time>2016-04-17</time>
+[<a href=/categories/Other>Other</a>](<a href=/tags/miscellanea>miscellanea</a>)</div><div class=summary-body><p><center><font size=15>短</font>
+俄罗斯某诗人</center><center>### 一天很短
+### 短得来不及拥抱清晨
+### 就已经手握黄昏<h3 id=一年很短>一年很短</h3><h3 id=短得来不及细品初春殷红窦绿>短得来不及细品初春殷红窦绿</h3><h3 id=就要打点素裹秋霜>就要打点素裹秋霜</h3><h3 id=一生很短>一生很短</h3><h3 id=短的来不及享用美好年华>短的来不及享用美好年华</h3><h3 id=就已经身处迟暮>就已经身处迟暮</h3><h3 id=总是经过的太快>总是经过的太快</h3><h3 id=领悟的太晚>领悟的太晚</h3><h3 id=我们要学会珍惜>我们要学会珍惜</h3><h3 id=珍惜人生路上的亲情友情同事情同学情朋友情>珍惜人生路上的亲情、友情、同事情、同学情、朋友情</h3><h3 id=一旦擦身而过>一旦擦身而过</h3><h3 id=也许永不邂逅>也许永不邂逅</h3></center></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-permission-settings/>Linux 之权限</a></h1><div class=post-meta><time>2016-04-17</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><p>主要有三种参数：rwx
+对于文件来说：分别是读/写/执行<br>对于目录来说：r读目录结构；w操作目录结构；x进入目录<br>如：drwxr&ndash;r&ndash; 3 root root 4096 Jun 25 08:35 .ssh<br>若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中</p><a href=https://wyb0.com/posts/2016/linux-permission-settings/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/linux-vim/>Linux 之 vim</a></h1><div class=post-meta><time>2016-04-15</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><h3 id=0x00-vim的安装及配置>0x00 Vim的安装及配置：</h3><ul><li>安装vim</li></ul><pre tabindex=0><code>yum install vim
+</code></pre><ul><li>配置文件的位置</li></ul><pre tabindex=0><code>在目录 /etc/ 下面，有个名为vimrc的 文件，
+这是系统中公共的vim配置文件，对所有用户都有效。
+</code></pre><ul><li>设置语法高亮显示</li></ul><pre tabindex=0><code>1) 打开vimrc，添加以下语句来使得语法高亮显示：
+    syntax on
+2) 如果此时语法还是没有高亮显示，那么在/etc目录下的profile文件中添加以下语句：
+    export TERM=xterm-color
+</code></pre><ul><li>设置Windows风格的C/C++自动缩进（添加以下set语句到vimrc中）</li></ul><pre tabindex=0><code>1）设置Tab为4个空格
+    set tabstop=4 #设定tab长度为4
+    set softtabstop=4 #使按退格键时可以一次删除4个空格
+    set shiftwidth=4 #表示每一级缩进的长度，一般设置成跟softtabstop一样
+    set expandtab/noexpandtab #缩进用空格/制表符表示
+2）自动缩进
+    set autoindent/noautoindent #设置每行的缩进值与上一行相等/不相等(我未启用)
+3）使用 C/C++ 语言的自动缩进方式
+    set cindent
+4）在左侧显示文本的行号
+    set nu
+5）搜索设置
+    set incsearch #输入搜索内容时就显示搜索结果
+    set hlsearch #搜索时高亮显示被找到的文本
+6）如果没有下列语句，就加上吧
+    if &amp;term==&#34;xterm&#34;
+        set t_Co=8
+        set t_Sb=^[[4%dm
+        set t_Sf=^[[3%dm
+    endif
+</code></pre><h3 id=0x01-vim编辑器的三种模式>0x01 Vim编辑器的三种模式</h3><ul><li>命令行模式</li></ul><pre tabindex=0><code>$vim 文件名 #直接进入命令行模式
+Ctrl+ZZ#可保存文件
 
-  <div class="summary-body">
-    <p>0x00 准备 操作系统：CentOS 首先，ettercap 安装时需要 4 个依赖包，而且安装包里面也已经提供了 执行：sudo yum groupinstall &#34;Development tools&#34;<a href="https://wyb0.com/posts/2016/linux-install-ettercap/"> more...</a></p>
-  </div>
-</article>
+5dd/4yy#剪切5行/复制4行
+p      #粘贴到当前行后面
+u      #一直点的话会一直撤销，直到回复到文件最初状态
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-suid-back-door/">Linux 之 SUID 后门</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-18</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/backdoor">backdoor</a>)
-</div>
+gg/G   #光标移动到首行/末行
+H/M/L  #光标移动到屏幕显示的首行/中间/末行
+0/$    #光标移动到行首/行尾
+w/b    #光标跳到下一个/上一个单词
 
-  <div class="summary-body">
-    <p>SUID可以用来做后门，前提是你已经获取了root权限，且给予s权限的文件必须为二进制 0x00 为二进制文件添加s权限从而提升为<a href="https://wyb0.com/posts/2016/linux-suid-back-door/"> more...</a></p>
-  </div>
-</article>
+o      #在下一行插入
+Ctrl+g #显示文本的信息
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-user/">Linux 之用户和用户组</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-17</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
+dt%      #删除所有内容直到遇到 %
+d0/d$或D #删除从光标到行首/行尾的字符
+3dw      #删除3个单词
 
-  <div class="summary-body">
-    <p>0x01 新建用户 环境：Ubuntu 14.04.4 Step1：添加新用户 useradd -r -m -s /bin/bash 用户名 Step2:配置新用户密码 passwd 用户名 Step3：给新添<a href="https://wyb0.com/posts/2016/linux-user/"> more...</a></p>
-  </div>
-</article>
+v+方向键      #可以从当前光标向各方向选择字符或行
+4+向下的方向键 #光标向下移动4行
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/short/">[转] 短</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-17</time>
-    [<a href="/categories/Other">Other</a>](<a href="/tags/miscellanea">miscellanea</a>)
-</div>
-
-  <div class="summary-body">
-    <p>短 俄罗斯某诗人 ### 一天很短 ### 短得来不及拥抱清晨 ### 就已经手握黄昏 一年很短 短得来不及细品初春殷红窦绿 就要打点素裹秋霜 一生很短 短<a href="https://wyb0.com/posts/2016/short/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-permission-settings/">Linux 之权限</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-17</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-  <div class="summary-body">
-    <p>主要有三种参数：rwx 对于文件来说：分别是读/写/执行 对于目录来说：r读目录结构；w操作目录结构；x进入目录 如：drwx<a href="https://wyb0.com/posts/2016/linux-permission-settings/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/linux-vim/">Linux 之 vim</a></h1>
-  
-<div class="post-meta">
-    <time>2016-04-15</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 Vim的安装及配置： 安装vim yum install vim 配置文件的位置 在目录 /etc/ 下面，有个名为vimrc的 文件， 这是系统中公共的vim配置文<a href="https://wyb0.com/posts/2016/linux-vim/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/16/">Previous Page</a>
-  
-  17 of 18
-  
-    <a href="/page/18/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+/和？#向下和向上搜索
+</code></pre><ul><li>末行模式</li></ul><pre tabindex=0><code>:wq  #推出并保存
+:wq! #强制退出并保存
+:num #跳到第n行
+:$	 #移动到最后一行
+:/aaaa #向下搜aaaa这个字符串  n可以定位到下一个匹配的字符，N向上
+:?aaaa #向上搜索
+:%s/set/ddd/g #将字符串set全部替换为ddd
+</code></pre><ul><li>插入模式</li></ul><pre tabindex=0><code>在命令行模式直接点击i即可进入
+</code></pre></p></div></article><div><a href=/page/16/>Previous Page</a>
+17 of 18
+<a href=/page/18/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

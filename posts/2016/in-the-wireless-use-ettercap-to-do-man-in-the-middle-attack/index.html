@@ -1,139 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>无线下 ettercap 做中间人攻击 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>无线下 ettercap 做中间人攻击</h1>
-      
-<div class="post-meta">
-    <time>2016-07-13</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA">中间人</a>)
-</div>
-
-      <div><p>前提：攻击主机和被攻击主机在一个无线下面</p>
-<h3 id="0x00-打开ettercap">0x00 打开ettercap</h3>
-<p><img src="/img/post/wireless_start_ettercap.png" alt="无线网络渗透测试打开ettercap"></p>
-<h3 id="0x01-查看host列表">0x01 查看host列表</h3>
-<p>在软件的图形化界面点击sniff，选择unified sniffing选择网卡，然后单击hosts选项，选择scan for host，然后选择host list
-<img src="/img/post/wireless_ettercap_see_host_list.png" alt="无线网络渗透测试ettercap查看host列表"></p>
-<h3 id="0x02-选定攻击目标">0x02 选定攻击目标</h3>
-<p>选择192.168.1.116的IP地址，点击Add to Target 1,然后选择网关的IP地址192.168.1.1，点击Add to Target 2
-<img src="/img/post/wireless_ettercap_add_target.png" alt="无线网络渗透测试ettercap添加攻击目标"></p>
-<h3 id="0x03-开始攻击">0x03 开始攻击</h3>
-<p>ettercap选择<code>&quot;mitm&quot;—&quot;arp poisoning&quot;—&quot;Sniff remote connections&quot;— &quot;确定&quot;</code>，然后再在被攻击端查看arp，可知攻击已经成功
-<img src="/img/post/wireless_ettercap_attack.png" alt="无线网络渗透测试ettercap开始攻击"></p>
-<h3 id="0x04-ettercap持续监听目标">0x04 ettercap持续监听目标</h3>
-<p>软件上开始监听，被攻击端用浏览器登录路由器
-<img src="/img/post/wireless_ettercap_get_msg.png" alt="无线网络渗透测试ettercap监听到目标用户的账号和密码"></p>
-<h3 id="0x05-得到cookie">0x05 得到Cookie</h3>
-<p>点击主界面的&quot;View&quot; —  &ldquo;connetcions&rdquo; 可以查看被攻击主机的一些网络链接
-<img src="/img/post/wireless_ettercap_view_conn_msg.png" alt="无线网络渗透测试ettercap查看目标用户的网络连接信息">
-<img src="/img/post/wireless_ettercap_get_cookie.png" alt="无线网络渗透测试ettercap目标用户的Cookie"></p>
-<h3 id="0x06-用cookie登陆被入侵账户">0x06 用cookie登陆被入侵账户</h3>
-<p>打开火狐浏览器，通过firebug插件添加截获到的cookie从而登陆账户
-<img src="/img/post/wireless_firebug_add_cookie.png" alt="无线网络渗透测试用firebug添加目标用户的Cookie">
-<img src="/img/post/wireless_firebug_sign_success.png" alt="无线网络渗透测试用目标用户的Cookie成功登陆新浪博客"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>无线下 ettercap 做中间人攻击 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>无线下 ettercap 做中间人攻击</h1><div class=post-meta><time>2016-07-13</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA>中间人</a>)</div><div><p>前提：攻击主机和被攻击主机在一个无线下面</p><h3 id=0x00-打开ettercap>0x00 打开ettercap</h3><p><img src=/img/post/wireless_start_ettercap.png alt=无线网络渗透测试打开ettercap></p><h3 id=0x01-查看host列表>0x01 查看host列表</h3><p>在软件的图形化界面点击sniff，选择unified sniffing选择网卡，然后单击hosts选项，选择scan for host，然后选择host list
+<img src=/img/post/wireless_ettercap_see_host_list.png alt=无线网络渗透测试ettercap查看host列表></p><h3 id=0x02-选定攻击目标>0x02 选定攻击目标</h3><p>选择192.168.1.116的IP地址，点击Add to Target 1,然后选择网关的IP地址192.168.1.1，点击Add to Target 2
+<img src=/img/post/wireless_ettercap_add_target.png alt=无线网络渗透测试ettercap添加攻击目标></p><h3 id=0x03-开始攻击>0x03 开始攻击</h3><p>ettercap选择<code>"mitm"—"arp poisoning"—"Sniff remote connections"— "确定"</code>，然后再在被攻击端查看arp，可知攻击已经成功
+<img src=/img/post/wireless_ettercap_attack.png alt=无线网络渗透测试ettercap开始攻击></p><h3 id=0x04-ettercap持续监听目标>0x04 ettercap持续监听目标</h3><p>软件上开始监听，被攻击端用浏览器登录路由器
+<img src=/img/post/wireless_ettercap_get_msg.png alt=无线网络渗透测试ettercap监听到目标用户的账号和密码></p><h3 id=0x05-得到cookie>0x05 得到Cookie</h3><p>点击主界面的"View" — &ldquo;connetcions&rdquo; 可以查看被攻击主机的一些网络链接
+<img src=/img/post/wireless_ettercap_view_conn_msg.png alt=无线网络渗透测试ettercap查看目标用户的网络连接信息>
+<img src=/img/post/wireless_ettercap_get_cookie.png alt=无线网络渗透测试ettercap目标用户的Cookie></p><h3 id=0x06-用cookie登陆被入侵账户>0x06 用cookie登陆被入侵账户</h3><p>打开火狐浏览器，通过firebug插件添加截获到的cookie从而登陆账户
+<img src=/img/post/wireless_firebug_add_cookie.png alt=无线网络渗透测试用firebug添加目标用户的Cookie>
+<img src=/img/post/wireless_firebug_sign_success.png alt=无线网络渗透测试用目标用户的Cookie成功登陆新浪博客></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

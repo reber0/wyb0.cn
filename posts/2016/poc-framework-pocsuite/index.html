@@ -1,187 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>POC 框架 Pocsuite | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>POC 框架 Pocsuite</h1>
-      
-<div class="post-meta">
-    <time>2016-09-08</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
-
-      <div><h3 id="0x00-关于pocsuite">0x00 关于Pocsuite</h3>
-<p>Pocsuite 是知道创宇安全研究团队打造的一款基于漏洞与 POC 的远程漏洞验证框架。可以让我们不用考虑过多的细节，只要考虑验证代码就可以，它封装了一些我们常用的东西，比如requests，在我们平常使用requests是要考虑cookie、要考虑header，但是在框架下则不需要有这些考虑，因为这些东西框架都帮你解决了。</p>
-<h3 id="0x01-简单介绍">0x01 简单介绍</h3>
-<ul>
-<li>
-<p>安装</p>
-<ul>
-<li>使用pip install pocsuite即可安装
-<img src="/img/post/pocsuite_install.png" alt="安装pocsuite"></li>
-</ul>
-</li>
-<li>
-<p>常用参数</p>
-<ul>
-<li>-u 指定一个目标url</li>
-<li>-f 指定一个存放目标url的文件</li>
-<li>-r 指定一个存放poc的文件夹</li>
-<li>&ndash;report 导出结果到html文件</li>
-<li>&ndash;cookie 携带cookie</li>
-<li>&ndash;referer 修改referer</li>
-<li>&ndash;user-agent 修改UA</li>
-</ul>
-</li>
-<li>
-<p>模式</p>
-<ul>
-<li>执行一个poc有两种模式
-<ul>
-<li>--verify 漏洞验证模式(只是验证，不能更改服务器的东西)</li>
-<li>--attack 漏洞利用模式</li>
-</ul>
-</li>
-<li>示例
-<ul>
-<li><code>pocsuite -u &quot;http://www.xxxx.com&quot; -r poc_path/poc_name.py --atack</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>poc编写</p>
-<ul>
-<li>可以新建一个文件夹，命名为mypoc，里面就放你自己写的poc(当然也可以在mypoc里新建文件夹放一类poc，对poc进行分类)</li>
-<li>此时示例(对目标进行常见服务的测试，加载一类多个poc脚本)
-<ul>
-<li><code>pocsuite -u &quot;http://www.xxxx.com&quot; -r poc_path/server/ --verify</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>poc的命名规范</p>
-<ul>
-<li>漏洞ID_版本号_漏洞类型(其中不能有大写字母，所有符号要改为<code>&quot;_&quot;</code>),大致如下：
-<ul>
-<li>_xxxx_struct2_2016_s2_016_code_execution.py</li>
-<li>_xxxx_dedecms_20130715_sql_inj.py</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>poc的编写流程</p>
-<ul>
-<li>导入pocsuite API模块</li>
-<li>创建TestPOC类</li>
-<li>填写POC信息</li>
-<li>编写_berify()方法</li>
-<li>编写_attack()方法</li>
-<li>注册类</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x02-实例">0x02 实例</h3>
-<blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"></code></pre></div></blockquote>
-<p>#!/usr/bin/env python</p>
-<h1 id="---coding-utf-8---">-<em>- coding: utf-8 -</em>-</h1>
-<h1 id="导入pocsuite的必要模块">导入pocsuite的必要模块</h1>
-<p>from pocsuite.net import req # requests模块，和requests用法完全一样
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>POC 框架 Pocsuite | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>POC 框架 Pocsuite</h1><div class=post-meta><time>2016-09-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div><h3 id=0x00-关于pocsuite>0x00 关于Pocsuite</h3><p>Pocsuite 是知道创宇安全研究团队打造的一款基于漏洞与 POC 的远程漏洞验证框架。可以让我们不用考虑过多的细节，只要考虑验证代码就可以，它封装了一些我们常用的东西，比如requests，在我们平常使用requests是要考虑cookie、要考虑header，但是在框架下则不需要有这些考虑，因为这些东西框架都帮你解决了。</p><h3 id=0x01-简单介绍>0x01 简单介绍</h3><ul><li><p>安装</p><ul><li>使用pip install pocsuite即可安装
+<img src=/img/post/pocsuite_install.png alt=安装pocsuite></li></ul></li><li><p>常用参数</p><ul><li>-u 指定一个目标url</li><li>-f 指定一个存放目标url的文件</li><li>-r 指定一个存放poc的文件夹</li><li>&ndash;report 导出结果到html文件</li><li>&ndash;cookie 携带cookie</li><li>&ndash;referer 修改referer</li><li>&ndash;user-agent 修改UA</li></ul></li><li><p>模式</p><ul><li>执行一个poc有两种模式<ul><li>--verify 漏洞验证模式(只是验证，不能更改服务器的东西)</li><li>--attack 漏洞利用模式</li></ul></li><li>示例<ul><li><code>pocsuite -u "http://www.xxxx.com" -r poc_path/poc_name.py --atack</code></li></ul></li></ul></li><li><p>poc编写</p><ul><li>可以新建一个文件夹，命名为mypoc，里面就放你自己写的poc(当然也可以在mypoc里新建文件夹放一类poc，对poc进行分类)</li><li>此时示例(对目标进行常见服务的测试，加载一类多个poc脚本)<ul><li><code>pocsuite -u "http://www.xxxx.com" -r poc_path/server/ --verify</code></li></ul></li></ul></li><li><p>poc的命名规范</p><ul><li>漏洞ID_版本号_漏洞类型(其中不能有大写字母，所有符号要改为<code>"_"</code>),大致如下：<ul><li>_xxxx_struct2_2016_s2_016_code_execution.py</li><li>_xxxx_dedecms_20130715_sql_inj.py</li></ul></li></ul></li><li><p>poc的编写流程</p><ul><li>导入pocsuite API模块</li><li>创建TestPOC类</li><li>填写POC信息</li><li>编写_berify()方法</li><li>编写_attack()方法</li><li>注册类</li></ul></li></ul><h3 id=0x02-实例>0x02 实例</h3><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python></code></pre></div></blockquote><p>#!/usr/bin/env python</p><h1 id=---coding-utf-8--->-<em>- coding: utf-8 -</em>-</h1><h1 id=导入pocsuite的必要模块>导入pocsuite的必要模块</h1><p>from pocsuite.net import req # requests模块，和requests用法完全一样
 from pocsuite.poc import POCBase, Output
-from pocsuite.utils import register</p>
-<p>class TestPOC(POCBase):
+from pocsuite.utils import register</p><p>class TestPOC(POCBase):
 &ldquo;&ldquo;&ldquo;docstring for TestPOC&rdquo;&rdquo;&rdquo;
-vulID            = &rsquo;&rsquo;      # VUL ID
-version          = &rsquo;&rsquo;      # 版本号,默认为1
-author           = &rsquo;&rsquo;      # POC 作者的大名
-vulDate          = &rsquo;&rsquo;      # 漏洞公开的时间,不知道就写今天
-createDate       = &rsquo;&rsquo;      # 编写 POC 的日期
-updateDate       = &rsquo;&rsquo;      # POC更新的时间,默认和编写时间一样
-references       = [&rsquo;&rsquo;]    # 漏洞地址来源,0day 不用写
-name             = &rsquo;&rsquo;      # POC 名称
-appPowerLink     = &rsquo;&rsquo;      # 漏洞厂商主页地址
-appName          = &rsquo;&rsquo;      # 漏洞应用名称
-appVersion       = &rsquo;&rsquo;      # 漏洞影响版本
-vulType          = &rsquo;&rsquo;      # 漏洞类型,类型参考见 漏洞类型规范表
-desc             = &rsquo;&rsquo;&rsquo; &rsquo;&rsquo;&rsquo; # 漏洞简要描述
-samples          = []      # 测试样例,就是用 POC 测试成功的网站url，选填
-install_requires = []      # POC 第三方模块依赖，请尽量不要使用第三方模块</p>
-<pre><code>def _verify(self, verify=True): # 漏洞测试代码
+vulID = &rsquo;&rsquo; # VUL ID
+version = &rsquo;&rsquo; # 版本号,默认为1
+author = &rsquo;&rsquo; # POC 作者的大名
+vulDate = &rsquo;&rsquo; # 漏洞公开的时间,不知道就写今天
+createDate = &rsquo;&rsquo; # 编写 POC 的日期
+updateDate = &rsquo;&rsquo; # POC更新的时间,默认和编写时间一样
+references = [&rsquo;&rsquo;] # 漏洞地址来源,0day 不用写
+name = &rsquo;&rsquo; # POC 名称
+appPowerLink = &rsquo;&rsquo; # 漏洞厂商主页地址
+appName = &rsquo;&rsquo; # 漏洞应用名称
+appVersion = &rsquo;&rsquo; # 漏洞影响版本
+vulType = &rsquo;&rsquo; # 漏洞类型,类型参考见 漏洞类型规范表
+desc = &rsquo;&rsquo;&rsquo; &rsquo;&rsquo;&rsquo; # 漏洞简要描述
+samples = [] # 测试样例,就是用 POC 测试成功的网站url，选填
+install_requires = [] # POC 第三方模块依赖，请尽量不要使用第三方模块</p><pre><code>def _verify(self, verify=True): # 漏洞测试代码
     result = {}
     target_url = self.url
 
@@ -217,9 +65,7 @@ def parse_attack(self, result): # poc输出函数，可以输出错误和成功�
     else:
         output.fail('Nothing returned')
     return output
-</code></pre>
-<p>register(TestPOC) #注册类</p>
-<pre tabindex="0"><code>
+</code></pre><p>register(TestPOC) #注册类</p><pre tabindex=0><code>
 ### 0x03 关于poc中result字典的内容
 &gt; ```
 # result是一个字典，里面存储所有的漏洞信息:
@@ -263,35 +109,12 @@ result：{
         &#39;Process&#39;: &#39;服务器进程&#39;
         }
 }
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

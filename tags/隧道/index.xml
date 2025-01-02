@@ -1,19 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>隧道 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E9%9A%A7%E9%81%93/</link>
-    <description>Recent content in 隧道 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 10 Aug 2016 11:46:13 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E9%9A%A7%E9%81%93/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>SSH 免密登录及 SSH 隧道</title>
-      <link>https://wyb0.com/posts/2016/linux-ssh-connect/</link>
-      <pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid>
-      <description>0x00 SSH相关选项 -V 显示版本 -f 输入密码后进入后台模式 -N 不执行远程命令，一般与-f连用，用于端口转发 -C 压缩传输的数据，网速快</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>隧道 on Reber's Blog</title><link>https://wyb0.com/tags/%E9%9A%A7%E9%81%93/</link><description>Recent content in 隧道 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 10 Aug 2016 11:46:13 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E9%9A%A7%E9%81%93/index.xml" rel="self" type="application/rss+xml"/><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.com/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>-V 显示版本&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-f 输入密码后进入后台模式&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item></channel></rss>

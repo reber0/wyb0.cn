@@ -1,131 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Redis 未授权访问漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Redis 未授权访问漏洞</h1>
-      
-<div class="post-meta">
-    <time>2016-08-04</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/redis">redis</a>,<a href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E">逻辑漏洞</a>)
-</div>
-
-      <div><h3 id="0x00-redis的未授权访问">0x00 Redis的未授权访问</h3>
-<p>若Redis服务器对公网开放，且未启用认证，则攻击者可以未授权访问服务器。</p>
-<p>若Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，通过SSH登录受害服务器。</p>
-<h3 id="0x01-写shell">0x01 写shell</h3>
-<p>连接目标主机的redis写文件
-<img src="/img/post/redis_install_conn_and_write_file.png" alt="65">
-<img src="/img/post/redis_install_visit_file.png" alt="60"></p>
-<h3 id="0x02-向redis服务器上传ssh公钥">0x02 向Redis服务器上传SSH公钥</h3>
-<p><img src="/img/post/redis_unauthorized_access_create_keys.png" alt="60">
-<img src="/img/post/redis_unauthorized_access_export_pubkey.png" alt="60">
-<img src="/img/post/redis_unauthorized_access_write_pubkey.png" alt="60">
-<img src="/img/post/redis_unauthorized_access_use_sshkey_login.png" alt="75"></p>
-<h3 id="0x03-通过计划任务反弹shell">0x03 通过计划任务反弹shell</h3>
-<p><img src="/img/post/redis_unauthorized_access_write_cron.png" alt="65">
-<img src="/img/post/redis_unauthorized_access_listen_port.png" alt="65"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Redis 未授权访问漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Redis 未授权访问漏洞</h1><div class=post-meta><time>2016-08-04</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/redis>redis</a>,<a href=/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E>逻辑漏洞</a>)</div><div><h3 id=0x00-redis的未授权访问>0x00 Redis的未授权访问</h3><p>若Redis服务器对公网开放，且未启用认证，则攻击者可以未授权访问服务器。</p><p>若Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，通过SSH登录受害服务器。</p><h3 id=0x01-写shell>0x01 写shell</h3><p>连接目标主机的redis写文件
+<img src=/img/post/redis_install_conn_and_write_file.png alt=65>
+<img src=/img/post/redis_install_visit_file.png alt=60></p><h3 id=0x02-向redis服务器上传ssh公钥>0x02 向Redis服务器上传SSH公钥</h3><p><img src=/img/post/redis_unauthorized_access_create_keys.png alt=60>
+<img src=/img/post/redis_unauthorized_access_export_pubkey.png alt=60>
+<img src=/img/post/redis_unauthorized_access_write_pubkey.png alt=60>
+<img src=/img/post/redis_unauthorized_access_use_sshkey_login.png alt=75></p><h3 id=0x03-通过计划任务反弹shell>0x03 通过计划任务反弹shell</h3><p><img src=/img/post/redis_unauthorized_access_write_cron.png alt=65>
+<img src=/img/post/redis_unauthorized_access_listen_port.png alt=65></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

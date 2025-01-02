@@ -1,110 +1,289 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>tools on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/tools/</link>
-    <description>Recent content in tools on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 10 Jun 2021 16:44:23 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>通过 Sphinx 快速查询数据</title>
-      <link>https://wyb0.com/posts/2021/sphinx/</link>
-      <pubDate>Thu, 10 Jun 2021 16:44:23 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2021/sphinx/</guid>
-      <description>0x00 Sphinx Sphinx 是一款基于 SQL 的高性能全文检索引擎，Sphinx 的性能在众多全文检索引擎中也是数一数二的，利用 Sphinx我们可以完</description>
-    </item>
-    <item>
-      <title>Metasploit 简单提权</title>
-      <link>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</link>
-      <pubDate>Mon, 26 Feb 2018 13:43:20 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</guid>
-      <description>0x00 前提 虚拟机有一个shell：http://10.11.11.20/a.php，物理机IP是211.222.222.72</description>
-    </item>
-    <item>
-      <title>Nessus 的安装和卸载</title>
-      <link>https://wyb0.com/posts/2016/nessus-install-and-remove/</link>
-      <pubDate>Sun, 13 Nov 2016 11:59:26 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/nessus-install-and-remove/</guid>
-      <description>0x00 下载 Nessus 的 deb 安装包 去【这里】，选择家庭版，然后下载对应的安装包 0x01 本地安装 Nessus 0x02 执行后续安装步骤: 启动nessus web访问</description>
-    </item>
-    <item>
-      <title>SqlmapApi 常用方法封装</title>
-      <link>https://wyb0.com/posts/2016/package-sqlmapapi-common-function/</link>
-      <pubDate>Wed, 21 Sep 2016 17:37:33 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/package-sqlmapapi-common-function/</guid>
-      <description>0x00 代码如下 #!/usr/bin/env python # -*- coding: utf-8 -*- import threading import requests import json from time import sleep class Sqli(threading.Thread): &amp;#34;&amp;#34;&amp;#34;docstring for AutoSqli&amp;#34;&amp;#34;&amp;#34; def __init__(self, server, target, data=&amp;#39;&amp;#39;, referer=&amp;#39;&amp;#39;, cookie=&amp;#39;&amp;#39;): threading.Thread.__init__(self) self.server = server[0:-1] if server[-1]==&amp;#39;/&amp;#39; else server self.target = target self.data = data self.referer = referer self.cookie = cookie self.taskid = &amp;#39;&amp;#39; self.data def new_task(self):</description>
-    </item>
-    <item>
-      <title>POC 框架 Pocsuite</title>
-      <link>https://wyb0.com/posts/2016/poc-framework-pocsuite/</link>
-      <pubDate>Thu, 08 Sep 2016 20:38:45 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/poc-framework-pocsuite/</guid>
-      <description>0x00 关于Pocsuite Pocsuite 是知道创宇安全研究团队打造的一款基于漏洞与 POC 的远程漏洞验证框架。可以让我们不用考虑过多的细节，只</description>
-    </item>
-    <item>
-      <title>Metasploit 利用 workspace 进行批量扫描爆破</title>
-      <link>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</link>
-      <pubDate>Tue, 23 Aug 2016 10:05:52 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</guid>
-      <description>0x00 启动 0x01 Metasploit的工作平台 在msf里的工作平台可以保存历史的一些操作信息 0x02 使用db_nmap扫描主机 扫描后的</description>
-    </item>
-    <item>
-      <title>Ubuntu 下安装 Metasploit</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</link>
-      <pubDate>Thu, 18 Aug 2016 10:38:41 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</guid>
-      <description>0x00 安装Metasploit 下载msfinstall脚本 $ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &amp;gt; msfinstall 修改文件权限 $ chmod 755 msfinstall 安装(可能时间较久) $ ./msfinstall 更新exp $</description>
-    </item>
-    <item>
-      <title>BurpSuite 抓手机包</title>
-      <link>https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/</link>
-      <pubDate>Sat, 13 Aug 2016 23:53:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/</guid>
-      <description>0x00 环境设置 Windows Phone手机和电脑处于同一无线环境下： 0x01 BurpSuite设置 0x02 抓HTTP包 0x03 抓HTTPS包 挂burpsu</description>
-    </item>
-    <item>
-      <title>BurpSuite 的 Intruder 模块</title>
-      <link>https://wyb0.com/posts/2016/burpsuite-intruder-module/</link>
-      <pubDate>Mon, 01 Aug 2016 09:17:38 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/burpsuite-intruder-module/</guid>
-      <description>0x00 示例一 0x01 示例二</description>
-    </item>
-    <item>
-      <title>Windows 下用 Proxifier 实现全局代理</title>
-      <link>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</link>
-      <pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</guid>
-      <description>0x00 环境 在windows下用Shadowsocks和Proxifier实现全局代理： System：Windows10 Pro x64 S</description>
-    </item>
-    <item>
-      <title>sqlmapapi 的简单使用</title>
-      <link>https://wyb0.com/posts/2016/sqlmapapi-usage/</link>
-      <pubDate>Tue, 28 Jun 2016 11:19:11 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/sqlmapapi-usage/</guid>
-      <description>0x00 关于sqlmapapi.py 当利用sqlmap时一次只能测试一个url，效率很低，而用sqlmapapi就可以实现批量</description>
-    </item>
-    <item>
-      <title>使用 theHarvester 得到邮箱</title>
-      <link>https://wyb0.com/posts/2016/theharvester-blasting-email/</link>
-      <pubDate>Thu, 12 May 2016 15:27:14 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/theharvester-blasting-email/</guid>
-      <description>0x00 软件 使用theHarvester搜集邮箱 使用dnsenum得到邮箱服务器域名 使用nmap查看端口开启情况 使用Hydra</description>
-    </item>
-    <item>
-      <title>Nmap思维导图</title>
-      <link>https://wyb0.com/posts/2016/nmap-mind-mapping/</link>
-      <pubDate>Tue, 10 May 2016 20:24:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/nmap-mind-mapping/</guid>
-      <description>nmap思维导图如下：</description>
-    </item>
-    <item>
-      <title>利用 EtterCap 进行中间人攻击</title>
-      <link>https://wyb0.com/posts/2016/linux-install-ettercap/</link>
-      <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-install-ettercap/</guid>
-      <description>0x00 准备 操作系统：CentOS 首先，ettercap 安装时需要 4 个依赖包，而且安装包里面也已经提供了 执行：sudo yum groupinstall &amp;#34;Development tools&amp;#34;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tools on Reber's Blog</title><link>https://wyb0.com/tags/tools/</link><description>Recent content in Tools on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 10 Jun 2021 16:44:23 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/tools/index.xml" rel="self" type="application/rss+xml"/><item><title>通过 Sphinx 快速查询数据</title><link>https://wyb0.com/posts/2021/sphinx/</link><pubDate>Thu, 10 Jun 2021 16:44:23 +0000</pubDate><guid>https://wyb0.com/posts/2021/sphinx/</guid><description>&lt;h3 id="0x00-sphinx">0x00 Sphinx&lt;/h3>
+&lt;p>Sphinx 是一款基于 SQL 的高性能全文检索引擎，Sphinx 的性能在众多全文检索引擎中也是数一数二的，利用 Sphinx我们可以完成比数据库本身更专业的搜索功能，而且可以有很多针对性的性能优化。&lt;/p></description></item><item><title>Metasploit 简单提权</title><link>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</link><pubDate>Mon, 26 Feb 2018 13:43:20 +0000</pubDate><guid>https://wyb0.com/posts/2018/msf-simple-elevate-privileges/</guid><description>&lt;h3 id="0x00-前提">0x00 前提&lt;/h3>
+&lt;p>虚拟机有一个shell：&lt;code>http://10.11.11.20/a.php&lt;/code>，物理机IP是211.222.222.72&lt;br>
+外网安装msf的主机：外网IP是114.115.123.123，内网IP是192.168.0.195&lt;/p></description></item><item><title>Nessus 的安装和卸载</title><link>https://wyb0.com/posts/2016/nessus-install-and-remove/</link><pubDate>Sun, 13 Nov 2016 11:59:26 +0000</pubDate><guid>https://wyb0.com/posts/2016/nessus-install-and-remove/</guid><description>&lt;h3 id="0x00-下载-nessus-的-deb-安装包">0x00 下载 Nessus 的 deb 安装包&lt;/h3>
+&lt;p>去【&lt;a href="http://www.tenable.com/products/nessus/select-your-operating-system?_blank">这里&lt;/a>】，选择家庭版，然后下载对应的安装包
+&lt;img src="https://wyb0.com/img/post/Nessus_Home.png" alt="70">
+&lt;img src="https://wyb0.com/img/post/select_nessus_deb.png" alt="40">&lt;/p>
+&lt;h3 id="0x01-本地安装-nessus">0x01 本地安装 Nessus&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/install_nessus.png" alt="60">&lt;/p>
+&lt;h3 id="0x02-执行后续安装步骤">0x02 执行后续安装步骤:&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>启动nessus
+&lt;img src="https://wyb0.com/img/post/start_nessus.png" alt="45">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>web访问nessus服务
+&lt;img src="https://wyb0.com/img/post/web_nessus.png" alt="80">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>设置账户和密码
+&lt;img src="https://wyb0.com/img/post/setaccount.png" alt="30">
+&lt;img src="https://wyb0.com/img/post/code.png" alt="50">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>申请code，可以在【&lt;a href="http://www.tenable.com/products/nessus-home">这里&lt;/a>】申请
+&lt;img src="https://wyb0.com/img/post/register_code.png" alt="30">&lt;/p></description></item><item><title>SqlmapApi 常用方法封装</title><link>https://wyb0.com/posts/2016/package-sqlmapapi-common-function/</link><pubDate>Wed, 21 Sep 2016 17:37:33 +0000</pubDate><guid>https://wyb0.com/posts/2016/package-sqlmapapi-common-function/</guid><description>&lt;h3 id="0x00-代码如下">0x00 代码如下&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> time &lt;span style="color:#f92672">import&lt;/span> sleep
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Sqli&lt;/span>(threading&lt;span style="color:#f92672">.&lt;/span>Thread):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for AutoSqli&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, server, target, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>, referer&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>, cookie&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threading&lt;span style="color:#f92672">.&lt;/span>Thread&lt;span style="color:#f92672">.&lt;/span>__init__(self)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>server &lt;span style="color:#f92672">=&lt;/span> server[&lt;span style="color:#ae81ff">0&lt;/span>:&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#66d9ef">if&lt;/span> server[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">else&lt;/span> server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>target &lt;span style="color:#f92672">=&lt;/span> target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>data &lt;span style="color:#f92672">=&lt;/span> data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>referer &lt;span style="color:#f92672">=&lt;/span> referer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>cookie &lt;span style="color:#f92672">=&lt;/span> cookie
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>taskid &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">new_task&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/task/new&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(self&lt;span style="color:#f92672">.&lt;/span>server)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>taskid &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(requests&lt;span style="color:#f92672">.&lt;/span>get(url)&lt;span style="color:#f92672">.&lt;/span>text)[&lt;span style="color:#e6db74">&amp;#39;taskid&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(self&lt;span style="color:#f92672">.&lt;/span>taskid)&lt;span style="color:#f92672">&amp;gt;&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Create new task,taskid is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>taskid
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">set_option&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> headers &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#e6db74">&amp;#39;Content-Type&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> option &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;options&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;smart&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">True&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/option/&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/set&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(self&lt;span style="color:#f92672">.&lt;/span>server,self&lt;span style="color:#f92672">.&lt;/span>taskid)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> resp &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(url, data&lt;span style="color:#f92672">=&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>dumps(option), headers&lt;span style="color:#f92672">=&lt;/span>headers)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(resp&lt;span style="color:#f92672">.&lt;/span>text)[&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">start_scan&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> headers &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#e6db74">&amp;#39;Content-Type&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> payload &lt;span style="color:#f92672">=&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;url&amp;#39;&lt;/span>: self&lt;span style="color:#f92672">.&lt;/span>target,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;data&amp;#39;&lt;/span>: self&lt;span style="color:#f92672">.&lt;/span>data,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;cookie&amp;#39;&lt;/span>: self&lt;span style="color:#f92672">.&lt;/span>cookie,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#39;referer&amp;#39;&lt;/span>: self&lt;span style="color:#f92672">.&lt;/span>referer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/scan/&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/start&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(self&lt;span style="color:#f92672">.&lt;/span>server,self&lt;span style="color:#f92672">.&lt;/span>taskid)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(requests&lt;span style="color:#f92672">.&lt;/span>post(url,data&lt;span style="color:#f92672">=&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>dumps(payload),headers&lt;span style="color:#f92672">=&lt;/span>headers)&lt;span style="color:#f92672">.&lt;/span>text)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(str(t[&lt;span style="color:#e6db74">&amp;#39;engineid&amp;#39;&lt;/span>])) &lt;span style="color:#f92672">&amp;gt;&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#f92672">and&lt;/span> t[&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>]:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">] Start scan&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>taskid
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_status&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/scan/&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/status&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(self&lt;span style="color:#f92672">.&lt;/span>server,self&lt;span style="color:#f92672">.&lt;/span>taskid)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> status &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(requests&lt;span style="color:#f92672">.&lt;/span>get(url)&lt;span style="color:#f92672">.&lt;/span>text)[&lt;span style="color:#e6db74">&amp;#39;status&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> status &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;running&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#39;running&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> status &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;terminated&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#39;terminated&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#39;error&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_data&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/scan/&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/data&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(self&lt;span style="color:#f92672">.&lt;/span>server,self&lt;span style="color:#f92672">.&lt;/span>taskid)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(requests&lt;span style="color:#f92672">.&lt;/span>get(url)&lt;span style="color:#f92672">.&lt;/span>text)[&lt;span style="color:#e6db74">&amp;#39;data&amp;#39;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(data) &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#39;[] not injection:&lt;/span>&lt;span style="color:#ae81ff">\t&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#39;=======&amp;gt; injection:&lt;/span>&lt;span style="color:#ae81ff">\t&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>data &lt;span style="color:#f92672">=&lt;/span> data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">delete_task&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/task/&lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74">/delete&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(self&lt;span style="color:#f92672">.&lt;/span>server,self&lt;span style="color:#f92672">.&lt;/span>taskid)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>loads(requests&lt;span style="color:#f92672">.&lt;/span>get(url)&lt;span style="color:#f92672">.&lt;/span>text)[&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>]:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">] Delete task&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>taskid
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">write_to_file&lt;/span>(self,msg):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(&lt;span style="color:#e6db74">&amp;#39;result.txt&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;a+&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> f&lt;span style="color:#f92672">.&lt;/span>write(json&lt;span style="color:#f92672">.&lt;/span>dumps(msg)&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#ae81ff">\n\n&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>new_task():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_option()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>start_scan():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>get_status() &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;running&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sleep(&lt;span style="color:#ae81ff">10&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>get_status() &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;terminated&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_data()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>write_to_file(self&lt;span style="color:#f92672">.&lt;/span>data)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>delete_task()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print e
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;http://127.0.0.1:8775&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> target &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;http://192.168.188.134/sqli/Less-1/?id=1&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sqli &lt;span style="color:#f92672">=&lt;/span> Sqli(server, target)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sqli&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sqli&lt;span style="color:#f92672">.&lt;/span>join()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>POC 框架 Pocsuite</title><link>https://wyb0.com/posts/2016/poc-framework-pocsuite/</link><pubDate>Thu, 08 Sep 2016 20:38:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/poc-framework-pocsuite/</guid><description>&lt;h3 id="0x00-关于pocsuite">0x00 关于Pocsuite&lt;/h3>
+&lt;p>Pocsuite 是知道创宇安全研究团队打造的一款基于漏洞与 POC 的远程漏洞验证框架。可以让我们不用考虑过多的细节，只要考虑验证代码就可以，它封装了一些我们常用的东西，比如requests，在我们平常使用requests是要考虑cookie、要考虑header，但是在框架下则不需要有这些考虑，因为这些东西框架都帮你解决了。&lt;/p></description></item><item><title>Metasploit 利用 workspace 进行批量扫描爆破</title><link>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</link><pubDate>Tue, 23 Aug 2016 10:05:52 +0000</pubDate><guid>https://wyb0.com/posts/2016/metasploit-use-workspace-batch-blasting/</guid><description>&lt;h3 id="0x00-启动">0x00 启动&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/msf_start.png" alt="启动msf">&lt;/p>
+&lt;h3 id="0x01-metasploit的工作平台">0x01 Metasploit的工作平台&lt;/h3>
+&lt;p>在msf里的工作平台可以保存历史的一些操作信息
+&lt;img src="https://wyb0.com/img/post/msf_workspace_h.png" alt="msf工作平台的帮助信息">
+&lt;img src="https://wyb0.com/img/post/msf_workspace.png" alt="创建新的工作平台">&lt;/p>
+&lt;h3 id="0x02-使用db_nmap扫描主机">0x02 使用db_nmap扫描主机&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/msf_nmap_lanou3g_ip.png" alt="扫描lanou3g的ip信息">
+扫描后的结果会保留在工作平台中，可以用hosts和services进行查看：
+&lt;img src="https://wyb0.com/img/post/msf_hosts.png" alt="查看主机列表">
+&lt;img src="https://wyb0.com/img/post/msf_services.png" alt="查看服务">&lt;/p></description></item><item><title>Ubuntu 下安装 Metasploit</title><link>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</link><pubDate>Thu, 18 Aug 2016 10:38:41 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-install-metasploit/</guid><description>&lt;h3 id="0x00-安装metasploit">0x00 安装Metasploit&lt;/h3>
+&lt;ul>
+&lt;li>下载msfinstall脚本&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &amp;gt; msfinstall
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>修改文件权限&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ chmod 755 msfinstall
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>安装(可能时间较久)&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ ./msfinstall
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>更新exp&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ msfupdate
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-连接数据库">0x01 连接数据库&lt;/h3>
+&lt;ul>
+&lt;li>首先启动postgresql数据库&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ /etc/init.d/postgresql start #service postgresql start也可以
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>初始化MSF数据库(关键步骤)&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ msfdb init
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>运行msfconsole&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ msfconsole
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>在msf中查看数据库连接状态&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>msf &amp;gt; db_status
+#若出现错误：Module database cache not built yet, using slow search
+#则重新构建缓存，缓存构建通常需要5-10分钟左右。
+#构建完成后，退出Metasploit控制台，然后重新进入即可使用数据库缓存进行搜索模块
+msf &amp;gt; db_rebuild_cache
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-metasploit-cheat-sheet">0x02 Metasploit Cheat Sheet&lt;/h3>
+&lt;p>常见命令可以看下 &lt;a href="https://www.comparitech.com/net-admin/metasploit-cheat-sheet/?_blank">https://www.comparitech.com/net-admin/metasploit-cheat-sheet/&lt;/a>&lt;/p></description></item><item><title>BurpSuite 抓手机包</title><link>https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/</link><pubDate>Sat, 13 Aug 2016 23:53:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/burpsuite-intercept-packets-of-phone/</guid><description>&lt;h3 id="0x00-环境设置">0x00 环境设置&lt;/h3>
+&lt;p>Windows Phone手机和电脑处于同一无线环境下：
+&lt;img src="https://wyb0.com/img/post/burpsuite_pc_ip.png" alt="PC机的ip">
+&lt;img src="https://wyb0.com/img/post/burpsuite_ip_set.png" alt="IP设置">&lt;/p>
+&lt;h3 id="0x01-burpsuite设置">0x01 BurpSuite设置&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/burpsuite_set_phone_proxy1.png" alt="设置burpsuite抓8888端口的包1">
+&lt;img src="https://wyb0.com/img/post/burpsuite_set_phone_proxy2.png" alt="设置burpsuite抓8888端口的包2">&lt;/p>
+&lt;h3 id="0x02-抓http包">0x02 抓HTTP包&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/burpsuite_phone_visit_internet.png" alt="手机访问网络">
+&lt;img src="https://wyb0.com/img/post/burpsuite_get_phone_packet.png" alt="burpsuite抓手机包">&lt;/p>
+&lt;h3 id="0x03-抓https包">0x03 抓HTTPS包&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>挂burpsuite的代理下载证书
+&lt;img src="https://wyb0.com/img/post/burpsuite_down_ca1.png" alt="下载证书1">
+&lt;img src="https://wyb0.com/img/post/burpsuite_down_ca2.png" alt="下载证书2">&lt;/p></description></item><item><title>BurpSuite 的 Intruder 模块</title><link>https://wyb0.com/posts/2016/burpsuite-intruder-module/</link><pubDate>Mon, 01 Aug 2016 09:17:38 +0000</pubDate><guid>https://wyb0.com/posts/2016/burpsuite-intruder-module/</guid><description>&lt;h3 id="0x00-示例一">0x00 示例一&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_caught.png" alt="burpsuite抓包发送给intruder模">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_attack_type1.png" alt="burpsuite的intruder模块的攻击类型1">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_attack_type2.png" alt="burpsuite的intruder模块的攻击类型2">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_payload_set.png" alt="burpsuite的intruder模块payload设置">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_payload_set_variable1.png" alt="burpsuite的intruder模块payload设置变量1">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_payload_set_variable2.png" alt="burpsuite的intruder模块payload设置变量2">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_payload_processing_rule.png" alt="burpsuite的intruder模块payload设置的特殊处理">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_start_attack.png" alt="burpsuite的intruder模块开始攻击">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_attack_interface.png" alt="burpsuite的intruder攻击界面">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_screening_attack_results.png" alt="burpsuite的intruder筛选攻击结果">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder_attack_results.png" alt="burpsuite的intruder筛选后的攻击结果">&lt;/p>
+&lt;h3 id="0x01-示例二">0x01 示例二&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/burpsuite_intruder1.png" alt="burpsuite的intruder1">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder2.png" alt="burpsuite的intruder2">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder3.png" alt="burpsuite的intruder3">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder4.png" alt="burpsuite的intruder4">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder5.png" alt="burpsuite的intruder5">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder6.png" alt="burpsuite的intruder6">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder7.png" alt="burpsuite的intruder7">
+&lt;img src="https://wyb0.com/img/post/burpsuite_intruder8.png" alt="burpsuite的intruder8">&lt;/p></description></item><item><title>Windows 下用 Proxifier 实现全局代理</title><link>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</link><pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;p>在windows下用Shadowsocks和Proxifier实现全局代理：&lt;/p>
+&lt;pre tabindex="0">&lt;code>System：Windows10 Pro x64
+Shadowsocks：Shadowsocks v2.5.2.0 
+Proxifier：Proxifier Portable Edition v3.29
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-配置shadowsocks">0x01 配置Shadowsocks&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/global_agent_set_shadowsocks.png" alt="Windows下实现全局代理-设置shadowsocks">&lt;/p></description></item><item><title>sqlmapapi 的简单使用</title><link>https://wyb0.com/posts/2016/sqlmapapi-usage/</link><pubDate>Tue, 28 Jun 2016 11:19:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/sqlmapapi-usage/</guid><description>&lt;h3 id="0x00-关于sqlmapapipy">0x00 关于sqlmapapi.py&lt;/h3>
+&lt;p>当利用sqlmap时一次只能测试一个url，效率很低，而用sqlmapapi就可以实现批量&lt;/p>
+&lt;h3 id="0x01-用于交互的方法">0x01 用于交互的方法&lt;/h3>
+&lt;p>在sqlmap/lib/utils/api.py中:&lt;/p></description></item><item><title>使用 theHarvester 得到邮箱</title><link>https://wyb0.com/posts/2016/theharvester-blasting-email/</link><pubDate>Thu, 12 May 2016 15:27:14 +0000</pubDate><guid>https://wyb0.com/posts/2016/theharvester-blasting-email/</guid><description>&lt;h3 id="0x00-软件">0x00 软件&lt;/h3>
+&lt;pre tabindex="0">&lt;code>使用theHarvester搜集邮箱
+使用dnsenum得到邮箱服务器域名
+使用nmap查看端口开启情况
+使用Hydra进行弱口令猜解
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-设置shadowsocks为全局模式">0x01 设置Shadowsocks为全局模式:&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/SS.png" alt="设置SS为全局代理">&lt;/p></description></item><item><title>Nmap思维导图</title><link>https://wyb0.com/posts/2016/nmap-mind-mapping/</link><pubDate>Tue, 10 May 2016 20:24:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/nmap-mind-mapping/</guid><description>&lt;h3 id="nmap思维导图如下">nmap思维导图如下：&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/nmap.png" alt="nmap思维导图">&lt;/p></description></item><item><title>利用 EtterCap 进行中间人攻击</title><link>https://wyb0.com/posts/2016/linux-install-ettercap/</link><pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-install-ettercap/</guid><description>&lt;h3 id="0x00-准备">0x00 准备&lt;/h3>
+&lt;pre tabindex="0">&lt;code>操作系统：CentOS 
+首先，ettercap 安装时需要 4 个依赖包，而且安装包里面也已经提供了 
+执行：sudo yum groupinstall &amp;#34;Development tools&amp;#34; #源码安装软件就需要安装这个
+使用 wget 下载 ettercap 源码
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-查看需要的依赖项">0x01 查看需要的依赖项&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost ettercap-0.8.2]$ vim INSTALL
+
+ #### Bundled libraries 
+ Ettercap now bundles the following libraries with the source distribution: 
+ libnet 1.1.6 
+ curl 7.41.0 
+ luajit 2.0.3 
+ check 0.9.14 
+[wyb@localhost ettercap-0.8.2]$ cd bundled_deps/ 
+[wyb@localhost bundled_deps]$ ls 
+check curl libnet luajit
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-安装依赖包">0x02 安装依赖包&lt;/h3>
+&lt;ol>
+&lt;li>安装check&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost check]$ cd check-0.9.14
+[wyb@localhost check-0.9.14]$ ls
+[wyb@localhost check-0.9.14]$ ./configure 
+[wyb@localhost check-0.9.14]$ make
+[wyb@localhost check-0.9.14]$ sudo make install
+&lt;/code>&lt;/pre>&lt;ol start="2">
+&lt;li>安装curl&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost check-0.9.14]$ cd ..
+[wyb@localhost curl-7.41.0]$ cd curl/
+[wyb@localhost curl-7.41.0]$ cd curl-7.41.0
+[wyb@localhost curl-7.41.0]$ make
+[wyb@localhost curl-7.41.0]$ sudo make install
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>安装libnet&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost curl-7.41.0]$ cd ../../libnet/
+[wyb@localhost libnet]$ tar -zxvf libnet-1.1.6.tar.gz
+[wyb@localhost libnet]$ cd libnet-1.1.6
+[wyb@localhost libnet-1.1.6]$ ./configure 
+[wyb@localhost libnet-1.1.6]$ make
+[wyb@localhost libnet-1.1.6]$ sudo make install
+&lt;/code>&lt;/pre>&lt;ol start="4">
+&lt;li>安装luajit&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost luajit]$ tar -zxvf LuaJIT-2.0.3.tar.gz 
+[wyb@localhost luajit]$ make
+[wyb@localhost luajit]$ sudo make install
+&lt;/code>&lt;/pre>&lt;ol start="5">
+&lt;li>
+&lt;p>安装ettercap&lt;/p></description></item></channel></rss>

@@ -1,353 +1,210 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>文件上传漏洞常见绕过手法 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>文件上传漏洞常见绕过手法</h1>
-      
-<div class="post-meta">
-    <time>2016-07-20</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0">文件上传</a>,<a href="/tags/bypass">bypass</a>)
-</div>
-
-      <div><h3 id="0x00-一般防止上传漏洞手法">0x00 一般防止上传漏洞手法</h3>
-<pre tabindex="0"><code>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>文件上传漏洞常见绕过手法 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>文件上传漏洞常见绕过手法</h1><div class=post-meta><time>2016-07-20</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0>文件上传</a>,<a href=/tags/bypass>bypass</a>)</div><div><h3 id=0x00-一般防止上传漏洞手法>0x00 一般防止上传漏洞手法</h3><pre tabindex=0><code>1、客户端检测：客户端使用JavaScript检测，在文件未上传时，就对文件进行验证
     //任何客户端的验证都是不安全的，客户端验证目的是防止用户输入错误、减少
     //服务器开销，而服务端验证才可以真正防御攻击者。  
 2、服务器端检测：服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法
-</code></pre><h3 id="0x01-客户端检测">0x01 客户端检测</h3>
-<p>客户端验证代码形如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;图片上传&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkFile</span>(){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;file&#34;</span>).<span style="color:#a6e22e">value</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">substring</span>(<span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">lastIndexOf</span>(<span style="color:#e6db74">&#39;.&#39;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array(<span style="color:#e6db74">&#39;png&#39;</span>,<span style="color:#e6db74">&#39;bmp&#39;</span>,<span style="color:#e6db74">&#39;gif&#39;</span>,<span style="color:#e6db74">&#39;jpg&#39;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>;<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">str</span><span style="color:#f92672">==</span><span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]){
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">flag</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#39;文件不合法！&#39;</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">flag</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upload.php&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">onsubmit</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkFile()&#34;</span> <span style="color:#a6e22e">enctype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;multipart/form-data&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> /&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> /&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><p>接收文件的脚本upload.php代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#34;submit&#34;</span>])){
-</span></span><span style="display:flex;"><span>    $name <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>];
-</span></span><span style="display:flex;"><span>    $name <span style="color:#f92672">=</span> <span style="color:#a6e22e">md5</span>(<span style="color:#a6e22e">date</span>(<span style="color:#e6db74">&#39;Y-m-d h:m:s&#39;</span>))<span style="color:#f92672">.</span><span style="color:#a6e22e">strrchr</span>($name,<span style="color:#e6db74">&#34;.&#34;</span>);
-</span></span><span style="display:flex;"><span>    $size <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;size&#39;</span>];
-</span></span><span style="display:flex;"><span>    $tmp <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;tem_name&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">move_uploaded_file</span>($tmp,$name);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;文件上传成功！path：&#34;</span><span style="color:#f92672">.</span>$name;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p>绕过：</p>
-<pre tabindex="0"><code>1、可以用firebug将form表单中的onsubmit事件删除，这样就可以绕过验证。
+</code></pre><h3 id=0x01-客户端检测>0x01 客户端检测</h3><p>客户端验证代码形如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;图片上传&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>script</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/javascript&#34;</span>&gt;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>checkFile</span>(){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>flag</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>str</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#34;file&#34;</span>).<span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>str</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>str</span>.<span style=color:#a6e22e>substring</span>(<span style=color:#a6e22e>str</span>.<span style=color:#a6e22e>lastIndexOf</span>(<span style=color:#e6db74>&#39;.&#39;</span>) <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>arr</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Array(<span style=color:#e6db74>&#39;png&#39;</span>,<span style=color:#e6db74>&#39;bmp&#39;</span>,<span style=color:#e6db74>&#39;gif&#39;</span>,<span style=color:#e6db74>&#39;jpg&#39;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;<span style=color:#a6e22e>i</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>arr</span>.<span style=color:#a6e22e>length</span>;<span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>str</span><span style=color:#f92672>==</span><span style=color:#a6e22e>arr</span>[<span style=color:#a6e22e>i</span>]){
+</span></span><span style=display:flex><span>                <span style=color:#a6e22e>flag</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>flag</span>){
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>alert</span>(<span style=color:#e6db74>&#39;文件不合法！&#39;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>flag</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;upload.php&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span> <span style=color:#a6e22e>onsubmit</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;checkFile()&#34;</span> <span style=color:#a6e22e>enctype</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;multipart/form-data&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> /&gt;&lt;<span style=color:#f92672>br</span>/&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;提交&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>接收文件的脚本upload.php代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>isset</span>($_POST[<span style=color:#e6db74>&#34;submit&#34;</span>])){
+</span></span><span style=display:flex><span>    $name <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>];
+</span></span><span style=display:flex><span>    $name <span style=color:#f92672>=</span> <span style=color:#a6e22e>md5</span>(<span style=color:#a6e22e>date</span>(<span style=color:#e6db74>&#39;Y-m-d h:m:s&#39;</span>))<span style=color:#f92672>.</span><span style=color:#a6e22e>strrchr</span>($name,<span style=color:#e6db74>&#34;.&#34;</span>);
+</span></span><span style=display:flex><span>    $size <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;size&#39;</span>];
+</span></span><span style=display:flex><span>    $tmp <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;tem_name&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>move_uploaded_file</span>($tmp,$name);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;文件上传成功！path：&#34;</span><span style=color:#f92672>.</span>$name;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>绕过：</p><pre tabindex=0><code>1、可以用firebug将form表单中的onsubmit事件删除，这样就可以绕过验证。
 2、使用Burp Suite：
     1）先将木马文件的扩展名改为一张正常图片的扩展名，如jpg
     2）上传时使用Burp Suite拦截数据包，将木马文件扩展名改为php就可绕过客户端验证。
     注意：这里修改文件名字后，请求头中的Content-Length的值也要改
-</code></pre><h3 id="0x02-服务端检测">0x02 服务端检测</h3>
-<p>服务端分为6项：</p>
-<pre tabindex="0"><code>* 黑名单与白名单验证
+</code></pre><h3 id=0x02-服务端检测>0x02 服务端检测</h3><p>服务端分为6项：</p><pre tabindex=0><code>* 黑名单与白名单验证
 * MIME验证
 * 目录验证
 * 截断上传攻击
 * 文件攻击
 * 检测文件内容
-</code></pre><h4 id="1-黑名单与白名单验证">1. 黑名单与白名单验证</h4>
-<ul>
-<li>黑名单过滤方式</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>$Blacklist <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#39;asp&#39;</span>,<span style="color:#e6db74">&#39;php&#39;</span>,<span style="color:#e6db74">&#39;jsp&#39;</span>,<span style="color:#e6db74">&#39;php5&#39;</span>,<span style="color:#e6db74">&#39;asa&#39;</span>,<span style="color:#e6db74">&#39;aspx&#39;</span>);    <span style="color:#75715e">//黑名单
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#34;submit&#34;</span>])){
-</span></span><span style="display:flex;"><span>    $name <span style="color:#f92672">=</span> $FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>];    <span style="color:#75715e">//接收文件名
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $extension <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>(<span style="color:#a6e22e">strrchr</span>($name, <span style="color:#e6db74">&#34;.&#34;</span>) , <span style="color:#ae81ff">1</span>);    <span style="color:#75715e">//得到扩展名
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $boo <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($Blaklist <span style="color:#66d9ef">as</span> $key <span style="color:#f92672">=&gt;</span> $value){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($value<span style="color:#f92672">==</span>$extension) {    <span style="color:#75715e">//迭代判断是否命中
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            $boo <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;     <span style="color:#75715e">//命中后直接退出循环
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$boo) {    <span style="color:#75715e">//若没有被命中，则进行上传操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $size <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;size&#39;</span>];  <span style="color:#75715e">//接收文件大小
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $tmp <span style="color:#f92672">=</span> $FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;temp_name&#39;</span>];   <span style="color:#75715e">//临时路径
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">move_uploaded_file</span>($tmp, $name);   <span style="color:#75715e">//移动临时文件到当前文件目录
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;文件不合法!!&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><ul>
-<li>白名单过滤方式</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>$WhiteList <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#39;rar&#39;</span>,<span style="color:#e6db74">&#39;jpg&#39;</span>,<span style="color:#e6db74">&#39;png&#39;</span>,<span style="color:#e6db74">&#39;bmp&#39;</span>,<span style="color:#e6db74">&#39;gif&#39;</span>,<span style="color:#e6db74">&#39;jpg&#39;</span>,<span style="color:#e6db74">&#39;doc&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_POST[<span style="color:#e6db74">&#34;submit&#34;</span>])){
-</span></span><span style="display:flex;"><span>    $name <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>];
-</span></span><span style="display:flex;"><span>    $extension <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>(<span style="color:#a6e22e">strrchr</span>($name,<span style="color:#e6db74">&#34;.&#34;</span>),<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>    $boo <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span>($WhiteList <span style="color:#66d9ef">as</span> $key <span style="color:#f92672">=&gt;</span> $value){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>($value<span style="color:#f92672">==</span>$extension){
-</span></span><span style="display:flex;"><span>            $boo <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($boo){
-</span></span><span style="display:flex;"><span>        $size <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;size&#39;</span>];
-</span></span><span style="display:flex;"><span>        $tmp <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;tmp_name&#39;</span>];
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">move_uploaded_file</span>($tmp,$name);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;文件上传成功！&lt;br/&gt;path:&#34;</span><span style="color:#f92672">.</span>$name;
-</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;文件不合法！&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p>绕过方法：</p>
-<pre tabindex="0"><code>* 0x00截断绕过
+</code></pre><h4 id=1-黑名单与白名单验证>1. 黑名单与白名单验证</h4><ul><li>黑名单过滤方式</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>$Blacklist <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#39;asp&#39;</span>,<span style=color:#e6db74>&#39;php&#39;</span>,<span style=color:#e6db74>&#39;jsp&#39;</span>,<span style=color:#e6db74>&#39;php5&#39;</span>,<span style=color:#e6db74>&#39;asa&#39;</span>,<span style=color:#e6db74>&#39;aspx&#39;</span>);    <span style=color:#75715e>//黑名单
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>isset</span>($_POST[<span style=color:#e6db74>&#34;submit&#34;</span>])){
+</span></span><span style=display:flex><span>    $name <span style=color:#f92672>=</span> $FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>];    <span style=color:#75715e>//接收文件名
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $extension <span style=color:#f92672>=</span> <span style=color:#a6e22e>substr</span>(<span style=color:#a6e22e>strrchr</span>($name, <span style=color:#e6db74>&#34;.&#34;</span>) , <span style=color:#ae81ff>1</span>);    <span style=color:#75715e>//得到扩展名
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $boo <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span> ($Blaklist <span style=color:#66d9ef>as</span> $key <span style=color:#f92672>=&gt;</span> $value){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ($value<span style=color:#f92672>==</span>$extension) {    <span style=color:#75715e>//迭代判断是否命中
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            $boo <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>break</span>;     <span style=color:#75715e>//命中后直接退出循环
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>$boo) {    <span style=color:#75715e>//若没有被命中，则进行上传操作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $size <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;size&#39;</span>];  <span style=color:#75715e>//接收文件大小
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $tmp <span style=color:#f92672>=</span> $FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;temp_name&#39;</span>];   <span style=color:#75715e>//临时路径
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#a6e22e>move_uploaded_file</span>($tmp, $name);   <span style=color:#75715e>//移动临时文件到当前文件目录
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;文件不合法!!&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><ul><li>白名单过滤方式</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>$WhiteList <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#39;rar&#39;</span>,<span style=color:#e6db74>&#39;jpg&#39;</span>,<span style=color:#e6db74>&#39;png&#39;</span>,<span style=color:#e6db74>&#39;bmp&#39;</span>,<span style=color:#e6db74>&#39;gif&#39;</span>,<span style=color:#e6db74>&#39;jpg&#39;</span>,<span style=color:#e6db74>&#39;doc&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>isset</span>($_POST[<span style=color:#e6db74>&#34;submit&#34;</span>])){
+</span></span><span style=display:flex><span>    $name <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>];
+</span></span><span style=display:flex><span>    $extension <span style=color:#f92672>=</span> <span style=color:#a6e22e>substr</span>(<span style=color:#a6e22e>strrchr</span>($name,<span style=color:#e6db74>&#34;.&#34;</span>),<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    $boo <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span>($WhiteList <span style=color:#66d9ef>as</span> $key <span style=color:#f92672>=&gt;</span> $value){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>($value<span style=color:#f92672>==</span>$extension){
+</span></span><span style=display:flex><span>            $boo <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>($boo){
+</span></span><span style=display:flex><span>        $size <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;size&#39;</span>];
+</span></span><span style=display:flex><span>        $tmp <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;tmp_name&#39;</span>];
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>move_uploaded_file</span>($tmp,$name);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;文件上传成功！&lt;br/&gt;path:&#34;</span><span style=color:#f92672>.</span>$name;
+</span></span><span style=display:flex><span>    }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;文件不合法！&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>绕过方法：</p><pre tabindex=0><code>* 0x00截断绕过
 * 从黑名单中找到web开发者忽略的扩展名，如：cer
 * 没有对扩展名进行大小写转换，在window平台依然可以大小写绕过
 * 在window下，若文件名以&#34;.&#34;或者空格作为结尾，系统会自动去除&#34;.&#34;与空格，所以可以上传不符合Windows命名规则的文件来绕过，
   如：test.asp.、test.asp(空格)、test.asp_、test.php::$DATA
 * 配合解析漏洞，如iis6上传test.asp;1.jpg
-</code></pre><h4 id="2-mime验证">2. MIME验证</h4>
-<p>对文件MIME类型做验证的PHP代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>($_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;type&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#34; image/jpeg&#34;</span>){
-</span></span><span style="display:flex;"><span>    $imageTempName <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;tmp_name&#39;</span>];
-</span></span><span style="display:flex;"><span>    $imageName <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>];
-</span></span><span style="display:flex;"><span>    $last <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($imageName,<span style="color:#a6e22e">strrpos</span>($imageName,<span style="color:#e6db74">&#34;.&#34;</span>));
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is_dir</span>(<span style="color:#e6db74">&#34;uploadFile&#34;</span>)){
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mkdir</span>(<span style="color:#e6db74">&#34;uploadFile&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    $imageName <span style="color:#f92672">=</span> <span style="color:#a6e22e">md5</span>($imageName)<span style="color:#f92672">.</span>$last;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">move_upload_file</span>($imageTempName,<span style="color:#e6db74">&#34;./uploadFile/&#34;</span><span style="color:#f92672">.</span>$imageName);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span>(<span style="color:#e6db74">&#34;文件上传成功！ path = /uploadFile/</span><span style="color:#e6db74">$imageName</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>}<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span>(<span style="color:#e6db74">&#34;文件上传类型错误，请重新上传...&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">exit</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</code></pre><h4 id=2-mime验证>2. MIME验证</h4><p>对文件MIME类型做验证的PHP代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>($_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;type&#39;</span>]<span style=color:#f92672>==</span><span style=color:#e6db74>&#34; image/jpeg&#34;</span>){
+</span></span><span style=display:flex><span>    $imageTempName <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;tmp_name&#39;</span>];
+</span></span><span style=display:flex><span>    $imageName <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>];
+</span></span><span style=display:flex><span>    $last <span style=color:#f92672>=</span> <span style=color:#a6e22e>substr</span>($imageName,<span style=color:#a6e22e>strrpos</span>($imageName,<span style=color:#e6db74>&#34;.&#34;</span>));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>is_dir</span>(<span style=color:#e6db74>&#34;uploadFile&#34;</span>)){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>mkdir</span>(<span style=color:#e6db74>&#34;uploadFile&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    $imageName <span style=color:#f92672>=</span> <span style=color:#a6e22e>md5</span>($imageName)<span style=color:#f92672>.</span>$last;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>move_upload_file</span>($imageTempName,<span style=color:#e6db74>&#34;./uploadFile/&#34;</span><span style=color:#f92672>.</span>$imageName);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span>(<span style=color:#e6db74>&#34;文件上传成功！ path = /uploadFile/</span><span style=color:#e6db74>$imageName</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>}<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span>(<span style=color:#e6db74>&#34;文件上传类型错误，请重新上传...&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>exit</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
 </span></span></span></code></pre></div><p>未修改MIME类型，上传失败：
-<img src="/img/post/upload_vuln_not_alter_mime.png" alt="上传漏洞没有修改MIME">
+<img src=/img/post/upload_vuln_not_alter_mime.png alt=上传漏洞没有修改MIME>
 修改MIME类型，上传成功：
-<img src="/img/post/upload_vuln_alter_mime.png" alt="上传漏洞修改MIME"></p>
-<h4 id="3-目录验证">3. 目录验证</h4>
-<p>文件上传时通常允许用户将文件放到指定的目录中，若目录存在则将文件写入目录，否则新建目录然后写入，若为iis6.0则可以利用这个漏洞，客户端上传代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;up&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upload.php&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">enctype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;multipart/form-data&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> /&gt;&lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Extension&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;up&#34;</span> /&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> /&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><p>服务端PHP接收文件的代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>($_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;type&#39;</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;image/jpeg&#34;</span>){
-</span></span><span style="display:flex;"><span>    $imageTempName<span style="color:#f92672">=</span>$_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;tmp_name&#39;</span>];
-</span></span><span style="display:flex;"><span>    $imageName<span style="color:#f92672">=</span>$_FILES[<span style="color:#e6db74">&#39;file&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>];
-</span></span><span style="display:flex;"><span>    $last<span style="color:#f92672">=</span><span style="color:#a6e22e">substr</span>($imageName,<span style="color:#a6e22e">strrpos</span>($imageName,<span style="color:#e6db74">&#34;.&#34;</span>));
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>($last<span style="color:#f92672">!=</span><span style="color:#e6db74">&#34;.jpg&#34;</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span>(<span style="color:#e6db74">&#34;mime error!&lt;br/&gt;&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    $Extension<span style="color:#f92672">=</span>$_POST[<span style="color:#e6db74">&#39;Extension&#39;</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">is_dir</span>($Extension)){
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mkdir</span>(<span style="color:#e6db74">&#34;./</span><span style="color:#e6db74">$Extension</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;mkidr </span><span style="color:#e6db74">$Extension</span><span style="color:#e6db74"> succesfully&#34;</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;&lt;br/&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    $imageName<span style="color:#f92672">=</span><span style="color:#a6e22e">md5</span>($imageName)<span style="color:#f92672">.</span>$last;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">move_uploaded_file</span>($imageTempName,<span style="color:#e6db74">&#34;./</span><span style="color:#e6db74">$Extension</span><span style="color:#e6db74">/&#34;</span><span style="color:#f92672">.</span>$imageName);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span>(<span style="color:#e6db74">&#34;upload ok! path = /</span><span style="color:#e6db74">$Extension</span><span style="color:#e6db74">/</span><span style="color:#e6db74">$imageName</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span>(<span style="color:#e6db74">&#34;type error...&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">exit</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+<img src=/img/post/upload_vuln_alter_mime.png alt=上传漏洞修改MIME></p><h4 id=3-目录验证>3. 目录验证</h4><p>文件上传时通常允许用户将文件放到指定的目录中，若目录存在则将文件写入目录，否则新建目录然后写入，若为iis6.0则可以利用这个漏洞，客户端上传代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>html</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;up&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;upload.php&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span> <span style=color:#a6e22e>enctype</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;multipart/form-data&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> /&gt;&lt;<span style=color:#f92672>br</span>/&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;hidden&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Extension&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;up&#34;</span> /&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;提交&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>服务端PHP接收文件的代码如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>($_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;type&#39;</span>]<span style=color:#f92672>==</span><span style=color:#e6db74>&#34;image/jpeg&#34;</span>){
+</span></span><span style=display:flex><span>    $imageTempName<span style=color:#f92672>=</span>$_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;tmp_name&#39;</span>];
+</span></span><span style=display:flex><span>    $imageName<span style=color:#f92672>=</span>$_FILES[<span style=color:#e6db74>&#39;file&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>];
+</span></span><span style=display:flex><span>    $last<span style=color:#f92672>=</span><span style=color:#a6e22e>substr</span>($imageName,<span style=color:#a6e22e>strrpos</span>($imageName,<span style=color:#e6db74>&#34;.&#34;</span>));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>($last<span style=color:#f92672>!=</span><span style=color:#e6db74>&#34;.jpg&#34;</span>){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span>(<span style=color:#e6db74>&#34;mime error!&lt;br/&gt;&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    $Extension<span style=color:#f92672>=</span>$_POST[<span style=color:#e6db74>&#39;Extension&#39;</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>is_dir</span>($Extension)){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>mkdir</span>(<span style=color:#e6db74>&#34;./</span><span style=color:#e6db74>$Extension</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;mkidr </span><span style=color:#e6db74>$Extension</span><span style=color:#e6db74> succesfully&#34;</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;&lt;br/&gt;&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    $imageName<span style=color:#f92672>=</span><span style=color:#a6e22e>md5</span>($imageName)<span style=color:#f92672>.</span>$last;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>move_uploaded_file</span>($imageTempName,<span style=color:#e6db74>&#34;./</span><span style=color:#e6db74>$Extension</span><span style=color:#e6db74>/&#34;</span><span style=color:#f92672>.</span>$imageName);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span>(<span style=color:#e6db74>&#34;upload ok! path = /</span><span style=color:#e6db74>$Extension</span><span style=color:#e6db74>/</span><span style=color:#e6db74>$imageName</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span>(<span style=color:#e6db74>&#34;type error...&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>exit</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
 </span></span></span></code></pre></div><p>查看上传到了那个文件：
-<img src="/img/post/upload_vuln_check_upload_dirname.png" alt="上传漏洞查看上传到那个文件夹">
+<img src=/img/post/upload_vuln_check_upload_dirname.png alt=上传漏洞查看上传到那个文件夹>
 将文件改名：
-<img src="/img/post/upload_vuln_alter_upload_dirname.png" alt="上传漏洞尝试更改上传文件夹名字">
-<img src="/img/post/upload_vuln_check_asp_dirname.png" alt="上传漏洞查看asp文件夹是否生成"></p>
-<h4 id="4-截断上传攻击">4. 截断上传攻击</h4>
-<p>截断上传攻击在ASP程序中比较常见(在PHP、JSP中也有)
+<img src=/img/post/upload_vuln_alter_upload_dirname.png alt=上传漏洞尝试更改上传文件夹名字>
+<img src=/img/post/upload_vuln_check_asp_dirname.png alt=上传漏洞查看asp文件夹是否生成></p><h4 id=4-截断上传攻击>4. 截断上传攻击</h4><p>截断上传攻击在ASP程序中比较常见(在PHP、JSP中也有)
 先上传正常后缀的图片马：
-<img src="/img/post/upload_vuln_upload_normal_picture.png" alt="上传漏洞上传正常后缀的图片马">
+<img src=/img/post/upload_vuln_upload_normal_picture.png alt=上传漏洞上传正常后缀的图片马>
 更改图片名字：
-<img src="/img/post/upload_vuln_alter_picture_name.png" alt="上传漏洞修改图片名字">
+<img src=/img/post/upload_vuln_alter_picture_name.png alt=上传漏洞修改图片名字>
 截断：
-<img src="/img/post/upload_vuln_truncate_picture_name.png" alt="上传漏洞截断文件名">
+<img src=/img/post/upload_vuln_truncate_picture_name.png alt=上传漏洞截断文件名>
 上传成功：
-<img src="/img/post/upload_vuln_upload_success.png" alt="上传漏洞成功将jpg图片马上传为asp脚本"></p>
-<h4 id="5-文件攻击">5. 文件攻击</h4>
-<ul>
-<li>.htaccess文件攻击<br>
-Apache设置为AllowOverride All时，通过.htaccess文件调用php解析器去解析一个文件名中只要包含&quot;haha&quot;这个字符串的任意文件，无论扩展名是什么(没有也行)，都以php的方式来解析，.haccess文件代码如下：</li>
-</ul>
-<pre tabindex="0"><code>&lt;FilesMatch &#34;haha&#34;&gt;
+<img src=/img/post/upload_vuln_upload_success.png alt=上传漏洞成功将jpg图片马上传为asp脚本></p><h4 id=5-文件攻击>5. 文件攻击</h4><ul><li>.htaccess文件攻击<br>Apache设置为AllowOverride All时，通过.htaccess文件调用php解析器去解析一个文件名中只要包含"haha"这个字符串的任意文件，无论扩展名是什么(没有也行)，都以php的方式来解析，.haccess文件代码如下：</li></ul><pre tabindex=0><code>&lt;FilesMatch &#34;haha&#34;&gt;
 SetHandler application/x-httpd-php
 &lt;/FilesMatch&gt;
-</code></pre><p>或者如下，上传一个文件名为evil.gif的图片马：</p>
-<pre tabindex="0"><code>&lt;FilesMatch &#34;evil.gif&#34;&gt;
+</code></pre><p>或者如下，上传一个文件名为evil.gif的图片马：</p><pre tabindex=0><code>&lt;FilesMatch &#34;evil.gif&#34;&gt;
 SetHandler application/x-httpd-php
 &lt;/FilesMatch&gt;
-</code></pre><p>或者如下，上传一个后缀为png的图片马：</p>
-<pre tabindex="0"><code>&lt;Files *.png&gt;
+</code></pre><p>或者如下，上传一个后缀为png的图片马：</p><pre tabindex=0><code>&lt;Files *.png&gt;
 SetHandler application/x-httpd-php
 &lt;/Files&gt;
-</code></pre><ul>
-<li>.user.ini文件攻击</li>
-</ul>
-<pre tabindex="0"><code>只要中间键是以fastcgi运行的php都可以用这个方法，.user.ini能被动态加载，它也有两个配置
+</code></pre><ul><li>.user.ini文件攻击</li></ul><pre tabindex=0><code>只要中间键是以fastcgi运行的php都可以用这个方法，.user.ini能被动态加载，它也有两个配置
 项：auto_append_file和auto_prepend_file，只要在.user.ini中添加auto_prepend_file=aa.jpg
 这句话，就可以让其他php文件执行前自动包含aa.jpg，和require()类似。
-</code></pre><p><img src="/img/post/upload_vuln_file_attack1.png" alt="上传漏洞-文件攻击1">
-<img src="/img/post/upload_vuln_file_attack2.png" alt="上传漏洞-文件攻击2"></p>
-<h4 id="6-检测文件内容">6. 检测文件内容</h4>
-<ul>
-<li>文件幻数检测<br>
-在文件首部加上如下幻数，后面跟一句话木马即可</li>
-</ul>
-<pre tabindex="0"><code>JFIF    FF D8 FF E0 00 10 4A 46 49 46
+</code></pre><p><img src=/img/post/upload_vuln_file_attack1.png alt=上传漏洞-文件攻击1>
+<img src=/img/post/upload_vuln_file_attack2.png alt=上传漏洞-文件攻击2></p><h4 id=6-检测文件内容>6. 检测文件内容</h4><ul><li>文件幻数检测<br>在文件首部加上如下幻数，后面跟一句话木马即可</li></ul><pre tabindex=0><code>JFIF    FF D8 FF E0 00 10 4A 46 49 46
 GIF89a  47 49 46 38 39 61
 PNG     89 50 4E 47
-</code></pre><ul>
-<li>文件相关信息检测<br>
-通常用的getimagesize()函数，只需要在幻数基础上加一些文件信息就行了，如下：</li>
-</ul>
-<pre tabindex="0"><code>GIF89a
+</code></pre><ul><li>文件相关信息检测<br>通常用的getimagesize()函数，只需要在幻数基础上加一些文件信息就行了，如下：</li></ul><pre tabindex=0><code>GIF89a
 (...some binary data for image...)
 &lt;?php phpinfo(); ?&gt;
 (... skipping the rest of binary data ...)
-</code></pre><ul>
-<li>文件加载检测<br>
-服务端会调用API或函数对文件进行加载测试，常见的是图像渲染测试，变态的甚至是二次渲染：</li>
-</ul>
-<pre tabindex="0"><code>对渲染/加载测试的攻击方式是代码注入绕过
+</code></pre><ul><li>文件加载检测<br>服务端会调用API或函数对文件进行加载测试，常见的是图像渲染测试，变态的甚至是二次渲染：</li></ul><pre tabindex=0><code>对渲染/加载测试的攻击方式是代码注入绕过
 对二次渲染的攻击方式是攻击文件加载器本身
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

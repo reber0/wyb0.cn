@@ -1,89 +1,912 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>php on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/php/</link>
-    <description>Recent content in php on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 23 Jul 2018 00:09:17 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/php/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>关于 PHP SESSION 反序列化</title>
-      <link>https://wyb0.com/posts/2018/php-session-deserialize/</link>
-      <pubDate>Mon, 23 Jul 2018 00:09:17 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/php-session-deserialize/</guid>
-      <description>0x00 环境 公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。 其中有一道是php反序列化，直接用的就是 第三</description>
-    </item>
-    <item>
-      <title>打包下载 php 文件</title>
-      <link>https://wyb0.com/posts/2018/package-and-download-the-php-file/</link>
-      <pubDate>Mon, 08 Jan 2018 22:02:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/package-and-download-the-php-file/</guid>
-      <description>0x00 代码如下 &amp;lt;?php function addFileToZip($zip,$zipname,$path){ $handler = opendir($path); while(($filename = readdir($handler))!==false) { if($filename != &amp;#34;.&amp;#34; &amp;amp;&amp;amp; $filename != &amp;#34;..&amp;#34; &amp;amp;&amp;amp; $filename!= $zipname){ if (is_dir($path.&amp;#34;/&amp;#34;.$filename)) { //如果读取的某个对象是文件夹，则递归 addFileToZip($zip,$zipname,$path.&amp;#34;/&amp;#34;.$filename); } else { $zip-&amp;gt;addFile($path.&amp;#34;/&amp;#34;.$filename); } } } @closedir($path); } function tar($zipname,$path) {</description>
-    </item>
-    <item>
-      <title>PHP 安全配置</title>
-      <link>https://wyb0.com/posts/2016/php-safe-configuration/</link>
-      <pubDate>Thu, 01 Sep 2016 08:46:03 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-safe-configuration/</guid>
-      <description>0x00 PHP的配置 PHP的配置文件为php.ini,其中有些项配置不当的话就会造成一些安全问题 0x01 远程文件包含 涉及配置项 allow_url_include 配置</description>
-    </item>
-    <item>
-      <title>PHP 之封装 MySQL 类</title>
-      <link>https://wyb0.com/posts/2016/php-package-mysql-function/</link>
-      <pubDate>Fri, 03 Jun 2016 11:19:05 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-package-mysql-function/</guid>
-      <description>0x00 config.inc.php内容如下 &amp;lt;?php return array( &amp;#39;DB_HOST&amp;#39; =&amp;gt; &amp;#39;192.168.188.134&amp;#39;, &amp;#39;DB_NAME&amp;#39; =&amp;gt; &amp;#39;scoreboard&amp;#39;, &amp;#39;DB_USER&amp;#39; =&amp;gt; &amp;#39;score&amp;#39;, &amp;#39;DB_PASS&amp;#39; =&amp;gt; &amp;#39;123456&amp;#39;, &amp;#39;DB_CHARSET&amp;#39; =&amp;gt; &amp;#39;utf8&amp;#39;, &amp;#39;IS_LOG&amp;#39; =&amp;gt; 1,//开启日志 &amp;#39;LOGFILEPATH&amp;#39; =&amp;gt; &amp;#39;../log</description>
-    </item>
-    <item>
-      <title>PHP 之 MySQL 常用函数</title>
-      <link>https://wyb0.com/posts/2016/php-mysql-common-function/</link>
-      <pubDate>Thu, 02 Jun 2016 13:21:49 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-mysql-common-function/</guid>
-      <description>0x00 处理函数 mysql_connect(server,user,pwd,newlink,clientflag) 连接服务器的函数,成功则返回MySQL标识，失败则返回FALSE mysql_select_db(database,connection) 选择数据库的函数，成功则返回true，失败</description>
-    </item>
-    <item>
-      <title>PHP 之上传与下载</title>
-      <link>https://wyb0.com/posts/2016/php-upload-and-download/</link>
-      <pubDate>Tue, 24 May 2016 08:31:09 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-upload-and-download/</guid>
-      <description>0x00 上传 客户端设置 客户端使用form表单上传文件，在form表单中必须指明enctype和method属性的值 &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;post&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;form</description>
-    </item>
-    <item>
-      <title>PHP 之目录与文件</title>
-      <link>https://wyb0.com/posts/2016/php-directory-and-file/</link>
-      <pubDate>Sun, 22 May 2016 16:29:47 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-directory-and-file/</guid>
-      <description>0x00 目录的操作 &amp;lt;?php $path = &amp;#34;/var/www/html/php/dir.php&amp;#34;; echo dirname($path).&amp;#34;&amp;lt;br /&amp;gt;&amp;#34;; //返回上级路径 echo basename($path).&amp;#34;&amp;lt;br /&amp;gt;&amp;#34;; //返回文件名部分 print_r(pathinfo($path)); //返回包含path信息的数组 echo &amp;#34;&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;&amp;#34;; //readd</description>
-    </item>
-    <item>
-      <title>PHP 之字符串</title>
-      <link>https://wyb0.com/posts/2016/php-string/</link>
-      <pubDate>Sat, 21 May 2016 23:16:28 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-string/</guid>
-      <description>0x00 特点 字符串可以使用数组的处理函数操作，但并不是真正的数组 双引号中的变量用{}括起来，因为字符串中若遇到$符号，解析器会</description>
-    </item>
-    <item>
-      <title>PHP 之面向对象</title>
-      <link>https://wyb0.com/posts/2016/php-object-oriented/</link>
-      <pubDate>Fri, 20 May 2016 16:07:55 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-object-oriented/</guid>
-      <description>0x00 面向对象 面向对象概念 面向对象是达到了软件工程的三个目标：重用性、灵活性和扩展性，使其编程的代码更加简洁、更易于维护、并</description>
-    </item>
-    <item>
-      <title>PHP 之数组</title>
-      <link>https://wyb0.com/posts/2016/php-array/</link>
-      <pubDate>Wed, 18 May 2016 11:09:46 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-array/</guid>
-      <description>0x00 分类 索引数组 索引值从0开始，依次递增 关联数组 以字符串为索引，键和值对是无序组合，每个键都是唯一的 0x01 数组的定义 两种方法：</description>
-    </item>
-    <item>
-      <title>PHP 之基础</title>
-      <link>https://wyb0.com/posts/2016/php-basis/</link>
-      <pubDate>Sun, 15 May 2016 09:10:23 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/php-basis/</guid>
-      <description>0x00 PHP的作用 1. 收集表单数据 2. 生成动态网页 3. 字符串处理 4. 动态输出图片 5. 处理服务器端文件系统 6. 编写数据库支持的网页 7. 会话跟</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Php on Reber's Blog</title><link>https://wyb0.com/tags/php/</link><description>Recent content in Php on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 23 Jul 2018 00:09:17 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/php/index.xml" rel="self" type="application/rss+xml"/><item><title>关于 PHP SESSION 反序列化</title><link>https://wyb0.com/posts/2018/php-session-deserialize/</link><pubDate>Mon, 23 Jul 2018 00:09:17 +0000</pubDate><guid>https://wyb0.com/posts/2018/php-session-deserialize/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;p>公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。&lt;/p>
+&lt;p>其中有一道是php反序列化，直接用的就是 第三届4.29“安恒杯”网络安全技术大赛初赛第三个web题&lt;/p></description></item><item><title>打包下载 php 文件</title><link>https://wyb0.com/posts/2018/package-and-download-the-php-file/</link><pubDate>Mon, 08 Jan 2018 22:02:07 +0000</pubDate><guid>https://wyb0.com/posts/2018/package-and-download-the-php-file/</guid><description>&lt;h3 id="0x00-代码如下">0x00 代码如下&lt;/h3>
+&lt;pre tabindex="0">&lt;code>&amp;lt;?php
+
+function addFileToZip($zip,$zipname,$path){
+ $handler = opendir($path);
+ while(($filename = readdir($handler))!==false) {
+ if($filename != &amp;#34;.&amp;#34; &amp;amp;&amp;amp; $filename != &amp;#34;..&amp;#34; &amp;amp;&amp;amp; $filename!= $zipname){
+ if (is_dir($path.&amp;#34;/&amp;#34;.$filename)) { //如果读取的某个对象是文件夹，则递归
+ addFileToZip($zip,$zipname,$path.&amp;#34;/&amp;#34;.$filename);
+ } else {
+ $zip-&amp;gt;addFile($path.&amp;#34;/&amp;#34;.$filename);
+ }
+ }
+ }
+ @closedir($path);
+}
+
+function tar($zipname,$path) {
+ $zip = new ZipArchive(); //使用本类，linux需开启zlib，windows需取消php_zip.dll前的注释
+
+ if ($zip-&amp;gt;open($zipname, ZipArchive::OVERWRITE) === TRUE) {
+ addFileToZip($zip,$zipname,$path);$zip-&amp;gt;close();
+ } else {
+ exit(&amp;#39;Unable to open file, or file creation failed!&amp;#39;);
+ }
+}
+
+function download($zipname) {
+ if(!file_exists($zipname)){
+ exit(&amp;#34;Zip file does not exist!&amp;#34;);
+ } 
+ header(&amp;#34;Cache-Control: public&amp;#34;);
+ header(&amp;#34;Content-Description: File Transfer&amp;#34;);
+ header(&amp;#39;Content-disposition: attachment; filename=&amp;#39;.basename($zipname)); //文件名
+ header(&amp;#34;Content-Type: application/zip&amp;#34;); //zip格式的 
+ header(&amp;#34;Content-Transfer-Encoding: binary&amp;#34;); //告诉浏览器，这是二进制文件
+ header(&amp;#39;Content-Length: &amp;#39;. filesize($zipname)); //告诉浏览器，文件大小
+ @readfile($zipname);
+
+ unlink($zipname);
+}
+
+$zipname = &amp;#39;bak.zip&amp;#39;;
+$path = &amp;#39;.&amp;#39;;
+tar($zipname,$path);
+download($zipname);
+
+?&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="reference侵删">Reference(侵删)：&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="http://blog.csdn.net/libinemail/article/details/52190235">http://blog.csdn.net/libinemail/article/details/52190235&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>PHP 安全配置</title><link>https://wyb0.com/posts/2016/php-safe-configuration/</link><pubDate>Thu, 01 Sep 2016 08:46:03 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-safe-configuration/</guid><description>&lt;h3 id="0x00-php的配置">0x00 PHP的配置&lt;/h3>
+&lt;p>PHP的配置文件为php.ini,其中有些项配置不当的话就会造成一些安全问题&lt;/p>
+&lt;h3 id="0x01-远程文件包含">0x01 远程文件包含&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>allow_url_include
+&lt;ul>
+&lt;li>配置为On时允许进行远程文件包含&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>allow_url_fopen
+&lt;ul>
+&lt;li>配置为On时允许使用函数fopen、file_put_contents&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>alllow_url_include = Off&lt;/li>
+&lt;li>allow_url_fopen = Off&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x02-关闭错误回显">0x02 关闭错误回显&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>display_errors
+&lt;ul>
+&lt;li>配置为On时会显示错误信息&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>display_errors = Off&lt;/li>
+&lt;li>log_errors = On&lt;/li>
+&lt;li>error_log = /var/log/php_error.log&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x03-隐藏php版本">0x03 隐藏php版本&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>expose_php
+&lt;ul>
+&lt;li>为Off时会隐藏php版本&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>expose_php = Off&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x04-魔术引号">0x04 魔术引号&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>magic_quotes_gpc
+&lt;ul>
+&lt;li>过滤get、post、cookie的单引号、双引号、反斜杠、空字符，但不过滤$_SERVER&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>magic_quotes_runtime
+&lt;ul>
+&lt;li>对文件或数据库中取出的数据进行过滤，可防止二次注入&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>做逻辑判断时需要去掉反斜杠，所以用全局过滤框架做过滤吧&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x05-安全模式">0x05 安全模式&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>safe_mode
+&lt;ul>
+&lt;li>开启后安全系数提升，但会限制函数使用权限和操作目录文件权限等&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>在安全模式下可以使用safe_mode_include_dir = /var/www/common来排除某些文件&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x06-目录权限控制">0x06 目录权限控制&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>open_basedir
+&lt;ul>
+&lt;li>开启后可将用户访问范围限定，可防止跨站，但会影响性能&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>open_basedir = /var/www/web1/:/var/www/web2/ (后面的斜杠不能少)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x07-禁止函数">0x07 禁止函数&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>disable_functions
+&lt;ul>
+&lt;li>禁止某些命令执行函数和文件操作函数的使用&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>disable_functions = system,passthru,exec,shell_exec,popen,pcntl_exec,
+proc_open,chdir,chroot,getcwd,readdir,mkdir,copy,file_get_contents,&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x08-注册全局变量">0x08 注册全局变量&lt;/h3>
+&lt;ul>
+&lt;li>涉及配置项
+&lt;ul>
+&lt;li>register_globals
+&lt;ul>
+&lt;li>值为On是会开启全局注册变量功能&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>配置方案
+&lt;ul>
+&lt;li>register_globals = Off&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>PHP 之封装 MySQL 类</title><link>https://wyb0.com/posts/2016/php-package-mysql-function/</link><pubDate>Fri, 03 Jun 2016 11:19:05 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-package-mysql-function/</guid><description>&lt;h3 id="0x00-configincphp内容如下">0x00 config.inc.php内容如下&lt;/h3>
+&lt;pre tabindex="0">&lt;code>&amp;lt;?php
+return array(
+ &amp;#39;DB_HOST&amp;#39; =&amp;gt; &amp;#39;192.168.188.134&amp;#39;,
+ &amp;#39;DB_NAME&amp;#39; =&amp;gt; &amp;#39;scoreboard&amp;#39;, 
+ &amp;#39;DB_USER&amp;#39; =&amp;gt; &amp;#39;score&amp;#39;,
+ &amp;#39;DB_PASS&amp;#39; =&amp;gt; &amp;#39;123456&amp;#39;,
+ &amp;#39;DB_CHARSET&amp;#39; =&amp;gt; &amp;#39;utf8&amp;#39;,
+ &amp;#39;IS_LOG&amp;#39; =&amp;gt; 1,//开启日志
+ &amp;#39;LOGFILEPATH&amp;#39; =&amp;gt; &amp;#39;../log.txt&amp;#39;//日志路径
+);
+/*
+ $database = require(&amp;#39;./config.php&amp;#39;);
+ echo $database[&amp;#39;DB_TYPE&amp;#39;]; //输出&amp;#39;DB_TYPE&amp;#39;
+*/
+
+?&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-表设计如下">0x01 表设计如下&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">database&lt;/span> scoreboard;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>use scoreboard;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">drop&lt;/span> &lt;span style="color:#66d9ef">table&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#66d9ef">exists&lt;/span> users;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">table&lt;/span> users(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> id int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> auto_increment &lt;span style="color:#66d9ef">primary&lt;/span> &lt;span style="color:#66d9ef">key&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> gid int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;xiaoming&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;组id&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> username varchar(&lt;span style="color:#ae81ff">20&lt;/span>) &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;xiaoming&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;用户名&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> password varchar(&lt;span style="color:#ae81ff">32&lt;/span>) &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;123456&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;密码&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sex varchar(&lt;span style="color:#ae81ff">2&lt;/span>) &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;0&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;性别&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> totalscore int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;0&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;个人总积分&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">drop&lt;/span> &lt;span style="color:#66d9ef">table&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#66d9ef">exists&lt;/span> &lt;span style="color:#66d9ef">share&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">table&lt;/span> &lt;span style="color:#66d9ef">share&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> id int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> auto_increment &lt;span style="color:#66d9ef">primary&lt;/span> &lt;span style="color:#66d9ef">key&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> uid int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> content varchar(&lt;span style="color:#ae81ff">1024&lt;/span>) &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;content&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;分享内容&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">comment&lt;/span> varchar(&lt;span style="color:#ae81ff">1024&lt;/span>) &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;点评&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> date varchar(&lt;span style="color:#ae81ff">15&lt;/span>) &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;20150101&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;分享日期&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">drop&lt;/span> &lt;span style="color:#66d9ef">table&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#66d9ef">exists&lt;/span> score;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">table&lt;/span> score(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> id int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> auto_increment &lt;span style="color:#66d9ef">primary&lt;/span> &lt;span style="color:#66d9ef">key&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> uid int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;0&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;用户id&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> score int &lt;span style="color:#66d9ef">not&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#e6db74">&amp;#39;0&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">comment&lt;/span> &lt;span style="color:#e6db74">&amp;#39;用户单次积分&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">grant&lt;/span> &lt;span style="color:#66d9ef">all&lt;/span> &lt;span style="color:#66d9ef">privileges&lt;/span> &lt;span style="color:#66d9ef">on&lt;/span> scoreboard.&lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#66d9ef">to&lt;/span> &lt;span style="color:#e6db74">&amp;#39;score&amp;#39;&lt;/span>&lt;span style="color:#f92672">@&lt;/span>&lt;span style="color:#e6db74">&amp;#39;%&amp;#39;&lt;/span> identified &lt;span style="color:#66d9ef">by&lt;/span> &lt;span style="color:#e6db74">&amp;#39;123456&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- 或者只给特定权限
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- grant select,update,delete on scoreboard.* to &amp;#39;score&amp;#39;@&amp;#39;%&amp;#39; identified by &amp;#39;123456&amp;#39;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>flush &lt;span style="color:#66d9ef">privileges&lt;/span>;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-封装类如下">0x02 封装类如下&lt;/h3>
+&lt;pre tabindex="0">&lt;code>&amp;lt;?php
+
+class mysql {
+ private $logfilepath;
+ private $is_log;
+ private $hlog;
+ private $conn;
+
+ //构造函数
+ public function __construct() {
+ $config = include_once(dirname(__FILE__).&amp;#34;/../config/config.inc.php&amp;#34;);
+ $this-&amp;gt;is_log = $config[&amp;#39;IS_LOG&amp;#39;];
+ $this-&amp;gt;logfilepath = $config[&amp;#39;LOGFILEPATH&amp;#39;];
+
+ if ($this-&amp;gt;is_log){
+ $handle = fopen($this-&amp;gt;logfilepath,&amp;#34;a+&amp;#34;);
+ $this-&amp;gt;hlog = $handle;
+ }
+
+ $this-&amp;gt;conn = $this-&amp;gt;connect($config[&amp;#39;DB_HOST&amp;#39;],$config[&amp;#39;DB_USER&amp;#39;],$config[&amp;#39;DB_PASS&amp;#39;],$config[&amp;#39;DB_NAME&amp;#39;],$config[&amp;#39;DB_CHARSET&amp;#39;]);
+ }
+
+ //连接数据库
+ public function connect($dbhost, $dbuser, $dbpass, $dbname, $dbcharset) {
+ $this-&amp;gt;conn = @mysql_connect($dbhost,$dbuser,$dbpass);
+ if (!$this-&amp;gt;conn) {
+ $msg = &amp;#34;连接数据库失败：&amp;#34;.mysql_error();
+ $this-&amp;gt;write_log($msg);
+ die($msg);
+ } else {
+ if (!@mysql_select_db($dbname)) {
+ $msg = &amp;#34;连接数据库成功，但选择数据库失败：&amp;#34;.mysql_error();
+ $this-&amp;gt;write_log($msg);
+ die($msg);
+ } else {
+ $msg = &amp;#34;连接数据库成功，且选择数据库成功&amp;#34;;
+ $this-&amp;gt;write_log($msg);
+ }
+ }
+
+ @mysql_query(&amp;#34;set names &amp;#34;.$dbcharset);
+
+ }
+
+ //执行语句
+ public function query($sql) {
+ 
+ $result = @mysql_query($sql);
+
+ if (!$result) {
+ $this-&amp;gt;write_log(&amp;#39;mysql_query error:&amp;#39;.mysql_error());
+ } else {
+ $this-&amp;gt;write_log(&amp;#39;执行语句：&amp;#39;.$sql.&amp;#39; 且执行成功&amp;#39;);
+ }
+ return $result;
+ }
+
+ //查询一条数据
+ public function select_one($tab,$column = &amp;#34;*&amp;#34;,$condition = &amp;#39;&amp;#39;,$debug=False) { //查询函数
+ $condition = $condition ? &amp;#39; where &amp;#39; . $condition : NULL;
+ $sql = &amp;#34;select $column from $tab $condition &amp;#34;;
+ if ($debug) {
+ echo &amp;#39;将执行语句：&amp;#39;.$sql.&amp;#39;&amp;lt;br /&amp;gt;&amp;#39;;
+ } else {
+ $result = $this-&amp;gt;query($sql);
+ $row = @mysql_fetch_assoc($result);
+ return $row;
+ }
+ }
+
+ //查询多条数据
+ public function select_more($tab,$column = &amp;#34;*&amp;#34;,$condition = &amp;#39;&amp;#39;,$debug=False) { //查询函数
+ $condition = $condition ? &amp;#39; where &amp;#39; . $condition : NULL;
+ $sql = &amp;#34;select $column from $tab $condition&amp;#34;;
+ if ($debug) {
+ echo &amp;#39;将执行语句：&amp;#39;.$sql;
+ } else {
+ $result = $this-&amp;gt;query($sql);
+ $i = 0;
+ $rows = array();
+ while ($row = @mysql_fetch_assoc($result)) {
+ $rows[$i] = $row;
+ // print_r($rows[$i]);
+ $i++; 
+ }
+ return $rows;
+ }
+ }
+
+ //返回结果集
+ public function echo_result($tab,$column = &amp;#34;*&amp;#34;,$condition = &amp;#39;&amp;#39;,$debug=False) { //查询函数
+ $condition = $condition ? &amp;#39; where &amp;#39; . $condition : NULL;
+ $sql = &amp;#34;select $column from $tab $condition &amp;#34;;
+ if ($debug) {
+ echo &amp;#39;将执行语句：&amp;#39;.$sql.&amp;#39;&amp;lt;br /&amp;gt;&amp;#39;;
+ } else {
+ return $this-&amp;gt;query($sql);
+ }
+ }
+
+ //插入数据
+ public function insert($tab,$arr,$debug=False) {
+ $value = &amp;#39;&amp;#39;;
+ $column = &amp;#39;&amp;#39;;
+ foreach ($arr as $k =&amp;gt; $v) {
+ $column .= &amp;#34;,{$k}&amp;#34;;
+ $value .= &amp;#34;,&amp;#39;{$v}&amp;#39;&amp;#34;;
+ }
+ $column = substr($column, 1);
+ $value = substr($value, 1);
+
+ $sql = &amp;#34;insert into $tab($column) values($value)&amp;#34;;
+ if ($debug) {
+ echo &amp;#39;将执行语句：&amp;#39;.$sql;
+ } else {
+ $this-&amp;gt;query($sql);
+ $num = $this-&amp;gt;affected_num();
+ $this-&amp;gt;write_log(&amp;#34;受影响行数：&amp;#34;.$num);
+ return $num; //返回受影响行数
+ }
+ }
+
+ //获取最后插入的id
+ public function insert_id() {
+ $id = mysql_insert_id($this-&amp;gt;link_id);
+ $this-&amp;gt;write_log(&amp;#39;最后插入的id为：&amp;#39;.$id);
+ return $id;
+ }
+
+ //更新数据
+ public function update($tab,$arr,$condition = &amp;#39;&amp;#39;,$debug=False) {
+ if (!$condition) {
+ die(&amp;#34;error&amp;#34;.mysql_error());
+ } else {
+ $condition = &amp;#39;where &amp;#39; . $condition;
+ }
+ 
+ $value = &amp;#39;&amp;#39;;
+ foreach ($arr as $k =&amp;gt; $v) {
+ $value .= &amp;#34;{$k}=&amp;#39;{$v}&amp;#39;,&amp;#34;;
+ }
+ $value = substr($value,0,-1);
+
+ $sql = &amp;#34;update $tab set $value $condition&amp;#34;;
+ if ($debug) {
+ echo &amp;#39;将执行语句：&amp;#39;.$sql;
+ } else {
+ $this-&amp;gt;query($sql);
+ $num = $this-&amp;gt;affected_num();
+ $this-&amp;gt;write_log(&amp;#34;受影响行数：&amp;#34;.$num);
+
+ return $num; 
+ }
+ }
+
+ //删除数据
+ public function delete($tab,$condition=&amp;#39;&amp;#39;,$debug=False) {
+ $condition = $condition ? &amp;#39; where &amp;#39; . $condition : NULL;
+ $sql = &amp;#34;delete from $tab $condition&amp;#34;;
+ if ($debug) {
+ echo &amp;#39;将执行语句：&amp;#39;.$sql;
+ } else {
+ $this-&amp;gt;query($sql);
+ $num = $this-&amp;gt;affected_num();
+ $this-&amp;gt;write_log(&amp;#34;受影响行数：&amp;#34;.$num);
+ return $num; //返回受影响行数
+ }
+ }
+
+ //返回受影响行数
+ public function affected_num() {
+ $num = @mysql_affected_rows();
+ return $num;
+ }
+
+ //写入日志
+ public function write_log($msg=&amp;#39;&amp;#39;) {
+ if ($this-&amp;gt;is_log){
+ $text = date(&amp;#34;Y-m-d H:i:s&amp;#34;).&amp;#34; &amp;#34;.$msg.&amp;#34;\r\n&amp;#34;;
+ fwrite($this-&amp;gt;hlog,$text);
+ }
+ }
+
+ //关闭数据库连接
+ public function close() { 
+ mysql_close($this-&amp;gt;conn);
+ }
+
+ //析构函数
+ public function __destruct() {
+ if($this-&amp;gt;is_log){
+ fclose($this-&amp;gt;hlog);
+ }
+ }
+}
+
+ //$db = new mysql();
+ 
+ // //select_one($tab,$column = &amp;#34;*&amp;#34;,$condition = &amp;#39;&amp;#39;)
+ // $rows = $db-&amp;gt;select_more(&amp;#39;share&amp;#39;,&amp;#39;*&amp;#39;);
+ // print_r($rows[0]);
+ // print_r($rows[1]);
+
+ // //insert($tab,$arr)
+ // $arr = array();
+ // $arr[&amp;#39;uid&amp;#39;] = &amp;#39;3&amp;#39;;
+ // $arr[&amp;#39;content&amp;#39;] = &amp;#39;xss&amp;#39;;
+ // $arr[&amp;#39;comment&amp;#39;] = &amp;#39;very good&amp;#39;;
+ // $arr[&amp;#39;date&amp;#39;] = &amp;#39;1464082630&amp;#39;;
+ // $db-&amp;gt;insert(&amp;#39;share&amp;#39;,$arr);
+
+ // //update($tab,$arr,$condition = &amp;#39;&amp;#39;)
+ // $arr = array();
+ // $arr[&amp;#39;content&amp;#39;] = &amp;#39;xssxssxssxssxss&amp;#39;;
+ // $arr[&amp;#39;comment&amp;#39;] = &amp;#39;goodgoodgoodgood&amp;#39;;
+ // $condition = &amp;#39;id &amp;gt; 5&amp;#39;;
+ // $db-&amp;gt;update(&amp;#39;share&amp;#39;,$arr,$condition);
+
+ //$db-&amp;gt;delete(&amp;#34;share&amp;#34;,&amp;#34;id between 10 and 15&amp;#34;);
+
+ //$db-&amp;gt;close();
+?&amp;gt;
+&lt;/code>&lt;/pre></description></item><item><title>PHP 之 MySQL 常用函数</title><link>https://wyb0.com/posts/2016/php-mysql-common-function/</link><pubDate>Thu, 02 Jun 2016 13:21:49 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-mysql-common-function/</guid><description>&lt;h3 id="0x00-处理函数">0x00 处理函数&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>mysql_connect(server,user,pwd,newlink,clientflag)&lt;br>
+连接服务器的函数,成功则返回MySQL标识，失败则返回FALSE&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>mysql_select_db(database,connection)&lt;br>
+选择数据库的函数，成功则返回true，失败则返回false&lt;/p></description></item><item><title>PHP 之上传与下载</title><link>https://wyb0.com/posts/2016/php-upload-and-download/</link><pubDate>Tue, 24 May 2016 08:31:09 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-upload-and-download/</guid><description>&lt;h3 id="0x00-上传">0x00 上传&lt;/h3>
+&lt;ul>
+&lt;li>客户端设置&lt;br>
+客户端使用form表单上传文件，在form表单中必须指明enctype和method属性的值&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-html" data-lang="html">&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#f92672">html&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#f92672">head&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">title&lt;/span>&amp;gt;post&amp;lt;/&lt;span style="color:#f92672">title&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#f92672">head&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;&lt;span style="color:#f92672">body&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">form&lt;/span> &lt;span style="color:#a6e22e">action&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;xx.php&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">mothod&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">enctype&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;multipart/form-data&amp;#34;&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">input&lt;/span> &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;file&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;myfile&amp;#34;&lt;/span> /&amp;gt;&amp;lt;&lt;span style="color:#f92672">br&lt;/span> /&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;&lt;span style="color:#f92672">input&lt;/span> &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;submit&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;提交&amp;#34;&lt;/span> /&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &amp;lt;/&lt;span style="color:#f92672">form&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#f92672">body&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;/&lt;span style="color:#f92672">html&lt;/span>&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>服务端设置&lt;/p></description></item><item><title>PHP 之目录与文件</title><link>https://wyb0.com/posts/2016/php-directory-and-file/</link><pubDate>Sun, 22 May 2016 16:29:47 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-directory-and-file/</guid><description>&lt;h3 id="0x00-目录的操作">0x00 目录的操作&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/var/www/html/php/dir.php&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#a6e22e">dirname&lt;/span>($path)&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;br /&amp;gt;&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//返回上级路径
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#a6e22e">basename&lt;/span>($path)&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;br /&amp;gt;&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//返回文件名部分
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">print_r&lt;/span>(&lt;span style="color:#a6e22e">pathinfo&lt;/span>($path)); &lt;span style="color:#75715e">//返回包含path信息的数组
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">//readdir()从目录句柄读取条目，返回目录中的文件名，指针依次向后移动
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> $path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;D:/phpStudy/WWW/php&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $dh &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">opendir&lt;/span>($path);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> (&lt;span style="color:#66d9ef">false&lt;/span> &lt;span style="color:#f92672">!==&lt;/span> ($filename&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">readdir&lt;/span>($dh))) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> $filename&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;br /&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">rewinddir&lt;/span>($dh); &lt;span style="color:#75715e">//指针复位
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#a6e22e">readdir&lt;/span>($dh);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">closedir&lt;/span>($dh);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mkdir&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;./aaa&amp;#34;&lt;/span>);&lt;span style="color:#75715e">//创建文件夹aaa
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">rmdir&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;./aaa&amp;#34;&lt;/span>);&lt;span style="color:#75715e">//删除文件夹aaa
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">file_put_contents&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;aa.php&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>);&lt;span style="color:#75715e">//创建文件aa.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">unlink&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;./aa.php&amp;#34;&lt;/span>);&lt;span style="color:#75715e">//删除文件aa.php
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;center>
+![箭头](/img/post/arrow.png)&lt;br />
+![目录的操作](/img/post/dir.png)
+&lt;/center>
+&lt;h3 id="0x01-文件的读写">0x01 文件的读写&lt;/h3>
+&lt;ol>
+&lt;li>fopen(filename,mode)和fclose(filename,mode)
+&lt;img src="https://wyb0.com/img/post/file_open_mode.png" alt="fopen()打开文件的模式">&lt;/li>
+&lt;/ol>
+&lt;h4 id="例子">例子：&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$file &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fopen&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;test.txt&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$file &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fopen&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/home/test/test.txt&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$file &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fopen&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/home/test/test.gif&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;wb&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$file &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fopen&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;http://www.example.com/&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$file &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">fopen&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;ftp://user:password@example.com/test.txt&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;w&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>读取内容&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">fread&lt;/span>(&lt;span style="color:#a6e22e">h_file&lt;/span>,&lt;span style="color:#a6e22e">length&lt;/span>) &lt;span style="color:#75715e">//读取打开文件的length个字节，返回读取的字符串 
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">fgets&lt;/span>(&lt;span style="color:#a6e22e">h_file&lt;/span>,&lt;span style="color:#a6e22e">length&lt;/span>) &lt;span style="color:#75715e">//读取一行返回length个字节，不加length时默认1024个字节，失败返回false 
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">fgetc&lt;/span>(&lt;span style="color:#a6e22e">h_file&lt;/span>) &lt;span style="color:#75715e">//逐字读取
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>file_get_content()和file_put_content()&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">file_get_content&lt;/span>($filename)&lt;span style="color:#a6e22e">可以得到文件中的所有内容&lt;/span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">file_put_content&lt;/span>($filename, $str)&lt;span style="color:#a6e22e">可以将字符串覆盖写入文件中&lt;/span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">file_put_content&lt;/span>($filename, $str, &lt;span style="color:#a6e22e">FILE_APPEND&lt;/span>)&lt;span style="color:#a6e22e">可以将字符串追加到文件中&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>filetype()&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">filetype&lt;/span>($filename)&lt;span style="color:#a6e22e">可以得到文件的类型&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-查看文件夹下的文件信息">0x02 查看文件夹下的文件信息&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;./&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	$filelist&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">array&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;filesystem.php&amp;#34;&lt;/span>);&lt;span style="color:#75715e">//要过滤掉的文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#75715e">//浏览指定目录下的文件，并使用表格输出
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>	&lt;span style="color:#75715e">//path目录信息的过滤，判断path存在，并且是否是个目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>	&lt;span style="color:#66d9ef">if&lt;/span>(&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">file_exists&lt;/span>($path) &lt;span style="color:#f92672">||&lt;/span> &lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">is_dir&lt;/span>($path)){
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#66d9ef">die&lt;/span>($path&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;目录无效！&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#75715e">//2. 输出表头信息
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;h3&amp;gt;&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$path&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">目录下的文件信息&amp;lt;h3&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;table width=&amp;#39;600&amp;#39; border=&amp;#39;0&amp;#39;&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;tr bgcolor=&amp;#39;#cccccc&amp;#39; align=&amp;#39;left&amp;#39;&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;th&amp;gt;序号&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;名称&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;类型&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;大小&amp;lt;/th&amp;gt;&amp;lt;th&amp;gt;创建时间&amp;lt;/th&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;/tr&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#75715e">//打开这个目录，并遍历目录下面的所有文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>	$dir &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">opendir&lt;/span>($path);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">if&lt;/span>($dir){
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		$i&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#75715e">//遍历目录中的文件,并输出文件的信息
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>		&lt;span style="color:#66d9ef">while&lt;/span>($f &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">readdir&lt;/span>($dir)){
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">if&lt;/span>($f&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.&amp;#34;&lt;/span> &lt;span style="color:#f92672">||&lt;/span> $f&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#34;..&amp;#34;&lt;/span> &lt;span style="color:#f92672">||&lt;/span> &lt;span style="color:#a6e22e">in_array&lt;/span>($f,$filelist)){
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				&lt;span style="color:#66d9ef">continue&lt;/span>;&lt;span style="color:#75715e">//跳出本次循环，继续下一次遍历。
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>			}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			$file &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">trim&lt;/span>($path,&lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>$f;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			$i&lt;span style="color:#f92672">++&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;tr&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;td&amp;gt;&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$i&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;lt;/td&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;td&amp;gt;&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$f&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;lt;/td&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;td&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">filetype&lt;/span>($file)&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;/td&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;td&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">filesize&lt;/span>($file)&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;/td&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;td&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">date&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Y-m-d H:i:s&amp;#34;&lt;/span>,&lt;span style="color:#a6e22e">filectime&lt;/span>($file))&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;lt;/td&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;/tr&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#a6e22e">closedir&lt;/span>($dir); &lt;span style="color:#75715e">//关闭目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;tr bgcolor=&amp;#39;#cccccc&amp;#39; align=&amp;#39;left&amp;#39;&amp;gt;&amp;lt;td colspan=&amp;#39;6&amp;#39;&amp;gt;&amp;amp;nbsp;&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;/table&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;center>
+![箭头](/img/post/arrow.png)&lt;br />
+![查看文件夹下的文件信息](/img/post/file_info.png)
+&lt;/center></description></item><item><title>PHP 之字符串</title><link>https://wyb0.com/posts/2016/php-string/</link><pubDate>Sat, 21 May 2016 23:16:28 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-string/</guid><description>&lt;h3 id="0x00-特点">0x00 特点&lt;/h3>
+&lt;ol>
+&lt;li>字符串可以使用数组的处理函数操作，但并不是真正的数组&lt;/li>
+&lt;li>双引号中的变量用{}括起来，因为字符串中若遇到$符号，解析器会尽可能多的获取后面的字符以组成一个合法的变量名&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $lamp &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">array&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;os&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;Linux&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;webserver&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;Apache&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;db&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;Mysql&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;language&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;PHP&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;A OS is &lt;/span>&lt;span style="color:#e6db74">$lamp[os]&lt;/span>&lt;span style="color:#e6db74">.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">// ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;A OS is &lt;/span>&lt;span style="color:#e6db74">$lamp[&amp;#39;os&amp;#39;]&lt;/span>&lt;span style="color:#e6db74">.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;A OS is &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$lamp[&lt;span style="color:#e6db74">&amp;#39;os&amp;#39;&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;A OS is &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$lamp[&lt;span style="color:#a6e22e">os&lt;/span>]&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">// ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;This square is &lt;/span>&lt;span style="color:#e6db74">$square-&amp;gt;width&lt;/span>&lt;span style="color:#e6db74"> meters broad.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;This square is &lt;/span>&lt;span style="color:#e6db74">$square-&amp;gt;width&lt;/span>&lt;span style="color:#e6db74"> meters broad.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;This square is &lt;/span>&lt;span style="color:#e6db74">$square-&amp;gt;width&lt;/span>&lt;span style="color:#e6db74"> meters broad.&amp;#34;&lt;/span>; &lt;span style="color:#75715e">//ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-常用字符串输出函数">0x01 常用字符串输出函数&lt;/h3>
+&lt;blockquote>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">函数名&lt;/th>
+ &lt;th style="text-align: left">功能描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">echo&lt;/td>
+ &lt;td style="text-align: left">输出字符串&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">print()&lt;/td>
+ &lt;td style="text-align: left">输出一个或多个字符串&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">die()&lt;/td>
+ &lt;td style="text-align: left">输出一条消息，并退出当前脚本&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">printf()&lt;/td>
+ &lt;td style="text-align: left">输出格式化字符串&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sprintf()&lt;/td>
+ &lt;td style="text-align: left">把格式化字符串写入到一个变量中&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;/blockquote>
+&lt;h3 id="0x02-函数echo">0x02 函数echo()&lt;/h3>
+&lt;p>输出一个或多个字符串&lt;br>
+void echo(string arg1 [,string &amp;hellip;])&lt;/p></description></item><item><title>PHP 之面向对象</title><link>https://wyb0.com/posts/2016/php-object-oriented/</link><pubDate>Fri, 20 May 2016 16:07:55 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
+&lt;ol>
+&lt;li>面向对象概念
+&lt;ul>
+&lt;li>面向对象是达到了软件工程的三个目标：重用性、灵活性和扩展性，使其编程的代码更加简洁、更易于维护、并且具有更强的可重用性。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>类和对象的关系
+&lt;ul>
+&lt;li>在面向对象的编程语言中，类是一个对立的程序单位，而对象的抽象就是类。类描述了一组有相同特性(属性)和相同行为(方法)的对象。开发时要先抽象类再用该类去创建对象。而我们的程序中直接使用的是对象而不是类。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>什么是类
+&lt;ul>
+&lt;li>在面向对象的编程语言中，类是一个对立的程序单位，是具有相同属性和服务的一组对象的集合。它为属于该类的所有对象提供了同意的抽象描述，其内部包括成员属性和服务的方法两个部分。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>什么是对象
+&lt;ul>
+&lt;li>在客观世界里，所有的事物都是由对象和对象之间的联系组成的。对象是系统中用来描述客观事物的一个实体，它是构成系统的一个基本单位，一个对象由一组属性和有权对这些属性进行操作的一组服务的封装体。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x01-类的声明">0x01 类的声明&lt;/h3>
+&lt;ol>
+&lt;li>类名和变量名还有函数名的命名规则类似，都遵循PHP中定义名称的命名规则。&lt;/li>
+&lt;li>若类名由多个单词组成，习惯上每个单词的首字母要大写&lt;/li>
+&lt;li>类中成员可分为属性和方法&lt;/li>
+&lt;li>属性为静态描述，方法为动态描述&lt;/li>
+&lt;li>在类中声明成员属性时，变量前面一定要有关键字，如：public、private、static等&lt;/li>
+&lt;li>若不需要有特定意义的修饰，则使用var关键字&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">格式：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">一些修饰类的关键字&lt;/span>] &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">类名&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">类中成员&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">Class&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">成员属性：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">姓名、性别、年龄、身高、体重、电话、住址等&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">成员方法：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">说话、学习、走路、吃饭、开车、使用手机等&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">例子：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> $name;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> $age;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> $sex;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">say&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;人在说话&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;人在走路&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-实例化对象">0x02 实例化对象&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">格式：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$变量名 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">类名称&lt;/span>([&lt;span style="color:#a6e22e">参数列表&lt;/span>]);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$变量名 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">类名称&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">例子：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Phone&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $person1 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $person2 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $person3 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $phone1 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Phone&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $phton2 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Phone&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $phton3 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Phone&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-对象中成员的访问">0x03 对象中成员的访问&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#e6db74">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> *声明一个人类Person，其中包含三个成员属性和两个成员方法
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 	&lt;span style="color:#66d9ef">var&lt;/span> $name;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> $age;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> $sex;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">say&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 	&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;我的名字：&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">name&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;,性别：&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">sex&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;，年龄：&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">age&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;。&amp;lt;br /&amp;gt;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 	&lt;span style="color:#66d9ef">echo&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">name&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#34;在走路&amp;lt;br /&amp;gt;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $xiaoming &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $wyb &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Person&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $xiaoming&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">name&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;小明&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $xiaoming&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">sex&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;男&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $xiaoming&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">age&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">16&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $wyb&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">name&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;wyb&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $wyb&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">sex&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;男&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $wyb&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">age&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">18&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $xiaoming&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">say&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $wyb&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x04-构造方法和析构方法">0x04 构造方法和析构方法&lt;/h3>
+&lt;ul>
+&lt;li>构造方法和析构方法是对象中两个特殊的方法&lt;/li>
+&lt;li>构造方法是对象创建完成后第一个被对象自动调用的方法&lt;/li>
+&lt;li>析构方法是对象在销毁之前最后一个被对象自动调用的方法&lt;/li>
+&lt;li>通常用构造方法完成一些对象的初始化工作，用析构方法完成一些对象在销毁前的清理工作&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span> &lt;span style="color:#a6e22e">_construct&lt;/span>([&lt;span style="color:#a6e22e">参数列表&lt;/span>]) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#75715e">//方法体，通常用来对成员属性进行初始化赋值
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span> &lt;span style="color:#a6e22e">_destruct&lt;/span>([&lt;span style="color:#a6e22e">参数列表&lt;/span>]) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#75715e">//方法体，通常用来完成一些在对象销毁前的清理工作
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>PHP 之数组</title><link>https://wyb0.com/posts/2016/php-array/</link><pubDate>Wed, 18 May 2016 11:09:46 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-array/</guid><description>&lt;h3 id="0x00-分类">0x00 分类&lt;/h3>
+&lt;ol>
+&lt;li>索引数组
+索引值从0开始，依次递增&lt;/li>
+&lt;li>关联数组
+以字符串为索引，键和值对是无序组合，每个键都是唯一的&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x01-数组的定义">0x01 数组的定义&lt;/h3>
+&lt;p>两种方法：&lt;/p>
+&lt;ol>
+&lt;li>直接为数组元素赋值即可声明数组&lt;/li>
+&lt;li>使用array()函数声明数组&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// 1.直接为数组元素赋值即可声明数组
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> $contact_index[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_index[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;高某&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_index[&lt;span style="color:#ae81ff">2&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;A公司&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_index[&lt;span style="color:#ae81ff">3&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;北京市&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_index[] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;gao@a.com&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">var_dump&lt;/span>($contact_index);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_key[&lt;span style="color:#e6db74">&amp;#34;ID&amp;#34;&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_key[&lt;span style="color:#e6db74">&amp;#34;姓名&amp;#34;&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;峰某&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_key[&lt;span style="color:#e6db74">&amp;#34;公司&amp;#34;&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;B公司&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $contact_key[&lt;span style="color:#e6db74">&amp;#34;邮箱&amp;#34;&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;feng@b.com&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">var_dump&lt;/span>($contact_key);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// 2.使用array()函数声明数组
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> $contact_key_array &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">array&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;ID&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;姓名&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;峰某&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;公司&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;B公司&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;邮箱&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;feng@b.com&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> );
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">var_dump&lt;/span>($contact_key_array);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-数组的遍历">0x02 数组的遍历&lt;/h3>
+&lt;ol>
+&lt;li>for语句遍历数组&lt;/li>
+&lt;li>foreach语句遍历数组&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-php" data-lang="php">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for语句遍历索引数组
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> $cars&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">array&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Volvo&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;BMW&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;SAAB&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $arrlength&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">count&lt;/span>($cars);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span>($x&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>; $x &lt;span style="color:#f92672">&amp;lt;&lt;/span> $arrlength; $x&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> $cars[$x];
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;br&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// foreach语句遍历关联数组
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> $age&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">array&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Bill&amp;#34;&lt;/span>&lt;span style="color:#f92672">=&amp;gt;&lt;/span>&lt;span style="color:#e6db74">&amp;#34;35&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Steve&amp;#34;&lt;/span>&lt;span style="color:#f92672">=&amp;gt;&lt;/span>&lt;span style="color:#e6db74">&amp;#34;37&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Peter&amp;#34;&lt;/span>&lt;span style="color:#f92672">=&amp;gt;&lt;/span>&lt;span style="color:#e6db74">&amp;#34;43&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">foreach&lt;/span>($age &lt;span style="color:#66d9ef">as&lt;/span> $x &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $x_value) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Key=&amp;#34;&lt;/span> &lt;span style="color:#f92672">.&lt;/span> $x &lt;span style="color:#f92672">.&lt;/span> &lt;span style="color:#e6db74">&amp;#34;, Value=&amp;#34;&lt;/span> &lt;span style="color:#f92672">.&lt;/span> $x_value;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;lt;br&amp;gt;&amp;#34;&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">?&amp;gt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-预定义数组">0x03 预定义数组&lt;/h3>
+&lt;ol>
+&lt;li>它就是一个特殊数组，操作方式没有区别&lt;/li>
+&lt;li>不用声明它们，每个PHP脚本中默认存在&lt;/li>
+&lt;li>它们在全局范围内自动生效
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>预定义数组&lt;/th>
+ &lt;th style="text-align: left">说明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>$_SERVER&lt;/td>
+ &lt;td style="text-align: left">变量由Web服务器设定或者直接与当前脚本的执行环境相关联&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_ENV&lt;/td>
+ &lt;td style="text-align: left">执行环境提交至脚本的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_GET&lt;/td>
+ &lt;td style="text-align: left">经由URL请求提交至脚本的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_POST&lt;/td>
+ &lt;td style="text-align: left">经由HTTP POST方法提交至脚本的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_REQUEST&lt;/td>
+ &lt;td style="text-align: left">经由GET，POST，COOKIE机制提交至脚本的变量，该数组不值得信任&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_FILES&lt;/td>
+ &lt;td style="text-align: left">经由HTTP POST文件上传而提交至脚本的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_COOKIE&lt;/td>
+ &lt;td style="text-align: left">经由HTTP Cookies方法提交至脚本的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$_SESSION&lt;/td>
+ &lt;td style="text-align: left">当前注册给脚本会话的变量&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$GLOBALS&lt;/td>
+ &lt;td style="text-align: left">包含一个引用指向每个当前脚本的全局范围内的有效的变量。该数组的键名为全局变量的名称&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x04-合并数组">0x04 合并数组&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>array_merge()函数将数组合并到一起，返回一个联合的数组。&lt;/p></description></item><item><title>PHP 之基础</title><link>https://wyb0.com/posts/2016/php-basis/</link><pubDate>Sun, 15 May 2016 09:10:23 +0000</pubDate><guid>https://wyb0.com/posts/2016/php-basis/</guid><description>&lt;h3 id="0x00-php的作用">0x00 PHP的作用&lt;/h3>
+&lt;pre tabindex="0">&lt;code>1. 收集表单数据
+2. 生成动态网页
+3. 字符串处理
+4. 动态输出图片
+5. 处理服务器端文件系统
+6. 编写数据库支持的网页
+7. 会话跟踪控制
+8. 处理XML文件
+9. 支持大量的网络协议
+10. 服务器端的其他相关操作
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-php代码嵌入位置">0x01 PHP代码嵌入位置&lt;/h3>
+&lt;p>可以将PHP语言嵌入到扩展名为.php的HTML文件中的任何位置，只要在文件中使用&lt;code>&amp;quot;&amp;lt;?php&amp;quot;&lt;/code>起始符和终止符&lt;code>&amp;quot;?&amp;gt;&amp;quot;&lt;/code>就会开启PHP模式，在PHP模式中写入PHP语句即可将PHP语言嵌入到HTML文件中。&lt;/p></description></item></channel></rss>

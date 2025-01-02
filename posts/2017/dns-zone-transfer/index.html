@@ -1,126 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="在渗透测试中如果存在DNS域传送漏洞的话可以节省很多搜集域名的时间"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>DNS 域传送漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>DNS 域传送漏洞</h1>
-      
-<div class="post-meta">
-    <time>2017-11-20</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2">信息泄露</a>)
-</div>
-
-      <div><h3 id="0x00-dns域传送">0x00 DNS域传送</h3>
-<p>DNS服务器分为：主服务器、备份服务器和缓存服务器，在主备服务器之间则通过“DNS域传送”同步数据。</p>
-<p>若DNS服务器配置不当，可能导致匿名用户获取某个域的所有记录，从而节省许多搜集资产的时间。</p>
-<h3 id="0x01-通过nslookup查看域传送漏洞">0x01 通过nslookup查看域传送漏洞</h3>
-<p>分为3步：1. 设置type为ns；2. 查询ns服务器；3. 设置ns服务器
-<img src="/img/post/20180814-154251.png" alt="80"></p>
-<h3 id="0x02-通过dig查看域传送漏洞">0x02 通过dig查看域传送漏洞</h3>
-<p><img src="/img/post/20180814-154341.png" alt="80"></p>
-<h3 id="0x03-通过nmap查看域传送漏洞">0x03 通过nmap查看域传送漏洞</h3>
-<p><img src="/img/post/20180814-154436.png" alt="70"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="在渗透测试中如果存在DNS域传送漏洞的话可以节省很多搜集域名的时间"><meta name=author content="Reber"><title>DNS 域传送漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>DNS 域传送漏洞</h1><div class=post-meta><time>2017-11-20</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2>信息泄露</a>)</div><div><h3 id=0x00-dns域传送>0x00 DNS域传送</h3><p>DNS服务器分为：主服务器、备份服务器和缓存服务器，在主备服务器之间则通过“DNS域传送”同步数据。</p><p>若DNS服务器配置不当，可能导致匿名用户获取某个域的所有记录，从而节省许多搜集资产的时间。</p><h3 id=0x01-通过nslookup查看域传送漏洞>0x01 通过nslookup查看域传送漏洞</h3><p>分为3步：1. 设置type为ns；2. 查询ns服务器；3. 设置ns服务器
+<img src=/img/post/20180814-154251.png alt=80></p><h3 id=0x02-通过dig查看域传送漏洞>0x02 通过dig查看域传送漏洞</h3><p><img src=/img/post/20180814-154341.png alt=80></p><h3 id=0x03-通过nmap查看域传送漏洞>0x03 通过nmap查看域传送漏洞</h3><p><img src=/img/post/20180814-154436.png alt=70></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

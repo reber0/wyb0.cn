@@ -1,404 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 之数组 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 之数组</h1>
-      
-<div class="post-meta">
-    <time>2016-05-18</time>
-    
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-      <div><h3 id="0x00-分类">0x00 分类</h3>
-<ol>
-<li>索引数组
-索引值从0开始，依次递增</li>
-<li>关联数组
-以字符串为索引，键和值对是无序组合，每个键都是唯一的</li>
-</ol>
-<h3 id="0x01-数组的定义">0x01 数组的定义</h3>
-<p>两种方法：</p>
-<ol>
-<li>直接为数组元素赋值即可声明数组</li>
-<li>使用array()函数声明数组</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1.直接为数组元素赋值即可声明数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $contact_index[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>        $contact_index[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;高某&#34;</span>;
-</span></span><span style="display:flex;"><span>        $contact_index[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A公司&#34;</span>;
-</span></span><span style="display:flex;"><span>        $contact_index[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;北京市&#34;</span>;
-</span></span><span style="display:flex;"><span>        $contact_index[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;gao@a.com&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">var_dump</span>($contact_index);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        $contact_key[<span style="color:#e6db74">&#34;ID&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2&#34;</span>;
-</span></span><span style="display:flex;"><span>        $contact_key[<span style="color:#e6db74">&#34;姓名&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;峰某&#34;</span>;
-</span></span><span style="display:flex;"><span>        $contact_key[<span style="color:#e6db74">&#34;公司&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;B公司&#34;</span>;
-</span></span><span style="display:flex;"><span>        $contact_key[<span style="color:#e6db74">&#34;邮箱&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;feng@b.com&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">var_dump</span>($contact_key);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2.使用array()函数声明数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $contact_key_array <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;ID&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;姓名&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;峰某&#34;</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;公司&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;B公司&#34;</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;邮箱&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;feng@b.com&#34;</span>;
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">var_dump</span>($contact_key_array);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x02-数组的遍历">0x02 数组的遍历</h3>
-<ol>
-<li>for语句遍历数组</li>
-<li>foreach语句遍历数组</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// for语句遍历索引数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $cars<span style="color:#f92672">=</span><span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Volvo&#34;</span>,<span style="color:#e6db74">&#34;BMW&#34;</span>,<span style="color:#e6db74">&#34;SAAB&#34;</span>);
-</span></span><span style="display:flex;"><span>        $arrlength<span style="color:#f92672">=</span><span style="color:#a6e22e">count</span>($cars);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>($x<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; $x <span style="color:#f92672">&lt;</span> $arrlength; $x<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> $cars[$x];
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// foreach语句遍历关联数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        $age<span style="color:#f92672">=</span><span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Bill&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;35&#34;</span>, <span style="color:#e6db74">&#34;Steve&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;37&#34;</span>, <span style="color:#e6db74">&#34;Peter&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#e6db74">&#34;43&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span>($age <span style="color:#66d9ef">as</span> $x <span style="color:#f92672">=&gt;</span> $x_value) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;Key=&#34;</span> <span style="color:#f92672">.</span> $x <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;, Value=&#34;</span> <span style="color:#f92672">.</span> $x_value;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x03-预定义数组">0x03 预定义数组</h3>
-<ol>
-<li>它就是一个特殊数组，操作方式没有区别</li>
-<li>不用声明它们，每个PHP脚本中默认存在</li>
-<li>它们在全局范围内自动生效
-<table>
-<thead>
-<tr>
-<th>预定义数组</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$_SERVER</td>
-<td style="text-align:left">变量由Web服务器设定或者直接与当前脚本的执行环境相关联</td>
-</tr>
-<tr>
-<td>$_ENV</td>
-<td style="text-align:left">执行环境提交至脚本的变量</td>
-</tr>
-<tr>
-<td>$_GET</td>
-<td style="text-align:left">经由URL请求提交至脚本的变量</td>
-</tr>
-<tr>
-<td>$_POST</td>
-<td style="text-align:left">经由HTTP POST方法提交至脚本的变量</td>
-</tr>
-<tr>
-<td>$_REQUEST</td>
-<td style="text-align:left">经由GET，POST，COOKIE机制提交至脚本的变量，该数组不值得信任</td>
-</tr>
-<tr>
-<td>$_FILES</td>
-<td style="text-align:left">经由HTTP POST文件上传而提交至脚本的变量</td>
-</tr>
-<tr>
-<td>$_COOKIE</td>
-<td style="text-align:left">经由HTTP Cookies方法提交至脚本的变量</td>
-</tr>
-<tr>
-<td>$_SESSION</td>
-<td style="text-align:left">当前注册给脚本会话的变量</td>
-</tr>
-<tr>
-<td>$GLOBALS</td>
-<td style="text-align:left">包含一个引用指向每个当前脚本的全局范围内的有效的变量。该数组的键名为全局变量的名称</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ol>
-<h3 id="0x04-合并数组">0x04 合并数组</h3>
-<ul>
-<li>
-<p>array_merge()函数将数组合并到一起，返回一个联合的数组。</p>
-</li>
-<li>
-<p>array array_merge(array array1 array2&hellip;,arrayN)</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>);
-</span></span><span style="display:flex;"><span>        $numbered <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;2&#34;</span>,<span style="color:#e6db74">&#34;3&#34;</span>);
-</span></span><span style="display:flex;"><span>        $cards <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_merge</span>($fruits, $numbered);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">print_r</span>($cards);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// output
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Array ( [0] =&gt; apple [1] =&gt; banana [2] =&gt; pear [3] =&gt; 1 [4] =&gt; 2 [5] =&gt; 3 )
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x05-拆分数组">0x05 拆分数组</h3>
-<ul>
-<li>
-<p>array_slice()函数将返回数组中的一部分，从键offset开始，到offset+length位置结束</p>
-</li>
-<li>
-<p>array array_slice(array array,int offset[,int length])</p>
-</li>
-<li>
-<p>offset为正值时从前面开始，为负值时从后面开始</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Apple&#34;</span>, <span style="color:#e6db74">&#34;Banana&#34;</span>, <span style="color:#e6db74">&#34;Orange&#34;</span>, <span style="color:#e6db74">&#34;Pear&#34;</span>, <span style="color:#e6db74">&#34;Grape&#34;</span>, <span style="color:#e6db74">&#34;Lemon&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Watermelon&#34;</span>);
-</span></span><span style="display:flex;"><span>        $subset <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_slice</span>($fruits, <span style="color:#ae81ff">3</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">print_r</span>($subset);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// output
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Array ( [0] =&gt; Pear [1] =&gt; Grape [2] =&gt; Lemon [3] =&gt; Watermelon )
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Apple&#34;</span>, <span style="color:#e6db74">&#34;Banana&#34;</span>, <span style="color:#e6db74">&#34;Orange&#34;</span>, <span style="color:#e6db74">&#34;Pear&#34;</span>, <span style="color:#e6db74">&#34;Grape&#34;</span>, <span style="color:#e6db74">&#34;Lemon&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Watermelon&#34;</span>);
-</span></span><span style="display:flex;"><span>        $subset <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_slice</span>($fruits, <span style="color:#ae81ff">2</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">print_r</span>($subset);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// output
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Array ( [0] =&gt; Orange [1] =&gt; Pear [2] =&gt; Grape )
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x06-数组的交集">0x06 数组的交集</h3>
-<ul>
-<li>
-<p>array_intersect()函数返回一个保留了键的数组，这个数组只由第一个数组中出现的且在其他每个输入数组中都出现的值组成</p>
-</li>
-<li>
-<p>array array_intersect(array array1,array array2[,arrayN&hellip;])</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruit1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Apple&#34;</span>,<span style="color:#e6db74">&#34;Banana&#34;</span>,<span style="color:#e6db74">&#34;Orange&#34;</span>);
-</span></span><span style="display:flex;"><span>        $fruit2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Pear&#34;</span>,<span style="color:#e6db74">&#34;Apple&#34;</span>,<span style="color:#e6db74">&#34;Grape&#34;</span>);
-</span></span><span style="display:flex;"><span>        $fruit3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;Watermelon&#34;</span>,<span style="color:#e6db74">&#34;Orange&#34;</span>,<span style="color:#e6db74">&#34;Apple&#34;</span>);
-</span></span><span style="display:flex;"><span>        $intersection <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_intersect</span>($fruit1, $fruit2, $fruit3);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">print_r</span>($intersection);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// output
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Array ( [0] =&gt; Apple )
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x07-in_array">0x07 in_array</h3>
-<ul>
-<li>
-<p>in_array()函数在一个数组中汇总搜索一个特定值，若找到则返回true，否则返回false</p>
-</li>
-<li>
-<p>boolean in_array(mixed needle,array haystack[,boolean strice])</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>		$fruit <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;apple&#34;</span>;
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>,<span style="color:#e6db74">&#34;orange&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>( <span style="color:#a6e22e">in_array</span>($fruit,$fruits) ){
-</span></span><span style="display:flex;"><span>        	<span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$fruit已经在数组中</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x08-array_key_exists">0x08 array_key_exists</h3>
-<ul>
-<li>
-<p>若在数组中找到一个指定的键，函数返回true，否则返回false</p>
-</li>
-<li>
-<p>boolean array_key_exists(mixed key,array array)</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruit[<span style="color:#e6db74">&#34;apple&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>;
-</span></span><span style="display:flex;"><span>        $fruit[<span style="color:#e6db74">&#34;banana&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yellow&#34;</span>;
-</span></span><span style="display:flex;"><span>        $fruit[<span style="color:#e6db74">&#34;pear&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;green&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">array_key_exists</span>(<span style="color:#e6db74">&#34;apple&#34;</span>, $fruit)){
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;apple&#39;s color is %s&#34;</span>,$fruit[<span style="color:#e6db74">&#34;apple&#34;</span>]);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//apple&#39;s color is red
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x09-array_search">0x09 array_search</h3>
-<ul>
-<li>
-<p>array_search()函数在一个数组中搜索指定的值，若存在则返回相应的键，否则返回true</p>
-</li>
-<li>
-<p>mixed array_search(mixed needle,array haystack[,boolean strict])</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits[<span style="color:#e6db74">&#34;apple&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>;
-</span></span><span style="display:flex;"><span>        $fruits[<span style="color:#e6db74">&#34;banana&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yellow&#34;</span>;
-</span></span><span style="display:flex;"><span>        $fruits[<span style="color:#e6db74">&#34;watermelon&#34;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;green&#34;</span>;
-</span></span><span style="display:flex;"><span>        $founded <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_search</span>(<span style="color:#e6db74">&#34;green&#34;</span>, $fruits);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>($founded){
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s was founded on %s.&#34;</span>,$founded, $fruits[$founded]);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//watermelon was founded on green.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x0a-数组头添加元素">0x0A 数组头添加元素</h3>
-<ul>
-<li>
-<p>array_unshift()函数在数组头添加元素。</p>
-</li>
-<li>
-<p>所有已有的数值键都会相应地修改，以反应其在数组中的新位置，但是关联键不受影响</p>
-</li>
-<li>
-<p>int array_unshift(array array,mixed variable[,mixed variable])</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">array_unshift</span>($fruits,<span style="color:#e6db74">&#34;orange&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// $fruits = array(&#34;orange&#34;,&#34;pear&#34;,&#34;apple&#34;,&#34;banana&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x0b-数组头删除元素">0x0B 数组头删除元素</h3>
-<ul>
-<li>
-<p>array_shift()函数删除并返回数组中找到的元素。其结果是，若使用的是数值键，则所有相应的值都会下移，而使用关联键的数组不受影响。</p>
-</li>
-<li>
-<p>mixed array_shift(array array)</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>,<span style="color:#e6db74">&#34;orange&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>);
-</span></span><span style="display:flex;"><span>        $fruit <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_shift</span>($fruits);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// $fruits = array(&#34;banana&#34;,&#34;orange&#34;,&#34;pear&#34;)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// $fruit = &#34;apple&#34;;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x0c-数组尾添加元素">0x0C 数组尾添加元素</h3>
-<ul>
-<li>
-<p>array_push()函数的返回值类型是int型，是压入数据后数组中元素的个数，可以为此函数传递多个变量作为参数，同时向数组压入多个变量</p>
-</li>
-<li>
-<p>int array_push(array array,mixed variable [,mixed variable&hellip;])</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">array_push</span>($fruits,<span style="color:#e6db74">&#34;orange&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//$fruits = array(&#34;apple&#34;,&#34;banana&#34;,&#34;orange&#34;,&#34;pear&#34;)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x0d-数组尾删除元素">0x0D 数组尾删除元素</h3>
-<ul>
-<li>
-<p>array_pop()函数删除并返回数组的最后一个元素</p>
-</li>
-<li>
-<p>mixed array_pop(array target_array)</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $fruits <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>,<span style="color:#e6db74">&#34;orange&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>);
-</span></span><span style="display:flex;"><span>        $fruit <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_pop</span>($fruits);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//$fruits = array(&#34;apple&#34;,&#34;banana&#34;,&#34;orange&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//$fruit = &#34;pear&#34;;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 之数组 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 之数组</h1><div class=post-meta><time>2016-05-18</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div><h3 id=0x00-分类>0x00 分类</h3><ol><li>索引数组
+索引值从0开始，依次递增</li><li>关联数组
+以字符串为索引，键和值对是无序组合，每个键都是唯一的</li></ol><h3 id=0x01-数组的定义>0x01 数组的定义</h3><p>两种方法：</p><ol><li>直接为数组元素赋值即可声明数组</li><li>使用array()函数声明数组</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 1.直接为数组元素赋值即可声明数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $contact_index[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>        $contact_index[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;高某&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_index[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;A公司&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_index[<span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;北京市&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_index[] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;gao@a.com&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($contact_index);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;ID&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;2&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;姓名&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;峰某&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;公司&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;B公司&#34;</span>;
+</span></span><span style=display:flex><span>        $contact_key[<span style=color:#e6db74>&#34;邮箱&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;feng@b.com&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($contact_key);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 2.使用array()函数声明数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $contact_key_array <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;ID&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;姓名&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#34;峰某&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;公司&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#34;B公司&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;邮箱&#34;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#34;feng@b.com&#34;</span>;
+</span></span><span style=display:flex><span>        );
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($contact_key_array);
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x02-数组的遍历>0x02 数组的遍历</h3><ol><li>for语句遍历数组</li><li>foreach语句遍历数组</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// for语句遍历索引数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $cars<span style=color:#f92672>=</span><span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Volvo&#34;</span>,<span style=color:#e6db74>&#34;BMW&#34;</span>,<span style=color:#e6db74>&#34;SAAB&#34;</span>);
+</span></span><span style=display:flex><span>        $arrlength<span style=color:#f92672>=</span><span style=color:#a6e22e>count</span>($cars);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span>($x<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>; $x <span style=color:#f92672>&lt;</span> $arrlength; $x<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> $cars[$x];
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// foreach语句遍历关联数组
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $age<span style=color:#f92672>=</span><span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Bill&#34;</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#34;35&#34;</span>, <span style=color:#e6db74>&#34;Steve&#34;</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#34;37&#34;</span>, <span style=color:#e6db74>&#34;Peter&#34;</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#34;43&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>foreach</span>($age <span style=color:#66d9ef>as</span> $x <span style=color:#f92672>=&gt;</span> $x_value) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;Key=&#34;</span> <span style=color:#f92672>.</span> $x <span style=color:#f92672>.</span> <span style=color:#e6db74>&#34;, Value=&#34;</span> <span style=color:#f92672>.</span> $x_value;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x03-预定义数组>0x03 预定义数组</h3><ol><li>它就是一个特殊数组，操作方式没有区别</li><li>不用声明它们，每个PHP脚本中默认存在</li><li>它们在全局范围内自动生效<table><thead><tr><th>预定义数组</th><th style=text-align:left>说明</th></tr></thead><tbody><tr><td>$_SERVER</td><td style=text-align:left>变量由Web服务器设定或者直接与当前脚本的执行环境相关联</td></tr><tr><td>$_ENV</td><td style=text-align:left>执行环境提交至脚本的变量</td></tr><tr><td>$_GET</td><td style=text-align:left>经由URL请求提交至脚本的变量</td></tr><tr><td>$_POST</td><td style=text-align:left>经由HTTP POST方法提交至脚本的变量</td></tr><tr><td>$_REQUEST</td><td style=text-align:left>经由GET，POST，COOKIE机制提交至脚本的变量，该数组不值得信任</td></tr><tr><td>$_FILES</td><td style=text-align:left>经由HTTP POST文件上传而提交至脚本的变量</td></tr><tr><td>$_COOKIE</td><td style=text-align:left>经由HTTP Cookies方法提交至脚本的变量</td></tr><tr><td>$_SESSION</td><td style=text-align:left>当前注册给脚本会话的变量</td></tr><tr><td>$GLOBALS</td><td style=text-align:left>包含一个引用指向每个当前脚本的全局范围内的有效的变量。该数组的键名为全局变量的名称</td></tr></tbody></table></li></ol><h3 id=0x04-合并数组>0x04 合并数组</h3><ul><li><p>array_merge()函数将数组合并到一起，返回一个联合的数组。</p></li><li><p>array array_merge(array array1 array2&mldr;,arrayN)</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;apple&#34;</span>,<span style=color:#e6db74>&#34;banana&#34;</span>,<span style=color:#e6db74>&#34;pear&#34;</span>);
+</span></span><span style=display:flex><span>        $numbered <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;1&#34;</span>,<span style=color:#e6db74>&#34;2&#34;</span>,<span style=color:#e6db74>&#34;3&#34;</span>);
+</span></span><span style=display:flex><span>        $cards <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_merge</span>($fruits, $numbered);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>print_r</span>($cards);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// output
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// Array ( [0] =&gt; apple [1] =&gt; banana [2] =&gt; pear [3] =&gt; 1 [4] =&gt; 2 [5] =&gt; 3 )
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x05-拆分数组>0x05 拆分数组</h3><ul><li><p>array_slice()函数将返回数组中的一部分，从键offset开始，到offset+length位置结束</p></li><li><p>array array_slice(array array,int offset[,int length])</p></li><li><p>offset为正值时从前面开始，为负值时从后面开始</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Apple&#34;</span>, <span style=color:#e6db74>&#34;Banana&#34;</span>, <span style=color:#e6db74>&#34;Orange&#34;</span>, <span style=color:#e6db74>&#34;Pear&#34;</span>, <span style=color:#e6db74>&#34;Grape&#34;</span>, <span style=color:#e6db74>&#34;Lemon&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Watermelon&#34;</span>);
+</span></span><span style=display:flex><span>        $subset <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_slice</span>($fruits, <span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>print_r</span>($subset);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// output
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// Array ( [0] =&gt; Pear [1] =&gt; Grape [2] =&gt; Lemon [3] =&gt; Watermelon )
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Apple&#34;</span>, <span style=color:#e6db74>&#34;Banana&#34;</span>, <span style=color:#e6db74>&#34;Orange&#34;</span>, <span style=color:#e6db74>&#34;Pear&#34;</span>, <span style=color:#e6db74>&#34;Grape&#34;</span>, <span style=color:#e6db74>&#34;Lemon&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Watermelon&#34;</span>);
+</span></span><span style=display:flex><span>        $subset <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_slice</span>($fruits, <span style=color:#ae81ff>2</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>print_r</span>($subset);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// output
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// Array ( [0] =&gt; Orange [1] =&gt; Pear [2] =&gt; Grape )
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x06-数组的交集>0x06 数组的交集</h3><ul><li><p>array_intersect()函数返回一个保留了键的数组，这个数组只由第一个数组中出现的且在其他每个输入数组中都出现的值组成</p></li><li><p>array array_intersect(array array1,array array2[,arrayN&mldr;])</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruit1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Apple&#34;</span>,<span style=color:#e6db74>&#34;Banana&#34;</span>,<span style=color:#e6db74>&#34;Orange&#34;</span>);
+</span></span><span style=display:flex><span>        $fruit2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Pear&#34;</span>,<span style=color:#e6db74>&#34;Apple&#34;</span>,<span style=color:#e6db74>&#34;Grape&#34;</span>);
+</span></span><span style=display:flex><span>        $fruit3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;Watermelon&#34;</span>,<span style=color:#e6db74>&#34;Orange&#34;</span>,<span style=color:#e6db74>&#34;Apple&#34;</span>);
+</span></span><span style=display:flex><span>        $intersection <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_intersect</span>($fruit1, $fruit2, $fruit3);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>print_r</span>($intersection);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// output
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// Array ( [0] =&gt; Apple )
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x07-in_array>0x07 in_array</h3><ul><li><p>in_array()函数在一个数组中汇总搜索一个特定值，若找到则返回true，否则返回false</p></li><li><p>boolean in_array(mixed needle,array haystack[,boolean strice])</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>		$fruit <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;apple&#34;</span>;
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;apple&#34;</span>,<span style=color:#e6db74>&#34;banana&#34;</span>,<span style=color:#e6db74>&#34;orange&#34;</span>,<span style=color:#e6db74>&#34;pear&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span>( <span style=color:#a6e22e>in_array</span>($fruit,$fruits) ){
+</span></span><span style=display:flex><span>        	<span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$fruit已经在数组中</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x08-array_key_exists>0x08 array_key_exists</h3><ul><li><p>若在数组中找到一个指定的键，函数返回true，否则返回false</p></li><li><p>boolean array_key_exists(mixed key,array array)</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruit[<span style=color:#e6db74>&#34;apple&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;red&#34;</span>;
+</span></span><span style=display:flex><span>        $fruit[<span style=color:#e6db74>&#34;banana&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;yellow&#34;</span>;
+</span></span><span style=display:flex><span>        $fruit[<span style=color:#e6db74>&#34;pear&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;green&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>array_key_exists</span>(<span style=color:#e6db74>&#34;apple&#34;</span>, $fruit)){
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;apple&#39;s color is %s&#34;</span>,$fruit[<span style=color:#e6db74>&#34;apple&#34;</span>]);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//apple&#39;s color is red
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x09-array_search>0x09 array_search</h3><ul><li><p>array_search()函数在一个数组中搜索指定的值，若存在则返回相应的键，否则返回true</p></li><li><p>mixed array_search(mixed needle,array haystack[,boolean strict])</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits[<span style=color:#e6db74>&#34;apple&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;red&#34;</span>;
+</span></span><span style=display:flex><span>        $fruits[<span style=color:#e6db74>&#34;banana&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;yellow&#34;</span>;
+</span></span><span style=display:flex><span>        $fruits[<span style=color:#e6db74>&#34;watermelon&#34;</span>]<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;green&#34;</span>;
+</span></span><span style=display:flex><span>        $founded <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_search</span>(<span style=color:#e6db74>&#34;green&#34;</span>, $fruits);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>($founded){
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>printf</span>(<span style=color:#e6db74>&#34;%s was founded on %s.&#34;</span>,$founded, $fruits[$founded]);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//watermelon was founded on green.
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x0a-数组头添加元素>0x0A 数组头添加元素</h3><ul><li><p>array_unshift()函数在数组头添加元素。</p></li><li><p>所有已有的数值键都会相应地修改，以反应其在数组中的新位置，但是关联键不受影响</p></li><li><p>int array_unshift(array array,mixed variable[,mixed variable])</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;apple&#34;</span>,<span style=color:#e6db74>&#34;banana&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>array_unshift</span>($fruits,<span style=color:#e6db74>&#34;orange&#34;</span>,<span style=color:#e6db74>&#34;pear&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// $fruits = array(&#34;orange&#34;,&#34;pear&#34;,&#34;apple&#34;,&#34;banana&#34;);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x0b-数组头删除元素>0x0B 数组头删除元素</h3><ul><li><p>array_shift()函数删除并返回数组中找到的元素。其结果是，若使用的是数值键，则所有相应的值都会下移，而使用关联键的数组不受影响。</p></li><li><p>mixed array_shift(array array)</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;apple&#34;</span>,<span style=color:#e6db74>&#34;banana&#34;</span>,<span style=color:#e6db74>&#34;orange&#34;</span>,<span style=color:#e6db74>&#34;pear&#34;</span>);
+</span></span><span style=display:flex><span>        $fruit <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_shift</span>($fruits);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// $fruits = array(&#34;banana&#34;,&#34;orange&#34;,&#34;pear&#34;)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// $fruit = &#34;apple&#34;;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x0c-数组尾添加元素>0x0C 数组尾添加元素</h3><ul><li><p>array_push()函数的返回值类型是int型，是压入数据后数组中元素的个数，可以为此函数传递多个变量作为参数，同时向数组压入多个变量</p></li><li><p>int array_push(array array,mixed variable [,mixed variable&mldr;])</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;apple&#34;</span>,<span style=color:#e6db74>&#34;banana&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>array_push</span>($fruits,<span style=color:#e6db74>&#34;orange&#34;</span>,<span style=color:#e6db74>&#34;pear&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//$fruits = array(&#34;apple&#34;,&#34;banana&#34;,&#34;orange&#34;,&#34;pear&#34;)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x0d-数组尾删除元素>0x0D 数组尾删除元素</h3><ul><li><p>array_pop()函数删除并返回数组的最后一个元素</p></li><li><p>mixed array_pop(array target_array)</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $fruits <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;apple&#34;</span>,<span style=color:#e6db74>&#34;banana&#34;</span>,<span style=color:#e6db74>&#34;orange&#34;</span>,<span style=color:#e6db74>&#34;pear&#34;</span>);
+</span></span><span style=display:flex><span>        $fruit <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_pop</span>($fruits);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//$fruits = array(&#34;apple&#34;,&#34;banana&#34;,&#34;orange&#34;);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//$fruit = &#34;pear&#34;;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,241 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 之面向对象 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 之面向对象</h1>
-      
-<div class="post-meta">
-    <time>2016-05-20</time>
-    
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-      <div><h3 id="0x00-面向对象">0x00 面向对象</h3>
-<ol>
-<li>面向对象概念
-<ul>
-<li>面向对象是达到了软件工程的三个目标：重用性、灵活性和扩展性，使其编程的代码更加简洁、更易于维护、并且具有更强的可重用性。</li>
-</ul>
-</li>
-<li>类和对象的关系
-<ul>
-<li>在面向对象的编程语言中，类是一个对立的程序单位，而对象的抽象就是类。类描述了一组有相同特性(属性)和相同行为(方法)的对象。开发时要先抽象类再用该类去创建对象。而我们的程序中直接使用的是对象而不是类。</li>
-</ul>
-</li>
-<li>什么是类
-<ul>
-<li>在面向对象的编程语言中，类是一个对立的程序单位，是具有相同属性和服务的一组对象的集合。它为属于该类的所有对象提供了同意的抽象描述，其内部包括成员属性和服务的方法两个部分。</li>
-</ul>
-</li>
-<li>什么是对象
-<ul>
-<li>在客观世界里，所有的事物都是由对象和对象之间的联系组成的。对象是系统中用来描述客观事物的一个实体，它是构成系统的一个基本单位，一个对象由一组属性和有权对这些属性进行操作的一组服务的封装体。</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x01-类的声明">0x01 类的声明</h3>
-<ol>
-<li>类名和变量名还有函数名的命名规则类似，都遵循PHP中定义名称的命名规则。</li>
-<li>若类名由多个单词组成，习惯上每个单词的首字母要大写</li>
-<li>类中成员可分为属性和方法</li>
-<li>属性为静态描述，方法为动态描述</li>
-<li>在类中声明成员属性时，变量前面一定要有关键字，如：public、private、static等</li>
-<li>若不需要有特定意义的修饰，则使用var关键字</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">格式：</span>
-</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">一些修饰类的关键字</span>] <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">类名</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">类中成员</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Class</span> <span style="color:#a6e22e">Person</span> {
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">成员属性：</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">姓名、性别、年龄、身高、体重、电话、住址等</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">成员方法：</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">说话、学习、走路、吃饭、开车、使用手机等</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">例子：</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> $name;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> $age;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> $sex;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">say</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;人在说话&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;人在走路&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x02-实例化对象">0x02 实例化对象</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">格式：</span>
-</span></span><span style="display:flex;"><span>$变量名 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">类名称</span>([<span style="color:#a6e22e">参数列表</span>]);
-</span></span><span style="display:flex;"><span>$变量名 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">类名称</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">例子：</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Phone</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>    $person1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span>    $person2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span>    $person3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>;
-</span></span><span style="display:flex;"><span>    $phone1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Phone</span>();
-</span></span><span style="display:flex;"><span>    $phton2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Phone</span>();
-</span></span><span style="display:flex;"><span>    $phton3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Phone</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x03-对象中成员的访问">0x03 对象中成员的访问</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    *声明一个人类Person，其中包含三个成员属性和两个成员方法
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    */</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>    	<span style="color:#66d9ef">var</span> $name;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> $age;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> $sex;
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">say</span>() {
-</span></span><span style="display:flex;"><span>        	<span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;我的名字：&#34;</span><span style="color:#f92672">.</span>$this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">name</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;,性别：&#34;</span><span style="color:#f92672">.</span>$this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">sex</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;，年龄：&#34;</span><span style="color:#f92672">.</span>$this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">age</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;。&lt;br /&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>() {
-</span></span><span style="display:flex;"><span>        	<span style="color:#66d9ef">echo</span> $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">name</span><span style="color:#f92672">.</span><span style="color:#e6db74">&#34;在走路&lt;br /&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    $xiaoming <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span>    $wyb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    $xiaoming<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;小明&#34;</span>;
-</span></span><span style="display:flex;"><span>    $xiaoming<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">sex</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;男&#34;</span>;
-</span></span><span style="display:flex;"><span>    $xiaoming<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>;
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    $wyb<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;wyb&#34;</span>;
-</span></span><span style="display:flex;"><span>    $wyb<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">sex</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;男&#34;</span>;
-</span></span><span style="display:flex;"><span>    $wyb<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>;
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    $xiaoming<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">say</span>();
-</span></span><span style="display:flex;"><span>    $wyb<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">run</span>();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x04-构造方法和析构方法">0x04 构造方法和析构方法</h3>
-<ul>
-<li>构造方法和析构方法是对象中两个特殊的方法</li>
-<li>构造方法是对象创建完成后第一个被对象自动调用的方法</li>
-<li>析构方法是对象在销毁之前最后一个被对象自动调用的方法</li>
-<li>通常用构造方法完成一些对象的初始化工作，用析构方法完成一些对象在销毁前的清理工作</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">_construct</span>([<span style="color:#a6e22e">参数列表</span>]) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//方法体，通常用来对成员属性进行初始化赋值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_</span> <span style="color:#a6e22e">_destruct</span>([<span style="color:#a6e22e">参数列表</span>]) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//方法体，通常用来完成一些在对象销毁前的清理工作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 之面向对象 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 之面向对象</h1><div class=post-meta><time>2016-05-20</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div><h3 id=0x00-面向对象>0x00 面向对象</h3><ol><li>面向对象概念<ul><li>面向对象是达到了软件工程的三个目标：重用性、灵活性和扩展性，使其编程的代码更加简洁、更易于维护、并且具有更强的可重用性。</li></ul></li><li>类和对象的关系<ul><li>在面向对象的编程语言中，类是一个对立的程序单位，而对象的抽象就是类。类描述了一组有相同特性(属性)和相同行为(方法)的对象。开发时要先抽象类再用该类去创建对象。而我们的程序中直接使用的是对象而不是类。</li></ul></li><li>什么是类<ul><li>在面向对象的编程语言中，类是一个对立的程序单位，是具有相同属性和服务的一组对象的集合。它为属于该类的所有对象提供了同意的抽象描述，其内部包括成员属性和服务的方法两个部分。</li></ul></li><li>什么是对象<ul><li>在客观世界里，所有的事物都是由对象和对象之间的联系组成的。对象是系统中用来描述客观事物的一个实体，它是构成系统的一个基本单位，一个对象由一组属性和有权对这些属性进行操作的一组服务的封装体。</li></ul></li></ol><h3 id=0x01-类的声明>0x01 类的声明</h3><ol><li>类名和变量名还有函数名的命名规则类似，都遵循PHP中定义名称的命名规则。</li><li>若类名由多个单词组成，习惯上每个单词的首字母要大写</li><li>类中成员可分为属性和方法</li><li>属性为静态描述，方法为动态描述</li><li>在类中声明成员属性时，变量前面一定要有关键字，如：public、private、static等</li><li>若不需要有特定意义的修饰，则使用var关键字</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>格式：</span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>一些修饰类的关键字</span>] <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>类名</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>类中成员</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>Class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span><span style=color:#a6e22e>成员属性：</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>姓名、性别、年龄、身高、体重、电话、住址等</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>成员方法：</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>说话、学习、走路、吃饭、开车、使用手机等</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>例子：</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $age;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $sex;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>say</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;人在说话&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;人在走路&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x02-实例化对象>0x02 实例化对象</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>格式：</span>
+</span></span><span style=display:flex><span>$变量名 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>类名称</span>([<span style=color:#a6e22e>参数列表</span>]);
+</span></span><span style=display:flex><span>$变量名 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>类名称</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>例子：</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Phone</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// ...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// ...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    }
+</span></span><span style=display:flex><span>    $person1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    $person2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    $person3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>;
+</span></span><span style=display:flex><span>    $phone1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Phone</span>();
+</span></span><span style=display:flex><span>    $phton2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Phone</span>();
+</span></span><span style=display:flex><span>    $phton3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Phone</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x03-对象中成员的访问>0x03 对象中成员的访问</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    *声明一个人类Person，其中包含三个成员属性和两个成员方法
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    */</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span>
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>    	<span style=color:#66d9ef>var</span> $name;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $age;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>var</span> $sex;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>say</span>() {
+</span></span><span style=display:flex><span>        	<span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;我的名字：&#34;</span><span style=color:#f92672>.</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;,性别：&#34;</span><span style=color:#f92672>.</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sex</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;，年龄：&#34;</span><span style=color:#f92672>.</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>age</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;。&lt;br /&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>run</span>() {
+</span></span><span style=display:flex><span>        	<span style=color:#66d9ef>echo</span> $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span><span style=color:#f92672>.</span><span style=color:#e6db74>&#34;在走路&lt;br /&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $xiaoming <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    $wyb <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>();
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;小明&#34;</span>;
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sex</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;男&#34;</span>;
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>16</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;wyb&#34;</span>;
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>sex</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;男&#34;</span>;
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>18</span>;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    $xiaoming<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>say</span>();
+</span></span><span style=display:flex><span>    $wyb<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>run</span>();
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x04-构造方法和析构方法>0x04 构造方法和析构方法</h3><ul><li>构造方法和析构方法是对象中两个特殊的方法</li><li>构造方法是对象创建完成后第一个被对象自动调用的方法</li><li>析构方法是对象在销毁之前最后一个被对象自动调用的方法</li><li>通常用构造方法完成一些对象的初始化工作，用析构方法完成一些对象在销毁前的清理工作</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>_</span> <span style=color:#a6e22e>_construct</span>([<span style=color:#a6e22e>参数列表</span>]) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//方法体，通常用来对成员属性进行初始化赋值
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>_</span> <span style=color:#a6e22e>_destruct</span>([<span style=color:#a6e22e>参数列表</span>]) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//方法体，通常用来完成一些在对象销毁前的清理工作
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

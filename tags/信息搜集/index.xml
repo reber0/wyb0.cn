@@ -1,26 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>信息搜集 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</link>
-    <description>Recent content in 信息搜集 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jul 2019 18:09:49 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>利用 Python 的协程进行快速端口扫描</title>
-      <link>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</link>
-      <pubDate>Thu, 04 Jul 2019 18:09:49 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</guid>
-      <description>0x00 协程的优势 协程拥有极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制，因此没有线程切换的开销。和多线程比，</description>
-    </item>
-    <item>
-      <title>Python 实现 CDN 的判断</title>
-      <link>https://wyb0.com/posts/2016/cdn-detection/</link>
-      <pubDate>Fri, 23 Dec 2016 21:10:05 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/cdn-detection/</guid>
-      <description>0x00 什么是CDN CDN的全称是Content Delivery Network，即内容分发网络。主要功能是在不同地点缓存内容， 运营商会在全国</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>信息搜集 on Reber's Blog</title><link>https://wyb0.com/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</link><description>Recent content in 信息搜集 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jul 2019 18:09:49 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.xml" rel="self" type="application/rss+xml"/><item><title>利用 Python 的协程进行快速端口扫描</title><link>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</link><pubDate>Thu, 04 Jul 2019 18:09:49 +0000</pubDate><guid>https://wyb0.com/posts/2019/python-coroutine-fast-port-scan/</guid><description>&lt;h3 id="0x00-协程的优势">0x00 协程的优势&lt;/h3>
+&lt;p>协程拥有极高的执行效率，因为子程序切换不是线程切换，而是由程序自身控制，因此没有线程切换的开销。和多线程比，线程数量越多，协程的性能优势就越明显。&lt;/p></description></item><item><title>Python 实现 CDN 的判断</title><link>https://wyb0.com/posts/2016/cdn-detection/</link><pubDate>Fri, 23 Dec 2016 21:10:05 +0000</pubDate><guid>https://wyb0.com/posts/2016/cdn-detection/</guid><description>&lt;p>&lt;img src="https://wyb0.com/img/anime/anime002.jpg" alt="银魂">&lt;/p>
+&lt;h3 id="0x00-什么是cdn">0x00 什么是CDN&lt;/h3>
+&lt;pre tabindex="0">&lt;code>CDN的全称是Content Delivery Network，即内容分发网络。主要功能是在不同地点缓存内容，
+运营商会在全国各地的节点上缓存你的网站网页，通过负载均衡技术，将用户的请求定向到最合适的
+缓存服务器上去获取内容，比如说你是上海用户，你访问www.aa.com就会被重定向到上海的节点，
+你是北京用户，你也访问www.aa.com，但是你会被重定向到上海的节点。
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-判断方法">0x01 判断方法&lt;/h3>
+&lt;ul>
+&lt;li>可以查询CNAME记录，每个cdn厂商都有特有的特征串&lt;/li>
+&lt;li>查看http返回头的头部信息&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x02-代码">0x02 代码&lt;/h3>
+&lt;p>首先安装dnspython这个第三方模块：pip install dnspython&lt;/p></description></item></channel></rss>

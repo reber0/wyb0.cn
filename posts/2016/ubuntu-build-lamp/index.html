@@ -1,102 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Ubuntu 搭建 LAMP | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Ubuntu 搭建 LAMP</h1>
-      
-<div class="post-meta">
-    <time>2016-05-07</time>
-    
-    [<a href="/categories/Linux">Linux</a>,<a href="/categories/Server">Server</a>](<a href="/tags/server">server</a>)
-</div>
-
-      <div><h3 id="0x00-环境">0x00 环境</h3>
-<p>我是在虚拟机中安装14.04.4版的Ubuntu <a href="http://mirrors.163.com/ubuntu-releases/14.04.4/ubuntu-14.04.4-desktop-amd64.iso">下载Ubuntu14.04.4</a></p>
-<h3 id="0x01-配源或选择最快的更新服务器">0x01 配源或选择最快的更新服务器</h3>
-<ul>
-<li>
-<p>选择最快的更新服务器:<br>
-System Settings &ndash;&gt; Software &amp; Updates &ndash;&gt; Download from:other &ndash;&gt; Select Best Server &ndash;&gt; Choose Serve &ndash;&gt; Close</p>
-</li>
-<li>
-<p>配源:<br>
-reber@ubuntu:~$ cp /etc/apt/sources.list /etc/apt/sources.list.bak<br>
-reber@ubuntu:~$ vim /etc/apt/sources.list</p>
-</li>
-</ul>
-<pre tabindex="0"><code>中科大源：
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Ubuntu 搭建 LAMP | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Ubuntu 搭建 LAMP</h1><div class=post-meta><time>2016-05-07</time>
+[<a href=/categories/Linux>Linux</a>,<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div><h3 id=0x00-环境>0x00 环境</h3><p>我是在虚拟机中安装14.04.4版的Ubuntu <a href=http://mirrors.163.com/ubuntu-releases/14.04.4/ubuntu-14.04.4-desktop-amd64.iso>下载Ubuntu14.04.4</a></p><h3 id=0x01-配源或选择最快的更新服务器>0x01 配源或选择最快的更新服务器</h3><ul><li><p>选择最快的更新服务器:<br>System Settings &ndash;> Software & Updates &ndash;> Download from:other &ndash;> Select Best Server &ndash;> Choose Serve &ndash;> Close</p></li><li><p>配源:<br>reber@ubuntu:<del>$ cp /etc/apt/sources.list /etc/apt/sources.list.bak<br>reber@ubuntu:</del>$ vim /etc/apt/sources.list</p></li></ul><pre tabindex=0><code>中科大源：
 deb http://debian.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
 deb http://debian.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
 deb http://debian.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
@@ -119,33 +33,19 @@ deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main multiverse restr
 deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main multiverse restricted universe
 deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main multiverse restricted universe
 deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main multiverse restricted universe
-</code></pre><ul>
-<li>升级<br>
-reber@ubuntu:~$ sudo apt-get update<br>
-reber@ubuntu:~$ sudo apt-get upgrade</li>
-</ul>
-<h3 id="0x02-简单配置">0x02 简单配置</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo apt-get install open-vm-tools-desktop fuse
-</span></span><span style="display:flex;"><span>$ sudo apt-get install vim
-</span></span><span style="display:flex;"><span>$ sudo apt-get install nautilus-open-terminal  <span style="color:#75715e">#注销,再次登陆即可任意地方右键打开终端</span>
-</span></span><span style="display:flex;"><span>$ vim /etc/default/apport   <span style="color:#75715e">#更改enabled=0可解决开机总是提示有错误</span>
-</span></span><span style="display:flex;"><span>$ vim ~/.bashrc  <span style="color:#75715e">#添加alias c=&#39;clear&#39;</span>
-</span></span></code></pre></div><h3 id="0x03-安装输入法">0x03 安装输入法</h3>
-<pre tabindex="0"><code>apt-get -f install可解决依赖问题
+</code></pre><ul><li>升级<br>reber@ubuntu:<del>$ sudo apt-get update<br>reber@ubuntu:</del>$ sudo apt-get upgrade</li></ul><h3 id=0x02-简单配置>0x02 简单配置</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo apt-get install open-vm-tools-desktop fuse
+</span></span><span style=display:flex><span>$ sudo apt-get install vim
+</span></span><span style=display:flex><span>$ sudo apt-get install nautilus-open-terminal  <span style=color:#75715e>#注销,再次登陆即可任意地方右键打开终端</span>
+</span></span><span style=display:flex><span>$ vim /etc/default/apport   <span style=color:#75715e>#更改enabled=0可解决开机总是提示有错误</span>
+</span></span><span style=display:flex><span>$ vim ~/.bashrc  <span style=color:#75715e>#添加alias c=&#39;clear&#39;</span>
+</span></span></code></pre></div><h3 id=0x03-安装输入法>0x03 安装输入法</h3><pre tabindex=0><code>apt-get -f install可解决依赖问题
 reber@ubuntu:~$ apt-get install ibus-sunpinyin   #安装后重启系统
 进入设置：system setting-&gt;text entry-&gt;添加sunpinyin
-</code></pre><h3 id="0x04-配置apachemysqlphp">0x04 配置Apache/MySQL/PHP</h3>
-<ul>
-<li>安装</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install apache2
-</span></span><span style="display:flex;"><span>sudo apt-get install mysql-client mysql-server
-</span></span><span style="display:flex;"><span>sudo apt-get install php5 php5-gd php5-mysql libapache2-mod-php5 libapache2-mod-auth-mysql
-</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">777</span> /var/www   <span style="color:#75715e">#为了方便</span>
-</span></span></code></pre></div><ul>
-<li>解决乱码问题</li>
-</ul>
-<pre tabindex="0"><code>查看编码：
+</code></pre><h3 id=0x04-配置apachemysqlphp>0x04 配置Apache/MySQL/PHP</h3><ul><li>安装</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt-get install apache2
+</span></span><span style=display:flex><span>sudo apt-get install mysql-client mysql-server
+</span></span><span style=display:flex><span>sudo apt-get install php5 php5-gd php5-mysql libapache2-mod-php5 libapache2-mod-auth-mysql
+</span></span><span style=display:flex><span>sudo chmod <span style=color:#ae81ff>777</span> /var/www   <span style=color:#75715e>#为了方便</span>
+</span></span></code></pre></div><ul><li>解决乱码问题</li></ul><pre tabindex=0><code>查看编码：
     mysql&gt; show variables like &#39;char%&#39;;
 apache：
     sudo vim /etc/apache2/apache2.conf
@@ -155,10 +55,7 @@ mysql：
     在[client]下面添加：default-character-set=utf8
     在[mysqld]在下面添加：character_set_server=utf8
                         init_connect=&#39;SET NAMES utf8&#39;
-</code></pre><ul>
-<li>测试数据库连接</li>
-</ul>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><ul><li>测试数据库连接</li></ul><pre tabindex=0><code>&lt;?php
     $link = mysql_connect(&#34;localhost&#34;, &#34;root&#34;, &#34;password&#34;);
     if(!$link)
         die(&#39;Could not connect: &#39; . mysql_error());
@@ -166,10 +63,7 @@ mysql：
         echo &#34;Mysql 配置正确!&#34;;
     mysql_close($link);
 ?&gt;
-</code></pre><ul>
-<li>禁止远程连接</li>
-</ul>
-<pre tabindex="0"><code>mysql&gt; use mysql;
+</code></pre><ul><li>禁止远程连接</li></ul><pre tabindex=0><code>mysql&gt; use mysql;
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
@@ -191,44 +85,19 @@ mysql&gt; select host,user from user;
 | localhost | mysql.sys        |
 +-----------+------------------+
 4 rows in set (0.00 sec)
-</code></pre><h3 id="0x05-管理开机自启">0x05 管理开机自启</h3>
-<pre tabindex="0"><code>ubuntu管理软件自启一般用rcconf：sudo apt-get install rcconf
+</code></pre><h3 id=0x05-管理开机自启>0x05 管理开机自启</h3><pre tabindex=0><code>ubuntu管理软件自启一般用rcconf：sudo apt-get install rcconf
 ubuntu添加mysql自启可以在/etc/rc.local添加/etc/init.d/mysql start
-</code></pre><h3 id="0x06-调时间">0x06 调时间</h3>
-<pre tabindex="0"><code># 查看系统时间
+</code></pre><h3 id=0x06-调时间>0x06 调时间</h3><pre tabindex=0><code># 查看系统时间
 $ date                                         
 
 # 设置当前系统时间为2015年5月8日19点48分0秒
 $ date -s &#34;2015-5-8 19:48:00&#34;     
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

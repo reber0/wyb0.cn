@@ -1,112 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Python 编写规范 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Python 编写规范</h1>
-      
-<div class="post-meta">
-    <time>2016-06-12</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>)
-</div>
-
-      <div><h3 id="0x00-代码编排">0x00 代码编排</h3>
-<pre tabindex="0"><code>1.缩进：使用4个空格缩进
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Python 编写规范 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Python 编写规范</h1><div class=post-meta><time>2016-06-12</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div><h3 id=0x00-代码编排>0x00 代码编排</h3><pre tabindex=0><code>1.缩进：使用4个空格缩进
 2.行长度：每行不要超过80个字符
 3.空行：顶级定义之间空两行，如函数或类的定义，方法定义、类定义与第一个方法之间都应该空一行。
 4.分号：行尾不要有分号，也不要用分号将两条命令放在一行,除非是：
     1.长的导入模块语句。
     2.注释里的URL.
     3.可以使用圆括号实现隐式行连接
-</code></pre><h3 id="0x01文档编排">0x01文档编排</h3>
-<pre tabindex="0"><code>1.导入：模块注释-&gt;文档字符串-&gt;导入-&gt;模块全局变量-&gt;常量
+</code></pre><h3 id=0x01文档编排>0x01文档编排</h3><pre tabindex=0><code>1.导入：模块注释-&gt;文档字符串-&gt;导入-&gt;模块全局变量-&gt;常量
         导入顺序：标准库导入-&gt;第三方库导入-&gt;应用程序指定库导入
 2.import:不要在一行中import多个库，一行中只导入一个
-</code></pre><h3 id="0x02-空格">0x02 空格</h3>
-<pre tabindex="0"><code>1.不要在逗号、分号、冒号前加空格，但应在他们后面加(除了在行尾)
+</code></pre><h3 id=0x02-空格>0x02 空格</h3><pre tabindex=0><code>1.不要在逗号、分号、冒号前加空格，但应在他们后面加(除了在行尾)
 2.二元操作符(赋值、比较、布尔)两边都加空格
 3.当&#34;=&#34;用于指示关键字参数或默认参数值是，不要再其两侧使用空格
 4.&#34;,&#34;和&#34;#&#34;和&#34;=&#34;不需要对齐，因为空格会成为维护的负担
-</code></pre><h3 id="0x03-注释">0x03 注释</h3>
-<pre tabindex="0"><code>总体原则，错误的注释不如没有注释。
+</code></pre><h3 id=0x03-注释>0x03 注释</h3><pre tabindex=0><code>总体原则，错误的注释不如没有注释。
 注释必须使用英文，最好是完整的句子，首字母大写，句后要有结束符，结束符后跟两个空格，开始下一句。如果是短语，可以省略结束符。
 1.块注释：在一段代码前增加的注释。在&#34;#&#34;后加一空格。段落之间以只有&#34;#&#34;的行间隔。
 2.行注释，在一句代码后加注释。进来少使用.
 3.绝不要描述代码. 假设阅读代码的人比你更懂Python, 他只是不知道你的代码要做什么.
-</code></pre><h3 id="0x04-文档描述">0x04 文档描述</h3>
-<pre tabindex="0"><code>1.为所有的共有模块、函数、类、方法写docstrings；非共有的没有必要，但是可以写注释（在def的下一行）。
+</code></pre><h3 id=0x04-文档描述>0x04 文档描述</h3><pre tabindex=0><code>1.为所有的共有模块、函数、类、方法写docstrings；非共有的没有必要，但是可以写注释（在def的下一行）。
 2.如果docstring要换行，参考如下例子
 class SampleClass(object):
     &#34;&#34;&#34;Summary of class here.
@@ -121,8 +44,7 @@ class SampleClass(object):
 
     def __init__(self):
         &#34;&#34;&#34;Inits SampleClass with blah.&#34;&#34;&#34;
-</code></pre><h3 id="0x05-命名规范">0x05 命名规范</h3>
-<pre tabindex="0"><code>#类
+</code></pre><h3 id=0x05-命名规范>0x05 命名规范</h3><pre tabindex=0><code>#类
 1.类名使用大写字母开头的单词(如CapWords, 即Pascal风格)
 2.类的属性（方法和变量）命名使用全部小写的方式，可以使用下划线。
 3.类的方法第一个参数必须是self，而静态方法第一个参数必须是cls。
@@ -139,8 +61,7 @@ class SampleClass(object):
 3.用单下划线(_)开头表示模块变量或函数是protected的(使用import * from时不会包含).
 
 1.尽量单独使用小写字母&#39;l&#39;，大写字母&#39;O&#39;等容易混淆的字母。
-</code></pre><h3 id="0x06-main">0x06 Main</h3>
-<pre tabindex="0"><code>即使是一个打算被用作脚本的文件, 也应该是可导入的. 
+</code></pre><h3 id=0x06-main>0x06 Main</h3><pre tabindex=0><code>即使是一个打算被用作脚本的文件, 也应该是可导入的. 
 并且简单的导入不应该导致这个脚本的主功能(main functionality)被执行
 代码应该在执行主程序前总是检查 if __name__ == &#39;__main__&#39;
     def main():
@@ -148,8 +69,7 @@ class SampleClass(object):
 
     if __name__ == &#39;__main__&#39;:
         main()
-</code></pre><h3 id="0x07-字符串">0x07 字符串</h3>
-<pre tabindex="0"><code>避免在循环中用+和+=来累加字符串，可以将每个子串加入列表，然后再循环结束后使用.join连接列表
+</code></pre><h3 id=0x07-字符串>0x07 字符串</h3><pre tabindex=0><code>避免在循环中用+和+=来累加字符串，可以将每个子串加入列表，然后再循环结束后使用.join连接列表
     items = [&#39;&lt;table&gt;&#39;]
     for last_name, first_name in employee_list:
         items.append(&#39;&lt;tr&gt;&lt;td&gt;%s, %s&lt;/td&gt;&lt;/tr&gt;&#39; % (last_name, first_name))
@@ -157,40 +77,16 @@ class SampleClass(object):
     employee_table = &#39;&#39;.join(items)
 同一文件中保持使用字符串引号的一致性
 多行字符串使用三重&#34;双&#34;引号，不过通常使用括号隐式连接
-</code></pre><h3 id="0x08-其他">0x08 其他</h3>
-<pre tabindex="0"><code>括号：宁缺毋滥的使用括号
+</code></pre><h3 id=0x08-其他>0x08 其他</h3><pre tabindex=0><code>括号：宁缺毋滥的使用括号
 类：若一个类不继承自其它类，就显式的从object继承,即使是嵌套类
 语句：通常每个语句独占一行，try/except一定不放在一行
 文件和sockets：在文件和sockets结束时，显式的关闭它，推荐with语句管理文件
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

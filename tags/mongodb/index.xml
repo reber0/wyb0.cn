@@ -1,19 +1,102 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>mongodb on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/mongodb/</link>
-    <description>Recent content in mongodb on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 25 May 2017 15:33:12 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>MongoDB 的基本使用</title>
-      <link>https://wyb0.com/posts/2017/mongodb-basis-use/</link>
-      <pubDate>Thu, 25 May 2017 15:33:12 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/mongodb-basis-use/</guid>
-      <description>0x00 角色和权限 Mongo的授权采用了角色授权的方法，每个用户都有一组权限，Monog内建角色权限如下： 数据库用户角色 rea</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mongodb on Reber's Blog</title><link>https://wyb0.com/tags/mongodb/</link><description>Recent content in Mongodb on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 25 May 2017 15:33:12 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/mongodb/index.xml" rel="self" type="application/rss+xml"/><item><title>MongoDB 的基本使用</title><link>https://wyb0.com/posts/2017/mongodb-basis-use/</link><pubDate>Thu, 25 May 2017 15:33:12 +0000</pubDate><guid>https://wyb0.com/posts/2017/mongodb-basis-use/</guid><description>&lt;h3 id="0x00-角色和权限">0x00 角色和权限&lt;/h3>
+&lt;p>Mongo的授权采用了角色授权的方法，每个用户都有一组权限，Monog内建角色权限如下：&lt;/p>
+&lt;ul>
+&lt;li>数据库用户角色
+&lt;ul>
+&lt;li>read：允许用户读取指定数据库&lt;/li>
+&lt;li>readWrite：允许用户读写指定数据库&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>数据库管理角色
+&lt;ul>
+&lt;li>dbOwner：包含readWrite、dbAdmin、userAdmin&lt;/li>
+&lt;li>dbAdmin：允许用户在指定数据库中对集合、文档等操作&lt;/li>
+&lt;li>userAdmin：允许用户向system.users集合写入，可以在指定数据库里创建、删除和管理用户&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>集群管理角色
+&lt;ul>
+&lt;li>clusterAdmin：只在admin数据库中可用，包含clusterManager、clusterMonitor、hostManager&lt;/li>
+&lt;li>clusterManager：&lt;/li>
+&lt;li>clusterMonitor：&lt;/li>
+&lt;li>hostManager&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>备份和恢复角色
+&lt;ul>
+&lt;li>backup&lt;/li>
+&lt;li>restore&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>所有数据库角色
+&lt;ul>
+&lt;li>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限&lt;/li>
+&lt;li>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限&lt;/li>
+&lt;li>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限&lt;/li>
+&lt;li>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>超级用户角色
+&lt;ul>
+&lt;li>root：只在admin数据库中可用。超级账号，超级权限&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>内部角色
+&lt;ul>
+&lt;li>__system&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-创建用户">0x01 创建用户&lt;/h3>
+&lt;pre tabindex="0">&lt;code>#创建管理员用户
+&amp;gt; use admin
+switched to db admin
+&amp;gt; db.createUser({
+... user:&amp;#34;root&amp;#34;,
+... pwd:&amp;#34;root123&amp;#34;,
+... roles:[{&amp;#34;role&amp;#34;:&amp;#34;root&amp;#34;,&amp;#34;db&amp;#34;:&amp;#34;admin&amp;#34;}]
+... })
+Successfully added user: {
+ &amp;#34;user&amp;#34; : &amp;#34;root&amp;#34;,
+ &amp;#34;roles&amp;#34; : [
+ {
+ &amp;#34;role&amp;#34; : &amp;#34;root&amp;#34;,
+ &amp;#34;db&amp;#34; : &amp;#34;admin&amp;#34;
+ }
+ ]
+}
+&amp;gt; db.auth(&amp;#34;root&amp;#34;,&amp;#34;root123&amp;#34;)
+1
+
+#这个例子创建了一个名为 root 的用户管理员。创建完了这个用户之后，我们应该马上以该用户的身份登录：
+#db.auth() 方法返回 1 表示登录成功。接下来我们为指定的数据库创建访问所需的账号。
+
+#创建数据库用户
+&amp;gt; use test
+switched to db test
+&amp;gt; db.createUser({
+... user:&amp;#34;test&amp;#34;,
+... pwd:&amp;#34;test123&amp;#34;,
+... roles:[
+... {&amp;#34;role&amp;#34;:&amp;#34;readWrite&amp;#34;,&amp;#34;db&amp;#34;:&amp;#34;test&amp;#34;},
+... {&amp;#34;role&amp;#34;:&amp;#34;dbOwner&amp;#34;,&amp;#34;db&amp;#34;:&amp;#34;test&amp;#34;}]
+... })
+Successfully added user: {
+ &amp;#34;user&amp;#34; : &amp;#34;test&amp;#34;,
+ &amp;#34;roles&amp;#34; : [
+ {
+ &amp;#34;role&amp;#34; : &amp;#34;readWrite&amp;#34;,
+ &amp;#34;db&amp;#34; : &amp;#34;test&amp;#34;
+ },
+ {
+ &amp;#34;role&amp;#34; : &amp;#34;dbOwner&amp;#34;,
+ &amp;#34;db&amp;#34; : &amp;#34;test&amp;#34;
+ }
+ ]
+}
+&amp;gt; db.auth(&amp;#34;test&amp;#34;,&amp;#34;test123&amp;#34;)
+1
+&amp;gt; exit
+bye
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-配置">0x02 配置&lt;/h3>
+&lt;p>MongoDb版本：version v3.4.4&lt;/p></description></item></channel></rss>

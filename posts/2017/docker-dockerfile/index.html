@@ -1,271 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Dockerfile 中写的是一条条指令，你可以通过 Dockerfile 更简单的构造自己的环境"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Docker 之 Dockerfile | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Docker 之 Dockerfile</h1>
-      
-<div class="post-meta">
-    <time>2017-08-18</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/docker">docker</a>)
-</div>
-
-      <div><p>操作系统：macOS Sierra 10.12.6<br>
-Docker版本：Docker version 18.09.0, build 4d60db4</p>
-<h3 id="0x00-dockerfile">0x00 Dockerfile</h3>
-<pre tabindex="0"><code>Dockerfile里面其实是一条条的指令，Docker会把Dockerfile的指令翻译为linux命令，
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Dockerfile 中写的是一条条指令，你可以通过 Dockerfile 更简单的构造自己的环境"><meta name=author content="Reber"><title>Docker 之 Dockerfile | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Docker 之 Dockerfile</h1><div class=post-meta><time>2017-08-18</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/docker>docker</a>)</div><div><p>操作系统：macOS Sierra 10.12.6<br>Docker版本：Docker version 18.09.0, build 4d60db4</p><h3 id=0x00-dockerfile>0x00 Dockerfile</h3><pre tabindex=0><code>Dockerfile里面其实是一条条的指令，Docker会把Dockerfile的指令翻译为linux命令，
 每一条指令都会创建一个镜像，下一条指令将在这个镜像的基础上进行修改操作后再生成一个镜像。
 让你可以对下载好的镜像进行一些操作(比如安装软件、向镜像复制文件等)，从而构造定制化的镜像。
-</code></pre><h3 id="0x01-dockerfile基本指令">0x01 Dockerfile基本指令</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>FROM &lt;image name&gt;：指定新的镜像基于什么创建<span style="color:#f92672">(</span>可以尝试使用alpine:latest和debian:jessie<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>MAINTAINER &lt;author name&gt;：设置该镜像的作者
-</span></span><span style="display:flex;"><span>COPY &lt;source&gt; &lt;dest&gt;：复制文件，dest要以 / 结尾
-</span></span><span style="display:flex;"><span>WORKDIR /path/to/workdir：相当于切换目录，对RUN、CMD、和ENTRYPOINT生效
-</span></span><span style="display:flex;"><span>RUN &lt;command&gt;：在shell执行命令
-</span></span><span style="display:flex;"><span>EXPOSE port1 port2：容器运行时监听的端口
-</span></span><span style="display:flex;"><span>CMD：容器默认的执行命令，Dockerfile只允许使用一次CMD命令<span style="color:#f92672">(</span>使用数组<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>ENTRYPOINT：类似于CMD，Dockerfile只允许使用一次<span style="color:#f92672">(</span>使用数组<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>ENV &lt;key&gt; &lt;value&gt;：设置环境变量
-</span></span><span style="display:flex;"><span>USER &lt;uid&gt;：镜像正在运行时设置一个uid，即设定启动容器的用户，默认为root
-</span></span><span style="display:flex;"><span>VOLUME <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;/data&#39;</span><span style="color:#f92672">]</span>：授权访问从容器内到主机的目录
-</span></span></code></pre></div><p>CMD与ENTRYPOINT的区别：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#docker run ubuntu:test会执行/bin/echo &#39;this is test&#39;</span>
-</span></span><span style="display:flex;"><span>CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;/bin/echo&#39;</span>,<span style="color:#e6db74">&#39;this is test&#39;</span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#docker run ubuntu:test会执行/bin/echo &#39;entrypoint test&#39;，会输出&#39;entrypoint test&#39;</span>
-</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;/bin/echo&#39;</span>,<span style="color:#e6db74">&#39;entrypoint test&#39;</span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#docker run ubuntu:test init即执行/etc/init.d/mysql init，CMD中的默认参数会被覆盖</span>
-</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;/etc/init.d/mysql&#39;</span><span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;reinit&#34;</span><span style="color:#f92672">]</span><span style="color:#75715e">#CMD中的值会作为ENTRYPOINT的默认参数</span>
-</span></span></code></pre></div><h3 id="0x02-实例">0x02 实例</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>reber@wyb:~$ tree range
-</span></span><span style="display:flex;"><span>range
-</span></span><span style="display:flex;"><span>├── Dockerfile
-</span></span><span style="display:flex;"><span>└── src
-</span></span><span style="display:flex;"><span>    ├── init.sh
-</span></span><span style="display:flex;"><span>    ├── privileges.sql
-</span></span><span style="display:flex;"><span>    ├── range.zip
-</span></span><span style="display:flex;"><span>    └── sources.list
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> directory, <span style="color:#ae81ff">5</span> files
-</span></span></code></pre></div><ul>
-<li>Dockerfile</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>reber@wyb:~/range$ cat Dockerfile
-</span></span><span style="display:flex;"><span>FROM ubuntu:14.04
-</span></span><span style="display:flex;"><span>MAINTAINER reber &lt;1070018473@qq.com&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>COPY ./src /data
-</span></span><span style="display:flex;"><span>WORKDIR /data
-</span></span><span style="display:flex;"><span>RUN chmod +x init.sh
-</span></span><span style="display:flex;"><span>RUN cp sources.list /etc/apt/sources.list <span style="color:#f92672">&amp;&amp;</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get upgrade -y
-</span></span><span style="display:flex;"><span>RUN apt-get install -y apache2 mysql-server mysql-client php5
-</span></span><span style="display:flex;"><span>RUN apt-get install -y php5-gd php5-mysql libapache2-mod-php5 libapache2-mod-auth-mysql
-</span></span><span style="display:flex;"><span>RUN apt-get clean
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>RUN apt-get install -y zip
-</span></span><span style="display:flex;"><span>RUN set -x <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> unzip -x /data/range.zip -d /var/www/html <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> chmod <span style="color:#ae81ff">777</span> /var/www/html/range/upload/uploads <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> chmod <span style="color:#ae81ff">777</span> /var/www/html/range/xss_platform/upload
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>WORKDIR /var/www/html
-</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">80</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/data/init.sh&#34;</span><span style="color:#f92672">]</span>
-</span></span></code></pre></div><ul>
-<li>src/privileges.sql</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>reber<span style="color:#f92672">@</span>wyb:<span style="color:#f92672">~/</span>range$ cat src<span style="color:#f92672">/</span><span style="color:#66d9ef">privileges</span>.<span style="color:#66d9ef">sql</span>
-</span></span><span style="display:flex;"><span>use mysql;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UPDATE</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">SET</span> password<span style="color:#f92672">=</span>PASSWORD(<span style="color:#e6db74">&#39;root&#39;</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">USER</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>;
-</span></span><span style="display:flex;"><span>FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
-</span></span></code></pre></div><ul>
-<li>src/sources.list</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>reber@wyb:~/range$ cat src/sources.list
-</span></span><span style="display:flex;"><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
-</span></span><span style="display:flex;"><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
-</span></span></code></pre></div><ul>
-<li>src/init.sh</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>reber@wyb:~/range$ cat src/init.sh
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash</span>
-</span></span><span style="display:flex;"><span>set -x
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;start mysql&#39;</span>
-</span></span><span style="display:flex;"><span>find /var/lib/mysql -type f -exec touch <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span> <span style="color:#f92672">&amp;&amp;</span> /etc/init.d/mysql start
-</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;import rtest.sql&#39;</span>
-</span></span><span style="display:flex;"><span>mysql &lt; /var/www/html/range/rtest.sql
-</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;set password&#39;</span>
-</span></span><span style="display:flex;"><span>mysql &lt; /data/privileges.sql
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>find /var/lib/mysql -type f -exec touch <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span> <span style="color:#f92672">&amp;&amp;</span> /etc/init.d/mysql restart
-</span></span><span style="display:flex;"><span>/etc/init.d/apache2 restart
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;set success&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>/usr/bin/tail -f /dev/null
-</span></span></code></pre></div><h3 id="0x03-构建镜像">0x03 构建镜像</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#构建镜像</span>
-</span></span><span style="display:flex;"><span>reber@wyb:~/range$ docker build -t range:v1.0 .
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#运行容器，并将容器的80端口转到宿主机的8888端口</span>
-</span></span><span style="display:flex;"><span>reber@wyb:~/range$ docker run -itd --name range_test -p 8888:80 range:v1.0
-</span></span></code></pre></div><p>运行时mysql没有启动，进容器查看日志如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">root@d31d5d70fd29:/var/www/html# cat /var/log/mysql/error.log|grep &#39;ERROR&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ERROR: 1064  You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;ALTER TABLE user ADD column Show_view_priv enum(&#39;N&#39;,&#39;Y&#39;) CHARACTER SET utf8 NOT &#39; at line 1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">190110  5:04:54 [ERROR] Aborting</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ERROR: 1050  Table &#39;plugin&#39; already exists</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">190110  5:04:58 [ERROR] Aborting</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">190110  5:05:50 [ERROR] Can&#39;t open the mysql.plugin table. Please run mysql_upgrade to create it.</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">190110  5:05:51 [ERROR] Fatal error: Can&#39;t open and lock privilege tables: Got error 140 from storage engine</span>
-</span></span></code></pre></div><p>解决方案：<br>
-在启动mysql的语句前执行 <code>&quot;find /var/lib/mysql -type f -exec touch {} \;&quot;</code> (init.sh中已经加了)<br>
-参考：<a href="https://github.com/docker/for-linux/issues/72?_blank">https://github.com/docker/for-linux/issues/72</a>和<a href="https://github.com/parsa-epfl/cloudsuite/pull/99?_blank">https://github.com/parsa-epfl/cloudsuite/pull/99</a></p>
-<p>重新build容器，查看log，启动成功
-<img src="/img/post/20190110-141535.png" alt=""></p>
-<h3 id="0x04-注意事项">0x04 注意事项</h3>
-<ul>
-<li>使用缓存</li>
-</ul>
-<p>因为每条指令都会创建一个镜像，若一个镜像已经存在的话则不会重新执行指令创建新镜像，而是直接使用。<br>
-为有效的利用已存在的镜像，应保持Dockerfile的一致性，尽量在末尾修改，比如说前几行都如下设置：</p>
-<pre tabindex="0"><code>FROM ubuntu:14.04
+</code></pre><h3 id=0x01-dockerfile基本指令>0x01 Dockerfile基本指令</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>FROM &lt;image name&gt;：指定新的镜像基于什么创建<span style=color:#f92672>(</span>可以尝试使用alpine:latest和debian:jessie<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>MAINTAINER &lt;author name&gt;：设置该镜像的作者
+</span></span><span style=display:flex><span>COPY &lt;source&gt; &lt;dest&gt;：复制文件，dest要以 / 结尾
+</span></span><span style=display:flex><span>WORKDIR /path/to/workdir：相当于切换目录，对RUN、CMD、和ENTRYPOINT生效
+</span></span><span style=display:flex><span>RUN &lt;command&gt;：在shell执行命令
+</span></span><span style=display:flex><span>EXPOSE port1 port2：容器运行时监听的端口
+</span></span><span style=display:flex><span>CMD：容器默认的执行命令，Dockerfile只允许使用一次CMD命令<span style=color:#f92672>(</span>使用数组<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>ENTRYPOINT：类似于CMD，Dockerfile只允许使用一次<span style=color:#f92672>(</span>使用数组<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>ENV &lt;key&gt; &lt;value&gt;：设置环境变量
+</span></span><span style=display:flex><span>USER &lt;uid&gt;：镜像正在运行时设置一个uid，即设定启动容器的用户，默认为root
+</span></span><span style=display:flex><span>VOLUME <span style=color:#f92672>[</span><span style=color:#e6db74>&#39;/data&#39;</span><span style=color:#f92672>]</span>：授权访问从容器内到主机的目录
+</span></span></code></pre></div><p>CMD与ENTRYPOINT的区别：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#docker run ubuntu:test会执行/bin/echo &#39;this is test&#39;</span>
+</span></span><span style=display:flex><span>CMD <span style=color:#f92672>[</span><span style=color:#e6db74>&#39;/bin/echo&#39;</span>,<span style=color:#e6db74>&#39;this is test&#39;</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#docker run ubuntu:test会执行/bin/echo &#39;entrypoint test&#39;，会输出&#39;entrypoint test&#39;</span>
+</span></span><span style=display:flex><span>ENTRYPOINT <span style=color:#f92672>[</span><span style=color:#e6db74>&#39;/bin/echo&#39;</span>,<span style=color:#e6db74>&#39;entrypoint test&#39;</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#docker run ubuntu:test init即执行/etc/init.d/mysql init，CMD中的默认参数会被覆盖</span>
+</span></span><span style=display:flex><span>ENTRYPOINT <span style=color:#f92672>[</span><span style=color:#e6db74>&#39;/etc/init.d/mysql&#39;</span><span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>CMD <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;reinit&#34;</span><span style=color:#f92672>]</span><span style=color:#75715e>#CMD中的值会作为ENTRYPOINT的默认参数</span>
+</span></span></code></pre></div><h3 id=0x02-实例>0x02 实例</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>reber@wyb:~$ tree range
+</span></span><span style=display:flex><span>range
+</span></span><span style=display:flex><span>├── Dockerfile
+</span></span><span style=display:flex><span>└── src
+</span></span><span style=display:flex><span>    ├── init.sh
+</span></span><span style=display:flex><span>    ├── privileges.sql
+</span></span><span style=display:flex><span>    ├── range.zip
+</span></span><span style=display:flex><span>    └── sources.list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span> directory, <span style=color:#ae81ff>5</span> files
+</span></span></code></pre></div><ul><li>Dockerfile</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>reber@wyb:~/range$ cat Dockerfile
+</span></span><span style=display:flex><span>FROM ubuntu:14.04
+</span></span><span style=display:flex><span>MAINTAINER reber &lt;1070018473@qq.com&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>COPY ./src /data
+</span></span><span style=display:flex><span>WORKDIR /data
+</span></span><span style=display:flex><span>RUN chmod +x init.sh
+</span></span><span style=display:flex><span>RUN cp sources.list /etc/apt/sources.list <span style=color:#f92672>&amp;&amp;</span> apt-get update <span style=color:#f92672>&amp;&amp;</span> apt-get upgrade -y
+</span></span><span style=display:flex><span>RUN apt-get install -y apache2 mysql-server mysql-client php5
+</span></span><span style=display:flex><span>RUN apt-get install -y php5-gd php5-mysql libapache2-mod-php5 libapache2-mod-auth-mysql
+</span></span><span style=display:flex><span>RUN apt-get clean
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>RUN apt-get install -y zip
+</span></span><span style=display:flex><span>RUN set -x <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    <span style=color:#f92672>&amp;&amp;</span> unzip -x /data/range.zip -d /var/www/html <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    <span style=color:#f92672>&amp;&amp;</span> chmod <span style=color:#ae81ff>777</span> /var/www/html/range/upload/uploads <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    <span style=color:#f92672>&amp;&amp;</span> chmod <span style=color:#ae81ff>777</span> /var/www/html/range/xss_platform/upload
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>WORKDIR /var/www/html
+</span></span><span style=display:flex><span>EXPOSE <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>CMD <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;/data/init.sh&#34;</span><span style=color:#f92672>]</span>
+</span></span></code></pre></div><ul><li>src/privileges.sql</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>reber<span style=color:#f92672>@</span>wyb:<span style=color:#f92672>~/</span>range$ cat src<span style=color:#f92672>/</span><span style=color:#66d9ef>privileges</span>.<span style=color:#66d9ef>sql</span>
+</span></span><span style=display:flex><span>use mysql;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>UPDATE</span> <span style=color:#66d9ef>user</span> <span style=color:#66d9ef>SET</span> password<span style=color:#f92672>=</span>PASSWORD(<span style=color:#e6db74>&#39;root&#39;</span>) <span style=color:#66d9ef>where</span> <span style=color:#66d9ef>USER</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;root&#39;</span>;
+</span></span><span style=display:flex><span>FLUSH <span style=color:#66d9ef>PRIVILEGES</span>;
+</span></span></code></pre></div><ul><li>src/sources.list</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>reber@wyb:~/range$ cat src/sources.list
+</span></span><span style=display:flex><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
+</span></span><span style=display:flex><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
+</span></span><span style=display:flex><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
+</span></span><span style=display:flex><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
+</span></span><span style=display:flex><span>deb http://debian.ustc.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
+</span></span><span style=display:flex><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
+</span></span><span style=display:flex><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
+</span></span><span style=display:flex><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
+</span></span><span style=display:flex><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
+</span></span><span style=display:flex><span>deb-src http://debian.ustc.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
+</span></span></code></pre></div><ul><li>src/init.sh</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>reber@wyb:~/range$ cat src/init.sh
+</span></span><span style=display:flex><span><span style=color:#75715e>#!/bin/bash</span>
+</span></span><span style=display:flex><span>set -x
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;start mysql&#39;</span>
+</span></span><span style=display:flex><span>find /var/lib/mysql -type f -exec touch <span style=color:#f92672>{}</span> <span style=color:#ae81ff>\;</span> <span style=color:#f92672>&amp;&amp;</span> /etc/init.d/mysql start
+</span></span><span style=display:flex><span>sleep <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;import rtest.sql&#39;</span>
+</span></span><span style=display:flex><span>mysql &lt; /var/www/html/range/rtest.sql
+</span></span><span style=display:flex><span>sleep <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;set password&#39;</span>
+</span></span><span style=display:flex><span>mysql &lt; /data/privileges.sql
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>find /var/lib/mysql -type f -exec touch <span style=color:#f92672>{}</span> <span style=color:#ae81ff>\;</span> <span style=color:#f92672>&amp;&amp;</span> /etc/init.d/mysql restart
+</span></span><span style=display:flex><span>/etc/init.d/apache2 restart
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#39;set success&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/usr/bin/tail -f /dev/null
+</span></span></code></pre></div><h3 id=0x03-构建镜像>0x03 构建镜像</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#构建镜像</span>
+</span></span><span style=display:flex><span>reber@wyb:~/range$ docker build -t range:v1.0 .
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#运行容器，并将容器的80端口转到宿主机的8888端口</span>
+</span></span><span style=display:flex><span>reber@wyb:~/range$ docker run -itd --name range_test -p 8888:80 range:v1.0
+</span></span></code></pre></div><p>运行时mysql没有启动，进容器查看日志如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>root@d31d5d70fd29:/var/www/html# cat /var/log/mysql/error.log|grep &#39;ERROR&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ERROR: 1064  You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;ALTER TABLE user ADD column Show_view_priv enum(&#39;N&#39;,&#39;Y&#39;) CHARACTER SET utf8 NOT &#39; at line 1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>190110  5:04:54 [ERROR] Aborting</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>ERROR: 1050  Table &#39;plugin&#39; already exists</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>190110  5:04:58 [ERROR] Aborting</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>190110  5:05:50 [ERROR] Can&#39;t open the mysql.plugin table. Please run mysql_upgrade to create it.</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>190110  5:05:51 [ERROR] Fatal error: Can&#39;t open and lock privilege tables: Got error 140 from storage engine</span>
+</span></span></code></pre></div><p>解决方案：<br>在启动mysql的语句前执行 <code>"find /var/lib/mysql -type f -exec touch {} \;"</code> (init.sh中已经加了)<br>参考：<a href=https://github.com/docker/for-linux/issues/72?_blank>https://github.com/docker/for-linux/issues/72</a>和<a href=https://github.com/parsa-epfl/cloudsuite/pull/99?_blank>https://github.com/parsa-epfl/cloudsuite/pull/99</a></p><p>重新build容器，查看log，启动成功
+<img src=/img/post/20190110-141535.png alt></p><h3 id=0x04-注意事项>0x04 注意事项</h3><ul><li>使用缓存</li></ul><p>因为每条指令都会创建一个镜像，若一个镜像已经存在的话则不会重新执行指令创建新镜像，而是直接使用。<br>为有效的利用已存在的镜像，应保持Dockerfile的一致性，尽量在末尾修改，比如说前几行都如下设置：</p><pre tabindex=0><code>FROM ubuntu:14.04
 
 MAINTAINER reber &lt;1070018473@qq.com&gt;
 
 RUN echo &#34;deb http://archive.ubuntu.com/ubuntu precise main universe&#34; &gt; /etc/apt/sourse.list
 RUN apt-get update
 RUN apt-get upgrade -y #尽量不要upgrade
-</code></pre><ul>
-<li>使用标签</li>
-</ul>
-<p>始终使用-t参数给镜像打标签：docker build -t ubuntu:range1 .</p>
-<ul>
-<li>公开端口</li>
-</ul>
-<p>Docker镜像应该能在任何主机上运行，所以不要通过Dockerfile映射公有端口，只映射私有端口：EXPOSE 80</p>
-<ul>
-<li>CMD与ENTRYPOINT</li>
-</ul>
-<p>应该使用数组语法，两者可以结合使用</p>
-<pre tabindex="0"><code>ENTRYPOINT [&#34;/init.sh&#34;] #docker run的参数将传递给init.sh
+</code></pre><ul><li>使用标签</li></ul><p>始终使用-t参数给镜像打标签：docker build -t ubuntu:range1 .</p><ul><li>公开端口</li></ul><p>Docker镜像应该能在任何主机上运行，所以不要通过Dockerfile映射公有端口，只映射私有端口：EXPOSE 80</p><ul><li>CMD与ENTRYPOINT</li></ul><p>应该使用数组语法，两者可以结合使用</p><pre tabindex=0><code>ENTRYPOINT [&#34;/init.sh&#34;] #docker run的参数将传递给init.sh
 CMD [&#34;--help&#34;] #若没有参数传递则显示帮助文档
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

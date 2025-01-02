@@ -1,94 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>利用 EtterCap 进行中间人攻击 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>利用 EtterCap 进行中间人攻击</h1>
-      
-<div class="post-meta">
-    <time>2016-04-19</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA">中间人</a>,<a href="/tags/tools">tools</a>)
-</div>
-
-      <div><h3 id="0x00-准备">0x00 准备</h3>
-<pre tabindex="0"><code>操作系统：CentOS  
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>利用 EtterCap 进行中间人攻击 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>利用 EtterCap 进行中间人攻击</h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%B8%AD%E9%97%B4%E4%BA%BA>中间人</a>,<a href=/tags/tools>tools</a>)</div><div><h3 id=0x00-准备>0x00 准备</h3><pre tabindex=0><code>操作系统：CentOS  
 首先，ettercap 安装时需要 4 个依赖包，而且安装包里面也已经提供了  
 执行：sudo yum groupinstall &#34;Development tools&#34;    #源码安装软件就需要安装这个
 使用 wget 下载 ettercap 源码
-</code></pre><h3 id="0x01-查看需要的依赖项">0x01 查看需要的依赖项</h3>
-<pre tabindex="0"><code>[wyb@localhost ettercap-0.8.2]$ vim INSTALL
+</code></pre><h3 id=0x01-查看需要的依赖项>0x01 查看需要的依赖项</h3><pre tabindex=0><code>[wyb@localhost ettercap-0.8.2]$ vim INSTALL
 
  #### Bundled libraries  
  Ettercap now bundles the following libraries with the source distribution:  
@@ -99,42 +25,26 @@
 [wyb@localhost ettercap-0.8.2]$ cd bundled_deps/  
 [wyb@localhost bundled_deps]$ ls  
 check  curl  libnet  luajit
-</code></pre><h3 id="0x02-安装依赖包">0x02 安装依赖包</h3>
-<ol>
-<li>安装check</li>
-</ol>
-<pre tabindex="0"><code>[wyb@localhost check]$ cd check-0.9.14
+</code></pre><h3 id=0x02-安装依赖包>0x02 安装依赖包</h3><ol><li>安装check</li></ol><pre tabindex=0><code>[wyb@localhost check]$ cd check-0.9.14
 [wyb@localhost check-0.9.14]$ ls
 [wyb@localhost check-0.9.14]$ ./configure 
 [wyb@localhost check-0.9.14]$ make
 [wyb@localhost check-0.9.14]$ sudo make install
-</code></pre><ol start="2">
-<li>安装curl</li>
-</ol>
-<pre tabindex="0"><code>[wyb@localhost check-0.9.14]$ cd ..
+</code></pre><ol start=2><li>安装curl</li></ol><pre tabindex=0><code>[wyb@localhost check-0.9.14]$ cd ..
 [wyb@localhost curl-7.41.0]$ cd curl/
 [wyb@localhost curl-7.41.0]$ cd curl-7.41.0
 [wyb@localhost curl-7.41.0]$ make
 [wyb@localhost curl-7.41.0]$ sudo make install
-</code></pre><ol start="3">
-<li>安装libnet</li>
-</ol>
-<pre tabindex="0"><code>[wyb@localhost curl-7.41.0]$ cd ../../libnet/
+</code></pre><ol start=3><li>安装libnet</li></ol><pre tabindex=0><code>[wyb@localhost curl-7.41.0]$ cd ../../libnet/
 [wyb@localhost libnet]$ tar -zxvf libnet-1.1.6.tar.gz
 [wyb@localhost libnet]$ cd libnet-1.1.6
 [wyb@localhost libnet-1.1.6]$ ./configure 
 [wyb@localhost libnet-1.1.6]$ make
 [wyb@localhost libnet-1.1.6]$ sudo make install
-</code></pre><ol start="4">
-<li>安装luajit</li>
-</ol>
-<pre tabindex="0"><code>[wyb@localhost luajit]$ tar -zxvf LuaJIT-2.0.3.tar.gz 
+</code></pre><ol start=4><li>安装luajit</li></ol><pre tabindex=0><code>[wyb@localhost luajit]$ tar -zxvf LuaJIT-2.0.3.tar.gz 
 [wyb@localhost luajit]$ make
 [wyb@localhost luajit]$ sudo make install
-</code></pre><ol start="5">
-<li>
-<p>安装ettercap</p>
-<pre><code> [wyb@localhost ettercap-0.8.2]$ cd ettercap-0.8.2 
+</code></pre><ol start=5><li><p>安装ettercap</p><pre><code> [wyb@localhost ettercap-0.8.2]$ cd ettercap-0.8.2 
  [wyb@localhost ettercap-0.8.2]$ mkdir build                   
  [wyb@localhost ettercap-0.8.2]$ cd build  
  [wyb@localhost build]$ cmake ../    *cmake ettercap时提示未安装cmake*  
@@ -251,38 +161,12 @@ check  curl  libnet  luajit
  ettercap 0.8.2 copyright 2001-2015 Ettercap Development Team  
  ettercap 0.8.2  
  [wyb@localhost ~]$
-</code></pre>
-</li>
-</ol>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></li></ol></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,166 +1,876 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Linux on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/categories/Linux/</link>
-    <description>Recent content in Linux on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>使用 docker-compose 构造 LAMP 环境</title>
-      <link>https://wyb0.com/posts/2018/docker-compose-build-lamp/</link>
-      <pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/docker-compose-build-lamp/</guid>
-      <description>0x00 实现功能 使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存</description>
-    </item>
-    <item>
-      <title>Docker Compose</title>
-      <link>https://wyb0.com/posts/2018/docker-compose/</link>
-      <pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/docker-compose/</guid>
-      <description>0x00 关于docker compose 可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，dock</description>
-    </item>
-    <item>
-      <title>Docker 之数据卷</title>
-      <link>https://wyb0.com/posts/2017/docker-volume/</link>
-      <pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-volume/</guid>
-      <description>0x00 为什么使用数据卷 Docker镜像是由多个文件系统(只读层)叠加而成的。 当一个容器启动时Docker会加载只读镜像层并在</description>
-    </item>
-    <item>
-      <title>Docker 之 Dockerfile</title>
-      <link>https://wyb0.com/posts/2017/docker-dockerfile/</link>
-      <pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-dockerfile/</guid>
-      <description>操作系统：macOS Sierra 10.12.6 Docker版本：Docker version 18.09.0, build 4d60db4 0x00 Dockerfile Dockerfile里面其实是一条条的指令，Docke</description>
-    </item>
-    <item>
-      <title>Docker 之镜像与容器</title>
-      <link>https://wyb0.com/posts/2017/docker-image-and-container/</link>
-      <pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-image-and-container/</guid>
-      <description>操作系统：Ubuntu14.04.1 Docker版本：Docker version 17.06.0-ce, build 02c1d87 0x00 镜像操作 下载镜像 #一般镜像、容器的id和na</description>
-    </item>
-    <item>
-      <title>Docker 初识</title>
-      <link>https://wyb0.com/posts/2017/docker-basis/</link>
-      <pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/docker-basis/</guid>
-      <description>0x00 关于Docker Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。 Dock</description>
-    </item>
-    <item>
-      <title>在 vps 上搭建 Shadowsocks</title>
-      <link>https://wyb0.com/posts/2017/vps-set-up-shadowsocks/</link>
-      <pubDate>Fri, 10 Mar 2017 10:34:40 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/vps-set-up-shadowsocks/</guid>
-      <description>0x01 安装与配置 环境：Ubuntu 14.04.1 LTS reber@localhost:~$ sudo apt-get update reber@localhost:~$ python --version Python 2.7.6 reber@localhost:~$ sudo apt-get install python-gevent python-pip reber@localhost:~$ sudo pip install shadowsocks reber@localhost:~$ vim /home/reber/shadowsocks.json { &amp;#34;server&amp;#34;:&amp;#</description>
-    </item>
-    <item>
-      <title>Tmux 的使用</title>
-      <link>https://wyb0.com/posts/2016/tmux-usage/</link>
-      <pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/tmux-usage/</guid>
-      <description>0x00 Tmux 的快捷键前缀 在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。 默认情况下，Tmux 的快捷键前缀是 Ctr</description>
-    </item>
-    <item>
-      <title>SSH 免密登录及 SSH 隧道</title>
-      <link>https://wyb0.com/posts/2016/linux-ssh-connect/</link>
-      <pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid>
-      <description>0x00 SSH相关选项 -V 显示版本 -f 输入密码后进入后台模式 -N 不执行远程命令，一般与-f连用，用于端口转发 -C 压缩传输的数据，网速快</description>
-    </item>
-    <item>
-      <title>iptables 简单配置 DMZ</title>
-      <link>https://wyb0.com/posts/2016/iptables-configure-dmz/</link>
-      <pubDate>Tue, 05 Jul 2016 09:56:35 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/iptables-configure-dmz/</guid>
-      <description>0x00 要求 内网可以访问外网 内网可以访问DMZ区 外网不能访问内网 外网能访问DMZ区的服务 DMZ区不能访问内网 DMZ区不能主动访</description>
-    </item>
-    <item>
-      <title>Ubuntu 下使用 ShadowSocks</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</link>
-      <pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</guid>
-      <description>环境：Ubuntu14.04 0x00 安装shadowsocks-qt5 sudo apt-get update sudo apt-get python-software-properties software-properties-common sudo add-apt-repository ppa:hzwhuang/ss-qt5</description>
-    </item>
-    <item>
-      <title>conky 配置</title>
-      <link>https://wyb0.com/posts/2016/conky-configuration/</link>
-      <pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/conky-configuration/</guid>
-      <description>0x00 效果 使用软件conky可以在linux上看到系统的运行状态，效果如下： 0x01 安装与配置 先安装conky： sudo apt-get install conky 在/hom</description>
-    </item>
-    <item>
-      <title>Ubuntu 下安装 sublime text 3</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</link>
-      <pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</guid>
-      <description>环境：ubuntu14.4 0x00 安装 添加Sublime Text 3的仓库 sudo add-apt-repository ppa:webupd8team/sublime-text-3 更新软件库 sudo apt-get update 安装Sublime Text 3 sudo apt-get install sublime-text-installer 0x01 解决不</description>
-    </item>
-    <item>
-      <title>Ubuntu 搭建 LAMP</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-build-lamp/</link>
-      <pubDate>Sat, 07 May 2016 21:37:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-build-lamp/</guid>
-      <description>0x00 环境 我是在虚拟机中安装14.04.4版的Ubuntu 下载Ubuntu14.04.4 0x01 配源或选择最快的更新服务器 选择最快</description>
-    </item>
-    <item>
-      <title>Linux 之文本处理软件 awk</title>
-      <link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link>
-      <pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid>
-      <description>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。 0x00 awk 若有一个需要重新格式化的字典test.tx</description>
-    </item>
-    <item>
-      <title>Linux 之文本处理</title>
-      <link>https://wyb0.com/posts/2016/linux-text-processing/</link>
-      <pubDate>Wed, 20 Apr 2016 07:58:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-text-processing/</guid>
-      <description>这里介绍3种方式：awk、grep、sed 0x00 awk处理文本(最常用) 作用：awk对数据以行分析并生成报告时显得很强大，它</description>
-    </item>
-    <item>
-      <title>Linux 之软件的安装</title>
-      <link>https://wyb0.com/posts/2016/linux-software-installation/</link>
-      <pubDate>Tue, 19 Apr 2016 19:07:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-software-installation/</guid>
-      <description>Linux上的软件安装可以分为三种方式： 0x00 yum安装 yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除</description>
-    </item>
-    <item>
-      <title>Linux 之基础命令</title>
-      <link>https://wyb0.com/posts/2016/linux-basic-command/</link>
-      <pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-basic-command/</guid>
-      <description>0x00 ls：显示文件 [wyb@localhost tmp]$ ls a a.txt [wyb@localhost tmp]$ ls -l total 4 drwxr-xr-x. 2 wyb root 4096 Apr 17 18:23 a -rw-r--r--. 1 wyb root 0 Apr 17 18:23 a.txt [wyb@localhost tmp]$ ls -a . .. a a.txt .esd-500 .ICE-unix [wyb@localhost tmp]$ ls -al total 20 drwxrwxrwt. 5 root root 4096 Apr 17</description>
-    </item>
-    <item>
-      <title>Linux 之服务和计划任务</title>
-      <link>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</link>
-      <pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</guid>
-      <description>0x00 服务： 在后台运行的软件就叫服务，参数一般为：start/stop/restart apache启动后默认降权 service httpd star</description>
-    </item>
-    <item>
-      <title>Linux 之用户和用户组</title>
-      <link>https://wyb0.com/posts/2016/linux-user/</link>
-      <pubDate>Sun, 17 Apr 2016 20:48:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-user/</guid>
-      <description>0x01 新建用户 环境：Ubuntu 14.04.4 Step1：添加新用户 useradd -r -m -s /bin/bash 用户名 Step2:配置新用户密码 passwd 用户名 Step3：给新添</description>
-    </item>
-    <item>
-      <title>Linux 之权限</title>
-      <link>https://wyb0.com/posts/2016/linux-permission-settings/</link>
-      <pubDate>Sun, 17 Apr 2016 10:03:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-permission-settings/</guid>
-      <description>主要有三种参数：rwx 对于文件来说：分别是读/写/执行 对于目录来说：r读目录结构；w操作目录结构；x进入目录 如：drwx</description>
-    </item>
-    <item>
-      <title>Linux 之 vim</title>
-      <link>https://wyb0.com/posts/2016/linux-vim/</link>
-      <pubDate>Fri, 15 Apr 2016 21:03:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-vim/</guid>
-      <description>0x00 Vim的安装及配置： 安装vim yum install vim 配置文件的位置 在目录 /etc/ 下面，有个名为vimrc的 文件， 这是系统中公共的vim配置文</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Reber's Blog</title><link>https://wyb0.com/categories/Linux/</link><description>Recent content in Linux on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 15 Dec 2018 22:51:04 +0000</lastBuildDate><atom:link href="https://wyb0.com/categories/Linux/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 docker-compose 构造 LAMP 环境</title><link>https://wyb0.com/posts/2018/docker-compose-build-lamp/</link><pubDate>Sat, 15 Dec 2018 22:51:04 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose-build-lamp/</guid><description>&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
+&lt;p>使用docker-compose构造LAMP环境，其中mysql数据库、mysql配置文件、网站文件均持久化存储到本机。&lt;/p></description></item><item><title>Docker Compose</title><link>https://wyb0.com/posts/2018/docker-compose/</link><pubDate>Mon, 19 Nov 2018 20:10:23 +0000</pubDate><guid>https://wyb0.com/posts/2018/docker-compose/</guid><description>&lt;h3 id="0x00-关于docker-compose">0x00 关于docker compose&lt;/h3>
+&lt;p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。&lt;/p></description></item><item><title>Docker 之数据卷</title><link>https://wyb0.com/posts/2017/docker-volume/</link><pubDate>Tue, 19 Sep 2017 10:35:09 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-volume/</guid><description>&lt;h3 id="0x00-为什么使用数据卷">0x00 为什么使用数据卷&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Docker镜像是由多个文件系统(只读层)叠加而成的。
+当一个容器启动时Docker会加载只读镜像层并在其上添加一个读写层。
+读写层中的修改在镜像重新启动后会全部丢失。
+在Docker中，只读层及在顶部的读写层的组合被称为Union File System(联合文件系统)。
+
+如果想要保存数据，则可以使用数据卷来在容器外面保存数据，主要为如下两种方式：
+* 使用docker run运行容器时指定数据卷
+* 在Dockerfile中直接指定数据卷
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-通过docker-run挂载volume使用-v参数">0x01 通过docker run挂载Volume(使用-v参数)&lt;/h3>
+&lt;ul>
+&lt;li>不指定主机目录&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#运行完后容器中的根目录下就会多个data文件夹，这个就是数据卷&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker run -itd --name v_test -v /data debian:jessie /bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root@d145e8c6f874:/# ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bin data etc lib media opt root sbin sys usr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>boot dev home lib64 mnt proc run srv tmp var
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root@d145e8c6f874:/# exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#查看数据卷的对应位置，前者是宿主机的位置，后者是容器中的位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker inspect -f &lt;span style="color:#f92672">{{&lt;/span>.Mounts&lt;span style="color:#f92672">}}&lt;/span> v_test
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[{&lt;/span>volume 8f39f7de0f851e0bfbcfdd4561fbb20484f01f864ce00a159b09bdcdf743e068 /var/lib/docker/volumes/8f39f7de0f851e0bfbcfdd4561fbb20484f01f864ce00a159b09bdcdf743e068/_data /data local true &lt;span style="color:#f92672">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>指定主机目录(只能通过-v参数实现，Dockerfile不行)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 本机的/home/var/docker_data和容器的/data对应&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker run -itd -v /home/var/docker_data:/data debian:jessie /bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root@d853c4ca7632:/# exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>exit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker inspect -f &lt;span style="color:#f92672">{{&lt;/span>.Mounts&lt;span style="color:#f92672">}}&lt;/span> d853c4ca7632
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[{&lt;/span>bind /home/var/docker_data /data true rprivate&lt;span style="color:#f92672">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker inspect -f &lt;span style="color:#f92672">{{&lt;/span>.Mounts&lt;span style="color:#f92672">}}&lt;/span> d853c4ca7632
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[{&lt;/span>bind /home/var/docker_data /data true rprivate&lt;span style="color:#f92672">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre tabindex="0">&lt;code># 本机创建文件，容器中就会同时出现
+#宿主机创建文件
+$ sudo touch /home/var/docker_data/a.txt
+
+#容器可以查看到文件同样被创建
+root@8e1ccd30fe33:/# ls data/
+a.txt
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-通过dockerfile声明volume">0x02 通过Dockerfile声明Volume&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>FROM debian:jessie VOLUME /data &lt;span style="color:#75715e">#之后的任何命令都不能更改Volume的任何东西&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x03-数据共享">0x03 数据共享&lt;/h3>
+&lt;p>使用&amp;ndash;volumes-from参数项即可访问另外一个容器的Volume。&lt;br>
+因为数据容器不启动也可以被其它容器访问，所以一般不推荐启动数据容器。&lt;/p></description></item><item><title>Docker 之 Dockerfile</title><link>https://wyb0.com/posts/2017/docker-dockerfile/</link><pubDate>Fri, 18 Aug 2017 18:05:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-dockerfile/</guid><description>&lt;p>操作系统：macOS Sierra 10.12.6&lt;br>
+Docker版本：Docker version 18.09.0, build 4d60db4&lt;/p>
+&lt;h3 id="0x00-dockerfile">0x00 Dockerfile&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Dockerfile里面其实是一条条的指令，Docker会把Dockerfile的指令翻译为linux命令，
+每一条指令都会创建一个镜像，下一条指令将在这个镜像的基础上进行修改操作后再生成一个镜像。
+让你可以对下载好的镜像进行一些操作(比如安装软件、向镜像复制文件等)，从而构造定制化的镜像。
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-dockerfile基本指令">0x01 Dockerfile基本指令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>FROM &amp;lt;image name&amp;gt;：指定新的镜像基于什么创建&lt;span style="color:#f92672">(&lt;/span>可以尝试使用alpine:latest和debian:jessie&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MAINTAINER &amp;lt;author name&amp;gt;：设置该镜像的作者
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>COPY &amp;lt;source&amp;gt; &amp;lt;dest&amp;gt;：复制文件，dest要以 / 结尾
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>WORKDIR /path/to/workdir：相当于切换目录，对RUN、CMD、和ENTRYPOINT生效
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RUN &amp;lt;command&amp;gt;：在shell执行命令
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>EXPOSE port1 port2：容器运行时监听的端口
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>CMD：容器默认的执行命令，Dockerfile只允许使用一次CMD命令&lt;span style="color:#f92672">(&lt;/span>使用数组&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ENTRYPOINT：类似于CMD，Dockerfile只允许使用一次&lt;span style="color:#f92672">(&lt;/span>使用数组&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ENV &amp;lt;key&amp;gt; &amp;lt;value&amp;gt;：设置环境变量
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>USER &amp;lt;uid&amp;gt;：镜像正在运行时设置一个uid，即设定启动容器的用户，默认为root
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>VOLUME &lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/data&amp;#39;&lt;/span>&lt;span style="color:#f92672">]&lt;/span>：授权访问从容器内到主机的目录
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>CMD与ENTRYPOINT的区别：&lt;/p></description></item><item><title>Docker 之镜像与容器</title><link>https://wyb0.com/posts/2017/docker-image-and-container/</link><pubDate>Fri, 18 Aug 2017 14:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-image-and-container/</guid><description>&lt;p>操作系统：Ubuntu14.04.1&lt;br>
+Docker版本：Docker version 17.06.0-ce, build 02c1d87&lt;/p>
+&lt;h3 id="0x00-镜像操作">0x00 镜像操作&lt;/h3>
+&lt;ul>
+&lt;li>下载镜像&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#一般镜像、容器的id和name可以互换&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker search ubuntu &lt;span style="color:#75715e">#从公共registry搜索镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker pull ubuntu &lt;span style="color:#75715e">#从公共registry下载镜像&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ docker pull ubuntu:14.04
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>查看当前系统镜像&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker images
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>REPOSITORY TAG IMAGE ID CREATED SIZE
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ubuntu 14.04 7e4b16ae8b23 &lt;span style="color:#ae81ff">11&lt;/span> days ago 188MB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ubuntu latest 1d9c17228a9e &lt;span style="color:#ae81ff">11&lt;/span> days ago 86.7MB
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>查看镜像层组成&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker history ubuntu:14.04 &lt;span style="color:#75715e"># ubuntu:14.04可以用7e4b16ae8b23替代，用id和images_name:tag效果一样&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>删除镜像(删除镜像前要先删除上面的容器)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>$ docker rmi ubuntu:latest &lt;span style="color:#75715e"># 也可docker rmi 1d9c17228a9e&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-容器操作">0x01 容器操作&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>运行容器(exit后容器就停止了)&lt;/p></description></item><item><title>Docker 初识</title><link>https://wyb0.com/posts/2017/docker-basis/</link><pubDate>Tue, 15 Aug 2017 22:16:35 +0000</pubDate><guid>https://wyb0.com/posts/2017/docker-basis/</guid><description>&lt;h3 id="0x00-关于docker">0x00 关于Docker&lt;/h3>
+&lt;ul>
+&lt;li>Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。&lt;/li>
+&lt;li>Docker中运行应用的是容器，容器的创建和销毁在秒级就能完成。&lt;/li>
+&lt;li>Docker使用了AUFS，可以以递进的方式创建&amp;quot;VM&amp;quot;，一个&amp;quot;VM&amp;quot;叠在另一个&amp;quot;VM&amp;quot;上，就像使用git增量开发一样。&lt;/li>
+&lt;li>软件的运行环境（image）和软件本身（container）分离，和数据也分离。&lt;/li>
+&lt;/ul>
+&lt;p>学习Docker需要了解4个概念：镜像、容器、数据卷、链接&lt;/p></description></item><item><title>在 vps 上搭建 Shadowsocks</title><link>https://wyb0.com/posts/2017/vps-set-up-shadowsocks/</link><pubDate>Fri, 10 Mar 2017 10:34:40 +0000</pubDate><guid>https://wyb0.com/posts/2017/vps-set-up-shadowsocks/</guid><description>&lt;p>&lt;img src="https://wyb0.com/img/anime/anime005.jpg" alt="某科学的超电磁炮">&lt;/p>
+&lt;h3 id="0x01-安装与配置">0x01 安装与配置&lt;/h3>
+&lt;p>环境：Ubuntu 14.04.1 LTS&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>reber@localhost:~$ sudo apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>reber@localhost:~$ python --version
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Python 2.7.6
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>reber@localhost:~$ sudo apt-get install python-gevent python-pip
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>reber@localhost:~$ sudo pip install shadowsocks
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>reber@localhost:~$ vim /home/reber/shadowsocks.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;server&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;服务器 IP 地址&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># 服务器 IP (IPv4/IPv6)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;server_port&amp;#34;&lt;/span>:8388, &lt;span style="color:#75715e"># 监听的服务器端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;local_address&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;127.0.0.1&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># 本地监听的 IP 地址&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;local_port&amp;#34;&lt;/span>:1080, &lt;span style="color:#75715e"># 本地端端口&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;mypassword&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># 密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#&amp;#34;port_password&amp;#34;:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#34;40001&amp;#34;: &amp;#34;password1&amp;#34;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#34;40002&amp;#34;: &amp;#34;password2&amp;#34;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#34;40003&amp;#34;: &amp;#34;password3&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#},&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#&amp;#34;_comment&amp;#34;:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#{&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#34;40001&amp;#34;: &amp;#34;xiaoming&amp;#34;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#34;40002&amp;#34;: &amp;#34;lilei&amp;#34;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># &amp;#34;40003&amp;#34;: &amp;#34;mike&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;timeout&amp;#34;&lt;/span>:300, &lt;span style="color:#75715e"># 超时时间（秒）&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;method&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;aes-256-cfb&amp;#34;&lt;/span>, &lt;span style="color:#75715e"># 加密方式&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 若Linux内核在3.7+，可开启fast_open降低延迟&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># 开启方法：echo 3 &amp;gt; /proc/sys/net/ipv4/tcp_fastopen&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;fast_open&amp;#34;&lt;/span>: false, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;workers&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#75715e"># works数量，默认为 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>reber@localhost:~$ sudo apt-get install python-m2crypto
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-服务端启动">0x02 服务端启动&lt;/h3>
+&lt;pre tabindex="0">&lt;code># 前台运行
+reber@localhost:~$ sudo ssserver -c /home/reber/shadowsocks.json
+# 后台运行
+reber@localhost:~$ sudo nohup ssserver -c /home/reber/shadowsocks.json &amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
+# 关闭服务
+reber@localhost:~$ sudo killall ssserver 
+&lt;/code>&lt;/pre>&lt;h4 id="0x03-本地使用">0x03 本地使用&lt;/h4>
+&lt;blockquote>
+&lt;p>添加如下配置
+&lt;img src="https://wyb0.com/img/post/use_ss.png" alt="使用Shadowsocks">&lt;/p></description></item><item><title>Tmux 的使用</title><link>https://wyb0.com/posts/2016/tmux-usage/</link><pubDate>Sat, 10 Sep 2016 16:24:18 +0000</pubDate><guid>https://wyb0.com/posts/2016/tmux-usage/</guid><description>&lt;h3 id="0x00-tmux-的快捷键前缀">0x00 Tmux 的快捷键前缀&lt;/h3>
+&lt;p>在 Tmux 下想要使用快捷键时，需要先按下快捷键前缀，然后再按下快捷键。&lt;/p>
+&lt;p>默认情况下，Tmux 的快捷键前缀是 Ctrl+b，即所有的命令都以 Ctrl+b 开头。&lt;/p></description></item><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.com/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>-V 显示版本&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-f 输入密码后进入后台模式&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item><item><title>iptables 简单配置 DMZ</title><link>https://wyb0.com/posts/2016/iptables-configure-dmz/</link><pubDate>Tue, 05 Jul 2016 09:56:35 +0000</pubDate><guid>https://wyb0.com/posts/2016/iptables-configure-dmz/</guid><description>&lt;h3 id="0x00-要求">0x00 要求&lt;/h3>
+&lt;ol>
+&lt;li>内网可以访问外网&lt;/li>
+&lt;li>内网可以访问DMZ区&lt;/li>
+&lt;li>外网不能访问内网&lt;/li>
+&lt;li>外网能访问DMZ区的服务&lt;/li>
+&lt;li>DMZ区不能访问内网&lt;/li>
+&lt;li>DMZ区不能主动访问外网&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x01-拓扑">0x01 拓扑&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/iptables_dmz_topology.png" alt="50">&lt;/p></description></item><item><title>Ubuntu 下使用 ShadowSocks</title><link>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</link><pubDate>Mon, 13 Jun 2016 09:14:45 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-use-shadowsocks/</guid><description>&lt;p>环境：Ubuntu14.04&lt;/p>
+&lt;h3 id="0x00-安装shadowsocks-qt5">0x00 安装shadowsocks-qt5&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>sudo apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get python-software-properties software-properties-common
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo add-apt-repository ppa:hzwhuang/ss-qt5（添加源）
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get update （更新你的软件库）
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install shadowsocks-qt5 &lt;span style="color:#f92672">(&lt;/span>正式安装&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-配置客户端">0x01 配置客户端&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/ss_open_client.png" alt="打开shadowsocks客户端">&lt;/p></description></item><item><title>conky 配置</title><link>https://wyb0.com/posts/2016/conky-configuration/</link><pubDate>Sat, 04 Jun 2016 20:26:21 +0000</pubDate><guid>https://wyb0.com/posts/2016/conky-configuration/</guid><description>&lt;h3 id="0x00-效果">0x00 效果&lt;/h3>
+&lt;p>使用软件conky可以在linux上看到系统的运行状态，效果如下：
+&lt;img src="https://wyb0.com/img/post/Conky.png" alt="conky效果图">&lt;/p>
+&lt;h3 id="0x01-安装与配置">0x01 安装与配置&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>先安装conky：&lt;br>
+sudo apt-get install conky&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在/home/username/下创建文件.conkyrc&lt;/p></description></item><item><title>Ubuntu 下安装 sublime text 3</title><link>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</link><pubDate>Sun, 08 May 2016 00:04:42 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-insatll-sublime-text3/</guid><description>&lt;p>环境：ubuntu14.4&lt;/p>
+&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>添加Sublime Text 3的仓库&lt;br>
+sudo add-apt-repository ppa:webupd8team/sublime-text-3&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更新软件库&lt;br>
+sudo apt-get update&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>安装Sublime Text 3&lt;br>
+sudo apt-get install sublime-text-installer&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x01-解决不能输入中文的问题">0x01 解决不能输入中文的问题&lt;/h3>
+&lt;ol>
+&lt;li>新建sublime_imfix.c(位于～目录)，写入如下内容&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-c" data-lang="c">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#include&lt;/span> &lt;span style="color:#75715e">&amp;lt;gtk/gtkimcontext.h&amp;gt;&lt;/span>&lt;span style="color:#75715e">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">gtk_im_context_set_client_window&lt;/span> (GtkIMContext &lt;span style="color:#f92672">*&lt;/span>context,GdkWindow &lt;span style="color:#f92672">*&lt;/span>window)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>GtkIMContextClass &lt;span style="color:#f92672">*&lt;/span>klass;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">g_return_if_fail&lt;/span> (&lt;span style="color:#a6e22e">GTK_IS_IM_CONTEXT&lt;/span> (context));
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>klass &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GTK_IM_CONTEXT_GET_CLASS&lt;/span> (context);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> (klass&lt;span style="color:#f92672">-&amp;gt;&lt;/span>set_client_window)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> klass&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">set_client_window&lt;/span> (context, window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">g_object_set_data&lt;/span>(&lt;span style="color:#a6e22e">G_OBJECT&lt;/span>(context),&lt;span style="color:#e6db74">&amp;#34;window&amp;#34;&lt;/span>,window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span>(&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">GDK_IS_WINDOW&lt;/span> (window))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span>;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> width &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">gdk_window_get_width&lt;/span>(window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> height &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">gdk_window_get_height&lt;/span>(window);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span>(width &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> height &lt;span style="color:#f92672">!=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">gtk_im_context_focus_in&lt;/span>(context);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>将上一步的代码编译成共享库libsublime-imfix.so&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>cd ~ 
+sudo apt-get install gtk+-2.0 
+gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>
+&lt;p>将libsublime-imfix.so拷贝到sublime_text所在文件夹&lt;br>
+&lt;code>sudo mv libsublime-imfix.so /opt/sublime_text/&lt;/code>&lt;/p></description></item><item><title>Ubuntu 搭建 LAMP</title><link>https://wyb0.com/posts/2016/ubuntu-build-lamp/</link><pubDate>Sat, 07 May 2016 21:37:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-build-lamp/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;p>我是在虚拟机中安装14.04.4版的Ubuntu &lt;a href="http://mirrors.163.com/ubuntu-releases/14.04.4/ubuntu-14.04.4-desktop-amd64.iso">下载Ubuntu14.04.4&lt;/a>&lt;/p>
+&lt;h3 id="0x01-配源或选择最快的更新服务器">0x01 配源或选择最快的更新服务器&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>选择最快的更新服务器:&lt;br>
+System Settings &amp;ndash;&amp;gt; Software &amp;amp; Updates &amp;ndash;&amp;gt; Download from:other &amp;ndash;&amp;gt; Select Best Server &amp;ndash;&amp;gt; Choose Serve &amp;ndash;&amp;gt; Close&lt;/p></description></item><item><title>Linux 之文本处理软件 awk</title><link>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</link><pubDate>Wed, 20 Apr 2016 15:54:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing-software-awk/</guid><description>&lt;p>awk默认是以行为单位处理文本的，对文本中的每一行都执行后面 &amp;ldquo;{ }&amp;rdquo; 中的语句。&lt;/p>
+&lt;h3 id="0x00-awk">0x00 awk&lt;/h3>
+&lt;ul>
+&lt;li>若有一个需要重新格式化的字典test.txt(用户名、密码、地址)：&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>xiaosan sadasdw jiaozuo
+234wer asdfasd asdas
+1111 aaaa cccc
+2222 aaaa degd
+1111 aaaa cccc
+3333 aaaa dfger
+21asd sdfsd sadasd
+dwqx asds sasdfcv
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>要求：&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1.里面有重复数据，使用命令去重
+2.提取出用户名和密码 每一行前面加上id数字，递增。
+3.只提取出密码作为爆破字典
+4.某些公司都是一个公司前缀+姓名简写，所以为用户名一栏全部改为uv_用户名
+5.提取出密码一列，有些密码爆破成功率高，所以增加一列，标出密码出现次数
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-去重">0x01 去重&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39;
+$ cat test.txt | uniq #作用和上面命令相同
+xiaosan sadasdw jiaozuo
+234wer asdfasd asdas
+1111 aaaa cccc
+2222 aaaa degd
+3333 aaaa dfger
+21asd sdfsd sadasd
+dwqx asds sasdfcv
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-去重添加id">0x02 去重、添加id&lt;/h3>
+&lt;pre tabindex="0">&lt;code>一般字典不需要id、user、pass等标示符，这里只是为了便于观看
+
+$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print &amp;#34;id:&amp;#34;NR&amp;#34;\tuser:&amp;#34;$1&amp;#34;\tpass:&amp;#34;$2&amp;#34;\taddress:&amp;#34;$3}&amp;#39; | column -t #最后一个命令可以将列对齐
+id:1 user:aosan pass:sadasdw address:jiaozuo
+id:2 user:234wer pass:asdfasd address:asdas
+id:3 user:1111 pass:aaaa address:cccc
+id:4 user:2222 pass:aaaa address:degd
+id:5 user:3333 pass:aaaa address:dfger
+id:6 user:21asd pass:sdfsd address:sadasd
+id:7 user:dwqx pass:asds address:sasdfcv
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-去重添加id添加公司前缀">0x03 去重、添加id、添加公司前缀&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print &amp;#34;id:&amp;#34;NR&amp;#34;\tuser:uv_&amp;#34;$1&amp;#34;\tpass:&amp;#34;$2&amp;#34;\taddress:&amp;#34;$3}&amp;#39;
+id:1 user:uv_aosan pass:sadasdw address:jiaozuo
+id:2 user:uv_234wer pass:asdfasd address:asdas
+id:3 user:uv_1111 pass:aaaa address:cccc
+id:4 user:uv_2222 pass:aaaa address:degd
+id:5 user:uv_3333 pass:aaaa address:dfger
+id:6 user:uv_21asd pass:sdfsd address:sadasd
+id:7 user:uv_dwqx pass:asds address:sasdfcv
+&lt;/code>&lt;/pre>&lt;h3 id="0x04-去重然后输出密码">0x04 去重然后输出密码&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print &amp;#34;pass:&amp;#34;$2}&amp;#39;
+pass:sadasdw
+pass:asdfasd
+pass:aaaa
+pass:aaaa
+pass:aaaa
+pass:sdfsd
+pass:asds
+&lt;/code>&lt;/pre>&lt;h3 id="0x05-输出密码得到密码出现次数">0x05 输出密码、得到密码出现次数&lt;/h3>
+&lt;pre tabindex="0">&lt;code>下面的&amp;#39;a[$1]++&amp;#39;是按第一列来去重的,若有两条数据只有第一列重复则成功，可以用$0按行来去重
+$ cat test.txt | awk &amp;#39;!a[$1]++&amp;#39; | awk -F &amp;#39;\t&amp;#39; &amp;#39;{print $2}&amp;#39; | awk &amp;#39;{a[$1]++} END {for (j in a) print a[j],j}&amp;#39;
+1 sadasdw
+1 sdfsd
+1 asdfasd
+1 asds
+3 aaaa
+
+uniq 只能去除挨着的重复数据，所以先sort升序排序，然后uniq -c统计重复，再sort -r降序排序
+cat test.txt | awk &amp;#39;{print $2}&amp;#39; | sed &amp;#39;1d&amp;#39; |sort | uniq -c |sort -r
+&lt;/code>&lt;/pre>&lt;h3 id="0x06-其他">0x06 其他：&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>对!a[$1]++的解释如下：&lt;/p></description></item><item><title>Linux 之文本处理</title><link>https://wyb0.com/posts/2016/linux-text-processing/</link><pubDate>Wed, 20 Apr 2016 07:58:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-text-processing/</guid><description>&lt;p>这里介绍3种方式：awk、grep、sed&lt;/p>
+&lt;h3 id="0x00-awk处理文本最常用">0x00 awk处理文本(最常用)&lt;/h3>
+&lt;pre tabindex="0">&lt;code>作用：awk对数据以行分析并生成报告时显得很强大，它将行进行切片，再处理分开的切片，可对格式化的数据重新进行格式化 
+awk命令格式：awk [F filed-separator] &amp;#39;commands&amp;#39; input-fiel(s) 
+参数-F：可以添加任意的分割符，比较重要 
+awk工作流程是这样的： 
+读入有&amp;#39;\n&amp;#39;换行符分割的一条记录，然后将记录按-F指定的域分隔符划分域，$0则表示所有域,$1表示第一个域,$n表示第n个域。默认域分隔符是&amp;#34;空白键&amp;#34; 或 &amp;#34;[tab]键&amp;#34;。
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>入门示例：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ head -n &lt;span style="color:#ae81ff">5&lt;/span> /etc/passwd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root:x:0:0:root:/root:/bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bin:x:1:1:bin:/bin:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>daemon:x:2:2:daemon:/sbin:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adm:x:3:4:adm:/var/adm:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ head -n &lt;span style="color:#ae81ff">5&lt;/span> /etc/passwd | awk -F &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;{print $1}&amp;#39;&lt;/span> &lt;span style="color:#75715e">#输出第1列，域分隔符为：&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>daemon
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>adm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ head -n &lt;span style="color:#ae81ff">5&lt;/span> /etc/passwd | awk -F &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;{pri
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">nt &amp;#34;id:&amp;#34;$1&amp;#34;\tshell:&amp;#34;$7}&amp;#39;&lt;/span> &lt;span style="color:#75715e">#输出第1、7列且给予列名&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:root shell:/bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:bin shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:daemon shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:adm shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:lp shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ head -n &lt;span style="color:#ae81ff">5&lt;/span> /etc/passwd | awk -F &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;BEGIN {print &amp;#34;====begin=====&amp;#34;} {print &amp;#34;id:&amp;#34;$1&amp;#34;\tshell:&amp;#34;$7} END {print &amp;#34;====end====&amp;#34;}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">====&lt;/span>begin&lt;span style="color:#f92672">=====&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:root shell:/bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:bin shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:daemon shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:adm shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>id:lp shell:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">====&lt;/span>end&lt;span style="color:#f92672">====&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ awk -F: &lt;span style="color:#e6db74">&amp;#39;/root/&amp;#39;&lt;/span> /etc/passwd &lt;span style="color:#75715e">#搜索含有root关键字的所有行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root:x:0:0:root:/root:/bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>operator:x:11:0:operator:/root:/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ awk -F: &lt;span style="color:#e6db74">&amp;#39;/root/{print $7}&amp;#39;&lt;/span> /etc/passwd &lt;span style="color:#75715e">#匹配root并输出对应shell&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/bin/bash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/sbin/nologin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost temp&lt;span style="color:#f92672">]&lt;/span>$ awk -F: &lt;span style="color:#e6db74">&amp;#39;/^root/&amp;#39;&lt;/span> /etc/passwd &lt;span style="color:#75715e">#匹配以root开头的行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>root:x:0:0:root:/root:/bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>内置变量：&lt;/li>
+&lt;/ul>
+&lt;table>
+ &lt;tr>
+ &lt;td bgcolor=black>
+ARGC&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;命令行参数个数&lt;br/>
+ARGV&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;命令行参数排列&lt;br/>
+ENVIRON&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;支持队列中系统环境变量的使用&lt;br/>
+FILENAME&amp;nbsp;&amp;nbsp;&amp;nbsp;awk浏览的文件名&lt;br/>
+FNR&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;浏览文件的记录数&lt;br/>
+FS&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;设置输入域分隔符，等价于命令行 -F选项&lt;br/>
+NF&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;浏览记录的域的个数&lt;br/>
+NR&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;已读的记录数&lt;br/>
+OFS&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;输出域分隔符&lt;br/>
+ORS&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;输出记录分隔符&lt;br/>
+RS&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;控制记录分隔符
+ &lt;/td>
+ &lt;/tr>
+&lt;/table>
+```
+[wyb@localhost temp]$ awk -F: '{print "filename:" FILENAME ",linenumber:" NR ",columns:" NF ",linecontent:"$0}' a.txt
+filename:a.txt,linenumber:1,columns:1,linecontent:1 root 12sf34s56
+filename:a.txt,linenumber:2,columns:1,linecontent:2 admin ksdjfiweurf
+filename:a.txt,linenumber:3,columns:1,linecontent:3 dome skd89453
+filename:a.txt,linenumber:4,columns:1,linecontent:4 tomkd 3jkke34
+filename:a.txt,linenumber:5,columns:1,linecontent:5 jarry sdkj89ry4
+filename:a.txt,linenumber:6,columns:1,linecontent:6 canki sdkj834
+filename:a.txt,linenumber:7,columns:1,linecontent:7 lola er8f7734
+filename:a.txt,linenumber:8,columns:1,linecontent:8 marry j8jkf78
+filename:a.txt,linenumber:9,columns:1,linecontent:9 candy kd89943
+```
+&lt;ul>
+&lt;li>
+&lt;p>awk编程：&lt;/p></description></item><item><title>Linux 之软件的安装</title><link>https://wyb0.com/posts/2016/linux-software-installation/</link><pubDate>Tue, 19 Apr 2016 19:07:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-software-installation/</guid><description>&lt;p>Linux上的软件安装可以分为三种方式：&lt;/p>
+&lt;h3 id="0x00-yum安装">0x00 yum安装&lt;/h3>
+&lt;pre tabindex="0">&lt;code>yum基于RPM包管理，一次性安装所有依赖包，提供了查找、安装、删除一个、一组
+至全部软件包的命令，配置文件在/etc/yum.repos.d/下
+主要命令：
+yum install gcc g++
+yum remove wget
+yum list installed //显示已经安装过的软件
+yum list //显示所有可以安装的包
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>[wyb@localhost ~]$ wget -h //验证有没有安装wget
+-bash: /usr/bin/wget: No such file or directory
+[wyb@localhost ~]$ sudo yum search wget //通过yum查找wget，看有没有这个软件包
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.yun-idc.com
+ * extras: mirrors.pubyun.com
+ * updates: mirrors.yun-idc.com
+============================== N/S Matched: wget ===============================
+wget.x86_64 : A utility for retrieving files using the HTTP or FTP protocols
+
+ Name and summary matches only, use &amp;#34;search all&amp;#34; for everything.
+[wyb@localhost ~]$ sudo yum deplist wget //列出安装包的依赖项
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.yun-idc.com
+ * extras: mirrors.pubyun.com
+ * updates: mirrors.yun-idc.com
+Finding dependencies: 
+package: wget.x86_64 1.12-5.el6_6.1
+ dependency: libssl.so.10()(64bit)
+ provider: openssl.x86_64 1.0.1e-42.el6
+ provider: openssl.x86_64 1.0.1e-42.el6_7.1
+ provider: openssl.x86_64 1.0.1e-42.el6_7.2
+ provider: openssl.x86_64 1.0.1e-42.el6_7.4
+[wyb@localhost ~]$ sudo yum install wget //安装一个或两个软件包
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Loading mirror speeds from cached hostfile
+ * base: mirrors.yun-idc.com
+ * extras: mirrors.pubyun.com
+ * updates: mirrors.yun-idc.com
+Setting up Install Process
+Resolving Dependencies
+--&amp;gt; Running transaction check
+---&amp;gt; Package wget.x86_64 0:1.12-5.el6_6.1 will be installed
+--&amp;gt; Finished Dependency Resolution
+[wyb@localhost ~]$ sudo yum remove wget //移除wget
+[sudo] password for wyb: 
+Loaded plugins: fastestmirror, refresh-packagekit, security
+Setting up Remove Process
+Resolving Dependencies
+--&amp;gt; Running transaction check
+---&amp;gt; Package wget.x86_64 0:1.12-5.el6_6.1 will be erased
+--&amp;gt; Finished Dependency Resolution
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-rpm安装">0x01 rpm安装&lt;/h3>
+&lt;p>分为：二进制包和源代码包&lt;br>
+二进制包可直接安装，源码包会由rpm自动编译、安装，安装包常以src、rpm做为后缀&lt;/p></description></item><item><title>Linux 之基础命令</title><link>https://wyb0.com/posts/2016/linux-basic-command/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-basic-command/</guid><description>&lt;h3 id="0x00-ls显示文件">0x00 ls：显示文件&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ls
+a a.txt
+[wyb@localhost tmp]$ ls -l
+total 4
+drwxr-xr-x. 2 wyb root 4096 Apr 17 18:23 a
+-rw-r--r--. 1 wyb root 0 Apr 17 18:23 a.txt
+[wyb@localhost tmp]$ ls -a
+. .. a a.txt .esd-500 .ICE-unix
+[wyb@localhost tmp]$ ls -al
+total 20
+drwxrwxrwt. 5 root root 4096 Apr 17 18:23 .
+dr-xr-xr-x. 22 root root 4096 Apr 17 16:31 ..
+drwxr-xr-x. 2 wyb root 4096 Apr 17 18:23 a
+-rw-r--r--. 1 wyb root 0 Apr 17 18:23 a.txt
+drwx------. 2 wyb wyb 4096 Apr 10 19:15 .esd-500
+drwxrwxrwt. 2 root root 4096 Apr 17 16:31 .ICE-unix
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-pwd查看当前工作路径">0x02 pwd：查看当前工作路径&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost ~]$ pwd 
+/home/wyb
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-cd切换目录">0x03 cd：切换目录&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost ~]$ ls
+Desktop Documents Downloads Music Pictures Public Templates Videos
+[wyb@localhost ~]$ cd Desktop/ //相对路径
+[wyb@localhost Desktop]$ cd /tmp/a //绝对路径
+[wyb@localhost a]$ pwd
+/tmp/a
+[wyb@localhost a]$ cd - //返回原来的目录
+[wyb@localhost Desktop]$ pwd
+/home/user/reber/Desktop
+&lt;/code>&lt;/pre>&lt;h3 id="0x04-mkdir新建文件夹">0x04 mkdir：新建文件夹&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ls
+a a.txt
+[wyb@localhost tmp]$ mkdir bbb
+[wyb@localhost tmp]$ ls
+a a.txt bbb
+&lt;/code>&lt;/pre>&lt;h3 id="0x05-touchvim新建文件">0x05 touch/vim：新建文件&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ls
+a a.txt bbb
+[wyb@localhost tmp]$ touch bbb.txt
+[wyb@localhost tmp]$ ls
+a a.txt bbb bbb.txt
+&lt;/code>&lt;/pre>&lt;h3 id="0x06-rm删除文件">0x06 rm：删除文件&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ls
+a a.txt bbb bbb.txt c.txt
+[wyb@localhost tmp]$ rm c.txt //删除文件c.txt
+[wyb@localhost tmp]$ ls
+a a.txt bbb bbb.txt
+[wyb@localhost tmp]$ rm a //删除文件夹a，结果不能删除
+rm: cannot remove `a&amp;#39;: Is a directory
+[wyb@localhost tmp]$ rm -r a //加上-r才能删除文件夹
+[wyb@localhost tmp]$ ls
+a.txt bbb bbb.txt
+&lt;/code>&lt;/pre>&lt;h3 id="0x07-ifconfig查看网卡的信息">0x07 ifconfig：查看网卡的信息&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ ifconfig
+eth0 Link encap:Ethernet HWaddr 00:0C:29:56:B4:10 
+ inet addr:192.168.63.131 Bcast:192.168.63.255 Mask:255.255.255.0
+ inet6 addr: fe80::20c:29ff:fe56:b410/64 Scope:Link
+ UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1
+ RX packets:67099 errors:0 dropped:0 overruns:0 frame:0
+ TX packets:34939 errors:0 dropped:0 overruns:0 carrier:0
+ collisions:0 txqueuelen:1000 
+ RX bytes:94042525 (89.6 MiB) TX bytes:1995748 (1.9 MiB)
+
+lo Link encap:Local Loopback 
+ inet addr:127.0.0.1 Mask:255.0.0.0
+ inet6 addr: ::1/128 Scope:Host
+ UP LOOPBACK RUNNING MTU:16436 Metric:1
+ RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+ TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+ collisions:0 txqueuelen:0 
+ RX bytes:0 (0.0 b) TX bytes:0 (0.0 b)
+&lt;/code>&lt;/pre>&lt;h3 id="0x08-netstat查找网络连接信息">0x08 netstat：查找网络连接信息&lt;/h3>
+&lt;pre tabindex="0">&lt;code>netstat -l //listen状态的
+netstat -an //显示所有的连接信息，且以ip地址代替名称
+netstat -t //显示tcp连接信息
+netstat -u //显示udp连接信息
+LISTENING	//监听端口状态
+ESTABLSHED	//建立连接
+CLOSE_WAIT	//对方主动断开连接，此时我方就会变为这个状态，我方要调用close()
+TIME_WAIT	//我方主动调用close(),对方收到后变为CLOSE_WAIT
+[root@localhost ~]# netstat -l -n
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address Foreign Address远程 State 
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN 所有ip均可连接22
+tcp 0 0 127.0.0.1:631 0.0.0.0:* LISTEN
+tcp 0 0 127.0.0.1:25 0.0.0.0:* LISTEN 只有127.0.0.1连接25端口
+tcp 0 0 :::22 :::* LISTEN 
+tcp 0 0 ::1:631 :::* LISTEN 
+Active UNIX domain sockets (only servers)
+Proto RefCnt Flags Type State I-Node Path
+unix 2 [ ACC ] STREAM LISTENING 14229 public/cleanup
+unix 2 [ ACC ] STREAM LISTENING 14236 private/tlsmgr
+unix 2 [ ACC ] STREAM LISTENING 14240 private/rewrite
+unix 2 [ ACC ] STREAM LISTENING 14244 private/bounce
+unix 2 [ ACC ] STREAM LISTENING 14248 private/defer
+&lt;/code>&lt;/pre>&lt;h3 id="0x09-nslookup查看dns信息">0x09 nslookup：查看DNS信息&lt;/h3>
+&lt;pre tabindex="0">&lt;code>nslookup 查看ip和域名的相互映射
+nslookup www.baidu.com //返回一些信息
+&lt;/code>&lt;/pre>&lt;h3 id="0x0a-ping">0x0A ping&lt;/h3>
+&lt;pre tabindex="0">&lt;code>ping -c 3 www.baidu.com //指定ping百度3次
+&lt;/code>&lt;/pre>&lt;h3 id="0x0b-lastfinger查看近期的登陆信息">0x0B last/finger：查看近期的登陆信息&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[root@localhost ~]# last
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>[root@localhost ~]# finger
+&lt;/code>&lt;/pre>&lt;h3 id="0x0c-find查找文件">0x0C find：查找文件&lt;/h3>
+&lt;pre tabindex="0">&lt;code>which vim //查看可执行文件的位置
+*which是通过 PATH环境变量到该路径内查找可执行文件，所以基本的功能是寻找可执行文件* 
+
+whereis、locate也可查找文件,它们是使用数据库来搜索数据
+
+find . -name 1.txt //查找当前文件夹及子目录下的1.txt、
+find . -name *.txt //使用通配符
+find /bin -perm 755 //返回的都是755权限的文件 
+find /bin -perm 4755 //返回有gid(即s权限)的文件 2是gid
+[wyb@localhost tmp]$ sudo find / -name *.log //根目录下查找名字以log结尾的文件
+/var/spool/plymouth/boot.log
+/var/log/wpa_supplicant.log
+/var/log/dracut.log
+/var/log/vmware-tools-upgrader.log
+[wyb@localhost ~]$ find /bin -perm 755 | xargs ls -al //前一个命令的输出作为后一个命令的输入
+-rwxr-xr-x. 1 root root 123 Feb 21 2013 /bin/alsaunmute
+-rwxr-xr-x. 1 root root 27776 Jun 22 2012 /bin/arch
+-rwxr-xr-x. 1 root root 26264 Jun 22 2012 /bin/basename
+-rwxr-xr-x. 1 root root 938768 Feb 21 2013 /bin/bash
+-rwxr-xr-x. 1 root root 48568 Jun 22 2012 /bin/cat
+-rwxr-xr-x. 1 root root 55472 Jun 22 2012 /bin/chgrp
+-rwxr-xr-x. 1 root root 52472 Jun 22 2012 /bin/chmod
+&lt;/code>&lt;/pre>&lt;h3 id="0x0d-grep">0x0D grep&lt;/h3>
+&lt;pre tabindex="0">&lt;code>//可以遍历查询mkr文件夹下含有字符串&amp;#34;reber&amp;#34;的文件及字符串所在行
+reber@WYB:~$ grep -Rn &amp;#34;reber&amp;#34; mkdir 
+mkr/cc:3:reber
+mkr/a/a.txt:3:reber
+mkr/a/b.txt:16:reber
+mkr/b/xx:8:reber
+&lt;/code>&lt;/pre>&lt;h3 id="0x0e-catnl">0x0E cat/nl&lt;/h3>
+&lt;pre tabindex="0">&lt;code>前者显示
+后者显示的同时有行号
+[wyb@localhost tmp]$ cat &amp;gt; a.txt //创建文件同时写入数据
+this is a.txt
+^C
+[wyb@localhost tmp]$ cat &amp;gt; b.txt
+this is b.txt
+^C
+[wyb@localhost tmp]$ cat a.txt b.txt &amp;gt; c.txt //合并文件
+[wyb@localhost tmp]$ cat c.txt 
+this is a.txt
+this is b.txt
+[wyb@localhost tmp]$ cat -n c.txt //获取文件内容切添加行号
+ 1 this is a.txt
+ 2 this is b.txt
+&lt;/code>&lt;/pre>&lt;h3 id="0x0f-head">0x0F head&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ head /etc/passwd //默认显示前10行
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+
+[wyb@localhost tmp]$ head -n 4 /etc/passwd //设置显示前4行
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+
+[wyb@localhost tmp]$ head -c 100 d.txt //显示前100个字节
+ 1 this is a.txt
+ 2 this is b.txt
+this is add content
+ 1 this is a.txt
+ 2 this is b.[wyb@localhost tmp]$ 
+&lt;/code>&lt;/pre>&lt;h3 id="0x10-tail">0x10 tail&lt;/h3>
+&lt;pre tabindex="0">&lt;code>[wyb@localhost tmp]$ tail -f a.txt //实时显示文件后10行
+this is a.txt
+111111
+aaaaaa
+^C
+
+[wyb@localhost tmp]$ tail -n 3 d.txt //显示文件后3行
+ 1 this is a.txt
+ 2 this is b.txt
+this is add content
+
+[wyb@localhost tmp]$ tail -c 100 d.txt //显示后100个字节
+ 2 this is b.txt
+this is add content
+ 1 this is a.txt
+ 2 this is b.txt
+this is add content
+[wyb@localhost tmp]$ 
+&lt;/code>&lt;/pre>&lt;h3 id="0x11-scp">0x11 scp&lt;/h3>
+&lt;pre tabindex="0">&lt;code>向远程服务器put文件和文件夹，默认就是22端口
+scp -P 22 ./aa.txt reber@123.206.78.220:/home/reber
+scp -r ./bb reber@123.206.78.220:/home/reber
+
+从服务器下载文件和文件夹
+scp -P 2222 ubuntu@123.22.38.215:/home/reber/a.txt D:/a.txt
+scp -r -P 2222 ubuntu@123.22.38.215:/home/reber/test D:/test/
+&lt;/code>&lt;/pre>&lt;h3 id="0x12-磁盘">0x12 磁盘&lt;/h3>
+&lt;pre tabindex="0">&lt;code>fdisk /dev/sdb
+sudo mkfs.ext3 /dev/sdb1
+mount -t ext3 -o rw /dev/sdb1 /home/aaa //-o指定权限
+&lt;/code>&lt;/pre>&lt;h3 id="0x13-时间同步">0x13 时间同步&lt;/h3>
+&lt;pre tabindex="0">&lt;code>ntpdate time.nist.gov //需要root权限
+&lt;/code>&lt;/pre>&lt;h3 id="0x14-下载">0x14 下载&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ curl -o aa.xml http://wyb0.com/index.xml #可以访问网页，它同时还保存了文件，文件名为aa.xml
+$ wget http://wyb0.com/index.xml #下载的文件名为index.xml
+&lt;/code>&lt;/pre>&lt;h3 id="0x15-环境变量">0x15 环境变量&lt;/h3>
+&lt;pre tabindex="0">&lt;code>$ env
+&lt;/code>&lt;/pre>&lt;h3 id="0x16-压缩与解压缩">0x16 压缩与解压缩&lt;/h3>
+&lt;ul>
+&lt;li>tar
+&lt;ul>
+&lt;li>tar主要参数&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># 主要参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-c 创建一个新的压缩文件
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-x 解压
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-t 查看压缩文件的内容
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-f 指定档案文件的名字
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-v 显示过程信息
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-r 增加文件到指定的包
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-C 指定解压后的路径
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-z 使用gzip
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-j 使用bzip2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-Z 使用compress
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>tar示例&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># tar用法示例&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -cvf 1.tar aaa/ &lt;span style="color:#75715e">#打包不压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/b.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/c.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/a.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zcvf 1.tar.gz aaa/ &lt;span style="color:#75715e">#打包且以gzip压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/b.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/c.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/a.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -jcvf 1.tar.bz2 aaa/ &lt;span style="color:#75715e">#打包且以bzip2压缩&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/b.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/c.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/a.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tar -zxvf aa.tar.gz /home/aaa --exclude&lt;span style="color:#f92672">=&lt;/span>dir &lt;span style="color:#75715e">#排除目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls -l
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>total &lt;span style="color:#ae81ff">24&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r--. &lt;span style="color:#ae81ff">1&lt;/span> wyb root &lt;span style="color:#ae81ff">10240&lt;/span> Apr &lt;span style="color:#ae81ff">19&lt;/span> 07:47 1.tar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r--. &lt;span style="color:#ae81ff">1&lt;/span> wyb root &lt;span style="color:#ae81ff">265&lt;/span> Apr &lt;span style="color:#ae81ff">19&lt;/span> 07:48 1.tar.bz2
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r--. &lt;span style="color:#ae81ff">1&lt;/span> wyb root &lt;span style="color:#ae81ff">253&lt;/span> Apr &lt;span style="color:#ae81ff">19&lt;/span> 07:48 1.tar.gz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>drwxr-xr-x. &lt;span style="color:#ae81ff">2&lt;/span> wyb root &lt;span style="color:#ae81ff">4096&lt;/span> Apr &lt;span style="color:#ae81ff">19&lt;/span> 07:22 aaa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ file 1.tar.gz &lt;span style="color:#75715e">#查看文件类型&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>1.tar.gz: gzip compressed data, from Unix, last modified: Tue Apr &lt;span style="color:#ae81ff">19&lt;/span> 07:48:01 &lt;span style="color:#ae81ff">2016&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -ztvf 1.tar.gz &lt;span style="color:#75715e">#查看压缩包内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>drwxr-xr-x wyb/root &lt;span style="color:#ae81ff">0&lt;/span> 2016-04-19 07:22 aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r-- wyb/root &lt;span style="color:#ae81ff">0&lt;/span> 2016-04-19 05:05 aaa/b.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r-- wyb/root &lt;span style="color:#ae81ff">0&lt;/span> 2016-04-19 05:05 aaa/c.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r-- wyb/root &lt;span style="color:#ae81ff">84&lt;/span> 2016-04-19 05:50 aaa/test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rw-r--r-- wyb/root &lt;span style="color:#ae81ff">0&lt;/span> 2016-04-19 05:05 aaa/a.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>1.tar 1.tar.bz2 1.tar.gz aaa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ rm -rf aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>1.tar 1.tar.bz2 1.tar.gz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zxvf 1.tar.gz &lt;span style="color:#75715e">#解压到当前目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/b.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/c.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/a.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>1.tar 1.tar.bz2 1.tar.gz aaa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>a.txt b.txt c.txt test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls /tmp/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>111.txt aa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ tar -zxvf 1.tar.gz -C /tmp/aa &lt;span style="color:#75715e">#解压到指定路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/b.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/c.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/test.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aaa/a.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>zip&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code># zip用法示例
+[reber@localhost ~]$ ls aaa/
+a.txt b.txt c.txt
+[reber@localhost ~]$ zip -re aaa.zip aaa/ #加密压缩
+Enter password: 
+Verify password: 
+ adding: aaa/ (stored 0%)
+ adding: aaa/b.txt (stored 0%)
+ adding: aaa/c.txt (stored 0%)
+ adding: aaa/a.txt (stored 0%)
+[reber@localhost ~]$ rm aaa/*
+[reber@localhost ~]$ ls aaa/
+[reber@localhost ~]$ unzip aaa.zip #解压缩
+Archive: aaa.zip
+[aaa.zip] aaa/b.txt password: 
+ extracting: aaa/b.txt 
+ extracting: aaa/c.txt 
+ extracting: aaa/a.txt
+&lt;/code>&lt;/pre></description></item><item><title>Linux 之服务和计划任务</title><link>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</link><pubDate>Tue, 19 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-service-and-planning-tasks/</guid><description>&lt;h3 id="0x00-服务">0x00 服务：&lt;/h3>
+&lt;p>在后台运行的软件就叫服务，参数一般为：start/stop/restart&lt;/p>
+&lt;ul>
+&lt;li>apache启动后默认降权&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>service httpd start实际调用的是/etc/init.d/httpd这个shell脚本
+而/etc/init.d是软连接文件夹，实际在/etc/rc.d/init.d
+[wyb@localhost ~]$ ls -al /etc/init.d
+lrwxrwxrwx. 1 root root 11 Apr 11 02:54 /etc/init.d -&amp;gt; rc.d/init.d
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>
+&lt;p>添加服务&lt;br>
+将脚本放在/etc/init.d/下即可&lt;/p></description></item><item><title>Linux 之用户和用户组</title><link>https://wyb0.com/posts/2016/linux-user/</link><pubDate>Sun, 17 Apr 2016 20:48:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-user/</guid><description>&lt;h3 id="0x01-新建用户">0x01 新建用户&lt;/h3>
+&lt;p>环境：Ubuntu 14.04.4&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Step1：添加新用户&lt;br>
+useradd -r -m -s /bin/bash 用户名&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Step2:配置新用户密码&lt;br>
+passwd 用户名&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Step3：给新添加的用户增加root权限&lt;br>
+visudo&lt;br>
+然后添加：&lt;br>
+用户名 ALL=(ALL:ALL) ALL&lt;/p></description></item><item><title>Linux 之权限</title><link>https://wyb0.com/posts/2016/linux-permission-settings/</link><pubDate>Sun, 17 Apr 2016 10:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-permission-settings/</guid><description>&lt;p>主要有三种参数：rwx
+对于文件来说：分别是读/写/执行&lt;br>
+对于目录来说：r读目录结构；w操作目录结构；x进入目录&lt;br>
+如：drwxr&amp;ndash;r&amp;ndash; 3 root root 4096 Jun 25 08:35 .ssh&lt;br>
+若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中&lt;/p></description></item><item><title>Linux 之 vim</title><link>https://wyb0.com/posts/2016/linux-vim/</link><pubDate>Fri, 15 Apr 2016 21:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-vim/</guid><description>&lt;h3 id="0x00-vim的安装及配置">0x00 Vim的安装及配置：&lt;/h3>
+&lt;ul>
+&lt;li>安装vim&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>yum install vim
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>配置文件的位置&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>在目录 /etc/ 下面，有个名为vimrc的 文件，
+这是系统中公共的vim配置文件，对所有用户都有效。
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>设置语法高亮显示&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1) 打开vimrc，添加以下语句来使得语法高亮显示：
+ syntax on
+2) 如果此时语法还是没有高亮显示，那么在/etc目录下的profile文件中添加以下语句：
+ export TERM=xterm-color
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>设置Windows风格的C/C++自动缩进（添加以下set语句到vimrc中）&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1）设置Tab为4个空格
+ set tabstop=4 #设定tab长度为4
+ set softtabstop=4 #使按退格键时可以一次删除4个空格
+ set shiftwidth=4 #表示每一级缩进的长度，一般设置成跟softtabstop一样
+ set expandtab/noexpandtab #缩进用空格/制表符表示
+2）自动缩进
+ set autoindent/noautoindent #设置每行的缩进值与上一行相等/不相等(我未启用)
+3）使用 C/C++ 语言的自动缩进方式
+ set cindent
+4）在左侧显示文本的行号
+ set nu
+5）搜索设置
+ set incsearch #输入搜索内容时就显示搜索结果
+ set hlsearch #搜索时高亮显示被找到的文本
+6）如果没有下列语句，就加上吧
+ if &amp;amp;term==&amp;#34;xterm&amp;#34;
+ set t_Co=8
+ set t_Sb=^[[4%dm
+ set t_Sf=^[[3%dm
+ endif
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-vim编辑器的三种模式">0x01 Vim编辑器的三种模式&lt;/h3>
+&lt;ul>
+&lt;li>命令行模式&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$vim 文件名 #直接进入命令行模式
+Ctrl+ZZ#可保存文件
+
+5dd/4yy#剪切5行/复制4行
+p #粘贴到当前行后面
+u #一直点的话会一直撤销，直到回复到文件最初状态
+
+gg/G #光标移动到首行/末行
+H/M/L #光标移动到屏幕显示的首行/中间/末行
+0/$ #光标移动到行首/行尾
+w/b #光标跳到下一个/上一个单词
+
+o #在下一行插入
+Ctrl+g #显示文本的信息
+
+dt% #删除所有内容直到遇到 %
+d0/d$或D #删除从光标到行首/行尾的字符
+3dw #删除3个单词
+
+v+方向键 #可以从当前光标向各方向选择字符或行
+4+向下的方向键 #光标向下移动4行
+
+/和？#向下和向上搜索
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>末行模式&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>:wq #推出并保存
+:wq! #强制退出并保存
+:num #跳到第n行
+:$	 #移动到最后一行
+:/aaaa #向下搜aaaa这个字符串 n可以定位到下一个匹配的字符，N向上
+:?aaaa #向上搜索
+:%s/set/ddd/g #将字符串set全部替换为ddd
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>插入模式&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>在命令行模式直接点击i即可进入
+&lt;/code>&lt;/pre></description></item></channel></rss>

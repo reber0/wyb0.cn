@@ -1,258 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/">CGI 与 FastCGI 与 PHP-FPM</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-02</time>
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/cgi">cgi</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x01 CGI协议 中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数<a href="https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/burpsuite-intruder-module/">BurpSuite 的 Intruder 模块</a></h1>
-  
-<div class="post-meta">
-    <time>2016-08-01</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 示例一 0x01 示例二</p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/logical-loophole/">逻辑漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-31</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E">逻辑漏洞</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 逻辑漏洞 逻辑漏洞是一种业务逻辑上的设计缺陷，业务流存在问题。 这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。 0x01 密<a href="https://wyb0.com/posts/2016/logical-loophole/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/sensitive-information-leakage/">敏感信息泄露</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-28</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2">信息泄露</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 软件敏感信息 * 操作系统版本 可用namp扫描得知 * 中间件的类型、版本 http返回头 404报错页面 使用工具(如whatwe<a href="https://wyb0.com/posts/2016/sensitive-information-leakage/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/any-file-view-and-download-vulnerability/">任意文件查看与下载漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-27</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2">信息泄露</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 漏洞介绍 一些网站由于业务需求，往往需要提供文件查看或文件下载功能，但若对用户查看或下载的文件不做限制，则恶意用户就能够<a href="https://wyb0.com/posts/2016/any-file-view-and-download-vulnerability/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/file-include-vulnerabilities/">文件包含漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-26</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">文件包含</a>)
-</div>
-
-  <div class="summary-body">
-    <p>环境：phpStudy 2016、DVWA v1.10 0x00 文件包含 程序开发人员一般会把重复使用的函数写到单个文件中，需要使用某个函数时<a href="https://wyb0.com/posts/2016/file-include-vulnerabilities/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/code-execution-vulnerabilities/">代码执行漏洞(一)</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-25</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/rce">rce</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 代码执行 当应用在调用一些能将字符转化为代码的函数(如PHP中的eval)时，没有考虑用户是否能控制这个字符串，这就会造<a href="https://wyb0.com/posts/2016/code-execution-vulnerabilities/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/">Windows 下用 Proxifier 实现全局代理</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-24</time>
-    [<a href="/categories/Other">Other</a>](<a href="/tags/%E4%BB%A3%E7%90%86">代理</a>,<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 环境 在windows下用Shadowsocks和Proxifier实现全局代理： System：Windows10 Pro x64 S<a href="https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/command-execution-vulnerabilities/">命令执行漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-24</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/rce">rce</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 命令执行 应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、 passth<a href="https://wyb0.com/posts/2016/command-execution-vulnerabilities/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/file-upload-editor-upload-vulnerability/">文件上传之文本编辑器上传漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-21</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0">文件上传</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 文本编辑器 常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEdit<a href="https://wyb0.com/posts/2016/file-upload-editor-upload-vulnerability/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/10/">Previous Page</a>
-  
-  11 of 18
-  
-    <a href="/page/12/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/>CGI 与 FastCGI 与 PHP-FPM</a></h1><div class=post-meta><time>2016-08-02</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/cgi>cgi</a>)</div><div class=summary-body><p><h3 id=0x01-cgi协议>0x01 CGI协议</h3><p>中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数据等)的协议</p><a href=https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/burpsuite-intruder-module/>BurpSuite 的 Intruder 模块</a></h1><div class=post-meta><time>2016-08-01</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-示例一>0x00 示例一</h3><p><img src=/img/post/burpsuite_intruder_caught.png alt=burpsuite抓包发送给intruder模>
+<img src=/img/post/burpsuite_intruder_attack_type1.png alt=burpsuite的intruder模块的攻击类型1>
+<img src=/img/post/burpsuite_intruder_attack_type2.png alt=burpsuite的intruder模块的攻击类型2>
+<img src=/img/post/burpsuite_intruder_payload_set.png alt=burpsuite的intruder模块payload设置>
+<img src=/img/post/burpsuite_intruder_payload_set_variable1.png alt=burpsuite的intruder模块payload设置变量1>
+<img src=/img/post/burpsuite_intruder_payload_set_variable2.png alt=burpsuite的intruder模块payload设置变量2>
+<img src=/img/post/burpsuite_intruder_payload_processing_rule.png alt=burpsuite的intruder模块payload设置的特殊处理>
+<img src=/img/post/burpsuite_intruder_start_attack.png alt=burpsuite的intruder模块开始攻击>
+<img src=/img/post/burpsuite_intruder_attack_interface.png alt=burpsuite的intruder攻击界面>
+<img src=/img/post/burpsuite_intruder_screening_attack_results.png alt=burpsuite的intruder筛选攻击结果>
+<img src=/img/post/burpsuite_intruder_attack_results.png alt=burpsuite的intruder筛选后的攻击结果></p><h3 id=0x01-示例二>0x01 示例二</h3><p><img src=/img/post/burpsuite_intruder1.png alt=burpsuite的intruder1>
+<img src=/img/post/burpsuite_intruder2.png alt=burpsuite的intruder2>
+<img src=/img/post/burpsuite_intruder3.png alt=burpsuite的intruder3>
+<img src=/img/post/burpsuite_intruder4.png alt=burpsuite的intruder4>
+<img src=/img/post/burpsuite_intruder5.png alt=burpsuite的intruder5>
+<img src=/img/post/burpsuite_intruder6.png alt=burpsuite的intruder6>
+<img src=/img/post/burpsuite_intruder7.png alt=burpsuite的intruder7>
+<img src=/img/post/burpsuite_intruder8.png alt=burpsuite的intruder8></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/logical-loophole/>逻辑漏洞</a></h1><div class=post-meta><time>2016-07-31</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E>逻辑漏洞</a>)</div><div class=summary-body><p><h3 id=0x00-逻辑漏洞>0x00 逻辑漏洞</h3><p>逻辑漏洞是一种业务逻辑上的设计缺陷，业务流存在问题。
+这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。</p><h3 id=0x01-密码找回漏洞>0x01 密码找回漏洞</h3><ul><li><p>测试流程</p><a href=https://wyb0.com/posts/2016/logical-loophole/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/sensitive-information-leakage/>敏感信息泄露</a></h1><div class=post-meta><time>2016-07-28</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2>信息泄露</a>)</div><div class=summary-body><p><h3 id=0x00-软件敏感信息>0x00 软件敏感信息</h3><pre tabindex=0><code>* 操作系统版本
+    可用namp扫描得知
+* 中间件的类型、版本
+    http返回头
+    404报错页面
+    使用工具(如whatweb)
+* Web程序(cms类型及版本、敏感文件)
+    可用whatweb、cms_identify
+</code></pre><h3 id=0x01-web敏感信息>0x01 Web敏感信息</h3><pre tabindex=0><code>* phpinfo()信息泄露
+    http://[ip]/test.php和http://[ip]/phpinfo.php
+* 测试页面泄露在外网
+    test.cgi、phpinfo.php、info.php等
+* 编辑器备份文件泄露在外网
+    http://[ip]/.test.php.swp
+    http://[ip]/test.php.bak
+    http://[ip]/test.jsp.old
+    http://[ip]/cgi~
+    常见编辑器备份后缀
+* 版本管理工具(如git)文件信息泄露
+    http://[ip]/.git/config
+    http://[ip]/CVS/Entriesp
+    http://[ip]/.svn/entriesp
+* HTTP认证泄露漏洞
+    http://[ip]/basic/index.php
+    Web目录开启了HTTP Basic认证，但未限制IP，导致可暴力破解账号、密码
+* 管理后台地址泄露
+    http://[ip]/login.php
+    http://[ip]/admin.php
+    http://[ip]/manager.php
+    http://[ip]/admin_login.php
+* 泄露员工邮箱、分机号码
+    泄露邮箱及分机号码可被社工，也可生成字典
+* 错误页面暴漏信息
+    mysql错误、php错误、暴漏cms版本等
+* 探针文件
+* robots.txt
+* phpMyAdmin
+* 网站源码备份文件(www.rar/sitename.tar.gz/web/zip等)
+* 其他
+</code></pre><h3 id=0x02-网络信息泄露>0x02 网络信息泄露</h3><pre tabindex=0><code>* DNS域传送漏洞
+* 运维监控系统弱口令、网络拓扑泄露
+    zabbix弱口令、zabbix sql注入等
+</code></pre><h3 id=0x03-第三方软件应用>0x03 第三方软件应用</h3><pre tabindex=0><code>* github上源码、数据库、邮箱密码泄露
+    搜类似：smtp 163 password关键字
+* 百度网盘被员工不小心上传敏感文件
+* QQ群被员工不小心上传敏感文件
+</code></pre><h3 id=0x04-敏感信息搜集工具>0x04 敏感信息搜集工具</h3><pre tabindex=0><code>https://github.com/ring04h/weakﬁlescan
+https://github.com/lijiejie/BBScan
+whatweb
+dnsenum
+github
+</code></pre><h3 id=0x05-示例>0x05 示例</h3><p><img src=/img/post/sensitive_information_leakage.png alt=敏感信息泄露></p><a href=https://wyb0.com/posts/2016/sensitive-information-leakage/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/any-file-view-and-download-vulnerability/>任意文件查看与下载漏洞</a></h1><div class=post-meta><time>2016-07-27</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2>信息泄露</a>)</div><div class=summary-body><p><h3 id=0x00-漏洞介绍>0x00 漏洞介绍</h3><p>一些网站由于业务需求，往往需要提供文件查看或文件下载功能，但若对用户查看或下载的文件不做限制，则恶意用户就能够查看或下载任意敏感文件，这就是文件查看与下载漏洞</p><a href=https://wyb0.com/posts/2016/any-file-view-and-download-vulnerability/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/file-include-vulnerabilities/>文件包含漏洞</a></h1><div class=post-meta><time>2016-07-26</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB>文件包含</a>)</div><div class=summary-body><p><p>环境：phpStudy 2016、DVWA v1.10</p><h3 id=0x00-文件包含>0x00 文件包含</h3><p>程序开发人员一般会把重复使用的函数写到单个文件中，需要使用某个函数时直接调用此文件，而无需再次编写，这中文件调用的过程一般被称为文件包含。</p><a href=https://wyb0.com/posts/2016/file-include-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/code-execution-vulnerabilities/>代码执行漏洞(一)</a></h1><div class=post-meta><time>2016-07-25</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h3 id=0x00-代码执行>0x00 代码执行</h3><p>当应用在调用一些能将字符转化为代码的函数(如PHP中的eval)时，没有考虑用户是否能控制这个字符串，这就会造成代码执行漏洞。</p><a href=https://wyb0.com/posts/2016/code-execution-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/>Windows 下用 Proxifier 实现全局代理</a></h1><div class=post-meta><time>2016-07-24</time>
+[<a href=/categories/Other>Other</a>](<a href=/tags/%E4%BB%A3%E7%90%86>代理</a>,<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-环境>0x00 环境</h3><p>在windows下用Shadowsocks和Proxifier实现全局代理：</p><pre tabindex=0><code>System：Windows10 Pro x64
+Shadowsocks：Shadowsocks v2.5.2.0 
+Proxifier：Proxifier Portable Edition v3.29
+</code></pre><h3 id=0x01-配置shadowsocks>0x01 配置Shadowsocks</h3><p><img src=/img/post/global_agent_set_shadowsocks.png alt=Windows下实现全局代理-设置shadowsocks></p><a href=https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/command-execution-vulnerabilities/>命令执行漏洞</a></h1><div class=post-meta><time>2016-07-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h3 id=0x00-命令执行>0x00 命令执行</h3><pre tabindex=0><code>应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、
+passthru、popen、proc_popen等，当用户能控制这些函数中的参数时，就可以将恶意系统命令
+拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞。
+</code></pre><h3 id=0x01-利用条件>0x01 利用条件</h3><ol><li>应用调用执行系统命令的函数</li><li>将用户输入作为系统命令的参数拼接到了命令行中</li><li>没有对用户输入进行过滤或过滤不严</li></ol><h3 id=0x02-漏洞分类>0x02 漏洞分类</h3><ol><li>代码层过滤不严<br>商业应用的一些核心代码封装在二进制文件中，在web应用中通过system函数来调用：<br>system("/bin/program --arg $arg");</li><li>系统的漏洞造成命令执行<br>bash破壳漏洞(CVE-2014-6271)<br>执行<code>env x='() { :;}; echo vulnerable' bash -c "echo this is a test"</code>后<br>若输出vulnerable则证明存在漏洞</li><li>调用的第三方组件存在代码执行漏洞<br>如WordPress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等)<br>ThinkPHP命令执行</li></ol><h3 id=0x03-漏洞危害>0x03 漏洞危害</h3><ol><li>继承Web服务程序的权限去执行系统命令或读写文件</li><li>反弹shell</li><li>控制整个网站甚至控制服务器</li><li>进一步内网渗透</li><li>等等</li></ol><h3 id=0x04-漏洞挖掘>0x04 漏洞挖掘</h3><p>可以google hacking<br>尝试：filetype:action或filetype:do来找struts2</p><a href=https://wyb0.com/posts/2016/command-execution-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/file-upload-editor-upload-vulnerability/>文件上传之文本编辑器上传漏洞</a></h1><div class=post-meta><time>2016-07-21</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0>文件上传</a>)</div><div class=summary-body><p><h3 id=0x00-文本编辑器>0x00 文本编辑器</h3><p>常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEditor等，它们的功能类似且都有图片上传、视频上传、远程下载等功能，这类文本编辑器也称为富文本编辑器。</p><a href=https://wyb0.com/posts/2016/file-upload-editor-upload-vulnerability/>more...</a></p></div></article><div><a href=/page/10/>Previous Page</a>
+11 of 18
+<a href=/page/12/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

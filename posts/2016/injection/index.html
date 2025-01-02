@@ -1,228 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SQL 注入 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SQL 注入</h1>
-      
-<div class="post-meta">
-    <time>2016-06-19</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-含义">0x00 含义</h3>
-<p>sql注入是将代码插入(拼接)到应用(用户)的输入参数中，之后再将这些参数传递给后台的SQL服务器加以解析并执行的攻击，</p>
-<p>总结起来就是攻击者将恶意代码拼接到sql语句并加以执行从而得到数据的过程。</p>
-<h3 id="0x01-成因">0x01 成因</h3>
-<p>SQl语句未对用户参数进行严格过滤</p>
-<h3 id="0x02-可引发注入的地方">0x02 可引发注入的地方</h3>
-<p>其实只要是客户端可控、参数值代入数据库查询的地方都可能存在注入，常见的如下，按出现频率排序：</p>
-<ul>
-<li>GET</li>
-<li>POST</li>
-<li>X-Forwarded-For</li>
-<li>Cookie</li>
-<li>User-Agent</li>
-</ul>
-<h3 id="0x03-注入分类">0x03 注入分类</h3>
-<ul>
-<li>
-<p>根据语法(较权威)</p>
-<ul>
-<li>UNION query SQL injection(可联合查询注入)<br>
-只要页面有显示位即可使用，且注入速度很快</li>
-<li>Error-based SQL injection(报错型注入)<br>
-没有显示位但用echo &ldquo;mysql_error()&ldquo;输出了错误信息，速度很快，但是语句较复杂</li>
-<li>Boolean-based blind SQL injection(布尔型注入)<br>
-一次一个字节，速度慢，但只要有注入就能用</li>
-<li>Time-based blind SQL injection(基于时间延迟注入)<br>
-超级慢，比布尔型注入慢几倍，但是通用性较强</li>
-<li>Stacked queries SQL injection(堆叠注入)<br>
-只有SQL Server可以使用(可多语句查询注入)</li>
-</ul>
-</li>
-<li>
-<p>根据类型</p>
-<ul>
-<li>整形<br>
-形如<code>&quot;a.asp?ID=55&quot;</code>，这类注入的参数是&quot;数字&rdquo;，因此称为&quot;数字型注入点&rdquo;。</li>
-<li>字符串型<br>
-形如<code>&quot;b.asp?name=xiaoming&quot;</code>这类注入的参数是&quot;字符&quot;，称为&quot;字符型&quot;注入点。</li>
-<li>搜索型<br>
-指在进行数据搜索时没过滤搜索参数，直接通过搜索框表单提交。</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x04-查找注入点">0x04 查找注入点</h3>
-<ul>
-<li>
-<p>在URL中</p>
-<ul>
-<li>and 1=1/and 1=2(整型)</li>
-<li>随即输入(整型)</li>
-<li>-1/+1 回显上下页面(整型)</li>
-<li>单引号(字符型/整型)</li>
-<li>and sleep(5) (判断页面返回时间)</li>
-</ul>
-</li>
-<li>
-<p>在http头</p>
-<ul>
-<li>X-Forwarded-For</li>
-<li>Cookie</li>
-<li>User-Agent</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x05-sql注入之判断数据库类型">0x05 SQL注入之判断数据库类型</h3>
-<ul>
-<li>
-<p>常见手段</p>
-<ul>
-<li>扫描端口、指纹、抓包查看http头信息、在网址后面直接判断</li>
-</ul>
-</li>
-<li>
-<p>根据各数据库特有函数判断</p>
-<ul>
-<li>Access:</li>
-</ul>
-<pre tabindex="0"><code>and (select count(*) from MSysAccessObjects)&gt;0   返回正常说明是access
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SQL 注入 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SQL 注入</h1><div class=post-meta><time>2016-06-19</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-含义>0x00 含义</h3><p>sql注入是将代码插入(拼接)到应用(用户)的输入参数中，之后再将这些参数传递给后台的SQL服务器加以解析并执行的攻击，</p><p>总结起来就是攻击者将恶意代码拼接到sql语句并加以执行从而得到数据的过程。</p><h3 id=0x01-成因>0x01 成因</h3><p>SQl语句未对用户参数进行严格过滤</p><h3 id=0x02-可引发注入的地方>0x02 可引发注入的地方</h3><p>其实只要是客户端可控、参数值代入数据库查询的地方都可能存在注入，常见的如下，按出现频率排序：</p><ul><li>GET</li><li>POST</li><li>X-Forwarded-For</li><li>Cookie</li><li>User-Agent</li></ul><h3 id=0x03-注入分类>0x03 注入分类</h3><ul><li><p>根据语法(较权威)</p><ul><li>UNION query SQL injection(可联合查询注入)<br>只要页面有显示位即可使用，且注入速度很快</li><li>Error-based SQL injection(报错型注入)<br>没有显示位但用echo &ldquo;mysql_error()&ldquo;输出了错误信息，速度很快，但是语句较复杂</li><li>Boolean-based blind SQL injection(布尔型注入)<br>一次一个字节，速度慢，但只要有注入就能用</li><li>Time-based blind SQL injection(基于时间延迟注入)<br>超级慢，比布尔型注入慢几倍，但是通用性较强</li><li>Stacked queries SQL injection(堆叠注入)<br>只有SQL Server可以使用(可多语句查询注入)</li></ul></li><li><p>根据类型</p><ul><li>整形<br>形如<code>"a.asp?ID=55"</code>，这类注入的参数是"数字&rdquo;，因此称为"数字型注入点&rdquo;。</li><li>字符串型<br>形如<code>"b.asp?name=xiaoming"</code>这类注入的参数是"字符"，称为"字符型"注入点。</li><li>搜索型<br>指在进行数据搜索时没过滤搜索参数，直接通过搜索框表单提交。</li></ul></li></ul><h3 id=0x04-查找注入点>0x04 查找注入点</h3><ul><li><p>在URL中</p><ul><li>and 1=1/and 1=2(整型)</li><li>随即输入(整型)</li><li>-1/+1 回显上下页面(整型)</li><li>单引号(字符型/整型)</li><li>and sleep(5) (判断页面返回时间)</li></ul></li><li><p>在http头</p><ul><li>X-Forwarded-For</li><li>Cookie</li><li>User-Agent</li></ul></li></ul><h3 id=0x05-sql注入之判断数据库类型>0x05 SQL注入之判断数据库类型</h3><ul><li><p>常见手段</p><ul><li>扫描端口、指纹、抓包查看http头信息、在网址后面直接判断</li></ul></li><li><p>根据各数据库特有函数判断</p><ul><li>Access:</li></ul><pre tabindex=0><code>and (select count(*) from MSysAccessObjects)&gt;0   返回正常说明是access
 and exists(select count(*) from表)
 ID=1 and (select count (*) from sysobjects)&gt;0 返回异常
 ID=1 and (select count (*) from msysobjects)&gt;0返回异常
-</code></pre><ul>
-<li>SQLServer:</li>
-</ul>
-<pre tabindex="0"><code>and (select count(*) from sysobjects) &gt;0   返回正常说明是mssql
+</code></pre><ul><li>SQLServer:</li></ul><pre tabindex=0><code>and (select count(*) from sysobjects) &gt;0   返回正常说明是mssql
 ID=1 and (select count (*) from sysobjects)&gt;0 返回正常
 ID=1 and (select count (*) from msysobjects)&gt;0返回异常
 ID=1 and left(version(),1)=5%23  //红色字体也可能是4
 ID=1 and exists(select id from sysobjects)
 ID=1 and len(user)&gt;0 
 ID=1 CHAR(97)+CHAR(110)+CHAR(100)+CHAR(32)+CHAR(49)+CHAR(61)+CHAR(49)
-</code></pre><ul>
-<li>MySQL:</li>
-</ul>
-<pre tabindex="0"><code>and length(user())&gt;0   返回正常说明是MySQL
+</code></pre><ul><li>MySQL:</li></ul><pre tabindex=0><code>and length(user())&gt;0   返回正常说明是MySQL
 id=2 and version()&gt;0 返回正常
 id=2 and length(user())&gt;0
 id=2 CHAR(97, 110, 100, 32, 49, 61, 49)
-</code></pre><ul>
-<li>ORACLE:</li>
-</ul>
-<pre tabindex="0"><code>ID=1  and &#39;1&#39;||&#39;1’=&#39;11&#39;
+</code></pre><ul><li>ORACLE:</li></ul><pre tabindex=0><code>ID=1  and &#39;1&#39;||&#39;1’=&#39;11&#39;
 ID=1  and 0&lt;&gt;(select count(*) from dual) 
 ID=1 CHR(97) || CHR(110) || CHR(100) || CHR(32) || CHR(49) || CHR(61) || CHR(49)
-</code></pre></li>
-<li>
-<p>其他方法</p>
-<pre tabindex="0"><code>&#34;/*&#34;是MySQL中的注释符，返回错误说明该注入点不是MySQL，继续提交如下查询字符：
+</code></pre></li><li><p>其他方法</p><pre tabindex=0><code>&#34;/*&#34;是MySQL中的注释符，返回错误说明该注入点不是MySQL，继续提交如下查询字符：
 &#34;--&#34;是Oracle和MSSQL支持的注释符，如果返回正常，则说明为这两种数据库类型之一。继续提交如下查询字符：
 &#34;;&#34;是子句查询标识符，Oracle不支持多行查询，因此如果返回错误，则说明很可能是Oracle数据库。
-</code></pre></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

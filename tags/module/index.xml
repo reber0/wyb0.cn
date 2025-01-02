@@ -1,61 +1,301 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>module on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/module/</link>
-    <description>Recent content in module on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jan 2018 16:45:34 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/module/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Python 中执行系统命令</title>
-      <link>https://wyb0.com/posts/2018/python-run-cmd/</link>
-      <pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/python-run-cmd/</guid>
-      <description>0x00 使用模块 在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subproces</description>
-    </item>
-    <item>
-      <title>MRQ 的使用</title>
-      <link>https://wyb0.com/posts/2017/python-module-mrq/</link>
-      <pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/python-module-mrq/</guid>
-      <description>0x00 MRQ MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。 MRQ一方面旨在像RQ一样简单，另一方</description>
-    </item>
-    <item>
-      <title>Python 的模块</title>
-      <link>https://wyb0.com/posts/2016/python-module/</link>
-      <pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module/</guid>
-      <description>0x00 Python的模块 在python中，任何一个python文件都可以看作一个模块 不同包下有相同模块名并不会冲突，且包下必</description>
-    </item>
-    <item>
-      <title>Python 命令行参数解析</title>
-      <link>https://wyb0.com/posts/2016/python-parames-parse/</link>
-      <pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-parames-parse/</guid>
-      <description>0x00 argparse 模块 参考 https://docs.python.org/zh-cn/3.7/library/argparse.html #!/usr/bin/env python # -*- coding: utf-8 -*- import argparse class Parser(object): &amp;#34;&amp;#34;&amp;#34;Parser&amp;#34;&amp;#34;&amp;#34; def __init__(self): super(Parser, self).__init__() self.service_type_list = [ &amp;#34;ssh&amp;#34;,&amp;#34;telnet&amp;#34;,&amp;#34;ftp&amp;#34;, &amp;#34;mysql&amp;#34;,&amp;#34;mssql&amp;#34;,&amp;#34;oracle&amp;#34;,&amp;#34;pgsql&amp;#34;,&amp;#34;redis&amp;#34; ] self.log_level = [&amp;#34;debug&amp;#34;, &amp;#34;info&amp;#34;, &amp;#34;warning&amp;#34;, &amp;#34;error&amp;#34;, &amp;#34;critical&amp;#34;] self.example = &amp;#34;&amp;#34;&amp;#34;Example: \r python3 {} -s ssh -i 123.123.123.123 \r python3 {} -s ssh -i 123.123.123.123/24 -l root -p 123456&amp;#34;&amp;#34;&amp;#34; def parser(self): parser</description>
-    </item>
-    <item>
-      <title>Python 的 scapy 模块简单使用</title>
-      <link>https://wyb0.com/posts/2016/python-module-scapy/</link>
-      <pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module-scapy/</guid>
-      <description>0x00 简单尝试 0x01 生成一组数据包 0x02 发送数据包 send发送数据包 sr1发送数据包 sr发送数据包 0x03 发送SYN数据包 0x04 得到TCP内容</description>
-    </item>
-    <item>
-      <title>Python 的 paramiko 模块</title>
-      <link>https://wyb0.com/posts/2016/python-module-paramiko/</link>
-      <pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module-paramiko/</guid>
-      <description>0x00 安装 直接pip install paramiko安装 或者去http://www.paramiko.org/ 下载 0x01 执行一条远程命令 #!/usr/bin/env python #-*-</description>
-    </item>
-    <item>
-      <title>Python 的 cmd 模块</title>
-      <link>https://wyb0.com/posts/2016/python-module-cmd/</link>
-      <pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-module-cmd/</guid>
-      <description>0x00 关于cmd模块 使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们 0x01 cmd模块的一些常用方法： cmdl</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Module on Reber's Blog</title><link>https://wyb0.com/tags/module/</link><description>Recent content in Module on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 29 Jan 2018 16:45:34 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/module/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 中执行系统命令</title><link>https://wyb0.com/posts/2018/python-run-cmd/</link><pubDate>Mon, 29 Jan 2018 16:45:34 +0000</pubDate><guid>https://wyb0.com/posts/2018/python-run-cmd/</guid><description>&lt;h3 id="0x00-使用模块">0x00 使用模块&lt;/h3>
+&lt;p>在python执行系统命令一般可以通过3个模块来实现，这三个模块是：os、commands、subprocess&lt;/p></description></item><item><title>MRQ 的使用</title><link>https://wyb0.com/posts/2017/python-module-mrq/</link><pubDate>Mon, 10 Jul 2017 16:30:43 +0000</pubDate><guid>https://wyb0.com/posts/2017/python-module-mrq/</guid><description>&lt;h3 id="0x00-mrq">0x00 MRQ&lt;/h3>
+&lt;ul>
+&lt;li>MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。&lt;/li>
+&lt;li>MRQ一方面旨在像RQ一样简单，另一方面有接近Celery的性能。&lt;/li>
+&lt;li>MRQ最初的功能设计是为了满足任务队列的各种任务需求(IO密集&amp;amp;CPU密集，很多小任务&amp;amp;几个大任务)。&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-设置mongo和redis">0x01 设置mongo和redis&lt;/h3>
+&lt;p>因为mrq依赖于redis和mongo，所以先安装设置下&lt;/p></description></item><item><title>Python 的模块</title><link>https://wyb0.com/posts/2016/python-module/</link><pubDate>Wed, 31 Aug 2016 11:22:41 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module/</guid><description>&lt;h3 id="0x00-python的模块">0x00 Python的模块&lt;/h3>
+&lt;ul>
+&lt;li>在python中，任何一个python文件都可以看作一个模块&lt;/li>
+&lt;li>不同包下有相同模块名并不会冲突，且包下必须有文件&lt;code>__init__.py&lt;/code>&lt;/li>
+&lt;li>from lib import * 意思是从包lib中导入所有模块(若lib为模块名则为导入模块的所有函数)&lt;/li>
+&lt;li>from lib.module1 import test 意思是从lib这个包下的module1模块中导入函数test&lt;/li>
+&lt;li>import导入模块时会从sys.path输出的结果路径中查找模块然后导入&lt;/li>
+&lt;li>&lt;code>sys.path.append('D:/xx/xx/xx/code')&lt;/code>可以添加搜索路径&lt;/li>
+&lt;li>使用&lt;code>if __name__ == '__main__':&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-实例">0x01 实例&lt;/h3>
+&lt;ul>
+&lt;li>文件结构如下&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://wyb0.com/img/post/python_module_file_tree.png" alt="模块目录结构">&lt;/p></description></item><item><title>Python 命令行参数解析</title><link>https://wyb0.com/posts/2016/python-parames-parse/</link><pubDate>Tue, 16 Aug 2016 15:10:44 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-parames-parse/</guid><description>&lt;h3 id="0x00-argparse-模块">0x00 argparse 模块&lt;/h3>
+&lt;p>参考 &lt;a href="https://docs.python.org/zh-cn/3.7/library/argparse.html?_blank">https://docs.python.org/zh-cn/3.7/library/argparse.html&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> argparse
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Parser&lt;/span>(object):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;Parser&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(Parser, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>service_type_list &lt;span style="color:#f92672">=&lt;/span> [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;ssh&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;telnet&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;ftp&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;mysql&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;mssql&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;oracle&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;pgsql&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;redis&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>log_level &lt;span style="color:#f92672">=&lt;/span> [&lt;span style="color:#e6db74">&amp;#34;debug&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;warning&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;error&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;critical&amp;#34;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>example &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;Example:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#ae81ff">\r&lt;/span>&lt;span style="color:#e6db74"> python3 &lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74"> -s ssh -i 123.123.123.123
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#ae81ff">\r&lt;/span>&lt;span style="color:#e6db74"> python3 &lt;/span>&lt;span style="color:#e6db74">{}&lt;/span>&lt;span style="color:#e6db74"> -s ssh -i 123.123.123.123/24 -l root -p 123456&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">parser&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> argparse&lt;span style="color:#f92672">.&lt;/span>ArgumentParser(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> formatter_class&lt;span style="color:#f92672">=&lt;/span>argparse&lt;span style="color:#f92672">.&lt;/span>RawDescriptionHelpFormatter,&lt;span style="color:#75715e">#使 example 可以换行&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> add_help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># description = &amp;#34;常见服务口令爆破&amp;#34;,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>epilog &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>example&lt;span style="color:#f92672">.&lt;/span>format(parser&lt;span style="color:#f92672">.&lt;/span>prog,parser&lt;span style="color:#f92672">.&lt;/span>prog)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-i&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Target ip&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-iL&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Target file name, one ip per line&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-l&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;username&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-p&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;pwd&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-lp&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_pwd_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_pwd file, example: username:password&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-L&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;username file&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-P&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;pwd_file&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;password file&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;--port&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;port&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>int, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Target port&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-s&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;service_type&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, required&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> choices&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>service_type_list, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Service type&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-t&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;thread_num&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>int, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">10&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;The number of threads, default is 10 threads&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-T&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;timeout&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>int, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">10&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Timeout, default is 10s&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_argument(&lt;span style="color:#e6db74">&amp;#34;-v&amp;#34;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log_level&amp;#34;&lt;/span>, type&lt;span style="color:#f92672">=&lt;/span>str, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> choices&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>log_level, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Log Level, default is &amp;#39;info&amp;#39;&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># args = parser.parse_args()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># parser.print_help()&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> parser
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@staticmethod&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">init&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> Parser()&lt;span style="color:#f92672">.&lt;/span>parser()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> parser
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;__main__&amp;#34;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> Parser()&lt;span style="color:#f92672">.&lt;/span>init()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> args &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-运行">0x02 运行&lt;/h3>
+&lt;pre tabindex="0">&lt;code>➜ python3 tmp.py
+usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
+ [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
+ -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+ [-t THREAD_NUM] [-T TIMEOUT]
+ [-v {debug,info,warning,error,critical}]
+tmp.py: error: the following arguments are required: -s
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>➜ python3 tmp.py -s ssh
+usage: tmp.py [-h] [-i HOST] [-iL HOST_FILE] [-l USER] [-p PWD]
+ [-lp USER_PWD_FILE] [-L USER_FILE] [-P PWD_FILE] [--port PORT]
+ -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+ [-t THREAD_NUM] [-T TIMEOUT]
+ [-v {debug,info,warning,error,critical}]
+
+optional arguments:
+ -h, --help show this help message and exit
+ -i HOST Target ip
+ -iL HOST_FILE Target file name, one ip per line
+ -l USER username
+ -p PWD password
+ -lp USER_PWD_FILE user_pwd file, example: username:password
+ -L USER_FILE username file
+ -P PWD_FILE password file
+ --port PORT Target port
+ -s {ssh,telnet,ftp,mysql,mssql,oracle,pgsql,redis}
+ Service type
+ -t THREAD_NUM The number of threads, default is 10 threads
+ -T TIMEOUT Timeout, default is 10s
+ -v {debug,info,warning,error,critical}
+ Log Level, default is &amp;#39;info&amp;#39;
+
+Example:
+ python3 tmp.py -s ssh -i 123.123.123.123
+ python3 tmp.py -s ssh -i 123.123.123.123/24 -l root -p 123456
+&lt;/code>&lt;/pre></description></item><item><title>Python 的 scapy 模块简单使用</title><link>https://wyb0.com/posts/2016/python-module-scapy/</link><pubDate>Thu, 11 Aug 2016 23:26:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-scapy/</guid><description>&lt;h3 id="0x00-简单尝试">0x00 简单尝试&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_establish_the_packet.png" alt="尝试构造数据包">&lt;/p>
+&lt;h3 id="0x01-生成一组数据包">0x01 生成一组数据包&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_create_a_set_of_packet.png" alt="生成一组数据包">&lt;/p>
+&lt;h3 id="0x02-发送数据包">0x02 发送数据包&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>send发送数据包
+&lt;img src="https://wyb0.com/img/post/scapy_send_send_packet.png" alt="用send发送数据包">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sr1发送数据包
+&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>sr发送数据包
+&lt;img src="https://wyb0.com/img/post/scapy_sr_send_packet.png" alt="用sr1发送数据包">&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x03-发送syn数据包">0x03 发送SYN数据包&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr1_send_syn_packet.png" alt="用sr1发送syn数据包">&lt;/p>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_sr_send_syn_packet.png" alt="用sr发送syn数据包">&lt;/p>
+&lt;h3 id="0x04-得到tcp内容">0x04 得到TCP内容&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/scapy_get_tcp_content.png" alt="得到tcp内容">&lt;/p></description></item><item><title>Python 的 paramiko 模块</title><link>https://wyb0.com/posts/2016/python-module-paramiko/</link><pubDate>Thu, 14 Jul 2016 15:24:11 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-paramiko/</guid><description>&lt;h3 id="0x00-安装">0x00 安装&lt;/h3>
+&lt;p>直接pip install paramiko安装&lt;br>
+或者去http://www.paramiko.org/ 下载&lt;/p>
+&lt;h3 id="0x01-执行一条远程命令">0x01 执行一条远程命令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#-*- coding:utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> paramiko
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#远程执行命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh &lt;span style="color:#f92672">=&lt;/span> paramiko&lt;span style="color:#f92672">.&lt;/span>SSHClient()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>set_missing_host_key_policy(paramiko&lt;span style="color:#f92672">.&lt;/span>AutoAddPolicy())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>connect(&lt;span style="color:#e6db74">&amp;#34;192.168.188.134&amp;#34;&lt;/span>,&lt;span style="color:#ae81ff">22&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;reber&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;123456&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh_session &lt;span style="color:#f92672">=&lt;/span> ssh&lt;span style="color:#f92672">.&lt;/span>get_transport()&lt;span style="color:#f92672">.&lt;/span>open_session()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>stdin,stdout,stderr &lt;span style="color:#f92672">=&lt;/span> ssh&lt;span style="color:#f92672">.&lt;/span>exec_command(&lt;span style="color:#e6db74">&amp;#34;ls -l&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stdin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stdout&lt;span style="color:#f92672">.&lt;/span>readlines() &lt;span style="color:#75715e">#返回执行结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>print stderr&lt;span style="color:#f92672">.&lt;/span>readlines() &lt;span style="color:#75715e">#有错误信息就返回错误信息，没有就返回空&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://wyb0.com/img/post/paramiko_ssh_one_command.png" alt="paramiko远程ssh后执行一条命令">&lt;/p></description></item><item><title>Python 的 cmd 模块</title><link>https://wyb0.com/posts/2016/python-module-cmd/</link><pubDate>Thu, 14 Jul 2016 09:44:06 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-module-cmd/</guid><description>&lt;h3 id="0x00-关于cmd模块">0x00 关于cmd模块&lt;/h3>
+&lt;p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们&lt;/p>
+&lt;h3 id="0x01-cmd模块的一些常用方法">0x01 cmd模块的一些常用方法：&lt;/h3>
+&lt;ol>
+&lt;li>cmdloop()：类似与Tkinter的mainloop，运行Cmd解析器&lt;/li>
+&lt;li>onecmd(str)：读取输入，并进行处理，通常不需要重载该函数，而是使用更加具体的do_command来执行特定的命名&lt;/li>
+&lt;li>emptyline()：当输入空行时调用该方法&lt;/li>
+&lt;li>default(line)：当无法识别输入的command时调用该方法&lt;/li>
+&lt;li>completedefault(text,line,begidx,endidx):如果不存在针对的complete_*()方法，那么会调用该函数&lt;/li>
+&lt;li>precmd(line)：命令line解析之前被调用该方法&lt;/li>
+&lt;li>postcmd(stop，line)：命令line解析之后被调用该方法&lt;/li>
+&lt;li>preloop()：cmdloop()运行之前调用该方法&lt;/li>
+&lt;li>postloop()：cmdloop()退出之后调用该方法&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x02-用cmd模块简单实现shell命令">0x02 用cmd模块简单实现shell命令&lt;/h3>
+&lt;pre tabindex="0">&lt;code>#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+
+import sys
+import os
+import socket
+from cmd import Cmd
+
+class ClassShell(Cmd):
+ &amp;#34;&amp;#34;&amp;#34;docstring for ClassShell&amp;#34;&amp;#34;&amp;#34;
+ def __init__(self):
+ Cmd.__init__(self)
+ os.chdir(&amp;#34;C:/Users/reber/Desktop&amp;#34;)
+ hostName = socket.gethostname()
+ self.prompt = &amp;#34;reber@&amp;#34; + hostName + &amp;#34; &amp;#34; + os.path.abspath(&amp;#39;.&amp;#39;) + &amp;#34;\n$ &amp;#34;
+ 
+
+ def help_dir(self):
+ print &amp;#34;dir [path]&amp;#34;
+ def do_dir(self, arg):
+ if not arg:
+ print &amp;#34;\n&amp;#34;.join(os.listdir(&amp;#39;.&amp;#39;))
+ elif os.path.exists(arg):
+ print &amp;#34;\n&amp;#34;.join(os.listdir(arg))
+ else:
+ print &amp;#34;no such path exists&amp;#34;
+
+ def help_ls(self):
+ print &amp;#34;ls [path]&amp;#34;
+ def do_ls(self, arg):
+ if not arg:
+ print &amp;#34;\n&amp;#34;.join(os.listdir(&amp;#39;.&amp;#39;))
+ elif os.path.exists(arg):
+ print &amp;#34;\n&amp;#34;.join(os.listdir(arg))
+ else:
+ print &amp;#34;no such path exists&amp;#34;
+
+ def help_pwd(self):
+ print &amp;#34;pwd&amp;#34;
+ def do_pwd(self, arg):
+ print os.path.abspath(&amp;#39;.&amp;#39;)
+
+ def help_cd(self):
+ print &amp;#34;cd [path]&amp;#34;
+ def do_cd(self, arg):
+ hostName = socket.gethostname()
+ if not arg:
+ os.chdir(&amp;#34;C:/Users/reber/Desktop&amp;#34;)
+ self.prompt = &amp;#34;reber@&amp;#34; + hostName + &amp;#34; &amp;#34; + os.path.abspath(&amp;#39;.&amp;#39;) + &amp;#34;\n$ &amp;#34;
+ elif os.path.exists(arg):
+ os.chdir(arg)
+ self.prompt = &amp;#34;reber@&amp;#34; + hostName + &amp;#34; &amp;#34; + os.path.abspath(&amp;#39;.&amp;#39;) + &amp;#34;\n$ &amp;#34;
+ else:
+ print &amp;#34;no such path&amp;#34;
+
+ def help_clear(self):
+ print &amp;#34;clear&amp;#34;
+ def do_clear(self, arg):
+ i = os.system(&amp;#39;cls&amp;#39;)
+
+ def help_cat(self):
+ print &amp;#34;cat filename&amp;#34;
+ def do_cat(self, arg):
+ if os.path.exists(arg):
+ with open(arg,&amp;#34;r&amp;#34;) as f:
+ data = f.read()
+ print data
+ else:
+ print &amp;#34;no such file exists&amp;#34;
+
+ def help_mv(self):
+ print &amp;#34;mv oldfilename newfilename&amp;#34;
+ def do_mv(self, arg):
+ oldfilename,newfilename = arg.split()
+ if os.path.exists(oldfilename):
+ os.rename(oldfilename,newfilename)
+ else:
+ print &amp;#34;no such file:&amp;#34; + oldfilename
+
+ def help_touch(self):
+ print &amp;#34;touch filename&amp;#34;
+ def do_touch(self, arg):
+ with open(arg, &amp;#34;w&amp;#34;) as f:
+ pass
+
+ def help_rm(self):
+ print &amp;#34;rm filepath&amp;#34;
+ def do_rm(self, arg):
+ if os.path.exists(arg):
+ os.remove(arg)
+ else:
+ print &amp;#34;no such file:&amp;#34; + arg
+ 
+ def help_cp(self):
+ print &amp;#34;cp oldfilepath newfilepath&amp;#34;
+ def do_cp(self, arg):
+ oldfilepath,newfilepath = arg.split()
+ if os.path.exists(oldfilepath):
+ with open(oldfilepath, &amp;#34;r&amp;#34;) as f:
+ data = f.read()
+ with open(newfilepath, &amp;#34;w&amp;#34;) as f:
+ f.write(data)
+ else:
+ print &amp;#34;no such path:&amp;#34; + oldfilepath
+
+ def help_exit(self):
+ print &amp;#34;input exit will exit the program&amp;#34;
+
+ def do_exit(self, arg):
+ print &amp;#34;Exit:&amp;#34;,arg
+ sys.exit()
+
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+ shell = ClassShell()
+ shell.cmdloop()
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-程序执行结果如下">0x03 程序执行结果如下&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/cmd_results_sample.png" alt="60">&lt;/p></description></item></channel></rss>

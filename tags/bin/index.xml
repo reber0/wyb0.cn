@@ -1,19 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>bin on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/bin/</link>
-    <description>Recent content in bin on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 29 Mar 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/bin/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>固件提取</title>
-      <link>https://wyb0.com/posts/2024/extracts-firmware/</link>
-      <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2024/extracts-firmware/</guid>
-      <description>0x00 固件组成 固件通常由 bootloader、内核、根文件系统及其他资源文件组成 固件采用的根系统文件类型有很多种，常见的有 s</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bin on Reber's Blog</title><link>https://wyb0.com/tags/bin/</link><description>Recent content in Bin on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 29 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/bin/index.xml" rel="self" type="application/rss+xml"/><item><title>固件提取</title><link>https://wyb0.com/posts/2024/extracts-firmware/</link><pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2024/extracts-firmware/</guid><description>&lt;h3 id="0x00-固件组成">0x00 固件组成&lt;/h3>
+&lt;p>固件通常由 bootloader、内核、根文件系统及其他资源文件组成&lt;br>
+固件采用的根系统文件类型有很多种，常见的有 squashfs、ubifs、ext4、jeffs2 等。&lt;br>
+固件文件通常以 bin、zip、LZMA、arj 等文件压缩类型封装，最常见的为 bin 和 zip 格式&lt;br>
+最常采用的文件系统是 squashfs，分析人员可以使用 unsqushfs 工具对文件系统提取数据。&lt;/p></description></item></channel></rss>

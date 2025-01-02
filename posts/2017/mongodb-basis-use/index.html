@@ -1,138 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>MongoDB 的基本使用 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>MongoDB 的基本使用</h1>
-      
-<div class="post-meta">
-    <time>2017-05-25</time>
-    
-    [<a href="/categories/Database">Database</a>](<a href="/tags/mongodb">mongodb</a>)
-</div>
-
-      <div><h3 id="0x00-角色和权限">0x00 角色和权限</h3>
-<p>Mongo的授权采用了角色授权的方法，每个用户都有一组权限，Monog内建角色权限如下：</p>
-<ul>
-<li>数据库用户角色
-<ul>
-<li>read：允许用户读取指定数据库</li>
-<li>readWrite：允许用户读写指定数据库</li>
-</ul>
-</li>
-<li>数据库管理角色
-<ul>
-<li>dbOwner：包含readWrite、dbAdmin、userAdmin</li>
-<li>dbAdmin：允许用户在指定数据库中对集合、文档等操作</li>
-<li>userAdmin：允许用户向system.users集合写入，可以在指定数据库里创建、删除和管理用户</li>
-</ul>
-</li>
-<li>集群管理角色
-<ul>
-<li>clusterAdmin：只在admin数据库中可用，包含clusterManager、clusterMonitor、hostManager</li>
-<li>clusterManager：</li>
-<li>clusterMonitor：</li>
-<li>hostManager</li>
-</ul>
-</li>
-<li>备份和恢复角色
-<ul>
-<li>backup</li>
-<li>restore</li>
-</ul>
-</li>
-<li>所有数据库角色
-<ul>
-<li>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限</li>
-<li>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限</li>
-<li>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限</li>
-<li>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限</li>
-</ul>
-</li>
-<li>超级用户角色
-<ul>
-<li>root：只在admin数据库中可用。超级账号，超级权限</li>
-</ul>
-</li>
-<li>内部角色
-<ul>
-<li>__system</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x01-创建用户">0x01 创建用户</h3>
-<pre tabindex="0"><code>#创建管理员用户
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>MongoDB 的基本使用 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>MongoDB 的基本使用</h1><div class=post-meta><time>2017-05-25</time>
+[<a href=/categories/Database>Database</a>](<a href=/tags/mongodb>mongodb</a>)</div><div><h3 id=0x00-角色和权限>0x00 角色和权限</h3><p>Mongo的授权采用了角色授权的方法，每个用户都有一组权限，Monog内建角色权限如下：</p><ul><li>数据库用户角色<ul><li>read：允许用户读取指定数据库</li><li>readWrite：允许用户读写指定数据库</li></ul></li><li>数据库管理角色<ul><li>dbOwner：包含readWrite、dbAdmin、userAdmin</li><li>dbAdmin：允许用户在指定数据库中对集合、文档等操作</li><li>userAdmin：允许用户向system.users集合写入，可以在指定数据库里创建、删除和管理用户</li></ul></li><li>集群管理角色<ul><li>clusterAdmin：只在admin数据库中可用，包含clusterManager、clusterMonitor、hostManager</li><li>clusterManager：</li><li>clusterMonitor：</li><li>hostManager</li></ul></li><li>备份和恢复角色<ul><li>backup</li><li>restore</li></ul></li><li>所有数据库角色<ul><li>readAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读权限</li><li>readWriteAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的读写权限</li><li>dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限</li><li>userAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库的userAdmin权限</li></ul></li><li>超级用户角色<ul><li>root：只在admin数据库中可用。超级账号，超级权限</li></ul></li><li>内部角色<ul><li>__system</li></ul></li></ul><h3 id=0x01-创建用户>0x01 创建用户</h3><pre tabindex=0><code>#创建管理员用户
 &gt; use admin
 switched to db admin
 &gt; db.createUser({
@@ -182,9 +60,7 @@ Successfully added user: {
 1
 &gt; exit
 bye
-</code></pre><h3 id="0x02-配置">0x02 配置</h3>
-<p>MongoDb版本：version v3.4.4</p>
-<pre tabindex="0"><code>#配置文件如下
+</code></pre><h3 id=0x02-配置>0x02 配置</h3><p>MongoDb版本：version v3.4.4</p><pre tabindex=0><code>#配置文件如下
 $ sudo vim /etc/mongod.conf
 storage:
   dbPath: /var/lib/mongodb
@@ -206,18 +82,17 @@ processManagement:
 #MongoDB默认不需要密码,这里设置为enabled则访问时需要密码
 security:
   authorization: enabled
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#启动服务(通过配置文件)</span>
-</span></span><span style="display:flex;"><span>$ sudo mongod --config /etc/mongod.conf
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#关闭服务(需要进入数据库)</span>
-</span></span><span style="display:flex;"><span>$ mongo
-</span></span><span style="display:flex;"><span>&gt; use admin
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#此时就需要验证后才能进行操作</span>
-</span></span><span style="display:flex;"><span>&gt; db.auth<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;root&#39;</span>,<span style="color:#e6db74">&#39;root123&#39;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>&gt; db.shutdownServer<span style="color:#f92672">()</span>
-</span></span></code></pre></div><h3 id="0x03-数据库">0x03 数据库</h3>
-<pre tabindex="0"><code>$ mongo
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#启动服务(通过配置文件)</span>
+</span></span><span style=display:flex><span>$ sudo mongod --config /etc/mongod.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#关闭服务(需要进入数据库)</span>
+</span></span><span style=display:flex><span>$ mongo
+</span></span><span style=display:flex><span>&gt; use admin
+</span></span><span style=display:flex><span><span style=color:#75715e>#此时就需要验证后才能进行操作</span>
+</span></span><span style=display:flex><span>&gt; db.auth<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;root&#39;</span>,<span style=color:#e6db74>&#39;root123&#39;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>&gt; db.shutdownServer<span style=color:#f92672>()</span>
+</span></span></code></pre></div><h3 id=0x03-数据库>0x03 数据库</h3><pre tabindex=0><code>$ mongo
 
 #创建数据库，创建数据库后只有插入一条数据才能保存数据库
 &gt; use test
@@ -233,8 +108,7 @@ security:
 switched to db test
 &gt;db.dropDatabase()
 { &#34;dropped&#34; :  &#34;test&#34;, &#34;ok&#34; : 1 }
-</code></pre><h3 id="0x04-集合">0x04 集合</h3>
-<pre tabindex="0"><code>#创建集合
+</code></pre><h3 id=0x04-集合>0x04 集合</h3><pre tabindex=0><code>#创建集合
 &gt; use test
 &gt; db.createCollection(&#34;msg&#34;)
 { &#34;ok&#34; : 1 }
@@ -251,8 +125,7 @@ book
 true
 &gt; show collections
 msg
-</code></pre><h3 id="0x05-文档">0x05 文档</h3>
-<pre tabindex="0"><code>#插入文档,若student这个集合不存在时会自动创建集合student
+</code></pre><h3 id=0x05-文档>0x05 文档</h3><pre tabindex=0><code>#插入文档,若student这个集合不存在时会自动创建集合student
 &gt; db.student.insert({&#34;name&#34;:&#34;xiaoming&#34;,&#34;sex&#34;:1})
 WriteResult({ &#34;nInserted&#34; : 1 })
 &gt; db.student.insert({
@@ -289,8 +162,7 @@ WriteResult({ &#34;nMatched&#34; : 1, &#34;nUpserted&#34; : 0, &#34;nModified&#3
 WriteResult({ &#34;nRemoved&#34; : 1 })
 &gt; db.student.remove({sex:1},1)  只删除一条性别为1的数据
 WriteResult({ &#34;nRemoved&#34; : 1 })
-</code></pre><h3 id="0x06-其他">0x06 其他</h3>
-<pre tabindex="0"><code>#排序
+</code></pre><h3 id=0x06-其他>0x06 其他</h3><pre tabindex=0><code>#排序
 &gt; db.student.find()
 { &#34;_id&#34; : ObjectId(&#34;592681367e72bcd757917262&#34;), &#34;name&#34; : &#34;xiaohong&#34;, &#34;sex&#34; : 0, &#34;age&#34; : 30 }
 { &#34;_id&#34; : ObjectId(&#34;5926814d7e72bcd757917264&#34;), &#34;name&#34; : &#34;xiaohua&#34;, &#34;sex&#34; : 1, &#34;age&#34; : 24 }
@@ -301,8 +173,7 @@ WriteResult({ &#34;nRemoved&#34; : 1 })
 #备份与还原
 $ mongodump 会备份到当前的dump文件夹中
 $ mongorestore 会把dump中的数据导入到mongo
-</code></pre><h3 id="0x07-python连接mongodb">0x07 python连接MongoDB</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+</code></pre><h3 id=0x07-python连接mongodb>0x07 python连接MongoDB</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import pymongo
@@ -321,43 +192,19 @@ collection = db[&#34;msg&#34;]
 
 #输出集合的第一条数据
 print collection.find_one()
-</code></pre><h3 id="0x08-遇到的问题">0x08 遇到的问题</h3>
-<pre tabindex="0"><code>#非正常停止后再次启动可能会遇到：
+</code></pre><h3 id=0x08-遇到的问题>0x08 遇到的问题</h3><pre tabindex=0><code>#非正常停止后再次启动可能会遇到：
 about to fork child process, waiting until server is ready for connections.
 forked process: 2221
 ERROR: child process failed, exited with error number 1
 
 解决方案，使用sudo权限：
 $ sudo mongod --config /etc/mongod.conf
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

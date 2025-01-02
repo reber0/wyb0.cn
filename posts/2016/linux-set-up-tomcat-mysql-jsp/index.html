@@ -1,128 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 下搭建 Tomcat&#43;MySQL&#43;JSP | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 下搭建 Tomcat&#43;MySQL&#43;JSP</h1>
-      
-<div class="post-meta">
-    <time>2016-06-17</time>
-    
-    [<a href="/categories/Server">Server</a>](<a href="/tags/server">server</a>)
-</div>
-
-      <div><p>安装环境为：CentOS-6.5-x86_64-minimal</p>
-<h3 id="0x00-安装mysql">0x00 安装mysql</h3>
-<p>$ sudo yum install mysql mysql-server mysql-devel<br>
-<img src="/img/post/install_mysql.png" alt="安装mysql.png">
-<img src="/img/post/creat_db_tomcat.png" alt="创建数据库tomcat.png">
-<img src="/img/post/grant_db_tomcat.png" alt="将数据库tomcat分配给用户tomcat.png"></p>
-<h3 id="0x01-安装jdk和tomcat">0x01 安装jdk和tomcat</h3>
-<ol>
-<li>
-<p>创建安装jdk和tomcat的文件夹
-<img src="/img/post/mkdir_java_tomcat.png" alt="创建安装jdk和tomcat的文件夹.png"></p>
-</li>
-<li>
-<p>下载安装包并解压安装</p>
-</li>
-</ol>
-<p>jdk包可在<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">这里</a>下载</p>
-<p>tomcat包可在<a href="http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz">这里</a>下载</p>
-<p><img src="/img/post/download_tomcat.png" alt="下载tomcat安装包.png">
-<img src="/img/post/cp_jdk_tomcat_to_opt.png" alt="复制解压后的安装包到/opt下对应目录.png"></p>
-<p>为java添加环境变量并设置命令链接符</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ tail -n <span style="color:#ae81ff">3</span> /etc/profile
-</span></span><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/opt/jdk1.8.0_91&#34;</span>
-</span></span><span style="display:flex;"><span>export CLASSPATH<span style="color:#f92672">=</span>.:$JAVA_HOME/lib
-</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$JAVA_HOME/bin:$PATH
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_91/bin/java <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>$ sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_91/bin/javac <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>$ sudo update-alternatives --set java /opt/jdk1.8.0_91/bin/java
-</span></span><span style="display:flex;"><span>$ sudo update-alternatives --set javac /opt/jdk1.8.0_91/bin/javac
-</span></span></code></pre></div><p><img src="/img/post/java_version.png" alt="验证jdk是否设置成功.png"></p>
-<h3 id="0x02-简单配置tomcat">0x02 简单配置tomcat</h3>
-<p><img src="/img/post/config_tomcat.png" alt="简单配置tomcat1.png"></p>
-<h3 id="0x03-启动tomcat">0x03 启动tomcat</h3>
-<p><img src="/img/post/start_tomcat.png" alt="启动tomcat.png">
-<img src="/img/post/see_tomcat_index.png" alt="访问tomcat主页.png"></p>
-<h3 id="0x04-连接数据库">0x04 连接数据库</h3>
-<p>驱动可在<a href="http://dev.mysql.com/downloads/connector/j/">这里</a>下载
-<img src="/img/post/tomcat_copy_mysql_driver.png" alt="复制数据库驱动.png">
-$ vim /opt/tomcat/apache-tomcat-8.0.36/webapps/ROOT/a.jsp</p>
-<pre tabindex="0"><code class="language-jsp" data-lang="jsp">&lt;%@page contentType=&#34;text/html;charset=utf-8&#34; import=&#34;java.sql.*&#34; %&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 下搭建 Tomcat+MySQL+JSP | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 下搭建 Tomcat+MySQL+JSP</h1><div class=post-meta><time>2016-06-17</time>
+[<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div><p>安装环境为：CentOS-6.5-x86_64-minimal</p><h3 id=0x00-安装mysql>0x00 安装mysql</h3><p>$ sudo yum install mysql mysql-server mysql-devel<br><img src=/img/post/install_mysql.png alt=安装mysql.png>
+<img src=/img/post/creat_db_tomcat.png alt=创建数据库tomcat.png>
+<img src=/img/post/grant_db_tomcat.png alt=将数据库tomcat分配给用户tomcat.png></p><h3 id=0x01-安装jdk和tomcat>0x01 安装jdk和tomcat</h3><ol><li><p>创建安装jdk和tomcat的文件夹
+<img src=/img/post/mkdir_java_tomcat.png alt=创建安装jdk和tomcat的文件夹.png></p></li><li><p>下载安装包并解压安装</p></li></ol><p>jdk包可在<a href=http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>这里</a>下载</p><p>tomcat包可在<a href=http://mirrors.cnnic.cn/apache/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz>这里</a>下载</p><p><img src=/img/post/download_tomcat.png alt=下载tomcat安装包.png>
+<img src=/img/post/cp_jdk_tomcat_to_opt.png alt=复制解压后的安装包到/opt下对应目录.png></p><p>为java添加环境变量并设置命令链接符</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ tail -n <span style=color:#ae81ff>3</span> /etc/profile
+</span></span><span style=display:flex><span>export JAVA_HOME<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/opt/jdk1.8.0_91&#34;</span>
+</span></span><span style=display:flex><span>export CLASSPATH<span style=color:#f92672>=</span>.:$JAVA_HOME/lib
+</span></span><span style=display:flex><span>export PATH<span style=color:#f92672>=</span>$JAVA_HOME/bin:$PATH
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_91/bin/java <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>$ sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_91/bin/javac <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>$ sudo update-alternatives --set java /opt/jdk1.8.0_91/bin/java
+</span></span><span style=display:flex><span>$ sudo update-alternatives --set javac /opt/jdk1.8.0_91/bin/javac
+</span></span></code></pre></div><p><img src=/img/post/java_version.png alt=验证jdk是否设置成功.png></p><h3 id=0x02-简单配置tomcat>0x02 简单配置tomcat</h3><p><img src=/img/post/config_tomcat.png alt=简单配置tomcat1.png></p><h3 id=0x03-启动tomcat>0x03 启动tomcat</h3><p><img src=/img/post/start_tomcat.png alt=启动tomcat.png>
+<img src=/img/post/see_tomcat_index.png alt=访问tomcat主页.png></p><h3 id=0x04-连接数据库>0x04 连接数据库</h3><p>驱动可在<a href=http://dev.mysql.com/downloads/connector/j/>这里</a>下载
+<img src=/img/post/tomcat_copy_mysql_driver.png alt=复制数据库驱动.png>
+$ vim /opt/tomcat/apache-tomcat-8.0.36/webapps/ROOT/a.jsp</p><pre tabindex=0><code class=language-jsp data-lang=jsp>&lt;%@page contentType=&#34;text/html;charset=utf-8&#34; import=&#34;java.sql.*&#34; %&gt;
 &lt;%
 	String driver = &#34;com.mysql.jdbc.Driver&#34;; 
 	String url = &#34;jdbc:mysql://localhost:3306/tomcat&#34;; //数据库web
@@ -144,36 +48,12 @@ $ vim /opt/tomcat/apache-tomcat-8.0.36/webapps/ROOT/a.jsp</p>
 	    e.printStackTrace(); 
 	} 
 %&gt;
-</code></pre><p><img src="/img/post/tomcat_conn_mysql.png" alt="连接数据库.png"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/tomcat_conn_mysql.png alt=连接数据库.png></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

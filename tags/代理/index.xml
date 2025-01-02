@@ -1,26 +1,178 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>代理 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E4%BB%A3%E7%90%86/</link>
-    <description>Recent content in 代理 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 13 Sep 2016 11:36:39 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E4%BB%A3%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Python 实现代理</title>
-      <link>https://wyb0.com/posts/2016/python-implement-agent/</link>
-      <pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-implement-agent/</guid>
-      <description>0x00 帮助信息 0x01 代码如下 #!/usr/bin/env python # -*- coding: utf-8 -*- &amp;#39;This is a proxy&amp;#39; __author__ = &amp;#39;xxx&amp;#39; import sys import socket import threading import optparse lock = threading.Lock() def locker(msg): lock.acquire() print msg lock.release() def hexdump (src,length=16):#</description>
-    </item>
-    <item>
-      <title>Windows 下用 Proxifier 实现全局代理</title>
-      <link>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</link>
-      <pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</guid>
-      <description>0x00 环境 在windows下用Shadowsocks和Proxifier实现全局代理： System：Windows10 Pro x64 S</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>代理 on Reber's Blog</title><link>https://wyb0.com/tags/%E4%BB%A3%E7%90%86/</link><description>Recent content in 代理 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 13 Sep 2016 11:36:39 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E4%BB%A3%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 实现代理</title><link>https://wyb0.com/posts/2016/python-implement-agent/</link><pubDate>Tue, 13 Sep 2016 11:36:39 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-implement-agent/</guid><description>&lt;h3 id="0x00-帮助信息">0x00 帮助信息&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_help.png" alt="帮助信息">&lt;/p>
+&lt;h3 id="0x01-代码如下">0x01 代码如下&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">&amp;#39;This is a proxy&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>__author__ &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;xxx&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> sys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> socket
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> optparse
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lock &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Lock()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">locker&lt;/span>(msg):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>acquire()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print msg
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>release()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">hexdump&lt;/span> (src,length&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">16&lt;/span>):&lt;span style="color:#75715e">#十六进制导出函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> digits &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> isinstance(src,unicode) &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">0&lt;/span>,len(src),length):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> src[i:i&lt;span style="color:#f92672">+&lt;/span>length]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hexa &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39; &amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join(&lt;span style="color:#e6db74">&amp;#34;[&lt;/span>&lt;span style="color:#e6db74">%0*X&lt;/span>&lt;span style="color:#e6db74">]&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (digits,ord(x)) &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> text &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join([x &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#ae81ff">0x20&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> ord(x) &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#ae81ff">0x7F&lt;/span> &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;.&amp;#39;&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> s])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result&lt;span style="color:#f92672">.&lt;/span>append(&lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">%04X&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%-*s&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (i,length&lt;span style="color:#f92672">*&lt;/span>(digits&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>),hexa,text))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join(result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">receive_from&lt;/span> (connection):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#我们设置了1秒的超时，这取决于目标的情况，可能需要调整&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> connection&lt;span style="color:#f92672">.&lt;/span>settimeout(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#持续从缓存中读取数据直到没有数据或者超时&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> connection&lt;span style="color:#f92672">.&lt;/span>recv(&lt;span style="color:#ae81ff">4096&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> data:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> buffer &lt;span style="color:#f92672">+=&lt;/span> data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> buffer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#对目标是远程主机的请求进行修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">request_handler&lt;/span> (buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#执行包修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> buffer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#对目标是本地主机的响应进行修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">response_handler&lt;/span> (buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#执行包修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> buffer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">proxy_handler&lt;/span> (client_socket,remote_host,remote_port,receive_first):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#连接远程主机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>socket(socket&lt;span style="color:#f92672">.&lt;/span>AF_INET,socket&lt;span style="color:#f92672">.&lt;/span>SOCK_STREAM)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket&lt;span style="color:#f92672">.&lt;/span>connect((remote_host,remote_port))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#如果必要从远程主机接收数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> receive_first:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> receive_from(remote_socket)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[==&amp;gt;] Received &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes from remote.&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># hexdump(remote_buffer)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送给我们的相应处理&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> response_handler(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#若我们有数据传递给本地客户端，发送它&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[&amp;lt;==] Sending &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes to localhost.&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket&lt;span style="color:#f92672">.&lt;/span>send(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#现在我们从本地循环读取数据，发送给远程主机和本地主机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#从本地读取数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_buffer &lt;span style="color:#f92672">=&lt;/span> receive_from(client_socket)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(local_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[==&amp;gt;] Received &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes from localhost.&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(local_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># hexdump(local_buffer)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送给我们的本地请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_buffer &lt;span style="color:#f92672">=&lt;/span> request_handler(local_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送给远程主机&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket&lt;span style="color:#f92672">.&lt;/span>send(local_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[==&amp;gt;] Sent to remote.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#接收响应的数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> receive_from(remote_socket)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[&amp;lt;==] Received &lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74"> bytes from remote.&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> len(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># hexdump(remote_buffer)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#发送数据到响应处理函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_buffer &lt;span style="color:#f92672">=&lt;/span> response_handler(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#将响应发送给本地socket&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket&lt;span style="color:#f92672">.&lt;/span>send(remote_buffer)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[==&amp;gt;] Sent to localhost.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#若两边都没有数据，关闭连接&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> len(local_buffer) &lt;span style="color:#f92672">or&lt;/span> &lt;span style="color:#f92672">not&lt;/span> len(remote_buffer):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_socket&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[*] No more data. Closing connections.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">server_loop&lt;/span>(local_host,local_port,remote_host,remote_port,receive_first):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server &lt;span style="color:#f92672">=&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>socket(socket&lt;span style="color:#f92672">.&lt;/span>AF_INET,socket&lt;span style="color:#f92672">.&lt;/span>SOCK_STREAM)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server&lt;span style="color:#f92672">.&lt;/span>bind((local_host,local_port))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[!!] Failed to listen on &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (local_host,local_port)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[!!] Check for other listening sockets or correct permisssions.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sys&lt;span style="color:#f92672">.&lt;/span>exit(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[*] Listening on &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">......&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (local_host,local_port)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server&lt;span style="color:#f92672">.&lt;/span>listen(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client_socket,addr &lt;span style="color:#f92672">=&lt;/span> server&lt;span style="color:#f92672">.&lt;/span>accept()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#打印本地连接信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">[==&amp;gt;] Received incoming connection from &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%d&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (addr[&lt;span style="color:#ae81ff">0&lt;/span>],addr[&lt;span style="color:#ae81ff">1&lt;/span>])
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#开启一个线程与远程主机通信&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> proxy_thread &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>proxy_handler,args&lt;span style="color:#f92672">=&lt;/span>(client_socket,remote_host,remote_port,receive_first))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> proxy_thread&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span> ():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> optparse&lt;span style="color:#f92672">.&lt;/span>OptionParser()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--lh&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--localhost&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;localhost&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;127.0.0.1&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Localhost.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--lp&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--localport&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;localport&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">8888&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;int&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Localport.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--rh&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--remotehost&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;remotehost&amp;#39;&lt;/span>, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;127.0.0.1&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Remotehost.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--rp&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--remoteport&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;remoteport&amp;#39;&lt;/span>, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">8080&lt;/span>, 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;int&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Remoteport.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;--rf&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--receivefirst&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;receive_first&amp;#39;&lt;/span>, default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">False&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> action&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;store_true&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Connection before send and receive data.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options, args) &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#设置本地监听参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localhost:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localhost
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localport:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> local_port &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>localport
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#设置远程目标&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remotehost:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remotehost
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remoteport:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> remote_port &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>remoteport
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> receive_first &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>receive_first
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># print local_host,local_port,remote_host,remote_port,receive_first&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">#现在设置好我们的监听socket&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server_loop(local_host,local_port,remote_host,remote_port,receive_first)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-效果图">0x02 效果图&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/python_proxy_result.png" alt="效果图">&lt;/p></description></item><item><title>Windows 下用 Proxifier 实现全局代理</title><link>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</link><pubDate>Sun, 24 Jul 2016 21:33:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/windows-proxifier-implement-global-proxy/</guid><description>&lt;h3 id="0x00-环境">0x00 环境&lt;/h3>
+&lt;p>在windows下用Shadowsocks和Proxifier实现全局代理：&lt;/p>
+&lt;pre tabindex="0">&lt;code>System：Windows10 Pro x64
+Shadowsocks：Shadowsocks v2.5.2.0 
+Proxifier：Proxifier Portable Edition v3.29
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-配置shadowsocks">0x01 配置Shadowsocks&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/global_agent_set_shadowsocks.png" alt="Windows下实现全局代理-设置shadowsocks">&lt;/p></description></item></channel></rss>

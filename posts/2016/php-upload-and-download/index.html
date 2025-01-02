@@ -1,117 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PHP 之上传与下载 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PHP 之上传与下载</h1>
-      
-<div class="post-meta">
-    <time>2016-05-24</time>
-    
-    [<a href="/categories/PHP">PHP</a>](<a href="/tags/php">php</a>)
-</div>
-
-      <div><h3 id="0x00-上传">0x00 上传</h3>
-<ul>
-<li>客户端设置<br>
-客户端使用form表单上传文件，在form表单中必须指明enctype和method属性的值</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;post&lt;/<span style="color:#f92672">title</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xx.php&#34;</span> <span style="color:#a6e22e">mothod</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">enctype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;multipart/form-data&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;myfile&#34;</span> /&gt;&lt;<span style="color:#f92672">br</span> /&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span> /&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
-</span></span></code></pre></div><ul>
-<li>
-<p>服务端设置</p>
-<ul>
-<li>php.ini:</li>
-</ul>
-<pre tabindex="0"><code>file_uploads = On   //默认允许HTTP文件上传，此选项不能设置为OFF
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>PHP 之上传与下载 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PHP 之上传与下载</h1><div class=post-meta><time>2016-05-24</time>
+[<a href=/categories/PHP>PHP</a>](<a href=/tags/php>php</a>)</div><div><h3 id=0x00-上传>0x00 上传</h3><ul><li>客户端设置<br>客户端使用form表单上传文件，在form表单中必须指明enctype和method属性的值</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>html</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;post&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;xx.php&#34;</span> <span style=color:#a6e22e>mothod</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span> <span style=color:#a6e22e>enctype</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;multipart/form-data&#34;</span>&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;myfile&#34;</span> /&gt;&lt;<span style=color:#f92672>br</span> /&gt;
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;提交&#34;</span> /&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><ul><li><p>服务端设置</p><ul><li>php.ini:</li></ul><pre tabindex=0><code>file_uploads = On   //默认允许HTTP文件上传，此选项不能设置为OFF
 upload_tmp_dir=    //文件上传时存放文件的临时目录
 upload_max_filesize = 20M   //设定单个文件上传的大小，必须小于post_max_size
 post_max_size = 19M   //允许POST表单的数据最大大小
-</code></pre><ul>
-<li>$_FILES:</li>
-</ul>
-<pre tabindex="0"><code>    $_FILES[&#39;upload_file&#39;][&#39;name&#39;]  //带扩展名的原始文件名
+</code></pre><ul><li>$_FILES:</li></ul><pre tabindex=0><code>    $_FILES[&#39;upload_file&#39;][&#39;name&#39;]  //带扩展名的原始文件名
     $_FILES[&#39;upload_file&#39;][&#39;size&#39;]  //文件大小
     $_FILES[&#39;upload_file&#39;][&#39;tmp_name&#39;]  //临时文件名
     $_FILES[&#39;upload_file&#39;][&#39;error&#39;]  //上传文件时的错误信息
@@ -124,146 +38,108 @@ post_max_size = 19M   //允许POST表单的数据最大大小
     //2 文件大小超过了表单总MAX_FILE_SIZE设定的值
     //3 只有部分被上传
     //4 没有上传任何文件
-</code></pre><ul>
-<li>服务端上传步骤</li>
-</ul>
-<pre tabindex="0"><code>    1、判断uploads这个文件夹存在
+</code></pre><ul><li>服务端上传步骤</li></ul><pre tabindex=0><code>    1、判断uploads这个文件夹存在
     2、判断error的值
     3、判断文件后缀是否合法
     4、判断MIME的类型和子类型是否合法
     5、判断文件大小
     6、对文件进行重命名
     7、移动
-</code></pre><ul>
-<li>服务端接收脚本</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//执行文件（图片）上传
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;pre&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">var_dump</span>($_FILES);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;/pre&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//1.获取上传文件信息
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     $upfile <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#34;pic&#34;</span>]; <span style="color:#75715e">//html的form表单的input中name属性值要为pic
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     $typelist <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;image/jpeg&#34;</span>,<span style="color:#e6db74">&#34;image/jpg&#34;</span>,<span style="color:#e6db74">&#34;image/png&#34;</span>,<span style="color:#e6db74">&#34;image/gif&#34;</span>); <span style="color:#75715e">//定义允许的类型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     $path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./uploads/&#34;</span>;  <span style="color:#75715e">//定义一个上传过后的目录
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//2. 过滤上传文件的错误号
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>($upfile[<span style="color:#e6db74">&#34;error&#34;</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//获取错误信息
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">switch</span>($upfile[<span style="color:#e6db74">&#39;error&#39;</span>]){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                $info<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值。&#34;</span>; 
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                $info<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值。&#34;</span>; 
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                $info<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;文件只有部分被上传。&#34;</span>; 
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                $info<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;没有文件被上传。 &#34;</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">6</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                $info<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;找不到临时文件夹。&#34;</span>; 
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">7</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>                $info<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;文件写入失败&#34;</span>; 
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;上传文件错误，原因：&#34;</span><span style="color:#f92672">.</span>$info);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//3. 本次上传文件到小的过滤（自己选择）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>($upfile[<span style="color:#e6db74">&#34;size&#34;</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">100000</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;上传文件大小超出限制！&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//4. 类型过滤
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">in_array</span>($upfile[<span style="color:#e6db74">&#34;type&#34;</span>],$typelist)){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;上传文件类型非法！&#34;</span><span style="color:#f92672">.</span>$upfile[<span style="color:#e6db74">&#34;type&#34;</span>]);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//5. 上传后的文件名定义(随机获取一个文件名（保持后缀名不变）)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $fileinfo <span style="color:#f92672">=</span> <span style="color:#a6e22e">pathinfo</span>($upfile[<span style="color:#e6db74">&#34;name&#34;</span>]);<span style="color:#75715e">//解析上传文件名字
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">do</span>{
-</span></span><span style="display:flex;"><span>        $newfile<span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>(<span style="color:#e6db74">&#34;YmdHis&#34;</span>)<span style="color:#f92672">.</span><span style="color:#a6e22e">rand</span>(<span style="color:#ae81ff">1000</span>,<span style="color:#ae81ff">9999</span>)<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">.</span>$fileinfo[<span style="color:#e6db74">&#34;extension&#34;</span>];
-</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">while</span>(<span style="color:#a6e22e">file_exists</span>($path<span style="color:#f92672">.</span>$newfile));
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//6. 执行文件上传
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//判断是否是一个上传的文件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">is_uploaded_file</span>($upfile[<span style="color:#e6db74">&#34;tmp_name&#34;</span>])){
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//执行文件上传（移动上传文件）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">move_uploaded_file</span>($upfile[<span style="color:#e6db74">&#34;tmp_name&#34;</span>],$path<span style="color:#f92672">.</span>$newfile)){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;文件上传成功！&#34;</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;&lt;h3&gt;&lt;a href=&#39;index.php&#39;&gt;浏览&lt;/a&gt;&lt;/h3&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;上传文件失败&#34;</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;不是一个上传文件！&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div></li>
-</ul>
-<h3 id="0x01-下载">0x01 下载</h3>
-<ul>
-<li>对于php无法解析的类型</li>
-</ul>
-<pre tabindex="0"><code>&lt;a href=&#34;http://www.aa.com/xx.rar&#34;&gt;下载&lt;/a &gt;
-</code></pre><ul>
-<li>对于php能解析的文件(同时为了安全性)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Content-type:text/html;charset=utf-8&#34;</span>);
-</span></span><span style="display:flex;"><span>    $file_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;文件.exe&#34;</span>;
-</span></span><span style="display:flex;"><span>    $file_name<span style="color:#f92672">=</span><span style="color:#a6e22e">iconv</span>(<span style="color:#e6db74">&#34;utf-8&#34;</span>,<span style="color:#e6db74">&#34;gb2312&#34;</span>,$file_name); <span style="color:#75715e">//解决中文不能显示的问题 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    $file_dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/public/www/download/&#34;</span>;
-</span></span><span style="display:flex;"><span>    $file_path <span style="color:#f92672">=</span> $file_dir<span style="color:#f92672">.</span>$file_name;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">file_exists</span>($file_path)) { <span style="color:#75715e">//检查文件是否存在
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;文件找不到&#34;</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">exit</span>;
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        $file <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>($file_path,<span style="color:#e6db74">&#34;r&#34;</span>); <span style="color:#75715e">// 打开文件
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">Header</span>(<span style="color:#e6db74">&#34;Accept-Ranges: bytes&#34;</span>);<span style="color:#75715e">//代表支持断点续传
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 输入文件标签,下面3个Header是必须的
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">Header</span>(<span style="color:#e6db74">&#34;Content-type: application/octet-stream&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Header</span>(<span style="color:#e6db74">&#34;Accept-Length: &#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">filesize</span>($file_path));
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Header</span>(<span style="color:#e6db74">&#34;Content-Disposition: attachment; filename=&#34;</span> <span style="color:#f92672">.</span> $file_name);
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 输出文件内容
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">fread</span>($file,<span style="color:#a6e22e">filesize</span>($file_path));
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fclose</span>($file);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">exit</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010"> 
-</span></span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><ul><li>服务端接收脚本</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//执行文件（图片）上传
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;pre&gt;&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>var_dump</span>($_FILES);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;/pre&gt;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//1.获取上传文件信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>     $upfile <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#34;pic&#34;</span>]; <span style=color:#75715e>//html的form表单的input中name属性值要为pic
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>     $typelist <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;image/jpeg&#34;</span>,<span style=color:#e6db74>&#34;image/jpg&#34;</span>,<span style=color:#e6db74>&#34;image/png&#34;</span>,<span style=color:#e6db74>&#34;image/gif&#34;</span>); <span style=color:#75715e>//定义允许的类型
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>     $path<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;./uploads/&#34;</span>;  <span style=color:#75715e>//定义一个上传过后的目录
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//2. 过滤上传文件的错误号
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span>($upfile[<span style=color:#e6db74>&#34;error&#34;</span>]<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>0</span>){
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//获取错误信息
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>switch</span>($upfile[<span style=color:#e6db74>&#39;error&#39;</span>]){
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>1</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>                $info<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值。&#34;</span>; 
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>2</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>                $info<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值。&#34;</span>; 
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>3</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>                $info<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;文件只有部分被上传。&#34;</span>; 
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>4</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>                $info<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;没有文件被上传。 &#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>6</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>                $info<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;找不到临时文件夹。&#34;</span>; 
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>case</span> <span style=color:#ae81ff>7</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>                $info<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;文件写入失败&#34;</span>; 
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;上传文件错误，原因：&#34;</span><span style=color:#f92672>.</span>$info);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//3. 本次上传文件到小的过滤（自己选择）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span>($upfile[<span style=color:#e6db74>&#34;size&#34;</span>]<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>100000</span>){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;上传文件大小超出限制！&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//4. 类型过滤
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>in_array</span>($upfile[<span style=color:#e6db74>&#34;type&#34;</span>],$typelist)){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;上传文件类型非法！&#34;</span><span style=color:#f92672>.</span>$upfile[<span style=color:#e6db74>&#34;type&#34;</span>]);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//5. 上传后的文件名定义(随机获取一个文件名（保持后缀名不变）)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $fileinfo <span style=color:#f92672>=</span> <span style=color:#a6e22e>pathinfo</span>($upfile[<span style=color:#e6db74>&#34;name&#34;</span>]);<span style=color:#75715e>//解析上传文件名字
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>do</span>{
+</span></span><span style=display:flex><span>        $newfile<span style=color:#f92672>=</span> <span style=color:#a6e22e>date</span>(<span style=color:#e6db74>&#34;YmdHis&#34;</span>)<span style=color:#f92672>.</span><span style=color:#a6e22e>rand</span>(<span style=color:#ae81ff>1000</span>,<span style=color:#ae81ff>9999</span>)<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;.&#34;</span><span style=color:#f92672>.</span>$fileinfo[<span style=color:#e6db74>&#34;extension&#34;</span>];
+</span></span><span style=display:flex><span>    }<span style=color:#66d9ef>while</span>(<span style=color:#a6e22e>file_exists</span>($path<span style=color:#f92672>.</span>$newfile));
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//6. 执行文件上传
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>//判断是否是一个上传的文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>is_uploaded_file</span>($upfile[<span style=color:#e6db74>&#34;tmp_name&#34;</span>])){
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//执行文件上传（移动上传文件）
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>move_uploaded_file</span>($upfile[<span style=color:#e6db74>&#34;tmp_name&#34;</span>],$path<span style=color:#f92672>.</span>$newfile)){
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;文件上传成功！&#34;</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;&lt;h3&gt;&lt;a href=&#39;index.php&#39;&gt;浏览&lt;/a&gt;&lt;/h3&gt;&#34;</span>;
+</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;上传文件失败&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }<span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;不是一个上传文件！&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div></li></ul><h3 id=0x01-下载>0x01 下载</h3><ul><li>对于php无法解析的类型</li></ul><pre tabindex=0><code>&lt;a href=&#34;http://www.aa.com/xx.rar&#34;&gt;下载&lt;/a &gt;
+</code></pre><ul><li>对于php能解析的文件(同时为了安全性)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>header</span>(<span style=color:#e6db74>&#34;Content-type:text/html;charset=utf-8&#34;</span>);
+</span></span><span style=display:flex><span>    $file_name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;文件.exe&#34;</span>;
+</span></span><span style=display:flex><span>    $file_name<span style=color:#f92672>=</span><span style=color:#a6e22e>iconv</span>(<span style=color:#e6db74>&#34;utf-8&#34;</span>,<span style=color:#e6db74>&#34;gb2312&#34;</span>,$file_name); <span style=color:#75715e>//解决中文不能显示的问题 
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $file_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/public/www/download/&#34;</span>;
+</span></span><span style=display:flex><span>    $file_path <span style=color:#f92672>=</span> $file_dir<span style=color:#f92672>.</span>$file_name;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>file_exists</span>($file_path)) { <span style=color:#75715e>//检查文件是否存在
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;文件找不到&#34;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>exit</span>;
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        $file <span style=color:#f92672>=</span> <span style=color:#a6e22e>fopen</span>($file_path,<span style=color:#e6db74>&#34;r&#34;</span>); <span style=color:#75715e>// 打开文件
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#a6e22e>Header</span>(<span style=color:#e6db74>&#34;Accept-Ranges: bytes&#34;</span>);<span style=color:#75715e>//代表支持断点续传
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// 输入文件标签,下面3个Header是必须的
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#a6e22e>Header</span>(<span style=color:#e6db74>&#34;Content-type: application/octet-stream&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>Header</span>(<span style=color:#e6db74>&#34;Accept-Length: &#34;</span><span style=color:#f92672>.</span><span style=color:#a6e22e>filesize</span>($file_path));
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>Header</span>(<span style=color:#e6db74>&#34;Content-Disposition: attachment; filename=&#34;</span> <span style=color:#f92672>.</span> $file_name);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 输出文件内容
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>fread</span>($file,<span style=color:#a6e22e>filesize</span>($file_path));
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fclose</span>($file);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>exit</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010> 
+</span></span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

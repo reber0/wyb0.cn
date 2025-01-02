@@ -1,200 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Windows 下第三方服务提权 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Windows 下第三方服务提权</h1>
-      
-<div class="post-meta">
-    <time>2016-08-07</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-      <div><h3 id="0x00--mssql提权">0x00  MSSQL提权</h3>
-<p>MSSQL运行在system权限时才可以通过xp_cmdshell组件执行系统命令提权<br>
-提权条件：数据库账号是DBA权限</p>
-<ul>
-<li>
-<p>关于xp_cmdshell</p>
-<ul>
-<li>得到数据库连接信息，连接数据库后执行<code>EXEC xp_cmdshell 'net user';</code></li>
-<li>有sql注入时也可以直接在url上使用xp_cmdshell，因为mssql可以多语句执行，例如<code>?id=1;EXEC xp_cmdshell 'net user';--</code></li>
-</ul>
-</li>
-<li>
-<p>连接数据库
-<img src="/img/post/privilge_escalation_win_find_sql_conn_msg.png" alt="Windows下第三方服务提权-找数据库连接信息">
-<img src="/img/post/privilge_escalation_win_conn_mssql.png" alt="Windows下第三方服务提权-连接mssql数据库"></p>
-</li>
-<li>
-<p>执行系统命令
-<img src="/img/post/privilge_escalation_win_try_exec_sys_command.png" alt="Windows下第三方服务提权-尝试用xp_cmdshell执行命令">
-<img src="/img/post/privilge_escalation_win_open_cmd_shell.png" alt="Windows下第三方服务提权-开启xp_cmdshell组件">
-<img src="/img/post/privilge_escalation_win_exec_sys_command_success.png" alt="Windows下第三方服务提权-使用xp_cmdshell成功执行命令"></p>
-</li>
-<li>
-<p>添加用户
-<img src="/img/post/privilge_escalation_win_add_user.png" alt="Windows下第三方服务提权-添加用户">
-<img src="/img/post/privilge_escalation_win_view_user.png" alt="Windows下第三方服务提权-查看添加的用户"></p>
-</li>
-<li>
-<p>远程连接
-<img src="/img/post/privilge_escalation_win_remote_conn.png" alt="Windows下第三方服务提权-远程连接">
-<img src="/img/post/privilge_escalation_win_input_u_p.png" alt="Windows下第三方服务提权-输入用户名和密码">
-<img src="/img/post/privilge_escalation_win_remote_connection_view_ip.png" alt="Windows下第三方服务提权-输入用户名和密码"></p>
-</li>
-</ul>
-<h3 id="0x01-mysql提权">0x01 MySQL提权</h3>
-<p>环境：web应用服务器权限较低<br>
-提权条件：MySQL是system权限</p>
-<ul>
-<li>关于UDF</li>
-</ul>
-<p>MySQL提权可以用UDF和Mof。UDF就是User defined Function，即用户定义函数，可以通过创建存储方法来定义函数，从而调用系统命令。</p>
-<ul>
-<li>
-<p>UDF提权过程</p>
-<ul>
-<li>导入udf.dll到服务器指定目录
-<ul>
-<li>MySQL版本小于5.1的udf.dll要导入到c:\windows\目录下</li>
-<li>MySQL版本大于等于5.1的udf.dll要导入到plugin_dir目录，plugin_dir在MySQL安装目录下的lib/plugin目录下(MySQL安装目录可以用select @@basedir得到)，默认不存在这个目录，我们要自己创建</li>
-</ul>
-</li>
-<li>使用SQL语句创建功能函数<br>
-CREATE FUNCTION shell RETURNS STRING SONAME &lsquo;udf.dll&rsquo;;</li>
-<li>执行MySQL语句调用新创建的函数<br>
-select shell(&lsquo;cmd&rsquo;,&lsquo;whoami&rsquo;);</li>
-<li>删除创建的函数<br>
-drop function shell;</li>
-</ul>
-</li>
-<li>
-<p>查看基本信息
-<img src="/img/post/privilge_escalation_win_view_base_msg.png" alt="Windows下第三方服务提权-查看基本信息">
-<img src="/img/post/privilge_escalation_win_view_current_user.png" alt="Windows下第三方服务提权-查看当前用户">
-<img src="/img/post/privilge_escalation_win_view_current_user_permissions.png" alt="Windows下第三方服务提权-查看当前用户权限"></p>
-</li>
-<li>
-<p>上传udf提权
-<img src="/img/post/privilge_escalation_win_upload_udf.png" alt="Windows下第三方服务提权-上传udf">
-<img src="/img/post/privilge_escalation_win_conn_mysql.png" alt="Windows下第三方服务提权-连接数据库">
-<img src="/img/post/privilge_escalation_win_export_udf.png" alt="Windows下第三方服务提权-导出udf.dll并生成函数">
-<img src="/img/post/privilge_escalation_win_exec_whoami.png" alt="Windows下第三方服务提权-提权成功执行whoami"></p>
-</li>
-<li>
-<p>添加用户
-<img src="/img/post/privilge_escalation_win_shell_add_user.png" alt="Windows下第三方服务提权-通过shell函数添加用户">
-<img src="/img/post/privilge_escalation_win_shell_add_user_to_administrators.png" alt="Windows下第三方服务提权-通过shell函数添加用户到管理员组">
-<img src="/img/post/privilge_escalation_win_shell_active_user.png" alt="Windows下第三方服务提权-通过shell函数激活用户">
-<img src="/img/post/privilge_escalation_win_shell_view_user.png" alt="Windows下第三方服务提权-通过shell函数查看用户"></p>
-</li>
-<li>
-<p>远程连接
-<img src="/img/post/privilge_escalation_win_shell_remote_connection.png" alt="Windows下第三方服务提权-远程3389连接"></p>
-</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Windows 下第三方服务提权 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Windows 下第三方服务提权</h1><div class=post-meta><time>2016-08-07</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div><h3 id=0x00--mssql提权>0x00 MSSQL提权</h3><p>MSSQL运行在system权限时才可以通过xp_cmdshell组件执行系统命令提权<br>提权条件：数据库账号是DBA权限</p><ul><li><p>关于xp_cmdshell</p><ul><li>得到数据库连接信息，连接数据库后执行<code>EXEC xp_cmdshell 'net user';</code></li><li>有sql注入时也可以直接在url上使用xp_cmdshell，因为mssql可以多语句执行，例如<code>?id=1;EXEC xp_cmdshell 'net user';--</code></li></ul></li><li><p>连接数据库
+<img src=/img/post/privilge_escalation_win_find_sql_conn_msg.png alt=Windows下第三方服务提权-找数据库连接信息>
+<img src=/img/post/privilge_escalation_win_conn_mssql.png alt=Windows下第三方服务提权-连接mssql数据库></p></li><li><p>执行系统命令
+<img src=/img/post/privilge_escalation_win_try_exec_sys_command.png alt=Windows下第三方服务提权-尝试用xp_cmdshell执行命令>
+<img src=/img/post/privilge_escalation_win_open_cmd_shell.png alt=Windows下第三方服务提权-开启xp_cmdshell组件>
+<img src=/img/post/privilge_escalation_win_exec_sys_command_success.png alt=Windows下第三方服务提权-使用xp_cmdshell成功执行命令></p></li><li><p>添加用户
+<img src=/img/post/privilge_escalation_win_add_user.png alt=Windows下第三方服务提权-添加用户>
+<img src=/img/post/privilge_escalation_win_view_user.png alt=Windows下第三方服务提权-查看添加的用户></p></li><li><p>远程连接
+<img src=/img/post/privilge_escalation_win_remote_conn.png alt=Windows下第三方服务提权-远程连接>
+<img src=/img/post/privilge_escalation_win_input_u_p.png alt=Windows下第三方服务提权-输入用户名和密码>
+<img src=/img/post/privilge_escalation_win_remote_connection_view_ip.png alt=Windows下第三方服务提权-输入用户名和密码></p></li></ul><h3 id=0x01-mysql提权>0x01 MySQL提权</h3><p>环境：web应用服务器权限较低<br>提权条件：MySQL是system权限</p><ul><li>关于UDF</li></ul><p>MySQL提权可以用UDF和Mof。UDF就是User defined Function，即用户定义函数，可以通过创建存储方法来定义函数，从而调用系统命令。</p><ul><li><p>UDF提权过程</p><ul><li>导入udf.dll到服务器指定目录<ul><li>MySQL版本小于5.1的udf.dll要导入到c:\windows\目录下</li><li>MySQL版本大于等于5.1的udf.dll要导入到plugin_dir目录，plugin_dir在MySQL安装目录下的lib/plugin目录下(MySQL安装目录可以用select @@basedir得到)，默认不存在这个目录，我们要自己创建</li></ul></li><li>使用SQL语句创建功能函数<br>CREATE FUNCTION shell RETURNS STRING SONAME &lsquo;udf.dll&rsquo;;</li><li>执行MySQL语句调用新创建的函数<br>select shell(&lsquo;cmd&rsquo;,&lsquo;whoami&rsquo;);</li><li>删除创建的函数<br>drop function shell;</li></ul></li><li><p>查看基本信息
+<img src=/img/post/privilge_escalation_win_view_base_msg.png alt=Windows下第三方服务提权-查看基本信息>
+<img src=/img/post/privilge_escalation_win_view_current_user.png alt=Windows下第三方服务提权-查看当前用户>
+<img src=/img/post/privilge_escalation_win_view_current_user_permissions.png alt=Windows下第三方服务提权-查看当前用户权限></p></li><li><p>上传udf提权
+<img src=/img/post/privilge_escalation_win_upload_udf.png alt=Windows下第三方服务提权-上传udf>
+<img src=/img/post/privilge_escalation_win_conn_mysql.png alt=Windows下第三方服务提权-连接数据库>
+<img src=/img/post/privilge_escalation_win_export_udf.png alt=Windows下第三方服务提权-导出udf.dll并生成函数>
+<img src=/img/post/privilge_escalation_win_exec_whoami.png alt=Windows下第三方服务提权-提权成功执行whoami></p></li><li><p>添加用户
+<img src=/img/post/privilge_escalation_win_shell_add_user.png alt=Windows下第三方服务提权-通过shell函数添加用户>
+<img src=/img/post/privilge_escalation_win_shell_add_user_to_administrators.png alt=Windows下第三方服务提权-通过shell函数添加用户到管理员组>
+<img src=/img/post/privilge_escalation_win_shell_active_user.png alt=Windows下第三方服务提权-通过shell函数激活用户>
+<img src=/img/post/privilge_escalation_win_shell_view_user.png alt=Windows下第三方服务提权-通过shell函数查看用户></p></li><li><p>远程连接
+<img src=/img/post/privilge_escalation_win_shell_remote_connection.png alt=Windows下第三方服务提权-远程3389连接></p></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

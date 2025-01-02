@@ -1,245 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Docker 初识 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Docker 初识</h1>
-      
-<div class="post-meta">
-    <time>2017-08-15</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/docker">docker</a>)
-</div>
-
-      <div><h3 id="0x00-关于docker">0x00 关于Docker</h3>
-<ul>
-<li>Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。</li>
-<li>Docker中运行应用的是容器，容器的创建和销毁在秒级就能完成。</li>
-<li>Docker使用了AUFS，可以以递进的方式创建&quot;VM&quot;，一个&quot;VM&quot;叠在另一个&quot;VM&quot;上，就像使用git增量开发一样。</li>
-<li>软件的运行环境（image）和软件本身（container）分离，和数据也分离。</li>
-</ul>
-<p>学习Docker需要了解4个概念：镜像、容器、数据卷、链接</p>
-<h3 id="0x01-镜像image">0x01 镜像image</h3>
-<ul>
-<li>Docker Images 只是一个只读模板，用来运行Docker容器，可以在Docker hub(官方镜像库)下载。</li>
-<li>镜像拥有唯一ID(比如：72c989e2d109)以及一个供人阅读的名字和标签对(比如：ubuntu:latest)。</li>
-<li>镜像必须完全可移植,Docker不允许例外。</li>
-</ul>
-<h3 id="0x02-容器container">0x02 容器container</h3>
-<ul>
-<li>可以在一个镜像的基础上创建多个容器，每个容器相互独立。</li>
-<li>容器也拥有唯一ID以及一个供人阅读的名字。</li>
-<li>容器被启动时会被分配一个随机的私有IP，其他容器可以通过这个IP与它进行通信。</li>
-<li>Docker允许公开容器的特定端口。</li>
-<li>一个容器一个进程，容器设计本意是用来运行一个应用的而非一台机器。</li>
-<li>容器应该是短暂和一次性的。</li>
-<li>Docker镜像层对于容器来说，是只读的，容器对于文件的写操作绝对不会作用在镜像中。</li>
-</ul>
-<h3 id="0x03-数据卷">0x03 数据卷</h3>
-<ul>
-<li>数据卷表现为容器内的空间，但实际保存在容器外，你可以在不影响数据的情况下销毁、重建、修改、丢弃容器。</li>
-<li>Docker允许你定义应用和数据部分，并提供工具让你可以将它们分开。</li>
-</ul>
-<h3 id="0x04-链接">0x04 链接</h3>
-<ul>
-<li>Docker允许你在创建一个新容器时引用其它现存容器，在你刚创建的容器里被引用的容器将获得一个你指定的别名，我们就说这两个容器被链接在了一起。</li>
-<li>若DB容器已经在运行，我们可以创建一个Web服务器容器，并在创建时引用这个DB容器，可以给它起个别名(比如dbapp)，在新创建的Web服务器容器中，可以在任何时候使用主机名dbapp与DB容器进行通信。</li>
-</ul>
-<h3 id="0x05-镜像与容器关系">0x05 镜像与容器关系</h3>
-<ul>
-<li>Docker镜像是一个文件，属于静态的内容；Docker容器属于动态的内容，可以把容器理解为一个或多个运行进程。</li>
-<li>Docker可以通过解析Docker镜像的json文件，获知应该在这个镜像之上运行什么样的进程，应该为进程配置怎么样的环境变量。</li>
-<li>Docker守护进程手握Docker镜像的json文件，它为容器配置相应的环境并真正运行Docker镜像所指定的进程，从而完成Docker容器的真正创建。</li>
-<li>当Docker容器运行起来之后，Docker镜像json文件就失去作用了。此时Docker镜像的绝大部分作用就是：为Docker容器提供一个文件系统的视角，供容器内部的进程访问文件资源。</li>
-</ul>
-<h3 id="0x06-docker有三个组件和三个基本元素">0x06 Docker有三个组件和三个基本元素</h3>
-<ul>
-<li>
-<p>三个组件</p>
-<ul>
-<li>Docker Daemon 运行于主机上，处理服务请求，是用于管理容器的后台进程，上面有一些api接口。</li>
-<li>Docker Client 用于操作容器，它是Deamon的api接口(如docker start、docker rm等)的封装。</li>
-<li>Docker Index 是中央registry，支持拥有公有与私有访问权限的Docker容器镜像的备份。</li>
-</ul>
-</li>
-<li>
-<p>三个基本要素</p>
-<ul>
-<li>Docker Images 是一个只读模板，用来运行Docker容器。</li>
-<li>Docker Containers 负责应用程序的运行，包括操作系统、用户添加的文件以及元数据。</li>
-<li>DockerFile 是文件指令集，用来说明如何自动创建Docker镜像。</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x07-docker的运行原理">0x07 Docker的运行原理</h3>
-<ul>
-<li>
-<p>Docker使用以下操作系统的功能来提高容器技术效率<br>
-Namespaces：充当隔离的第一级。确保一个容器中运行一个进程而且不能看到或影响容器外的其它进程。<br>
-Control Groups：是LXC的重要组成部分，实现资源核算与限制，提供CPU、内存、网络相关指标等。<br>
-UnionFS：union文件系统，容器的构建块。它用于保存镜像并使容器变得短暂(即轻量级及速度快的特性)。</p>
-</li>
-<li>
-<p>运行任何应用程序都需要两个基本步骤，即构建一个镜像和运行容器<br>
-上面两步都是从Docker Client的命令(比如：docker run)开始的<br>
-在基础层面上，Docker Client会告诉Docker Daemon需要创建的镜像以及需要在容器内运行的命令</p>
-</li>
-</ul>
-<h3 id="0x08-docker-registry">0x08 Docker Registry</h3>
-<p>Docker Registry是Docker的镜像存储服务端，它是所有仓库(包括私有和公有)以及工作流的中央Registry<br>
-Docker Registry有3个角色：index、registry、registry client</p>
-<ul>
-<li>index</li>
-</ul>
-<pre tabindex="0"><code>负责并维护有关用户账户、镜像的体验以及公共命名空间的信息。
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Docker 初识 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Docker 初识</h1><div class=post-meta><time>2017-08-15</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/docker>docker</a>)</div><div><h3 id=0x00-关于docker>0x00 关于Docker</h3><ul><li>Docker中的镜像类似VM的快照，容器类似虚拟机，使用镜像创建容器类似于使用快照创建虚拟机。</li><li>Docker中运行应用的是容器，容器的创建和销毁在秒级就能完成。</li><li>Docker使用了AUFS，可以以递进的方式创建"VM"，一个"VM"叠在另一个"VM"上，就像使用git增量开发一样。</li><li>软件的运行环境（image）和软件本身（container）分离，和数据也分离。</li></ul><p>学习Docker需要了解4个概念：镜像、容器、数据卷、链接</p><h3 id=0x01-镜像image>0x01 镜像image</h3><ul><li>Docker Images 只是一个只读模板，用来运行Docker容器，可以在Docker hub(官方镜像库)下载。</li><li>镜像拥有唯一ID(比如：72c989e2d109)以及一个供人阅读的名字和标签对(比如：ubuntu:latest)。</li><li>镜像必须完全可移植,Docker不允许例外。</li></ul><h3 id=0x02-容器container>0x02 容器container</h3><ul><li>可以在一个镜像的基础上创建多个容器，每个容器相互独立。</li><li>容器也拥有唯一ID以及一个供人阅读的名字。</li><li>容器被启动时会被分配一个随机的私有IP，其他容器可以通过这个IP与它进行通信。</li><li>Docker允许公开容器的特定端口。</li><li>一个容器一个进程，容器设计本意是用来运行一个应用的而非一台机器。</li><li>容器应该是短暂和一次性的。</li><li>Docker镜像层对于容器来说，是只读的，容器对于文件的写操作绝对不会作用在镜像中。</li></ul><h3 id=0x03-数据卷>0x03 数据卷</h3><ul><li>数据卷表现为容器内的空间，但实际保存在容器外，你可以在不影响数据的情况下销毁、重建、修改、丢弃容器。</li><li>Docker允许你定义应用和数据部分，并提供工具让你可以将它们分开。</li></ul><h3 id=0x04-链接>0x04 链接</h3><ul><li>Docker允许你在创建一个新容器时引用其它现存容器，在你刚创建的容器里被引用的容器将获得一个你指定的别名，我们就说这两个容器被链接在了一起。</li><li>若DB容器已经在运行，我们可以创建一个Web服务器容器，并在创建时引用这个DB容器，可以给它起个别名(比如dbapp)，在新创建的Web服务器容器中，可以在任何时候使用主机名dbapp与DB容器进行通信。</li></ul><h3 id=0x05-镜像与容器关系>0x05 镜像与容器关系</h3><ul><li>Docker镜像是一个文件，属于静态的内容；Docker容器属于动态的内容，可以把容器理解为一个或多个运行进程。</li><li>Docker可以通过解析Docker镜像的json文件，获知应该在这个镜像之上运行什么样的进程，应该为进程配置怎么样的环境变量。</li><li>Docker守护进程手握Docker镜像的json文件，它为容器配置相应的环境并真正运行Docker镜像所指定的进程，从而完成Docker容器的真正创建。</li><li>当Docker容器运行起来之后，Docker镜像json文件就失去作用了。此时Docker镜像的绝大部分作用就是：为Docker容器提供一个文件系统的视角，供容器内部的进程访问文件资源。</li></ul><h3 id=0x06-docker有三个组件和三个基本元素>0x06 Docker有三个组件和三个基本元素</h3><ul><li><p>三个组件</p><ul><li>Docker Daemon 运行于主机上，处理服务请求，是用于管理容器的后台进程，上面有一些api接口。</li><li>Docker Client 用于操作容器，它是Deamon的api接口(如docker start、docker rm等)的封装。</li><li>Docker Index 是中央registry，支持拥有公有与私有访问权限的Docker容器镜像的备份。</li></ul></li><li><p>三个基本要素</p><ul><li>Docker Images 是一个只读模板，用来运行Docker容器。</li><li>Docker Containers 负责应用程序的运行，包括操作系统、用户添加的文件以及元数据。</li><li>DockerFile 是文件指令集，用来说明如何自动创建Docker镜像。</li></ul></li></ul><h3 id=0x07-docker的运行原理>0x07 Docker的运行原理</h3><ul><li><p>Docker使用以下操作系统的功能来提高容器技术效率<br>Namespaces：充当隔离的第一级。确保一个容器中运行一个进程而且不能看到或影响容器外的其它进程。<br>Control Groups：是LXC的重要组成部分，实现资源核算与限制，提供CPU、内存、网络相关指标等。<br>UnionFS：union文件系统，容器的构建块。它用于保存镜像并使容器变得短暂(即轻量级及速度快的特性)。</p></li><li><p>运行任何应用程序都需要两个基本步骤，即构建一个镜像和运行容器<br>上面两步都是从Docker Client的命令(比如：docker run)开始的<br>在基础层面上，Docker Client会告诉Docker Daemon需要创建的镜像以及需要在容器内运行的命令</p></li></ul><h3 id=0x08-docker-registry>0x08 Docker Registry</h3><p>Docker Registry是Docker的镜像存储服务端，它是所有仓库(包括私有和公有)以及工作流的中央Registry<br>Docker Registry有3个角色：index、registry、registry client</p><ul><li>index</li></ul><pre tabindex=0><code>负责并维护有关用户账户、镜像的体验以及公共命名空间的信息。
 index通过Web UI、元数据存储、认证服务、符号化这几个组件来维护这些信息。
-</code></pre><ul>
-<li>registry<br>
-它是镜像和图表的仓库(比如Docker hub)</li>
-</ul>
-<pre tabindex="0"><code>Registry包含一个或多个Repository
+</code></pre><ul><li>registry<br>它是镜像和图表的仓库(比如Docker hub)</li></ul><pre tabindex=0><code>Registry包含一个或多个Repository
 Repository包含一个或多个Image
 Image用GUID表示，有一个或多个Tag与之关联
-</code></pre><ul>
-<li>registry client</li>
-</ul>
-<pre tabindex="0"><code>客户端
-</code></pre><h3 id="0x09-docker下载镜像的原理">0x09 Docker下载镜像的原理</h3>
-<p><img src="/img/post/docker_pull.png" alt="docker pull"></p>
-<ol>
-<li>Client向Index请求，询问从哪里下载CentOS</li>
-<li>Index回复Client说CentOS在Registry A可以得到，并且返回CentOS的Checksum，所有层的Token</li>
-<li>Client带着Token向Registry A请求CentOS的所有层(Registry A负责存储CentOS，以及它所依赖的层)</li>
-<li>Regsitry A向Index发起请求，验证用户Token的合法性</li>
-<li>Index回复Registry A这次请求是否合法</li>
-<li>Client从Registry A下载所有的层：Registry从后端存储中获取实际的文件数据，返给Client</li>
-</ol>
-<h3 id="0x0a-docker安装与卸载">0x0A Docker安装与卸载</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#安装</span>
-</span></span><span style="display:flex;"><span>$ sudo apt-get update
-</span></span><span style="display:flex;"><span>$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verify that the key fingerprint is 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88</span>
-</span></span><span style="display:flex;"><span>$ sudo apt-key fingerprint 0EBFCD88
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ sudo add-apt-repository <span style="color:#e6db74">&#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu </span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> stable&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ sudo apt-get update
-</span></span><span style="display:flex;"><span>$ sudo apt-get install docker-ce
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ sudo docker info <span style="color:#75715e">#查看是否安装成功</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#卸载</span>
-</span></span><span style="display:flex;"><span>$ sudo apt-get purge docker-ce
-</span></span><span style="display:flex;"><span>$ sudo rm -rf /var/lib/docker
-</span></span></code></pre></div><pre tabindex="0"><code>#添加当前用户到docker组
+</code></pre><ul><li>registry client</li></ul><pre tabindex=0><code>客户端
+</code></pre><h3 id=0x09-docker下载镜像的原理>0x09 Docker下载镜像的原理</h3><p><img src=/img/post/docker_pull.png alt="docker pull"></p><ol><li>Client向Index请求，询问从哪里下载CentOS</li><li>Index回复Client说CentOS在Registry A可以得到，并且返回CentOS的Checksum，所有层的Token</li><li>Client带着Token向Registry A请求CentOS的所有层(Registry A负责存储CentOS，以及它所依赖的层)</li><li>Regsitry A向Index发起请求，验证用户Token的合法性</li><li>Index回复Registry A这次请求是否合法</li><li>Client从Registry A下载所有的层：Registry从后端存储中获取实际的文件数据，返给Client</li></ol><h3 id=0x0a-docker安装与卸载>0x0A Docker安装与卸载</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#安装</span>
+</span></span><span style=display:flex><span>$ sudo apt-get update
+</span></span><span style=display:flex><span>$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+</span></span><span style=display:flex><span><span style=color:#75715e># Verify that the key fingerprint is 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88</span>
+</span></span><span style=display:flex><span>$ sudo apt-key fingerprint 0EBFCD88
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo add-apt-repository <span style=color:#e6db74>&#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu </span><span style=color:#66d9ef>$(</span>lsb_release -cs<span style=color:#66d9ef>)</span><span style=color:#e6db74> stable&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo apt-get update
+</span></span><span style=display:flex><span>$ sudo apt-get install docker-ce
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ sudo docker info <span style=color:#75715e>#查看是否安装成功</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#卸载</span>
+</span></span><span style=display:flex><span>$ sudo apt-get purge docker-ce
+</span></span><span style=display:flex><span>$ sudo rm -rf /var/lib/docker
+</span></span></code></pre></div><pre tabindex=0><code>#添加当前用户到docker组
 $ sudo gpasswd -a ${USER} docker
 $ sudo service docker restart
 $ newgrp - docker
-</code></pre><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://docs.docker.com/install/?_blank">https://docs.docker.com/install/</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://docs.docker.com/install/?_blank>https://docs.docker.com/install/</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,211 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="搭建社工库，通过 Sphinx 快速查询数据"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>通过 Sphinx 快速查询数据 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>通过 Sphinx 快速查询数据</h1>
-      
-<div class="post-meta">
-    <time>2021-06-10</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>,<a href="/tags/%E7%A4%BE%E5%B7%A5">社工</a>)
-</div>
-
-      <div><h3 id="0x00-sphinx">0x00 Sphinx</h3>
-<p>Sphinx 是一款基于 SQL 的高性能全文检索引擎，Sphinx 的性能在众多全文检索引擎中也是数一数二的，利用 Sphinx我们可以完成比数据库本身更专业的搜索功能，而且可以有很多针对性的性能优化。</p>
-<ul>
-<li>快速创建索引：3 分钟左右即可创建近 100 万条记录的索引，并且采用了增量索引的方式，重建索引非常迅速。</li>
-<li>闪电般的检索速度：尽管是 1 千万条的大数据量，查询数据的速度也在毫秒级以上，2-4G 的文本量中平均查询速度不到 0.1 秒。</li>
-<li>为很多脚本语言设计了检索 API，如 PHP,Python,Perl,Ruby 等，因此你可以在大部分编程应用中很方便地调用 Sphinx 的相关接口。</li>
-<li>为 MySQL 设计了一个存储引擎插件，因此如果你在 MySQL 上使用 Sphinx，那简直就方便到家了。</li>
-<li>支持分布式搜索，可以横向扩展系统性能。</li>
-</ul>
-<h3 id="0x01-安装">0x01 安装</h3>
-<ul>
-<li>windows 可以去 <a href="http://sphinxsearch.com/downloads/current/">这里</a> 下载对应版本，然后添加环境变量</li>
-<li>ubuntu 可以 sudo apt-get install sphinxsearch (sphinxapi.py 要使用对应版本)</li>
-<li>macbook 可以 brew install sphinx (sphinxapi.py 要使用对应版本)</li>
-</ul>
-<h3 id="0x02-使用-sphinx-查询的流程">0x02 使用 Sphinx 查询的流程</h3>
-<ul>
-<li>
-<p>通过 Sphinx 的 indexer 生成索引（需要先配置文件 sphinx.conf）<br>
-部分索引：indexer -c ./sphinx.conf &lt;index_name&gt;<br>
-全部索引：indexer -c ./sphinx.conf --all<br>
-若 searchd 已启动则需要加 --rotate 参数：indexer -c ./sphinx.conf --all --rotate</p>
-</li>
-<li>
-<p>Sphinx 启动一个 searchd 进行监听（调接口）<br>
-searchd -c ./sphinx.conf &ndash;console</p>
-</li>
-<li>
-<p>查询时把关键字给 Sphinx 的接口，searchd 返回 id<br>
-searchd 返回的 id 是该关键字在数据库中对应的 id</p>
-</li>
-<li>
-<p>在数据库中根据 id 查数据</p>
-</li>
-</ul>
-<h3 id="0x03-sphinx-配置文件编写">0x03 Sphinx 配置文件编写</h3>
-<p>下面索引了两个库中的两个表</p>
-<p>一个是 37wan_com 库的 cdb_members、cdb_uc_members 表，索引的 username,email 这两列</p>
-<p>一个是 3pk_com 库的 member 表，索引的 uname,email 这两列</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">source base_source {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">mysql</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sql_host</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">127.0.0.1
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sql_user = root
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sql_pass = root
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sql_port = 3306
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # sql_db = tttttmp # 需要建索引的数据库名字</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sql_query_pre</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">SET NAMES utf8 # 定义查询时的编码
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # sql_query = select id,content from test # 设置要做索引的字段，包含至少一个唯一主键，这里会索引 id、content 这个两个字段</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index base_index {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">min_word_len</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">1 # 最小索引词长度,小于这个长度的词不会被索引</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">min_prefix_len</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">3 # 最小索引前缀(搜索关键字长度至少为3) 12345* 得到 12345xxxxxx
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # min_infix_len = 3 # 最小索引中缀(搜索关键字长度至少为3) *aaa* 得到 xxxxxaaa、xxxxxaaaxxxxx、aaaxxxxx</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 不按照词典，而是按照字长来分词，主要针对非英文体系的语言，如果指定为1，搜 丰 得到 张丰、邓丰至、丰年</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ngram_len</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">2
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # 需要分词的字符，如果要搜索中文，需要配置 ngram_chars
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # U+3000..U+2FA1F是汉字。为了能搜到完整邮箱：添加 U+0040,U+002D,U+002E 代表 @,-,.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    ngram_chars = U+3000..U+2FA1F,U+0040,U+002D,U+002E</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">html_strip</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">1 # html标记清理,是否从输出全文数据中去除HTML标记</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># source = base_source # 这里与上面的source对应</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># path = ./sphinx_data/index/base_source # 索引文件存放路径及索引的文件名</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">source 37wan_com_cdb_members:base_source {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sql_db</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">37wan_com
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sql_query = select id,username,email from cdb_members</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index 37wan_com_cdb_members:base_index {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">37wan_com_cdb_members
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    path = /opt/sgk/sphinx_data/index/37wan_com_cdb_members # 索引文件存放路径及索引的文件名</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">source 37wan_com_cdb_uc_members:base_source {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sql_db</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">37wan_com
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sql_query = select id,username,email from cdb_uc_members</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index 37wan_com_cdb_uc_members:base_index</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">37wan_com_cdb_uc_members
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    path = /opt/sgk/sphinx_data/index/37wan_com_cdb_uc_members</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">source 3pk_com_member:base_source {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sql_db</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">3pk_com
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    sql_query = select id,email,uname as username from member</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index 3pk_com_member:base_index {</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">3pk_com_member
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    path = /opt/sgk/sphinx_data/index/3pk_com_member</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">indexer</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mem_limit</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">512M # 用来构建索引的索引器运行所占用的内存</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">searchd</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">listen</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">127.0.0.1:23333 # 查询服务监听的端口
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # listen = 127.0.0.1:3333:mysql41 # mysql -h localhost -P 3333; show tables 可查看生成的索引
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    pid_file = ./sphinx_data/searchd.pid</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">log</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">./sphinx_data/logs/searchd.log # 监听日志
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    query_log = ./sphinx_data/logs/query.log # 查询日志
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    binlog_path = # 二进制日志路径，这里禁止掉</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">read_timeout</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">5 # 客户端读超时时间
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    max_children = 30 # 并行执行搜索的数目
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    seamless_rotate = 1 # 启动无缝轮转，防止 searchd 轮换在需要预取大量数据的索引时停止响应
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    preopen_indexes = 0 # 索引预开启，是否强制重新打开所有索引文件，索引比较多时如果设置为 1 会出现 Too many open files 错误
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    unlink_old = 1 # 索引轮换成功之后，是否删除以.old为扩展名的索引拷贝
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    dist_threads = 12 # 并发查询线程数</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">}</span>
-</span></span></code></pre></div><h3 id="0x04-sphinx-索引">0x04 Sphinx 索引</h3>
-<ul>
-<li>生成索引</li>
-</ul>
-<pre tabindex="0"><code>indexer -c ./sphinx.conf --all
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="搭建社工库，通过 Sphinx 快速查询数据"><meta name=author content="Reber"><title>通过 Sphinx 快速查询数据 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>通过 Sphinx 快速查询数据</h1><div class=post-meta><time>2021-06-10</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>,<a href=/tags/%E7%A4%BE%E5%B7%A5>社工</a>)</div><div><h3 id=0x00-sphinx>0x00 Sphinx</h3><p>Sphinx 是一款基于 SQL 的高性能全文检索引擎，Sphinx 的性能在众多全文检索引擎中也是数一数二的，利用 Sphinx我们可以完成比数据库本身更专业的搜索功能，而且可以有很多针对性的性能优化。</p><ul><li>快速创建索引：3 分钟左右即可创建近 100 万条记录的索引，并且采用了增量索引的方式，重建索引非常迅速。</li><li>闪电般的检索速度：尽管是 1 千万条的大数据量，查询数据的速度也在毫秒级以上，2-4G 的文本量中平均查询速度不到 0.1 秒。</li><li>为很多脚本语言设计了检索 API，如 PHP,Python,Perl,Ruby 等，因此你可以在大部分编程应用中很方便地调用 Sphinx 的相关接口。</li><li>为 MySQL 设计了一个存储引擎插件，因此如果你在 MySQL 上使用 Sphinx，那简直就方便到家了。</li><li>支持分布式搜索，可以横向扩展系统性能。</li></ul><h3 id=0x01-安装>0x01 安装</h3><ul><li>windows 可以去 <a href=http://sphinxsearch.com/downloads/current/>这里</a> 下载对应版本，然后添加环境变量</li><li>ubuntu 可以 sudo apt-get install sphinxsearch (sphinxapi.py 要使用对应版本)</li><li>macbook 可以 brew install sphinx (sphinxapi.py 要使用对应版本)</li></ul><h3 id=0x02-使用-sphinx-查询的流程>0x02 使用 Sphinx 查询的流程</h3><ul><li><p>通过 Sphinx 的 indexer 生成索引（需要先配置文件 sphinx.conf）<br>部分索引：indexer -c ./sphinx.conf &lt;index_name><br>全部索引：indexer -c ./sphinx.conf --all<br>若 searchd 已启动则需要加 --rotate 参数：indexer -c ./sphinx.conf --all --rotate</p></li><li><p>Sphinx 启动一个 searchd 进行监听（调接口）<br>searchd -c ./sphinx.conf &ndash;console</p></li><li><p>查询时把关键字给 Sphinx 的接口，searchd 返回 id<br>searchd 返回的 id 是该关键字在数据库中对应的 id</p></li><li><p>在数据库中根据 id 查数据</p></li></ul><h3 id=0x03-sphinx-配置文件编写>0x03 Sphinx 配置文件编写</h3><p>下面索引了两个库中的两个表</p><p>一个是 37wan_com 库的 cdb_members、cdb_uc_members 表，索引的 username,email 这两列</p><p>一个是 3pk_com 库的 member 表，索引的 uname,email 这两列</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>source base_source {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>mysql</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sql_host</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>127.0.0.1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    sql_user = root
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    sql_pass = root
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    sql_port = 3306
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # sql_db = tttttmp # 需要建索引的数据库名字</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sql_query_pre</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>SET NAMES utf8 # 定义查询时的编码
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # sql_query = select id,content from test # 设置要做索引的字段，包含至少一个唯一主键，这里会索引 id、content 这个两个字段</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>index base_index {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>min_word_len</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>1 # 最小索引词长度,小于这个长度的词不会被索引</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>min_prefix_len</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>3 # 最小索引前缀(搜索关键字长度至少为3) 12345* 得到 12345xxxxxx
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # min_infix_len = 3 # 最小索引中缀(搜索关键字长度至少为3) *aaa* 得到 xxxxxaaa、xxxxxaaaxxxxx、aaaxxxxx</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 不按照词典，而是按照字长来分词，主要针对非英文体系的语言，如果指定为1，搜 丰 得到 张丰、邓丰至、丰年</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ngram_len</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>2
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # 需要分词的字符，如果要搜索中文，需要配置 ngram_chars
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # U+3000..U+2FA1F是汉字。为了能搜到完整邮箱：添加 U+0040,U+002D,U+002E 代表 @,-,.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    ngram_chars = U+3000..U+2FA1F,U+0040,U+002D,U+002E</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>html_strip</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>1 # html标记清理,是否从输出全文数据中去除HTML标记</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># source = base_source # 这里与上面的source对应</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># path = ./sphinx_data/index/base_source # 索引文件存放路径及索引的文件名</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source 37wan_com_cdb_members:base_source {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sql_db</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>37wan_com
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    sql_query = select id,username,email from cdb_members</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>index 37wan_com_cdb_members:base_index {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>source</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>37wan_com_cdb_members
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    path = /opt/sgk/sphinx_data/index/37wan_com_cdb_members # 索引文件存放路径及索引的文件名</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source 37wan_com_cdb_uc_members:base_source {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sql_db</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>37wan_com
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    sql_query = select id,username,email from cdb_uc_members</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>index 37wan_com_cdb_uc_members:base_index</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>source</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>37wan_com_cdb_uc_members
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    path = /opt/sgk/sphinx_data/index/37wan_com_cdb_uc_members</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>source 3pk_com_member:base_source {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sql_db</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>3pk_com
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    sql_query = select id,email,uname as username from member</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>index 3pk_com_member:base_index {</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>source</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>3pk_com_member
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    path = /opt/sgk/sphinx_data/index/3pk_com_member</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>indexer</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mem_limit</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>512M # 用来构建索引的索引器运行所占用的内存</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>searchd</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>listen</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>127.0.0.1:23333 # 查询服务监听的端口
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # listen = 127.0.0.1:3333:mysql41 # mysql -h localhost -P 3333; show tables 可查看生成的索引
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    pid_file = ./sphinx_data/searchd.pid</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>log</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>./sphinx_data/logs/searchd.log # 监听日志
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    query_log = ./sphinx_data/logs/query.log # 查询日志
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    binlog_path = # 二进制日志路径，这里禁止掉</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>read_timeout</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>5 # 客户端读超时时间
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    max_children = 30 # 并行执行搜索的数目
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    seamless_rotate = 1 # 启动无缝轮转，防止 searchd 轮换在需要预取大量数据的索引时停止响应
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    preopen_indexes = 0 # 索引预开启，是否强制重新打开所有索引文件，索引比较多时如果设置为 1 会出现 Too many open files 错误
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    unlink_old = 1 # 索引轮换成功之后，是否删除以.old为扩展名的索引拷贝
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    dist_threads = 12 # 并发查询线程数</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>}</span>
+</span></span></code></pre></div><h3 id=0x04-sphinx-索引>0x04 Sphinx 索引</h3><ul><li>生成索引</li></ul><pre tabindex=0><code>indexer -c ./sphinx.conf --all
 Sphinx 3.3.1 (commit b72d67bc)
 Copyright (c) 2001-2020, Andrew Aksyonoff
 Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
@@ -226,10 +111,7 @@ collected 10007 docs, 0.3 MB
 sorted 0.0 Mhits, 100.0% done
 total 10007 docs, 258.6 Kb
 total 0.2 sec, 1.707 Mb/sec, 66041 docs/sec
-</code></pre><ul>
-<li>启动 searchd 守护进程</li>
-</ul>
-<pre tabindex="0"><code>searchd -c ./sphinx.conf --console
+</code></pre><ul><li>启动 searchd 守护进程</li></ul><pre tabindex=0><code>searchd -c ./sphinx.conf --console
 Sphinx 3.3.1 (commit b72d67bc)
 Copyright (c) 2001-2020, Andrew Aksyonoff
 Copyright (c) 2008-2016, Sphinx Technologies Inc (http://sphinxsearch.com)
@@ -242,97 +124,73 @@ precaching index &#39;37wan_com_cdb_uc_members&#39;
 precaching index &#39;3pk_com_member&#39;
 precached 3 indexes using 3 threads in 0.0 sec
 accepting connections
-</code></pre><h3 id="0x05-sphinx-使用">0x05 Sphinx 使用</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">import</span> pymysql
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sphinxapi <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>limit <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
-</span></span><span style="display:flex;"><span>sphinx <span style="color:#f92672">=</span> SphinxClient()
-</span></span><span style="display:flex;"><span>sphinx<span style="color:#f92672">.</span>SetServer(<span style="color:#e6db74">&#34;localhost&#34;</span>, <span style="color:#ae81ff">23333</span>) <span style="color:#75715e"># 设置连接 sphinx 的 searched</span>
-</span></span><span style="display:flex;"><span>sphinx<span style="color:#f92672">.</span>SetConnectTimeout(<span style="color:#ae81ff">5.0</span>)
-</span></span><span style="display:flex;"><span>sphinx<span style="color:#f92672">.</span>SetLimits(<span style="color:#ae81ff">0</span>, limit, max(limit,<span style="color:#ae81ff">1000</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sgk_index_msg <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;index&#34;</span>: <span style="color:#e6db74">&#34;37wan_com_cdb_members&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;db_name&#34;</span>: <span style="color:#e6db74">&#34;37wan_com&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;table_name&#34;</span>: <span style="color:#e6db74">&#34;cdb_members&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;columns&#34;</span>: <span style="color:#e6db74">&#34;id,username,password,email&#34;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;index&#34;</span>: <span style="color:#e6db74">&#34;37wan_com_cdb_uc_members&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;db_name&#34;</span>: <span style="color:#e6db74">&#34;37wan_com&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;table_name&#34;</span>: <span style="color:#e6db74">&#34;cdb_uc_members&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;columns&#34;</span>: <span style="color:#e6db74">&#34;id,username,password,email,salt&#34;</span>
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;index&#34;</span>: <span style="color:#e6db74">&#34;3pk_com_member&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;db_name&#34;</span>: <span style="color:#e6db74">&#34;3pk_com&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;table_name&#34;</span>: <span style="color:#e6db74">&#34;member&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;columns&#34;</span>: <span style="color:#e6db74">&#34;id,email,uname as username,password&#34;</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>all_results <span style="color:#f92672">=</span> list()
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>    mysql_uri <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mysql+pymysql://root:root@localhost:3306/mysql?charset=utf8mb4&#34;</span>
-</span></span><span style="display:flex;"><span>    sqlconn <span style="color:#f92672">=</span> MySQLX(mysql_uri)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> index_dict <span style="color:#f92672">in</span> sgk_conf:
-</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">=</span> index_dict<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;index&#34;</span>)
-</span></span><span style="display:flex;"><span>        db_name <span style="color:#f92672">=</span> index_dict<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;db_name&#34;</span>)
-</span></span><span style="display:flex;"><span>        table_name <span style="color:#f92672">=</span> index_dict<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;table_name&#34;</span>)
-</span></span><span style="display:flex;"><span>        columns <span style="color:#f92672">=</span> index_dict<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;columns&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> sphinx<span style="color:#f92672">.</span>Query(keyword, index)
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print(keyword, index, res)</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> res <span style="color:#f92672">and</span> res[<span style="color:#e6db74">&#34;total_found&#34;</span>]:
-</span></span><span style="display:flex;"><span>            ids <span style="color:#f92672">=</span> [str(x[<span style="color:#e6db74">&#34;id&#34;</span>]) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> res[<span style="color:#e6db74">&#34;matches&#34;</span>]]
-</span></span><span style="display:flex;"><span>            ids <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">.</span>join(ids)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select </span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> from </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">.</span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> where id in(</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">)&#34;</span><span style="color:#f92672">.</span>format(columns, db_name, table_name, ids)
-</span></span><span style="display:flex;"><span>            results <span style="color:#f92672">=</span> sqlconn<span style="color:#f92672">.</span>query(sql)
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> result <span style="color:#f92672">in</span> results:
-</span></span><span style="display:flex;"><span>                _tmp <span style="color:#f92672">=</span> dict()
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;id&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;from&#34;</span>] <span style="color:#f92672">=</span> db_name
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;uid&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;uid&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;username&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;username&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;password&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;password&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;salt&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;salt&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;mobile&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;mobile&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                _tmp[<span style="color:#e6db74">&#34;email&#34;</span>] <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;email&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
-</span></span><span style="display:flex;"><span>                all_results<span style="color:#f92672">.</span>append(_tmp)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
-</span></span><span style="display:flex;"><span>    print(e)
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x05-sphinx-使用>0x05 Sphinx 使用</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py><span style=display:flex><span><span style=color:#f92672>import</span> pymysql
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> sphinxapi <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>limit <span style=color:#f92672>=</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span>sphinx <span style=color:#f92672>=</span> SphinxClient()
+</span></span><span style=display:flex><span>sphinx<span style=color:#f92672>.</span>SetServer(<span style=color:#e6db74>&#34;localhost&#34;</span>, <span style=color:#ae81ff>23333</span>) <span style=color:#75715e># 设置连接 sphinx 的 searched</span>
+</span></span><span style=display:flex><span>sphinx<span style=color:#f92672>.</span>SetConnectTimeout(<span style=color:#ae81ff>5.0</span>)
+</span></span><span style=display:flex><span>sphinx<span style=color:#f92672>.</span>SetLimits(<span style=color:#ae81ff>0</span>, limit, max(limit,<span style=color:#ae81ff>1000</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sgk_index_msg <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;index&#34;</span>: <span style=color:#e6db74>&#34;37wan_com_cdb_members&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;db_name&#34;</span>: <span style=color:#e6db74>&#34;37wan_com&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;table_name&#34;</span>: <span style=color:#e6db74>&#34;cdb_members&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;columns&#34;</span>: <span style=color:#e6db74>&#34;id,username,password,email&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;index&#34;</span>: <span style=color:#e6db74>&#34;37wan_com_cdb_uc_members&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;db_name&#34;</span>: <span style=color:#e6db74>&#34;37wan_com&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;table_name&#34;</span>: <span style=color:#e6db74>&#34;cdb_uc_members&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;columns&#34;</span>: <span style=color:#e6db74>&#34;id,username,password,email,salt&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;index&#34;</span>: <span style=color:#e6db74>&#34;3pk_com_member&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;db_name&#34;</span>: <span style=color:#e6db74>&#34;3pk_com&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;table_name&#34;</span>: <span style=color:#e6db74>&#34;member&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;columns&#34;</span>: <span style=color:#e6db74>&#34;id,email,uname as username,password&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>all_results <span style=color:#f92672>=</span> list()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>    mysql_uri <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;mysql+pymysql://root:root@localhost:3306/mysql?charset=utf8mb4&#34;</span>
+</span></span><span style=display:flex><span>    sqlconn <span style=color:#f92672>=</span> MySQLX(mysql_uri)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> index_dict <span style=color:#f92672>in</span> sgk_conf:
+</span></span><span style=display:flex><span>        index <span style=color:#f92672>=</span> index_dict<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;index&#34;</span>)
+</span></span><span style=display:flex><span>        db_name <span style=color:#f92672>=</span> index_dict<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;db_name&#34;</span>)
+</span></span><span style=display:flex><span>        table_name <span style=color:#f92672>=</span> index_dict<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;table_name&#34;</span>)
+</span></span><span style=display:flex><span>        columns <span style=color:#f92672>=</span> index_dict<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;columns&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        res <span style=color:#f92672>=</span> sphinx<span style=color:#f92672>.</span>Query(keyword, index)
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print(keyword, index, res)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> res <span style=color:#f92672>and</span> res[<span style=color:#e6db74>&#34;total_found&#34;</span>]:
+</span></span><span style=display:flex><span>            ids <span style=color:#f92672>=</span> [str(x[<span style=color:#e6db74>&#34;id&#34;</span>]) <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> res[<span style=color:#e6db74>&#34;matches&#34;</span>]]
+</span></span><span style=display:flex><span>            ids <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;,&#34;</span><span style=color:#f92672>.</span>join(ids)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;select </span><span style=color:#e6db74>{}</span><span style=color:#e6db74> from </span><span style=color:#e6db74>{}</span><span style=color:#e6db74>.</span><span style=color:#e6db74>{}</span><span style=color:#e6db74> where id in(</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>)&#34;</span><span style=color:#f92672>.</span>format(columns, db_name, table_name, ids)
+</span></span><span style=display:flex><span>            results <span style=color:#f92672>=</span> sqlconn<span style=color:#f92672>.</span>query(sql)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> result <span style=color:#f92672>in</span> results:
+</span></span><span style=display:flex><span>                _tmp <span style=color:#f92672>=</span> dict()
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;id&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;id&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;from&#34;</span>] <span style=color:#f92672>=</span> db_name
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;uid&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;uid&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;username&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;username&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;password&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;password&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;salt&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;salt&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;mobile&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;mobile&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                _tmp[<span style=color:#e6db74>&#34;email&#34;</span>] <span style=color:#f92672>=</span> result<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;email&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>)
+</span></span><span style=display:flex><span>                all_results<span style=color:#f92672>.</span>append(_tmp)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span> <span style=color:#66d9ef>as</span> e:
+</span></span><span style=display:flex><span>    print(e)
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

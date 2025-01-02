@@ -1,89 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>敏感信息泄露 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>敏感信息泄露</h1>
-      
-<div class="post-meta">
-    <time>2016-07-28</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2">信息泄露</a>)
-</div>
-
-      <div><h3 id="0x00-软件敏感信息">0x00 软件敏感信息</h3>
-<pre tabindex="0"><code>* 操作系统版本
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>敏感信息泄露 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>敏感信息泄露</h1><div class=post-meta><time>2016-07-28</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2>信息泄露</a>)</div><div><h3 id=0x00-软件敏感信息>0x00 软件敏感信息</h3><pre tabindex=0><code>* 操作系统版本
     可用namp扫描得知
 * 中间件的类型、版本
     http返回头
@@ -91,8 +18,7 @@
     使用工具(如whatweb)
 * Web程序(cms类型及版本、敏感文件)
     可用whatweb、cms_identify
-</code></pre><h3 id="0x01-web敏感信息">0x01 Web敏感信息</h3>
-<pre tabindex="0"><code>* phpinfo()信息泄露
+</code></pre><h3 id=0x01-web敏感信息>0x01 Web敏感信息</h3><pre tabindex=0><code>* phpinfo()信息泄露
     http://[ip]/test.php和http://[ip]/phpinfo.php
 * 测试页面泄露在外网
     test.cgi、phpinfo.php、info.php等
@@ -123,52 +49,24 @@
 * phpMyAdmin
 * 网站源码备份文件(www.rar/sitename.tar.gz/web/zip等)
 * 其他
-</code></pre><h3 id="0x02-网络信息泄露">0x02 网络信息泄露</h3>
-<pre tabindex="0"><code>* DNS域传送漏洞
+</code></pre><h3 id=0x02-网络信息泄露>0x02 网络信息泄露</h3><pre tabindex=0><code>* DNS域传送漏洞
 * 运维监控系统弱口令、网络拓扑泄露
     zabbix弱口令、zabbix sql注入等
-</code></pre><h3 id="0x03-第三方软件应用">0x03 第三方软件应用</h3>
-<pre tabindex="0"><code>* github上源码、数据库、邮箱密码泄露
+</code></pre><h3 id=0x03-第三方软件应用>0x03 第三方软件应用</h3><pre tabindex=0><code>* github上源码、数据库、邮箱密码泄露
     搜类似：smtp 163 password关键字
 * 百度网盘被员工不小心上传敏感文件
 * QQ群被员工不小心上传敏感文件
-</code></pre><h3 id="0x04-敏感信息搜集工具">0x04 敏感信息搜集工具</h3>
-<pre tabindex="0"><code>https://github.com/ring04h/weakﬁlescan
+</code></pre><h3 id=0x04-敏感信息搜集工具>0x04 敏感信息搜集工具</h3><pre tabindex=0><code>https://github.com/ring04h/weakﬁlescan
 https://github.com/lijiejie/BBScan
 whatweb
 dnsenum
 github
-</code></pre><h3 id="0x05-示例">0x05 示例</h3>
-<p><img src="/img/post/sensitive_information_leakage.png" alt="敏感信息泄露"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x05-示例>0x05 示例</h3><p><img src=/img/post/sensitive_information_leakage.png alt=敏感信息泄露></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

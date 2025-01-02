@@ -1,19 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>正则 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E6%AD%A3%E5%88%99/</link>
-    <description>Recent content in 正则 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 05 Feb 2016 11:38:23 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E6%AD%A3%E5%88%99/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Python 的正则</title>
-      <link>https://wyb0.com/posts/2016/python-regular/</link>
-      <pubDate>Fri, 05 Feb 2016 11:38:23 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-regular/</guid>
-      <description>0x00 正则表达式 正则表达式是用来匹配字符串的异常强大的东西，可以用来匹配邮箱、域名等字符串 0x01 符号 0x02 特殊字符 0x03 常用的模块属性 0x04</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>正则 on Reber's Blog</title><link>https://wyb0.com/tags/%E6%AD%A3%E5%88%99/</link><description>Recent content in 正则 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 05 Feb 2016 11:38:23 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E6%AD%A3%E5%88%99/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 的正则</title><link>https://wyb0.com/posts/2016/python-regular/</link><pubDate>Fri, 05 Feb 2016 11:38:23 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-regular/</guid><description>&lt;h3 id="0x00-正则表达式">0x00 正则表达式&lt;/h3>
+&lt;p>正则表达式是用来匹配字符串的异常强大的东西，可以用来匹配邮箱、域名等字符串&lt;/p>
+&lt;h3 id="0x01-符号">0x01 符号&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/regular_atomic_character.png" alt="75">&lt;/p>
+&lt;h3 id="0x02-特殊字符">0x02 特殊字符&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/regular_metacharacters.png" alt="75">&lt;/p>
+&lt;h3 id="0x03-常用的模块属性">0x03 常用的模块属性&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/regular_modifier.png" alt="75">&lt;/p></description></item></channel></rss>

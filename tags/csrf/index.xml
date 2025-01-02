@@ -1,19 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>csrf on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/csrf/</link>
-    <description>Recent content in csrf on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 28 Jun 2016 09:21:34 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/csrf/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CSRF 漏洞</title>
-      <link>https://wyb0.com/posts/2016/csrf/</link>
-      <pubDate>Tue, 28 Jun 2016 09:21:34 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/csrf/</guid>
-      <description>0x00 概念 当你登陆某个网站时，通常浏览器与网站都会形成一个会话，在会话没有结束时你可以执行发表文章、发邮件、删除文章等操作，</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Csrf on Reber's Blog</title><link>https://wyb0.com/tags/csrf/</link><description>Recent content in Csrf on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 28 Jun 2016 09:21:34 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/csrf/index.xml" rel="self" type="application/rss+xml"/><item><title>CSRF 漏洞</title><link>https://wyb0.com/posts/2016/csrf/</link><pubDate>Tue, 28 Jun 2016 09:21:34 +0000</pubDate><guid>https://wyb0.com/posts/2016/csrf/</guid><description>&lt;h3 id="0x00-概念">0x00 概念&lt;/h3>
+&lt;p>当你登陆某个网站时，通常浏览器与网站都会形成一个会话，在会话没有结束时你可以执行发表文章、发邮件、删除文章等操作，若会话结束，你再操作的话会提示你会话已经结束，请重新登陆。&lt;/p></description></item></channel></rss>

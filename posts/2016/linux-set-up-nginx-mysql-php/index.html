@@ -1,131 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 下搭建 Nginx&#43;MySQL&#43;PHP | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 下搭建 Nginx&#43;MySQL&#43;PHP</h1>
-      
-<div class="post-meta">
-    <time>2016-06-17</time>
-    
-    [<a href="/categories/Server">Server</a>](<a href="/tags/server">server</a>)
-</div>
-
-      <div><p>安装环境为：CentOS-6.5-x86_64-minimal</p>
-<h3 id="0x00-准备工作">0x00 准备工作</h3>
-<pre tabindex="0"><code>首先执行：
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 下搭建 Nginx+MySQL+PHP | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 下搭建 Nginx+MySQL+PHP</h1><div class=post-meta><time>2016-06-17</time>
+[<a href=/categories/Server>Server</a>](<a href=/tags/server>server</a>)</div><div><p>安装环境为：CentOS-6.5-x86_64-minimal</p><h3 id=0x00-准备工作>0x00 准备工作</h3><pre tabindex=0><code>首先执行：
     sudo yum groupinstall &#34;Development tools&#34;
 安装make：
     yum -y install gcc automake autoconf libtool make
 安装g++：
     yum install gcc gcc-c++
-</code></pre><h3 id="0x01-安装mysql和php">0x01 安装mysql和php</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo yum install mysql mysql-server mysql-devel
-</span></span><span style="display:flex;"><span>sudo yum install php php-devel
-</span></span><span style="display:flex;"><span>sudo yum install php-gd php-mysql php-fpm
-</span></span></code></pre></div><h3 id="0x02-安装依赖">0x02 安装依赖</h3>
-<ol>
-<li>
-<p>安装pcre、pcre-devel<br>
-sudo yum install pcre pcre-devel</p>
-</li>
-<li>
-<p>安装zlib、zlib-devel<br>
-sudo yum install zlib zlib-devel</p>
-</li>
-<li>
-<p>安装ssl<br>
-sudo yum install openssl openssl-devel</p>
-</li>
-</ol>
-<h3 id="0x03-安装nginx">0x03 安装Nginx</h3>
-<p>可在http://nginx.org/download/nginx-1.9.9.tar.gz 下载
-<img src="/img/post/download_nginx.png" alt="下载nginx安装包"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#Ubuntu中需要依赖：libpcre3 libpcre3-dev zlib1g-dev libssl-dev build-essential</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ ./configure
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ make
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ sudo make install
-</span></span></code></pre></div><h3 id="0x04-启动与关闭nginx">0x04 启动与关闭nginx</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 开启服务：</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ sudo /usr/local/nginx/sbin/nginx
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 关闭服务：</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ killall nginx
-</span></span></code></pre></div><p><img src="/img/post/visit_nginx.png" alt="访问nginx.png"></p>
-<h3 id="0x05-配置nginx支持php">0x05 配置nginx支持php</h3>
-<p>[reber@WYB nginx-1.9.9]$ killall nginx<br>
-[reber@WYB nginx-1.9.9]$ vim /usr/local/nginx/conf/nginx.conf</p>
-<pre tabindex="0"><code>location / {
+</code></pre><h3 id=0x01-安装mysql和php>0x01 安装mysql和php</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>sudo yum install mysql mysql-server mysql-devel
+</span></span><span style=display:flex><span>sudo yum install php php-devel
+</span></span><span style=display:flex><span>sudo yum install php-gd php-mysql php-fpm
+</span></span></code></pre></div><h3 id=0x02-安装依赖>0x02 安装依赖</h3><ol><li><p>安装pcre、pcre-devel<br>sudo yum install pcre pcre-devel</p></li><li><p>安装zlib、zlib-devel<br>sudo yum install zlib zlib-devel</p></li><li><p>安装ssl<br>sudo yum install openssl openssl-devel</p></li></ol><h3 id=0x03-安装nginx>0x03 安装Nginx</h3><p>可在http://nginx.org/download/nginx-1.9.9.tar.gz 下载
+<img src=/img/post/download_nginx.png alt=下载nginx安装包></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e>#Ubuntu中需要依赖：libpcre3 libpcre3-dev zlib1g-dev libssl-dev build-essential</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ ./configure
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ make
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ sudo make install
+</span></span></code></pre></div><h3 id=0x04-启动与关闭nginx>0x04 启动与关闭nginx</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># 开启服务：</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ sudo /usr/local/nginx/sbin/nginx
+</span></span><span style=display:flex><span><span style=color:#75715e># 关闭服务：</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ killall nginx
+</span></span></code></pre></div><p><img src=/img/post/visit_nginx.png alt=访问nginx.png></p><h3 id=0x05-配置nginx支持php>0x05 配置nginx支持php</h3><p>[reber@WYB nginx-1.9.9]$ killall nginx<br>[reber@WYB nginx-1.9.9]$ vim /usr/local/nginx/conf/nginx.conf</p><pre tabindex=0><code>location / {
     root   html;
     index  index.html index.htm index.php;
 }
@@ -137,38 +40,14 @@ location ~ \.php$ {
     fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
     include        fastcgi_params;
 }
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ sudo service php-fpm start
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>reber@WYB nginx-1.9.9<span style="color:#f92672">]</span>$ sudo /usr/local/nginx/sbin/nginx
-</span></span></code></pre></div><p><img src="/img/post/visit_nginx_phpinfo.png" alt="访问nginx的phpinfo.php"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ sudo service php-fpm start
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>reber@WYB nginx-1.9.9<span style=color:#f92672>]</span>$ sudo /usr/local/nginx/sbin/nginx
+</span></span></code></pre></div><p><img src=/img/post/visit_nginx_phpinfo.png alt=访问nginx的phpinfo.php></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

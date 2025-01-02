@@ -1,133 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>使用 Python 读写 xml 文件 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>使用 Python 读写 xml 文件</h1>
-      
-<div class="post-meta">
-    <time>2017-07-20</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/xml">xml</a>)
-</div>
-
-      <div><h3 id="0x00-解析xml的方法">0x00 解析XML的方法</h3>
-<ol>
-<li>
-<p>SAX (simple API for XML)<br>
-python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调用用户定义的回调函数来处理XML文件。</p>
-</li>
-<li>
-<p>DOM(Document Object Model)<br>
-将XML数据在内存中解析成一个树，通过对树的操作来操作XML。</p>
-</li>
-<li>
-<p>ElementTree(元素树)<br>
-ElementTree就像一个轻量级的DOM，具有方便友好的API。代码可用性好，速度快，消耗内存少。</p>
-</li>
-</ol>
-<ul>
-<li><strong>我在这里使用ElementTree</strong></li>
-</ul>
-<h3 id="0x01-element对象的属性">0x01 Element对象的属性</h3>
-<p>每个Element对象都具有以下属性：</p>
-<ul>
-<li>tag：string对象，表示数据代表的种类</li>
-<li>attrib：dictionary对象，表示附有的属性</li>
-<li>text：string对象，表示element的内容</li>
-<li>tail：string对象，表示element闭合之后的尾迹</li>
-<li>若干子元素（child elements）</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> xml.etree <span style="color:#f92672">import</span> ElementTree <span style="color:#66d9ef">as</span> ET
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> xml <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;&lt;books&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...   &lt;book id=&#39;37476&#39;&gt;aaaa&lt;/book&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">...   &lt;book id=&#39;83727&#39;&gt;bbbb&lt;/book&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">... &lt;/books&gt;&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> root <span style="color:#f92672">=</span> ET<span style="color:#f92672">.</span>fromstring(xml)
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> root<span style="color:#f92672">.</span>tag
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;books&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> child <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>getchildren()
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> child
-</span></span><span style="display:flex;"><span>[<span style="color:#f92672">&lt;</span>Element <span style="color:#e6db74">&#39;book&#39;</span> at <span style="color:#ae81ff">0x106f59410</span><span style="color:#f92672">&gt;</span>, <span style="color:#f92672">&lt;</span>Element <span style="color:#e6db74">&#39;book&#39;</span> at <span style="color:#ae81ff">0x106f59450</span><span style="color:#f92672">&gt;</span>]
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> child[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>tag
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;book&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> child[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>attrib
-</span></span><span style="display:flex;"><span>{<span style="color:#e6db74">&#39;id&#39;</span>: <span style="color:#e6db74">&#39;37476&#39;</span>}
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> child[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>text
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;aaaa&#39;</span>
-</span></span></code></pre></div><h3 id="0x02-文件内容">0x02 文件内容</h3>
-<pre tabindex="0"><code>&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>使用 Python 读写 xml 文件 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>使用 Python 读写 xml 文件</h1><div class=post-meta><time>2017-07-20</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/xml>xml</a>)</div><div><h3 id=0x00-解析xml的方法>0x00 解析XML的方法</h3><ol><li><p>SAX (simple API for XML)<br>python 标准库包含SAX解析器，SAX用事件驱动模型，通过在解析XML的过程中触发一个个的事件并调用用户定义的回调函数来处理XML文件。</p></li><li><p>DOM(Document Object Model)<br>将XML数据在内存中解析成一个树，通过对树的操作来操作XML。</p></li><li><p>ElementTree(元素树)<br>ElementTree就像一个轻量级的DOM，具有方便友好的API。代码可用性好，速度快，消耗内存少。</p></li></ol><ul><li><strong>我在这里使用ElementTree</strong></li></ul><h3 id=0x01-element对象的属性>0x01 Element对象的属性</h3><p>每个Element对象都具有以下属性：</p><ul><li>tag：string对象，表示数据代表的种类</li><li>attrib：dictionary对象，表示附有的属性</li><li>text：string对象，表示element的内容</li><li>tail：string对象，表示element闭合之后的尾迹</li><li>若干子元素（child elements）</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#f92672>from</span> xml.etree <span style=color:#f92672>import</span> ElementTree <span style=color:#66d9ef>as</span> ET
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> xml <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;&#34;&lt;books&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>...   &lt;book id=&#39;37476&#39;&gt;aaaa&lt;/book&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>...   &lt;book id=&#39;83727&#39;&gt;bbbb&lt;/book&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>... &lt;/books&gt;&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> root <span style=color:#f92672>=</span> ET<span style=color:#f92672>.</span>fromstring(xml)
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> root<span style=color:#f92672>.</span>tag
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;books&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> child <span style=color:#f92672>=</span> root<span style=color:#f92672>.</span>getchildren()
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> child
+</span></span><span style=display:flex><span>[<span style=color:#f92672>&lt;</span>Element <span style=color:#e6db74>&#39;book&#39;</span> at <span style=color:#ae81ff>0x106f59410</span><span style=color:#f92672>&gt;</span>, <span style=color:#f92672>&lt;</span>Element <span style=color:#e6db74>&#39;book&#39;</span> at <span style=color:#ae81ff>0x106f59450</span><span style=color:#f92672>&gt;</span>]
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> child[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>tag
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;book&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> child[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>attrib
+</span></span><span style=display:flex><span>{<span style=color:#e6db74>&#39;id&#39;</span>: <span style=color:#e6db74>&#39;37476&#39;</span>}
+</span></span><span style=display:flex><span><span style=color:#f92672>&gt;&gt;&gt;</span> child[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>text
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#39;aaaa&#39;</span>
+</span></span></code></pre></div><h3 id=0x02-文件内容>0x02 文件内容</h3><pre tabindex=0><code>&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;
 &lt;books&gt;
   &lt;book&gt;
     &lt;name&gt;Python黑帽子&lt;/name&gt;
@@ -148,36 +48,34 @@ ElementTree就像一个轻量级的DOM，具有方便友好的API。代码可用
     &lt;description&gt;道哥力作&lt;/description&gt;
   &lt;/book&gt;
 &lt;/books&gt;
-</code></pre><h3 id="0x03-读取xml节点">0x03 读取xml节点</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> xml.etree <span style="color:#f92672">import</span> ElementTree <span style="color:#66d9ef">as</span> ET
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>tree <span style="color:#f92672">=</span> ET<span style="color:#f92672">.</span>parse(<span style="color:#e6db74">&#39;test.xml&#39;</span>)
-</span></span><span style="display:flex;"><span>root <span style="color:#f92672">=</span> tree<span style="color:#f92672">.</span>getroot()
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root = ET.fromstring(country_data_as_string) #通过字符串导入,直接获取根</span>
-</span></span><span style="display:flex;"><span>childs <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>getchildren()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>books <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> child0 <span style="color:#f92672">in</span> childs:
-</span></span><span style="display:flex;"><span>    book <span style="color:#f92672">=</span> {}
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> child00 <span style="color:#f92672">in</span> child0<span style="color:#f92672">.</span>getchildren():
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print child00.tag #标签名，即name、date、price、description</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># print child00.text</span>
-</span></span><span style="display:flex;"><span>        book[child00<span style="color:#f92672">.</span>tag] <span style="color:#f92672">=</span> child00<span style="color:#f92672">.</span>text
-</span></span><span style="display:flex;"><span>    books<span style="color:#f92672">.</span>append(book)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print books
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">books = [
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    {&#39;name&#39;: &#39;Python黑帽子&#39;,&#39;date&#39;: &#39;2015&#39;,&#39;price&#39;: &#39;37￥&#39;,&#39;description&#39;: &#39;用python写一些程序&#39;},
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    {&#39;name&#39;: &#39;Web安全深度剖析&#39;,&#39;date&#39;: &#39;2014&#39;,&#39;price&#39;: &#39;39￥&#39;,&#39;description&#39;: &#39;讲述web渗透的基础知识&#39;},
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    {&#39;name&#39;: &#39;白帽子讲web安全&#39;,&#39;date&#39;: &#39;2013&#39;,&#39;price&#39;: &#39;44￥&#39;,&#39;description&#39;: &#39;道哥力作&#39;}        
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-</span></span></code></pre></div><h3 id="0x04-写入xml文件">0x04 写入xml文件</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+</code></pre><h3 id=0x03-读取xml节点>0x03 读取xml节点</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> xml.etree <span style=color:#f92672>import</span> ElementTree <span style=color:#66d9ef>as</span> ET
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>tree <span style=color:#f92672>=</span> ET<span style=color:#f92672>.</span>parse(<span style=color:#e6db74>&#39;test.xml&#39;</span>)
+</span></span><span style=display:flex><span>root <span style=color:#f92672>=</span> tree<span style=color:#f92672>.</span>getroot()
+</span></span><span style=display:flex><span><span style=color:#75715e># root = ET.fromstring(country_data_as_string) #通过字符串导入,直接获取根</span>
+</span></span><span style=display:flex><span>childs <span style=color:#f92672>=</span> root<span style=color:#f92672>.</span>getchildren()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>books <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> child0 <span style=color:#f92672>in</span> childs:
+</span></span><span style=display:flex><span>    book <span style=color:#f92672>=</span> {}
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> child00 <span style=color:#f92672>in</span> child0<span style=color:#f92672>.</span>getchildren():
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print child00.tag #标签名，即name、date、price、description</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print child00.text</span>
+</span></span><span style=display:flex><span>        book[child00<span style=color:#f92672>.</span>tag] <span style=color:#f92672>=</span> child00<span style=color:#f92672>.</span>text
+</span></span><span style=display:flex><span>    books<span style=color:#f92672>.</span>append(book)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print books
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>books = [
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    {&#39;name&#39;: &#39;Python黑帽子&#39;,&#39;date&#39;: &#39;2015&#39;,&#39;price&#39;: &#39;37￥&#39;,&#39;description&#39;: &#39;用python写一些程序&#39;},
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    {&#39;name&#39;: &#39;Web安全深度剖析&#39;,&#39;date&#39;: &#39;2014&#39;,&#39;price&#39;: &#39;39￥&#39;,&#39;description&#39;: &#39;讲述web渗透的基础知识&#39;},
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    {&#39;name&#39;: &#39;白帽子讲web安全&#39;,&#39;date&#39;: &#39;2013&#39;,&#39;price&#39;: &#39;44￥&#39;,&#39;description&#39;: &#39;道哥力作&#39;}        
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+</span></span></code></pre></div><h3 id=0x04-写入xml文件>0x04 写入xml文件</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # code by reber &lt;1070018473@qq.com&gt;
 
@@ -242,35 +140,12 @@ tree = ET.ElementTree(books)
 tree.write(&#39;aa.xml&#39;, &#39;utf-8&#39;)
 # import sys
 # tree.write(sys.stdout)
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

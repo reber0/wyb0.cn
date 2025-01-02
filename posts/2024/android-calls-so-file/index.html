@@ -1,167 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>安卓调用 so 文件 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>安卓调用 so 文件</h1>
-      
-<div class="post-meta">
-    <time>2024-05-17</time>
-    
-    [<a href="/categories/Code">Code</a>](<a href="/tags/android">android</a>)
-</div>
-
-      <div><h3 id="0x00-安卓的-jni">0x00 安卓的 JNI</h3>
-<p>安卓开发中，JNI 就是 Java Native Interface 的缩写，它允许 Java 代码调用原生的 C/C++ 代码，或者允许 C/C++ 代码调用 Java 代码。</p>
-<p>在 Android Stdio 中，有以下 3 种方法使用 so 文件：</p>
-<ul>
-<li>
-<p>本地库模块和 App 模块在同一个工程内
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"><meta name=author content="Reber"><title>安卓调用 so 文件 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>安卓调用 so 文件</h1><div class=post-meta><time>2024-05-17</time>
+[<a href=/categories/Code>Code</a>](<a href=/tags/android>android</a>)</div><div><h3 id=0x00-安卓的-jni>0x00 安卓的 JNI</h3><p>安卓开发中，JNI 就是 Java Native Interface 的缩写，它允许 Java 代码调用原生的 C/C++ 代码，或者允许 C/C++ 代码调用 Java 代码。</p><p>在 Android Stdio 中，有以下 3 种方法使用 so 文件：</p><ul><li><p>本地库模块和 App 模块在同一个工程内
 1、在本地模块使用 C/C++ 实现功能
 2、在 native.cpp 中为本地函数添加 JNI 标注
 3、App 模块使用 System.loadLibrary 加载本地库
-4、通过 JNIEnv 调用本地函数</p>
-</li>
-<li>
-<p>本地库作为独立的类库模块开发，为其他项目提供服务
+4、通过 JNIEnv 调用本地函数</p></li><li><p>本地库作为独立的类库模块开发，为其他项目提供服务
 1、本地库模块使用 C/C++ 实现功能
 2、在 native.cpp 中为本地函数添加 JNI 标注
 3、将本地库导出为共享库文件(.so)
 4、其他项目的 App 模块使用 System.loadLibrary 加载该共享库
-5、通过 JNI 调用本地函数</p>
-</li>
-<li>
-<p>自己编译 C/C++，然后放到项目中
+5、通过 JNI 调用本地函数</p></li><li><p>自己编译 C/C++，然后放到项目中
 1、直接通过 C/C++ 实现功能
 2、通过编译工具将代码编译为共享库文件(.so)
 3、项目的 App 模块使用 System.loadLibrary 加载该共享库
 4、在 native.cpp 中为 so 中的函数添加 JNI 标注
-5、通过 JNI 调用本地函数</p>
-</li>
-</ul>
-<h3 id="0x01-项目中生成-so">0x01 项目中生成 so</h3>
-<ul>
-<li>
-<p>添加 C++ Module
-通过 Android Stdio 文件-Add C++ to Module，会自动创建 demo/app/src/main/cpp 文件夹，同时下面有 <code>CMakeLists.txt</code>、<code>&lt;project name&gt;.cpp</code>
-<img src="/img/post/1719794839203.jpg" alt="80"></p>
-<p>同时在 demo/app/build.gradle.kts 会自动添加相关内容
-<img src="/img/post/Xnip2024-07-01_08-49-38.png" alt="80"></p>
-</li>
-<li>
-<p>创建 JNI
+5、通过 JNI 调用本地函数</p></li></ul><h3 id=0x01-项目中生成-so>0x01 项目中生成 so</h3><ul><li><p>添加 C++ Module
+通过 Android Stdio 文件-Add C++ to Module，会自动创建 demo/app/src/main/cpp 文件夹，同时下面有 <code>CMakeLists.txt</code>、<code>&lt;project name>.cpp</code>
+<img src=/img/post/1719794839203.jpg alt=80></p><p>同时在 demo/app/build.gradle.kts 会自动添加相关内容
+<img src=/img/post/Xnip2024-07-01_08-49-38.png alt=80></p></li><li><p>创建 JNI
 在 com.example.demo 下新建一个 java 类 MyJNI
-<img src="/img/post/Xnip2024-07-01_08-50-30.png" alt="80"></p>
-<p>在 MyJNI.java 下添加一个函数，代码如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example.demo;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyJNI</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> {
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">loadLibrary</span>(<span style="color:#e6db74">&#34;demo&#34;</span>); <span style="color:#75715e">// 加载内部 so</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">native</span> String <span style="color:#a6e22e">helloFromDemo</span>();
-</span></span><span style="display:flex;"><span>}
+<img src=/img/post/Xnip2024-07-01_08-50-30.png alt=80></p><p>在 MyJNI.java 下添加一个函数，代码如下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.demo;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyJNI</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>loadLibrary</span>(<span style=color:#e6db74>&#34;demo&#34;</span>); <span style=color:#75715e>// 加载内部 so</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>native</span> String <span style=color:#a6e22e>helloFromDemo</span>();
+</span></span><span style=display:flex><span>}
 </span></span></code></pre></div><p>然后根据 Android Stdio 的提示添加对应的函数，会自动跳转到 demo.cpp 并添加函数
-<img src="/img/post/Xnip2024-07-01_08-51-08.png" alt=""></p>
-<p>我们修改 demo.cpp 下的函数 helloFromTest 返回一个字符串，如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;jni.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
-</span></span><span style="display:flex;"><span>JNIEXPORT jstring JNICALL
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Java_com_example_demo_MyJNI_helloFromDemo</span>(JNIEnv <span style="color:#f92672">*</span>env, jclass clazz) {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TODO: implement helloFromDemo()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>string hello <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello from project Demo&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> env<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">NewStringUTF</span>(hello.<span style="color:#a6e22e">c_str</span>());
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>然后在其他地方通过 MyJNI.helloFromDemo() 进行调用即可</p>
-</li>
-<li>
-<p>编译为 apk
-在编译 apk 时涉及到的 C/C++ 代码会自动生成为  libdemo.so 并打包进 apk 中
-<img src="/img/post/Xnip2024-07-01_08-51-35.png" alt="80">
-通过 nm 查看</p>
-<pre tabindex="0"><code>➜ nm -D arm64-v8a/libdemo.so | grep &#34;Java&#34;
+<img src=/img/post/Xnip2024-07-01_08-51-08.png alt></p><p>我们修改 demo.cpp 下的函数 helloFromTest 返回一个字符串，如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;jni.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>extern</span> <span style=color:#e6db74>&#34;C&#34;</span>
+</span></span><span style=display:flex><span>JNIEXPORT jstring JNICALL
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Java_com_example_demo_MyJNI_helloFromDemo</span>(JNIEnv <span style=color:#f92672>*</span>env, jclass clazz) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// TODO: implement helloFromDemo()
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    std<span style=color:#f92672>::</span>string hello <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Hello from project Demo&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> env<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>NewStringUTF</span>(hello.<span style=color:#a6e22e>c_str</span>());
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>然后在其他地方通过 MyJNI.helloFromDemo() 进行调用即可</p></li><li><p>编译为 apk
+在编译 apk 时涉及到的 C/C++ 代码会自动生成为 libdemo.so 并打包进 apk 中
+<img src=/img/post/Xnip2024-07-01_08-51-35.png alt=80>
+通过 nm 查看</p><pre tabindex=0><code>➜ nm -D arm64-v8a/libdemo.so | grep &#34;Java&#34;
 000000000001db30 T Java_com_example_demo_MyJNI_helloFromDemo
-</code></pre></li>
-</ul>
-<h3 id="0x02-使用其他项目生成的-so">0x02 使用其他项目生成的 so</h3>
-<ul>
-<li>
-<p>编译为 so 文件
-通过 Android Stdio 创建一个 Native C++ 项目，然后实现 C/C++ 代码，然后通过 构建-Make Project 即可在项目下生成 so 文件</p>
-<pre tabindex="0"><code>➜ cd demo/app/build/intermediates/cxx/Debug/645r244u/obj
+</code></pre></li></ul><h3 id=0x02-使用其他项目生成的-so>0x02 使用其他项目生成的 so</h3><ul><li><p>编译为 so 文件
+通过 Android Stdio 创建一个 Native C++ 项目，然后实现 C/C++ 代码，然后通过 构建-Make Project 即可在项目下生成 so 文件</p><pre tabindex=0><code>➜ cd demo/app/build/intermediates/cxx/Debug/645r244u/obj
 ➜ tree .
 .
 ├── arm64-v8a
@@ -174,41 +67,31 @@
     └── libdemo.so
 
 5 directories, 4 files
-</code></pre><p>通过 nm 可以看到有 Java_com_example_demo_MyJNI_helloFromDemo，这个 so 可以在其他项目使用，其他项目引入 so 文件后，通过 MyJNI.helloFromDemo() 就也可以调用</p>
-<pre tabindex="0"><code>➜ nm -D arm64-v8a/libdemo.so | grep &#34;Java&#34;
+</code></pre><p>通过 nm 可以看到有 Java_com_example_demo_MyJNI_helloFromDemo，这个 so 可以在其他项目使用，其他项目引入 so 文件后，通过 MyJNI.helloFromDemo() 就也可以调用</p><pre tabindex=0><code>➜ nm -D arm64-v8a/libdemo.so | grep &#34;Java&#34;
 000000000001db30 T Java_com_example_demo_MyJNI_helloFromDemo
-</code></pre></li>
-<li>
-<p>在新项目中引用 so 文件
+</code></pre></li><li><p>在新项目中引用 so 文件
 新建项目 Test，创建文件夹复制 so，Test/app/src/main/jniLibs/arm64-v8a/libdemo.so。
-然后创建 Test/app/src/main/java/com/example/demo/MyJNI.java，这个路径和上面 so 文件里函数的名字 Java_com_example_demo_MyJNI_helloFromDemo 一致，MyJNI.java 内容如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example.demo;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyJNI</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> {
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">loadLibrary</span>(<span style="color:#e6db74">&#34;demo&#34;</span>); <span style="color:#75715e">// 加载外部 so</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">native</span> String <span style="color:#a6e22e">helloFromDemo</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>之后在 Test 项目里通过 MyJNI.helloFromDemo() 即可直接调用外部 so 里的函数(这里不用对 helloFromDemo 实现 C/C++ 功能)</p>
-</li>
-</ul>
-<h3 id="0x03-自己通过-android-ndk-编译生成-so">0x03 自己通过 Android NDK 编译生成 so</h3>
-<p>自己新建一个 test.c</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">c_hello</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello from main.c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">c_add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c,d;
-</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> a;
-</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> b;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> c <span style="color:#f92672">+</span> d;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>通过 NDK 生成 so 文件</p>
-<pre tabindex="0"><code>➜ which aarch64-linux-android21-clang                                                        
+然后创建 Test/app/src/main/java/com/example/demo/MyJNI.java，这个路径和上面 so 文件里函数的名字 Java_com_example_demo_MyJNI_helloFromDemo 一致，MyJNI.java 内容如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.demo;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyJNI</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>loadLibrary</span>(<span style=color:#e6db74>&#34;demo&#34;</span>); <span style=color:#75715e>// 加载外部 so</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>native</span> String <span style=color:#a6e22e>helloFromDemo</span>();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>之后在 Test 项目里通过 MyJNI.helloFromDemo() 即可直接调用外部 so 里的函数(这里不用对 helloFromDemo 实现 C/C++ 功能)</p></li></ul><h3 id=0x03-自己通过-android-ndk-编译生成-so>0x03 自己通过 Android NDK 编译生成 so</h3><p>自己新建一个 test.c</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>char</span><span style=color:#f92672>*</span> <span style=color:#a6e22e>c_hello</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Hello from main.c</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>c_add</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> c,d;
+</span></span><span style=display:flex><span>    c <span style=color:#f92672>=</span> a;
+</span></span><span style=display:flex><span>    d <span style=color:#f92672>=</span> b;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> c <span style=color:#f92672>+</span> d;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>通过 NDK 生成 so 文件</p><pre tabindex=0><code>➜ which aarch64-linux-android21-clang                                                        
 /usr/local/share/android-ndk/toolchains/llvm/prebuilt/darwin-x86_64/bin/aarch64-linux-android21-clang
 
 ➜ aarch64-linux-android34-clang -fpic -shared -Wl,--export-dynamic -o libself_build.so test.c
@@ -220,8 +103,7 @@ libself_build.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), d
 
 ➜ file libself_build.so 
 libself_build.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, stripped
-</code></pre><p>查看动态符号表，可以看到 c_hello、c_add</p>
-<pre tabindex="0"><code>➜ objdump -T libself_build.so
+</code></pre><p>查看动态符号表，可以看到 c_hello、c_add</p><pre tabindex=0><code>➜ objdump -T libself_build.so
 
 libself_build.so:     file format elf64-littleaarch64
 
@@ -231,120 +113,94 @@ DYNAMIC SYMBOL TABLE:
 0000000000000000     DF *UND*  0000000000000000 (LIBC)    __register_atfork
 0000000000001618 g   DF .text  000000000000000c  Base     c_hello
 0000000000001624 g   DF .text  0000000000000030  Base     c_add
-</code></pre><p>在项目里创建一个 Java 类</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example.test.ui.test;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestJNI</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> {
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">loadLibrary</span>(<span style="color:#e6db74">&#34;self_build&#34;</span>); <span style="color:#75715e">// 加载外部 so</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">native</span> String <span style="color:#a6e22e">chello</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">native</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cadd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>在 native.cpp 中为 so 中的函数添加 JNI 标注，自己编译的 so 要通过 dlopen 添加</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;jni.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;dlfcn.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;android/log.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
-</span></span><span style="display:flex;"><span>JNIEXPORT jstring JNICALL
-</span></span><span style="display:flex;"><span>Java_com_example_test_ui_test_TestJNI_helloFromTest(JNIEnv <span style="color:#f92672">*</span>env, jclass clazz) {
-</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>string hello <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello from project Test&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> env<span style="color:#f92672">-&gt;</span>NewStringUTF(hello.c_str());
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
-</span></span><span style="display:flex;"><span>JNIEXPORT jstring JNICALL
-</span></span><span style="display:flex;"><span>Java_com_example_test_ui_test_TestJNI_chello(JNIEnv <span style="color:#f92672">*</span>env, jclass clazz) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> handle <span style="color:#f92672">=</span> dlopen(<span style="color:#e6db74">&#34;libself_build.so&#34;</span>, RTLD_LAZY);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>handle) {
-</span></span><span style="display:flex;"><span>        __android_log_print(ANDROID_LOG_ERROR, <span style="color:#e6db74">&#34;dlopen&#34;</span>, <span style="color:#e6db74">&#34;dlopen failed&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> NULL;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> (<span style="color:#f92672">*</span>Fun)();
-</span></span><span style="display:flex;"><span>    Fun hello <span style="color:#f92672">=</span> (Fun)dlsym(handle, <span style="color:#e6db74">&#34;c_hello&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> str <span style="color:#f92672">=</span> hello();
-</span></span><span style="display:flex;"><span>    jstring result <span style="color:#f92672">=</span> env<span style="color:#f92672">-&gt;</span>NewStringUTF(str);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    dlclose(handle);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span>
-</span></span><span style="display:flex;"><span>JNIEXPORT <span style="color:#66d9ef">int</span> JNICALL
-</span></span><span style="display:flex;"><span>Java_com_example_test_ui_test_TestJNI_cadd(JNIEnv <span style="color:#f92672">*</span>env, jclass clazz, jint a, jint b) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span><span style="color:#f92672">*</span> handle <span style="color:#f92672">=</span> dlopen(<span style="color:#e6db74">&#34;libself_build.so&#34;</span>, RTLD_LAZY);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>handle) {
-</span></span><span style="display:flex;"><span>        __android_log_print(ANDROID_LOG_ERROR, <span style="color:#e6db74">&#34;dlopen&#34;</span>, <span style="color:#e6db74">&#34;dlopen failed&#34;</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> NULL;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">int</span> (<span style="color:#f92672">*</span>Fun)(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>);
-</span></span><span style="display:flex;"><span>    Fun c_add <span style="color:#f92672">=</span> (Fun)dlsym(handle, <span style="color:#e6db74">&#34;c_add&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> c_add(a, b);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    dlclose(handle);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>之后通过 JNI 调用即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example.test.ui.test;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> android.content.Context;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> android.widget.Toast;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.example.demo.MyJNI;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Use</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testJNI</span>(Context context) {
-</span></span><span style="display:flex;"><span>        String hello <span style="color:#f92672">=</span> TestJNI.<span style="color:#a6e22e">helloFromTest</span>();
-</span></span><span style="display:flex;"><span>        Toast.<span style="color:#a6e22e">makeText</span>(context, <span style="color:#e6db74">&#34;libtest.so: &#34;</span><span style="color:#f92672">+</span>hello, Toast.<span style="color:#a6e22e">LENGTH_SHORT</span>).<span style="color:#a6e22e">show</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        String text <span style="color:#f92672">=</span> MyJNI.<span style="color:#a6e22e">helloFromDemo</span>();
-</span></span><span style="display:flex;"><span>        Toast.<span style="color:#a6e22e">makeText</span>(context, <span style="color:#e6db74">&#34;libdemo.so: &#34;</span><span style="color:#f92672">+</span>text, Toast.<span style="color:#a6e22e">LENGTH_LONG</span>).<span style="color:#a6e22e">show</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> TestJNI.<span style="color:#a6e22e">cadd</span>(1,4);
-</span></span><span style="display:flex;"><span>        Toast.<span style="color:#a6e22e">makeText</span>(context, <span style="color:#e6db74">&#34;libself_build.so: Sum of 1 and 4 is &#34;</span> <span style="color:#f92672">+</span> sum, Toast.<span style="color:#a6e22e">LENGTH_SHORT</span>).<span style="color:#a6e22e">show</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        String xx <span style="color:#f92672">=</span> TestJNI.<span style="color:#a6e22e">chello</span>();
-</span></span><span style="display:flex;"><span>        Toast.<span style="color:#a6e22e">makeText</span>(context, <span style="color:#e6db74">&#34;libself_build.so: &#34;</span><span style="color:#f92672">+</span>xx, Toast.<span style="color:#a6e22e">LENGTH_SHORT</span>).<span style="color:#a6e22e">show</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p>在项目里创建一个 Java 类</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.test.ui.test;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TestJNI</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>loadLibrary</span>(<span style=color:#e6db74>&#34;self_build&#34;</span>); <span style=color:#75715e>// 加载外部 so</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>native</span> String <span style=color:#a6e22e>chello</span>();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>native</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>cadd</span>(<span style=color:#66d9ef>int</span> a, <span style=color:#66d9ef>int</span> b);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>在 native.cpp 中为 so 中的函数添加 JNI 标注，自己编译的 so 要通过 dlopen 添加</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;jni.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;string&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;dlfcn.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;android/log.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>extern</span> <span style=color:#e6db74>&#34;C&#34;</span>
+</span></span><span style=display:flex><span>JNIEXPORT jstring JNICALL
+</span></span><span style=display:flex><span>Java_com_example_test_ui_test_TestJNI_helloFromTest(JNIEnv <span style=color:#f92672>*</span>env, jclass clazz) {
+</span></span><span style=display:flex><span>    std<span style=color:#f92672>::</span>string hello <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Hello from project Test&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> env<span style=color:#f92672>-&gt;</span>NewStringUTF(hello.c_str());
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>extern</span> <span style=color:#e6db74>&#34;C&#34;</span>
+</span></span><span style=display:flex><span>JNIEXPORT jstring JNICALL
+</span></span><span style=display:flex><span>Java_com_example_test_ui_test_TestJNI_chello(JNIEnv <span style=color:#f92672>*</span>env, jclass clazz) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span><span style=color:#f92672>*</span> handle <span style=color:#f92672>=</span> dlopen(<span style=color:#e6db74>&#34;libself_build.so&#34;</span>, RTLD_LAZY);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>handle) {
+</span></span><span style=display:flex><span>        __android_log_print(ANDROID_LOG_ERROR, <span style=color:#e6db74>&#34;dlopen&#34;</span>, <span style=color:#e6db74>&#34;dlopen failed&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> NULL;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>char</span><span style=color:#f92672>*</span> (<span style=color:#f92672>*</span>Fun)();
+</span></span><span style=display:flex><span>    Fun hello <span style=color:#f92672>=</span> (Fun)dlsym(handle, <span style=color:#e6db74>&#34;c_hello&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>char</span><span style=color:#f92672>*</span> str <span style=color:#f92672>=</span> hello();
+</span></span><span style=display:flex><span>    jstring result <span style=color:#f92672>=</span> env<span style=color:#f92672>-&gt;</span>NewStringUTF(str);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    dlclose(handle);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>extern</span> <span style=color:#e6db74>&#34;C&#34;</span>
+</span></span><span style=display:flex><span>JNIEXPORT <span style=color:#66d9ef>int</span> JNICALL
+</span></span><span style=display:flex><span>Java_com_example_test_ui_test_TestJNI_cadd(JNIEnv <span style=color:#f92672>*</span>env, jclass clazz, jint a, jint b) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>void</span><span style=color:#f92672>*</span> handle <span style=color:#f92672>=</span> dlopen(<span style=color:#e6db74>&#34;libself_build.so&#34;</span>, RTLD_LAZY);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>handle) {
+</span></span><span style=display:flex><span>        __android_log_print(ANDROID_LOG_ERROR, <span style=color:#e6db74>&#34;dlopen&#34;</span>, <span style=color:#e6db74>&#34;dlopen failed&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> NULL;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>typedef</span> <span style=color:#a6e22e>int</span> (<span style=color:#f92672>*</span>Fun)(<span style=color:#66d9ef>int</span>, <span style=color:#66d9ef>int</span>);
+</span></span><span style=display:flex><span>    Fun c_add <span style=color:#f92672>=</span> (Fun)dlsym(handle, <span style=color:#e6db74>&#34;c_add&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> result <span style=color:#f92672>=</span> c_add(a, b);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    dlclose(handle);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> result;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>之后通过 JNI 调用即可</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.test.ui.test;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> android.content.Context;
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> android.widget.Toast;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> com.example.demo.MyJNI;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Use</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>testJNI</span>(Context context) {
+</span></span><span style=display:flex><span>        String hello <span style=color:#f92672>=</span> TestJNI.<span style=color:#a6e22e>helloFromTest</span>();
+</span></span><span style=display:flex><span>        Toast.<span style=color:#a6e22e>makeText</span>(context, <span style=color:#e6db74>&#34;libtest.so: &#34;</span><span style=color:#f92672>+</span>hello, Toast.<span style=color:#a6e22e>LENGTH_SHORT</span>).<span style=color:#a6e22e>show</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        String text <span style=color:#f92672>=</span> MyJNI.<span style=color:#a6e22e>helloFromDemo</span>();
+</span></span><span style=display:flex><span>        Toast.<span style=color:#a6e22e>makeText</span>(context, <span style=color:#e6db74>&#34;libdemo.so: &#34;</span><span style=color:#f92672>+</span>text, Toast.<span style=color:#a6e22e>LENGTH_LONG</span>).<span style=color:#a6e22e>show</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> TestJNI.<span style=color:#a6e22e>cadd</span>(1,4);
+</span></span><span style=display:flex><span>        Toast.<span style=color:#a6e22e>makeText</span>(context, <span style=color:#e6db74>&#34;libself_build.so: Sum of 1 and 4 is &#34;</span> <span style=color:#f92672>+</span> sum, Toast.<span style=color:#a6e22e>LENGTH_SHORT</span>).<span style=color:#a6e22e>show</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        String xx <span style=color:#f92672>=</span> TestJNI.<span style=color:#a6e22e>chello</span>();
+</span></span><span style=display:flex><span>        Toast.<span style=color:#a6e22e>makeText</span>(context, <span style=color:#e6db74>&#34;libself_build.so: &#34;</span><span style=color:#f92672>+</span>xx, Toast.<span style=color:#a6e22e>LENGTH_SHORT</span>).<span style=color:#a6e22e>show</span>();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

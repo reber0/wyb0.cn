@@ -1,33 +1,87 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>git on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/git/</link>
-    <description>Recent content in git on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 16 Jan 2017 20:18:05 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Ubuntu 下部署 Gitlab</title>
-      <link>https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/</link>
-      <pubDate>Mon, 16 Jan 2017 20:18:05 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/</guid>
-      <description>0x00 前期准备 # 环境 Ubuntu 14.04 reber@ubuntu:~/Desktop$ sudo apt-get install openssh-server reber@ubuntu:~/Desktop$ sudo apt-get install openssh-client reber@ubuntu:~/Desktop$ sudo apt-get install git 0x01 安装 reber@ubuntu:~/Desktop$ wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/trusty/main/g/gitlab-ce/gitlab-ce_8.8.0-ce.0_amd64.deb reber@ubuntu:~/Desktop$ sudo dpkg -i gitlab-ce_8.8.0-ce.0_amd64.deb 0x02 配置 reber@ubuntu:~/Desktop$ sudo vim /etc/gitlab/gitlab.rb external_url &amp;#39;http://192.168.188.160:80&amp;#39; ...... gitlab_rails[&amp;#39;time_zone&amp;#39;] = &amp;#39;Asia/Shanghai&amp;#39; gitlab_rails[&amp;#39;gitlab_email_from&amp;#39;] = &amp;#39;xxxxxx@163.com&amp;#39; ...... gitlab_rails[&amp;#39;smtp_enable&amp;#39;] = true gitlab_rails[&amp;#39;smtp_address&amp;#39;] = &amp;#34;smtp.163.com&amp;#34; gitlab_rails[&amp;#39;smtp_port&amp;#39;]</description>
-    </item>
-    <item>
-      <title>通过 gh-pages 发布博客</title>
-      <link>https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/</link>
-      <pubDate>Mon, 09 May 2016 23:33:12 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/</guid>
-      <description>环境：Ubuntu 14.4 0x00 添加密钥 ➜ ssh-keygen -t rsa -b 2048 -C &amp;#34;123456@qq.com&amp;#34; -f id_rsa_github # 生成密钥 ➜ cd ~/.ssh/ ➜ cat id_rsa_github.pub # 将公钥添加到 github ➜ git config --global user.name &amp;#34;reber&amp;#34; # 配置本地用户 ➜ git config</description>
-    </item>
-    <item>
-      <title>Git 的用法</title>
-      <link>https://wyb0.com/posts/2016/git-usage/</link>
-      <pubDate>Thu, 05 May 2016 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/git-usage/</guid>
-      <description>0x00 仓库 创建仓库 git init 克隆 git clone git@github.com:reber0/wyb0.com.git 添加远程仓库连接 git remote add origin git@github.com:reber/reber.com.git 删除远程仓库信息 git remote rm origin 0x01 添加 SSH key 生成 key ➜ ssh-keygen -t rsa -b 2048 -f id_rsa_github -C &amp;#34;123456@qq.com&amp;#34; 将 ~/.ssh/ 下</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Reber's Blog</title><link>https://wyb0.com/tags/git/</link><description>Recent content in Git on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 17 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 下部署 Gitlab</title><link>https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/</link><pubDate>Mon, 16 Jan 2017 20:18:05 +0000</pubDate><guid>https://wyb0.com/posts/2017/ubuntu-set-up-gitlab/</guid><description>&lt;p>&lt;img src="https://wyb0.com/img/anime/anime004.jpg" alt="钢之炼金术师FA">&lt;/p>
+&lt;h3 id="0x00-前期准备">0x00 前期准备&lt;/h3>
+&lt;pre tabindex="0">&lt;code># 环境 Ubuntu 14.04
+reber@ubuntu:~/Desktop$ sudo apt-get install openssh-server
+reber@ubuntu:~/Desktop$ sudo apt-get install openssh-client
+reber@ubuntu:~/Desktop$ sudo apt-get install git
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-安装">0x01 安装&lt;/h3>
+&lt;pre tabindex="0">&lt;code>reber@ubuntu:~/Desktop$ wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/trusty/main/g/gitlab-ce/gitlab-ce_8.8.0-ce.0_amd64.deb
+reber@ubuntu:~/Desktop$ sudo dpkg -i gitlab-ce_8.8.0-ce.0_amd64.deb
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-配置">0x02 配置&lt;/h3>
+&lt;pre tabindex="0">&lt;code>reber@ubuntu:~/Desktop$ sudo vim /etc/gitlab/gitlab.rb
+ external_url &amp;#39;http://192.168.188.160:80&amp;#39;
+ ......
+ gitlab_rails[&amp;#39;time_zone&amp;#39;] = &amp;#39;Asia/Shanghai&amp;#39;
+ gitlab_rails[&amp;#39;gitlab_email_from&amp;#39;] = &amp;#39;xxxxxx@163.com&amp;#39;
+ ......
+ gitlab_rails[&amp;#39;smtp_enable&amp;#39;] = true
+ gitlab_rails[&amp;#39;smtp_address&amp;#39;] = &amp;#34;smtp.163.com&amp;#34;
+ gitlab_rails[&amp;#39;smtp_port&amp;#39;] = 25
+ gitlab_rails[&amp;#39;smtp_user_name&amp;#39;] = &amp;#34;xxxxxx@163.com&amp;#34;
+ gitlab_rails[&amp;#39;smtp_password&amp;#39;] = &amp;#34;111111&amp;#34; # 客户端授权密码
+ gitlab_rails[&amp;#39;smtp_domain&amp;#39;] = &amp;#34;163.com&amp;#34;
+ gitlab_rails[&amp;#39;smtp_authentication&amp;#39;] = &amp;#34;login&amp;#34;
+ gitlab_rails[&amp;#39;smtp_enable_starttls_auto&amp;#39;] = true
+ ......
+ user[&amp;#34;git_user_email&amp;#34;] = &amp;#34;xxxxxx@163.com&amp;#34;
+# 只要修改配置文件就要reconfigure
+reber@ubuntu:~/Desktop$ sudo gitlab-ctl reconfigure 
+reber@ubuntu:~/Desktop$ sudo gitlab-ctl status
+run: gitlab-workhorse: (pid 15918) 16s; run: log: (pid 15290) 200s
+run: logrotate: (pid 15310) 187s; run: log: (pid 15309) 187s
+run: nginx: (pid 15297) 193s; run: log: (pid 15296) 193s
+run: postgresql: (pid 15169) 258s; run: log: (pid 15168) 258s
+run: redis: (pid 15076) 269s; run: log: (pid 15075) 269s
+run: sidekiq: (pid 15384) 141s; run: log: (pid 15279) 206s
+run: unicorn: (pid 15360) 158s; run: log: (pid 15246) 212s
+reber@ubuntu:~/Desktop$ netstat -anlt
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address Foreign Address State
+tcp 0 0 127.0.0.1:8080 0.0.0.0:* LISTEN
+tcp 0 0 0.0.0.0:80 0.0.0.0:* LISTEN
+tcp 0 0 127.0.1.1:53 0.0.0.0:* LISTEN
+tcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN
+
+# 其中8080是unicore的端口
+# 80是nginx的端口，nginx反向代理ruby开的web服务unicore
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-访问web页面">0x03 访问web页面&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>有时出现502，可以刷新网页或者再次reconfigure&lt;/p></description></item><item><title>通过 gh-pages 发布博客</title><link>https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/</link><pubDate>Mon, 09 May 2016 23:33:12 +0000</pubDate><guid>https://wyb0.com/posts/2016/ubuntu-push-blog-to-github/</guid><description>&lt;p>环境：Ubuntu 14.4&lt;/p>
+&lt;h3 id="0x00-添加密钥">0x00 添加密钥&lt;/h3>
+&lt;pre tabindex="0">&lt;code>➜ ssh-keygen -t rsa -b 2048 -C &amp;#34;123456@qq.com&amp;#34; -f id_rsa_github # 生成密钥
+➜ cd ~/.ssh/
+➜ cat id_rsa_github.pub # 将公钥添加到 github
+
+➜ git config --global user.name &amp;#34;reber&amp;#34; # 配置本地用户
+➜ git config --global user.email &amp;#34;123456@qq.com&amp;#34; # 配置本地邮箱
+
+➜ ssh -T git@github.com # 验证密钥是否添加成功
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-gh-pages">0x01 gh-pages&lt;/h3>
+&lt;p>Github 创建项目仓库后会产生一个 main 分支，只需要再添加 gh-pages 分支就可以创建静态页面了&lt;/p></description></item><item><title>Git 的用法</title><link>https://wyb0.com/posts/2016/git-usage/</link><pubDate>Thu, 05 May 2016 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2016/git-usage/</guid><description>&lt;h3 id="0x00-仓库">0x00 仓库&lt;/h3>
+&lt;ul>
+&lt;li>创建仓库
+&lt;ul>
+&lt;li>git init&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>克隆
+&lt;ul>
+&lt;li>git clone &lt;a href="mailto:git@github.com">git@github.com&lt;/a>:reber0/wyb0.com.git&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>添加远程仓库连接
+&lt;ul>
+&lt;li>git remote add origin &lt;a href="mailto:git@github.com">git@github.com&lt;/a>:reber/reber.com.git&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>删除远程仓库信息
+&lt;ul>
+&lt;li>git remote rm origin&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-添加-ssh-key">0x01 添加 SSH key&lt;/h3>
+&lt;p>生成 key&lt;/p>
+&lt;pre tabindex="0">&lt;code>➜ ssh-keygen -t rsa -b 2048 -f id_rsa_github -C &amp;#34;123456@qq.com&amp;#34;
+&lt;/code>&lt;/pre>&lt;p>将 ~/.ssh/ 下生成的 id_rsa_github.pub 的内容添加到 github&lt;/p></description></item></channel></rss>

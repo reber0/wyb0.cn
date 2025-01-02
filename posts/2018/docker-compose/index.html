@@ -1,107 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Docker Compose | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Docker Compose</h1>
-      
-<div class="post-meta">
-    <time>2018-11-19</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/docker">docker</a>)
-</div>
-
-      <div><h3 id="0x00-关于docker-compose">0x00 关于docker compose</h3>
-<p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。</p>
-<h3 id="0x01-安装与卸载">0x01 安装与卸载</h3>
-<p><a href="https://docs.docker.com/compose/install?_blank">https://docs.docker.com/compose/install</a></p>
-<h3 id="0x02-一些常用命令">0x02 一些常用命令</h3>
-<ul>
-<li>构建容器：docker-compose up -d</li>
-<li>启动容器：docker-compose start</li>
-<li>停止容器：docker-compose stop</li>
-<li>重启容器：docker-compose restart</li>
-<li>kill容器：docker-compose kill</li>
-<li>删除容器：docker-compose rm</li>
-<li>bash连接容器：docker-compose exec [services_name] bash</li>
-<li>执行一条命令：docker-compose run [services_name] [command]</li>
-</ul>
-<h3 id="0x03-docker-compose简单应用">0x03 docker-compose简单应用</h3>
-<ul>
-<li>
-<p>结构</p>
-<pre tabindex="0"><code>.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Docker Compose | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Docker Compose</h1><div class=post-meta><time>2018-11-19</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/docker>docker</a>)</div><div><h3 id=0x00-关于docker-compose>0x00 关于docker compose</h3><p>可以把docker-compose当作docker命令的封装，它是一个用来把 docker 自动化的东西，docker-compose可以一次性管理多个容器，通常用于需要多个容器相互配合来完成某项任务的场景。</p><h3 id=0x01-安装与卸载>0x01 安装与卸载</h3><p><a href=https://docs.docker.com/compose/install?_blank>https://docs.docker.com/compose/install</a></p><h3 id=0x02-一些常用命令>0x02 一些常用命令</h3><ul><li>构建容器：docker-compose up -d</li><li>启动容器：docker-compose start</li><li>停止容器：docker-compose stop</li><li>重启容器：docker-compose restart</li><li>kill容器：docker-compose kill</li><li>删除容器：docker-compose rm</li><li>bash连接容器：docker-compose exec [services_name] bash</li><li>执行一条命令：docker-compose run [services_name] [command]</li></ul><h3 id=0x03-docker-compose简单应用>0x03 docker-compose简单应用</h3><ul><li><p>结构</p><pre tabindex=0><code>.
 ├── Dockerfile
 ├── docker-compose.yml
 └── src
@@ -109,10 +18,7 @@
     └── sources.list
 
 1 directory, 4 files
-</code></pre></li>
-<li>
-<p>Dockerfile</p>
-<pre tabindex="0"><code>FROM ubuntu:14.04.4
+</code></pre></li><li><p>Dockerfile</p><pre tabindex=0><code>FROM ubuntu:14.04.4
 MAINTAINER reber &lt;1070018473@qq.com&gt;
 
 COPY ./src /code #将data挂载到容器的code
@@ -122,10 +28,7 @@ RUN apt-get install -y python-dev python-pip
 RUN pip install flask redis
 
 CMD [&#34;python&#34;,&#34;app.py&#34;]
-</code></pre></li>
-<li>
-<p>docker-compose.yml(构建两个services)</p>
-<pre tabindex="0"><code>version: &#39;3&#39;
+</code></pre></li><li><p>docker-compose.yml(构建两个services)</p><pre tabindex=0><code>version: &#39;3&#39;
 services:
   web:
     image: &#34;dockercompose:test&#34;  #镜像名字和标签
@@ -140,10 +43,7 @@ services:
     image: &#34;redis:alpine&#34;
     ports:
      - &#34;3333:6379&#34;
-</code></pre></li>
-<li>
-<p>app.py</p>
-<pre tabindex="0"><code>import time
+</code></pre></li><li><p>app.py</p><pre tabindex=0><code>import time
 import redis
 from flask import Flask
 
@@ -168,10 +68,7 @@ def hello():
 
 if __name__ == &#34;__main__&#34;:
     app.run(host=&#34;0.0.0.0&#34;, debug=True)
-</code></pre></li>
-<li>
-<p>操作容器</p>
-<pre tabindex="0"><code>[12:21 reber@wyb in ~/dockercomposetest]
+</code></pre></li><li><p>操作容器</p><pre tabindex=0><code>[12:21 reber@wyb in ~/dockercomposetest]
 #构建并运行容器
 ➜  docker-compose up -d
 Creating dockercomposetest_redis_1 ...
@@ -215,10 +112,7 @@ Hello World! I have been seen 3 times.
 127.0.0.1:3333&gt; get hits
 &#34;3&#34;
 127.0.0.1:3333&gt; exit
-</code></pre></li>
-<li>
-<p>常用命令</p>
-<pre tabindex="0"><code>[12:31 reber@wyb in ~/dockercomposetest]
+</code></pre></li><li><p>常用命令</p><pre tabindex=0><code>[12:31 reber@wyb in ~/dockercomposetest]
 ➜  docker-compose up -d
 Creating dockercomposetest_redis_1 ...
 Creating dockercomposetest_redis_1 ... done
@@ -243,85 +137,55 @@ Removing dockercomposetest_web_1 ... done
 Removing dockercomposetest_redis_1 ... done
 ➜  docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-</code></pre></li>
-</ul>
-<h3 id="0x04-构建tomcat实例">0x04 构建tomcat实例</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  tree
-</span></span><span style="display:flex;"><span>.
-</span></span><span style="display:flex;"><span>├── Dockerfile
-</span></span><span style="display:flex;"><span>├── docker-compose.yml
-</span></span><span style="display:flex;"><span>├── src
-</span></span><span style="display:flex;"><span>│   ├── apache-tomcat-8.0.53.tar.gz
-</span></span><span style="display:flex;"><span>│   ├── jdk-8u181-linux-x64.tar.gz
-</span></span><span style="display:flex;"><span>│   └── sources.list
-</span></span><span style="display:flex;"><span>└── web
-</span></span><span style="display:flex;"><span>    └── index.jsp
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span> directories, <span style="color:#ae81ff">6</span> files
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>➜  cat Dockerfile
-</span></span><span style="display:flex;"><span>FROM ubuntu:14.04.4
-</span></span><span style="display:flex;"><span>MAINTAINER reber &lt;1070018473@qq.com&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>COPY ./src /data
-</span></span><span style="display:flex;"><span>WORKDIR /data
-</span></span><span style="display:flex;"><span>RUN cp sources.list /etc/apt/sources.list <span style="color:#f92672">&amp;&amp;</span> apt-get update
-</span></span><span style="display:flex;"><span>RUN tar -zxvf apache-tomcat-8.0.53.tar.gz <span style="color:#f92672">&amp;&amp;</span> mv apache-tomcat-8.0.53 /opt
-</span></span><span style="display:flex;"><span>RUN tar -zxvf jdk-8u181-linux-x64.tar.gz <span style="color:#f92672">&amp;&amp;</span> mv jdk1.8.0_181 /opt
-</span></span><span style="display:flex;"><span>RUN rm -rf /data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ENV JAVA_HOME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/opt/jdk1.8.0_181&#34;</span>
-</span></span><span style="display:flex;"><span>ENV JAVA_BIN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$JAVA_HOME<span style="color:#e6db74">/bin&#34;</span>
-</span></span><span style="display:flex;"><span>ENV CLASSPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$JAVA_HOME<span style="color:#e6db74">/lib&#34;</span>
-</span></span><span style="display:flex;"><span>ENV PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$JAVA_HOME<span style="color:#e6db74">/bin&#34;</span>:$PATH
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>WORKDIR /opt/apache-tomcat-8.0.53/webapps/ROOT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;tail&#34;</span>,<span style="color:#e6db74">&#34;-f&#34;</span>,<span style="color:#e6db74">&#34;/dev/null&#34;</span><span style="color:#f92672">]</span> <span style="color:#75715e">#使容器一直运行，不自动退出</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>➜  cat docker-compose.yml
-</span></span><span style="display:flex;"><span>version: <span style="color:#e6db74">&#39;3&#39;</span>
-</span></span><span style="display:flex;"><span>services:
-</span></span><span style="display:flex;"><span>  tomcat:
-</span></span><span style="display:flex;"><span>    image: ubuntu:tomcat
-</span></span><span style="display:flex;"><span>    build: .
-</span></span><span style="display:flex;"><span>    ports:
-</span></span><span style="display:flex;"><span>     - <span style="color:#e6db74">&#34;8888:8080&#34;</span>
-</span></span><span style="display:flex;"><span>    volumes:
-</span></span><span style="display:flex;"><span>     - ./web:/opt/apache-tomcat-8.0.53/webapps/ROOT
-</span></span></code></pre></div><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://docs.docker.com/compose/gettingstarted/?_blank">https://docs.docker.com/compose/gettingstarted/</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></li></ul><h3 id=0x04-构建tomcat实例>0x04 构建tomcat实例</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>➜  tree
+</span></span><span style=display:flex><span>.
+</span></span><span style=display:flex><span>├── Dockerfile
+</span></span><span style=display:flex><span>├── docker-compose.yml
+</span></span><span style=display:flex><span>├── src
+</span></span><span style=display:flex><span>│   ├── apache-tomcat-8.0.53.tar.gz
+</span></span><span style=display:flex><span>│   ├── jdk-8u181-linux-x64.tar.gz
+</span></span><span style=display:flex><span>│   └── sources.list
+</span></span><span style=display:flex><span>└── web
+</span></span><span style=display:flex><span>    └── index.jsp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span> directories, <span style=color:#ae81ff>6</span> files
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>➜  cat Dockerfile
+</span></span><span style=display:flex><span>FROM ubuntu:14.04.4
+</span></span><span style=display:flex><span>MAINTAINER reber &lt;1070018473@qq.com&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>COPY ./src /data
+</span></span><span style=display:flex><span>WORKDIR /data
+</span></span><span style=display:flex><span>RUN cp sources.list /etc/apt/sources.list <span style=color:#f92672>&amp;&amp;</span> apt-get update
+</span></span><span style=display:flex><span>RUN tar -zxvf apache-tomcat-8.0.53.tar.gz <span style=color:#f92672>&amp;&amp;</span> mv apache-tomcat-8.0.53 /opt
+</span></span><span style=display:flex><span>RUN tar -zxvf jdk-8u181-linux-x64.tar.gz <span style=color:#f92672>&amp;&amp;</span> mv jdk1.8.0_181 /opt
+</span></span><span style=display:flex><span>RUN rm -rf /data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ENV JAVA_HOME<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/opt/jdk1.8.0_181&#34;</span>
+</span></span><span style=display:flex><span>ENV JAVA_BIN<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$JAVA_HOME<span style=color:#e6db74>/bin&#34;</span>
+</span></span><span style=display:flex><span>ENV CLASSPATH<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$JAVA_HOME<span style=color:#e6db74>/lib&#34;</span>
+</span></span><span style=display:flex><span>ENV PATH<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$JAVA_HOME<span style=color:#e6db74>/bin&#34;</span>:$PATH
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>WORKDIR /opt/apache-tomcat-8.0.53/webapps/ROOT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>ENTRYPOINT <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;tail&#34;</span>,<span style=color:#e6db74>&#34;-f&#34;</span>,<span style=color:#e6db74>&#34;/dev/null&#34;</span><span style=color:#f92672>]</span> <span style=color:#75715e>#使容器一直运行，不自动退出</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>➜  cat docker-compose.yml
+</span></span><span style=display:flex><span>version: <span style=color:#e6db74>&#39;3&#39;</span>
+</span></span><span style=display:flex><span>services:
+</span></span><span style=display:flex><span>  tomcat:
+</span></span><span style=display:flex><span>    image: ubuntu:tomcat
+</span></span><span style=display:flex><span>    build: .
+</span></span><span style=display:flex><span>    ports:
+</span></span><span style=display:flex><span>     - <span style=color:#e6db74>&#34;8888:8080&#34;</span>
+</span></span><span style=display:flex><span>    volumes:
+</span></span><span style=display:flex><span>     - ./web:/opt/apache-tomcat-8.0.53/webapps/ROOT
+</span></span></code></pre></div><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://docs.docker.com/compose/gettingstarted/?_blank>https://docs.docker.com/compose/gettingstarted/</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

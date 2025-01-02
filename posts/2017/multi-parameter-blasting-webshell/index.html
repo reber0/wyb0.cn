@@ -1,92 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>利用多参数提高 webshell 爆破速度 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>利用多参数提高 webshell 爆破速度</h1>
-      
-<div class="post-meta">
-    <time>2017-02-17</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E7%88%86%E7%A0%B4">爆破</a>)
-</div>
-
-      <div><h3 id="0x00-原理">0x00 原理</h3>
-<p>之前在<a href="https://www.t00ls.net/viewthread.php?tid=36985">https://www.t00ls.net/viewthread.php?tid=36985</a>看到这个思路的。</p>
-<p>Apache下默认同时允许接收1000个参数；IIS下默认同时允许接收5883个参数，可以一次提交多个密码，从而快速爆破。</p>
-<h3 id="0x01-爆破webshell代码">0x01 爆破webshell代码</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>利用多参数提高 webshell 爆破速度 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>利用多参数提高 webshell 爆破速度</h1><div class=post-meta><time>2017-02-17</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E7%88%86%E7%A0%B4>爆破</a>)</div><div><h3 id=0x00-原理>0x00 原理</h3><p>之前在<a href="https://www.t00ls.net/viewthread.php?tid=36985">https://www.t00ls.net/viewthread.php?tid=36985</a>看到这个思路的。</p><p>Apache下默认同时允许接收1000个参数；IIS下默认同时允许接收5883个参数，可以一次提交多个密码，从而快速爆破。</p><h3 id=0x01-爆破webshell代码>0x01 爆破webshell代码</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # code by reber &lt;1070018473@qq.com&gt;
 
@@ -132,40 +56,12 @@ if __name__ == &#39;__main__&#39;:
     data = get_file(filename)
     payloads = get_payloads(data)
     run(url, payloads)
-</code></pre><p><img src="/img/post/blasting_webshell.png" alt=""></p>
-<h3 id="0x02-猜想">0x02 猜想</h3>
-<p>平时爆破表单时都是一次提交一个payload，比如说<code>username='xxx'&amp;password='xxx'</code>，10w个组合需要提交10w次，若一次提交500个组合则只需要提交200次</p>
-<p>我们可以直接一次提交500个payload，如：name=&lsquo;111&rsquo;&amp;pass=&lsquo;111&rsquo;&amp;name=&lsquo;112&rsquo;&amp;pass=&lsquo;112&rsquo;&amp;name=&lsquo;113&rsquo;&amp;pass=&lsquo;113&rsquo;&amp; 。。。。。。(500个payload)</p>
-<p>如果正确的密码在你测试的某1000个参数中，那么返回页面的是不同的，则可以断定正确的用户名和密码在这1000个参数里，然后对这1000个参数用二分法再次进行测试，直到得到正确的用户名和密码</p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/blasting_webshell.png alt></p><h3 id=0x02-猜想>0x02 猜想</h3><p>平时爆破表单时都是一次提交一个payload，比如说<code>username='xxx'&amp;password='xxx'</code>，10w个组合需要提交10w次，若一次提交500个组合则只需要提交200次</p><p>我们可以直接一次提交500个payload，如：name=&lsquo;111&rsquo;&amp;pass=&lsquo;111&rsquo;&amp;name=&lsquo;112&rsquo;&amp;pass=&lsquo;112&rsquo;&amp;name=&lsquo;113&rsquo;&amp;pass=&lsquo;113&rsquo;& 。。。。。。(500个payload)</p><p>如果正确的密码在你测试的某1000个参数中，那么返回页面的是不同的，则可以断定正确的用户名和密码在这1000个参数里，然后对这1000个参数用二分法再次进行测试，直到得到正确的用户名和密码</p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

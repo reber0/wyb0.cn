@@ -1,103 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Python 的 cmd 模块 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Python 的 cmd 模块</h1>
-      
-<div class="post-meta">
-    <time>2016-07-14</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-      <div><h3 id="0x00-关于cmd模块">0x00 关于cmd模块</h3>
-<p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们</p>
-<h3 id="0x01-cmd模块的一些常用方法">0x01 cmd模块的一些常用方法：</h3>
-<ol>
-<li>cmdloop()：类似与Tkinter的mainloop，运行Cmd解析器</li>
-<li>onecmd(str)：读取输入，并进行处理，通常不需要重载该函数，而是使用更加具体的do_command来执行特定的命名</li>
-<li>emptyline()：当输入空行时调用该方法</li>
-<li>default(line)：当无法识别输入的command时调用该方法</li>
-<li>completedefault(text,line,begidx,endidx):如果不存在针对的complete_*()方法，那么会调用该函数</li>
-<li>precmd(line)：命令line解析之前被调用该方法</li>
-<li>postcmd(stop，line)：命令line解析之后被调用该方法</li>
-<li>preloop()：cmdloop()运行之前调用该方法</li>
-<li>postloop()：cmdloop()退出之后调用该方法</li>
-</ol>
-<h3 id="0x02-用cmd模块简单实现shell命令">0x02 用cmd模块简单实现shell命令</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Python 的 cmd 模块 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Python 的 cmd 模块</h1><div class=post-meta><time>2016-07-14</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div><h3 id=0x00-关于cmd模块>0x00 关于cmd模块</h3><p>使用cmd模块创建的命令行解释器可以循环读取输入的所有行并且解析它们</p><h3 id=0x01-cmd模块的一些常用方法>0x01 cmd模块的一些常用方法：</h3><ol><li>cmdloop()：类似与Tkinter的mainloop，运行Cmd解析器</li><li>onecmd(str)：读取输入，并进行处理，通常不需要重载该函数，而是使用更加具体的do_command来执行特定的命名</li><li>emptyline()：当输入空行时调用该方法</li><li>default(line)：当无法识别输入的command时调用该方法</li><li>completedefault(text,line,begidx,endidx):如果不存在针对的complete_*()方法，那么会调用该函数</li><li>precmd(line)：命令line解析之前被调用该方法</li><li>postcmd(stop，line)：命令line解析之后被调用该方法</li><li>preloop()：cmdloop()运行之前调用该方法</li><li>postloop()：cmdloop()退出之后调用该方法</li></ol><h3 id=0x02-用cmd模块简单实现shell命令>0x02 用cmd模块简单实现shell命令</h3><pre tabindex=0><code>#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
 import sys
@@ -213,37 +126,12 @@ class ClassShell(Cmd):
 if __name__ == &#39;__main__&#39;:
     shell = ClassShell()
     shell.cmdloop()
-</code></pre><h3 id="0x03-程序执行结果如下">0x03 程序执行结果如下</h3>
-<p><img src="/img/post/cmd_results_sample.png" alt="60"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x03-程序执行结果如下>0x03 程序执行结果如下</h3><p><img src=/img/post/cmd_results_sample.png alt=60></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

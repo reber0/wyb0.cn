@@ -1,194 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>XSS 中的编码 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>XSS 中的编码</h1>
-      
-<div class="post-meta">
-    <time>2017-03-30</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/xss">xss</a>)
-</div>
-
-      <div><p><img src="/img/anime/anime006.jpg" alt="攻壳机动队"></p>
-<h3 id="0x00-浏览器解析">0x00 浏览器解析</h3>
-<pre tabindex="0"><code>浏览器收到服务器发来的HTML内容，会从头解析，遇到&lt;script&gt;&lt;/script&gt;时，
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>XSS 中的编码 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>XSS 中的编码</h1><div class=post-meta><time>2017-03-30</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/xss>xss</a>)</div><div><p><img src=/img/anime/anime006.jpg alt=攻壳机动队></p><h3 id=0x00-浏览器解析>0x00 浏览器解析</h3><pre tabindex=0><code>浏览器收到服务器发来的HTML内容，会从头解析，遇到&lt;script&gt;&lt;/script&gt;时，
 会调用js脚本解析器来解析并执行脚本，然后继续解析其他的HTML内容，
 对于需要触发才能执行的事件，当事件触发时脚本解析器才会解析其中的脚本，
 在这之前它是HTML的一部分
-</code></pre><h3 id="0x01-一些编码">0x01 一些编码</h3>
-<ul>
-<li>URL编码</li>
-</ul>
-<pre tabindex="0"><code>%+字符的ASCII编码对应的两位十六进制，如&#34;/&#34;的url编码为&#34;%2F&#34;
-</code></pre><ul>
-<li>
-<p>HTML编码</p>
-<ul>
-<li>实体编码</li>
-</ul>
-<pre tabindex="0"><code>&amp;开头分号结尾，如 &#34;&lt;&#34; 的编码是 &#34;&amp;lt;&#34;
-</code></pre><ul>
-<li>字符编码</li>
-</ul>
-<pre tabindex="0"><code>样式为&#34;&amp;#数值;&#34;，数值可为10进制、16进制ASCII编码或unicode字符编码
+</code></pre><h3 id=0x01-一些编码>0x01 一些编码</h3><ul><li>URL编码</li></ul><pre tabindex=0><code>%+字符的ASCII编码对应的两位十六进制，如&#34;/&#34;的url编码为&#34;%2F&#34;
+</code></pre><ul><li><p>HTML编码</p><ul><li>实体编码</li></ul><pre tabindex=0><code>&amp;开头分号结尾，如 &#34;&lt;&#34; 的编码是 &#34;&amp;lt;&#34;
+</code></pre><ul><li>字符编码</li></ul><pre tabindex=0><code>样式为&#34;&amp;#数值;&#34;，数值可为10进制、16进制ASCII编码或unicode字符编码
 如&#34;&lt;&#34;可编码为&#34;&amp;#060;&#34;和&#34;&amp;#x3c;&#34;，但是必须在属性值里面
-</code></pre></li>
-<li>
-<p>JS编码</p>
-</li>
-</ul>
-<pre tabindex="0"><code>1、两个十六进制数字，如果不够个数，前面补0，例如&#34;&lt;&#34;编码为&#34;\x3c&#34;
+</code></pre></li><li><p>JS编码</p></li></ul><pre tabindex=0><code>1、两个十六进制数字，如果不够个数，前面补0，例如&#34;&lt;&#34;编码为&#34;\x3c&#34;
 2、三个八进制数字，如果不够个数，前面补0，例如&#34;&lt;&#34;编码为&#34;\074&#34;
 3、四个十六进制数字，如果不够个数，前面补0，例如&#34;&lt;&#34;编码为&#34;\u003c&#34;
 4、对于一些控制字符，使用特殊的C类型的转义风格（例如\n和\r）
-</code></pre><ul>
-<li>CSS编码</li>
-</ul>
-<pre tabindex="0"><code>反斜线(\)后跟1~6位的16进制数字，如&#34;e&#34;为&#34;\65&#34;或&#34;65&#34;或&#34;00065&#34;
-</code></pre><h3 id="0x02-编码与解码顺序">0x02 编码与解码顺序</h3>
-<p>解码时先解码最外层，编码时先编码最内层</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>如&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;openUrl(add.do?userName=&#39;{$value}&#39;);&#34;</span>&gt;11&lt;/<span style="color:#f92672">td</span>&gt;，
-</span></span><span style="display:flex;"><span>首先value出现在url中，而url在js中，而js又是html一部分，所以
-</span></span><span style="display:flex;"><span>解码顺序为：html解码-&gt;js解码-&gt;url解码
-</span></span><span style="display:flex;"><span>编码顺序为：url编码-&gt;js编码-&gt;html编码
-</span></span></code></pre></div><h3 id="0x03-利用">0x03 利用</h3>
-<ul>
-<li>八进制</li>
-</ul>
-<pre tabindex="0"><code>&lt;p id=&#34;test&#34;&gt;&lt;/p&gt;
+</code></pre><ul><li>CSS编码</li></ul><pre tabindex=0><code>反斜线(\)后跟1~6位的16进制数字，如&#34;e&#34;为&#34;\65&#34;或&#34;65&#34;或&#34;00065&#34;
+</code></pre><h3 id=0x02-编码与解码顺序>0x02 编码与解码顺序</h3><p>解码时先解码最外层，编码时先编码最内层</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>如&lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>onclick</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;openUrl(add.do?userName=&#39;{$value}&#39;);&#34;</span>&gt;11&lt;/<span style=color:#f92672>td</span>&gt;，
+</span></span><span style=display:flex><span>首先value出现在url中，而url在js中，而js又是html一部分，所以
+</span></span><span style=display:flex><span>解码顺序为：html解码-&gt;js解码-&gt;url解码
+</span></span><span style=display:flex><span>编码顺序为：url编码-&gt;js编码-&gt;html编码
+</span></span></code></pre></div><h3 id=0x03-利用>0x03 利用</h3><ul><li>八进制</li></ul><pre tabindex=0><code>&lt;p id=&#34;test&#34;&gt;&lt;/p&gt;
 &lt;script type=&#34;text/javascript&#34;&gt;
 var test = &#34;\74\151\155\147\40\163\162\143\75\170\40\157\156\145\162\162\157\162\75\141\154\145\162\164\50\61\51\76&#34;;
 var p = document.getElementById(&#39;test&#39;); #这里会进行js解码
 p.innerHTML = test;
 &lt;/script&gt;
-</code></pre><ul>
-<li>十进制和十六进制</li>
-</ul>
-<pre tabindex="0"><code>&lt;img src=x onerror=&#34;\u0061\u006c\u0065\u0072\u0074(1)&#34;&gt;
+</code></pre><ul><li>十进制和十六进制</li></ul><pre tabindex=0><code>&lt;img src=x onerror=&#34;\u0061\u006c\u0065\u0072\u0074(1)&#34;&gt;
 &lt;img src=x onerror=&#34;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#49;&amp;#41;&#34;&gt;
-</code></pre><ul>
-<li>javascript协议</li>
-</ul>
-<pre tabindex="0"><code>&lt;a href=&#34;javascript:alert(1)&#34;&gt;xxx&lt;/a&gt;
-</code></pre><ul>
-<li>data协议</li>
-</ul>
-<pre tabindex="0"><code>&lt;a href=&#34;data:text/html,&lt;script&gt;alert(1)&lt;/script&gt;&#34;&gt;xxxxxx&lt;/a&gt;
+</code></pre><ul><li>javascript协议</li></ul><pre tabindex=0><code>&lt;a href=&#34;javascript:alert(1)&#34;&gt;xxx&lt;/a&gt;
+</code></pre><ul><li>data协议</li></ul><pre tabindex=0><code>&lt;a href=&#34;data:text/html,&lt;script&gt;alert(1)&lt;/script&gt;&#34;&gt;xxxxxx&lt;/a&gt;
 &lt;a href=&#34;data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==&#34;&gt;111&lt;/a&gt;
 &lt;meta http-equiv=&#34;refresh&#34; content=&#34;x;url=data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==&#34;&gt;
-</code></pre><ul>
-<li>html5新增实体编码</li>
-</ul>
-<pre tabindex="0"><code>&lt;a href=&#34;javasc&amp;NewLine;ript&amp;colon;alert(1)&#34;&gt;aaaa&lt;/a&gt;
-</code></pre><ul>
-<li>多次编码</li>
-</ul>
-<pre tabindex="0"><code>点击后跳转到url，进行url解码
+</code></pre><ul><li>html5新增实体编码</li></ul><pre tabindex=0><code>&lt;a href=&#34;javasc&amp;NewLine;ript&amp;colon;alert(1)&#34;&gt;aaaa&lt;/a&gt;
+</code></pre><ul><li>多次编码</li></ul><pre tabindex=0><code>点击后跳转到url，进行url解码
 &lt;a href=&#34;javascript:%61lert(1)&#34;&gt;xxxx&lt;/a&gt;
 先最外围的html解码，然后href里的url解码
 &lt;a href=&#34;j&amp;#x0061;vascript:&amp;#x25;61lert(1)&#34;&gt;click me&lt;/a&gt;
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

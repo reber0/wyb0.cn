@@ -1,108 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>搭建 DNS 服务器 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>搭建 DNS 服务器</h1>
-      
-<div class="post-meta">
-    <time>2015-07-14</time>
-    (update <time>2021-01-14</time>)
-    [<a href="/categories/Server">Server</a>](<a href="/tags/Server">Server</a>)
-</div>
-
-      <div><p>环境: ubuntu-16.04.7-server-amd64.iso</p>
-<p>安装系统时选上 dns 服务，或者 apt install bind9 安装</p>
-<h3 id="0x01-配置前">0x01 配置前</h3>
-<ul>
-<li>涉及到的几个配置文件</li>
-</ul>
-<pre tabindex="0"><code>/etc/bind/named.conf，主配置文件，通过 include 关键字加载其他仨配置文件
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>搭建 DNS 服务器 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>搭建 DNS 服务器</h1><div class=post-meta><time>2015-07-14</time>
+(update <time>2021-01-14</time>)
+[<a href=/categories/Server>Server</a>](<a href=/tags/Server>Server</a>)</div><div><p>环境: ubuntu-16.04.7-server-amd64.iso</p><p>安装系统时选上 dns 服务，或者 apt install bind9 安装</p><h3 id=0x01-配置前>0x01 配置前</h3><ul><li>涉及到的几个配置文件</li></ul><pre tabindex=0><code>/etc/bind/named.conf，主配置文件，通过 include 关键字加载其他仨配置文件
 /etc/bind/named.conf.options，转发器配置文件
 /etc/bind/named.conf.local，用户配置文件，一般存放 DNS 记录
 /etc/bind/named.default-zones，默认区域文件
 /etc/bind/aaa.com.zone，正向解析文件
 /etc/bind/aaa.com.arpa，反向解析文件
-</code></pre><ul>
-<li>备份</li>
-</ul>
-<pre tabindex="0"><code>cp /etc/bind/named.config.local /etc/bind/named.config.local.bak
+</code></pre><ul><li>备份</li></ul><pre tabindex=0><code>cp /etc/bind/named.config.local /etc/bind/named.config.local.bak
 cp /etc/bind/named.config.options /etc/bind/named.config.options.bak
-</code></pre><h3 id="0x02-配置-namedconfoptions">0x02 配置 named.conf.options</h3>
-<p>first 先转发给 forwarders 列表进行查询，查询不到再查本地</p>
-<p>only 先查本地，查不到再转发</p>
-<pre tabindex="0"><code>reber@ubuntu:/etc/bind$ cat named.conf.options
+</code></pre><h3 id=0x02-配置-namedconfoptions>0x02 配置 named.conf.options</h3><p>first 先转发给 forwarders 列表进行查询，查询不到再查本地</p><p>only 先查本地，查不到再转发</p><pre tabindex=0><code>reber@ubuntu:/etc/bind$ cat named.conf.options
 acl ktlab {
         localhost;
         10.11.11.0/24;
@@ -133,8 +50,7 @@ options {
 
         auth-nxdomain no;    # conform to RFC1035
 };
-</code></pre><h3 id="0x03-配置-namedconflocal">0x03 配置 named.conf.local</h3>
-<pre tabindex="0"><code>reber@ubuntu:/etc/bind$ cat named.conf.local
+</code></pre><h3 id=0x03-配置-namedconflocal>0x03 配置 named.conf.local</h3><pre tabindex=0><code>reber@ubuntu:/etc/bind$ cat named.conf.local
 zone &#34;aaa.com&#34; {
         type master;
         file &#34;/etc/bind/aaa.com.zone&#34;;
@@ -144,8 +60,7 @@ zone &#34;11.11.10.in-addr.arpa&#34; {
         type master;
         file &#34;/etc/bind/aaa.com.arpa&#34;;
 };
-</code></pre><h3 id="0x04-配置正反向文件">0x04 配置正反向文件</h3>
-<pre tabindex="0"><code>reber@ubuntu:/etc/bind$ sudo cp db.empty aaa.com.zone
+</code></pre><h3 id=0x04-配置正反向文件>0x04 配置正反向文件</h3><pre tabindex=0><code>reber@ubuntu:/etc/bind$ sudo cp db.empty aaa.com.zone
 reber@ubuntu:/etc/bind$ sudo vim aaa.com.zone
 reber@ubuntu:/etc/bind$ cat aaa.com.zone
 ; BIND reverse data file for empty rfc1918 zone
@@ -169,7 +84,7 @@ vpn.aaa.com.     IN      A       10.11.11.4
 nessus.aaa.com.  IN      A       10.11.11.10
 oa.aaa.com.      IN      A       10.11.11.17
 git.aaa.com.     IN      A       10.11.11.24
-</code></pre><pre tabindex="0"><code>reber@ubuntu:/etc/bind$ sudo cp db.0 aaa.com.arpa
+</code></pre><pre tabindex=0><code>reber@ubuntu:/etc/bind$ sudo cp db.0 aaa.com.arpa
 reber@ubuntu:/etc/bind$ sudo vim aaa.com.arpa
 reber@ubuntu:/etc/bind$ cat aaa.com.arpa
 ;
@@ -191,15 +106,12 @@ $TTL    604800
 10      IN      PTR     nessus.aaa.com.
 17      IN      PTR     oa.aaa.com.
 24      IN      PTR     git.aaa.com.
-</code></pre><h3 id="0x05-检查配置">0x05 检查配置</h3>
-<pre tabindex="0"><code>reber@ubuntu:/etc/bind$ sudo named-checkconf
+</code></pre><h3 id=0x05-检查配置>0x05 检查配置</h3><pre tabindex=0><code>reber@ubuntu:/etc/bind$ sudo named-checkconf
 reber@ubuntu:/etc/bind$ sudo named-checkzone aaa.com aaa.com.zone
 zone aaa.com/IN: loaded serial 1
 OK
-</code></pre><h3 id="0x06-重启-dns-服务器">0x06 重启 dns 服务器</h3>
-<pre tabindex="0"><code>sudo systemctl restart bind9.service
-</code></pre><h3 id="0x07-验证">0x07 验证</h3>
-<pre tabindex="0"><code>➜ nslookup
+</code></pre><h3 id=0x06-重启-dns-服务器>0x06 重启 dns 服务器</h3><pre tabindex=0><code>sudo systemctl restart bind9.service
+</code></pre><h3 id=0x07-验证>0x07 验证</h3><pre tabindex=0><code>➜ nslookup
 &gt; server 10.11.11.8
 Default server: 10.11.11.8
 Address: 10.11.11.8#53
@@ -230,35 +142,12 @@ Name:	www.a.shifen.com
 Address: 182.61.200.7
 Name:	www.a.shifen.com
 Address: 182.61.200.6
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

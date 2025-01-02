@@ -1,181 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="MRQ 是基于 Redis、Mongo 和 gevent 的分布式任务队列"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>MRQ 的使用 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>MRQ 的使用</h1>
-      
-<div class="post-meta">
-    <time>2017-07-10</time>
-    
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>,<a href="/tags/module">module</a>)
-</div>
-
-      <div><h3 id="0x00-mrq">0x00 MRQ</h3>
-<ul>
-<li>MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。</li>
-<li>MRQ一方面旨在像RQ一样简单，另一方面有接近Celery的性能。</li>
-<li>MRQ最初的功能设计是为了满足任务队列的各种任务需求(IO密集&amp;CPU密集，很多小任务&amp;几个大任务)。</li>
-</ul>
-<h3 id="0x01-设置mongo和redis">0x01 设置mongo和redis</h3>
-<p>因为mrq依赖于redis和mongo，所以先安装设置下</p>
-<ul>
-<li>安装redis</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo apt-get install redis-server
-</span></span><span style="display:flex;"><span>$ netstat -nlt|grep <span style="color:#ae81ff">6379</span>
-</span></span><span style="display:flex;"><span>$ sudo /etc/init.d/redis-server status
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo /etc/init.d/redis-server stop
-</span></span><span style="display:flex;"><span>$ sudo vim /etc/redis/redis.conf
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#bind 127.0.0.1</span>
-</span></span><span style="display:flex;"><span>    requirepass reber_redis
-</span></span><span style="display:flex;"><span>$ sudo redis-server /etc/redis/redis.conf &amp;
-</span></span><span style="display:flex;"><span>$ redis-cli
-</span></span><span style="display:flex;"><span>&gt; auth reber_redis
-</span></span></code></pre></div><ul>
-<li>安装mongo</li>
-</ul>
-<p>可以参考：https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-</span></span><span style="display:flex;"><span>$ echo <span style="color:#e6db74">&#34;deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse&#34;</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
-</span></span><span style="display:flex;"><span>$ sudo apt-get update
-</span></span><span style="display:flex;"><span>$ sudo apt-get install -y mongodb-org
-</span></span><span style="display:flex;"><span>$ ps -aux|grep mongodb
-</span></span><span style="display:flex;"><span>$ netstat -nlt|grep <span style="color:#ae81ff">27017</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ mongo
-</span></span><span style="display:flex;"><span>&gt; use admin
-</span></span><span style="display:flex;"><span>switched to db admin
-</span></span><span style="display:flex;"><span>&gt; db.createUser<span style="color:#f92672">({</span>user:<span style="color:#e6db74">&#39;root&#39;</span>,pwd:<span style="color:#e6db74">&#39;root&#39;</span>,roles:<span style="color:#f92672">[{</span>role:<span style="color:#e6db74">&#39;root&#39;</span>,db:<span style="color:#e6db74">&#39;admin&#39;</span><span style="color:#f92672">}]})</span>
-</span></span><span style="display:flex;"><span>Successfully added user: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;user&#34;</span> : <span style="color:#e6db74">&#34;root&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;roles&#34;</span> : <span style="color:#f92672">[</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;role&#34;</span> : <span style="color:#e6db74">&#34;root&#34;</span>,
-</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;db&#34;</span> : <span style="color:#e6db74">&#34;admin&#34;</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>&gt; db.auth<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;root&#39;</span>,<span style="color:#e6db74">&#39;root&#39;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>&gt; use mrq
-</span></span><span style="display:flex;"><span>switched to db mrq
-</span></span><span style="display:flex;"><span>&gt; db.createUser<span style="color:#f92672">({</span>user:<span style="color:#e6db74">&#39;reber_mrq_u&#39;</span>,pwd:<span style="color:#e6db74">&#39;reber_mrq_p&#39;</span>,roles:<span style="color:#f92672">[{</span>role:<span style="color:#e6db74">&#39;dbOwner&#39;</span>,db:<span style="color:#e6db74">&#39;mrq&#39;</span><span style="color:#f92672">}]})</span>
-</span></span><span style="display:flex;"><span>Successfully added user: <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;user&#34;</span> : <span style="color:#e6db74">&#34;reber_mrq_u&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;roles&#34;</span> : <span style="color:#f92672">[</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;role&#34;</span> : <span style="color:#e6db74">&#34;dbOwner&#34;</span>,
-</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;db&#34;</span> : <span style="color:#e6db74">&#34;mrq&#34;</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>&gt; db.auth<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;reber_mrq_u&#39;</span>,<span style="color:#e6db74">&#39;reber_mrq_p&#39;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>&gt; db.shutdownServer<span style="color:#f92672">()</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo vim /etc/mongod.conf
-</span></span><span style="display:flex;"><span>storage:
-</span></span><span style="display:flex;"><span>  dbPath: /var/lib/mongodb
-</span></span><span style="display:flex;"><span>  journal:
-</span></span><span style="display:flex;"><span>    enabled: true
-</span></span><span style="display:flex;"><span>systemLog:
-</span></span><span style="display:flex;"><span>  destination: file
-</span></span><span style="display:flex;"><span>  logAppend: true
-</span></span><span style="display:flex;"><span>  path: /var/log/mongodb/mongod.log
-</span></span><span style="display:flex;"><span>net:
-</span></span><span style="display:flex;"><span>  port: <span style="color:#ae81ff">27017</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#bindIp: 127.0.0.1</span>
-</span></span><span style="display:flex;"><span>security:
-</span></span><span style="display:flex;"><span>  authorization: enabled
-</span></span><span style="display:flex;"><span>$ sudo mongod --config /etc/mongod.conf &amp;
-</span></span><span style="display:flex;"><span>$ mongo
-</span></span><span style="display:flex;"><span>MongoDB shell version v3.4.6
-</span></span><span style="display:flex;"><span>connecting to: mongodb://127.0.0.1:27017
-</span></span><span style="display:flex;"><span>MongoDB server version: 3.4.6
-</span></span><span style="display:flex;"><span>&gt; use mrq
-</span></span><span style="display:flex;"><span>switched to db mrq
-</span></span><span style="display:flex;"><span>&gt; db.auth<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;reber_mrq_u&#39;</span>,<span style="color:#e6db74">&#39;reber_mrq_p&#39;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><h3 id="0x02-案例代码">0x02 案例代码</h3>
-<pre tabindex="0"><code>$ mkdir mrqtest &amp;&amp; cd mrqtest
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="MRQ 是基于 Redis、Mongo 和 gevent 的分布式任务队列"><meta name=author content="Reber"><title>MRQ 的使用 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>MRQ 的使用</h1><div class=post-meta><time>2017-07-10</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/module>module</a>)</div><div><h3 id=0x00-mrq>0x00 MRQ</h3><ul><li>MRQ是Python基于Redis、Mongo和gevent的分布式任务队列。</li><li>MRQ一方面旨在像RQ一样简单，另一方面有接近Celery的性能。</li><li>MRQ最初的功能设计是为了满足任务队列的各种任务需求(IO密集&amp;CPU密集，很多小任务&几个大任务)。</li></ul><h3 id=0x01-设置mongo和redis>0x01 设置mongo和redis</h3><p>因为mrq依赖于redis和mongo，所以先安装设置下</p><ul><li>安装redis</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo apt-get install redis-server
+</span></span><span style=display:flex><span>$ netstat -nlt|grep <span style=color:#ae81ff>6379</span>
+</span></span><span style=display:flex><span>$ sudo /etc/init.d/redis-server status
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo /etc/init.d/redis-server stop
+</span></span><span style=display:flex><span>$ sudo vim /etc/redis/redis.conf
+</span></span><span style=display:flex><span>    <span style=color:#75715e>#bind 127.0.0.1</span>
+</span></span><span style=display:flex><span>    requirepass reber_redis
+</span></span><span style=display:flex><span>$ sudo redis-server /etc/redis/redis.conf &amp;
+</span></span><span style=display:flex><span>$ redis-cli
+</span></span><span style=display:flex><span>&gt; auth reber_redis
+</span></span></code></pre></div><ul><li>安装mongo</li></ul><p>可以参考：https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+</span></span><span style=display:flex><span>$ echo <span style=color:#e6db74>&#34;deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse&#34;</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+</span></span><span style=display:flex><span>$ sudo apt-get update
+</span></span><span style=display:flex><span>$ sudo apt-get install -y mongodb-org
+</span></span><span style=display:flex><span>$ ps -aux|grep mongodb
+</span></span><span style=display:flex><span>$ netstat -nlt|grep <span style=color:#ae81ff>27017</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ mongo
+</span></span><span style=display:flex><span>&gt; use admin
+</span></span><span style=display:flex><span>switched to db admin
+</span></span><span style=display:flex><span>&gt; db.createUser<span style=color:#f92672>({</span>user:<span style=color:#e6db74>&#39;root&#39;</span>,pwd:<span style=color:#e6db74>&#39;root&#39;</span>,roles:<span style=color:#f92672>[{</span>role:<span style=color:#e6db74>&#39;root&#39;</span>,db:<span style=color:#e6db74>&#39;admin&#39;</span><span style=color:#f92672>}]})</span>
+</span></span><span style=display:flex><span>Successfully added user: <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;user&#34;</span> : <span style=color:#e6db74>&#34;root&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;roles&#34;</span> : <span style=color:#f92672>[</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;role&#34;</span> : <span style=color:#e6db74>&#34;root&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;db&#34;</span> : <span style=color:#e6db74>&#34;admin&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>&gt; db.auth<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;root&#39;</span>,<span style=color:#e6db74>&#39;root&#39;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>&gt; use mrq
+</span></span><span style=display:flex><span>switched to db mrq
+</span></span><span style=display:flex><span>&gt; db.createUser<span style=color:#f92672>({</span>user:<span style=color:#e6db74>&#39;reber_mrq_u&#39;</span>,pwd:<span style=color:#e6db74>&#39;reber_mrq_p&#39;</span>,roles:<span style=color:#f92672>[{</span>role:<span style=color:#e6db74>&#39;dbOwner&#39;</span>,db:<span style=color:#e6db74>&#39;mrq&#39;</span><span style=color:#f92672>}]})</span>
+</span></span><span style=display:flex><span>Successfully added user: <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;user&#34;</span> : <span style=color:#e6db74>&#34;reber_mrq_u&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;roles&#34;</span> : <span style=color:#f92672>[</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;role&#34;</span> : <span style=color:#e6db74>&#34;dbOwner&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;db&#34;</span> : <span style=color:#e6db74>&#34;mrq&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>&gt; db.auth<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;reber_mrq_u&#39;</span>,<span style=color:#e6db74>&#39;reber_mrq_p&#39;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>&gt; db.shutdownServer<span style=color:#f92672>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo vim /etc/mongod.conf
+</span></span><span style=display:flex><span>storage:
+</span></span><span style=display:flex><span>  dbPath: /var/lib/mongodb
+</span></span><span style=display:flex><span>  journal:
+</span></span><span style=display:flex><span>    enabled: true
+</span></span><span style=display:flex><span>systemLog:
+</span></span><span style=display:flex><span>  destination: file
+</span></span><span style=display:flex><span>  logAppend: true
+</span></span><span style=display:flex><span>  path: /var/log/mongodb/mongod.log
+</span></span><span style=display:flex><span>net:
+</span></span><span style=display:flex><span>  port: <span style=color:#ae81ff>27017</span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#bindIp: 127.0.0.1</span>
+</span></span><span style=display:flex><span>security:
+</span></span><span style=display:flex><span>  authorization: enabled
+</span></span><span style=display:flex><span>$ sudo mongod --config /etc/mongod.conf &amp;
+</span></span><span style=display:flex><span>$ mongo
+</span></span><span style=display:flex><span>MongoDB shell version v3.4.6
+</span></span><span style=display:flex><span>connecting to: mongodb://127.0.0.1:27017
+</span></span><span style=display:flex><span>MongoDB server version: 3.4.6
+</span></span><span style=display:flex><span>&gt; use mrq
+</span></span><span style=display:flex><span>switched to db mrq
+</span></span><span style=display:flex><span>&gt; db.auth<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;reber_mrq_u&#39;</span>,<span style=color:#e6db74>&#39;reber_mrq_p&#39;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><h3 id=0x02-案例代码>0x02 案例代码</h3><pre tabindex=0><code>$ mkdir mrqtest &amp;&amp; cd mrqtest
 $ touch __init__.py
 $ touch scheduler.py
 $ touch tasks_push.py
 $ touch dotask.py
 $ touch worker.sh &amp;&amp; chmod 777 worker.sh
-</code></pre><ul>
-<li>scheduler.py</li>
-</ul>
-<pre tabindex="0"><code>#!/usr/bin/env python
+</code></pre><ul><li>scheduler.py</li></ul><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 &#34;&#34;&#34;定期推送执行任务&#34;&#34;&#34;
 
@@ -220,10 +129,7 @@ if __name__ == &#39;__main__&#39;:
 
     scheduler = Scheduler(interval,mongodb_uri,redis_uri)
     scheduler.run()
-</code></pre><ul>
-<li>tasks_push.py</li>
-</ul>
-<pre tabindex="0"><code>#!/usr/bin/env python
+</code></pre><ul><li>tasks_push.py</li></ul><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 &#34;&#34;&#34;执行任务时调用的就是这个文件中类中的run函数&#34;&#34;&#34;
 
@@ -241,10 +147,7 @@ class task2(Task):
     def run(self, params):
         result = do_task2(params)
         return result
-</code></pre><ul>
-<li>dotask.py</li>
-</ul>
-<pre tabindex="0"><code>#!/usr/bin/env python
+</code></pre><ul><li>dotask.py</li></ul><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 &#34;&#34;&#34;执行任务的具体函数&#34;&#34;&#34;
 
@@ -253,136 +156,90 @@ def do_task1(params):
 
 def do_task2(params):
     return &#34;task2:{}&#34;.format(params)
-</code></pre><ul>
-<li>worker.sh</li>
-</ul>
-<pre tabindex="0"><code>#!/bin/bash
+</code></pre><ul><li>worker.sh</li></ul><pre tabindex=0><code>#!/bin/bash
 
 mrq-worker task1 --greenlets 5 --mongodb mongodb://reber_mrq_u:reber_mrq_p@127.0.0.1:27017/mrq --redis redis://reber_redis@127.0.0.1:6379/0 &amp;
 
 mrq-worker task2 --greenlets 5 --mongodb mongodb://reber_mrq_u:reber_mrq_p@127.0.0.1:27017/mrq --redis redis://reber_redis@127.0.0.1:6379/0 &amp;
-</code></pre><h3 id="0x03-修改mrq库的代码">0x03 修改MRQ库的代码</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#mrq中坑爹的数据库链接，当指定密码连接redis时一直提示没有权限😂，</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#原因是mrp/context.py中格式化redis的连接参数时使用的是import urllib.parse，</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#它是urlparse库的改进版，是Python3.0中的，但是我本地是Python2.7的，没有urllib.parse</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#修改/Library/Python/2.7/site-packages/mrq/context.py，自己添加个函数解析下：</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">redis_parse_uri</span>(uri):
-</span></span><span style="display:flex;"><span>    SCHEME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;redis://&#39;</span>
-</span></span><span style="display:flex;"><span>    SCHEME_LEN <span style="color:#f92672">=</span> len(SCHEME)
-</span></span><span style="display:flex;"><span>    DEFAULT_PORT <span style="color:#f92672">=</span> <span style="color:#ae81ff">6379</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    host <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
-</span></span><span style="display:flex;"><span>    port <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
-</span></span><span style="display:flex;"><span>    path <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
-</span></span><span style="display:flex;"><span>    password <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    scheme_free <span style="color:#f92672">=</span> uri[SCHEME_LEN:]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> scheme_free<span style="color:#f92672">.</span>rfind(<span style="color:#e6db74">&#39;/&#39;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> idx <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        host_part <span style="color:#f92672">=</span> scheme_free
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        path <span style="color:#f92672">=</span> scheme_free[idx:]
-</span></span><span style="display:flex;"><span>        host_part <span style="color:#f92672">=</span> scheme_free[:idx]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> host_part<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;@&#39;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> idx <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        hosts <span style="color:#f92672">=</span> host_part
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        password <span style="color:#f92672">=</span> host_part[:idx]
-</span></span><span style="display:flex;"><span>        hosts <span style="color:#f92672">=</span> host_part[idx<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> hosts<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;:&#39;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> idx <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        host <span style="color:#f92672">=</span> hosts
-</span></span><span style="display:flex;"><span>        port <span style="color:#f92672">=</span> DEFAULT_PORT
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        host <span style="color:#f92672">=</span> hosts<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;:&#39;</span>)[<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>        port <span style="color:#f92672">=</span> int(hosts<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;:&#39;</span>)[<span style="color:#ae81ff">1</span>])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;host&#39;</span>: host,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;port&#39;</span>: port,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;path&#39;</span>: path,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;password&#39;</span>: password
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_connections_factory</span>(attr):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;找到这里改下&#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># urllib.parse.uses_netloc.append(&#39;redis&#39;)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># redis_url = urllib.parse.urlparse(config_obj)</span>
-</span></span><span style="display:flex;"><span>    redis_url <span style="color:#f92672">=</span> redis_parse_uri(config_obj)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">: Connecting to Redis at </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">...&#34;</span> <span style="color:#f92672">%</span>
-</span></span><span style="display:flex;"><span>             (attr, redis_url<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;host&#39;</span>)))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    redis_pool <span style="color:#f92672">=</span> pyredis<span style="color:#f92672">.</span>BlockingConnectionPool(
-</span></span><span style="display:flex;"><span>        host<span style="color:#f92672">=</span>redis_url<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;host&#39;</span>),
-</span></span><span style="display:flex;"><span>        port<span style="color:#f92672">=</span>redis_url<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;port&#39;</span>),
-</span></span><span style="display:flex;"><span>        db<span style="color:#f92672">=</span>int((redis_url<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;path&#39;</span>) <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;&#34;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;0&#34;</span>),
-</span></span><span style="display:flex;"><span>        password<span style="color:#f92672">=</span>redis_url<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;password&#39;</span>),
-</span></span><span style="display:flex;"><span>        max_connections<span style="color:#f92672">=</span>int(config<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;redis_max_connections&#34;</span>)),
-</span></span><span style="display:flex;"><span>        timeout<span style="color:#f92672">=</span>int(config<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;redis_timeout&#34;</span>)),
-</span></span><span style="display:flex;"><span>        decode_responses<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>    )
-</span></span></code></pre></div><h3 id="0x04-执行">0x04 执行</h3>
-<ul>
-<li>清空数据库</li>
-</ul>
-<p><img src="/img/post/mrq_clear_db.png" alt="清空数据库"></p>
-<ul>
-<li>启动mrq-dashboard</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ mrq-dashboard --mongodb mongodb://reber_mrq_u:reber_mrq_p@127.0.0.1:27017/mrq --redis redis://reber_redis@127.0.0.1:6379/0
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#--mongodb和--redis均以uri格式指定连接数据库的信息</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#执行完访问 http://127.0.0.1:5555 即可</span>
-</span></span></code></pre></div><p><img src="/img/post/mrq_dashboard.png" alt="启动mrq-dashboard"></p>
-<ul>
-<li>执行workers.sh</li>
-</ul>
-<pre tabindex="0"><code>$ cd mrqtest
+</code></pre><h3 id=0x03-修改mrq库的代码>0x03 修改MRQ库的代码</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#mrq中坑爹的数据库链接，当指定密码连接redis时一直提示没有权限😂，</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#原因是mrp/context.py中格式化redis的连接参数时使用的是import urllib.parse，</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#它是urlparse库的改进版，是Python3.0中的，但是我本地是Python2.7的，没有urllib.parse</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#修改/Library/Python/2.7/site-packages/mrq/context.py，自己添加个函数解析下：</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>redis_parse_uri</span>(uri):
+</span></span><span style=display:flex><span>    SCHEME <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;redis://&#39;</span>
+</span></span><span style=display:flex><span>    SCHEME_LEN <span style=color:#f92672>=</span> len(SCHEME)
+</span></span><span style=display:flex><span>    DEFAULT_PORT <span style=color:#f92672>=</span> <span style=color:#ae81ff>6379</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    host <span style=color:#f92672>=</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>    port <span style=color:#f92672>=</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>    path <span style=color:#f92672>=</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>    password <span style=color:#f92672>=</span> <span style=color:#66d9ef>None</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    scheme_free <span style=color:#f92672>=</span> uri[SCHEME_LEN:]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    idx <span style=color:#f92672>=</span> scheme_free<span style=color:#f92672>.</span>rfind(<span style=color:#e6db74>&#39;/&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> idx <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>        host_part <span style=color:#f92672>=</span> scheme_free
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        path <span style=color:#f92672>=</span> scheme_free[idx:]
+</span></span><span style=display:flex><span>        host_part <span style=color:#f92672>=</span> scheme_free[:idx]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    idx <span style=color:#f92672>=</span> host_part<span style=color:#f92672>.</span>find(<span style=color:#e6db74>&#39;@&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> idx <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>        hosts <span style=color:#f92672>=</span> host_part
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        password <span style=color:#f92672>=</span> host_part[:idx]
+</span></span><span style=display:flex><span>        hosts <span style=color:#f92672>=</span> host_part[idx<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>:]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    idx <span style=color:#f92672>=</span> hosts<span style=color:#f92672>.</span>find(<span style=color:#e6db74>&#39;:&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> idx <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>        host <span style=color:#f92672>=</span> hosts
+</span></span><span style=display:flex><span>        port <span style=color:#f92672>=</span> DEFAULT_PORT
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>        host <span style=color:#f92672>=</span> hosts<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>)[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>        port <span style=color:#f92672>=</span> int(hosts<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;:&#39;</span>)[<span style=color:#ae81ff>1</span>])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;host&#39;</span>: host,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;port&#39;</span>: port,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;path&#39;</span>: path,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#39;password&#39;</span>: password
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_connections_factory</span>(attr):
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;找到这里改下&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># urllib.parse.uses_netloc.append(&#39;redis&#39;)</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># redis_url = urllib.parse.urlparse(config_obj)</span>
+</span></span><span style=display:flex><span>    redis_url <span style=color:#f92672>=</span> redis_parse_uri(config_obj)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    log<span style=color:#f92672>.</span>info(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>%s</span><span style=color:#e6db74>: Connecting to Redis at </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>...&#34;</span> <span style=color:#f92672>%</span>
+</span></span><span style=display:flex><span>             (attr, redis_url<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;host&#39;</span>)))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    redis_pool <span style=color:#f92672>=</span> pyredis<span style=color:#f92672>.</span>BlockingConnectionPool(
+</span></span><span style=display:flex><span>        host<span style=color:#f92672>=</span>redis_url<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;host&#39;</span>),
+</span></span><span style=display:flex><span>        port<span style=color:#f92672>=</span>redis_url<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;port&#39;</span>),
+</span></span><span style=display:flex><span>        db<span style=color:#f92672>=</span>int((redis_url<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;path&#39;</span>) <span style=color:#f92672>or</span> <span style=color:#e6db74>&#34;&#34;</span>)<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#34;/&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>) <span style=color:#f92672>or</span> <span style=color:#e6db74>&#34;0&#34;</span>),
+</span></span><span style=display:flex><span>        password<span style=color:#f92672>=</span>redis_url<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;password&#39;</span>),
+</span></span><span style=display:flex><span>        max_connections<span style=color:#f92672>=</span>int(config<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;redis_max_connections&#34;</span>)),
+</span></span><span style=display:flex><span>        timeout<span style=color:#f92672>=</span>int(config<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;redis_timeout&#34;</span>)),
+</span></span><span style=display:flex><span>        decode_responses<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>    )
+</span></span></code></pre></div><h3 id=0x04-执行>0x04 执行</h3><ul><li>清空数据库</li></ul><p><img src=/img/post/mrq_clear_db.png alt=清空数据库></p><ul><li>启动mrq-dashboard</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ mrq-dashboard --mongodb mongodb://reber_mrq_u:reber_mrq_p@127.0.0.1:27017/mrq --redis redis://reber_redis@127.0.0.1:6379/0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#--mongodb和--redis均以uri格式指定连接数据库的信息</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#执行完访问 http://127.0.0.1:5555 即可</span>
+</span></span></code></pre></div><p><img src=/img/post/mrq_dashboard.png alt=启动mrq-dashboard></p><ul><li>执行workers.sh</li></ul><pre tabindex=0><code>$ cd mrqtest
 $ ./worker.sh
 #这里会创建两个worker，名字为task1和task2
-</code></pre><p><img src="/img/post/mrq_run_workers_dashboad.png" alt="启动mrq-dashboard后查看dashboad"></p>
-<p><img src="/img/post/mrq_dashboard_jobs1.png" alt="未添加任务时jobs为空"></p>
-<ul>
-<li>执行scheduler.py从而推送任务</li>
-</ul>
-<pre tabindex="0"><code>$ cd mrqtest
+</code></pre><p><img src=/img/post/mrq_run_workers_dashboad.png alt=启动mrq-dashboard后查看dashboad></p><p><img src=/img/post/mrq_dashboard_jobs1.png alt=未添加任务时jobs为空></p><ul><li>执行scheduler.py从而推送任务</li></ul><pre tabindex=0><code>$ cd mrqtest
 $ python scheduler.py
-</code></pre><p><img src="/img/post/mrq_push_task.png" alt="添加任务"></p>
-<p><img src="/img/post/mrq_dashboard_jobs2.png" alt="添加任务后查看jobs"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><p><img src=/img/post/mrq_push_task.png alt=添加任务></p><p><img src=/img/post/mrq_dashboard_jobs2.png alt=添加任务后查看jobs></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,188 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Docker 中镜像以及容器的添加、删除等操作"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Docker 之镜像与容器 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>Docker 之镜像与容器</h1>
-      
-<div class="post-meta">
-    <time>2017-08-18</time>
-    
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/docker">docker</a>)
-</div>
-
-      <div><p>操作系统：Ubuntu14.04.1<br>
-Docker版本：Docker version 17.06.0-ce, build 02c1d87</p>
-<h3 id="0x00-镜像操作">0x00 镜像操作</h3>
-<ul>
-<li>下载镜像</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#一般镜像、容器的id和name可以互换</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ docker search ubuntu <span style="color:#75715e">#从公共registry搜索镜像</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ docker pull ubuntu <span style="color:#75715e">#从公共registry下载镜像</span>
-</span></span><span style="display:flex;"><span>$ docker pull ubuntu:14.04
-</span></span></code></pre></div><ul>
-<li>查看当前系统镜像</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker images
-</span></span><span style="display:flex;"><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-</span></span><span style="display:flex;"><span>ubuntu              14.04               7e4b16ae8b23        <span style="color:#ae81ff">11</span> days ago         188MB
-</span></span><span style="display:flex;"><span>ubuntu              latest              1d9c17228a9e        <span style="color:#ae81ff">11</span> days ago         86.7MB
-</span></span></code></pre></div><ul>
-<li>查看镜像层组成</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker history ubuntu:14.04 <span style="color:#75715e"># ubuntu:14.04可以用7e4b16ae8b23替代，用id和images_name:tag效果一样</span>
-</span></span></code></pre></div><ul>
-<li>删除镜像(删除镜像前要先删除上面的容器)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker rmi ubuntu:latest <span style="color:#75715e"># 也可docker rmi 1d9c17228a9e</span>
-</span></span></code></pre></div><h3 id="0x01-容器操作">0x01 容器操作</h3>
-<ul>
-<li>
-<p>运行容器(exit后容器就停止了)</p>
-<ul>
-<li>--rm：告诉Docker一旦运行的容器停止就删除容器</li>
-<li>-ti：告诉Docker分配一个伪终端并进入交互模式(这将进入容器内)</li>
-<li>ubuntu:14.04 是容器立足的镜像</li>
-<li>/bin/bash：shell</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker run --rm -it ubuntu:14.04 /bin/bash
-</span></span><span style="display:flex;"><span>root@172c8d8b0671:/# ls
-</span></span><span style="display:flex;"><span>bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
-</span></span><span style="display:flex;"><span>boot  etc  lib   media  opt  root  sbin  sys  usr
-</span></span><span style="display:flex;"><span>root@172c8d8b0671:/# exit
-</span></span><span style="display:flex;"><span>exit
-</span></span></code></pre></div></li>
-<li>
-<p>后台运行容器</p>
-<ul>
-<li>-d：告诉Docker容器在后台运行(不能与&ndash;rm参数一起用)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker run -itd ubuntu:14.04 /bin/bash
-</span></span><span style="display:flex;"><span>6f9d8dea6aa0e984e725802e3e49685ea040a21defa9a9d5e8db644076bbb42b
-</span></span><span style="display:flex;"><span>$ docker run -itd 7e4b16ae8b23 ping 8.8.8.8
-</span></span><span style="display:flex;"><span>3e4c995326c0757d7e83daa72034d472e4f988cb553e9a85acd0bec06a666d60
-</span></span><span style="display:flex;"><span>$ sudo docker run -itd ubuntu:14.04 /bin/sh -c <span style="color:#e6db74">&#34;while true; do echo hello world; sleep 1; done&#34;</span>
-</span></span><span style="display:flex;"><span>39b5bab299be909e2b1cdc3629d7c7fe2b5375348dfff498be58b4b0a0108676
-</span></span></code></pre></div></li>
-<li>
-<p>查看当前运行的容器</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker ps <span style="color:#75715e">#只显示正在运行的容器</span>
-</span></span><span style="display:flex;"><span>CONTAINER ID   IMAGE          COMMAND                 CREATED         STATUS        PORTS  NAMES
-</span></span><span style="display:flex;"><span>39b5bab299be   ubuntu:14.04   <span style="color:#e6db74">&#34;/bin/sh -c &#39;while t…&#34;</span>  <span style="color:#ae81ff">4</span> seconds ago   Up <span style="color:#ae81ff">4</span> seconds         distracted_wescoff
-</span></span><span style="display:flex;"><span>3e4c995326c0   7e4b16ae8b23   <span style="color:#e6db74">&#34;ping 8.8.8.8&#34;</span>          <span style="color:#ae81ff">6</span> seconds ago   Up <span style="color:#ae81ff">5</span> seconds         sad_payne
-</span></span><span style="display:flex;"><span>6f9d8dea6aa0   ubuntu:14.04   <span style="color:#e6db74">&#34;/bin/bash&#34;</span>             <span style="color:#ae81ff">9</span> seconds ago   Up <span style="color:#ae81ff">8</span> seconds         inspiring_keller
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ docker ps -a <span style="color:#75715e">#显示所有的容器，包括停止的</span>
-</span></span></code></pre></div><ul>
-<li>向容器发送命令</li>
-</ul>
-<pre tabindex="0"><code>$ docker exec -ti sad_payne whoami
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Docker 中镜像以及容器的添加、删除等操作"><meta name=author content="Reber"><title>Docker 之镜像与容器 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>Docker 之镜像与容器</h1><div class=post-meta><time>2017-08-18</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/docker>docker</a>)</div><div><p>操作系统：Ubuntu14.04.1<br>Docker版本：Docker version 17.06.0-ce, build 02c1d87</p><h3 id=0x00-镜像操作>0x00 镜像操作</h3><ul><li>下载镜像</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#一般镜像、容器的id和name可以互换</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ docker search ubuntu <span style=color:#75715e>#从公共registry搜索镜像</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ docker pull ubuntu <span style=color:#75715e>#从公共registry下载镜像</span>
+</span></span><span style=display:flex><span>$ docker pull ubuntu:14.04
+</span></span></code></pre></div><ul><li>查看当前系统镜像</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker images
+</span></span><span style=display:flex><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+</span></span><span style=display:flex><span>ubuntu              14.04               7e4b16ae8b23        <span style=color:#ae81ff>11</span> days ago         188MB
+</span></span><span style=display:flex><span>ubuntu              latest              1d9c17228a9e        <span style=color:#ae81ff>11</span> days ago         86.7MB
+</span></span></code></pre></div><ul><li>查看镜像层组成</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker history ubuntu:14.04 <span style=color:#75715e># ubuntu:14.04可以用7e4b16ae8b23替代，用id和images_name:tag效果一样</span>
+</span></span></code></pre></div><ul><li>删除镜像(删除镜像前要先删除上面的容器)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker rmi ubuntu:latest <span style=color:#75715e># 也可docker rmi 1d9c17228a9e</span>
+</span></span></code></pre></div><h3 id=0x01-容器操作>0x01 容器操作</h3><ul><li><p>运行容器(exit后容器就停止了)</p><ul><li>--rm：告诉Docker一旦运行的容器停止就删除容器</li><li>-ti：告诉Docker分配一个伪终端并进入交互模式(这将进入容器内)</li><li>ubuntu:14.04 是容器立足的镜像</li><li>/bin/bash：shell</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker run --rm -it ubuntu:14.04 /bin/bash
+</span></span><span style=display:flex><span>root@172c8d8b0671:/# ls
+</span></span><span style=display:flex><span>bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+</span></span><span style=display:flex><span>boot  etc  lib   media  opt  root  sbin  sys  usr
+</span></span><span style=display:flex><span>root@172c8d8b0671:/# exit
+</span></span><span style=display:flex><span>exit
+</span></span></code></pre></div></li><li><p>后台运行容器</p><ul><li>-d：告诉Docker容器在后台运行(不能与&ndash;rm参数一起用)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker run -itd ubuntu:14.04 /bin/bash
+</span></span><span style=display:flex><span>6f9d8dea6aa0e984e725802e3e49685ea040a21defa9a9d5e8db644076bbb42b
+</span></span><span style=display:flex><span>$ docker run -itd 7e4b16ae8b23 ping 8.8.8.8
+</span></span><span style=display:flex><span>3e4c995326c0757d7e83daa72034d472e4f988cb553e9a85acd0bec06a666d60
+</span></span><span style=display:flex><span>$ sudo docker run -itd ubuntu:14.04 /bin/sh -c <span style=color:#e6db74>&#34;while true; do echo hello world; sleep 1; done&#34;</span>
+</span></span><span style=display:flex><span>39b5bab299be909e2b1cdc3629d7c7fe2b5375348dfff498be58b4b0a0108676
+</span></span></code></pre></div></li><li><p>查看当前运行的容器</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker ps <span style=color:#75715e>#只显示正在运行的容器</span>
+</span></span><span style=display:flex><span>CONTAINER ID   IMAGE          COMMAND                 CREATED         STATUS        PORTS  NAMES
+</span></span><span style=display:flex><span>39b5bab299be   ubuntu:14.04   <span style=color:#e6db74>&#34;/bin/sh -c &#39;while t…&#34;</span>  <span style=color:#ae81ff>4</span> seconds ago   Up <span style=color:#ae81ff>4</span> seconds         distracted_wescoff
+</span></span><span style=display:flex><span>3e4c995326c0   7e4b16ae8b23   <span style=color:#e6db74>&#34;ping 8.8.8.8&#34;</span>          <span style=color:#ae81ff>6</span> seconds ago   Up <span style=color:#ae81ff>5</span> seconds         sad_payne
+</span></span><span style=display:flex><span>6f9d8dea6aa0   ubuntu:14.04   <span style=color:#e6db74>&#34;/bin/bash&#34;</span>             <span style=color:#ae81ff>9</span> seconds ago   Up <span style=color:#ae81ff>8</span> seconds         inspiring_keller
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ docker ps -a <span style=color:#75715e>#显示所有的容器，包括停止的</span>
+</span></span></code></pre></div><ul><li>向容器发送命令</li></ul><pre tabindex=0><code>$ docker exec -ti sad_payne whoami
 root
 $ docker exec -ti sad_payne uname -a
 Linux 8e4f11f295e2 4.9.125-linuxkit #1 SMP Fri Sep 7 08:20:28 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
-</code></pre><ul>
-<li>进入容器</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker exec -it sad_payne /bin/bash
-</span></span><span style="display:flex;"><span>root@3e4c995326c0:/# ps -aux |grep ping
-</span></span><span style="display:flex;"><span>root         <span style="color:#ae81ff">1</span>  0.0  0.0   <span style="color:#ae81ff">6520</span>   <span style="color:#ae81ff">792</span> pts/0    Ss+  13:00   0:00 ping 8.8.8.8
-</span></span><span style="display:flex;"><span>root        <span style="color:#ae81ff">22</span>  0.0  0.0   <span style="color:#ae81ff">8880</span>   <span style="color:#ae81ff">736</span> pts/1    S+   13:25   0:00 grep --color<span style="color:#f92672">=</span>auto ping
-</span></span></code></pre></div><ul>
-<li>查看容器日志</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker logs 39b5bab299be|head -n <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>hello world
-</span></span><span style="display:flex;"><span>hello world
-</span></span><span style="display:flex;"><span>hello world
-</span></span><span style="display:flex;"><span>hello world
-</span></span><span style="display:flex;"><span>hello world
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ docker logs 3e4c995326c0|head -n <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>PING 8.8.8.8 <span style="color:#f92672">(</span>8.8.8.8<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 8.8.8.8: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span>56.3 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 8.8.8.8: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span>58.6 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 8.8.8.8: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span>56.4 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 8.8.8.8: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span>57.0 ms
-</span></span></code></pre></div><ul>
-<li>端口映射</li>
-</ul>
-<pre tabindex="0"><code>#访问本地的8888端口就是访问容器的80端口
+</code></pre><ul><li>进入容器</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker exec -it sad_payne /bin/bash
+</span></span><span style=display:flex><span>root@3e4c995326c0:/# ps -aux |grep ping
+</span></span><span style=display:flex><span>root         <span style=color:#ae81ff>1</span>  0.0  0.0   <span style=color:#ae81ff>6520</span>   <span style=color:#ae81ff>792</span> pts/0    Ss+  13:00   0:00 ping 8.8.8.8
+</span></span><span style=display:flex><span>root        <span style=color:#ae81ff>22</span>  0.0  0.0   <span style=color:#ae81ff>8880</span>   <span style=color:#ae81ff>736</span> pts/1    S+   13:25   0:00 grep --color<span style=color:#f92672>=</span>auto ping
+</span></span></code></pre></div><ul><li>查看容器日志</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker logs 39b5bab299be|head -n <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>hello world
+</span></span><span style=display:flex><span>hello world
+</span></span><span style=display:flex><span>hello world
+</span></span><span style=display:flex><span>hello world
+</span></span><span style=display:flex><span>hello world
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ docker logs 3e4c995326c0|head -n <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>PING 8.8.8.8 <span style=color:#f92672>(</span>8.8.8.8<span style=color:#f92672>)</span> 56<span style=color:#f92672>(</span>84<span style=color:#f92672>)</span> bytes of data.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>64</span> bytes from 8.8.8.8: icmp_seq<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> ttl<span style=color:#f92672>=</span><span style=color:#ae81ff>127</span> time<span style=color:#f92672>=</span>56.3 ms
+</span></span><span style=display:flex><span><span style=color:#ae81ff>64</span> bytes from 8.8.8.8: icmp_seq<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span> ttl<span style=color:#f92672>=</span><span style=color:#ae81ff>127</span> time<span style=color:#f92672>=</span>58.6 ms
+</span></span><span style=display:flex><span><span style=color:#ae81ff>64</span> bytes from 8.8.8.8: icmp_seq<span style=color:#f92672>=</span><span style=color:#ae81ff>4</span> ttl<span style=color:#f92672>=</span><span style=color:#ae81ff>127</span> time<span style=color:#f92672>=</span>56.4 ms
+</span></span><span style=display:flex><span><span style=color:#ae81ff>64</span> bytes from 8.8.8.8: icmp_seq<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span> ttl<span style=color:#f92672>=</span><span style=color:#ae81ff>127</span> time<span style=color:#f92672>=</span>57.0 ms
+</span></span></code></pre></div><ul><li>端口映射</li></ul><pre tabindex=0><code>#访问本地的8888端口就是访问容器的80端口
 $ docker run -itd -p 8888:80 ubuntu:14.04 /bin/bash
 4411d8092cffe5ae7e52dfaa9a4f434f31fdc32c68c4b712092851e1209d2683
 $ netstat -anlt
@@ -193,67 +73,39 @@ tcp        0      0 127.0.0.1:3306  0.0.0.0:*         LISTEN      1204/mysqld
 tcp6       0      0 :::22           :::*              LISTEN      11053/sshd
 tcp6       0      0 :::8888         :::*              LISTEN      14691/docker-proxy
 tcp6       0      0 :::80           :::*              LISTEN      1477/apache2
-</code></pre><ul>
-<li>查看容器的端口映射</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker port 4411d8092cff
-</span></span><span style="display:flex;"><span>80/tcp -&gt; 0.0.0.0:8888
-</span></span></code></pre></div><ul>
-<li>查看容器的进程信息</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker top 4411d8092cff
-</span></span></code></pre></div><ul>
-<li>从宿主机向容器复制数据</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker cp a.txt 4411d8092cff:/root/
-</span></span><span style="display:flex;"><span>$ docker exec -it 4411d8092cff /bin/bash
-</span></span><span style="display:flex;"><span>root@4411d8092cff:/# touch /root/abc.txt
-</span></span><span style="display:flex;"><span>root@4411d8092cff:/# ls /root/
-</span></span><span style="display:flex;"><span>123.txt  a.txt  abc.txt
-</span></span></code></pre></div><ul>
-<li>从容器向宿主机复制数据</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker cp 4411d8092cff:/root/abc.txt ./
-</span></span><span style="display:flex;"><span>$ ls
-</span></span><span style="display:flex;"><span>123.txt  abc.txt  a.txt  Desktop
-</span></span></code></pre></div><ul>
-<li>查看容器的文件变化</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker diff 4411d8092cff
-</span></span><span style="display:flex;"><span>C /root
-</span></span><span style="display:flex;"><span>A /root/.bash_history
-</span></span><span style="display:flex;"><span>A /root/123.txt
-</span></span><span style="display:flex;"><span>A /root/a.txt
-</span></span><span style="display:flex;"><span>A /root/abc.txt
-</span></span></code></pre></div><ul>
-<li>停止/启动容器</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker stop 4411d8092cff
-</span></span><span style="display:flex;"><span>4411d8092cff
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#docker kill 4411d8092cff</span>
-</span></span><span style="display:flex;"><span>$ docker start 4411d8092cff
-</span></span><span style="display:flex;"><span>4411d8092cff
-</span></span></code></pre></div><ul>
-<li>删除容器(容器需要先停止才能删除)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker rm 39b5bab299be
-</span></span><span style="display:flex;"><span>Error response from daemon: You cannot remove a running container 4411d8092cffab2e1a901727e3eef9140e713f3a4699c55c0e67f8666cca5d11. Stop the container before attempting removal or force remove
-</span></span><span style="display:flex;"><span>$ docker kill 39b5bab299be
-</span></span><span style="display:flex;"><span>39b5bab299be
-</span></span><span style="display:flex;"><span>$ docker rm 39b5bab299be
-</span></span><span style="display:flex;"><span>39b5bab299be
-</span></span></code></pre></div><ul>
-<li>删除所有容器(只能删除停止运行的)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker rm <span style="color:#66d9ef">$(</span>docker ps -aq<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>39b5bab299be
-</span></span><span style="display:flex;"><span>3e4c995326c0
-</span></span><span style="display:flex;"><span>6f9d8dea6aa0
-</span></span></code></pre></div><h3 id="0x02-打包镜像及容器">0x02 打包镜像及容器</h3>
-<ul>
-<li>打包(save和export)</li>
-</ul>
-<pre tabindex="0"><code>$ docker images
+</code></pre><ul><li>查看容器的端口映射</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker port 4411d8092cff
+</span></span><span style=display:flex><span>80/tcp -&gt; 0.0.0.0:8888
+</span></span></code></pre></div><ul><li>查看容器的进程信息</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker top 4411d8092cff
+</span></span></code></pre></div><ul><li>从宿主机向容器复制数据</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker cp a.txt 4411d8092cff:/root/
+</span></span><span style=display:flex><span>$ docker exec -it 4411d8092cff /bin/bash
+</span></span><span style=display:flex><span>root@4411d8092cff:/# touch /root/abc.txt
+</span></span><span style=display:flex><span>root@4411d8092cff:/# ls /root/
+</span></span><span style=display:flex><span>123.txt  a.txt  abc.txt
+</span></span></code></pre></div><ul><li>从容器向宿主机复制数据</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker cp 4411d8092cff:/root/abc.txt ./
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>123.txt  abc.txt  a.txt  Desktop
+</span></span></code></pre></div><ul><li>查看容器的文件变化</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker diff 4411d8092cff
+</span></span><span style=display:flex><span>C /root
+</span></span><span style=display:flex><span>A /root/.bash_history
+</span></span><span style=display:flex><span>A /root/123.txt
+</span></span><span style=display:flex><span>A /root/a.txt
+</span></span><span style=display:flex><span>A /root/abc.txt
+</span></span></code></pre></div><ul><li>停止/启动容器</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker stop 4411d8092cff
+</span></span><span style=display:flex><span>4411d8092cff
+</span></span><span style=display:flex><span><span style=color:#75715e>#docker kill 4411d8092cff</span>
+</span></span><span style=display:flex><span>$ docker start 4411d8092cff
+</span></span><span style=display:flex><span>4411d8092cff
+</span></span></code></pre></div><ul><li>删除容器(容器需要先停止才能删除)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker rm 39b5bab299be
+</span></span><span style=display:flex><span>Error response from daemon: You cannot remove a running container 4411d8092cffab2e1a901727e3eef9140e713f3a4699c55c0e67f8666cca5d11. Stop the container before attempting removal or force remove
+</span></span><span style=display:flex><span>$ docker kill 39b5bab299be
+</span></span><span style=display:flex><span>39b5bab299be
+</span></span><span style=display:flex><span>$ docker rm 39b5bab299be
+</span></span><span style=display:flex><span>39b5bab299be
+</span></span></code></pre></div><ul><li>删除所有容器(只能删除停止运行的)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker rm <span style=color:#66d9ef>$(</span>docker ps -aq<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>39b5bab299be
+</span></span><span style=display:flex><span>3e4c995326c0
+</span></span><span style=display:flex><span>6f9d8dea6aa0
+</span></span></code></pre></div><h3 id=0x02-打包镜像及容器>0x02 打包镜像及容器</h3><ul><li>打包(save和export)</li></ul><pre tabindex=0><code>$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ubuntu              14.04               7e4b16ae8b23        11 days ago         188MB
 $ docker run -itd -p 2222:22 ubuntu:14.04 /bin/bash
@@ -274,7 +126,7 @@ ubuntu              14.04               7e4b16ae8b23        11 days ago         
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                  NAMES
 5a3ce7d8d5b5        ubuntu:14.04        &#34;/bin/bash&#34;         18 minutes ago      Up 18 minutes       0.0.0.0:2222-&gt;22/tcp   loving_bose
-</code></pre><pre tabindex="0"><code># docker save &lt;IMAGE ID&gt; &gt; save.tar，使用安装ssh后并commit的镜像id
+</code></pre><pre tabindex=0><code># docker save &lt;IMAGE ID&gt; &gt; save.tar，使用安装ssh后并commit的镜像id
 $ docker save cae40fb01d1f &gt; save.tar
 # docker export &lt;CONTAINER ID&gt; &gt; export.tar，使用安装ssh后的容器id
 $ docker export 5a3ce7d8d5b5 &gt; export.tar
@@ -283,24 +135,21 @@ $ docker export 5a3ce7d8d5b5 &gt; export.tar
 $ du -h *.tar
 245M    save.tar
 221M    export.tar
-</code></pre><ul>
-<li>删除现有镜像后重新导入刚才保存的镜像(load和import)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker load &lt; save.tar
-</span></span><span style="display:flex;"><span>a1dfb45ac02d: Loading layer <span style="color:#f92672">[=======================================</span>&gt;<span style="color:#f92672">]</span>    197MB/197MB
-</span></span><span style="display:flex;"><span>cbafb465c00d: Loading layer <span style="color:#f92672">[=======================================</span>&gt;<span style="color:#f92672">]</span>  209.9kB/209.9kB
-</span></span><span style="display:flex;"><span>382d42470bcc: Loading layer <span style="color:#f92672">[=======================================</span>&gt;<span style="color:#f92672">]</span>  7.168kB/7.168kB
-</span></span><span style="display:flex;"><span>74decbb2e028: Loading layer <span style="color:#f92672">[=======================================</span>&gt;<span style="color:#f92672">]</span>  3.072kB/3.072kB
-</span></span><span style="display:flex;"><span>95d4db8f1e96: Loading layer <span style="color:#f92672">[=======================================</span>&gt;<span style="color:#f92672">]</span>  59.22MB/59.22MB
-</span></span><span style="display:flex;"><span>Loaded image ID: sha256:cae40fb01d1fd1cae5589be8725dca89c11fb975dbf24fcabdc5cad9531e7c70
-</span></span><span style="display:flex;"><span>$ docker images
-</span></span><span style="display:flex;"><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-</span></span><span style="display:flex;"><span>&lt;none&gt;              &lt;none&gt;              cae40fb01d1f        <span style="color:#ae81ff">11</span> minutes ago      243MB
-</span></span><span style="display:flex;"><span>$ docker tag cae40fb01d1f ubuntu:save_load <span style="color:#75715e">#给镜像cae40fb01d1f打tag</span>
-</span></span><span style="display:flex;"><span>$ docker images
-</span></span><span style="display:flex;"><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-</span></span><span style="display:flex;"><span>ubuntu              save_load           cae40fb01d1f        <span style="color:#ae81ff">12</span> minutes ago      243MB
-</span></span></code></pre></div><pre tabindex="0"><code>$ docker import export.tar
+</code></pre><ul><li>删除现有镜像后重新导入刚才保存的镜像(load和import)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker load &lt; save.tar
+</span></span><span style=display:flex><span>a1dfb45ac02d: Loading layer <span style=color:#f92672>[=======================================</span>&gt;<span style=color:#f92672>]</span>    197MB/197MB
+</span></span><span style=display:flex><span>cbafb465c00d: Loading layer <span style=color:#f92672>[=======================================</span>&gt;<span style=color:#f92672>]</span>  209.9kB/209.9kB
+</span></span><span style=display:flex><span>382d42470bcc: Loading layer <span style=color:#f92672>[=======================================</span>&gt;<span style=color:#f92672>]</span>  7.168kB/7.168kB
+</span></span><span style=display:flex><span>74decbb2e028: Loading layer <span style=color:#f92672>[=======================================</span>&gt;<span style=color:#f92672>]</span>  3.072kB/3.072kB
+</span></span><span style=display:flex><span>95d4db8f1e96: Loading layer <span style=color:#f92672>[=======================================</span>&gt;<span style=color:#f92672>]</span>  59.22MB/59.22MB
+</span></span><span style=display:flex><span>Loaded image ID: sha256:cae40fb01d1fd1cae5589be8725dca89c11fb975dbf24fcabdc5cad9531e7c70
+</span></span><span style=display:flex><span>$ docker images
+</span></span><span style=display:flex><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+</span></span><span style=display:flex><span>&lt;none&gt;              &lt;none&gt;              cae40fb01d1f        <span style=color:#ae81ff>11</span> minutes ago      243MB
+</span></span><span style=display:flex><span>$ docker tag cae40fb01d1f ubuntu:save_load <span style=color:#75715e>#给镜像cae40fb01d1f打tag</span>
+</span></span><span style=display:flex><span>$ docker images
+</span></span><span style=display:flex><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+</span></span><span style=display:flex><span>ubuntu              save_load           cae40fb01d1f        <span style=color:#ae81ff>12</span> minutes ago      243MB
+</span></span></code></pre></div><pre tabindex=0><code>$ docker import export.tar
 sha256:57275c69a2a3a9527086f2563426170c4ec7bed0a1bc3ee10fcedb17b31cee41
 $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -311,7 +160,7 @@ $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
 ubuntu              export_import       57275c69a2a3        About a minute ago   218MB
 ubuntu              save_load           cae40fb01d1f        14 minutes ago       243MB
-</code></pre><pre tabindex="0"><code># 容器打包的镜像包丢失历史和层，镜像打包的镜像包没有丢失
+</code></pre><pre tabindex=0><code># 容器打包的镜像包丢失历史和层，镜像打包的镜像包没有丢失
 ➜  ~ docker history 57275c69a2a3
 IMAGE               CREATED              CREATED BY    SIZE      COMMENT
 57275c69a2a3        About a minute ago                 218MB     Imported from -
@@ -323,69 +172,31 @@ cae40fb01d1f    14 minutes ago    /bin/bash                                 55.3
 &lt;missing&gt;       11 days ago       /bin/sh -c rm -rf /var/lib/apt/lists/*    0B
 &lt;missing&gt;       11 days ago       /bin/sh -c set -xe   &amp;&amp; echo &#39;#!/bin/s…   195kB
 &lt;missing&gt;       11 days ago       /bin/sh -c #(nop) ADD file:c860cba1b1c…   188MB
-</code></pre><ul>
-<li>总结
-<ul>
-<li>使用save和export生成的其实<f>都是镜像包</f>，save.tar和export.tar导入后生成的容器中都有ssh</li>
-<li>save镜像后体积变大，export容器后体积变小</li>
-<li>打包容器后的包会丢失历史和层(layer)，打包镜像后的包不会丢失历史和层(layer)</li>
-</ul>
-</li>
-</ul>
-<h3 id="0x03-查看镜像或容器的底层信息ip端口绑定配置信息等">0x03 查看镜像或容器的底层信息(IP、端口绑定、配置信息等)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker inspect 65987aa8f0cb
-</span></span></code></pre></div><h3 id="0x04-例子">0x04 例子</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ docker kill <span style="color:#66d9ef">$(</span>docker ps -aq<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>e5b5aaed385b
-</span></span><span style="display:flex;"><span>$ docker rm <span style="color:#66d9ef">$(</span>docker ps -aq<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>e5b5aaed385b
-</span></span><span style="display:flex;"><span>$ exec_ping<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>docker run -itd ubuntu:14.04 ping 8.8.8.8<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>$ echo $exec_ping
-</span></span><span style="display:flex;"><span>5af570b6abef143f409110d413fbc84a03120255181c1acfe1e21a23be8697d4
-</span></span><span style="display:flex;"><span>$ docker logs $exec_ping | head -n <span style="color:#ae81ff">3</span>
-</span></span><span style="display:flex;"><span>PING 8.8.8.8 <span style="color:#f92672">(</span>8.8.8.8<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 8.8.8.8: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span>56.3 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 8.8.8.8: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">127</span> time<span style="color:#f92672">=</span>56.0 ms
-</span></span><span style="display:flex;"><span>$ docker commit $exec_ping ubuntu:ping
-</span></span><span style="display:flex;"><span>sha256:2937b5ab38d7d1329e749bb585e99d5f9067ae8a531b777fa604228c2a7b7c30
-</span></span><span style="display:flex;"><span>$ docker images
-</span></span><span style="display:flex;"><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-</span></span><span style="display:flex;"><span>ubuntu              ping                2937b5ab38d7        <span style="color:#ae81ff">7</span> seconds ago       188MB
-</span></span><span style="display:flex;"><span>ubuntu              14.04               7e4b16ae8b23        <span style="color:#ae81ff">11</span> days ago         188MB
-</span></span><span style="display:flex;"><span>ubuntu              latest              1d9c17228a9e        <span style="color:#ae81ff">11</span> days ago         86.7MB
-</span></span></code></pre></div><h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://my.oschina.net/zjzhai/blog/225112?_blank">https://my.oschina.net/zjzhai/blog/225112</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><ul><li>总结<ul><li>使用save和export生成的其实<f>都是镜像包</f>，save.tar和export.tar导入后生成的容器中都有ssh</li><li>save镜像后体积变大，export容器后体积变小</li><li>打包容器后的包会丢失历史和层(layer)，打包镜像后的包不会丢失历史和层(layer)</li></ul></li></ul><h3 id=0x03-查看镜像或容器的底层信息ip端口绑定配置信息等>0x03 查看镜像或容器的底层信息(IP、端口绑定、配置信息等)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker inspect 65987aa8f0cb
+</span></span></code></pre></div><h3 id=0x04-例子>0x04 例子</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ docker kill <span style=color:#66d9ef>$(</span>docker ps -aq<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>e5b5aaed385b
+</span></span><span style=display:flex><span>$ docker rm <span style=color:#66d9ef>$(</span>docker ps -aq<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>e5b5aaed385b
+</span></span><span style=display:flex><span>$ exec_ping<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>docker run -itd ubuntu:14.04 ping 8.8.8.8<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>$ echo $exec_ping
+</span></span><span style=display:flex><span>5af570b6abef143f409110d413fbc84a03120255181c1acfe1e21a23be8697d4
+</span></span><span style=display:flex><span>$ docker logs $exec_ping | head -n <span style=color:#ae81ff>3</span>
+</span></span><span style=display:flex><span>PING 8.8.8.8 <span style=color:#f92672>(</span>8.8.8.8<span style=color:#f92672>)</span> 56<span style=color:#f92672>(</span>84<span style=color:#f92672>)</span> bytes of data.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>64</span> bytes from 8.8.8.8: icmp_seq<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> ttl<span style=color:#f92672>=</span><span style=color:#ae81ff>127</span> time<span style=color:#f92672>=</span>56.3 ms
+</span></span><span style=display:flex><span><span style=color:#ae81ff>64</span> bytes from 8.8.8.8: icmp_seq<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span> ttl<span style=color:#f92672>=</span><span style=color:#ae81ff>127</span> time<span style=color:#f92672>=</span>56.0 ms
+</span></span><span style=display:flex><span>$ docker commit $exec_ping ubuntu:ping
+</span></span><span style=display:flex><span>sha256:2937b5ab38d7d1329e749bb585e99d5f9067ae8a531b777fa604228c2a7b7c30
+</span></span><span style=display:flex><span>$ docker images
+</span></span><span style=display:flex><span>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+</span></span><span style=display:flex><span>ubuntu              ping                2937b5ab38d7        <span style=color:#ae81ff>7</span> seconds ago       188MB
+</span></span><span style=display:flex><span>ubuntu              14.04               7e4b16ae8b23        <span style=color:#ae81ff>11</span> days ago         188MB
+</span></span><span style=display:flex><span>ubuntu              latest              1d9c17228a9e        <span style=color:#ae81ff>11</span> days ago         86.7MB
+</span></span></code></pre></div><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://my.oschina.net/zjzhai/blog/225112?_blank>https://my.oschina.net/zjzhai/blog/225112</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

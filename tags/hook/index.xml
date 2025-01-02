@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>hook on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/hook/</link>
-    <description>Recent content in hook on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 15 May 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/hook/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>使用 Hook 框架 frida 进行调试</title>
-      <link>https://wyb0.com/posts/2024/frida-hook-app/</link>
-      <pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2024/frida-hook-app/</guid>
-      <description>0x00 frida 1、手机端安装一个 server 程序 2、然后把手机端的端口转到 PC 端 3、PC 端写 js 脚本进行通信 frida -U -f com.package.name -l exploit.js function hook() { console.log(&amp;#34;[*] Starting script&amp;#34;) Java.perform(function () { var &amp;lt;class_reference&amp;gt; =</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hook on Reber's Blog</title><link>https://wyb0.com/tags/hook/</link><description>Recent content in Hook on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 15 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/hook/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Hook 框架 frida 进行调试</title><link>https://wyb0.com/posts/2024/frida-hook-app/</link><pubDate>Wed, 15 May 2024 00:00:00 +0000</pubDate><guid>https://wyb0.com/posts/2024/frida-hook-app/</guid><description>&lt;h3 id="0x00-frida">0x00 frida&lt;/h3>
+&lt;p>1、手机端安装一个 server 程序&lt;br>
+2、然后把手机端的端口转到 PC 端&lt;br>
+3、PC 端写 js 脚本进行通信&lt;/p>
+&lt;p>frida -U -f com.package.name -l exploit.js&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">hook&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;[*] Starting script&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Java&lt;/span>.&lt;span style="color:#a6e22e">perform&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span> () {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">class_reference&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">Java&lt;/span>.&lt;span style="color:#a6e22e">use&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;&amp;lt;package_name&amp;gt;.&amp;lt;class&amp;gt;&amp;#34;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">class_reference&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>.&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">method&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>.&lt;span style="color:#a6e22e">implementation&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">args&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;hook &amp;lt;class_reference&amp;gt;.&amp;lt;method&amp;gt;()&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;args is:&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">args&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">ret&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">method_to_hook&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>(&lt;span style="color:#a6e22e">args&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">ret&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> })
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="0x01-java-层---直接调用函数">0x01 JAVA 层 - 直接调用函数&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>调用静态函数&lt;/p></description></item></channel></rss>

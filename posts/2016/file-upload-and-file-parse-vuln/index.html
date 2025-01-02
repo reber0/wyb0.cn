@@ -1,97 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>文件上传漏洞与文件解析漏洞 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>文件上传漏洞与文件解析漏洞</h1>
-      
-<div class="post-meta">
-    <time>2016-07-20</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0">文件上传</a>)
-</div>
-
-      <div><h3 id="0x00-文件上传漏洞">0x00 文件上传漏洞</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>当文件上传时，若服务端脚本语言未对上传的文件进行严格验证和过滤，若恶意用户上传恶意的
-</span></span><span style="display:flex;"><span>脚本文件时，就有可能控制整个网站甚至是服务器，这就是文件上传漏洞。
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 上传后得到的权限</span>
-</span></span><span style="display:flex;"><span>1. 后台权限：登陆了后台，可以进行一些操作、配置
-</span></span><span style="display:flex;"><span>2. 网站权限：获得了webshell，可以进行查看源代码等操作
-</span></span><span style="display:flex;"><span>3. 服务器权限：可以对服务器进行任意操作
-</span></span></code></pre></div><h3 id="0x01-文件上传漏洞分类">0x01 文件上传漏洞分类</h3>
-<pre tabindex="0"><code>1. 配置不当可直接上传shell
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>文件上传漏洞与文件解析漏洞 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>文件上传漏洞与文件解析漏洞</h1><div class=post-meta><time>2016-07-20</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0>文件上传</a>)</div><div><h3 id=0x00-文件上传漏洞>0x00 文件上传漏洞</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>当文件上传时，若服务端脚本语言未对上传的文件进行严格验证和过滤，若恶意用户上传恶意的
+</span></span><span style=display:flex><span>脚本文件时，就有可能控制整个网站甚至是服务器，这就是文件上传漏洞。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 上传后得到的权限</span>
+</span></span><span style=display:flex><span>1. 后台权限：登陆了后台，可以进行一些操作、配置
+</span></span><span style=display:flex><span>2. 网站权限：获得了webshell，可以进行查看源代码等操作
+</span></span><span style=display:flex><span>3. 服务器权限：可以对服务器进行任意操作
+</span></span></code></pre></div><h3 id=0x01-文件上传漏洞分类>0x01 文件上传漏洞分类</h3><pre tabindex=0><code>1. 配置不当可直接上传shell
     HTTP的PUT方法开启了
 2. 文件解析漏洞导致文件执行
     Web容器解析漏洞
@@ -103,28 +29,21 @@
     00截断等
 6. 开源编辑器上传漏洞
     如CKEditor(FCKeditor的新版)、eWebEditor的漏洞
-</code></pre><h3 id="0x02-文件上传漏洞利用条件">0x02 文件上传漏洞利用条件</h3>
-<pre tabindex="0"><code>1. 首先,上传的文件能够被web容器解释执行。所以文件上传后的目录要是web容器所覆盖到的路径
+</code></pre><h3 id=0x02-文件上传漏洞利用条件>0x02 文件上传漏洞利用条件</h3><pre tabindex=0><code>1. 首先,上传的文件能够被web容器解释执行。所以文件上传后的目录要是web容器所覆盖到的路径
 2. 其次,用户能从web访问这个文件
 3. 最后,用户上传的文件若被安全检查、格式化、图片压缩等功能改变了内容,则可能导致攻击失败
-</code></pre><h3 id="0x03-文件上传漏洞挖掘">0x03 文件上传漏洞挖掘</h3>
-<pre tabindex="0"><code>1. 查找上传点，如图片、附件、头像的上传等
+</code></pre><h3 id=0x03-文件上传漏洞挖掘>0x03 文件上传漏洞挖掘</h3><pre tabindex=0><code>1. 查找上传点，如图片、附件、头像的上传等
 2. 找类似upload的目录、类似upload.php的文件
 3. 找编辑器目录，如eWebEdirot、fckeditor、kingeditor等
-</code></pre><h3 id="0x04-常见可执行文件后缀">0x04 常见可执行文件后缀</h3>
-<pre tabindex="0"><code>可用于绕过：
+</code></pre><h3 id=0x04-常见可执行文件后缀>0x04 常见可执行文件后缀</h3><pre tabindex=0><code>可用于绕过：
 php php2 php3 php5 phtml
 asp aspx ascx ashx cer asa
 jsp jspx jspf
-</code></pre><h3 id="0x05-解析漏洞">0x05 解析漏洞</h3>
-<pre tabindex="0"><code>文件上传漏洞通常与Web容器的解析漏洞配合利用
+</code></pre><h3 id=0x05-解析漏洞>0x05 解析漏洞</h3><pre tabindex=0><code>文件上传漏洞通常与Web容器的解析漏洞配合利用
 常见Web容器有IIS、Nginx、Apache、Tomcat等
-</code></pre><h3 id="0x06-iis解析漏洞">0x06 IIS解析漏洞</h3>
-<p>IIS6.0在解析文件时存在以下两个解析漏洞</p>
-<pre tabindex="0"><code>1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。
+</code></pre><h3 id=0x06-iis解析漏洞>0x06 IIS解析漏洞</h3><p>IIS6.0在解析文件时存在以下两个解析漏洞</p><pre tabindex=0><code>1、当建立*.asp、*.asa格式的文件夹时，其目录下任意文件都会被iis当作asp文件来解析。
 2、当文件名为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行。
-</code></pre><p>WebDav漏洞</p>
-<pre tabindex="0"><code>    WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若
+</code></pre><p>WebDav漏洞</p><pre tabindex=0><code>    WebDav是一种基于HTTP1.1协议的通信协议，它扩展了HTTP协议。在开启WebDav后若
 支持PUT、Move、Copy、Delete等方法，就会存在安全隐患。
 
 测试步骤如下：
@@ -150,8 +69,7 @@ jsp jspx jspf
     Host: www.xxxx.com
 
 注：可用桂林老兵的IIS Write快速探测服务器是否存在WebDav漏洞
-</code></pre><h3 id="0x07-apache解析漏洞">0x07 Apache解析漏洞</h3>
-<pre tabindex="0"><code>在Apache 1.x和Apache 2.x中存在解析漏洞。
+</code></pre><h3 id=0x07-apache解析漏洞>0x07 Apache解析漏洞</h3><pre tabindex=0><code>在Apache 1.x和Apache 2.x中存在解析漏洞。
 
 Apache在解析文件时有一个原则，当碰到不认识的扩展名时，将会从后向前解析，
 直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。
@@ -164,45 +82,20 @@ Apache版本在2.4.0到2.4.29存在CVE-2017-15715解析漏洞，可利用换行�
 &lt;/FilesMatch&gt;
 
 可以在Apache安装目录下的文件&#34;/conf/mime.types&#34;中配置Apache可以识别的文件名
-</code></pre><h3 id="0x08-nginx解析漏洞">0x08 Nginx解析漏洞</h3>
-<pre tabindex="0"><code>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击
+</code></pre><h3 id=0x08-nginx解析漏洞>0x08 Nginx解析漏洞</h3><pre tabindex=0><code>对低版本的Nginx可以在任意文件名后添加%00.php进行解析攻击
 如：上传图片xx.jpg，然后通过改名为xx.jpg%00.php就会解析为php
 注：低版本 0.5全版本，0.6全版本，0.7&lt;=0.7.65，0.8&lt;=0.8.37
-</code></pre><h3 id="0x09-php-cgi解析漏洞">0x09 PHP CGI解析漏洞</h3>
-<pre tabindex="0"><code>当php的配置文件中的选项cgi.fix_pathinfo = 1开启时，当访问http://www.xxx.com/x.txt/x.php
+</code></pre><h3 id=0x09-php-cgi解析漏洞>0x09 PHP CGI解析漏洞</h3><pre tabindex=0><code>当php的配置文件中的选项cgi.fix_pathinfo = 1开启时，当访问http://www.xxx.com/x.txt/x.php
 时，若x.php不存在，则PHP会递归向前解析，将x.txt当作php脚本来解析
 
 IIS7.0/7.5中：任意文件名/任意文件名.php就会被解析为php
 Nginx中：任意文件名/任意文件名.php就会被解析为php，如a.log/1.php会被解析为a.php
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

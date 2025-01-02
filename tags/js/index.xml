@@ -1,47 +1,220 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>js on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/js/</link>
-    <description>Recent content in js on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 19 Aug 2019 10:17:46 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/js/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>记一次网页 js 挂马</title>
-      <link>https://wyb0.com/posts/2019/recording-a-webpage-hanging-horse/</link>
-      <pubDate>Mon, 19 Aug 2019 10:17:46 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2019/recording-a-webpage-hanging-horse/</guid>
-      <description>0x00 常见网页挂马方式 iframe 框架挂马 简单来说就是加 iframe 标签 script 挂马 通过各种办法加载 js 代码 htm 文件挂马 上传 htm 文件，然后用 script 引入 js 挂马 上传</description>
-    </item>
-    <item>
-      <title>AJAX 之跨域</title>
-      <link>https://wyb0.com/posts/2017/ajax-cross-domain/</link>
-      <pubDate>Thu, 22 Jun 2017 15:18:29 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2017/ajax-cross-domain/</guid>
-      <description>0x00 简介 当使用AJAX请求其他域名下的数据时会出现拒绝访问的情况，这是出于安全考虑，AJAX只能访问本地的资源，而不能跨域</description>
-    </item>
-    <item>
-      <title>[转] JS 操作 cookie 方法的封装</title>
-      <link>https://wyb0.com/posts/2016/js-package-cookie-function/</link>
-      <pubDate>Tue, 27 Dec 2016 11:49:38 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/js-package-cookie-function/</guid>
-      <description>原文链接：http://www.wyzu.cn/2015/0123/107167.html 0x00 实现功能 添加cookie 获取</description>
-    </item>
-    <item>
-      <title>AJAX 与 PHP</title>
-      <link>https://wyb0.com/posts/2016/ajax-and-php/</link>
-      <pubDate>Wed, 16 Nov 2016 10:37:03 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ajax-and-php/</guid>
-      <description>0x00 AJAX与PHP ajax.html代码如下： &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt; &amp;lt;script&amp;gt; function showHint(str) { var xmlhttp; if (str.length==0) { document.getElementById(&amp;#34;txtHint&amp;#34;).innerHTML=&amp;#34;&amp;#34;; return; } if (window.XMLHttpRequest) { // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码 xmlhttp=new XMLHttpRequest(); /</description>
-    </item>
-    <item>
-      <title>AJAX 的 XHR 请求与响应</title>
-      <link>https://wyb0.com/posts/2016/ajax-request-and-response/</link>
-      <pubDate>Tue, 25 Oct 2016 00:53:13 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/ajax-request-and-response/</guid>
-      <description>0x00 什么是AJAX AJAX全称是Asynchronous JavaScript and XML，即异步的JavaScript和XML AJAX不是新的编</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Js on Reber's Blog</title><link>https://wyb0.com/tags/js/</link><description>Recent content in Js on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 19 Aug 2019 10:17:46 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/js/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次网页 js 挂马</title><link>https://wyb0.com/posts/2019/recording-a-webpage-hanging-horse/</link><pubDate>Mon, 19 Aug 2019 10:17:46 +0000</pubDate><guid>https://wyb0.com/posts/2019/recording-a-webpage-hanging-horse/</guid><description>&lt;h3 id="0x00-常见网页挂马方式">0x00 常见网页挂马方式&lt;/h3>
+&lt;ul>
+&lt;li>iframe 框架挂马&lt;br>
+简单来说就是加 iframe 标签&lt;/li>
+&lt;li>script 挂马&lt;br>
+通过各种办法加载 js 代码&lt;/li>
+&lt;li>htm 文件挂马
+上传 htm 文件，然后用 script 引入&lt;/li>
+&lt;li>js 挂马
+上传 js 文件，然后用 script 引入&lt;/li>
+&lt;li>图片伪装挂马
+比较新颖的一种挂马隐蔽方法&lt;/li>
+&lt;li>等等。。。&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-发现被插入恶意-js">0x01 发现被插入恶意 js&lt;/h3>
+&lt;p>前几天在做子域名搜集，搜集完后提取 title，结果看到了一个站点的 title 不正常&lt;/p></description></item><item><title>AJAX 之跨域</title><link>https://wyb0.com/posts/2017/ajax-cross-domain/</link><pubDate>Thu, 22 Jun 2017 15:18:29 +0000</pubDate><guid>https://wyb0.com/posts/2017/ajax-cross-domain/</guid><description>&lt;h3 id="0x00-简介">0x00 简介&lt;/h3>
+&lt;p>当使用AJAX请求其他域名下的数据时会出现拒绝访问的情况，这是出于安全考虑，AJAX只能访问本地的资源，而不能跨域访问。&lt;/p></description></item><item><title>[转] JS 操作 cookie 方法的封装</title><link>https://wyb0.com/posts/2016/js-package-cookie-function/</link><pubDate>Tue, 27 Dec 2016 11:49:38 +0000</pubDate><guid>https://wyb0.com/posts/2016/js-package-cookie-function/</guid><description>&lt;p>原文链接：http://www.wyzu.cn/2015/0123/107167.html&lt;/p>
+&lt;h3 id="0x00-实现功能">0x00 实现功能&lt;/h3>
+&lt;ul>
+&lt;li>添加cookie&lt;/li>
+&lt;li>获取所有cookie&lt;/li>
+&lt;li>根据名字获取单个cookie的值&lt;/li>
+&lt;li>移除所有cookie&lt;/li>
+&lt;li>根据名字移除单个cookie&lt;/li>
+&lt;/ul>
+&lt;h3 id="0x01-封装cookiejs源码">0x01 封装cookie.js源码&lt;/h3>
+&lt;pre tabindex="0">&lt;code>/*
+ * 名称和值传送时必须是经过RUL编码的
+ * cookie绑定在指定的域名下，非本域无法共享cookie，但是可以是在主站共享cookie给子站
+ * cookie的名称不分大小写；同时建议将cookie URL编码
+ * 建议针对cookie设置expires、domain、 path；每个cookie小于4KB
+ **/
+
+(function(global){
+ function getCookiesObj() {
+ //获得cookie对象
+ var cookies = {};
+ if (document.cookie) {
+ var objs = document.cookie.split(&amp;#39;; &amp;#39;);
+ for (var i in objs) {
+ var index = objs[i].indexOf(&amp;#39;=&amp;#39;),
+ name = objs[i].substr(0,index),
+ value = objs[i].substr(index+1,objs[i].length);
+ cookies[name] = value;
+ }
+ }
+ return cookies;
+ }
+
+ function set(sName,sValue,Opts) {
+ //设置cookie
+ // Opts expires,path,domain,secure
+ if (sName &amp;amp;&amp;amp; sValue) {
+ var cookie = encodeURIComponent(sName)+&amp;#39;=&amp;#39;+encodeURIComponent(sValue);
+ 
+ if (Opts) {
+ if (Opts.expires) {
+ var date = new Date();
+ date.setTime(date.getTime()+Opts.expires*24*3600*1000)
+ cookie += &amp;#39;; expires=&amp;#39; + date.toGMTString();
+ }
+ if (Opts.path) {
+ cookie += &amp;#39;; path=&amp;#39; + Opts.path;
+ }
+ if (Opts.domain) {
+ cookie += &amp;#39;; domain=&amp;#39; + Opts.domain;
+ }
+ if (Opts.secure) {
+ cookie += &amp;#39;; secure&amp;#39;;
+ }
+ }
+ document.cookie = cookie;
+ return cookie;
+ } else {
+ return &amp;#39;&amp;#39;;
+ }
+ }
+
+ function getCookie(name) {
+ //得到某个cookie
+ return decodeURIComponent(getCookiesObj()[name]) || null;
+ }
+
+ function getCookies() {
+ //得到所有cookie
+ return getCookiesObj();
+ }
+
+ function remove(name) {
+ //移除某个cookie
+ if (getCookiesObj()[name]) {
+ var date = new Date();
+ date.setDate(date.getDate()-1);
+ document.cookie = name + &amp;#39;=; expires=&amp;#39;+date.toGMTString();
+ }
+ }
+
+ function clear() {
+ // 移除所有cookie
+ var cookies = getCookiesObj();
+ var date = new Date();
+ date.setDate(date.getDate()-1);
+ for (var key in cookies) {
+ document.cookie = key + &amp;#39;=; expires=&amp;#39;+date.toGMTString();
+ }
+ }
+
+ function noConflict(name) {
+ //解决冲突
+ if (name &amp;amp;&amp;amp; typeof name === &amp;#39;string&amp;#39;) {
+ if (name &amp;amp;&amp;amp; window[&amp;#39;cookie&amp;#39;]) {
+ window[name] = window[&amp;#39;cookie&amp;#39;];
+ delete window[&amp;#39;cookie&amp;#39;];
+ return window[name];
+ }
+ } else {
+ return window[&amp;#39;cookie&amp;#39;];
+ delete window[&amp;#39;cookie&amp;#39;];
+ }
+ }
+
+ global[&amp;#39;cookie&amp;#39;] = {
+ &amp;#39;set&amp;#39;: set,
+ &amp;#39;getCookies&amp;#39;: getCookies,
+ &amp;#39;getCookie&amp;#39;: getCookie,
+ &amp;#39;remove&amp;#39;: remove,
+ &amp;#39;clear&amp;#39;: clear,
+ &amp;#39;noConflict&amp;#39;: noConflict
+ };
+})(window);
+&lt;/code>&lt;/pre>&lt;h3 id="0x02-利用的ahtml源码">0x02 利用的a.html源码&lt;/h3>
+&lt;pre tabindex="0">&lt;code>&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+ &amp;lt;head&amp;gt;
+ &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;
+ &amp;lt;title&amp;gt;cookie example&amp;lt;/title&amp;gt;
+ &amp;lt;/head&amp;gt;
+ &amp;lt;body&amp;gt;
+ &amp;lt;script type=&amp;#34;text/javascript&amp;#34; src=&amp;#34;./cookie.js&amp;#34; &amp;gt;&amp;lt;/script&amp;gt;
+ &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;
+ console.log(&amp;#39;----------cookie对象-------------&amp;#39;);
+ console.log(cookie);
+ console.log(&amp;#39;----------对象-------------&amp;#39;);
+ console.log(cookie.getCookies());
+ console.log(&amp;#39;----------设置cookie-------------&amp;#39;);
+ console.log(cookie.set(&amp;#39;name&amp;#39;, &amp;#39;wlh&amp;#39;));
+ console.log(&amp;#39;----------设置cookie 123-------------&amp;#39;);
+ console.log(cookie.set(&amp;#39;name&amp;#39;, &amp;#39;wlh123&amp;#39;));
+ console.log(&amp;#39;----------设置cookie age-------------&amp;#39;);
+ console.log(cookie.set(&amp;#39;age&amp;#39;, 20));
+ // alert(document.cookie);
+ console.log(&amp;#39;----------获取cookie-------------&amp;#39;);
+ console.log(cookie.getCookie(&amp;#39;name&amp;#39;));
+ console.log(&amp;#39;----------获取所有-------------&amp;#39;);
+ console.log(cookie.getCookies());
+ console.log(&amp;#39;----------清除age-------------&amp;#39;);
+ console.log(cookie.remove(&amp;#39;age&amp;#39;));
+ console.log(&amp;#39;----------获取所有-------------&amp;#39;);
+ console.log(cookie.getCookies());
+ console.log(&amp;#39;----------清除所有-------------&amp;#39;);
+ console.log(cookie.clear());
+ console.log(&amp;#39;----------获取所有-------------&amp;#39;);
+ console.log(cookie.getCookies());
+ console.log(&amp;#39;----------解决冲突-------------&amp;#39;);
+ var $Cookie = cookie.noConflict(true /*a new name of cookie*/);
+ console.log($Cookie);
+ console.log(&amp;#39;----------使用新的命名-------------&amp;#39;);
+ console.log($Cookie.getCookies());
+ &amp;lt;/script&amp;gt;
+ &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="0x03-结果">0x03 结果&lt;/h3>
+&lt;p>&lt;img src="https://wyb0.com/img/post/js_cookie.png" alt="调用封装文件操作cookie">&lt;/p></description></item><item><title>AJAX 与 PHP</title><link>https://wyb0.com/posts/2016/ajax-and-php/</link><pubDate>Wed, 16 Nov 2016 10:37:03 +0000</pubDate><guid>https://wyb0.com/posts/2016/ajax-and-php/</guid><description>&lt;h3 id="0x00-ajax与php">0x00 AJAX与PHP&lt;/h3>
+&lt;p>ajax.html代码如下：&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+ &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;
+ &amp;lt;script&amp;gt;
+ function showHint(str) {
+ var xmlhttp;
+ if (str.length==0) { 
+ document.getElementById(&amp;#34;txtHint&amp;#34;).innerHTML=&amp;#34;&amp;#34;;
+ return;
+ }
+ if (window.XMLHttpRequest) {
+ // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+ xmlhttp=new XMLHttpRequest(); //创建对象
+ } else {
+ // IE6, IE5 浏览器执行代码
+ xmlhttp=new ActiveXObject(&amp;#34;Microsoft.XMLHTTP&amp;#34;);
+ }
+ xmlhttp.onreadystatechange=function() {
+ if (xmlhttp.readyState==4 &amp;amp;&amp;amp; xmlhttp.status==200) {
+ document.getElementById(&amp;#34;txtHint&amp;#34;).innerHTML=xmlhttp.responseText;
+ }
+ }
+ xmlhttp.open(&amp;#34;GET&amp;#34;,&amp;#34;./ajax.php?q=&amp;#34;+str,true);
+ xmlhttp.send();
+ }
+ &amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+ &amp;lt;h3&amp;gt;在输入框中尝试输入字母 a:&amp;lt;/h3&amp;gt;
+ &amp;lt;form action=&amp;#34;&amp;#34;&amp;gt; 
+ 输入姓名: &amp;lt;input type=&amp;#34;text&amp;#34; id=&amp;#34;txt1&amp;#34; onkeyup=&amp;#34;showHint(this.value)&amp;#34; /&amp;gt;
+ &amp;lt;/form&amp;gt;
+ &amp;lt;p&amp;gt;提示信息: &amp;lt;span id=&amp;#34;txtHint&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt; 
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>上面的代码会完成以下的东西：
+
+1. 在输入字母时会调用showHint()
+2. showHint()创建对象
+3. 定义onreadystatechange事件
+4. xmlhttp.open()访问当前目录下的ajax.php来请求资源
+&lt;/code>&lt;/pre>&lt;p>ajax.php代码如下：&lt;/p></description></item><item><title>AJAX 的 XHR 请求与响应</title><link>https://wyb0.com/posts/2016/ajax-request-and-response/</link><pubDate>Tue, 25 Oct 2016 00:53:13 +0000</pubDate><guid>https://wyb0.com/posts/2016/ajax-request-and-response/</guid><description>&lt;h3 id="0x00-什么是ajax">0x00 什么是AJAX&lt;/h3>
+&lt;p>AJAX全称是Asynchronous JavaScript and XML，即异步的JavaScript和XML&lt;br>
+AJAX不是新的编程语言，而是一种使用现有标准的新方法。&lt;br>
+AJAX可在不重新加载整个页面的情况下与服务器交换数据从而更新部分网页&lt;/p></description></item></channel></rss>

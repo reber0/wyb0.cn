@@ -1,19 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>cgi on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/cgi/</link>
-    <description>Recent content in cgi on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 02 Aug 2016 10:45:14 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/cgi/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CGI 与 FastCGI 与 PHP-FPM</title>
-      <link>https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/</link>
-      <pubDate>Tue, 02 Aug 2016 10:45:14 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/</guid>
-      <description>0x01 CGI协议 中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cgi on Reber's Blog</title><link>https://wyb0.com/tags/cgi/</link><description>Recent content in Cgi on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 02 Aug 2016 10:45:14 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/cgi/index.xml" rel="self" type="application/rss+xml"/><item><title>CGI 与 FastCGI 与 PHP-FPM</title><link>https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/</link><pubDate>Tue, 02 Aug 2016 10:45:14 +0000</pubDate><guid>https://wyb0.com/posts/2016/cgi-and-fastcgi-and-php-fpm/</guid><description>&lt;h3 id="0x01-cgi协议">0x01 CGI协议&lt;/h3>
+&lt;p>中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数据等)的协议&lt;/p></description></item></channel></rss>

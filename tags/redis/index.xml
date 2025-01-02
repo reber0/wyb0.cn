@@ -1,26 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>redis on Reber&#39;s Blog</title>
-    <link>https://wyb0.com/tags/redis/</link>
-    <description>Recent content in redis on Reber&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 04 Aug 2016 15:52:26 +0000</lastBuildDate>
-    <atom:link href="https://wyb0.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Redis 未授权访问漏洞</title>
-      <link>https://wyb0.com/posts/2016/redis-unauthorized-access/</link>
-      <pubDate>Thu, 04 Aug 2016 15:52:26 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/redis-unauthorized-access/</guid>
-      <description>0x00 Redis的未授权访问 若Redis服务器对公网开放，且未启用认证，则攻击者可以未授权访问服务器。 若Redis以root</description>
-    </item>
-    <item>
-      <title>一次存储型 XSS 利用实例</title>
-      <link>https://wyb0.com/posts/2016/redis-bisis-use/</link>
-      <pubDate>Wed, 03 Aug 2016 11:02:20 +0000</pubDate>
-      <guid>https://wyb0.com/posts/2016/redis-bisis-use/</guid>
-      <description>0x00 关于Redis Redis和MySQL这种关系型数据库不一样，它是非关系型数据库，是日志型、Key-Value数据库， 实</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Redis on Reber's Blog</title><link>https://wyb0.com/tags/redis/</link><description>Recent content in Redis on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Aug 2016 15:52:26 +0000</lastBuildDate><atom:link href="https://wyb0.com/tags/redis/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis 未授权访问漏洞</title><link>https://wyb0.com/posts/2016/redis-unauthorized-access/</link><pubDate>Thu, 04 Aug 2016 15:52:26 +0000</pubDate><guid>https://wyb0.com/posts/2016/redis-unauthorized-access/</guid><description>&lt;h3 id="0x00-redis的未授权访问">0x00 Redis的未授权访问&lt;/h3>
+&lt;p>若Redis服务器对公网开放，且未启用认证，则攻击者可以未授权访问服务器。&lt;/p>
+&lt;p>若Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，通过SSH登录受害服务器。&lt;/p></description></item><item><title>一次存储型 XSS 利用实例</title><link>https://wyb0.com/posts/2016/redis-bisis-use/</link><pubDate>Wed, 03 Aug 2016 11:02:20 +0000</pubDate><guid>https://wyb0.com/posts/2016/redis-bisis-use/</guid><description>&lt;h3 id="0x00-关于redis">0x00 关于Redis&lt;/h3>
+&lt;pre tabindex="0">&lt;code>Redis和MySQL这种关系型数据库不一样，它是非关系型数据库，是日志型、Key-Value数据库，
+实现了master-slave(主从)同步,数据都是缓存在内存中的,所以可高速读写,但存储成本较高,
+不适合做海量数据存储。
+&lt;/code>&lt;/pre>&lt;h3 id="0x01-安装">0x01 安装&lt;/h3>
+&lt;ul>
+&lt;li>Linux下安装Redis
+可在http://download.redis.io/releases/ 下载&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>$ cd /opt
+$ wget http://download.redis.io/releases/redis-3.2.3.tar.gz
+$ tar -zxvf redis-3.2.3.tar.gz
+$ cd redis-3.2.3
+$ make
+$ make install
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Windows下安装Redis
+下载：&lt;a href="https://github.com/MSOpenTech/redis/releases" target="_blank">点此下载&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>安装后添加环境变量&lt;/p></description></item></channel></rss>

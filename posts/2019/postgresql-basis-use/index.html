@@ -1,99 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="PostgreSQL 简单使用"/>
-  <meta name="author" content="Reber"/>
-  
-    
-      <title>PostgreSQL 简单使用 | Reber&#39;s Blog</title>
-    
-  
-  <link rel="stylesheet" href="/css/reset.css"/>
-  
-  <link rel="stylesheet" href="/css/smigle.css"/>
-  
-    <link rel="stylesheet" href="/css/monokai-sublime.min.css"/>
-  
-    <link rel="stylesheet" href="/css/style.css"/>
-  
-  
-    <script src="/js/jquery-3.6.0.min.js"/></script>
-  
-    <script src="/js/highlight.min.js"/></script>
-  
-    <script src="/js/style.js"/></script>
-  
-  <link rel="icon" type="image/img" sizes="16x16" href="/img/logo.png">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-</head>
-
-  <body>
-    <header>
-  <div id="brand">
-    <a class="icon-link" href="https://wyb0.com/">
-      <img
-        class="icon"
-        src="/img/logo.png"
-      />
-    </a>
-    <div class="text">
-      <a href="https://wyb0.com/"><h1>Reber&#39;s Blog</h1></a>
-      <h3>只会一点点编程、只会一点点渗透</h3>
-    </div>
-  </div>
-  <nav>
-    
-      
-        
-        <a href="/"><b>Home</b></a>
-      
-         | 
-        <a href="/posts/"><b>Posts</b></a>
-      
-         | 
-        <a href="/categories/"><b>Categories</b></a>
-      
-         | 
-        <a href="/tags/"><b>Tags</b></a>
-      
-         | 
-        <a href="/about/"><b>About</b></a>
-      
-         | 
-        <a href="/friends/"><b>Friends</b></a>
-      
-    
-  </nav>
-  <hr />
-</header>
-
-    <div id="content">
-      
-  <main>
-    <article>
-      <h1>PostgreSQL 简单使用</h1>
-      
-<div class="post-meta">
-    <time>2019-08-23</time>
-    
-    [<a href="/categories/Database">Database</a>](<a href="/tags/postgre">postgre</a>)
-</div>
-
-      <div><h3 id="0x00-安装">0x00 安装</h3>
-<pre tabindex="0"><code>➜  brew install postgresql
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="PostgreSQL 简单使用"><meta name=author content="Reber"><title>PostgreSQL 简单使用 | Reber's Blog</title>
+<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.com/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.com/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+|
+<a href=/posts/><b>Posts</b></a>
+|
+<a href=/categories/><b>Categories</b></a>
+|
+<a href=/tags/><b>Tags</b></a>
+|
+<a href=/about/><b>About</b></a>
+|
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>PostgreSQL 简单使用</h1><div class=post-meta><time>2019-08-23</time>
+[<a href=/categories/Database>Database</a>](<a href=/tags/postgre>postgre</a>)</div><div><h3 id=0x00-安装>0x00 安装</h3><pre tabindex=0><code>➜  brew install postgresql
 ➜  echo &#39;export PATH=&#34;/usr/local/Cellar/postgresql/11.4/bin:$PATH&#34;&#39; &gt;&gt; ~/.zshrc
 ➜  source ~/.zshrc
 -- 初始化数据库
 ➜  initdb /usr/local/var/postgres
 ➜  pg_ctl -D /usr/local/var/postgres -l /usr/local/var/log/postgres.log start
-</code></pre><h3 id="0x01-简单操作">0x01 简单操作</h3>
-<ul>
-<li>常用操作命令</li>
-</ul>
-<pre tabindex="0"><code>reber=# \password #设置当前登录用户的密码
+</code></pre><h3 id=0x01-简单操作>0x01 简单操作</h3><ul><li>常用操作命令</li></ul><pre tabindex=0><code>reber=# \password #设置当前登录用户的密码
 reber=# \password [user_name] #设置其他用户的密码
 reber=# \l #列出所有数据库
 reber=# \du #列出所有用户
@@ -101,46 +24,35 @@ reber=# \c [database_name] #连接数据库
 reber=# \d #列出当前数据库的所有表
 reber=# \d [table_name] #列出表结构
 reber=# \conninfo #列出当前数据库和连接的信息
-</code></pre><ul>
-<li>连接数据库</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>➜  psql postgres <span style="color:#75715e">#初始化数据库后会生成默认的数据库 postgres</span>
-</span></span><span style="display:flex;"><span>psql <span style="color:#f92672">(</span>11.4<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#34;help&#34;</span> <span style="color:#66d9ef">for</span> help.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>postgres<span style="color:#f92672">=</span><span style="color:#75715e"># \l #查看当前数据库情况</span>
-</span></span><span style="display:flex;"><span>                              List of databases
-</span></span><span style="display:flex;"><span>   Name    | Owner | Encoding |   Collate   |    Ctype    | Access privileges
-</span></span><span style="display:flex;"><span>-----------+-------+----------+-------------+-------------+-------------------
-</span></span><span style="display:flex;"><span> postgres  | reber | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 |
-</span></span><span style="display:flex;"><span> template0 | reber | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 | <span style="color:#f92672">=</span>c/reber         +
-</span></span><span style="display:flex;"><span>           |       |          |             |             | reber<span style="color:#f92672">=</span>CTc/reber
-</span></span><span style="display:flex;"><span> template1 | reber | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 | <span style="color:#f92672">=</span>c/reber         +
-</span></span><span style="display:flex;"><span>           |       |          |             |             | reber<span style="color:#f92672">=</span>CTc/reber
-</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> rows<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>postgres<span style="color:#f92672">=</span><span style="color:#75715e"># \du #查看当前用户</span>
-</span></span><span style="display:flex;"><span>                                   List of roles
-</span></span><span style="display:flex;"><span> Role name |                         Attributes                         | Member of
-</span></span><span style="display:flex;"><span>-----------+------------------------------------------------------------+-----------
-</span></span><span style="display:flex;"><span> reber     | Superuser, Create role, Create DB, Replication, Bypass RLS | <span style="color:#f92672">{}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>postgres<span style="color:#f92672">=</span><span style="color:#75715e"># \c</span>
-</span></span><span style="display:flex;"><span>You are now connected to database <span style="color:#e6db74">&#34;postgres&#34;</span> as user <span style="color:#e6db74">&#34;reber&#34;</span>.
-</span></span><span style="display:flex;"><span>postgres<span style="color:#f92672">=</span><span style="color:#75715e"># \password</span>
-</span></span><span style="display:flex;"><span>Enter new password:
-</span></span><span style="display:flex;"><span>Enter it again:
-</span></span><span style="display:flex;"><span>postgres-# <span style="color:#ae81ff">\q</span>
-</span></span></code></pre></div><ul>
-<li>修改配置文件改端口</li>
-</ul>
-<p>vim /usr/local/var/postgres/postgresql.conf</p>
-<pre tabindex="0"><code>port = 55432
-</code></pre><ul>
-<li>修改配置文件使密码生效(METHOD 改为 md5)</li>
-</ul>
-<p>vim /usr/local/var/postgres/pg_hba.conf</p>
-<pre tabindex="0"><code># TYPE  DATABASE        USER            ADDRESS                 METHOD
+</code></pre><ul><li>连接数据库</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>➜  psql postgres <span style=color:#75715e>#初始化数据库后会生成默认的数据库 postgres</span>
+</span></span><span style=display:flex><span>psql <span style=color:#f92672>(</span>11.4<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Type <span style=color:#e6db74>&#34;help&#34;</span> <span style=color:#66d9ef>for</span> help.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>postgres<span style=color:#f92672>=</span><span style=color:#75715e># \l #查看当前数据库情况</span>
+</span></span><span style=display:flex><span>                              List of databases
+</span></span><span style=display:flex><span>   Name    | Owner | Encoding |   Collate   |    Ctype    | Access privileges
+</span></span><span style=display:flex><span>-----------+-------+----------+-------------+-------------+-------------------
+</span></span><span style=display:flex><span> postgres  | reber | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 |
+</span></span><span style=display:flex><span> template0 | reber | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 | <span style=color:#f92672>=</span>c/reber         +
+</span></span><span style=display:flex><span>           |       |          |             |             | reber<span style=color:#f92672>=</span>CTc/reber
+</span></span><span style=display:flex><span> template1 | reber | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 | <span style=color:#f92672>=</span>c/reber         +
+</span></span><span style=display:flex><span>           |       |          |             |             | reber<span style=color:#f92672>=</span>CTc/reber
+</span></span><span style=display:flex><span><span style=color:#f92672>(</span><span style=color:#ae81ff>4</span> rows<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>postgres<span style=color:#f92672>=</span><span style=color:#75715e># \du #查看当前用户</span>
+</span></span><span style=display:flex><span>                                   List of roles
+</span></span><span style=display:flex><span> Role name |                         Attributes                         | Member of
+</span></span><span style=display:flex><span>-----------+------------------------------------------------------------+-----------
+</span></span><span style=display:flex><span> reber     | Superuser, Create role, Create DB, Replication, Bypass RLS | <span style=color:#f92672>{}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>postgres<span style=color:#f92672>=</span><span style=color:#75715e># \c</span>
+</span></span><span style=display:flex><span>You are now connected to database <span style=color:#e6db74>&#34;postgres&#34;</span> as user <span style=color:#e6db74>&#34;reber&#34;</span>.
+</span></span><span style=display:flex><span>postgres<span style=color:#f92672>=</span><span style=color:#75715e># \password</span>
+</span></span><span style=display:flex><span>Enter new password:
+</span></span><span style=display:flex><span>Enter it again:
+</span></span><span style=display:flex><span>postgres-# <span style=color:#ae81ff>\q</span>
+</span></span></code></pre></div><ul><li>修改配置文件改端口</li></ul><p>vim /usr/local/var/postgres/postgresql.conf</p><pre tabindex=0><code>port = 55432
+</code></pre><ul><li>修改配置文件使密码生效(METHOD 改为 md5)</li></ul><p>vim /usr/local/var/postgres/pg_hba.conf</p><pre tabindex=0><code># TYPE  DATABASE        USER            ADDRESS                 METHOD
 
 # &#34;local&#34; is for Unix domain socket connections only
 local   all             all                                     md5
@@ -153,18 +65,13 @@ host    all             all             ::1/128                 md5
 local   replication     all                                     md5
 host    replication     all             127.0.0.1/32            md5
 host    replication     all             ::1/128                 md5
-</code></pre><p>然后重启 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/log/postgres.log restart</p>
-<p>再次登录就会要求输入密码</p>
-<pre tabindex="0"><code>➜  psql -d postgres -p 55432
+</code></pre><p>然后重启 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/log/postgres.log restart</p><p>再次登录就会要求输入密码</p><pre tabindex=0><code>➜  psql -d postgres -p 55432
 Password for user reber:
 psql (12.3)
 Type &#34;help&#34; for help.
 
 postgres=#
-</code></pre><ul>
-<li>创建新用户</li>
-</ul>
-<pre tabindex="0"><code>postgres=# create user reber0ask with password &#39;3eRa1kBg95D7&#39;;
+</code></pre><ul><li>创建新用户</li></ul><pre tabindex=0><code>postgres=# create user reber0ask with password &#39;3eRa1kBg95D7&#39;;
 CREATE ROLE
 postgres=# \du
                                    List of roles
@@ -174,10 +81,7 @@ postgres=# \du
  reber0ask |                                                            | {}
 
 postgres=#
-</code></pre><ul>
-<li>为新用户创建新数据库</li>
-</ul>
-<pre tabindex="0"><code>postgres=# create database rscan owner reber0ask;
+</code></pre><ul><li>为新用户创建新数据库</li></ul><pre tabindex=0><code>postgres=# create database rscan owner reber0ask;
 CREATE DATABASE
 postgres=# \l
                                 List of databases
@@ -192,10 +96,7 @@ postgres=# \l
 (4 rows)
 
 postgres=#
-</code></pre><ul>
-<li>将新数据库的所有权限都给用户</li>
-</ul>
-<pre tabindex="0"><code>postgres=# grant all privileges on database rscan to reber0ask;
+</code></pre><ul><li>将新数据库的所有权限都给用户</li></ul><pre tabindex=0><code>postgres=# grant all privileges on database rscan to reber0ask;
 GRANT
 postgres=# \l
  postgres  | reber     | UTF8     | zh_CN.UTF-8 | zh_CN.UTF-8 |
@@ -207,10 +108,7 @@ postgres=# \l
            |           |          |             |             | reber=CTc/reber
 
 postgres=#
-</code></pre><ul>
-<li>给用户创建数据库的属性</li>
-</ul>
-<pre tabindex="0"><code>postgres=# alter role reber0ask createdb;
+</code></pre><ul><li>给用户创建数据库的属性</li></ul><pre tabindex=0><code>postgres=# alter role reber0ask createdb;
 ALTER ROLE
 postgres=# \du
                                    List of roles
@@ -220,8 +118,7 @@ postgres=# \du
  reber0ask | Create DB                                                  | {}
 
 postgres=#
-</code></pre><h3 id="0x02-以指定用户登陆并创建表">0x02 以指定用户登陆并创建表</h3>
-<pre tabindex="0"><code>➜  psql -d rscan -U reber0ask -h 127.0.0.1 -p 55432
+</code></pre><h3 id=0x02-以指定用户登陆并创建表>0x02 以指定用户登陆并创建表</h3><pre tabindex=0><code>➜  psql -d rscan -U reber0ask -h 127.0.0.1 -p 55432
 Password for user reber0ask:
 psql (11.4)
 Type &#34;help&#34; for help.
@@ -269,18 +166,11 @@ rscan=&gt; select * from msg;
 ----+-------+--------------
   1 | hi    | hello world!
 (1 row)
-</code></pre><h3 id="0x03-导入与导出">0x03 导入与导出</h3>
-<ul>
-<li>导出</li>
-</ul>
-<pre tabindex="0"><code>➜  pg_dump -d rscan -U reber0ask -h 127.0.0.1 -p 55432  &gt; rscan.sql
+</code></pre><h3 id=0x03-导入与导出>0x03 导入与导出</h3><ul><li>导出</li></ul><pre tabindex=0><code>➜  pg_dump -d rscan -U reber0ask -h 127.0.0.1 -p 55432  &gt; rscan.sql
 Password:
 ➜  ls -al rscan.sql
 -rw-r--r--@ 1 reber  staff  15045  5 16 20:54 rscan.sql
-</code></pre><ul>
-<li>导入</li>
-</ul>
-<pre tabindex="0"><code>➜  psql -d rscan -U reber0ask -h 127.0.0.1 -p 55432
+</code></pre><ul><li>导入</li></ul><pre tabindex=0><code>➜  psql -d rscan -U reber0ask -h 127.0.0.1 -p 55432
 Password for user reber0ask:
 psql (12.3)
 Type &#34;help&#34; for help.
@@ -308,14 +198,12 @@ CREATE DATABASE
 
 postgres=&gt; \q
 ➜  psql -d rscan -U reber0ask -h 127.0.0.1 -p 55432 -f rscan.sql
-</code></pre><h3 id="0x04-允许远程连接数据库">0x04 允许远程连接数据库</h3>
-<pre tabindex="0"><code>➜  vim  /usr/local/var/postgres/postgresql.conf
+</code></pre><h3 id=0x04-允许远程连接数据库>0x04 允许远程连接数据库</h3><pre tabindex=0><code>➜  vim  /usr/local/var/postgres/postgresql.conf
 listen_addresses = &#39;*&#39;
 ➜  vim  /usr/local/var/postgres/pg_hba.conf
 # TYPE  DATABASE  USER  CIDR-ADDRESS  METHOD
 host  all  all 0.0.0.0/0 md5
-</code></pre><h3 id="0x05-python-简单连接">0x05 python 简单连接</h3>
-<pre tabindex="0"><code>#!/usr/bin/env python
+</code></pre><h3 id=0x05-python-简单连接>0x05 python 简单连接</h3><pre tabindex=0><code>#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 &#39;&#39;&#39;
 @Author: reber
@@ -389,35 +277,12 @@ if __name__ == &#39;__main__&#39;:
     sqlconn = PgSQLX(pgsql_uri)
     result = sqlconn.query(&#34;select * from msg where id=%s&#34;,(id,))
     print(result)
-</code></pre></div>
-    </article>
-  </main>
-
-    </div>
-    <footer>
-  <hr />
-  
-    <p id="social">
-      Find me around the web:
-      
-        
-        <a href="https://github.com/reber0?_blank">GitHub</a>
-      
-         • 
-        <a href="https://weibo.com/u/5819760166?_blank">Weibo</a>
-      
-    </p>
-  
-  <p class="copyright">
-    Copyright © 2015-2024
-    <a href="https://wyb0.com/"><strong>Reber</strong></a>.
-
-    Built with
-    <a href="http://www.gohugo.io/">Hugo</a>,
-    based on the theme
-    <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
-  </p>
-</footer>
-
-  </body>
-</html>
+</code></pre></div></article></main></div><footer><hr><p id=social>Find me around the web:
+<a href=https://github.com/reber0?_blank>GitHub</a>
+•
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://wyb0.com/><strong>Reber</strong></a>.
+Built with
+<a href=http://www.gohugo.io/>Hugo</a>,
+based on the theme
+<a href=https://gitlab.com/ian-s-mcb/smigle-hugo-theme>smigle</a>.</p></footer></body></html>
