@@ -4,7 +4,7 @@ languageCode: en-us
 theme: smigle
 title: Reber's Blog
 
-paginate: 10 # 分页
+pagination.pagerSize: 10 # 分页
 summaryLength: 60 # 摘要长度
 preserveTaxonomyNames: true # 保持分类的原始名字（false 会做转小写处理）
 disablePathToLower: true # 是否禁止 URL Path 转小写
@@ -44,7 +44,7 @@ menu:
 
 params:
   author: "Reber"
-  subtitle: "只会一点点编程、只会一点点渗透"
+  subtitle: "会一点点编程、会一点点渗透"
   # dateFmt: "2006-01-02 15:04:05"
   dateFmt: "2006-01-02"
   abbrDateFmt: "01-02"
