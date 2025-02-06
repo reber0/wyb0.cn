@@ -5465,8 +5465,7 @@ class mysql {
  &lt;td style="text-align: left">把格式化字符串写入到一个变量中&lt;/td>
  &lt;/tr>
  &lt;/tbody>
-&lt;/table>
-&lt;/blockquote>
+&lt;/table>&lt;/blockquote>
 &lt;h3 id="0x02-函数echo">0x02 函数echo()&lt;/h3>
 &lt;p>输出一个或多个字符串&lt;br>
 void echo(string arg1 [,string &amp;hellip;])&lt;/p></description></item><item><title>PHP 之面向对象</title><link>https://wyb0.cn/posts/2016/php-object-oriented/</link><pubDate>Fri, 20 May 2016 16:07:55 +0000</pubDate><guid>https://wyb0.cn/posts/2016/php-object-oriented/</guid><description>&lt;h3 id="0x00-面向对象">0x00 面向对象&lt;/h3>
