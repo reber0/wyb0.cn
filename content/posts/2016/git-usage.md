@@ -268,9 +268,10 @@ a.txt b.txt
 ➜ ssh-keygen -t rsa -b 2048 -f id_rsa_gitlab -C "456789@qq.com"
 ➜ cat ~/.ssh/config
 Host github.com
-HostName github.com
-User reber0
-Port 22
+HostName ssh.github.com
+User reber0ask@qq.com
+Port 443
+PreferredAuthentications publickey
 IdentityFile ~/.ssh/id_rsa_github
 
 Host git.mysite.com
