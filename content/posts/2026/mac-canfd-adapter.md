@@ -11,7 +11,7 @@ tags:
   - uds
   - canfd
   - hardware
-  - macos
+  - mac
 ---
 
 
