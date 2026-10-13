@@ -9,25 +9,9 @@
 <a href=/about/><b>About</b></a>
 |
 <a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1>安卓调用 so 文件</h1><div class=post-meta><time>2024-05-17</time>
-[<a href=/categories/Code>Code</a>](<a href=/tags/android>android</a>)</div><div><h3 id=0x00-安卓的-jni>0x00 安卓的 JNI</h3><p>安卓开发中，JNI 就是 Java Native Interface 的缩写，它允许 Java 代码调用原生的 C/C++ 代码，或者允许 C/C++ 代码调用 Java 代码。</p><p>在 Android Stdio 中，有以下 3 种方法使用 so 文件：</p><ul><li><p>本地库模块和 App 模块在同一个工程内
-1、在本地模块使用 C/C++ 实现功能
-2、在 native.cpp 中为本地函数添加 JNI 标注
-3、App 模块使用 System.loadLibrary 加载本地库
-4、通过 JNIEnv 调用本地函数</p></li><li><p>本地库作为独立的类库模块开发，为其他项目提供服务
-1、本地库模块使用 C/C++ 实现功能
-2、在 native.cpp 中为本地函数添加 JNI 标注
-3、将本地库导出为共享库文件(.so)
-4、其他项目的 App 模块使用 System.loadLibrary 加载该共享库
-5、通过 JNI 调用本地函数</p></li><li><p>自己编译 C/C++，然后放到项目中
-1、直接通过 C/C++ 实现功能
-2、通过编译工具将代码编译为共享库文件(.so)
-3、项目的 App 模块使用 System.loadLibrary 加载该共享库
-4、在 native.cpp 中为 so 中的函数添加 JNI 标注
-5、通过 JNI 调用本地函数</p></li></ul><h3 id=0x01-项目中生成-so>0x01 项目中生成 so</h3><ul><li><p>添加 C++ Module
-通过 Android Stdio 文件-Add C++ to Module，会自动创建 demo/app/src/main/cpp 文件夹，同时下面有 <code>CMakeLists.txt</code>、<code>&lt;project name>.cpp</code>
+[<a href=/categories/Code>Code</a>](<a href=/tags/android>android</a>)</div><div><h3 id=0x00-安卓的-jni>0x00 安卓的 JNI</h3><p>安卓开发中，JNI 就是 Java Native Interface 的缩写，它允许 Java 代码调用原生的 C/C++ 代码，或者允许 C/C++ 代码调用 Java 代码。</p><p>在 Android Stdio 中，有以下 3 种方法使用 so 文件：</p><ul><li><p>本地库模块和 App 模块在同一个工程内<br>1、在本地模块使用 C/C++ 实现功能<br>2、在 native.cpp 中为本地函数添加 JNI 标注<br>3、App 模块使用 System.loadLibrary 加载本地库<br>4、通过 JNIEnv 调用本地函数</p></li><li><p>本地库作为独立的类库模块开发，为其他项目提供服务<br>1、本地库模块使用 C/C++ 实现功能<br>2、在 native.cpp 中为本地函数添加 JNI 标注<br>3、将本地库导出为共享库文件(.so)<br>4、其他项目的 App 模块使用 System.loadLibrary 加载该共享库<br>5、通过 JNI 调用本地函数</p></li><li><p>自己编译 C/C++，然后放到项目中<br>1、直接通过 C/C++ 实现功能<br>2、通过编译工具将代码编译为共享库文件(.so)<br>3、项目的 App 模块使用 System.loadLibrary 加载该共享库<br>4、在 native.cpp 中为 so 中的函数添加 JNI 标注<br>5、通过 JNI 调用本地函数</p></li></ul><h3 id=0x01-项目中生成-so>0x01 项目中生成 so</h3><ul><li><p>添加 C++ Module</p><p>通过 Android Stdio 文件-Add C++ to Module，会自动创建 demo/app/src/main/cpp 文件夹，同时下面有 <code>CMakeLists.txt</code>、<code>&lt;project name>.cpp</code>
 <img src=/img/post/1719794839203.jpg alt=80></p><p>同时在 demo/app/build.gradle.kts 会自动添加相关内容
-<img src=/img/post/Xnip2024-07-01_08-49-38.png alt=80></p></li><li><p>创建 JNI
-在 com.example.demo 下新建一个 java 类 MyJNI
+<img src=/img/post/Xnip2024-07-01_08-49-38.png alt=80></p></li><li><p>创建 JNI</p><p>在 com.example.demo 下新建一个 java 类 MyJNI
 <img src=/img/post/Xnip2024-07-01_08-50-30.png alt=80></p><p>在 MyJNI.java 下添加一个函数，代码如下</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.demo;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyJNI</span> {
@@ -47,13 +31,11 @@
 </span></span></span><span style=display:flex><span>    std<span style=color:#f92672>::</span>string hello <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Hello from project Demo&#34;</span>;
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> env<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>NewStringUTF</span>(hello.<span style=color:#a6e22e>c_str</span>());
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>然后在其他地方通过 MyJNI.helloFromDemo() 进行调用即可</p></li><li><p>编译为 apk
-在编译 apk 时涉及到的 C/C++ 代码会自动生成为 libdemo.so 并打包进 apk 中
+</span></span></code></pre></div><p>然后在其他地方通过 MyJNI.helloFromDemo() 进行调用即可</p></li><li><p>编译为 apk</p><p>在编译 apk 时涉及到的 C/C++ 代码会自动生成为 libdemo.so 并打包进 apk 中
 <img src=/img/post/Xnip2024-07-01_08-51-35.png alt=80>
 通过 nm 查看</p><pre tabindex=0><code>➜ nm -D arm64-v8a/libdemo.so | grep &#34;Java&#34;
 000000000001db30 T Java_com_example_demo_MyJNI_helloFromDemo
-</code></pre></li></ul><h3 id=0x02-使用其他项目生成的-so>0x02 使用其他项目生成的 so</h3><ul><li><p>编译为 so 文件
-通过 Android Stdio 创建一个 Native C++ 项目，然后实现 C/C++ 代码，然后通过 构建-Make Project 即可在项目下生成 so 文件</p><pre tabindex=0><code>➜ cd demo/app/build/intermediates/cxx/Debug/645r244u/obj
+</code></pre></li></ul><h3 id=0x02-使用其他项目生成的-so>0x02 使用其他项目生成的 so</h3><ul><li><p>编译为 so 文件</p><p>通过 Android Stdio 创建一个 Native C++ 项目，然后实现 C/C++ 代码，然后通过 构建-Make Project 即可在项目下生成 so 文件</p><pre tabindex=0><code>➜ cd demo/app/build/intermediates/cxx/Debug/645r244u/obj
 ➜ tree .
 .
 ├── arm64-v8a
@@ -68,9 +50,7 @@
 5 directories, 4 files
 </code></pre><p>通过 nm 可以看到有 Java_com_example_demo_MyJNI_helloFromDemo，这个 so 可以在其他项目使用，其他项目引入 so 文件后，通过 MyJNI.helloFromDemo() 就也可以调用</p><pre tabindex=0><code>➜ nm -D arm64-v8a/libdemo.so | grep &#34;Java&#34;
 000000000001db30 T Java_com_example_demo_MyJNI_helloFromDemo
-</code></pre></li><li><p>在新项目中引用 so 文件
-新建项目 Test，创建文件夹复制 so，Test/app/src/main/jniLibs/arm64-v8a/libdemo.so。
-然后创建 Test/app/src/main/java/com/example/demo/MyJNI.java，这个路径和上面 so 文件里函数的名字 Java_com_example_demo_MyJNI_helloFromDemo 一致，MyJNI.java 内容如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.demo;
+</code></pre></li><li><p>在新项目中引用 so 文件</p><p>新建项目 Test，创建文件夹复制 so，Test/app/src/main/jniLibs/arm64-v8a/libdemo.so。<br>然后创建 Test/app/src/main/java/com/example/demo/MyJNI.java，这个路径和上面 so 文件里函数的名字 Java_com_example_demo_MyJNI_helloFromDemo 一致，MyJNI.java 内容如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-java data-lang=java><span style=display:flex><span><span style=color:#f92672>package</span> com.example.demo;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyJNI</span> {
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>static</span> {
