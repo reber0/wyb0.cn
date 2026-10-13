@@ -52,7 +52,7 @@ AA.YYY.CRD07.S.830.V2.02.UPDATE_MD5.txt
     
 直接解压 zip 出错，通过 binwalk -e AA.YYY.CRD07.S.830.V2.02.UPDATE.zip 成功解压
 ```
-➜ binwalk -e AA.A001.UPDATE.zip
+➜ binwalk -e AA.YYY.CRD07.S.830.V2.02.UPDATE.zip
     
 DECIMAL       HEXADECIMAL     DESCRIPTION
 --------------------------------------------------------------------------------
