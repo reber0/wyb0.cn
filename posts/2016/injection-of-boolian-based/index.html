@@ -1,5 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SQL 注入之布尔型注入(MySQL) | Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>SQL 注入之布尔型注入(MySQL) | Reber's Blog</title><link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -31,7 +30,7 @@
 <img src=/img/post/sqli8_get_column_value_num.png alt=猜解数据条数>
 <img src=/img/post/sqli8_get_column_value_len.png alt=猜解第13条数据username字段值的长度>
 <img src=/img/post/sqli8_get_column_value_char.png alt=猜解第13条数据username字段值的前两个字符>
-依次得到为admin4，同理可得其他数据</p></li></ol><h3 id=0x04-附上python脚本>0x04 附上python脚本</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+依次得到为admin4，同理可得其他数据</p></li></ol><h3 id=0x04-附上python脚本>0x04 附上python脚本</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># -*- coding: utf-8 -*-</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># code by reber &lt;1070018473@qq.com&gt;</span>
 </span></span><span style=display:flex><span>
@@ -238,7 +237,7 @@
 </span></span></code></pre></div></div></article></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
-<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2026
 <a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,

@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>隧道 on Reber's Blog</title><link>https://wyb0.cn/tags/%E9%9A%A7%E9%81%93/</link><description>Recent content in 隧道 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 10 Aug 2016 11:46:13 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/%E9%9A%A7%E9%81%93/index.xml" rel="self" type="application/rss+xml"/><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.cn/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项">0x00 SSH相关选项&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;p>-V 显示版本&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>-f 输入密码后进入后台模式&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>-C 压缩传输的数据，网速快时会影响速度&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>隧道 on Reber's Blog</title><link>https://wyb0.cn/tags/%E9%9A%A7%E9%81%93/</link><description>Recent content in 隧道 on Reber's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 10 Aug 2016 11:46:13 +0000</lastBuildDate><atom:link href="https://wyb0.cn/tags/%E9%9A%A7%E9%81%93/index.xml" rel="self" type="application/rss+xml"/><item><title>SSH 免密登录及 SSH 隧道</title><link>https://wyb0.cn/posts/2016/linux-ssh-connect/</link><pubDate>Wed, 10 Aug 2016 11:46:13 +0000</pubDate><guid>https://wyb0.cn/posts/2016/linux-ssh-connect/</guid><description>&lt;h3 id="0x00-ssh相关选项"&gt;0x00 SSH相关选项&lt;/h3&gt;&#10;&lt;ul&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-V 显示版本&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-f 输入密码后进入后台模式&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-N 不执行远程命令，一般与-f连用，用于端口转发&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-C 压缩传输的数据，网速快时会影响速度&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-L l_port:r_host:r_port(将本地机的某个端口转发到远端指定机器的指定端口)&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-R l_port:r_host:r_port(将远程主机的某个端口转发到本地端指定机器的指定端口)&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;li&gt;&#10;&lt;p&gt;-D l_port (指定一个本地机器 &amp;ldquo;动态的&amp;rdquo; 应用程序端口转发，目前支持SOCKS4和SOCKS5协议)&lt;/p&gt;&#10;&lt;/li&gt;&#10;&lt;/ul&gt;</description></item></channel></rss>

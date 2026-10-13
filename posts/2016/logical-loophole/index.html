@@ -1,5 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>逻辑漏洞 | Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>逻辑漏洞 | Reber's Blog</title><link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -26,8 +25,8 @@ http://domain/findpwd.php?id=374&amp;token=2ad64bf14c714dbce88c7993663da7da
 </code></pre><ul><li>服务端将验证码返回给浏览器</li></ul><pre tabindex=0><code>在点击获取验证码时，服务器会将验证码发送给浏览器，抓包即可
 </code></pre><ul><li>验证码直接出现在url中</li></ul><pre tabindex=0><code>当点击获取验证码时发出的请求链接中直接有code
 </code></pre><ul><li>密保问题找回</li></ul><pre tabindex=0><code>回答密保问题，有时一些答案就在html源码里
-</code></pre></li></ul><h3 id=0x02-多线程条件竞争漏洞>0x02 多线程条件竞争漏洞</h3><p>多线程条件竞争漏洞是一种服务端的漏洞，服务端是并发处理用户请求的，若并发处理不当或相关操作逻辑设计有缺陷时就会产生一些安全问题。</p><ul><li>文件上传</li></ul><p>服务端可以sudo apt-get install inotify-tools安装监听文件的软件，执行inotifywait -m /var/www/html/admin监听admin文件夹中文件的变化</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#75715e>//uploads.php代码如下，仅供测试：
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span><span style=color:#f92672>&gt;</span>
+</code></pre></li></ul><h3 id=0x02-多线程条件竞争漏洞>0x02 多线程条件竞争漏洞</h3><p>多线程条件竞争漏洞是一种服务端的漏洞，服务端是并发处理用户请求的，若并发处理不当或相关操作逻辑设计有缺陷时就会产生一些安全问题。</p><ul><li>文件上传</li></ul><p>服务端可以sudo apt-get install inotify-tools安装监听文件的软件，执行inotifywait -m /var/www/html/admin监听admin文件夹中文件的变化</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#75715e>//uploads.php代码如下，仅供测试：
+</span></span></span><span style=display:flex><span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;utf-8&#39;</span><span style=color:#f92672>&gt;</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
 </span></span><span style=display:flex><span>    $allowtype <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;gif&#34;</span>,<span style=color:#e6db74>&#34;png&#34;</span>,<span style=color:#e6db74>&#34;jpg&#34;</span>);
 </span></span><span style=display:flex><span>    $size <span style=color:#f92672>=</span> <span style=color:#ae81ff>10000000</span>;
@@ -56,7 +55,7 @@ http://domain/findpwd.php?id=374&amp;token=2ad64bf14c714dbce88c7993663da7da
 </span></span><span style=display:flex><span>        <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;error:upload the file type is not allowed，delete the file！&#34;</span>);
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010>
-</span></span></span></code></pre></div><ul><li>简单利用代码如下：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
+</span></span></span></code></pre></div><ul><li>简单利用代码如下：</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python</span>
 </span></span><span style=display:flex><span><span style=color:#75715e>#-*- coding:utf-8 -*-</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
@@ -128,7 +127,7 @@ http://domain/findpwd.php?id=374&amp;token=2ad64bf14c714dbce88c7993663da7da
 </code></pre><h3 id=0x04-漏洞修复>0x04 漏洞修复</h3><ul><li>对于密码重置漏洞，可以使用复杂的token，使之不可被预测</li><li>对于密码重置漏洞，校验refer，不使用本地校验等</li><li>对于多线程竞争漏洞，文件移动一定在一切判断之后，对于数据库则可以设置锁</li><li>对于支付漏洞，主要就是签名了，或者https</li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
-<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2026
 <a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,

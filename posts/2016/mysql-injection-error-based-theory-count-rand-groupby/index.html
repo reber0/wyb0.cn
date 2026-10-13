@@ -1,5 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="MySQL 中利用 count()、rand()、group by 进行报错注入原理分析，详细描述了 web 安全中的报错注入的具体原理"><meta name=author content="Reber"><title>[转] MySQL 报错注入原理分析(count()、rand()、group by) | Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="MySQL 中利用 count()、rand()、group by 进行报错注入原理分析，详细描述了 web 安全中的报错注入的具体原理"><meta name=author content="Reber"><title>[转] MySQL 报错注入原理分析(count()、rand()、group by) | Reber's Blog</title><link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -140,7 +139,7 @@ mysql&gt; select floor(rand(0)*2) from `T-Safe`;
 |                0 |
 +------------------+
 12 rows in set (0.00 sec)
-</code></pre><p>可以看到<f>floor(rand(0)*2)</f>是有规律的，而且是固定的，这个就是上面提到的由于是确定性才导致的报错，那为何会报错呢，我们接着往下看。</p><h3 id=0x05-count与group-by的虚拟表>0x05 count与group by的虚拟表</h3><p>使用<f><code>select count(*) from `T-Safe` group by x;</code></f>这种语句的时候我们经常可以看到下面类似的结果：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>mysql</span><span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>select</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>from</span> <span style=color:#a6e22e>Tsafe</span>;
+</code></pre><p>可以看到<f>floor(rand(0)*2)</f>是有规律的，而且是固定的，这个就是上面提到的由于是确定性才导致的报错，那为何会报错呢，我们接着往下看。</p><h3 id=0x05-count与group-by的虚拟表>0x05 count与group by的虚拟表</h3><p>使用<f><code>select count(*) from `T-Safe` group by x;</code></f>这种语句的时候我们经常可以看到下面类似的结果：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>mysql</span><span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>select</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>from</span> <span style=color:#a6e22e>Tsafe</span>;
 </span></span><span style=display:flex><span><span style=color:#f92672>+-----+--------+</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>|</span> <span style=color:#a6e22e>id</span>  <span style=color:#f92672>|</span> <span style=color:#a6e22e>name</span>   <span style=color:#f92672>|</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>+-----+--------+</span>
@@ -232,7 +231,7 @@ mysql&gt; select floor(rand(1)*2) from mysql.user;
 </code></pre><p>在前两条记录查询后，虚拟表已经存在0和1两个键值了，所以后面再怎么弄还是不会报错。</p><p>总之报错需要<f>count(*)</f>，<f>rand()</f>、<f>group by</f>，三者缺一不可。</p></div></article></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
-<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2026
 <a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,

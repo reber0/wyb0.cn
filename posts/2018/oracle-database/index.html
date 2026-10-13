@@ -1,5 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Oracle 数据库简单使用 | Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Oracle 数据库简单使用 | Reber's Blog</title><link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -65,28 +64,28 @@ Connected to:
 Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
 SQL&gt;
-</code></pre><h3 id=0x04-表空间操作>0x04 表空间操作</h3><ul><li><p>查看表空间</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--下面的表空间每个用户都默认存在
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> tablespace_name,status <span style=color:#66d9ef>from</span> user_tablespaces;
+</code></pre><h3 id=0x04-表空间操作>0x04 表空间操作</h3><ul><li><p>查看表空间</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--下面的表空间每个用户都默认存在
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> tablespace_name,status <span style=color:#66d9ef>from</span> user_tablespaces;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>TABLESPACE_NAME                STATUS
 </span></span><span style=display:flex><span><span style=color:#75715e>------------------------------ ---------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SYSTEM</span>                         ONLINE
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SYSTEM</span>                         ONLINE
 </span></span><span style=display:flex><span>SYSAUX                         ONLINE
 </span></span><span style=display:flex><span>UNDOTBS1                       ONLINE
 </span></span><span style=display:flex><span>TEMP                           ONLINE
 </span></span><span style=display:flex><span>USERS                          ONLINE
-</span></span></code></pre></div></li><li><p>创建表空间</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--创建数据表空间
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> tablespace db_test_data <span style=color:#75715e>--创建一个新的表空间，名字是db_test_data
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#ae81ff>2</span>  datafile <span style=color:#e6db74>&#39;/tmp/db_test_data.dbf&#39;</span> <span style=color:#75715e>--表空间数据文件路径
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#ae81ff>3</span>  <span style=color:#66d9ef>size</span> <span style=color:#ae81ff>64</span>m <span style=color:#75715e>--表空间初始大小
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#ae81ff>4</span>  autoextend <span style=color:#66d9ef>on</span>
+</span></span></code></pre></div></li><li><p>创建表空间</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--创建数据表空间
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> tablespace db_test_data <span style=color:#75715e>--创建一个新的表空间，名字是db_test_data
+</span></span></span><span style=display:flex><span>  <span style=color:#ae81ff>2</span>  datafile <span style=color:#e6db74>&#39;/tmp/db_test_data.dbf&#39;</span> <span style=color:#75715e>--表空间数据文件路径
+</span></span></span><span style=display:flex><span>  <span style=color:#ae81ff>3</span>  <span style=color:#66d9ef>size</span> <span style=color:#ae81ff>64</span>m <span style=color:#75715e>--表空间初始大小
+</span></span></span><span style=display:flex><span>  <span style=color:#ae81ff>4</span>  autoextend <span style=color:#66d9ef>on</span>
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>5</span>  <span style=color:#66d9ef>next</span> <span style=color:#ae81ff>64</span>m maxsize <span style=color:#ae81ff>2048</span>m
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>6</span>  extent management <span style=color:#66d9ef>local</span>;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>Tablespace created.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--创建临时表空间
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>temporary</span> tablespace db_test_temp
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>temporary</span> tablespace db_test_temp
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>2</span>  tempfile <span style=color:#e6db74>&#39;/tmp/db_test_temp.dbf&#39;</span>
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>3</span>  <span style=color:#66d9ef>size</span> <span style=color:#ae81ff>64</span>m
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>4</span>  autoextend <span style=color:#66d9ef>on</span>
@@ -96,11 +95,11 @@ SQL&gt;
 </span></span><span style=display:flex><span>Tablespace created.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>-- 再次查看表空间
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> tablespace_name,status <span style=color:#66d9ef>from</span> user_tablespaces;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> tablespace_name,status <span style=color:#66d9ef>from</span> user_tablespaces;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>TABLESPACE_NAME        STATUS
 </span></span><span style=display:flex><span><span style=color:#75715e>---------------------- ---------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SYSTEM</span>                 ONLINE
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SYSTEM</span>                 ONLINE
 </span></span><span style=display:flex><span>SYSAUX                 ONLINE
 </span></span><span style=display:flex><span>UNDOTBS1               ONLINE
 </span></span><span style=display:flex><span>TEMP                   ONLINE
@@ -109,16 +108,16 @@ SQL&gt;
 </span></span><span style=display:flex><span>DB_TEST_TEMP           ONLINE
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#ae81ff>7</span> <span style=color:#66d9ef>rows</span> selected.
-</span></span></code></pre></div></li><li><p>创建用户并指定表空间的映射</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>user</span> utest identified <span style=color:#66d9ef>by</span> ptest
+</span></span></code></pre></div></li><li><p>创建用户并指定表空间的映射</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>user</span> utest identified <span style=color:#66d9ef>by</span> ptest
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>2</span>  <span style=color:#66d9ef>default</span> tablespace db_test_data <span style=color:#75715e>--默认用户表空间
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#ae81ff>3</span>  <span style=color:#66d9ef>temporary</span> tablespace db_test_temp; <span style=color:#75715e>--默认临时表空间
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span></span><span style=display:flex><span>  <span style=color:#ae81ff>3</span>  <span style=color:#66d9ef>temporary</span> tablespace db_test_temp; <span style=color:#75715e>--默认临时表空间
+</span></span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--dba权限查看用户
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> username,default_tablespace,temporary_tablespace <span style=color:#66d9ef>from</span> dba_users;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> username,default_tablespace,temporary_tablespace <span style=color:#66d9ef>from</span> dba_users;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>USERNAME             DEFAULT_TABLESPACE   TEMPORARY_TABLESPACE
 </span></span><span style=display:flex><span><span style=color:#75715e>-------------------- -------------------- --------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>UTEST                DB_TEST_DATA         DB_TEST_TEMP
+</span></span></span><span style=display:flex><span>UTEST                DB_TEST_DATA         DB_TEST_TEMP
 </span></span><span style=display:flex><span>SYS                  <span style=color:#66d9ef>SYSTEM</span>               TEMP
 </span></span><span style=display:flex><span>ANONYMOUS            SYSAUX               TEMP
 </span></span><span style=display:flex><span><span style=color:#66d9ef>SYSTEM</span>               <span style=color:#66d9ef>SYSTEM</span>               TEMP
@@ -133,18 +132,18 @@ SQL&gt;
 </span></span><span style=display:flex><span>HR                   USERS                TEMP
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#ae81ff>13</span> <span style=color:#66d9ef>rows</span> selected.
-</span></span></code></pre></div></li><li><p>给用户授予权限(也可以创建有相应权限的角色然后授予角色)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--赋予用户角色，Oracle有dba、connect、resource这3个角色
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>grant</span> <span style=color:#66d9ef>connect</span>,resource <span style=color:#66d9ef>to</span> utest;
+</span></span></code></pre></div></li><li><p>给用户授予权限(也可以创建有相应权限的角色然后授予角色)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--赋予用户角色，Oracle有dba、connect、resource这3个角色
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>grant</span> <span style=color:#66d9ef>connect</span>,resource <span style=color:#66d9ef>to</span> utest;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>Grant</span> succeeded.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--赋予用户系统权限，有create session,unlimited tablespace,create table,create view,create any index,create sequence,create type等
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>grant</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>view</span>,<span style=color:#66d9ef>create</span> <span style=color:#66d9ef>any</span> <span style=color:#66d9ef>index</span> <span style=color:#66d9ef>to</span> utest;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>grant</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>view</span>,<span style=color:#66d9ef>create</span> <span style=color:#66d9ef>any</span> <span style=color:#66d9ef>index</span> <span style=color:#66d9ef>to</span> utest;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>Grant</span> succeeded.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--在db_test_data这个表空间下创建表tuser，不加tablespace db_test_data的话默认创建在SYSTEM这个表空间下
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> tuser(
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> tuser(
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>2</span>  id int <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span>,
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>3</span>  username varchar(<span style=color:#ae81ff>10</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span>,
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>4</span>  password varchar(<span style=color:#ae81ff>32</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span>
@@ -153,7 +152,7 @@ SQL&gt;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>Table</span> created.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--创建的对比的表，这个表在下面不会授权给用户utest
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> temp(
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> temp(
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>2</span>  id int <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span>,
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>3</span>  tmp varchar(<span style=color:#ae81ff>5</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span>
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>4</span>  ) tablespace db_test_data;
@@ -161,53 +160,53 @@ SQL&gt;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>Table</span> created.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--查看当前用户在表空间DB_TEST_DATA有权限查看的表，这里的表空间需要大写
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#66d9ef>table_name</span>,<span style=color:#66d9ef>owner</span> <span style=color:#66d9ef>from</span> all_tables <span style=color:#66d9ef>where</span> tablespace_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;DB_TEST_DATA&#39;</span>;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#66d9ef>table_name</span>,<span style=color:#66d9ef>owner</span> <span style=color:#66d9ef>from</span> all_tables <span style=color:#66d9ef>where</span> tablespace_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;DB_TEST_DATA&#39;</span>;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>TABLE_NAME</span>        <span style=color:#66d9ef>OWNER</span>
 </span></span><span style=display:flex><span><span style=color:#75715e>----------------- ---------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>TUSER             <span style=color:#66d9ef>SYSTEM</span>
+</span></span></span><span style=display:flex><span>TUSER             <span style=color:#66d9ef>SYSTEM</span>
 </span></span><span style=display:flex><span>TEMP              <span style=color:#66d9ef>SYSTEM</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--赋予用户对象权限，有select,insert,alter,update,delete,index,preferences等
 </span></span></span><span style=display:flex><span><span style=color:#75715e>--这里是赋予utest增删改查SYSTEM的tuser表的权限，如果不赋予的话utest对tuser就没有操作权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>grant</span> <span style=color:#66d9ef>select</span>,<span style=color:#66d9ef>insert</span>,<span style=color:#66d9ef>update</span>,<span style=color:#66d9ef>delete</span> <span style=color:#66d9ef>on</span> tuser <span style=color:#66d9ef>to</span> utest;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>grant</span> <span style=color:#66d9ef>select</span>,<span style=color:#66d9ef>insert</span>,<span style=color:#66d9ef>update</span>,<span style=color:#66d9ef>delete</span> <span style=color:#66d9ef>on</span> tuser <span style=color:#66d9ef>to</span> utest;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>Grant</span> succeeded.
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--删除空的表空间，不包含物理文件
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> tablespace tablespace_name;
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--删除空的表空间，不包含物理文件
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>drop</span> tablespace tablespace_name;
 </span></span><span style=display:flex><span><span style=color:#75715e>--删除空的表空间，包含物理文件
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> tablespace tablespace_name <span style=color:#66d9ef>including</span> datafiles;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>drop</span> tablespace tablespace_name <span style=color:#66d9ef>including</span> datafiles;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--删除非空表空间，不包含物理文件
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> tablespace tablespace_name <span style=color:#66d9ef>including</span> contents;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>drop</span> tablespace tablespace_name <span style=color:#66d9ef>including</span> contents;
 </span></span><span style=display:flex><span><span style=color:#75715e>--删除非空表空间，包含物理文件
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> tablespace tablespace_name <span style=color:#66d9ef>including</span> contents <span style=color:#66d9ef>and</span> datafiles;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>drop</span> tablespace tablespace_name <span style=color:#66d9ef>including</span> contents <span style=color:#66d9ef>and</span> datafiles;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--移除用户角色权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>revoke</span> <span style=color:#66d9ef>connect</span>,resource <span style=color:#66d9ef>from</span> utest;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>revoke</span> <span style=color:#66d9ef>connect</span>,resource <span style=color:#66d9ef>from</span> utest;
 </span></span><span style=display:flex><span><span style=color:#75715e>--撤回用户系统权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>revoke</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>view</span>,<span style=color:#66d9ef>create</span> <span style=color:#66d9ef>any</span> <span style=color:#66d9ef>index</span> <span style=color:#66d9ef>from</span> utest;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>revoke</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>view</span>,<span style=color:#66d9ef>create</span> <span style=color:#66d9ef>any</span> <span style=color:#66d9ef>index</span> <span style=color:#66d9ef>from</span> utest;
 </span></span><span style=display:flex><span><span style=color:#75715e>--撤回用户对象权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>revoke</span> <span style=color:#66d9ef>select</span>,<span style=color:#66d9ef>insert</span>,<span style=color:#66d9ef>update</span>,<span style=color:#66d9ef>delete</span> <span style=color:#66d9ef>on</span> tuser <span style=color:#66d9ef>from</span> utest;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>revoke</span> <span style=color:#66d9ef>select</span>,<span style=color:#66d9ef>insert</span>,<span style=color:#66d9ef>update</span>,<span style=color:#66d9ef>delete</span> <span style=color:#66d9ef>on</span> tuser <span style=color:#66d9ef>from</span> utest;
 </span></span><span style=display:flex><span><span style=color:#75715e>--删除用户
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>drop</span> <span style=color:#66d9ef>user</span> utest <span style=color:#66d9ef>cascade</span>;
-</span></span></code></pre></div></li></ul><h3 id=0x05-切换到用户utest>0x05 切换到用户utest</h3><ul><li>查看相关权限<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--切换用户
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> conn utest<span style=color:#f92672>/</span>ptest<span style=color:#f92672>@</span><span style=color:#ae81ff>127</span>.<span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>1</span><span style=color:#f92672>/</span>xe
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>drop</span> <span style=color:#66d9ef>user</span> utest <span style=color:#66d9ef>cascade</span>;
+</span></span></code></pre></div></li></ul><h3 id=0x05-切换到用户utest>0x05 切换到用户utest</h3><ul><li>查看相关权限<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--切换用户
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> conn utest<span style=color:#f92672>/</span>ptest<span style=color:#f92672>@</span><span style=color:#ae81ff>127</span>.<span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>0</span>.<span style=color:#ae81ff>1</span><span style=color:#f92672>/</span>xe
 </span></span><span style=display:flex><span>Connected.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--查看当前用户的角色
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#66d9ef>role</span> <span style=color:#66d9ef>from</span> session_roles;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#66d9ef>role</span> <span style=color:#66d9ef>from</span> session_roles;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>ROLE</span>
 </span></span><span style=display:flex><span><span style=color:#75715e>------------------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>CONNECT</span>
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>CONNECT</span>
 </span></span><span style=display:flex><span>RESOURCE
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--查看当前用户的角色所包含的权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> role_sys_privs;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> role_sys_privs;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>ROLE</span>             PRIVILEGE            ADM
 </span></span><span style=display:flex><span><span style=color:#75715e>---------------- -------------------- -------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>RESOURCE         <span style=color:#66d9ef>CREATE</span> SEQUENCE      <span style=color:#66d9ef>NO</span>
+</span></span></span><span style=display:flex><span>RESOURCE         <span style=color:#66d9ef>CREATE</span> SEQUENCE      <span style=color:#66d9ef>NO</span>
 </span></span><span style=display:flex><span>RESOURCE         <span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TRIGGER</span>       <span style=color:#66d9ef>NO</span>
 </span></span><span style=display:flex><span>RESOURCE         <span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>CLUSTER</span>       <span style=color:#66d9ef>NO</span>
 </span></span><span style=display:flex><span>RESOURCE         <span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>PROCEDURE</span>     <span style=color:#66d9ef>NO</span>
@@ -220,30 +219,30 @@ SQL&gt;
 </span></span><span style=display:flex><span><span style=color:#ae81ff>9</span> <span style=color:#66d9ef>rows</span> selected.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--当前用户的系统权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> user_sys_privs;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> user_sys_privs;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>USERNAME        PRIVILEGE                 ADM
 </span></span><span style=display:flex><span><span style=color:#75715e>--------------- ------------------------- ----------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>UTEST           <span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>VIEW</span>               <span style=color:#66d9ef>NO</span>
+</span></span></span><span style=display:flex><span>UTEST           <span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>VIEW</span>               <span style=color:#66d9ef>NO</span>
 </span></span><span style=display:flex><span>UTEST           UNLIMITED TABLESPACE      <span style=color:#66d9ef>NO</span>
 </span></span><span style=display:flex><span>UTEST           <span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>ANY</span> <span style=color:#66d9ef>INDEX</span>          <span style=color:#66d9ef>NO</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--当前用户的对象权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> grantee,privilege <span style=color:#66d9ef>from</span> user_tab_privs;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> grantee,privilege <span style=color:#66d9ef>from</span> user_tab_privs;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>GRANTEE          PRIVILEGE
 </span></span><span style=display:flex><span><span style=color:#75715e>---------------- ---------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>UTEST            <span style=color:#66d9ef>UPDATE</span>
+</span></span></span><span style=display:flex><span>UTEST            <span style=color:#66d9ef>UPDATE</span>
 </span></span><span style=display:flex><span>UTEST            <span style=color:#66d9ef>SELECT</span>
 </span></span><span style=display:flex><span>UTEST            <span style=color:#66d9ef>INSERT</span>
 </span></span><span style=display:flex><span>UTEST            <span style=color:#66d9ef>DELETE</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--查看当前用户的全部权限
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> session_privs;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> session_privs;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>PRIVILEGE
 </span></span><span style=display:flex><span><span style=color:#75715e>---------------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>SESSION</span>
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>SESSION</span>
 </span></span><span style=display:flex><span>UNLIMITED TABLESPACE
 </span></span><span style=display:flex><span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>CLUSTER</span>
@@ -257,11 +256,11 @@ SQL&gt;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>CREATE</span> INDEXTYPE
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#ae81ff>12</span> <span style=color:#66d9ef>rows</span> selected.
-</span></span></code></pre></div></li><li>查看当前用户的表空间<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> tablespace_name <span style=color:#66d9ef>from</span> user_tablespaces;
+</span></span></code></pre></div></li><li>查看当前用户的表空间<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> tablespace_name <span style=color:#66d9ef>from</span> user_tablespaces;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>TABLESPACE_NAME
 </span></span><span style=display:flex><span><span style=color:#75715e>------------------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SYSTEM</span>
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SYSTEM</span>
 </span></span><span style=display:flex><span>SYSAUX
 </span></span><span style=display:flex><span>UNDOTBS1
 </span></span><span style=display:flex><span>TEMP
@@ -275,11 +274,11 @@ SQL&gt;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>USERNAME      DEFAULT_TABLESPACE     TEMPORARY_TABLESPACE
 </span></span><span style=display:flex><span><span style=color:#75715e>------------- ---------------------- ------------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>UTEST         DB_TEST_DATA           DB_TEST_TEMP
+</span></span></span><span style=display:flex><span>UTEST         DB_TEST_DATA           DB_TEST_TEMP
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span>
-</span></span></code></pre></div></li><li>表与数据操作<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--创建自己的表，这里没有指定，则用默认表空间DB_TEST_DATA
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> tmsg(
+</span></span></code></pre></div></li><li>表与数据操作<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#75715e>--创建自己的表，这里没有指定，则用默认表空间DB_TEST_DATA
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>create</span> <span style=color:#66d9ef>table</span> tmsg(
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>2</span>  id int <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span> <span style=color:#66d9ef>primary</span> <span style=color:#66d9ef>key</span>,
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>3</span>  title varchar(<span style=color:#ae81ff>20</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span>,
 </span></span><span style=display:flex><span>  <span style=color:#ae81ff>4</span>  content varchar(<span style=color:#ae81ff>100</span>) <span style=color:#66d9ef>not</span> <span style=color:#66d9ef>null</span>);
@@ -287,19 +286,19 @@ SQL&gt;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>Table</span> created.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--再次查看当前用户在表空间DB_TEST_DATA有权限查看的表，tuser表给了权限可以查到，temp表没有给权限所以查不到
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#66d9ef>table_name</span>,<span style=color:#66d9ef>owner</span> <span style=color:#66d9ef>from</span> all_tables <span style=color:#66d9ef>where</span> tablespace_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;DB_TEST_DATA&#39;</span>;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#66d9ef>table_name</span>,<span style=color:#66d9ef>owner</span> <span style=color:#66d9ef>from</span> all_tables <span style=color:#66d9ef>where</span> tablespace_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;DB_TEST_DATA&#39;</span>;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>TABLE_NAME</span>        <span style=color:#66d9ef>OWNER</span>
 </span></span><span style=display:flex><span><span style=color:#75715e>----------------- ---------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>TUSER             <span style=color:#66d9ef>SYSTEM</span>
+</span></span></span><span style=display:flex><span>TUSER             <span style=color:#66d9ef>SYSTEM</span>
 </span></span><span style=display:flex><span>TMSG              UTEST
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--向表tuser插入数据，表是system的，所以需要加system.
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>insert</span> <span style=color:#66d9ef>into</span> <span style=color:#66d9ef>system</span>.tuser(id,username,password) <span style=color:#66d9ef>values</span>(<span style=color:#ae81ff>1</span>,<span style=color:#e6db74>&#39;aaa&#39;</span>,<span style=color:#e6db74>&#39;123456&#39;</span>);
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>insert</span> <span style=color:#66d9ef>into</span> <span style=color:#66d9ef>system</span>.tuser(id,username,password) <span style=color:#66d9ef>values</span>(<span style=color:#ae81ff>1</span>,<span style=color:#e6db74>&#39;aaa&#39;</span>,<span style=color:#e6db74>&#39;123456&#39;</span>);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>row</span> created.
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>--向tmsg插入数据，表是当前用户utest的，这里其实也是utest.tmsg，不过默认缺省了utest.
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>insert</span> <span style=color:#66d9ef>into</span> tmsg(id,title,content) <span style=color:#66d9ef>values</span>(<span style=color:#ae81ff>1</span>,<span style=color:#e6db74>&#39;hi&#39;</span>,<span style=color:#e6db74>&#39;hello,world!&#39;</span>);
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>insert</span> <span style=color:#66d9ef>into</span> tmsg(id,title,content) <span style=color:#66d9ef>values</span>(<span style=color:#ae81ff>1</span>,<span style=color:#e6db74>&#39;hi&#39;</span>,<span style=color:#e6db74>&#39;hello,world!&#39;</span>);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#ae81ff>1</span> <span style=color:#66d9ef>row</span> created.
 </span></span><span style=display:flex><span>
@@ -307,19 +306,19 @@ SQL&gt;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    ID  USERNAME     PASSWORD
 </span></span><span style=display:flex><span><span style=color:#75715e>------- ------------ -------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#ae81ff>1</span> aaa          <span style=color:#ae81ff>123456</span>
+</span></span></span><span style=display:flex><span>      <span style=color:#ae81ff>1</span> aaa          <span style=color:#ae81ff>123456</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span> <span style=color:#66d9ef>select</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>from</span> tmsg;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    ID  TITLE        CONTENT
 </span></span><span style=display:flex><span><span style=color:#75715e>------- ------------ -------------------
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#ae81ff>1</span> hi           hello,world<span style=color:#f92672>!</span>
+</span></span></span><span style=display:flex><span>      <span style=color:#ae81ff>1</span> hi           hello,world<span style=color:#f92672>!</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>SQL</span><span style=color:#f92672>&gt;</span>
 </span></span></code></pre></div></li></ul><h4 id=reference侵删>Reference(侵删)：</h4><ul><li><a href=https://www.aliyun.com/jiaocheng/318905.html?_blank>https://www.aliyun.com/jiaocheng/318905.html</a></li><li><a href=https://www.cnblogs.com/jiangxinnju/p/5840420.html?_blank>https://www.cnblogs.com/jiangxinnju/p/5840420.html</a></li></ul></div></article></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
-<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2026
 <a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,

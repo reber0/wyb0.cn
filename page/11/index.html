@@ -1,5 +1,4 @@
-<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.143.1"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title>
-<link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
+<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.167.0"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><meta name=author content="Reber"><title>Reber's Blog</title><link rel=stylesheet href=/css/reset.css><link rel=stylesheet href=/css/smigle.css><link rel=stylesheet href=/css/monokai-sublime.min.css><link rel=stylesheet href=/css/style.css><script src=/js/jquery-3.6.0.min.js></script><script src=/js/highlight.min.js></script><script src=/js/style.js></script><link rel=icon type=image/img sizes=16x16 href=/img/logo.png><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"></head><body><header><div id=brand><a class=icon-link href=https://wyb0.cn/><img class=icon src=/img/logo.png></a><div class=text><a href=https://wyb0.cn/><h1>Reber's Blog</h1></a><h3>会一点点编程、会一点点渗透</h3></div></div><nav><a href=/><b>Home</b></a>
 |
 <a href=/posts/><b>Posts</b></a>
 |
@@ -30,7 +29,22 @@
 <img src=/img/post/burpsuite_intruder7.png alt=burpsuite的intruder7>
 <img src=/img/post/burpsuite_intruder8.png alt=burpsuite的intruder8></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/logical-loophole/>逻辑漏洞</a></h1><div class=post-meta><time>2016-07-31</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E>逻辑漏洞</a>)</div><div class=summary-body><p><h3 id=0x00-逻辑漏洞>0x00 逻辑漏洞</h3><p>逻辑漏洞是一种业务逻辑上的设计缺陷，业务流存在问题。
-这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。</p><h3 id=0x01-密码找回漏洞>0x01 密码找回漏洞</h3><ul><li><p>测试流程</p><a href=https://wyb0.cn/posts/2016/logical-loophole/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/sensitive-information-leakage/>敏感信息泄露</a></h1><div class=post-meta><time>2016-07-28</time>
+这里说一下密码找回漏洞、多线程条件竞争漏洞和支付漏洞。</p><h3 id=0x01-密码找回漏洞>0x01 密码找回漏洞</h3><ul><li><p>测试流程</p><ul><li>先尝试正确的密码找回流程，记录不同找回方式的所有数据包</li><li>分析数据包，找到有效数据部分</li><li>推测数据构造方法</li><li>构造数据包验证猜测</li></ul></li><li><p>分类</p><ul><li>邮箱找回</li></ul><pre tabindex=0><code>一般是点击邮件中的链接后会转跳到修改密码的页面，需要分析链接的token构造，可以考虑是时间戳md5、用户名或邮箱和随机字符串md5等，一般是类似如下链接：
+http://domain/findpwd.php?u=xiaoming&amp;token=MTIzQHFxLmNvbQ==
+http://domain/findpwd.php?id=374&amp;token=2ad64bf14c714dbce88c7993663da7da
+当构造相应链接时就可以重置任意用户的密码
+</code></pre><ul><li>手机短信找回</li></ul><pre tabindex=0><code>短信找回一般就是4位或6位验证码，暴力猜测吧
+</code></pre><ul><li>找回逻辑错误</li></ul><pre tabindex=0><code>若恶意用户A用15123333333找回密码，此时收到验证码但不使用
+此时恶意用户A再用受害者B的手机号找回密码
+用户A在B的验证表单填入自己收到的验证码，发送
+此时跳转的修改密码页面修改的就是用户B的密码
+</code></pre><ul><li>直接修改密码</li></ul><pre tabindex=0><code>在修改密码时跳过选择找回方式，直接访问修改密码的页面进行修改
+</code></pre><ul><li>本地验证</li></ul><pre tabindex=0><code>随意输入一个验证码，开Burp抓包，forward，抓返回包，返回包里可能有一个flag字段，
+若flag的值为1则跳转到修改密码页面，所以只要修改返回包即可
+</code></pre><ul><li>服务端将验证码返回给浏览器</li></ul><pre tabindex=0><code>在点击获取验证码时，服务器会将验证码发送给浏览器，抓包即可
+</code></pre><ul><li>验证码直接出现在url中</li></ul><pre tabindex=0><code>当点击获取验证码时发出的请求链接中直接有code
+</code></pre><ul><li>密保问题找回</li></ul><pre tabindex=0><code>回答密保问题，有时一些答案就在html源码里
+</code></pre></li></ul><a href=https://wyb0.cn/posts/2016/logical-loophole/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/sensitive-information-leakage/>敏感信息泄露</a></h1><div class=post-meta><time>2016-07-28</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2>信息泄露</a>)</div><div class=summary-body><p><h3 id=0x00-软件敏感信息>0x00 软件敏感信息</h3><pre tabindex=0><code>* 操作系统版本
     可用namp扫描得知
 * 中间件的类型、版本
@@ -82,7 +96,7 @@ https://github.com/lijiejie/BBScan
 whatweb
 dnsenum
 github
-</code></pre><h3 id=0x05-示例>0x05 示例</h3><p><img src=/img/post/sensitive_information_leakage.png alt=敏感信息泄露></p><a href=https://wyb0.cn/posts/2016/sensitive-information-leakage/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/any-file-view-and-download-vulnerability/>任意文件查看与下载漏洞</a></h1><div class=post-meta><time>2016-07-27</time>
+</code></pre><h3 id=0x05-示例>0x05 示例</h3><p><img src=/img/post/sensitive_information_leakage.png alt=敏感信息泄露></p></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/any-file-view-and-download-vulnerability/>任意文件查看与下载漏洞</a></h1><div class=post-meta><time>2016-07-27</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2>信息泄露</a>)</div><div class=summary-body><p><h3 id=0x00-漏洞介绍>0x00 漏洞介绍</h3><p>一些网站由于业务需求，往往需要提供文件查看或文件下载功能，但若对用户查看或下载的文件不做限制，则恶意用户就能够查看或下载任意敏感文件，这就是文件查看与下载漏洞</p><a href=https://wyb0.cn/posts/2016/any-file-view-and-download-vulnerability/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/file-include-vulnerabilities/>文件包含漏洞</a></h1><div class=post-meta><time>2016-07-26</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB>文件包含</a>)</div><div class=summary-body><p><p>环境：phpStudy 2016、DVWA v1.10</p><h3 id=0x00-文件包含>0x00 文件包含</h3><p>程序开发人员一般会把重复使用的函数写到单个文件中，需要使用某个函数时直接调用此文件，而无需再次编写，这中文件调用的过程一般被称为文件包含。</p><a href=https://wyb0.cn/posts/2016/file-include-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/code-execution-vulnerabilities/>代码执行漏洞(一)</a></h1><div class=post-meta><time>2016-07-25</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h3 id=0x00-代码执行>0x00 代码执行</h3><p>当应用在调用一些能将字符转化为代码的函数(如PHP中的eval)时，没有考虑用户是否能控制这个字符串，这就会造成代码执行漏洞。</p><a href=https://wyb0.cn/posts/2016/code-execution-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/windows-proxifier-implement-global-proxy/>Windows 下用 Proxifier 实现全局代理</a></h1><div class=post-meta><time>2016-07-24</time>
@@ -99,7 +113,7 @@ passthru、popen、proc_popen等，当用户能控制这些函数中的参数时
 <a href=/page/12/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
 •
-<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2025
+<a href=https://weibo.com/u/5819760166?_blank>Weibo</a></p><p class=copyright>Copyright © 2015-2026
 <a href=https://wyb0.cn/><strong>Reber</strong></a>.
 Built with
 <a href=http://www.gohugo.io/>Hugo</a>,
