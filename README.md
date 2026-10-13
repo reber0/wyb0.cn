@@ -1,2 +1,2 @@
-# wyb0.com
-My personal [blog](https://wyb0.com/) on GitHub Pages.
+# wyb0.n
+My personal [blog](https://wyb0.cn/) on GitHub Pages.

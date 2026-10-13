@@ -1,0 +1,7 @@
+{{ define "main" }}
+  <main id="term">
+    {{ $singular := .Data.Singular }}
+    {{ with .Title }}<h1>{{ $singular | title }}: {{ . }}</h1>{{ end }}
+    {{ partial "postsByDate.html" . }}
+  </main>
+{{ end }}

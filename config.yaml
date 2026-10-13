@@ -1,6 +1,6 @@
 
 baseURL: https://wyb0.cn/
-languageCode: en-us
+locale: en-us
 theme: smigle
 title: Reber's Blog
 
