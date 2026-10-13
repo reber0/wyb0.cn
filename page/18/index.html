@@ -8,7 +8,66 @@
 |
 <a href=/about/><b>About</b></a>
 |
-<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-regular/>Python 的正则</a></h1><div class=post-meta><time>2016-02-05</time>
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/linux-vim/>Linux 之 vim</a></h1><div class=post-meta><time>2016-04-15</time>
+[<a href=/categories/Linux>Linux</a>](<a href=/tags/linux>linux</a>)</div><div class=summary-body><p><h3 id=0x00-vim的安装及配置>0x00 Vim的安装及配置：</h3><ul><li>安装vim</li></ul><pre tabindex=0><code>yum install vim
+</code></pre><ul><li>配置文件的位置</li></ul><pre tabindex=0><code>在目录 /etc/ 下面，有个名为vimrc的 文件，
+这是系统中公共的vim配置文件，对所有用户都有效。
+</code></pre><ul><li>设置语法高亮显示</li></ul><pre tabindex=0><code>1) 打开vimrc，添加以下语句来使得语法高亮显示：
+    syntax on
+2) 如果此时语法还是没有高亮显示，那么在/etc目录下的profile文件中添加以下语句：
+    export TERM=xterm-color
+</code></pre><ul><li>设置Windows风格的C/C++自动缩进（添加以下set语句到vimrc中）</li></ul><pre tabindex=0><code>1）设置Tab为4个空格
+    set tabstop=4 #设定tab长度为4
+    set softtabstop=4 #使按退格键时可以一次删除4个空格
+    set shiftwidth=4 #表示每一级缩进的长度，一般设置成跟softtabstop一样
+    set expandtab/noexpandtab #缩进用空格/制表符表示
+2）自动缩进
+    set autoindent/noautoindent #设置每行的缩进值与上一行相等/不相等(我未启用)
+3）使用 C/C++ 语言的自动缩进方式
+    set cindent
+4）在左侧显示文本的行号
+    set nu
+5）搜索设置
+    set incsearch #输入搜索内容时就显示搜索结果
+    set hlsearch #搜索时高亮显示被找到的文本
+6）如果没有下列语句，就加上吧
+    if &amp;term==&#34;xterm&#34;
+        set t_Co=8
+        set t_Sb=^[[4%dm
+        set t_Sf=^[[3%dm
+    endif
+</code></pre><h3 id=0x01-vim编辑器的三种模式>0x01 Vim编辑器的三种模式</h3><ul><li>命令行模式</li></ul><pre tabindex=0><code>$vim 文件名 #直接进入命令行模式
+Ctrl+ZZ#可保存文件
+
+5dd/4yy#剪切5行/复制4行
+p      #粘贴到当前行后面
+u      #一直点的话会一直撤销，直到回复到文件最初状态
+
+gg/G   #光标移动到首行/末行
+H/M/L  #光标移动到屏幕显示的首行/中间/末行
+0/$    #光标移动到行首/行尾
+w/b    #光标跳到下一个/上一个单词
+
+o      #在下一行插入
+Ctrl+g #显示文本的信息
+
+dt%      #删除所有内容直到遇到 %
+d0/d$或D #删除从光标到行首/行尾的字符
+3dw      #删除3个单词
+
+v+方向键      #可以从当前光标向各方向选择字符或行
+4+向下的方向键 #光标向下移动4行
+
+/和？#向下和向上搜索
+</code></pre><ul><li>末行模式</li></ul><pre tabindex=0><code>:wq  #推出并保存
+:wq! #强制退出并保存
+:num #跳到第n行
+:$	 #移动到最后一行
+:/aaaa #向下搜aaaa这个字符串  n可以定位到下一个匹配的字符，N向上
+:?aaaa #向上搜索
+:%s/set/ddd/g #将字符串set全部替换为ddd
+</code></pre><ul><li>插入模式</li></ul><pre tabindex=0><code>在命令行模式直接点击i即可进入
+</code></pre></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-regular/>Python 的正则</a></h1><div class=post-meta><time>2016-02-05</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/%E6%AD%A3%E5%88%99>正则</a>)</div><div class=summary-body><p><h3 id=0x00-正则表达式>0x00 正则表达式</h3><p>正则表达式是用来匹配字符串的异常强大的东西，可以用来匹配邮箱、域名等字符串</p><h3 id=0x01-符号>0x01 符号</h3><p><img src=/img/post/regular_atomic_character.png alt=75></p><h3 id=0x02-特殊字符>0x02 特殊字符</h3><p><img src=/img/post/regular_metacharacters.png alt=75></p><h3 id=0x03-常用的模块属性>0x03 常用的模块属性</h3><p><img src=/img/post/regular_modifier.png alt=75></p><a href=https://wyb0.cn/posts/2016/python-regular/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-thread/>Python 的线程</a></h1><div class=post-meta><time>2016-02-03</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>,<a href=/tags/thread>thread</a>)</div><div class=summary-body><p><p>Python的参数传递其实传递的是对象，当传递可变对象(列表、队列)时相当于引用传递，可以修改对象的原始值，当传递不可变对象(字符串、整型)时就相当于传值，不能直接修改原始对象。</p><a href=https://wyb0.cn/posts/2016/python-thread/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-object-oriented/>Python 的面向对象</a></h1><div class=post-meta><time>2016-01-25</time>
 [<a href=/categories/Python>Python</a>](<a href=/tags/python>python</a>)</div><div class=summary-body><p><h3 id=0x00-面向对象>0x00 面向对象</h3><ul><li><p>面向对象是为了解决系统的可维护性，可扩展性，可重用性</p></li><li><p>三个基本特征：封装、继承、多态</p><ul><li><p>封装：对一类事物，将其相同特点和功能提取出来，所共有的特点叫做属性，共有的功能就叫做方法，将属性和方法组合在一起就叫做封装。<br>如：人具有姓名、年龄、性别，这些就是属性，人可以说话、可以走、可以跑，这些就是方法，封装起来就是一个类，而类的实例化就是对象</p></li><li><p>继承：继承可以使得子类具有父类的属性和方法，不需要再次编写相同的代码，子类可以对继承的代码进行重写，也可以追加新的属性和方法。<br>如：有一个类People，教师就可以继承自People，可以添加自己的属性，如：工资、职工号，也可以添加自己的方法，如：备课、写教案</p></li><li><p>多态：首先，多态必有继承，没有继承就没有多态，继承后一个父类的引用变量可以指向其任意一个子类对象。<br>如：有一个People类，它的子类可以有学生、老师、工人，有多种形态，这就是多态</p></li></ul></li></ul><a href=https://wyb0.cn/posts/2016/python-object-oriented/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/python-functional-programming/>Python 的函数式编程</a></h1><div class=post-meta><time>2016-01-21</time>

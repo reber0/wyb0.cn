@@ -8,7 +8,15 @@
 |
 <a href=/about/><b>About</b></a>
 |
-<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/cgi-and-fastcgi-and-php-fpm/>CGI 与 FastCGI 与 PHP-FPM</a></h1><div class=post-meta><time>2016-08-02</time>
+<a href=/friends/><b>Friends</b></a></nav><hr></header><div id=content><main><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/tomcat-deploy-war-package-to-getshell/>Tomcat 部署 War 包 getshell</a></h1><div class=post-meta><time>2016-08-02</time>
+[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/getshell>getshell</a>)</div><div class=summary-body><p><h3 id=0x00-关于-war-包>0x00 关于 War 包</h3><pre tabindex=0><code>War包一般是进行Web开发时一个网站Project下的所有代码,包括前台HTML/CSS/JS代码,
+以及Java的代码。当开发人员开发完毕时,就会将源码打包给测试人员测试,测试完后若要发布
+则也会打包成War包进行发布。War包可以放在Tomcat下的webapps或word目录,当Tomcat
+服务器启动时,War包也会随之被解压后自动部署。
+</code></pre><h3 id=0x01-上传-war-包-getshell>0x01 上传 War 包 GetShell</h3><ul><li><p>找到后台猜密码然后登录
+<img src=/img/post/tomcat_vul_background.png alt=70>
+<img src=/img/post/tomcat_vul_login.png alt=40>
+<img src=/img/post/tomcat_vul_war_login_success.png alt=30></p></li><li><p>上传 War 包</p></li></ul><a href=https://wyb0.cn/posts/2016/tomcat-deploy-war-package-to-getshell/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/cgi-and-fastcgi-and-php-fpm/>CGI 与 FastCGI 与 PHP-FPM</a></h1><div class=post-meta><time>2016-08-02</time>
 [<a href=/categories/PHP>PHP</a>](<a href=/tags/cgi>cgi</a>)</div><div class=summary-body><p><h3 id=0x01-cgi协议>0x01 CGI协议</h3><p>中间件在收到请求时会去找php解析器处理，cgi是规定了要传递哪些数据(比如url、header、post数据等)的协议</p><a href=https://wyb0.cn/posts/2016/cgi-and-fastcgi-and-php-fpm/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/burpsuite-intruder-module/>BurpSuite 的 Intruder 模块</a></h1><div class=post-meta><time>2016-08-01</time>
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/tools>tools</a>)</div><div class=summary-body><p><h3 id=0x00-示例一>0x00 示例一</h3><p><img src=/img/post/burpsuite_intruder_caught.png alt=burpsuite抓包发送给intruder模>
 <img src=/img/post/burpsuite_intruder_attack_type1.png alt=burpsuite的intruder模块的攻击类型1>
@@ -107,8 +115,7 @@ Proxifier：Proxifier Portable Edition v3.29
 [<a href=/categories/Pentest>Pentest</a>](<a href=/tags/rce>rce</a>)</div><div class=summary-body><p><h3 id=0x00-命令执行>0x00 命令执行</h3><pre tabindex=0><code>应用有时需要调用一些执行系统命令的函数，如PHP中的system、exec、shell_exec、
 passthru、popen、proc_popen等，当用户能控制这些函数中的参数时，就可以将恶意系统命令
 拼接到正常命令中，从而造成命令执行攻击，这就是命令执行漏洞。
-</code></pre><h3 id=0x01-利用条件>0x01 利用条件</h3><ol><li>应用调用执行系统命令的函数</li><li>将用户输入作为系统命令的参数拼接到了命令行中</li><li>没有对用户输入进行过滤或过滤不严</li></ol><h3 id=0x02-漏洞分类>0x02 漏洞分类</h3><ol><li>代码层过滤不严<br>商业应用的一些核心代码封装在二进制文件中，在web应用中通过system函数来调用：<br>system("/bin/program --arg $arg");</li><li>系统的漏洞造成命令执行<br>bash破壳漏洞(CVE-2014-6271)<br>执行<code>env x='() { :;}; echo vulnerable' bash -c "echo this is a test"</code>后<br>若输出vulnerable则证明存在漏洞</li><li>调用的第三方组件存在代码执行漏洞<br>如WordPress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等)<br>ThinkPHP命令执行</li></ol><h3 id=0x03-漏洞危害>0x03 漏洞危害</h3><ol><li>继承Web服务程序的权限去执行系统命令或读写文件</li><li>反弹shell</li><li>控制整个网站甚至控制服务器</li><li>进一步内网渗透</li><li>等等</li></ol><h3 id=0x04-漏洞挖掘>0x04 漏洞挖掘</h3><p>可以google hacking<br>尝试：filetype:action或filetype:do来找struts2</p><a href=https://wyb0.cn/posts/2016/command-execution-vulnerabilities/>more...</a></p></div></article><article><h1 class=summary-title><a href=https://wyb0.cn/posts/2016/file-upload-editor-upload-vulnerability/>文件上传之文本编辑器上传漏洞</a></h1><div class=post-meta><time>2016-07-21</time>
-[<a href=/categories/Pentest>Pentest</a>](<a href=/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0>文件上传</a>)</div><div class=summary-body><p><h3 id=0x00-文本编辑器>0x00 文本编辑器</h3><p>常见的文本编辑器有CKEditor、eWebEditor、UEditor、KindEditor、xhEditor等，它们的功能类似且都有图片上传、视频上传、远程下载等功能，这类文本编辑器也称为富文本编辑器。</p><a href=https://wyb0.cn/posts/2016/file-upload-editor-upload-vulnerability/>more...</a></p></div></article><div><a href=/page/10/>Previous Page</a>
+</code></pre><h3 id=0x01-利用条件>0x01 利用条件</h3><ol><li>应用调用执行系统命令的函数</li><li>将用户输入作为系统命令的参数拼接到了命令行中</li><li>没有对用户输入进行过滤或过滤不严</li></ol><h3 id=0x02-漏洞分类>0x02 漏洞分类</h3><ol><li>代码层过滤不严<br>商业应用的一些核心代码封装在二进制文件中，在web应用中通过system函数来调用：<br>system("/bin/program --arg $arg");</li><li>系统的漏洞造成命令执行<br>bash破壳漏洞(CVE-2014-6271)<br>执行<code>env x='() { :;}; echo vulnerable' bash -c "echo this is a test"</code>后<br>若输出vulnerable则证明存在漏洞</li><li>调用的第三方组件存在代码执行漏洞<br>如WordPress中用来处理图片的ImageMagick组件<br>JAVA中的命令执行漏洞(struts2/ElasticsearchGroovy等)<br>ThinkPHP命令执行</li></ol><h3 id=0x03-漏洞危害>0x03 漏洞危害</h3><ol><li>继承Web服务程序的权限去执行系统命令或读写文件</li><li>反弹shell</li><li>控制整个网站甚至控制服务器</li><li>进一步内网渗透</li><li>等等</li></ol><h3 id=0x04-漏洞挖掘>0x04 漏洞挖掘</h3><p>可以google hacking<br>尝试：filetype:action或filetype:do来找struts2</p><a href=https://wyb0.cn/posts/2016/command-execution-vulnerabilities/>more...</a></p></div></article><div><a href=/page/10/>Previous Page</a>
 11 of 18
 <a href=/page/12/>Next Page</a></div></main></div><footer><hr><p id=social>Find me around the web:
 <a href=https://github.com/reber0?_blank>GitHub</a>
