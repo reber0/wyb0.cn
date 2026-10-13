@@ -93,16 +93,17 @@ mdm9607-sysfs.ubi 应该就是根文件系统了
 
 #### 3. 分析、挂载 ubi
 
+获取到 ubi 镜像后，就需要用 nandsim 模拟出一个具有 mtd 接口的 nand 设备，将镜像挂载到设备上才能修改镜像，然后重新打包，而模拟 nand 是需要相关参数的，下面就是分析找对应参数值
+
 1、使用 xxd 分析 ubi 镜像文件，得到 Page Size，PEB Size，UBI_VID_HDR 的偏移；  
 2、阅读对应的 nand flash 数据手册，找到 Read ID 命令，确定 nandsim 的 4 个参数的值；  
 3、在使用 ubiformat 和 ubiattach 时使用 -O 选项显式指定 UBI_VID_HDR 的偏移。
 
 * ubi 根文件系统分析（获取 Page Size，PEB Size，UBI_VID_HDR）
 
-    一会要用 nandsim 模拟出一个具有 mtd 接口的 nand 设备，而且这个设备要与 ubi 镜像的参数保持一致，这些参数包括设备的物理块擦除大小 (Physical Erase Block， PEB) 和 页大小 (Page Size)。
+    模拟的 nand 设备要与 ubi 镜像的参数保持一致，这些参数包括设备的物理块擦除大小 (Physical Erase Block， PEB) 和 页大小 (Page Size)。
 
-    ubi 镜像有多个 PEB 组成，每个 PEB 包括以下三部分内容  
-    [ UBI_EC_HDR，UBI_VID_HDR，DATA (LEB) ]
+    而 ubi 镜像由多个 PEB 组成，每个 PEB 包括三部分内容 [ UBI_EC_HDR，UBI_VID_HDR，DATA (LEB) ]
 
     根据 ubi-header.h 中头部各个字节的含义的定义：
     ```c
@@ -169,7 +170,7 @@ mdm9607-sysfs.ubi 应该就是根文件系统了
 
     根据网上的描述，nandsim 后面跟的 4 个参数是 nand flash 芯片的 ID，nandsim 模拟 nand，设备指定的参数需要根据镜像的闪存芯片来选择，可以拆硬件搜索存储芯片的型号，比如 29F1G08ABAEA，然后找对应的数据手册。
     
-    或者用关键词 "2k page size nand flash" 进行 google，得到一篇 nand flash 芯片的[手册](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/nand-flash/60-series/m68m_non_ecc.pdf)，
+    或者用关键词 "2k page size nand flash" 进行 google，得到一篇 nand flash 芯片的[手册](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/nand-flash/60-series/m68m_non_ecc.pdf?_blank)，
     重点阅读 Read ID 命令，发现<font color=red>(别人发现的)</font>正是第 4 个参数决定了生成的 mtd 设备的 PEB 和 页大小。
     ![](/img/post/Xnip2024-07-01_08-58-03.png)
     我们的页大小 2KB、PEB 大小为 128K，3.3V，根据上面的表，可以确定 Byte value 为 95h，
