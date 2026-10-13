@@ -1,0 +1,18 @@
+{{/* 站点级覆盖主题的 partials/terms.html。
+   主题原版把词条名做了 `| lower` + `| urlize`，链接变成小写（/categories/pentest），
+   而 config 里 preserveTaxonomyNames + disablePathToLower 让页面路径保留原大小写
+   （/categories/Pentest）→ 点分类/标签全是 404。
+   这里改用词条自身的 RelPermalink（大小写与产物一致，Hugo 负责编码）。 */}}
+{{ with .Title }}<h1>{{ . }}</h1>{{ end }}
+<ul id="terms">
+  {{ range $key, $value := .Data.Terms.ByCount }}
+    {{ with $value.Page }}
+      <li class="term">
+        <a href="{{ .RelPermalink }}">
+          <span>{{ $value.Name }}</span>
+          <span> ({{ $value.Count }})</span>
+        </a>
+      </li>
+    {{ end }}
+  {{ end }}
+</ul>
