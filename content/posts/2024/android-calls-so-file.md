@@ -17,28 +17,29 @@ tags:
 
 在 Android Stdio 中，有以下 3 种方法使用 so 文件：
 
-* 本地库模块和 App 模块在同一个工程内
-1、在本地模块使用 C/C++ 实现功能
-2、在 native.cpp 中为本地函数添加 JNI 标注
-3、App 模块使用 System.loadLibrary 加载本地库
+* 本地库模块和 App 模块在同一个工程内  
+1、在本地模块使用 C/C++ 实现功能  
+2、在 native.cpp 中为本地函数添加 JNI 标注  
+3、App 模块使用 System.loadLibrary 加载本地库  
 4、通过 JNIEnv 调用本地函数
 
-* 本地库作为独立的类库模块开发，为其他项目提供服务
-1、本地库模块使用 C/C++ 实现功能
-2、在 native.cpp 中为本地函数添加 JNI 标注
-3、将本地库导出为共享库文件(.so)
-4、其他项目的 App 模块使用 System.loadLibrary 加载该共享库
+* 本地库作为独立的类库模块开发，为其他项目提供服务  
+1、本地库模块使用 C/C++ 实现功能  
+2、在 native.cpp 中为本地函数添加 JNI 标注  
+3、将本地库导出为共享库文件(.so)  
+4、其他项目的 App 模块使用 System.loadLibrary 加载该共享库  
 5、通过 JNI 调用本地函数
 
-* 自己编译 C/C++，然后放到项目中
-1、直接通过 C/C++ 实现功能
-2、通过编译工具将代码编译为共享库文件(.so)
-3、项目的 App 模块使用 System.loadLibrary 加载该共享库
-4、在 native.cpp 中为 so 中的函数添加 JNI 标注
+* 自己编译 C/C++，然后放到项目中  
+1、直接通过 C/C++ 实现功能  
+2、通过编译工具将代码编译为共享库文件(.so)  
+3、项目的 App 模块使用 System.loadLibrary 加载该共享库  
+4、在 native.cpp 中为 so 中的函数添加 JNI 标注  
 5、通过 JNI 调用本地函数
 
 ### 0x01 项目中生成 so
 * 添加 C++ Module
+
     通过 Android Stdio 文件-Add C++ to Module，会自动创建 demo/app/src/main/cpp 文件夹，同时下面有 `CMakeLists.txt`、`<project name>.cpp`
     ![80](/img/post/1719794839203.jpg)
 
@@ -46,6 +47,7 @@ tags:
     ![80](/img/post/Xnip2024-07-01_08-49-38.png)
 
 * 创建 JNI
+
     在 com.example.demo 下新建一个 java 类 MyJNI
     ![80](/img/post/Xnip2024-07-01_08-50-30.png)
 
@@ -81,6 +83,7 @@ tags:
     然后在其他地方通过 MyJNI.helloFromDemo() 进行调用即可
 
 * 编译为 apk
+
     在编译 apk 时涉及到的 C/C++ 代码会自动生成为  libdemo.so 并打包进 apk 中
     ![80](/img/post/Xnip2024-07-01_08-51-35.png)
     通过 nm 查看
@@ -92,6 +95,7 @@ tags:
 ### 0x02 使用其他项目生成的 so
 
 * 编译为 so 文件
+
     通过 Android Stdio 创建一个 Native C++ 项目，然后实现 C/C++ 代码，然后通过 构建-Make Project 即可在项目下生成 so 文件
     ```
     ➜ cd demo/app/build/intermediates/cxx/Debug/645r244u/obj
@@ -116,7 +120,8 @@ tags:
     ```
     
 * 在新项目中引用 so 文件
-    新建项目 Test，创建文件夹复制 so，Test/app/src/main/jniLibs/arm64-v8a/libdemo.so。
+
+    新建项目 Test，创建文件夹复制 so，Test/app/src/main/jniLibs/arm64-v8a/libdemo.so。  
     然后创建 Test/app/src/main/java/com/example/demo/MyJNI.java，这个路径和上面 so 文件里函数的名字 Java_com_example_demo_MyJNI_helloFromDemo 一致，MyJNI.java 内容如下：
     ```java
     package com.example.demo;
