@@ -81,12 +81,12 @@ drwxr-xr-x@ 7 reber  staff        224  3 28 15:50 ..
 ```
 ➜ ls -al update
 total 209240
-drwxr-xr-x@ 6 reber  staff       192  8 30  2023 .
-drwxr-xr-x  9 reber  staff       288  3 28 16:39 ..
--rw-r--r--@ 1 reber  staff  32768000  8 30  2023 NON-HLOS.ubi
--rw-r--r--@ 1 reber  staff       876  8 30  2023 fotaconfig.xml
--rw-r--r--@ 1 reber  staff  10656072  8 30  2023 mdm9607-boot.img
--rw-r--r--@ 1 reber  staff  63700992  8 30  2023 mdm9607-sysfs.ubi
+drwxr-xr-x@ 6 reber  staff  192B  8 30  2023 .
+drwxr-xr-x  9 reber  staff  288B  3 28 16:39 ..
+-rw-r--r--@ 1 reber  staff   31M  8 30  2023 NON-HLOS.ubi
+-rw-r--r--@ 1 reber  staff  876B  8 30  2023 fotaconfig.xml
+-rw-r--r--@ 1 reber  staff   10M  8 30  2023 mdm9607-boot.img
+-rw-r--r--@ 1 reber  staff   61M  8 30  2023 mdm9607-sysfs.ubi
 ```
     
 mdm9607-sysfs.ubi 应该就是根文件系统了
@@ -99,47 +99,47 @@ mdm9607-sysfs.ubi 应该就是根文件系统了
 2、阅读对应的 nand flash 数据手册，找到 Read ID 命令，确定 nandsim 的 4 个参数的值；  
 3、在使用 ubiformat 和 ubiattach 时使用 -O 选项显式指定 UBI_VID_HDR 的偏移。
 
-* ubi 根文件系统分析（获取 Page Size，PEB Size，UBI_VID_HDR）
+* ubi 根文件系统分析（获取 Page Size，PEB Size）
 
     模拟的 nand 设备要与 ubi 镜像的参数保持一致，这些参数包括设备的物理块擦除大小 (Physical Erase Block， PEB) 和 页大小 (Page Size)。
 
     而 ubi 镜像由多个 PEB 组成，每个 PEB 包括三部分内容 [ UBI_EC_HDR，UBI_VID_HDR，DATA (LEB) ]
 
-    根据 ubi-header.h 中头部各个字节的含义的定义：
+    而 drivers/mtd/ubi/ubi-media.h 部分定义、结构如下：
     ```c
-    /*
-    Erase counter header magic number (ASCII "UBI#") */
+    /* Erase counter header magic number (ASCII "UBI#") */
     #define UBI_EC_HDR_MAGIC  0x55424923
-    Volume identifier header magic number (ASCII "UBI!") */
+    /* Volume identifier header magic number (ASCII "UBI!") */
     #define UBI_VID_HDR_MAGIC 0x55424921
-    */
-    
+
     struct ubi_ec_hdr {
-      uint32_t magic;  //#define UBI_EC_HDR_MAGIC  0x55424923
-      uint8_t  version;
-      uint8_t  padding1[3];
-      uint64_t ec; /* Warning: the current limit is 31-bit anyway! */
-      uint32_t vid_hdr_offset;
-      uint32_t data_offset;
-      uint8_t  padding2[36];
-      uint32_t hdr_crc;
-    } __attribute__ ((packed));
+        __be32  magic; /*固定 0x55424923（ASCII UBI#），扫镜像找 PEB 边界就是找它，相邻两次出现的间隔 = PEB 大小*/
+        __u8    version; /*镜像要求的 UBI 实现版本*/
+        __u8    padding1[3]; /*保留，恒 0*/
+        __be64  ec; /*erase counter：这个 PEB 被擦除过的次数*//* Warning: the current limit is 31-bit anyway! */
+        __be32  vid_hdr_offset; /*VID 头相对 PEB 起始的偏移，所有 PEB 一致*/
+        __be32  data_offset; /*数据区（LEB 内容）起始偏移，LEB 大小 = PEB − data_offset*/
+        __be32  image_seq; /*镜像序号，同一镜像的所有 PEB 相同，每次刷写时递增，刷写中途失败可以发现混入了旧镜像的块*/
+        __u8    padding2[32]; /*保留，恒 0*/
+        __be32  hdr_crc; /*头部校验和*/
+    } __packed;
     ```
     
-    获取 ubi 头部
+    获取 mdm9607-sysfs.ubi 头部
     ```
     ➜  ~ xxd mdm9607-sysfs.ubi | head -n 2
     00000000: 5542 4923 0100 0000 0000 0000 0000 0000  UBI#............
     00000010: 0000 0800 0000 1000 1b06 7c71 0000 0000  ..........|q....
     ```
 
-    从而得到：  
-    magic，ubi 头，为 5542 4923，即 UBI#  
-    vid_hdr_offset，为 0000 0800，即 2048，偏移 2k  
-    data_offset，为 0000 1000，即 4096，偏移 4k
+    根据 struct ubi_ec_hdr 结构从而得到：
+    ```
+    magic，EC 头魔数， 为 5542 4923，即 UBI#，每个 PEB 偏移 0 处都是这个值
+    vid_hdr_offset，为 0000 0800，0x0800 = 2048，即偏移 2k  
+    data_offset，为 0000 1000，0x1000 = 4096，即偏移 4k
+    ```
 
-    根据 ubi-header.h 中定义的 UBI_EC_HDR 头为 UBI#、UBI_VID_HDR 头为 UBI!，  
-    验证一下，发现 00000800 是 UBI!，00001000 这里就是 data
+    根据 drivers/mtd/ubi/ubi-media.h 中的定义， UBI_EC_HDR 头为 UBI#、UBI_VID_HDR 头为 UBI!，确认下 mdm9607-sysfs.ubi，可以看到 00000800 确实是 UBI!，那 00001000 这里就是 data 了
     ```
     ➜  ~ xxd mdm9607-sysfs.ubi | less
     00000000: 5542 4923 0100 0000 0000 0000 0000 0000  UBI#............
@@ -153,8 +153,11 @@ mdm9607-sysfs.ubi 应该就是根文件系统了
     00001010: 726f 6f74 6673 0000 0000 0000 0000 0000  rootfs..........
     ```
 
-    通常 UBI_EC_HDR 和 UBI_VID_HDR 要么在每个 PEB 的头部各占一页，要么都在第一页。  
-    若第一种，则页大小为 2KB；若第二种页大小为 4KB，nand flash 常见的页大小是 512byte 和 2KB，4KB 比较少见，故先推测为<font color=red>页大小 2KB</font>。
+    通常 UBI_EC_HDR 和 UBI_VID_HDR 有两种排布（由芯片是否支持子页决定）：  
+    芯片不支持子页时，两个头各占一页；芯片支持子页时，两个头位于同一页的两个子页。
+
+    镜像 mdm9607-sysfs.ubi 的 vid_hdr_offset 为 2048，即最小 I/O 单元 = 2048：  
+    若为第一种，该单元就是页，则页大小为 2KB；若为第二种，该单元是子页（每页 2 个子页），页大小 = 2 × 2048 = 4KB，子页 2KB，而 NAND 的子页只有 256 / 512 字节量级，2048 字节的子页基本不存在，故取<font color=red>页大小 2KB</font>（两个头各占一页，头部开销 2 页）。
 
     再确定一下每个 PEB 的大小，每个 UBI_EC_HDR 相距 20000，所以 <font color=red>PEB 大小为 128K</font>：
     ```
@@ -163,20 +166,20 @@ mdm9607-sysfs.ubi 应该就是根文件系统了
     00020000: 5542 4923 0100 0000 0000 0000 0000 0000  UBI#............
     00040000: 5542 4923 0100 0000 0000 0000 0000 0000  UBI#............
     ```
-
     那么 <font color=red>LEB (Logical Erase Block) = PEB - data_offset = 128-4 = 124KB</font>
 
-* nandsim 命令参数的值
+* 查 nandsim 命令参数的值(根据页大小和 PEB 大小查)
 
-    根据网上的描述，nandsim 后面跟的 4 个参数是 nand flash 芯片的 ID，nandsim 模拟 nand，设备指定的参数需要根据镜像的闪存芯片来选择，可以拆硬件搜索存储芯片的型号，比如 29F1G08ABAEA，然后找对应的数据手册。
-    
-    或者用关键词 "2k page size nand flash" 进行 google，得到一篇 nand flash 芯片的[手册](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/nand-flash/60-series/m68m_non_ecc.pdf?_blank)，
+    nandsim 模拟设备时要给 4 个参数，即 nand flash 芯片 Read ID 命令返回的 4 个字节，代表芯片的身份，为了让模拟出来的设备与镜像自洽，这 4 个字节必须是镜像所对应那颗芯片的 Read ID 返回值。  
+    取法有两种：能拆到硬件时，看闪存芯片丝印拿到型号（如 MT29F1G08ABAEA），查该型号数据手册的 Read ID 表，手上没有同款硬件时，用从镜像推出的几何参数（页大小、块大小、电压）反查手册，同样能定出这 4 个字节的值（本文即此法）。
+
+    用关键词 "2k page size nand flash" 进行 google，得到一篇 nand flash 芯片的[手册](https://media-www.micron.com/-/media/client/global/documents/products/data-sheet/nand-flash/60-series/m68m_non_ecc.pdf?_blank)，
     重点阅读 Read ID 命令，发现<font color=red>(别人发现的)</font>正是第 4 个参数决定了生成的 mtd 设备的 PEB 和 页大小。
     ![](/img/post/Xnip2024-07-01_08-58-03.png)
-    我们的页大小 2KB、PEB 大小为 128K，3.3V，根据上面的表，可以确定 Byte value 为 95h，
+    我们的页大小 2KB、PEB 大小为 128K，一般位宽取 x8、电压取 3.3V，根据上面的表，可以确定 Byte value 为 95h（若为 1.8V 或 x16 则分别是 15h、55h），
     所以 nandsim 模拟 nand 的命令为
-    ```
-    modprobe nandsim first_id_byte=0x2c second_id_byte=0xf1 third_id_byte=0x80 fourth_id_byte=0x95
+    ```shell
+    root@bad:~# modprobe nandsim first_id_byte=0x2c second_id_byte=0xf1 third_id_byte=0x80 fourth_id_byte=0x95
     // disk size=128MB, page size=2048 bytes，block size=128KB
     ```
 
@@ -222,6 +225,7 @@ mdm9607-sysfs.ubi 应该就是根文件系统了
     ```
     # 格式化之前先解绑定
     root@bad:~# ubidetach /dev/ubi_ctrl -m 0
+    
     # 注意：这里要加上 -O 2048 的选项，显式表明 UBI_VID_HDR 的偏移位置是 2KB，而不是默认值。
     # 从上面 mtdinfo /dev/mtd0 的输出结果中，有一项 Sub-page size 的选项，如果不用 -O 显示指定，默认偏移值则是 sub-page size。
     root@bad:~# ubiformat /dev/mtd0 -s 2048 -f mdm9607-sysfs.ubi -O 2048
